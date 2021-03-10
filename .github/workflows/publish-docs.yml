@@ -55,7 +55,7 @@ jobs:
 
       - name: Copy project to quicklisp local-projects
         run: |
-          cp -r ../${{ github.event.repository.name }} ~/quicklisp/local-projects.
+          cp -r ../${{ github.event.repository.name }} ~/quicklisp/local-projects
 
       - name: Build docs
         run: |
