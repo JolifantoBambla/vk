@@ -60,6 +60,7 @@ jobs:
       - name: Build docs
         run: |
           sbcl \
+            --dynamic-space-size 6000 \
             --non-interactive \
             --eval '(ql:quickload :staple)' \
             --eval '(ql:quickload :vk)' \
@@ -69,3 +70,9 @@ jobs:
                 (sb-ext:quit))
             '
           cat ~/quicklisp/local-projects/vk/docs/index.html
+
+      - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: ~/quicklisp/local-projects/vk/docs # The folder the action should deploy.
