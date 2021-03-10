@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  publish-docs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -24,6 +24,19 @@ jobs:
     steps:
       - name: Setup environment
         run: |
+          ### Install Vulkan SDK
+          # Add lunarg apt sources
+          wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
+          sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-focal.list https://packages.lunarg.com/vulkan/lunarg-vulkan-focal.list
+          
+          # Update package lists
+          sudo apt-get update -qq
+          
+          # Install dependencies
+          sudo apt-get install -y \
+            vulkan-sdk
+          
+          ### Install SBCL & Quicklisp
           sudo apt-get install sbcl
           curl -O https://beta.quicklisp.org/quicklisp.lisp
           curl -O https://beta.quicklisp.org/quicklisp.lisp.asc
@@ -42,13 +55,7 @@ jobs:
 
       - name: Copy project to quicklisp local-projects
         run: |
-          cp -r ../${{ github.event.repository.name }} ~/quicklisp/local-projects
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          cp -r ../${{ github.event.repository.name }} ~/quicklisp/local-projects.
 
       - name: Build docs
         run: |
