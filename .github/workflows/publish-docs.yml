@@ -63,13 +63,13 @@ jobs:
             --dynamic-space-size 6000 \
             --non-interactive \
             --eval '(ql:quickload :staple)' \
+            --eval '(ql:quickload :staple-markdown)' \
             --eval '(ql:quickload :vk)' \
             --eval '
               (progn
                 (staple:generate :vk)
                 (sb-ext:quit))
             '
-          cat ~/quicklisp/local-projects/vk/docs/index.html
 
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@4.1.0
