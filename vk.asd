@@ -3,6 +3,8 @@
   :depends-on (cffi alexandria)
   :license "MIT"
   :author "Lukas Herzberger <herzberger.lukas at gmail.com>"
+  :homepage "https://jolifantobambla.github.io/vk/"
+  :source-control (:git "https://github.com/JolifantoBambla/vk.git")
   :components
   ((:module "src"
     :serial t
