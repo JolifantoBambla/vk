@@ -33,7 +33,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       physical-devices)
   (instance '%vk:instance instance :in :handle)
   (physical-device-count :uint32 physical-device-count :out)
-  (physical-devices '%vk:physical-device physical-devices :out :handle))
+  (physical-devices '%vk:physical-device physical-devices :out :handle :list))
 
 (defvk-simple-fun (get-device-proc-addr
                    %vk:get-device-proc-addr
@@ -71,7 +71,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
-  (queue-family-properties '(:struct %vk:queue-family-properties) queue-family-properties :out))
+  (queue-family-properties '(:struct %vk:queue-family-properties) queue-family-properties :out :list))
 
 (defvk-get-struct-fun (get-physical-device-memory-properties
                        %vk:get-physical-device-memory-properties
@@ -144,7 +144,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       property-count
                       properties)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:layer-properties) properties :out))
+  (properties '(:struct %vk:layer-properties) properties :out :list))
 
 (defvk-enumerate-fun (enumerate-instance-extension-properties
                       %vk:enumerate-instance-extension-properties
@@ -155,7 +155,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (layer-name :string layer-name :in :optional)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:extension-properties) properties :out))
+  (properties '(:struct %vk:extension-properties) properties :out :list))
 
 (defvk-enumerate-fun (enumerate-device-layer-properties
                       %vk:enumerate-device-layer-properties
@@ -166,7 +166,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:layer-properties) properties :out))
+  (properties '(:struct %vk:layer-properties) properties :out :list))
 
 (defvk-enumerate-fun (enumerate-device-extension-properties
                       %vk:enumerate-device-extension-properties
@@ -178,7 +178,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (layer-name :string layer-name :in :optional)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:extension-properties) properties :out))
+  (properties '(:struct %vk:extension-properties) properties :out :list))
 
 (defvk-create-handle-fun (get-device-queue
                           %vk:get-device-queue
@@ -187,8 +187,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           ()
                           t)
   (device '%vk:device device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
-  (queue-index :uint32 queue-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
+  (queue-index :uint32 queue-index :in :raw)
   (queue '%vk:queue queue :out :handle))
 
 (defvk-simple-fun (queue-submit
@@ -197,8 +197,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((queue cffi:foreign-pointer) (submits list))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer)))
   (queue '%vk:queue queue :in :handle)
-  (submit-count :uint32 (length submits) :in)
-  (submits '(:struct %vk:submit-info) submits :in)
+  (submit-count :uint32 (length submits) :in :raw)
+  (submits '(:struct %vk:submit-info) submits :in :list)
   (fence '%vk:fence fence :in :handle :optional))
 
 (defvk-simple-fun (queue-wait-idle
@@ -260,8 +260,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (memory-ranges list))
                    ())
   (device '%vk:device device :in :handle)
-  (memory-range-count :uint32 (length memory-ranges) :in)
-  (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in))
+  (memory-range-count :uint32 (length memory-ranges) :in :raw)
+  (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
 
 (defvk-simple-fun (invalidate-mapped-memory-ranges
                    %vk:invalidate-mapped-memory-ranges
@@ -269,8 +269,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (memory-ranges list))
                    ())
   (device '%vk:device device :in :handle)
-  (memory-range-count :uint32 (length memory-ranges) :in)
-  (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in))
+  (memory-range-count :uint32 (length memory-ranges) :in :raw)
+  (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
 
 (defvk-get-struct-fun (get-device-memory-commitment
                        %vk:get-device-memory-commitment
@@ -330,7 +330,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (image '%vk:image image :in :handle)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
-  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements) sparse-memory-requirements :out))
+  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements) sparse-memory-requirements :out :list))
 
 (defvk-get-structs-fun (get-physical-device-sparse-image-format-properties
                         %vk:get-physical-device-sparse-image-format-properties
@@ -347,7 +347,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (usage '%vk:image-usage-flags usage :in)
   (tiling '%vk:image-tiling tiling :in)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:sparse-image-format-properties) properties :out))
+  (properties '(:struct %vk:sparse-image-format-properties) properties :out :list))
 
 (defvk-simple-fun (queue-bind-sparse
                    %vk:queue-bind-sparse
@@ -355,8 +355,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((queue cffi:foreign-pointer) (bind-info list))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer)))
   (queue '%vk:queue queue :in :handle)
-  (bind-info-count :uint32 (length bind-info) :in)
-  (bind-info '(:struct %vk:bind-sparse-info) bind-info :in)
+  (bind-info-count :uint32 (length bind-info) :in :raw)
+  (bind-info '(:struct %vk:bind-sparse-info) bind-info :in :list)
   (fence '%vk:fence fence :in :handle :optional))
 
 (defvk-create-handle-fun (create-fence
@@ -384,8 +384,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (fences list))
                    ())
   (device '%vk:device device :in :handle)
-  (fence-count :uint32 (length fences) :in)
-  (fences '%vk:fence fences :in :handle))
+  (fence-count :uint32 (length fences) :in :raw)
+  (fences '%vk:fence fences :in :handle :list))
 
 (defvk-simple-fun (get-fence-status
                    %vk:get-fence-status
@@ -401,10 +401,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (fences list) (wait-all cffi:foreign-pointer) (timeout cffi:foreign-pointer))
                    ())
   (device '%vk:device device :in :handle)
-  (fence-count :uint32 (length fences) :in)
-  (fences '%vk:fence fences :in :handle)
+  (fence-count :uint32 (length fences) :in :raw)
+  (fences '%vk:fence fences :in :handle :list)
   (wait-all '%vk:bool32 wait-all :in)
-  (timeout :uint64 timeout :in))
+  (timeout :uint64 timeout :in :raw))
 
 (defvk-create-handle-fun (create-semaphore
                           %vk:create-semaphore
@@ -494,9 +494,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((flags nil) (or unsigned-byte list))))
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in)
-  (query-count :uint32 query-count :in)
-  (data-size '%vk:size-t data-size :in)
+  (first-query :uint32 first-query :in :raw)
+  (query-count :uint32 query-count :in :raw)
+  (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle)
   (stride '%vk:device-size stride :in)
   (flags '%vk:query-result-flags flags :in :optional))
@@ -508,8 +508,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in)
-  (query-count :uint32 query-count :in))
+  (first-query :uint32 first-query :in :raw)
+  (query-count :uint32 query-count :in :raw))
 
 (defvk-simple-fun (reset-query-pool-ext
                    %vk:reset-query-pool-ext
@@ -518,8 +518,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in)
-  (query-count :uint32 query-count :in))
+  (first-query :uint32 first-query :in :raw)
+  (query-count :uint32 query-count :in :raw))
 
 (defvk-create-handle-fun (create-buffer
                           %vk:create-buffer
@@ -662,8 +662,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (dst-cache '%vk:pipeline-cache dst-cache :in :handle)
-  (src-cache-count :uint32 (length src-caches) :in)
-  (src-caches '%vk:pipeline-cache src-caches :in :handle))
+  (src-cache-count :uint32 (length src-caches) :in :raw)
+  (src-caches '%vk:pipeline-cache src-caches :in :handle :list))
 
 (defvk-create-handles-fun (create-graphics-pipelines
                            %vk:create-graphics-pipelines
@@ -673,10 +673,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
-  (create-info-count :uint32 (length create-infos) :in)
-  (create-infos '(:struct %vk:graphics-pipeline-create-info) create-infos :in)
+  (create-info-count :uint32 (length create-infos) :in :raw)
+  (create-infos '(:struct %vk:graphics-pipeline-create-info) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle))
+  (pipelines '%vk:pipeline pipelines :out :handle :list))
 
 (defvk-create-handles-fun (create-compute-pipelines
                            %vk:create-compute-pipelines
@@ -686,10 +686,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
-  (create-info-count :uint32 (length create-infos) :in)
-  (create-infos '(:struct %vk:compute-pipeline-create-info) create-infos :in)
+  (create-info-count :uint32 (length create-infos) :in :raw)
+  (create-infos '(:struct %vk:compute-pipeline-create-info) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle))
+  (pipelines '%vk:pipeline pipelines :out :handle :list))
 
 (defvk-simple-fun (destroy-pipeline
                    %vk:destroy-pipeline
@@ -793,7 +793,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (vk:descriptor-set-count allocate-info))
   (device '%vk:device device :in :handle)
   (allocate-info '(:struct %vk:descriptor-set-allocate-info) allocate-info :in)
-  (descriptor-sets '%vk:descriptor-set descriptor-sets :out :handle))
+  (descriptor-sets '%vk:descriptor-set descriptor-sets :out :handle :list))
 
 (defvk-simple-fun (free-descriptor-sets
                    %vk:free-descriptor-sets
@@ -802,8 +802,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle)
-  (descriptor-set-count :uint32 (length descriptor-sets) :in)
-  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :handle))
+  (descriptor-set-count :uint32 (length descriptor-sets) :in :raw)
+  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :handle :list))
 
 (defvk-simple-fun (update-descriptor-sets
                    %vk:update-descriptor-sets
@@ -811,10 +811,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (descriptor-writes list) (descriptor-copies list))
                    ())
   (device '%vk:device device :in :handle)
-  (descriptor-write-count :uint32 (length descriptor-writes) :in)
-  (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in)
-  (descriptor-copy-count :uint32 (length descriptor-copies) :in)
-  (descriptor-copies '(:struct %vk:copy-descriptor-set) descriptor-copies :in))
+  (descriptor-write-count :uint32 (length descriptor-writes) :in :raw)
+  (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in :list)
+  (descriptor-copy-count :uint32 (length descriptor-copies) :in :raw)
+  (descriptor-copies '(:struct %vk:copy-descriptor-set) descriptor-copies :in :list))
 
 (defvk-create-handle-fun (create-framebuffer
                           %vk:create-framebuffer
@@ -899,7 +899,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (vk:command-buffer-count allocate-info))
   (device '%vk:device device :in :handle)
   (allocate-info '(:struct %vk:command-buffer-allocate-info) allocate-info :in)
-  (command-buffers '%vk:command-buffer command-buffers :out :handle))
+  (command-buffers '%vk:command-buffer command-buffers :out :handle :list))
 
 (defvk-simple-fun (free-command-buffers
                    %vk:free-command-buffers
@@ -908,8 +908,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
-  (command-buffer-count :uint32 (length command-buffers) :in)
-  (command-buffers '%vk:command-buffer command-buffers :in :handle))
+  (command-buffer-count :uint32 (length command-buffers) :in :raw)
+  (command-buffers '%vk:command-buffer command-buffers :in :handle :list))
 
 (defvk-simple-fun (begin-command-buffer
                    %vk:begin-command-buffer
@@ -949,9 +949,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (first-viewport cffi:foreign-pointer) (viewports list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-viewport :uint32 first-viewport :in)
-  (viewport-count :uint32 (length viewports) :in)
-  (viewports '(:struct %vk:viewport) viewports :in))
+  (first-viewport :uint32 first-viewport :in :raw)
+  (viewport-count :uint32 (length viewports) :in :raw)
+  (viewports '(:struct %vk:viewport) viewports :in :list))
 
 (defvk-simple-fun (cmd-set-scissor
                    %vk:cmd-set-scissor
@@ -959,9 +959,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (first-scissor cffi:foreign-pointer) (scissors list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-scissor :uint32 first-scissor :in)
-  (scissor-count :uint32 (length scissors) :in)
-  (scissors '(:struct %vk:rect-2d) scissors :in))
+  (first-scissor :uint32 first-scissor :in :raw)
+  (scissor-count :uint32 (length scissors) :in :raw)
+  (scissors '(:struct %vk:rect-2d) scissors :in :list))
 
 (defvk-simple-fun (cmd-set-line-width
                    %vk:cmd-set-line-width
@@ -969,7 +969,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (line-width cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (line-width :float line-width :in))
+  (line-width :float line-width :in :raw))
 
 (defvk-simple-fun (cmd-set-depth-bias
                    %vk:cmd-set-depth-bias
@@ -977,9 +977,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (depth-bias-constant-factor cffi:foreign-pointer) (depth-bias-clamp cffi:foreign-pointer) (depth-bias-slope-factor cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (depth-bias-constant-factor :float depth-bias-constant-factor :in)
-  (depth-bias-clamp :float depth-bias-clamp :in)
-  (depth-bias-slope-factor :float depth-bias-slope-factor :in))
+  (depth-bias-constant-factor :float depth-bias-constant-factor :in :raw)
+  (depth-bias-clamp :float depth-bias-clamp :in :raw)
+  (depth-bias-slope-factor :float depth-bias-slope-factor :in :raw))
 
 (defvk-simple-fun (cmd-set-blend-constants
                    %vk:cmd-set-blend-constants
@@ -987,7 +987,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (blend-constants cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (blend-constants :float blend-constants :in))
+  (blend-constants :float blend-constants :in :raw))
 
 (defvk-simple-fun (cmd-set-depth-bounds
                    %vk:cmd-set-depth-bounds
@@ -995,8 +995,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (min-depth-bounds cffi:foreign-pointer) (max-depth-bounds cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (min-depth-bounds :float min-depth-bounds :in)
-  (max-depth-bounds :float max-depth-bounds :in))
+  (min-depth-bounds :float min-depth-bounds :in :raw)
+  (max-depth-bounds :float max-depth-bounds :in :raw))
 
 (defvk-simple-fun (cmd-set-stencil-compare-mask
                    %vk:cmd-set-stencil-compare-mask
@@ -1005,7 +1005,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
-  (compare-mask :uint32 compare-mask :in))
+  (compare-mask :uint32 compare-mask :in :raw))
 
 (defvk-simple-fun (cmd-set-stencil-write-mask
                    %vk:cmd-set-stencil-write-mask
@@ -1014,7 +1014,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
-  (write-mask :uint32 write-mask :in))
+  (write-mask :uint32 write-mask :in :raw))
 
 (defvk-simple-fun (cmd-set-stencil-reference
                    %vk:cmd-set-stencil-reference
@@ -1023,7 +1023,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
-  (reference :uint32 reference :in))
+  (reference :uint32 reference :in :raw))
 
 (defvk-simple-fun (cmd-bind-descriptor-sets
                    %vk:cmd-bind-descriptor-sets
@@ -1033,11 +1033,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (layout '%vk:pipeline-layout layout :in :handle)
-  (first-set :uint32 first-set :in)
-  (descriptor-set-count :uint32 (length descriptor-sets) :in)
-  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :handle)
-  (dynamic-offset-count :uint32 (length dynamic-offsets) :in)
-  (dynamic-offsets :uint32 dynamic-offsets :in))
+  (first-set :uint32 first-set :in :raw)
+  (descriptor-set-count :uint32 (length descriptor-sets) :in :raw)
+  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :handle :list)
+  (dynamic-offset-count :uint32 (length dynamic-offsets) :in :raw)
+  (dynamic-offsets :uint32 dynamic-offsets :in :list))
 
 (defvk-simple-fun (cmd-bind-index-buffer
                    %vk:cmd-bind-index-buffer
@@ -1055,10 +1055,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding cffi:foreign-pointer) (offsets list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-binding :uint32 first-binding :in)
-  (binding-count :uint32 (length offsets) :in)
-  (buffers '%vk:buffer buffers :in :handle)
-  (offsets '%vk:device-size offsets :in))
+  (first-binding :uint32 first-binding :in :raw)
+  (binding-count :uint32 (length offsets) :in :raw)
+  (buffers '%vk:buffer buffers :in :handle :list)
+  (offsets '%vk:device-size offsets :in :list))
 
 (defvk-simple-fun (cmd-draw
                    %vk:cmd-draw
@@ -1066,10 +1066,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (vertex-count cffi:foreign-pointer) (instance-count cffi:foreign-pointer) (first-vertex cffi:foreign-pointer) (first-instance cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (vertex-count :uint32 vertex-count :in)
-  (instance-count :uint32 instance-count :in)
-  (first-vertex :uint32 first-vertex :in)
-  (first-instance :uint32 first-instance :in))
+  (vertex-count :uint32 vertex-count :in :raw)
+  (instance-count :uint32 instance-count :in :raw)
+  (first-vertex :uint32 first-vertex :in :raw)
+  (first-instance :uint32 first-instance :in :raw))
 
 (defvk-simple-fun (cmd-draw-indexed
                    %vk:cmd-draw-indexed
@@ -1077,11 +1077,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (index-count cffi:foreign-pointer) (instance-count cffi:foreign-pointer) (first-index cffi:foreign-pointer) (vertex-offset cffi:foreign-pointer) (first-instance cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (index-count :uint32 index-count :in)
-  (instance-count :uint32 instance-count :in)
-  (first-index :uint32 first-index :in)
-  (vertex-offset :int32 vertex-offset :in)
-  (first-instance :uint32 first-instance :in))
+  (index-count :uint32 index-count :in :raw)
+  (instance-count :uint32 instance-count :in :raw)
+  (first-index :uint32 first-index :in :raw)
+  (vertex-offset :int32 vertex-offset :in :raw)
+  (first-instance :uint32 first-instance :in :raw))
 
 (defvk-simple-fun (cmd-draw-indirect
                    %vk:cmd-draw-indirect
@@ -1091,8 +1091,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
-  (draw-count :uint32 draw-count :in)
-  (stride :uint32 stride :in))
+  (draw-count :uint32 draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-indexed-indirect
                    %vk:cmd-draw-indexed-indirect
@@ -1102,8 +1102,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
-  (draw-count :uint32 draw-count :in)
-  (stride :uint32 stride :in))
+  (draw-count :uint32 draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-dispatch
                    %vk:cmd-dispatch
@@ -1111,9 +1111,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (group-count-x cffi:foreign-pointer) (group-count-y cffi:foreign-pointer) (group-count-z cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (group-count-x :uint32 group-count-x :in)
-  (group-count-y :uint32 group-count-y :in)
-  (group-count-z :uint32 group-count-z :in))
+  (group-count-x :uint32 group-count-x :in :raw)
+  (group-count-y :uint32 group-count-y :in :raw)
+  (group-count-z :uint32 group-count-z :in :raw))
 
 (defvk-simple-fun (cmd-dispatch-indirect
                    %vk:cmd-dispatch-indirect
@@ -1132,8 +1132,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-buffer '%vk:buffer src-buffer :in :handle)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
-  (region-count :uint32 (length regions) :in)
-  (regions '(:struct %vk:buffer-copy) regions :in))
+  (region-count :uint32 (length regions) :in :raw)
+  (regions '(:struct %vk:buffer-copy) regions :in :list))
 
 (defvk-simple-fun (cmd-copy-image
                    %vk:cmd-copy-image
@@ -1145,8 +1145,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-image-layout '%vk:image-layout src-image-layout :in)
   (dst-image '%vk:image dst-image :in :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in)
-  (region-count :uint32 (length regions) :in)
-  (regions '(:struct %vk:image-copy) regions :in))
+  (region-count :uint32 (length regions) :in :raw)
+  (regions '(:struct %vk:image-copy) regions :in :list))
 
 (defvk-simple-fun (cmd-blit-image
                    %vk:cmd-blit-image
@@ -1158,8 +1158,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-image-layout '%vk:image-layout src-image-layout :in)
   (dst-image '%vk:image dst-image :in :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in)
-  (region-count :uint32 (length regions) :in)
-  (regions '(:struct %vk:image-blit) regions :in)
+  (region-count :uint32 (length regions) :in :raw)
+  (regions '(:struct %vk:image-blit) regions :in :list)
   (filter '%vk:filter filter :in))
 
 (defvk-simple-fun (cmd-copy-buffer-to-image
@@ -1171,8 +1171,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-buffer '%vk:buffer src-buffer :in :handle)
   (dst-image '%vk:image dst-image :in :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in)
-  (region-count :uint32 (length regions) :in)
-  (regions '(:struct %vk:buffer-image-copy) regions :in))
+  (region-count :uint32 (length regions) :in :raw)
+  (regions '(:struct %vk:buffer-image-copy) regions :in :list))
 
 (defvk-simple-fun (cmd-copy-image-to-buffer
                    %vk:cmd-copy-image-to-buffer
@@ -1183,8 +1183,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-image '%vk:image src-image :in :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
-  (region-count :uint32 (length regions) :in)
-  (regions '(:struct %vk:buffer-image-copy) regions :in))
+  (region-count :uint32 (length regions) :in :raw)
+  (regions '(:struct %vk:buffer-image-copy) regions :in :list))
 
 (defvk-simple-fun (cmd-update-buffer
                    %vk:cmd-update-buffer
@@ -1206,7 +1206,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
   (size '%vk:device-size size :in)
-  (data :uint32 data :in))
+  (data :uint32 data :in :raw))
 
 (defvk-simple-fun (cmd-clear-color-image
                    %vk:cmd-clear-color-image
@@ -1217,8 +1217,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (image '%vk:image image :in :handle)
   (image-layout '%vk:image-layout image-layout :in)
   (color '(:union %vk:clear-color-value) color :in)
-  (range-count :uint32 (length ranges) :in)
-  (ranges '(:struct %vk:image-subresource-range) ranges :in))
+  (range-count :uint32 (length ranges) :in :raw)
+  (ranges '(:struct %vk:image-subresource-range) ranges :in :list))
 
 (defvk-simple-fun (cmd-clear-depth-stencil-image
                    %vk:cmd-clear-depth-stencil-image
@@ -1229,8 +1229,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (image '%vk:image image :in :handle)
   (image-layout '%vk:image-layout image-layout :in)
   (depth-stencil '(:struct %vk:clear-depth-stencil-value) depth-stencil :in)
-  (range-count :uint32 (length ranges) :in)
-  (ranges '(:struct %vk:image-subresource-range) ranges :in))
+  (range-count :uint32 (length ranges) :in :raw)
+  (ranges '(:struct %vk:image-subresource-range) ranges :in :list))
 
 (defvk-simple-fun (cmd-clear-attachments
                    %vk:cmd-clear-attachments
@@ -1238,10 +1238,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (attachments list) (rects list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (attachment-count :uint32 (length attachments) :in)
-  (attachments '(:struct %vk:clear-attachment) attachments :in)
-  (rect-count :uint32 (length rects) :in)
-  (rects '(:struct %vk:clear-rect) rects :in))
+  (attachment-count :uint32 (length attachments) :in :raw)
+  (attachments '(:struct %vk:clear-attachment) attachments :in :list)
+  (rect-count :uint32 (length rects) :in :raw)
+  (rects '(:struct %vk:clear-rect) rects :in :list))
 
 (defvk-simple-fun (cmd-resolve-image
                    %vk:cmd-resolve-image
@@ -1253,8 +1253,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-image-layout '%vk:image-layout src-image-layout :in)
   (dst-image '%vk:image dst-image :in :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in)
-  (region-count :uint32 (length regions) :in)
-  (regions '(:struct %vk:image-resolve) regions :in))
+  (region-count :uint32 (length regions) :in :raw)
+  (regions '(:struct %vk:image-resolve) regions :in :list))
 
 (defvk-simple-fun (cmd-set-event
                    %vk:cmd-set-event
@@ -1280,16 +1280,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (events list) (src-stage-mask (or unsigned-byte list)) (dst-stage-mask (or unsigned-byte list)) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (event-count :uint32 (length events) :in)
-  (events '%vk:event events :in :handle)
+  (event-count :uint32 (length events) :in :raw)
+  (events '%vk:event events :in :handle :list)
   (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in)
   (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in)
-  (memory-barrier-count :uint32 (length memory-barriers) :in)
-  (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in)
-  (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in)
-  (buffer-memory-barriers '(:struct %vk:buffer-memory-barrier) buffer-memory-barriers :in)
-  (image-memory-barrier-count :uint32 (length image-memory-barriers) :in)
-  (image-memory-barriers '(:struct %vk:image-memory-barrier) image-memory-barriers :in))
+  (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
+  (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in :list)
+  (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in :raw)
+  (buffer-memory-barriers '(:struct %vk:buffer-memory-barrier) buffer-memory-barriers :in :list)
+  (image-memory-barrier-count :uint32 (length image-memory-barriers) :in :raw)
+  (image-memory-barriers '(:struct %vk:image-memory-barrier) image-memory-barriers :in :list))
 
 (defvk-simple-fun (cmd-pipeline-barrier
                    %vk:cmd-pipeline-barrier
@@ -1300,12 +1300,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in)
   (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in)
   (dependency-flags '%vk:dependency-flags dependency-flags :in :optional)
-  (memory-barrier-count :uint32 (length memory-barriers) :in)
-  (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in)
-  (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in)
-  (buffer-memory-barriers '(:struct %vk:buffer-memory-barrier) buffer-memory-barriers :in)
-  (image-memory-barrier-count :uint32 (length image-memory-barriers) :in)
-  (image-memory-barriers '(:struct %vk:image-memory-barrier) image-memory-barriers :in))
+  (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
+  (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in :list)
+  (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in :raw)
+  (buffer-memory-barriers '(:struct %vk:buffer-memory-barrier) buffer-memory-barriers :in :list)
+  (image-memory-barrier-count :uint32 (length image-memory-barriers) :in :raw)
+  (image-memory-barriers '(:struct %vk:image-memory-barrier) image-memory-barriers :in :list))
 
 (defvk-simple-fun (cmd-begin-query
                    %vk:cmd-begin-query
@@ -1314,7 +1314,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((flags nil) (or unsigned-byte list))))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (query :uint32 query :in)
+  (query :uint32 query :in :raw)
   (flags '%vk:query-control-flags flags :in :optional))
 
 (defvk-simple-fun (cmd-end-query
@@ -1324,7 +1324,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (query :uint32 query :in))
+  (query :uint32 query :in :raw))
 
 (defvk-simple-fun (cmd-begin-conditional-rendering-ext
                    %vk:cmd-begin-conditional-rendering-ext
@@ -1348,8 +1348,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in)
-  (query-count :uint32 query-count :in))
+  (first-query :uint32 first-query :in :raw)
+  (query-count :uint32 query-count :in :raw))
 
 (defvk-simple-fun (cmd-write-timestamp
                    %vk:cmd-write-timestamp
@@ -1359,7 +1359,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (query :uint32 query :in))
+  (query :uint32 query :in :raw))
 
 (defvk-simple-fun (cmd-copy-query-pool-results
                    %vk:cmd-copy-query-pool-results
@@ -1368,8 +1368,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((flags nil) (or unsigned-byte list))))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in)
-  (query-count :uint32 query-count :in)
+  (first-query :uint32 first-query :in :raw)
+  (query-count :uint32 query-count :in :raw)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
   (stride '%vk:device-size stride :in)
@@ -1383,8 +1383,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (layout '%vk:pipeline-layout layout :in :handle)
   (stage-flags '%vk:shader-stage-flags stage-flags :in)
-  (offset :uint32 offset :in)
-  (size :uint32 size :in)
+  (offset :uint32 offset :in :raw)
+  (size :uint32 size :in :raw)
   (values '(:pointer :void) values :in :handle))
 
 (defvk-simple-fun (cmd-begin-render-pass
@@ -1417,8 +1417,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (command-buffers list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (command-buffer-count :uint32 (length command-buffers) :in)
-  (command-buffers '%vk:command-buffer command-buffers :in :handle))
+  (command-buffer-count :uint32 (length command-buffers) :in :raw)
+  (command-buffers '%vk:command-buffer command-buffers :in :handle :list))
 
 (defvk-create-handle-fun (create-android-surface-khr
                           %vk:create-android-surface-khr
@@ -1439,7 +1439,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-properties-khr) properties :out))
+  (properties '(:struct %vk:display-properties-khr) properties :out :list))
 
 (defvk-enumerate-fun (get-physical-device-display-plane-properties-khr
                       %vk:get-physical-device-display-plane-properties-khr
@@ -1450,7 +1450,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-plane-properties-khr) properties :out))
+  (properties '(:struct %vk:display-plane-properties-khr) properties :out :list))
 
 (defvk-enumerate-fun (get-display-plane-supported-displays-khr
                       %vk:get-display-plane-supported-displays-khr
@@ -1460,9 +1460,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       display-count
                       displays)
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (plane-index :uint32 plane-index :in)
+  (plane-index :uint32 plane-index :in :raw)
   (display-count :uint32 display-count :out)
-  (displays '%vk:display-khr displays :out :handle))
+  (displays '%vk:display-khr displays :out :handle :list))
 
 (defvk-enumerate-fun (get-display-mode-properties-khr
                       %vk:get-display-mode-properties-khr
@@ -1474,7 +1474,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-mode-properties-khr) properties :out))
+  (properties '(:struct %vk:display-mode-properties-khr) properties :out :list))
 
 (defvk-create-handle-fun (create-display-mode-khr
                           %vk:create-display-mode-khr
@@ -1494,7 +1494,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
   (mode '%vk:display-mode-khr mode :in :handle)
-  (plane-index :uint32 plane-index :in)
+  (plane-index :uint32 plane-index :in :raw)
   (capabilities '(:struct %vk:display-plane-capabilities-khr) capabilities :out))
 
 (defvk-create-handle-fun (create-display-plane-surface-khr
@@ -1514,10 +1514,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
   (device '%vk:device device :in :handle)
-  (swapchain-count :uint32 (length create-infos) :in)
-  (create-infos '(:struct %vk:swapchain-create-info-khr) create-infos :in)
+  (swapchain-count :uint32 (length create-infos) :in :raw)
+  (create-infos '(:struct %vk:swapchain-create-info-khr) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (swapchains '%vk:swapchain-khr swapchains :out :handle))
+  (swapchains '%vk:swapchain-khr swapchains :out :handle :list))
 
 (defvk-simple-fun (destroy-surface-khr
                    %vk:destroy-surface-khr
@@ -1534,7 +1534,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
   (surface '%vk:surface-khr surface :in :handle)
   (supported '%vk:bool32 supported :out))
 
@@ -1557,7 +1557,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (surface-format-count :uint32 surface-format-count :out)
-  (surface-formats '(:struct %vk:surface-format-khr) surface-formats :out))
+  (surface-formats '(:struct %vk:surface-format-khr) surface-formats :out :list))
 
 (defvk-enumerate-fun (get-physical-device-surface-present-modes-khr
                       %vk:get-physical-device-surface-present-modes-khr
@@ -1569,7 +1569,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (present-mode-count :uint32 present-mode-count :out)
-  (present-modes '%vk:present-mode-khr present-modes :out))
+  (present-modes '%vk:present-mode-khr present-modes :out :list))
 
 (defvk-create-handle-fun (create-swapchain-khr
                           %vk:create-swapchain-khr
@@ -1600,7 +1600,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
   (swapchain-image-count :uint32 swapchain-image-count :out)
-  (swapchain-images '%vk:image swapchain-images :out :handle))
+  (swapchain-images '%vk:image swapchain-images :out :handle :list))
 
 (defvk-get-struct-fun (acquire-next-image-khr
                        %vk:acquire-next-image-khr
@@ -1609,7 +1609,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((fence (cffi:null-pointer)) cffi:foreign-pointer)))
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
-  (timeout :uint64 timeout :in)
+  (timeout :uint64 timeout :in :raw)
   (semaphore '%vk:semaphore semaphore :in :handle :optional)
   (fence '%vk:fence fence :in :handle :optional)
   (image-index :uint32 image-index :out))
@@ -1648,7 +1648,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
   (display '(:pointer :void) display :in :handle))
 
 (defvk-create-handle-fun (create-win32-surface-khr
@@ -1667,7 +1667,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer))
                    ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in))
+  (queue-family-index :uint32 queue-family-index :in :raw))
 
 (defvk-create-handle-fun (create-xlib-surface-khr
                           %vk:create-xlib-surface-khr
@@ -1685,7 +1685,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (dpy cffi:foreign-pointer) (visual-id cffi:foreign-pointer))
                    ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
   (dpy '(:pointer :void) dpy :in :handle)
   (visual-id '(:pointer :void) visual-id :in :handle))
 
@@ -1705,7 +1705,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (connection cffi:foreign-pointer) (visual_id cffi:foreign-pointer))
                    ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
   (connection '(:pointer :void) connection :in :handle)
   (visual_id '(:pointer :void) visual_id :in :handle))
 
@@ -1725,7 +1725,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (dfb cffi:foreign-pointer))
                    ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
   (dfb '(:pointer :void) dfb :in :handle))
 
 (defvk-create-handle-fun (create-image-pipe-surface-fuchsia
@@ -1775,9 +1775,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (instance '%vk:instance instance :in :handle)
   (flags '%vk:debug-report-flags-ext flags :in)
   (object-type '%vk:debug-report-object-type-ext object-type :in)
-  (object :uint64 object :in)
-  (location '%vk:size-t location :in)
-  (message-code :int32 message-code :in)
+  (object :uint64 object :in :raw)
+  (location '%vk:size-t location :in :raw)
+  (message-code :int32 message-code :in :raw)
   (layer-prefix :string layer-prefix :in)
   (message :string message :in))
 
@@ -1869,7 +1869,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (pipeline '%vk:pipeline pipeline :in :handle)
-  (group-index :uint32 group-index :in))
+  (group-index :uint32 group-index :in :raw))
 
 (defvk-get-struct-fun (get-generated-commands-memory-requirements-nv
                        %vk:get-generated-commands-memory-requirements-nv
@@ -1977,7 +1977,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
-  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out))
+  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out :list))
 
 (defvk-get-structs-fun (get-physical-device-queue-family-properties-2-khr
                         %vk:get-physical-device-queue-family-properties-2-khr
@@ -1989,7 +1989,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
-  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out))
+  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out :list))
 
 (defvk-get-struct-fun (get-physical-device-memory-properties-2
                        %vk:get-physical-device-memory-properties-2
@@ -2018,7 +2018,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (format-info '(:struct %vk:physical-device-sparse-image-format-info-2) format-info :in)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:sparse-image-format-properties-2) properties :out))
+  (properties '(:struct %vk:sparse-image-format-properties-2) properties :out :list))
 
 (defvk-get-structs-fun (get-physical-device-sparse-image-format-properties-2-khr
                         %vk:get-physical-device-sparse-image-format-properties-2-khr
@@ -2031,7 +2031,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (format-info '(:struct %vk:physical-device-sparse-image-format-info-2) format-info :in)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:sparse-image-format-properties-2) properties :out))
+  (properties '(:struct %vk:sparse-image-format-properties-2) properties :out :list))
 
 (defvk-simple-fun (cmd-push-descriptor-set-khr
                    %vk:cmd-push-descriptor-set-khr
@@ -2041,9 +2041,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (layout '%vk:pipeline-layout layout :in :handle)
-  (set :uint32 set :in)
-  (descriptor-write-count :uint32 (length descriptor-writes) :in)
-  (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in))
+  (set :uint32 set :in :raw)
+  (descriptor-write-count :uint32 (length descriptor-writes) :in :raw)
+  (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in :list))
 
 (defvk-simple-fun (trim-command-pool
                    %vk:trim-command-pool
@@ -2116,7 +2116,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (device '%vk:device device :in :handle)
   (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in)
-  (fd :int fd :in)
+  (fd :int fd :in :raw)
   (memory-fd-properties '(:struct %vk:memory-fd-properties-khr) memory-fd-properties :out))
 
 (defvk-get-struct-fun (get-physical-device-external-semaphore-properties
@@ -2308,7 +2308,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       physical-device-group-properties)
   (instance '%vk:instance instance :in :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
-  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out))
+  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
 
 (defvk-enumerate-fun (enumerate-physical-device-groups-khr
                       %vk:enumerate-physical-device-groups-khr
@@ -2319,7 +2319,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       physical-device-group-properties)
   (instance '%vk:instance instance :in :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
-  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out))
+  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
 
 (defvk-get-struct-fun (get-device-group-peer-memory-features
                        %vk:get-device-group-peer-memory-features
@@ -2327,9 +2327,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (heap-index cffi:foreign-pointer) (local-device-index cffi:foreign-pointer) (remote-device-index cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
-  (heap-index :uint32 heap-index :in)
-  (local-device-index :uint32 local-device-index :in)
-  (remote-device-index :uint32 remote-device-index :in)
+  (heap-index :uint32 heap-index :in :raw)
+  (local-device-index :uint32 local-device-index :in :raw)
+  (remote-device-index :uint32 remote-device-index :in :raw)
   (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out))
 
 (defvk-get-struct-fun (get-device-group-peer-memory-features-khr
@@ -2338,9 +2338,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (heap-index cffi:foreign-pointer) (local-device-index cffi:foreign-pointer) (remote-device-index cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
-  (heap-index :uint32 heap-index :in)
-  (local-device-index :uint32 local-device-index :in)
-  (remote-device-index :uint32 remote-device-index :in)
+  (heap-index :uint32 heap-index :in :raw)
+  (local-device-index :uint32 local-device-index :in :raw)
+  (remote-device-index :uint32 remote-device-index :in :raw)
   (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out))
 
 (defvk-simple-fun (bind-buffer-memory-2
@@ -2349,8 +2349,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in)
-  (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in))
+  (bind-info-count :uint32 (length bind-infos) :in :raw)
+  (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in :list))
 
 (defvk-simple-fun (bind-buffer-memory-2-khr
                    %vk:bind-buffer-memory-2-khr
@@ -2358,8 +2358,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in)
-  (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in))
+  (bind-info-count :uint32 (length bind-infos) :in :raw)
+  (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in :list))
 
 (defvk-simple-fun (bind-image-memory-2
                    %vk:bind-image-memory-2
@@ -2367,8 +2367,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in)
-  (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in))
+  (bind-info-count :uint32 (length bind-infos) :in :raw)
+  (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in :list))
 
 (defvk-simple-fun (bind-image-memory-2-khr
                    %vk:bind-image-memory-2-khr
@@ -2376,8 +2376,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in)
-  (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in))
+  (bind-info-count :uint32 (length bind-infos) :in :raw)
+  (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in :list))
 
 (defvk-simple-fun (cmd-set-device-mask
                    %vk:cmd-set-device-mask
@@ -2385,7 +2385,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (device-mask cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (device-mask :uint32 device-mask :in))
+  (device-mask :uint32 device-mask :in :raw))
 
 (defvk-simple-fun (cmd-set-device-mask-khr
                    %vk:cmd-set-device-mask-khr
@@ -2393,7 +2393,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (device-mask cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (device-mask :uint32 device-mask :in))
+  (device-mask :uint32 device-mask :in :raw))
 
 (defvk-get-struct-fun (get-device-group-present-capabilities-khr
                        %vk:get-device-group-present-capabilities-khr
@@ -2427,12 +2427,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (base-group-x cffi:foreign-pointer) (base-group-y cffi:foreign-pointer) (base-group-z cffi:foreign-pointer) (group-count-x cffi:foreign-pointer) (group-count-y cffi:foreign-pointer) (group-count-z cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (base-group-x :uint32 base-group-x :in)
-  (base-group-y :uint32 base-group-y :in)
-  (base-group-z :uint32 base-group-z :in)
-  (group-count-x :uint32 group-count-x :in)
-  (group-count-y :uint32 group-count-y :in)
-  (group-count-z :uint32 group-count-z :in))
+  (base-group-x :uint32 base-group-x :in :raw)
+  (base-group-y :uint32 base-group-y :in :raw)
+  (base-group-z :uint32 base-group-z :in :raw)
+  (group-count-x :uint32 group-count-x :in :raw)
+  (group-count-y :uint32 group-count-y :in :raw)
+  (group-count-z :uint32 group-count-z :in :raw))
 
 (defvk-simple-fun (cmd-dispatch-base-khr
                    %vk:cmd-dispatch-base-khr
@@ -2440,12 +2440,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (base-group-x cffi:foreign-pointer) (base-group-y cffi:foreign-pointer) (base-group-z cffi:foreign-pointer) (group-count-x cffi:foreign-pointer) (group-count-y cffi:foreign-pointer) (group-count-z cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (base-group-x :uint32 base-group-x :in)
-  (base-group-y :uint32 base-group-y :in)
-  (base-group-z :uint32 base-group-z :in)
-  (group-count-x :uint32 group-count-x :in)
-  (group-count-y :uint32 group-count-y :in)
-  (group-count-z :uint32 group-count-z :in))
+  (base-group-x :uint32 base-group-x :in :raw)
+  (base-group-y :uint32 base-group-y :in :raw)
+  (base-group-z :uint32 base-group-z :in :raw)
+  (group-count-x :uint32 group-count-x :in :raw)
+  (group-count-y :uint32 group-count-y :in :raw)
+  (group-count-z :uint32 group-count-z :in :raw))
 
 (defvk-enumerate-fun (get-physical-device-present-rectangles-khr
                       %vk:get-physical-device-present-rectangles-khr
@@ -2457,7 +2457,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (rect-count :uint32 rect-count :out)
-  (rects '(:struct %vk:rect-2d) rects :out))
+  (rects '(:struct %vk:rect-2d) rects :out :list))
 
 (defvk-create-handle-fun (create-descriptor-update-template
                           %vk:create-descriptor-update-template
@@ -2525,7 +2525,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
   (layout '%vk:pipeline-layout layout :in :handle)
-  (set :uint32 set :in)
+  (set :uint32 set :in :raw)
   (data '(:pointer :void) data :in :handle))
 
 (defvk-simple-fun (set-hdr-metadata-ext
@@ -2534,9 +2534,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (swapchains list) (metadata list))
                    ())
   (device '%vk:device device :in :handle)
-  (swapchain-count :uint32 (length metadata) :in)
-  (swapchains '%vk:swapchain-khr swapchains :in :handle)
-  (metadata '(:struct %vk:hdr-metadata-ext) metadata :in))
+  (swapchain-count :uint32 (length metadata) :in :raw)
+  (swapchains '%vk:swapchain-khr swapchains :in :handle :list)
+  (metadata '(:struct %vk:hdr-metadata-ext) metadata :in :list))
 
 (defvk-simple-fun (get-swapchain-status-khr
                    %vk:get-swapchain-status-khr
@@ -2565,7 +2565,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
   (presentation-timing-count :uint32 presentation-timing-count :out)
-  (presentation-timings '(:struct %vk:past-presentation-timing-google) presentation-timings :out))
+  (presentation-timings '(:struct %vk:past-presentation-timing-google) presentation-timings :out :list))
 
 (defvk-create-handle-fun (create-i-os-surface-mvk
                           %vk:create-i-os-surface-mvk
@@ -2603,9 +2603,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (first-viewport cffi:foreign-pointer) (viewport-w-scalings list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-viewport :uint32 first-viewport :in)
-  (viewport-count :uint32 (length viewport-w-scalings) :in)
-  (viewport-w-scalings '(:struct %vk:viewport-w-scaling-nv) viewport-w-scalings :in))
+  (first-viewport :uint32 first-viewport :in :raw)
+  (viewport-count :uint32 (length viewport-w-scalings) :in :raw)
+  (viewport-w-scalings '(:struct %vk:viewport-w-scaling-nv) viewport-w-scalings :in :list))
 
 (defvk-simple-fun (cmd-set-discard-rectangle-ext
                    %vk:cmd-set-discard-rectangle-ext
@@ -2613,9 +2613,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (first-discard-rectangle cffi:foreign-pointer) (discard-rectangles list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-discard-rectangle :uint32 first-discard-rectangle :in)
-  (discard-rectangle-count :uint32 (length discard-rectangles) :in)
-  (discard-rectangles '(:struct %vk:rect-2d) discard-rectangles :in))
+  (first-discard-rectangle :uint32 first-discard-rectangle :in :raw)
+  (discard-rectangle-count :uint32 (length discard-rectangles) :in :raw)
+  (discard-rectangles '(:struct %vk:rect-2d) discard-rectangles :in :list))
 
 (defvk-simple-fun (cmd-set-sample-locations-ext
                    %vk:cmd-set-sample-locations-ext
@@ -2653,7 +2653,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (surface-format-count :uint32 surface-format-count :out)
-  (surface-formats '(:struct %vk:surface-format-2-khr) surface-formats :out))
+  (surface-formats '(:struct %vk:surface-format-2-khr) surface-formats :out :list))
 
 (defvk-enumerate-fun (get-physical-device-display-properties-2-khr
                       %vk:get-physical-device-display-properties-2-khr
@@ -2664,7 +2664,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-properties-2-khr) properties :out))
+  (properties '(:struct %vk:display-properties-2-khr) properties :out :list))
 
 (defvk-enumerate-fun (get-physical-device-display-plane-properties-2-khr
                       %vk:get-physical-device-display-plane-properties-2-khr
@@ -2675,7 +2675,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-plane-properties-2-khr) properties :out))
+  (properties '(:struct %vk:display-plane-properties-2-khr) properties :out :list))
 
 (defvk-enumerate-fun (get-display-mode-properties-2-khr
                       %vk:get-display-mode-properties-2-khr
@@ -2687,7 +2687,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-mode-properties-2-khr) properties :out))
+  (properties '(:struct %vk:display-mode-properties-2-khr) properties :out :list))
 
 (defvk-get-struct-fun (get-display-plane-capabilities-2-khr
                        %vk:get-display-plane-capabilities-2-khr
@@ -2745,7 +2745,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:image-sparse-memory-requirements-info-2) info :in)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
-  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :out))
+  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :out :list))
 
 (defvk-get-structs-fun (get-image-sparse-memory-requirements-2-khr
                         %vk:get-image-sparse-memory-requirements-2-khr
@@ -2758,7 +2758,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:image-sparse-memory-requirements-info-2) info :in)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
-  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :out))
+  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :out :list))
 
 (defvk-create-handle-fun (create-sampler-ycbcr-conversion
                           %vk:create-sampler-ycbcr-conversion
@@ -2844,8 +2844,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (dst-cache '%vk:validation-cache-ext dst-cache :in :handle)
-  (src-cache-count :uint32 (length src-caches) :in)
-  (src-caches '%vk:validation-cache-ext src-caches :in :handle))
+  (src-cache-count :uint32 (length src-caches) :in :raw)
+  (src-caches '%vk:validation-cache-ext src-caches :in :handle :list))
 
 (defvk-get-struct-fun (get-descriptor-set-layout-support
                        %vk:get-descriptor-set-layout-support
@@ -2895,7 +2895,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       time-domains)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (time-domain-count :uint32 time-domain-count :out)
-  (time-domains '%vk:time-domain-ext time-domains :out))
+  (time-domains '%vk:time-domain-ext time-domains :out :list))
 
 (defvk-get-array-and-singular-fun (get-calibrated-timestamps-ext
                                    %vk:get-calibrated-timestamps-ext
@@ -2905,9 +2905,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                                    (length timestamp-infos)
                                    timestamps)
   (device '%vk:device device :in :handle)
-  (timestamp-count :uint32 (length timestamp-infos) :in)
-  (timestamp-infos '(:struct %vk:calibrated-timestamp-info-ext) timestamp-infos :in)
-  (timestamps :uint64 timestamps :out)
+  (timestamp-count :uint32 (length timestamp-infos) :in :raw)
+  (timestamp-infos '(:struct %vk:calibrated-timestamp-info-ext) timestamp-infos :in :list)
+  (timestamps :uint64 timestamps :out :list)
   (max-deviation :uint64 max-deviation :out))
 
 (defvk-simple-fun (set-debug-utils-object-name-ext
@@ -3020,7 +3020,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
-  (marker :uint32 marker :in))
+  (marker :uint32 marker :in :raw))
 
 (defvk-create-handle-fun (create-render-pass-2
                           %vk:create-render-pass-2
@@ -3119,7 +3119,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (wait-info '(:struct %vk:semaphore-wait-info) wait-info :in)
-  (timeout :uint64 timeout :in))
+  (timeout :uint64 timeout :in :raw))
 
 (defvk-simple-fun (wait-semaphores-khr
                    %vk:wait-semaphores-khr
@@ -3128,7 +3128,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (wait-info '(:struct %vk:semaphore-wait-info) wait-info :in)
-  (timeout :uint64 timeout :in))
+  (timeout :uint64 timeout :in :raw))
 
 (defvk-simple-fun (signal-semaphore
                    %vk:signal-semaphore
@@ -3174,8 +3174,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-indirect-count-amd
                    %vk:cmd-draw-indirect-count-amd
@@ -3187,8 +3187,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-indirect-count-khr
                    %vk:cmd-draw-indirect-count-khr
@@ -3200,8 +3200,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-indexed-indirect-count
                    %vk:cmd-draw-indexed-indirect-count
@@ -3213,8 +3213,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-indexed-indirect-count-amd
                    %vk:cmd-draw-indexed-indirect-count-amd
@@ -3226,8 +3226,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-indexed-indirect-count-khr
                    %vk:cmd-draw-indexed-indirect-count-khr
@@ -3239,8 +3239,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-set-checkpoint-nv
                    %vk:cmd-set-checkpoint-nv
@@ -3260,7 +3260,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         t)
   (queue '%vk:queue queue :in :handle)
   (checkpoint-data-count :uint32 checkpoint-data-count :out)
-  (checkpoint-data '(:struct %vk:checkpoint-data-nv) checkpoint-data :out))
+  (checkpoint-data '(:struct %vk:checkpoint-data-nv) checkpoint-data :out :list))
 
 (defvk-simple-fun (cmd-bind-transform-feedback-buffers-ext
                    %vk:cmd-bind-transform-feedback-buffers-ext
@@ -3268,11 +3268,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding cffi:foreign-pointer) (offsets list))
                    (((sizes nil) list)))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-binding :uint32 first-binding :in)
-  (binding-count :uint32 (length sizes) :in)
-  (buffers '%vk:buffer buffers :in :handle)
-  (offsets '%vk:device-size offsets :in)
-  (sizes '%vk:device-size sizes :in :optional))
+  (first-binding :uint32 first-binding :in :raw)
+  (binding-count :uint32 (length sizes) :in :raw)
+  (buffers '%vk:buffer buffers :in :handle :list)
+  (offsets '%vk:device-size offsets :in :list)
+  (sizes '%vk:device-size sizes :in :list :optional))
 
 (defvk-simple-fun (cmd-begin-transform-feedback-ext
                    %vk:cmd-begin-transform-feedback-ext
@@ -3280,10 +3280,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (counter-buffers list) (first-counter-buffer cffi:foreign-pointer))
                    (((counter-buffer-offsets nil) list)))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-counter-buffer :uint32 first-counter-buffer :in)
-  (counter-buffer-count :uint32 (length counter-buffer-offsets) :in)
-  (counter-buffers '%vk:buffer counter-buffers :in :handle)
-  (counter-buffer-offsets '%vk:device-size counter-buffer-offsets :in :optional))
+  (first-counter-buffer :uint32 first-counter-buffer :in :raw)
+  (counter-buffer-count :uint32 (length counter-buffer-offsets) :in :raw)
+  (counter-buffers '%vk:buffer counter-buffers :in :handle :list)
+  (counter-buffer-offsets '%vk:device-size counter-buffer-offsets :in :list :optional))
 
 (defvk-simple-fun (cmd-end-transform-feedback-ext
                    %vk:cmd-end-transform-feedback-ext
@@ -3291,10 +3291,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (counter-buffers list) (first-counter-buffer cffi:foreign-pointer))
                    (((counter-buffer-offsets nil) list)))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-counter-buffer :uint32 first-counter-buffer :in)
-  (counter-buffer-count :uint32 (length counter-buffer-offsets) :in)
-  (counter-buffers '%vk:buffer counter-buffers :in :handle)
-  (counter-buffer-offsets '%vk:device-size counter-buffer-offsets :in :optional))
+  (first-counter-buffer :uint32 first-counter-buffer :in :raw)
+  (counter-buffer-count :uint32 (length counter-buffer-offsets) :in :raw)
+  (counter-buffers '%vk:buffer counter-buffers :in :handle :list)
+  (counter-buffer-offsets '%vk:device-size counter-buffer-offsets :in :list :optional))
 
 (defvk-simple-fun (cmd-begin-query-indexed-ext
                    %vk:cmd-begin-query-indexed-ext
@@ -3303,9 +3303,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((flags nil) (or unsigned-byte list))))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (query :uint32 query :in)
+  (query :uint32 query :in :raw)
   (flags '%vk:query-control-flags flags :in :optional)
-  (index :uint32 index :in))
+  (index :uint32 index :in :raw))
 
 (defvk-simple-fun (cmd-end-query-indexed-ext
                    %vk:cmd-end-query-indexed-ext
@@ -3314,8 +3314,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (query :uint32 query :in)
-  (index :uint32 index :in))
+  (query :uint32 query :in :raw)
+  (index :uint32 index :in :raw))
 
 (defvk-simple-fun (cmd-draw-indirect-byte-count-ext
                    %vk:cmd-draw-indirect-byte-count-ext
@@ -3323,12 +3323,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (counter-buffer cffi:foreign-pointer) (instance-count cffi:foreign-pointer) (first-instance cffi:foreign-pointer) (counter-buffer-offset cffi:foreign-pointer) (counter-offset cffi:foreign-pointer) (vertex-stride cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (instance-count :uint32 instance-count :in)
-  (first-instance :uint32 first-instance :in)
+  (instance-count :uint32 instance-count :in :raw)
+  (first-instance :uint32 first-instance :in :raw)
   (counter-buffer '%vk:buffer counter-buffer :in :handle)
   (counter-buffer-offset '%vk:device-size counter-buffer-offset :in)
-  (counter-offset :uint32 counter-offset :in)
-  (vertex-stride :uint32 vertex-stride :in))
+  (counter-offset :uint32 counter-offset :in :raw)
+  (vertex-stride :uint32 vertex-stride :in :raw))
 
 (defvk-simple-fun (cmd-set-exclusive-scissor-nv
                    %vk:cmd-set-exclusive-scissor-nv
@@ -3336,9 +3336,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (first-exclusive-scissor cffi:foreign-pointer) (exclusive-scissors list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-exclusive-scissor :uint32 first-exclusive-scissor :in)
-  (exclusive-scissor-count :uint32 (length exclusive-scissors) :in)
-  (exclusive-scissors '(:struct %vk:rect-2d) exclusive-scissors :in))
+  (first-exclusive-scissor :uint32 first-exclusive-scissor :in :raw)
+  (exclusive-scissor-count :uint32 (length exclusive-scissors) :in :raw)
+  (exclusive-scissors '(:struct %vk:rect-2d) exclusive-scissors :in :list))
 
 (defvk-simple-fun (cmd-bind-shading-rate-image-nv
                    %vk:cmd-bind-shading-rate-image-nv
@@ -3355,9 +3355,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (first-viewport cffi:foreign-pointer) (shading-rate-palettes list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-viewport :uint32 first-viewport :in)
-  (viewport-count :uint32 (length shading-rate-palettes) :in)
-  (shading-rate-palettes '(:struct %vk:shading-rate-palette-nv) shading-rate-palettes :in))
+  (first-viewport :uint32 first-viewport :in :raw)
+  (viewport-count :uint32 (length shading-rate-palettes) :in :raw)
+  (shading-rate-palettes '(:struct %vk:shading-rate-palette-nv) shading-rate-palettes :in :list))
 
 (defvk-simple-fun (cmd-set-coarse-sample-order-nv
                    %vk:cmd-set-coarse-sample-order-nv
@@ -3366,8 +3366,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (sample-order-type '%vk:coarse-sample-order-type-nv sample-order-type :in)
-  (custom-sample-order-count :uint32 (length custom-sample-orders) :in)
-  (custom-sample-orders '(:struct %vk:coarse-sample-order-custom-nv) custom-sample-orders :in))
+  (custom-sample-order-count :uint32 (length custom-sample-orders) :in :raw)
+  (custom-sample-orders '(:struct %vk:coarse-sample-order-custom-nv) custom-sample-orders :in :list))
 
 (defvk-simple-fun (cmd-draw-mesh-tasks-nv
                    %vk:cmd-draw-mesh-tasks-nv
@@ -3375,8 +3375,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (task-count cffi:foreign-pointer) (first-task cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (task-count :uint32 task-count :in)
-  (first-task :uint32 first-task :in))
+  (task-count :uint32 task-count :in :raw)
+  (first-task :uint32 first-task :in :raw))
 
 (defvk-simple-fun (cmd-draw-mesh-tasks-indirect-nv
                    %vk:cmd-draw-mesh-tasks-indirect-nv
@@ -3386,8 +3386,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
-  (draw-count :uint32 draw-count :in)
-  (stride :uint32 stride :in))
+  (draw-count :uint32 draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (cmd-draw-mesh-tasks-indirect-count-nv
                    %vk:cmd-draw-mesh-tasks-indirect-count-nv
@@ -3399,8 +3399,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset '%vk:device-size offset :in)
   (count-buffer '%vk:buffer count-buffer :in :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in)
-  (max-draw-count :uint32 max-draw-count :in)
-  (stride :uint32 stride :in))
+  (max-draw-count :uint32 max-draw-count :in :raw)
+  (stride :uint32 stride :in :raw))
 
 (defvk-simple-fun (compile-deferred-nv
                    %vk:compile-deferred-nv
@@ -3409,7 +3409,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
-  (shader :uint32 shader :in))
+  (shader :uint32 shader :in :raw))
 
 (defvk-get-struct-fun (create-acceleration-structure-nv
                        %vk:create-acceleration-structure-nv
@@ -3463,8 +3463,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in)
-  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in))
+  (bind-info-count :uint32 (length bind-infos) :in :raw)
+  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in :list))
 
 (defvk-simple-fun (bind-acceleration-structure-memory-nv
                    %vk:bind-acceleration-structure-memory-nv
@@ -3472,8 +3472,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in)
-  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in))
+  (bind-info-count :uint32 (length bind-infos) :in :raw)
+  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in :list))
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-nv
                    %vk:cmd-copy-acceleration-structure-nv
@@ -3539,11 +3539,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-pool cffi:foreign-pointer) (query-type keyword) (first-query cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (acceleration-structure-count :uint32 (length acceleration-structures) :in)
-  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle)
+  (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
+  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
   (query-type '%vk:query-type query-type :in)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in))
+  (first-query :uint32 first-query :in :raw))
 
 (defvk-simple-fun (cmd-write-acceleration-structures-properties-nv
                    %vk:cmd-write-acceleration-structures-properties-nv
@@ -3551,11 +3551,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-pool cffi:foreign-pointer) (query-type keyword) (first-query cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (acceleration-structure-count :uint32 (length acceleration-structures) :in)
-  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle)
+  (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
+  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
   (query-type '%vk:query-type query-type :in)
   (query-pool '%vk:query-pool query-pool :in :handle)
-  (first-query :uint32 first-query :in))
+  (first-query :uint32 first-query :in :raw))
 
 (defvk-simple-fun (cmd-build-acceleration-structure-nv
                    %vk:cmd-build-acceleration-structure-nv
@@ -3578,12 +3578,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer) (stride cffi:foreign-pointer))
                    ())
   (device '%vk:device device :in :handle)
-  (acceleration-structure-count :uint32 (length acceleration-structures) :in)
-  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle)
+  (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
+  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
   (query-type '%vk:query-type query-type :in)
-  (data-size '%vk:size-t data-size :in)
+  (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle)
-  (stride '%vk:size-t stride :in))
+  (stride '%vk:size-t stride :in :raw))
 
 (defvk-simple-fun (cmd-trace-rays-khr
                    %vk:cmd-trace-rays-khr
@@ -3595,9 +3595,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (miss-shader-binding-table '(:struct %vk:strided-buffer-region-khr) miss-shader-binding-table :in)
   (hit-shader-binding-table '(:struct %vk:strided-buffer-region-khr) hit-shader-binding-table :in)
   (callable-shader-binding-table '(:struct %vk:strided-buffer-region-khr) callable-shader-binding-table :in)
-  (width :uint32 width :in)
-  (height :uint32 height :in)
-  (depth :uint32 depth :in))
+  (width :uint32 width :in :raw)
+  (height :uint32 height :in :raw)
+  (depth :uint32 depth :in :raw))
 
 (defvk-simple-fun (cmd-trace-rays-nv
                    %vk:cmd-trace-rays-nv
@@ -3616,9 +3616,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (callable-shader-binding-table-buffer '%vk:buffer callable-shader-binding-table-buffer :in :handle :optional)
   (callable-shader-binding-offset '%vk:device-size callable-shader-binding-offset :in)
   (callable-shader-binding-stride '%vk:device-size callable-shader-binding-stride :in)
-  (width :uint32 width :in)
-  (height :uint32 height :in)
-  (depth :uint32 depth :in))
+  (width :uint32 width :in :raw)
+  (height :uint32 height :in :raw)
+  (depth :uint32 depth :in :raw))
 
 (defvk-simple-fun (get-ray-tracing-shader-group-handles-khr
                    %vk:get-ray-tracing-shader-group-handles-khr
@@ -3627,9 +3627,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
-  (first-group :uint32 first-group :in)
-  (group-count :uint32 group-count :in)
-  (data-size '%vk:size-t data-size :in)
+  (first-group :uint32 first-group :in :raw)
+  (group-count :uint32 group-count :in :raw)
+  (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
 (defvk-simple-fun (get-ray-tracing-shader-group-handles-nv
@@ -3639,9 +3639,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
-  (first-group :uint32 first-group :in)
-  (group-count :uint32 group-count :in)
-  (data-size '%vk:size-t data-size :in)
+  (first-group :uint32 first-group :in :raw)
+  (group-count :uint32 group-count :in :raw)
+  (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
 (defvk-simple-fun (get-ray-tracing-capture-replay-shader-group-handles-khr
@@ -3651,9 +3651,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
-  (first-group :uint32 first-group :in)
-  (group-count :uint32 group-count :in)
-  (data-size '%vk:size-t data-size :in)
+  (first-group :uint32 first-group :in :raw)
+  (group-count :uint32 group-count :in :raw)
+  (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
 (defvk-simple-fun (get-acceleration-structure-handle-nv
@@ -3663,7 +3663,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle)
-  (data-size '%vk:size-t data-size :in)
+  (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
 (defvk-create-handles-fun (create-ray-tracing-pipelines-nv
@@ -3674,10 +3674,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
-  (create-info-count :uint32 (length create-infos) :in)
-  (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-nv) create-infos :in)
+  (create-info-count :uint32 (length create-infos) :in :raw)
+  (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-nv) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle))
+  (pipelines '%vk:pipeline pipelines :out :handle :list))
 
 (defvk-create-handles-fun (create-ray-tracing-pipelines-khr
                            %vk:create-ray-tracing-pipelines-khr
@@ -3687,10 +3687,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
-  (create-info-count :uint32 (length create-infos) :in)
-  (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-khr) create-infos :in)
+  (create-info-count :uint32 (length create-infos) :in :raw)
+  (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-khr) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle))
+  (pipelines '%vk:pipeline pipelines :out :handle :list))
 
 (defvk-enumerate-fun (get-physical-device-cooperative-matrix-properties-nv
                       %vk:get-physical-device-cooperative-matrix-properties-nv
@@ -3701,7 +3701,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:cooperative-matrix-properties-nv) properties :out))
+  (properties '(:struct %vk:cooperative-matrix-properties-nv) properties :out :list))
 
 (defvk-simple-fun (cmd-trace-rays-indirect-khr
                    %vk:cmd-trace-rays-indirect-khr
@@ -3752,7 +3752,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (present-mode-count :uint32 present-mode-count :out)
-  (present-modes '%vk:present-mode-khr present-modes :out))
+  (present-modes '%vk:present-mode-khr present-modes :out :list))
 
 (defvk-get-struct-fun (get-device-group-surface-present-modes-2-ext
                        %vk:get-device-group-surface-present-modes-2-ext
@@ -3787,10 +3787,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                                  counter-count
                                  (counters counter-descriptions))
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (queue-family-index :uint32 queue-family-index :in)
+  (queue-family-index :uint32 queue-family-index :in :raw)
   (counter-count :uint32 counter-count :out)
-  (counters '(:struct %vk:performance-counter-khr) counters :out)
-  (counter-descriptions '(:struct %vk:performance-counter-description-khr) counter-descriptions :out))
+  (counters '(:struct %vk:performance-counter-khr) counters :out :list)
+  (counter-descriptions '(:struct %vk:performance-counter-description-khr) counter-descriptions :out :list))
 
 (defvk-get-struct-fun (get-physical-device-queue-family-performance-query-passes-khr
                        %vk:get-physical-device-queue-family-performance-query-passes-khr
@@ -3889,7 +3889,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       combinations)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (combination-count :uint32 combination-count :out)
-  (combinations '(:struct %vk:framebuffer-mixed-samples-combination-nv) combinations :out))
+  (combinations '(:struct %vk:framebuffer-mixed-samples-combination-nv) combinations :out :list))
 
 (defvk-simple-fun (initialize-performance-api-intel
                    %vk:initialize-performance-api-intel
@@ -3992,7 +3992,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (pipeline-info '(:struct %vk:pipeline-info-khr) pipeline-info :in)
   (executable-count :uint32 executable-count :out)
-  (properties '(:struct %vk:pipeline-executable-properties-khr) properties :out))
+  (properties '(:struct %vk:pipeline-executable-properties-khr) properties :out :list))
 
 (defvk-enumerate-fun (get-pipeline-executable-statistics-khr
                       %vk:get-pipeline-executable-statistics-khr
@@ -4004,7 +4004,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (statistic-count :uint32 statistic-count :out)
-  (statistics '(:struct %vk:pipeline-executable-statistic-khr) statistics :out))
+  (statistics '(:struct %vk:pipeline-executable-statistic-khr) statistics :out :list))
 
 (defvk-enumerate-fun (get-pipeline-executable-internal-representations-khr
                       %vk:get-pipeline-executable-internal-representations-khr
@@ -4016,7 +4016,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (internal-representation-count :uint32 internal-representation-count :out)
-  (internal-representations '(:struct %vk:pipeline-executable-internal-representation-khr) internal-representations :out))
+  (internal-representations '(:struct %vk:pipeline-executable-internal-representation-khr) internal-representations :out :list))
 
 (defvk-simple-fun (cmd-set-line-stipple-ext
                    %vk:cmd-set-line-stipple-ext
@@ -4024,8 +4024,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (line-stipple-factor cffi:foreign-pointer) (line-stipple-pattern cffi:foreign-pointer))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (line-stipple-factor :uint32 line-stipple-factor :in)
-  (line-stipple-pattern :uint16 line-stipple-pattern :in))
+  (line-stipple-factor :uint32 line-stipple-factor :in :raw)
+  (line-stipple-pattern :uint16 line-stipple-pattern :in :raw))
 
 (defvk-enumerate-fun (get-physical-device-tool-properties-ext
                       %vk:get-physical-device-tool-properties-ext
@@ -4036,7 +4036,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       tool-properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (tool-count :uint32 tool-count :out)
-  (tool-properties '(:struct %vk:physical-device-tool-properties-ext) tool-properties :out))
+  (tool-properties '(:struct %vk:physical-device-tool-properties-ext) tool-properties :out :list))
 
 (defvk-create-handle-fun (create-acceleration-structure-khr
                           %vk:create-acceleration-structure-khr
@@ -4054,9 +4054,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (infos list) (p-offset-infos list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (info-count :uint32 (length p-offset-infos) :in)
-  (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in)
-  (p-offset-infos '(:struct %vk:acceleration-structure-build-offset-info-khr) p-offset-infos :in))
+  (info-count :uint32 (length p-offset-infos) :in :raw)
+  (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
+  (p-offset-infos '(:struct %vk:acceleration-structure-build-offset-info-khr) p-offset-infos :in :list))
 
 (defvk-simple-fun (cmd-build-acceleration-structure-indirect-khr
                    %vk:cmd-build-acceleration-structure-indirect-khr
@@ -4067,7 +4067,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (info '(:struct %vk:acceleration-structure-build-geometry-info-khr) info :in)
   (indirect-buffer '%vk:buffer indirect-buffer :in :handle)
   (indirect-offset '%vk:device-size indirect-offset :in)
-  (indirect-stride :uint32 indirect-stride :in))
+  (indirect-stride :uint32 indirect-stride :in :raw))
 
 (defvk-simple-fun (build-acceleration-structure-khr
                    %vk:build-acceleration-structure-khr
@@ -4075,9 +4075,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((device cffi:foreign-pointer) (infos list) (p-offset-infos list))
                    ())
   (device '%vk:device device :in :handle)
-  (info-count :uint32 (length p-offset-infos) :in)
-  (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in)
-  (p-offset-infos '(:struct %vk:acceleration-structure-build-offset-info-khr) p-offset-infos :in))
+  (info-count :uint32 (length p-offset-infos) :in :raw)
+  (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
+  (p-offset-infos '(:struct %vk:acceleration-structure-build-offset-info-khr) p-offset-infos :in :list))
 
 (defvk-simple-fun (get-acceleration-structure-device-address-khr
                    %vk:get-acceleration-structure-device-address-khr
@@ -4161,8 +4161,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (viewports list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (viewport-count :uint32 (length viewports) :in)
-  (viewports '(:struct %vk:viewport) viewports :in))
+  (viewport-count :uint32 (length viewports) :in :raw)
+  (viewports '(:struct %vk:viewport) viewports :in :list))
 
 (defvk-simple-fun (cmd-set-scissor-with-count-ext
                    %vk:cmd-set-scissor-with-count-ext
@@ -4170,8 +4170,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (scissors list))
                    ())
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (scissor-count :uint32 (length scissors) :in)
-  (scissors '(:struct %vk:rect-2d) scissors :in))
+  (scissor-count :uint32 (length scissors) :in :raw)
+  (scissors '(:struct %vk:rect-2d) scissors :in :list))
 
 (defvk-simple-fun (cmd-bind-vertex-buffers-2-ext
                    %vk:cmd-bind-vertex-buffers-2-ext
@@ -4179,12 +4179,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding cffi:foreign-pointer) (offsets list))
                    (((sizes nil) list) ((strides nil) list)))
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (first-binding :uint32 first-binding :in)
-  (binding-count :uint32 (length strides) :in)
-  (buffers '%vk:buffer buffers :in :handle)
-  (offsets '%vk:device-size offsets :in)
-  (sizes '%vk:device-size sizes :in :optional)
-  (strides '%vk:device-size strides :in :optional))
+  (first-binding :uint32 first-binding :in :raw)
+  (binding-count :uint32 (length strides) :in :raw)
+  (buffers '%vk:buffer buffers :in :handle :list)
+  (offsets '%vk:device-size offsets :in :list)
+  (sizes '%vk:device-size sizes :in :list :optional)
+  (strides '%vk:device-size strides :in :list :optional))
 
 (defvk-simple-fun (cmd-set-depth-test-enable-ext
                    %vk:cmd-set-depth-test-enable-ext
@@ -4264,9 +4264,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ())
   (device '%vk:device device :in :handle)
   (object-type '%vk:object-type object-type :in)
-  (object-handle :uint64 object-handle :in)
+  (object-handle :uint64 object-handle :in :raw)
   (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
-  (data :uint64 data :in))
+  (data :uint64 data :in :raw))
 
 (defvk-get-struct-fun (get-private-data-ext
                        %vk:get-private-data-ext
@@ -4275,7 +4275,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (device '%vk:device device :in :handle)
   (object-type '%vk:object-type object-type :in)
-  (object-handle :uint64 object-handle :in)
+  (object-handle :uint64 object-handle :in :raw)
   (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
   (data :uint64 data :out))
 

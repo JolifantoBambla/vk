@@ -1,4 +1,7 @@
-;; TODO: copyright
+#|
+ Copyright(c) 2020 - Lukas Herzberger <herzberger.lukas@gmail.com>
+ SPDX-License-Identifier: MIT
+|#
 
 (in-package :vk)
 

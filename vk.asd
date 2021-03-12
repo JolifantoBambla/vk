@@ -1,8 +1,13 @@
 (defsystem vk
-  :description "Common Lisp bindings for the Vulkan API."
-  :depends-on (cffi alexandria)
+  :version "0.0.0"
   :license "MIT"
+  :description "Common Lisp bindings for the Vulkan API."
   :author "Lukas Herzberger <herzberger.lukas at gmail.com>"
+  :maintainer "Lukas Herzberger <herzberger.lukas at gmail.com>"
+  :homepage "https://jolifantobambla.github.io/vk/"
+  :bug-tracker "https://github.com/JolifantoBambla/vk-generator/issues"
+  :source-control (:git "https://github.com/JolifantoBambla/vk.git")
+  :depends-on (cffi alexandria)
   :components
   ((:module "src"
     :serial t
