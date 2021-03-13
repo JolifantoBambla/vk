@@ -11,7 +11,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-instance
                           "Represents <vkCreateInstance>"
                           ((create-info (or vk:instance-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (create-info '(:struct %vk:instance-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (instance '%vk:instance instance :out :handle))
@@ -20,7 +21,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-instance
                    "Represents <vkDestroyInstance>"
                    ()
-                   (((instance (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((instance (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (instance '%vk:instance instance :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
@@ -30,7 +32,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-count
-                      physical-devices)
+                      physical-devices
+                      nil)
   (instance '%vk:instance instance :in :handle)
   (physical-device-count :uint32 physical-device-count :out)
   (physical-devices '%vk:physical-device physical-devices :out :handle :list))
@@ -68,7 +71,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         queue-family-property-count
                         queue-family-properties
-                        t)
+                      t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
   (queue-family-properties '(:struct %vk:queue-family-properties) queue-family-properties :out :list))
@@ -115,7 +118,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-device
                           "Represents <vkCreateDevice>"
                           ((physical-device cffi:foreign-pointer) (create-info (or vk:device-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (create-info '(:struct %vk:device-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -125,7 +129,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-device
                    "Represents <vkDestroyDevice>"
                    ()
-                   (((device (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((device (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
@@ -142,7 +147,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ()
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:layer-properties) properties :out :list))
 
@@ -152,7 +158,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ()
                       (((layer-name nil) string))
                       property-count
-                      properties)
+                      properties
+                      nil)
   (layer-name :string layer-name :in :optional)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:extension-properties) properties :out :list))
@@ -163,7 +170,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:layer-properties) properties :out :list))
@@ -174,7 +182,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       (((layer-name nil) string))
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (layer-name :string layer-name :in :optional)
   (property-count :uint32 property-count :out)
@@ -195,7 +204,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-submit
                    "Represents <vkQueueSubmit>"
                    ((queue cffi:foreign-pointer) (submits list))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer)))
+                   (((fence (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
   (queue '%vk:queue queue :in :handle)
   (submit-count :uint32 (length submits) :in :raw)
   (submits '(:struct %vk:submit-info) submits :in :list)
@@ -205,21 +215,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-wait-idle
                    "Represents <vkQueueWaitIdle>"
                    ((queue cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (queue '%vk:queue queue :in :handle))
 
 (defvk-simple-fun (device-wait-idle
                    %vk:device-wait-idle
                    "Represents <vkDeviceWaitIdle>"
                    ((device cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle))
 
 (defvk-create-handle-fun (allocate-memory
                           %vk:allocate-memory
                           "Represents <vkAllocateMemory>"
                           ((device cffi:foreign-pointer) (allocate-info (or vk:memory-allocate-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (allocate-info '(:struct %vk:memory-allocate-info) allocate-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -229,7 +242,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:free-memory
                    "Represents <vkFreeMemory>"
                    ((device cffi:foreign-pointer))
-                   (((memory (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((memory (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (memory '%vk:device-memory memory :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -238,7 +252,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:map-memory
                    "Represents <vkMapMemory>"
                    ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (offset cffi:foreign-pointer) (size cffi:foreign-pointer) (p-data cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (device '%vk:device device :in :handle)
   (memory '%vk:device-memory memory :in :handle)
   (offset '%vk:device-size offset :in)
@@ -250,7 +265,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:unmap-memory
                    "Represents <vkUnmapMemory>"
                    ((device cffi:foreign-pointer) (memory cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (memory '%vk:device-memory memory :in :handle))
 
@@ -258,7 +274,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:flush-mapped-memory-ranges
                    "Represents <vkFlushMappedMemoryRanges>"
                    ((device cffi:foreign-pointer) (memory-ranges list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (memory-range-count :uint32 (length memory-ranges) :in :raw)
   (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
@@ -267,7 +284,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:invalidate-mapped-memory-ranges
                    "Represents <vkInvalidateMappedMemoryRanges>"
                    ((device cffi:foreign-pointer) (memory-ranges list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (memory-range-count :uint32 (length memory-ranges) :in :raw)
   (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
@@ -294,7 +312,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-buffer-memory
                    "Represents <vkBindBufferMemory>"
                    ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (memory '%vk:device-memory memory :in :handle)
@@ -313,7 +332,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-image-memory
                    "Represents <vkBindImageMemory>"
                    ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (image '%vk:image image :in :handle)
   (memory '%vk:device-memory memory :in :handle)
@@ -326,7 +346,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         sparse-memory-requirement-count
                         sparse-memory-requirements
-                        t)
+                      t)
   (device '%vk:device device :in :handle)
   (image '%vk:image image :in :handle)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
@@ -339,7 +359,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         property-count
                         properties
-                        t)
+                      t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (format '%vk:format format :in)
   (type '%vk:image-type type :in)
@@ -353,7 +373,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-bind-sparse
                    "Represents <vkQueueBindSparse>"
                    ((queue cffi:foreign-pointer) (bind-info list))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer)))
+                   (((fence (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
   (queue '%vk:queue queue :in :handle)
   (bind-info-count :uint32 (length bind-info) :in :raw)
   (bind-info '(:struct %vk:bind-sparse-info) bind-info :in :list)
@@ -363,7 +384,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-fence
                           "Represents <vkCreateFence>"
                           ((device cffi:foreign-pointer) (create-info (or vk:fence-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:fence-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -373,7 +395,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-fence
                    "Represents <vkDestroyFence>"
                    ((device cffi:foreign-pointer))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((fence (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (fence '%vk:fence fence :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -382,7 +405,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:reset-fences
                    "Represents <vkResetFences>"
                    ((device cffi:foreign-pointer) (fences list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (fence-count :uint32 (length fences) :in :raw)
   (fences '%vk:fence fences :in :handle :list))
@@ -391,7 +415,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-fence-status
                    "Represents <vkGetFenceStatus>"
                    ((device cffi:foreign-pointer) (fence cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (fence '%vk:fence fence :in :handle))
 
@@ -399,7 +424,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:wait-for-fences
                    "Represents <vkWaitForFences>"
                    ((device cffi:foreign-pointer) (fences list) (wait-all cffi:foreign-pointer) (timeout cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (fence-count :uint32 (length fences) :in :raw)
   (fences '%vk:fence fences :in :handle :list)
@@ -410,7 +436,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-semaphore
                           "Represents <vkCreateSemaphore>"
                           ((device cffi:foreign-pointer) (create-info (or vk:semaphore-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:semaphore-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -420,7 +447,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-semaphore
                    "Represents <vkDestroySemaphore>"
                    ((device cffi:foreign-pointer))
-                   (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (semaphore '%vk:semaphore semaphore :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -429,7 +457,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-event
                           "Represents <vkCreateEvent>"
                           ((device cffi:foreign-pointer) (create-info (or vk:event-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:event-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -439,7 +468,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-event
                    "Represents <vkDestroyEvent>"
                    ((device cffi:foreign-pointer))
-                   (((event (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((event (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (event '%vk:event event :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -448,7 +478,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-event-status
                    "Represents <vkGetEventStatus>"
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (event '%vk:event event :in :handle))
 
@@ -456,7 +487,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:set-event
                    "Represents <vkSetEvent>"
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (event '%vk:event event :in :handle))
 
@@ -464,7 +496,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:reset-event
                    "Represents <vkResetEvent>"
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (event '%vk:event event :in :handle))
 
@@ -472,7 +505,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-query-pool
                           "Represents <vkCreateQueryPool>"
                           ((device cffi:foreign-pointer) (create-info (or vk:query-pool-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:query-pool-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -482,7 +516,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-query-pool
                    "Represents <vkDestroyQueryPool>"
                    ((device cffi:foreign-pointer))
-                   (((query-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((query-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -491,7 +526,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-query-pool-results
                    "Represents <vkGetQueryPoolResults>"
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query cffi:foreign-pointer) (query-count cffi:foreign-pointer) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw)
@@ -505,7 +541,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:reset-query-pool
                    "Represents <vkResetQueryPool>"
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query cffi:foreign-pointer) (query-count cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw)
@@ -515,7 +552,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:reset-query-pool-ext
                    "Represents <vkResetQueryPoolEXT>"
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query cffi:foreign-pointer) (query-count cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw)
@@ -525,7 +563,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-buffer
                           "Represents <vkCreateBuffer>"
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:buffer-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -535,7 +574,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-buffer
                    "Represents <vkDestroyBuffer>"
                    ((device cffi:foreign-pointer))
-                   (((buffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((buffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (buffer '%vk:buffer buffer :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -544,7 +584,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-buffer-view
                           "Represents <vkCreateBufferView>"
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-view-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:buffer-view-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -554,7 +595,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-buffer-view
                    "Represents <vkDestroyBufferView>"
                    ((device cffi:foreign-pointer))
-                   (((buffer-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((buffer-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (buffer-view '%vk:buffer-view buffer-view :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -563,7 +605,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-image
                           "Represents <vkCreateImage>"
                           ((device cffi:foreign-pointer) (create-info (or vk:image-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:image-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -573,7 +616,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-image
                    "Represents <vkDestroyImage>"
                    ((device cffi:foreign-pointer))
-                   (((image (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((image (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (image '%vk:image image :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -592,7 +636,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-image-view
                           "Represents <vkCreateImageView>"
                           ((device cffi:foreign-pointer) (create-info (or vk:image-view-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:image-view-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -602,7 +647,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-image-view
                    "Represents <vkDestroyImageView>"
                    ((device cffi:foreign-pointer))
-                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (image-view '%vk:image-view image-view :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -611,7 +657,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-shader-module
                           "Represents <vkCreateShaderModule>"
                           ((device cffi:foreign-pointer) (create-info (or vk:shader-module-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:shader-module-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -621,7 +668,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-shader-module
                    "Represents <vkDestroyShaderModule>"
                    ((device cffi:foreign-pointer))
-                   (((shader-module (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((shader-module (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (shader-module '%vk:shader-module shader-module :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -630,7 +678,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-pipeline-cache
                           "Represents <vkCreatePipelineCache>"
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-cache-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:pipeline-cache-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -640,7 +689,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-pipeline-cache
                    "Represents <vkDestroyPipelineCache>"
                    ((device cffi:foreign-pointer))
-                   (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -659,7 +709,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:merge-pipeline-caches
                    "Represents <vkMergePipelineCaches>"
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (dst-cache '%vk:pipeline-cache dst-cache :in :handle)
   (src-cache-count :uint32 (length src-caches) :in :raw)
@@ -695,7 +746,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-pipeline
                    "Represents <vkDestroyPipeline>"
                    ((device cffi:foreign-pointer))
-                   (((pipeline (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((pipeline (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -704,7 +756,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-pipeline-layout
                           "Represents <vkCreatePipelineLayout>"
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-layout-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:pipeline-layout-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -714,7 +767,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-pipeline-layout
                    "Represents <vkDestroyPipelineLayout>"
                    ((device cffi:foreign-pointer))
-                   (((pipeline-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((pipeline-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline-layout '%vk:pipeline-layout pipeline-layout :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -723,7 +777,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-sampler
                           "Represents <vkCreateSampler>"
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:sampler-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -733,7 +788,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-sampler
                    "Represents <vkDestroySampler>"
                    ((device cffi:foreign-pointer))
-                   (((sampler (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((sampler (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (sampler '%vk:sampler sampler :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -742,7 +798,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-descriptor-set-layout
                           "Represents <vkCreateDescriptorSetLayout>"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-set-layout-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -752,7 +809,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-descriptor-set-layout
                    "Represents <vkDestroyDescriptorSetLayout>"
                    ((device cffi:foreign-pointer))
-                   (((descriptor-set-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((descriptor-set-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-set-layout '%vk:descriptor-set-layout descriptor-set-layout :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -761,7 +819,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-descriptor-pool
                           "Represents <vkCreateDescriptorPool>"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-pool-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-pool-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -771,7 +830,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-descriptor-pool
                    "Represents <vkDestroyDescriptorPool>"
                    ((device cffi:foreign-pointer))
-                   (((descriptor-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((descriptor-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -780,7 +840,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:reset-descriptor-pool
                    "Represents <vkResetDescriptorPool>"
                    ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle)
   (flags '%vk:descriptor-pool-reset-flags flags :in :optional))
@@ -799,7 +860,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:free-descriptor-sets
                    "Represents <vkFreeDescriptorSets>"
                    ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer) (descriptor-sets list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle)
   (descriptor-set-count :uint32 (length descriptor-sets) :in :raw)
@@ -809,7 +871,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:update-descriptor-sets
                    "Represents <vkUpdateDescriptorSets>"
                    ((device cffi:foreign-pointer) (descriptor-writes list) (descriptor-copies list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-write-count :uint32 (length descriptor-writes) :in :raw)
   (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in :list)
@@ -820,7 +883,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-framebuffer
                           "Represents <vkCreateFramebuffer>"
                           ((device cffi:foreign-pointer) (create-info (or vk:framebuffer-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:framebuffer-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -830,7 +894,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-framebuffer
                    "Represents <vkDestroyFramebuffer>"
                    ((device cffi:foreign-pointer))
-                   (((framebuffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((framebuffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (framebuffer '%vk:framebuffer framebuffer :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -839,7 +904,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-render-pass
                           "Represents <vkCreateRenderPass>"
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:render-pass-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -849,7 +915,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-render-pass
                    "Represents <vkDestroyRenderPass>"
                    ((device cffi:foreign-pointer))
-                   (((render-pass (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((render-pass (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (render-pass '%vk:render-pass render-pass :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -867,7 +934,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-command-pool
                           "Represents <vkCreateCommandPool>"
                           ((device cffi:foreign-pointer) (create-info (or vk:command-pool-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:command-pool-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -877,7 +945,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-command-pool
                    "Represents <vkDestroyCommandPool>"
                    ((device cffi:foreign-pointer))
-                   (((command-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((command-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -886,7 +955,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:reset-command-pool
                    "Represents <vkResetCommandPool>"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
   (flags '%vk:command-pool-reset-flags flags :in :optional))
@@ -905,7 +975,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:free-command-buffers
                    "Represents <vkFreeCommandBuffers>"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer) (command-buffers list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
   (command-buffer-count :uint32 (length command-buffers) :in :raw)
@@ -915,7 +986,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:begin-command-buffer
                    "Represents <vkBeginCommandBuffer>"
                    ((command-buffer cffi:foreign-pointer) (begin-info (or vk:command-buffer-begin-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (begin-info '(:struct %vk:command-buffer-begin-info) begin-info :in))
 
@@ -923,14 +995,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:end-command-buffer
                    "Represents <vkEndCommandBuffer>"
                    ((command-buffer cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle))
 
 (defvk-simple-fun (reset-command-buffer
                    %vk:reset-command-buffer
                    "Represents <vkResetCommandBuffer>"
                    ((command-buffer cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (flags '%vk:command-buffer-reset-flags flags :in :optional))
 
@@ -938,7 +1012,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-pipeline
                    "Represents <vkCmdBindPipeline>"
                    ((command-buffer cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (pipeline-bind-point keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (pipeline '%vk:pipeline pipeline :in :handle))
@@ -947,7 +1022,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-viewport
                    "Represents <vkCmdSetViewport>"
                    ((command-buffer cffi:foreign-pointer) (first-viewport cffi:foreign-pointer) (viewports list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-viewport :uint32 first-viewport :in :raw)
   (viewport-count :uint32 (length viewports) :in :raw)
@@ -957,7 +1033,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-scissor
                    "Represents <vkCmdSetScissor>"
                    ((command-buffer cffi:foreign-pointer) (first-scissor cffi:foreign-pointer) (scissors list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-scissor :uint32 first-scissor :in :raw)
   (scissor-count :uint32 (length scissors) :in :raw)
@@ -967,7 +1044,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-line-width
                    "Represents <vkCmdSetLineWidth>"
                    ((command-buffer cffi:foreign-pointer) (line-width cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (line-width :float line-width :in :raw))
 
@@ -975,7 +1053,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-depth-bias
                    "Represents <vkCmdSetDepthBias>"
                    ((command-buffer cffi:foreign-pointer) (depth-bias-constant-factor cffi:foreign-pointer) (depth-bias-clamp cffi:foreign-pointer) (depth-bias-slope-factor cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (depth-bias-constant-factor :float depth-bias-constant-factor :in :raw)
   (depth-bias-clamp :float depth-bias-clamp :in :raw)
@@ -985,7 +1064,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-blend-constants
                    "Represents <vkCmdSetBlendConstants>"
                    ((command-buffer cffi:foreign-pointer) (blend-constants cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (blend-constants :float blend-constants :in :raw))
 
@@ -993,7 +1073,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-depth-bounds
                    "Represents <vkCmdSetDepthBounds>"
                    ((command-buffer cffi:foreign-pointer) (min-depth-bounds cffi:foreign-pointer) (max-depth-bounds cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (min-depth-bounds :float min-depth-bounds :in :raw)
   (max-depth-bounds :float max-depth-bounds :in :raw))
@@ -1002,7 +1083,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-stencil-compare-mask
                    "Represents <vkCmdSetStencilCompareMask>"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (compare-mask cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
   (compare-mask :uint32 compare-mask :in :raw))
@@ -1011,7 +1093,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-stencil-write-mask
                    "Represents <vkCmdSetStencilWriteMask>"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (write-mask cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
   (write-mask :uint32 write-mask :in :raw))
@@ -1020,7 +1103,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-stencil-reference
                    "Represents <vkCmdSetStencilReference>"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (reference cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
   (reference :uint32 reference :in :raw))
@@ -1029,7 +1113,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-descriptor-sets
                    "Represents <vkCmdBindDescriptorSets>"
                    ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (descriptor-sets list) (pipeline-bind-point keyword) (first-set cffi:foreign-pointer) (dynamic-offsets cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (layout '%vk:pipeline-layout layout :in :handle)
@@ -1043,7 +1128,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-index-buffer
                    "Represents <vkCmdBindIndexBuffer>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (index-type keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -1053,7 +1139,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-vertex-buffers
                    "Represents <vkCmdBindVertexBuffers>"
                    ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding cffi:foreign-pointer) (offsets list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-binding :uint32 first-binding :in :raw)
   (binding-count :uint32 (length offsets) :in :raw)
@@ -1064,7 +1151,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw
                    "Represents <vkCmdDraw>"
                    ((command-buffer cffi:foreign-pointer) (vertex-count cffi:foreign-pointer) (instance-count cffi:foreign-pointer) (first-vertex cffi:foreign-pointer) (first-instance cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (vertex-count :uint32 vertex-count :in :raw)
   (instance-count :uint32 instance-count :in :raw)
@@ -1075,7 +1163,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indexed
                    "Represents <vkCmdDrawIndexed>"
                    ((command-buffer cffi:foreign-pointer) (index-count cffi:foreign-pointer) (instance-count cffi:foreign-pointer) (first-index cffi:foreign-pointer) (vertex-offset cffi:foreign-pointer) (first-instance cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (index-count :uint32 index-count :in :raw)
   (instance-count :uint32 instance-count :in :raw)
@@ -1087,7 +1176,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indirect
                    "Represents <vkCmdDrawIndirect>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -1098,7 +1188,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indexed-indirect
                    "Represents <vkCmdDrawIndexedIndirect>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -1109,7 +1200,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-dispatch
                    "Represents <vkCmdDispatch>"
                    ((command-buffer cffi:foreign-pointer) (group-count-x cffi:foreign-pointer) (group-count-y cffi:foreign-pointer) (group-count-z cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (group-count-x :uint32 group-count-x :in :raw)
   (group-count-y :uint32 group-count-y :in :raw)
@@ -1119,7 +1211,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-dispatch-indirect
                    "Represents <vkCmdDispatchIndirect>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in))
@@ -1128,7 +1221,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-buffer
                    "Represents <vkCmdCopyBuffer>"
                    ((command-buffer cffi:foreign-pointer) (src-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (regions list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-buffer '%vk:buffer src-buffer :in :handle)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
@@ -1139,7 +1233,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-image
                    "Represents <vkCmdCopyImage>"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image-layout keyword) (regions list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in)
@@ -1152,7 +1247,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-blit-image
                    "Represents <vkCmdBlitImage>"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image-layout keyword) (filter keyword) (regions list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in)
@@ -1166,7 +1262,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-buffer-to-image
                    "Represents <vkCmdCopyBufferToImage>"
                    ((command-buffer cffi:foreign-pointer) (src-buffer cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-buffer '%vk:buffer src-buffer :in :handle)
   (dst-image '%vk:image dst-image :in :handle)
@@ -1178,7 +1275,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-image-to-buffer
                    "Represents <vkCmdCopyImageToBuffer>"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (src-image-layout keyword) (regions list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in)
@@ -1190,7 +1288,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-update-buffer
                    "Represents <vkCmdUpdateBuffer>"
                    ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (dst-offset cffi:foreign-pointer) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
@@ -1201,7 +1300,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-fill-buffer
                    "Represents <vkCmdFillBuffer>"
                    ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (dst-offset cffi:foreign-pointer) (size cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
@@ -1212,7 +1312,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-clear-color-image
                    "Represents <vkCmdClearColorImage>"
                    ((command-buffer cffi:foreign-pointer) (image cffi:foreign-pointer) (image-layout keyword) (color (or vk:clear-color-value cffi:foreign-pointer)) (ranges list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (image '%vk:image image :in :handle)
   (image-layout '%vk:image-layout image-layout :in)
@@ -1224,7 +1325,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-clear-depth-stencil-image
                    "Represents <vkCmdClearDepthStencilImage>"
                    ((command-buffer cffi:foreign-pointer) (image cffi:foreign-pointer) (image-layout keyword) (depth-stencil (or vk:clear-depth-stencil-value cffi:foreign-pointer)) (ranges list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (image '%vk:image image :in :handle)
   (image-layout '%vk:image-layout image-layout :in)
@@ -1236,7 +1338,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-clear-attachments
                    "Represents <vkCmdClearAttachments>"
                    ((command-buffer cffi:foreign-pointer) (attachments list) (rects list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (attachment-count :uint32 (length attachments) :in :raw)
   (attachments '(:struct %vk:clear-attachment) attachments :in :list)
@@ -1247,7 +1350,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-resolve-image
                    "Represents <vkCmdResolveImage>"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image-layout keyword) (regions list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in)
@@ -1260,7 +1364,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-event
                    "Represents <vkCmdSetEvent>"
                    ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event '%vk:event event :in :handle)
   (stage-mask '%vk:pipeline-stage-flags stage-mask :in))
@@ -1269,7 +1374,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-reset-event
                    "Represents <vkCmdResetEvent>"
                    ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event '%vk:event event :in :handle)
   (stage-mask '%vk:pipeline-stage-flags stage-mask :in))
@@ -1278,7 +1384,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-wait-events
                    "Represents <vkCmdWaitEvents>"
                    ((command-buffer cffi:foreign-pointer) (events list) (src-stage-mask (or unsigned-byte list)) (dst-stage-mask (or unsigned-byte list)) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event-count :uint32 (length events) :in :raw)
   (events '%vk:event events :in :handle :list)
@@ -1295,7 +1402,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-pipeline-barrier
                    "Represents <vkCmdPipelineBarrier>"
                    ((command-buffer cffi:foreign-pointer) (src-stage-mask (or unsigned-byte list)) (dst-stage-mask (or unsigned-byte list)) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
-                   (((dependency-flags nil) (or unsigned-byte list))))
+                   (((dependency-flags nil) (or unsigned-byte list)))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in)
   (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in)
@@ -1311,7 +1419,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-query
                    "Represents <vkCmdBeginQuery>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw)
@@ -1321,7 +1430,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-query
                    "Represents <vkCmdEndQuery>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw))
@@ -1330,7 +1440,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-conditional-rendering-ext
                    "Represents <vkCmdBeginConditionalRenderingEXT>"
                    ((command-buffer cffi:foreign-pointer) (conditional-rendering-begin (or vk:conditional-rendering-begin-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (conditional-rendering-begin '(:struct %vk:conditional-rendering-begin-info-ext) conditional-rendering-begin :in))
 
@@ -1338,14 +1449,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-conditional-rendering-ext
                    "Represents <vkCmdEndConditionalRenderingEXT>"
                    ((command-buffer cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle))
 
 (defvk-simple-fun (cmd-reset-query-pool
                    %vk:cmd-reset-query-pool
                    "Represents <vkCmdResetQueryPool>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query cffi:foreign-pointer) (query-count cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw)
@@ -1355,7 +1468,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-write-timestamp
                    "Represents <vkCmdWriteTimestamp>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (pipeline-stage keyword) (query cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in)
   (query-pool '%vk:query-pool query-pool :in :handle)
@@ -1365,7 +1479,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-query-pool-results
                    "Represents <vkCmdCopyQueryPoolResults>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (first-query cffi:foreign-pointer) (query-count cffi:foreign-pointer) (dst-offset cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw)
@@ -1379,7 +1494,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-push-constants
                    "Represents <vkCmdPushConstants>"
                    ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (stage-flags (or unsigned-byte list)) (offset cffi:foreign-pointer) (size cffi:foreign-pointer) (values cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (layout '%vk:pipeline-layout layout :in :handle)
   (stage-flags '%vk:shader-stage-flags stage-flags :in)
@@ -1391,7 +1507,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-render-pass
                    "Represents <vkCmdBeginRenderPass>"
                    ((command-buffer cffi:foreign-pointer) (contents keyword) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
   (contents '%vk:subpass-contents contents :in))
@@ -1400,7 +1517,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-next-subpass
                    "Represents <vkCmdNextSubpass>"
                    ((command-buffer cffi:foreign-pointer) (contents keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (contents '%vk:subpass-contents contents :in))
 
@@ -1408,14 +1526,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-render-pass
                    "Represents <vkCmdEndRenderPass>"
                    ((command-buffer cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle))
 
 (defvk-simple-fun (cmd-execute-commands
                    %vk:cmd-execute-commands
                    "Represents <vkCmdExecuteCommands>"
                    ((command-buffer cffi:foreign-pointer) (command-buffers list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (command-buffer-count :uint32 (length command-buffers) :in :raw)
   (command-buffers '%vk:command-buffer command-buffers :in :handle :list))
@@ -1424,7 +1544,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-android-surface-khr
                           "Represents <vkCreateAndroidSurfaceKHR>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:android-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:android-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1436,7 +1557,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-properties-khr) properties :out :list))
@@ -1447,7 +1569,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-plane-properties-khr) properties :out :list))
@@ -1458,7 +1581,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (plane-index cffi:foreign-pointer))
                       ()
                       display-count
-                      displays)
+                      displays
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (plane-index :uint32 plane-index :in :raw)
   (display-count :uint32 display-count :out)
@@ -1470,7 +1594,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (property-count :uint32 property-count :out)
@@ -1480,7 +1605,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-display-mode-khr
                           "Represents <vkCreateDisplayModeKHR>"
                           ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (create-info (or vk:display-mode-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (create-info '(:struct %vk:display-mode-create-info-khr) create-info :in)
@@ -1501,7 +1627,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-display-plane-surface-khr
                           "Represents <vkCreateDisplayPlaneSurfaceKHR>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:display-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:display-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1523,7 +1650,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-surface-khr
                    "Represents <vkDestroySurfaceKHR>"
                    ((instance cffi:foreign-pointer))
-                   (((surface (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((surface (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (instance '%vk:instance instance :in :handle)
   (surface '%vk:surface-khr surface :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -1553,7 +1681,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       surface-format-count
-                      surface-formats)
+                      surface-formats
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (surface-format-count :uint32 surface-format-count :out)
@@ -1565,7 +1694,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       present-mode-count
-                      present-modes)
+                      present-modes
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (present-mode-count :uint32 present-mode-count :out)
@@ -1575,7 +1705,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-swapchain-khr
                           "Represents <vkCreateSwapchainKHR>"
                           ((device cffi:foreign-pointer) (create-info (or vk:swapchain-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:swapchain-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1585,7 +1716,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-swapchain-khr
                    "Represents <vkDestroySwapchainKHR>"
                    ((device cffi:foreign-pointer))
-                   (((swapchain (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((swapchain (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -1596,7 +1728,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                       ()
                       swapchain-image-count
-                      swapchain-images)
+                      swapchain-images
+                      nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
   (swapchain-image-count :uint32 swapchain-image-count :out)
@@ -1618,7 +1751,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-present-khr
                    "Represents <vkQueuePresentKHR>"
                    ((queue cffi:foreign-pointer) (present-info (or vk:present-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (queue '%vk:queue queue :in :handle)
   (present-info '(:struct %vk:present-info-khr) present-info :in))
 
@@ -1626,7 +1760,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-vi-surface-nn
                           "Represents <vkCreateViSurfaceNN>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:vi-surface-create-info-nn) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1636,7 +1771,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-wayland-surface-khr
                           "Represents <vkCreateWaylandSurfaceKHR>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:wayland-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:wayland-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1646,7 +1782,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-physical-device-wayland-presentation-support-khr
                    "Represents <vkGetPhysicalDeviceWaylandPresentationSupportKHR>"
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (display cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (display '(:pointer :void) display :in :handle))
@@ -1655,7 +1792,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-win32-surface-khr
                           "Represents <vkCreateWin32SurfaceKHR>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:win32-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:win32-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1665,7 +1803,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-physical-device-win32-presentation-support-khr
                    "Represents <vkGetPhysicalDeviceWin32PresentationSupportKHR>"
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw))
 
@@ -1673,7 +1812,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-xlib-surface-khr
                           "Represents <vkCreateXlibSurfaceKHR>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:xlib-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:xlib-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1683,7 +1823,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-physical-device-xlib-presentation-support-khr
                    "Represents <vkGetPhysicalDeviceXlibPresentationSupportKHR>"
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (dpy cffi:foreign-pointer) (visual-id cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (dpy '(:pointer :void) dpy :in :handle)
@@ -1693,7 +1834,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-xcb-surface-khr
                           "Represents <vkCreateXcbSurfaceKHR>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:xcb-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:xcb-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1703,7 +1845,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-physical-device-xcb-presentation-support-khr
                    "Represents <vkGetPhysicalDeviceXcbPresentationSupportKHR>"
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (connection cffi:foreign-pointer) (visual_id cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (connection '(:pointer :void) connection :in :handle)
@@ -1713,7 +1856,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-direct-fb-surface-ext
                           "Represents <vkCreateDirectFBSurfaceEXT>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:direct-fb-surface-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1723,7 +1867,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-physical-device-direct-fb-presentation-support-ext
                    "Represents <vkGetPhysicalDeviceDirectFBPresentationSupportEXT>"
                    ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer) (dfb cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (dfb '(:pointer :void) dfb :in :handle))
@@ -1732,7 +1877,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-image-pipe-surface-fuchsia
                           "Represents <vkCreateImagePipeSurfaceFUCHSIA>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:image-pipe-surface-create-info-fuchsia) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1742,7 +1888,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-stream-descriptor-surface-ggp
                           "Represents <vkCreateStreamDescriptorSurfaceGGP>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:stream-descriptor-surface-create-info-ggp) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1752,7 +1899,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-debug-report-callback-ext
                           "Represents <vkCreateDebugReportCallbackEXT>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:debug-report-callback-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1762,7 +1910,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-debug-report-callback-ext
                    "Represents <vkDestroyDebugReportCallbackEXT>"
                    ((instance cffi:foreign-pointer))
-                   (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (instance '%vk:instance instance :in :handle)
   (callback '%vk:debug-report-callback-ext callback :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -1771,7 +1920,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:debug-report-message-ext
                    "Represents <vkDebugReportMessageEXT>"
                    ((instance cffi:foreign-pointer) (flags (or unsigned-byte list)) (object-type keyword) (object cffi:foreign-pointer) (location cffi:foreign-pointer) (message-code cffi:foreign-pointer) (layer-prefix string) (message string))
-                   ())
+                   ()
+                  nil)
   (instance '%vk:instance instance :in :handle)
   (flags '%vk:debug-report-flags-ext flags :in)
   (object-type '%vk:debug-report-object-type-ext object-type :in)
@@ -1785,7 +1935,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:debug-marker-set-object-name-ext
                    "Represents <vkDebugMarkerSetObjectNameEXT>"
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-marker-object-name-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (name-info '(:struct %vk:debug-marker-object-name-info-ext) name-info :in))
 
@@ -1793,7 +1944,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:debug-marker-set-object-tag-ext
                    "Represents <vkDebugMarkerSetObjectTagEXT>"
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-marker-object-tag-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (tag-info '(:struct %vk:debug-marker-object-tag-info-ext) tag-info :in))
 
@@ -1801,7 +1953,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-debug-marker-begin-ext
                    "Represents <vkCmdDebugMarkerBeginEXT>"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (marker-info '(:struct %vk:debug-marker-marker-info-ext) marker-info :in))
 
@@ -1809,14 +1962,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-debug-marker-end-ext
                    "Represents <vkCmdDebugMarkerEndEXT>"
                    ((command-buffer cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle))
 
 (defvk-simple-fun (cmd-debug-marker-insert-ext
                    %vk:cmd-debug-marker-insert-ext
                    "Represents <vkCmdDebugMarkerInsertEXT>"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (marker-info '(:struct %vk:debug-marker-marker-info-ext) marker-info :in))
 
@@ -1848,7 +2003,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-execute-generated-commands-nv
                    "Represents <vkCmdExecuteGeneratedCommandsNV>"
                    ((command-buffer cffi:foreign-pointer) (is-preprocessed cffi:foreign-pointer) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (is-preprocessed '%vk:bool32 is-preprocessed :in)
   (generated-commands-info '(:struct %vk:generated-commands-info-nv) generated-commands-info :in))
@@ -1857,7 +2013,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-preprocess-generated-commands-nv
                    "Represents <vkCmdPreprocessGeneratedCommandsNV>"
                    ((command-buffer cffi:foreign-pointer) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (generated-commands-info '(:struct %vk:generated-commands-info-nv) generated-commands-info :in))
 
@@ -1865,7 +2022,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-pipeline-shader-group-nv
                    "Represents <vkCmdBindPipelineShaderGroupNV>"
                    ((command-buffer cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (pipeline-bind-point keyword) (group-index cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (pipeline '%vk:pipeline pipeline :in :handle)
@@ -1884,7 +2042,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-indirect-commands-layout-nv
                           "Represents <vkCreateIndirectCommandsLayoutNV>"
                           ((device cffi:foreign-pointer) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:indirect-commands-layout-create-info-nv) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -1894,7 +2053,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-indirect-commands-layout-nv
                    "Represents <vkDestroyIndirectCommandsLayoutNV>"
                    ((device cffi:foreign-pointer))
-                   (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (indirect-commands-layout '%vk:indirect-commands-layout-nv indirect-commands-layout :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -1974,7 +2134,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         queue-family-property-count
                         queue-family-properties
-                        t)
+                      t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
   (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out :list))
@@ -1986,7 +2146,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         queue-family-property-count
                         queue-family-properties
-                        t)
+                      t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
   (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out :list))
@@ -2014,7 +2174,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         property-count
                         properties
-                        t)
+                      t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (format-info '(:struct %vk:physical-device-sparse-image-format-info-2) format-info :in)
   (property-count :uint32 property-count :out)
@@ -2027,7 +2187,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         property-count
                         properties
-                        t)
+                      t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (format-info '(:struct %vk:physical-device-sparse-image-format-info-2) format-info :in)
   (property-count :uint32 property-count :out)
@@ -2037,7 +2197,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-push-descriptor-set-khr
                    "Represents <vkCmdPushDescriptorSetKHR>"
                    ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (pipeline-bind-point keyword) (set cffi:foreign-pointer) (descriptor-writes list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
   (layout '%vk:pipeline-layout layout :in :handle)
@@ -2049,7 +2210,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:trim-command-pool
                    "Represents <vkTrimCommandPool>"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
   (flags '%vk:command-pool-trim-flags flags :in :optional))
@@ -2058,7 +2220,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:trim-command-pool-khr
                    "Represents <vkTrimCommandPoolKHR>"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
   (flags '%vk:command-pool-trim-flags flags :in :optional))
@@ -2150,7 +2313,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:import-semaphore-win32-handle-khr
                    "Represents <vkImportSemaphoreWin32HandleKHR>"
                    ((device cffi:foreign-pointer) (import-semaphore-win32-handle-info (or vk:import-semaphore-win32-handle-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (import-semaphore-win32-handle-info '(:struct %vk:import-semaphore-win32-handle-info-khr) import-semaphore-win32-handle-info :in))
 
@@ -2167,7 +2331,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:import-semaphore-fd-khr
                    "Represents <vkImportSemaphoreFdKHR>"
                    ((device cffi:foreign-pointer) (import-semaphore-fd-info (or vk:import-semaphore-fd-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (import-semaphore-fd-info '(:struct %vk:import-semaphore-fd-info-khr) import-semaphore-fd-info :in))
 
@@ -2202,7 +2367,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:import-fence-win32-handle-khr
                    "Represents <vkImportFenceWin32HandleKHR>"
                    ((device cffi:foreign-pointer) (import-fence-win32-handle-info (or vk:import-fence-win32-handle-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (import-fence-win32-handle-info '(:struct %vk:import-fence-win32-handle-info-khr) import-fence-win32-handle-info :in))
 
@@ -2219,7 +2385,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:import-fence-fd-khr
                    "Represents <vkImportFenceFdKHR>"
                    ((device cffi:foreign-pointer) (import-fence-fd-info (or vk:import-fence-fd-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (import-fence-fd-info '(:struct %vk:import-fence-fd-info-khr) import-fence-fd-info :in))
 
@@ -2227,7 +2394,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:release-display-ext
                    "Represents <vkReleaseDisplayEXT>"
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle))
 
@@ -2235,7 +2403,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:acquire-xlib-display-ext
                    "Represents <vkAcquireXlibDisplayEXT>"
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (dpy cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (dpy '(:pointer :void) dpy :in :handle)
   (display '%vk:display-khr display :in :handle))
@@ -2244,7 +2413,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:get-rand-r-output-display-ext
                           "Represents <vkGetRandROutputDisplayEXT>"
                           ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (rr-output cffi:foreign-pointer))
-                          ())
+                          ()
+                          nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (dpy '(:pointer :void) dpy :in :handle)
   (rr-output '(:pointer :void) rr-output :in :handle)
@@ -2254,7 +2424,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:display-power-control-ext
                    "Represents <vkDisplayPowerControlEXT>"
                    ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-power-info (or vk:display-power-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (display-power-info '(:struct %vk:display-power-info-ext) display-power-info :in))
@@ -2263,7 +2434,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:register-device-event-ext
                           "Represents <vkRegisterDeviceEventEXT>"
                           ((device cffi:foreign-pointer) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (device-event-info '(:struct %vk:device-event-info-ext) device-event-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2273,7 +2445,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:register-display-event-ext
                           "Represents <vkRegisterDisplayEventEXT>"
                           ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (display-event-info '(:struct %vk:display-event-info-ext) display-event-info :in)
@@ -2305,7 +2478,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-group-count
-                      physical-device-group-properties)
+                      physical-device-group-properties
+                      nil)
   (instance '%vk:instance instance :in :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
   (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
@@ -2316,7 +2490,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-group-count
-                      physical-device-group-properties)
+                      physical-device-group-properties
+                      nil)
   (instance '%vk:instance instance :in :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
   (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
@@ -2347,7 +2522,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-buffer-memory-2
                    "Represents <vkBindBufferMemory2>"
                    ((device cffi:foreign-pointer) (bind-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in :list))
@@ -2356,7 +2532,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-buffer-memory-2-khr
                    "Represents <vkBindBufferMemory2KHR>"
                    ((device cffi:foreign-pointer) (bind-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in :list))
@@ -2365,7 +2542,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-image-memory-2
                    "Represents <vkBindImageMemory2>"
                    ((device cffi:foreign-pointer) (bind-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in :list))
@@ -2374,7 +2552,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-image-memory-2-khr
                    "Represents <vkBindImageMemory2KHR>"
                    ((device cffi:foreign-pointer) (bind-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in :list))
@@ -2383,7 +2562,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-device-mask
                    "Represents <vkCmdSetDeviceMask>"
                    ((command-buffer cffi:foreign-pointer) (device-mask cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (device-mask :uint32 device-mask :in :raw))
 
@@ -2391,7 +2571,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-device-mask-khr
                    "Represents <vkCmdSetDeviceMaskKHR>"
                    ((command-buffer cffi:foreign-pointer) (device-mask cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (device-mask :uint32 device-mask :in :raw))
 
@@ -2425,7 +2606,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-dispatch-base
                    "Represents <vkCmdDispatchBase>"
                    ((command-buffer cffi:foreign-pointer) (base-group-x cffi:foreign-pointer) (base-group-y cffi:foreign-pointer) (base-group-z cffi:foreign-pointer) (group-count-x cffi:foreign-pointer) (group-count-y cffi:foreign-pointer) (group-count-z cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (base-group-x :uint32 base-group-x :in :raw)
   (base-group-y :uint32 base-group-y :in :raw)
@@ -2438,7 +2620,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-dispatch-base-khr
                    "Represents <vkCmdDispatchBaseKHR>"
                    ((command-buffer cffi:foreign-pointer) (base-group-x cffi:foreign-pointer) (base-group-y cffi:foreign-pointer) (base-group-z cffi:foreign-pointer) (group-count-x cffi:foreign-pointer) (group-count-y cffi:foreign-pointer) (group-count-z cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (base-group-x :uint32 base-group-x :in :raw)
   (base-group-y :uint32 base-group-y :in :raw)
@@ -2453,7 +2636,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       rect-count
-                      rects)
+                      rects
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (rect-count :uint32 rect-count :out)
@@ -2463,7 +2647,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-descriptor-update-template
                           "Represents <vkCreateDescriptorUpdateTemplate>"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-update-template-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2473,7 +2658,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-descriptor-update-template-khr
                           "Represents <vkCreateDescriptorUpdateTemplateKHR>"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-update-template-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2483,7 +2669,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-descriptor-update-template
                    "Represents <vkDestroyDescriptorUpdateTemplate>"
                    ((device cffi:foreign-pointer))
-                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -2492,7 +2679,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-descriptor-update-template-khr
                    "Represents <vkDestroyDescriptorUpdateTemplateKHR>"
                    ((device cffi:foreign-pointer))
-                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -2501,7 +2689,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:update-descriptor-set-with-template
                    "Represents <vkUpdateDescriptorSetWithTemplate>"
                    ((device cffi:foreign-pointer) (descriptor-set cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-set '%vk:descriptor-set descriptor-set :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
@@ -2511,7 +2700,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:update-descriptor-set-with-template-khr
                    "Represents <vkUpdateDescriptorSetWithTemplateKHR>"
                    ((device cffi:foreign-pointer) (descriptor-set cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (descriptor-set '%vk:descriptor-set descriptor-set :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
@@ -2521,7 +2711,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-push-descriptor-set-with-template-khr
                    "Represents <vkCmdPushDescriptorSetWithTemplateKHR>"
                    ((command-buffer cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (layout cffi:foreign-pointer) (set cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
   (layout '%vk:pipeline-layout layout :in :handle)
@@ -2532,7 +2723,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:set-hdr-metadata-ext
                    "Represents <vkSetHdrMetadataEXT>"
                    ((device cffi:foreign-pointer) (swapchains list) (metadata list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (swapchain-count :uint32 (length metadata) :in :raw)
   (swapchains '%vk:swapchain-khr swapchains :in :handle :list)
@@ -2542,7 +2734,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-swapchain-status-khr
                    "Represents <vkGetSwapchainStatusKHR>"
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle))
 
@@ -2561,7 +2754,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                       ()
                       presentation-timing-count
-                      presentation-timings)
+                      presentation-timings
+                      nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
   (presentation-timing-count :uint32 presentation-timing-count :out)
@@ -2571,7 +2765,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-i-os-surface-mvk
                           "Represents <vkCreateIOSSurfaceMVK>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:i-os-surface-create-info-mvk cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:i-os-surface-create-info-mvk) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2581,7 +2776,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-mac-os-surface-mvk
                           "Represents <vkCreateMacOSSurfaceMVK>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:mac-os-surface-create-info-mvk) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2591,7 +2787,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-metal-surface-ext
                           "Represents <vkCreateMetalSurfaceEXT>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:metal-surface-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2601,7 +2798,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-viewport-w-scaling-nv
                    "Represents <vkCmdSetViewportWScalingNV>"
                    ((command-buffer cffi:foreign-pointer) (first-viewport cffi:foreign-pointer) (viewport-w-scalings list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-viewport :uint32 first-viewport :in :raw)
   (viewport-count :uint32 (length viewport-w-scalings) :in :raw)
@@ -2611,7 +2809,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-discard-rectangle-ext
                    "Represents <vkCmdSetDiscardRectangleEXT>"
                    ((command-buffer cffi:foreign-pointer) (first-discard-rectangle cffi:foreign-pointer) (discard-rectangles list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-discard-rectangle :uint32 first-discard-rectangle :in :raw)
   (discard-rectangle-count :uint32 (length discard-rectangles) :in :raw)
@@ -2621,7 +2820,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-sample-locations-ext
                    "Represents <vkCmdSetSampleLocationsEXT>"
                    ((command-buffer cffi:foreign-pointer) (sample-locations-info (or vk:sample-locations-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (sample-locations-info '(:struct %vk:sample-locations-info-ext) sample-locations-info :in))
 
@@ -2649,7 +2849,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
                       surface-format-count
-                      surface-formats)
+                      surface-formats
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (surface-format-count :uint32 surface-format-count :out)
@@ -2661,7 +2862,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-properties-2-khr) properties :out :list))
@@ -2672,7 +2874,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-plane-properties-2-khr) properties :out :list))
@@ -2683,7 +2886,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (property-count :uint32 property-count :out)
@@ -2741,7 +2945,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         sparse-memory-requirement-count
                         sparse-memory-requirements
-                        t)
+                      t)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:image-sparse-memory-requirements-info-2) info :in)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
@@ -2754,7 +2958,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         sparse-memory-requirement-count
                         sparse-memory-requirements
-                        t)
+                      t)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:image-sparse-memory-requirements-info-2) info :in)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
@@ -2764,7 +2968,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-sampler-ycbcr-conversion
                           "Represents <vkCreateSamplerYcbcrConversion>"
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:sampler-ycbcr-conversion-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2774,7 +2979,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-sampler-ycbcr-conversion-khr
                           "Represents <vkCreateSamplerYcbcrConversionKHR>"
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:sampler-ycbcr-conversion-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2784,7 +2990,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-sampler-ycbcr-conversion
                    "Represents <vkDestroySamplerYcbcrConversion>"
                    ((device cffi:foreign-pointer))
-                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -2793,7 +3000,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-sampler-ycbcr-conversion-khr
                    "Represents <vkDestroySamplerYcbcrConversionKHR>"
                    ((device cffi:foreign-pointer))
-                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -2812,7 +3020,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-validation-cache-ext
                           "Represents <vkCreateValidationCacheEXT>"
                           ((device cffi:foreign-pointer) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:validation-cache-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2822,7 +3031,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-validation-cache-ext
                    "Represents <vkDestroyValidationCacheEXT>"
                    ((device cffi:foreign-pointer))
-                   (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (validation-cache '%vk:validation-cache-ext validation-cache :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -2841,7 +3051,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:merge-validation-caches-ext
                    "Represents <vkMergeValidationCachesEXT>"
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (dst-cache '%vk:validation-cache-ext dst-cache :in :handle)
   (src-cache-count :uint32 (length src-caches) :in :raw)
@@ -2881,7 +3092,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:set-local-dimming-amd
                    "Represents <vkSetLocalDimmingAMD>"
                    ((device cffi:foreign-pointer) (swap-chain cffi:foreign-pointer) (local-dimming-enable cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (swap-chain '%vk:swapchain-khr swap-chain :in :handle)
   (local-dimming-enable '%vk:bool32 local-dimming-enable :in))
@@ -2892,7 +3104,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       time-domain-count
-                      time-domains)
+                      time-domains
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (time-domain-count :uint32 time-domain-count :out)
   (time-domains '%vk:time-domain-ext time-domains :out :list))
@@ -2914,7 +3127,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:set-debug-utils-object-name-ext
                    "Represents <vkSetDebugUtilsObjectNameEXT>"
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-utils-object-name-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (name-info '(:struct %vk:debug-utils-object-name-info-ext) name-info :in))
 
@@ -2922,7 +3136,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:set-debug-utils-object-tag-ext
                    "Represents <vkSetDebugUtilsObjectTagEXT>"
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-utils-object-tag-info-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (tag-info '(:struct %vk:debug-utils-object-tag-info-ext) tag-info :in))
 
@@ -2930,7 +3145,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-begin-debug-utils-label-ext
                    "Represents <vkQueueBeginDebugUtilsLabelEXT>"
                    ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (queue '%vk:queue queue :in :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
@@ -2938,14 +3154,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-end-debug-utils-label-ext
                    "Represents <vkQueueEndDebugUtilsLabelEXT>"
                    ((queue cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (queue '%vk:queue queue :in :handle))
 
 (defvk-simple-fun (queue-insert-debug-utils-label-ext
                    %vk:queue-insert-debug-utils-label-ext
                    "Represents <vkQueueInsertDebugUtilsLabelEXT>"
                    ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (queue '%vk:queue queue :in :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
@@ -2953,7 +3171,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-debug-utils-label-ext
                    "Represents <vkCmdBeginDebugUtilsLabelEXT>"
                    ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
@@ -2961,14 +3180,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-debug-utils-label-ext
                    "Represents <vkCmdEndDebugUtilsLabelEXT>"
                    ((command-buffer cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle))
 
 (defvk-simple-fun (cmd-insert-debug-utils-label-ext
                    %vk:cmd-insert-debug-utils-label-ext
                    "Represents <vkCmdInsertDebugUtilsLabelEXT>"
                    ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
@@ -2976,7 +3197,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-debug-utils-messenger-ext
                           "Represents <vkCreateDebugUtilsMessengerEXT>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:debug-utils-messenger-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -2986,7 +3208,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-debug-utils-messenger-ext
                    "Represents <vkDestroyDebugUtilsMessengerEXT>"
                    ((instance cffi:foreign-pointer))
-                   (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (instance '%vk:instance instance :in :handle)
   (messenger '%vk:debug-utils-messenger-ext messenger :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -2995,7 +3218,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:submit-debug-utils-message-ext
                    "Represents <vkSubmitDebugUtilsMessageEXT>"
                    ((instance cffi:foreign-pointer) (message-severity keyword) (message-types (or unsigned-byte list)) (callback-data (or vk:debug-utils-messenger-callback-data-ext cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (instance '%vk:instance instance :in :handle)
   (message-severity '%vk:debug-utils-message-severity-flag-bits-ext message-severity :in)
   (message-types '%vk:debug-utils-message-type-flags-ext message-types :in)
@@ -3015,7 +3239,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-write-buffer-marker-amd
                    "Represents <vkCmdWriteBufferMarkerAMD>"
                    ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (pipeline-stage keyword) (dst-offset cffi:foreign-pointer) (marker cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
@@ -3026,7 +3251,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-render-pass-2
                           "Represents <vkCreateRenderPass2>"
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:render-pass-create-info-2) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -3036,7 +3262,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-render-pass-2-khr
                           "Represents <vkCreateRenderPass2KHR>"
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:render-pass-create-info-2) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -3046,7 +3273,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-render-pass-2
                    "Represents <vkCmdBeginRenderPass2>"
                    ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in))
@@ -3055,7 +3283,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-render-pass-2-khr
                    "Represents <vkCmdBeginRenderPass2KHR>"
                    ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in))
@@ -3064,7 +3293,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-next-subpass-2
                    "Represents <vkCmdNextSubpass2>"
                    ((command-buffer cffi:foreign-pointer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
@@ -3073,7 +3303,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-next-subpass-2-khr
                    "Represents <vkCmdNextSubpass2KHR>"
                    ((command-buffer cffi:foreign-pointer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
@@ -3082,7 +3313,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-render-pass-2
                    "Represents <vkCmdEndRenderPass2>"
                    ((command-buffer cffi:foreign-pointer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
 
@@ -3090,7 +3322,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-render-pass-2-khr
                    "Represents <vkCmdEndRenderPass2KHR>"
                    ((command-buffer cffi:foreign-pointer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
 
@@ -3116,7 +3349,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:wait-semaphores
                    "Represents <vkWaitSemaphores>"
                    ((device cffi:foreign-pointer) (timeout cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (wait-info '(:struct %vk:semaphore-wait-info) wait-info :in)
   (timeout :uint64 timeout :in :raw))
@@ -3125,7 +3359,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:wait-semaphores-khr
                    "Represents <vkWaitSemaphoresKHR>"
                    ((device cffi:foreign-pointer) (timeout cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (wait-info '(:struct %vk:semaphore-wait-info) wait-info :in)
   (timeout :uint64 timeout :in :raw))
@@ -3134,7 +3369,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:signal-semaphore
                    "Represents <vkSignalSemaphore>"
                    ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (signal-info '(:struct %vk:semaphore-signal-info) signal-info :in))
 
@@ -3142,7 +3378,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:signal-semaphore-khr
                    "Represents <vkSignalSemaphoreKHR>"
                    ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (signal-info '(:struct %vk:semaphore-signal-info) signal-info :in))
 
@@ -3168,7 +3405,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indirect-count
                    "Represents <vkCmdDrawIndirectCount>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3181,7 +3419,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indirect-count-amd
                    "Represents <vkCmdDrawIndirectCountAMD>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3194,7 +3433,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indirect-count-khr
                    "Represents <vkCmdDrawIndirectCountKHR>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3207,7 +3447,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indexed-indirect-count
                    "Represents <vkCmdDrawIndexedIndirectCount>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3220,7 +3461,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indexed-indirect-count-amd
                    "Represents <vkCmdDrawIndexedIndirectCountAMD>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3233,7 +3475,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indexed-indirect-count-khr
                    "Represents <vkCmdDrawIndexedIndirectCountKHR>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3246,7 +3489,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-checkpoint-nv
                    "Represents <vkCmdSetCheckpointNV>"
                    ((command-buffer cffi:foreign-pointer) (checkpoint-marker cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (checkpoint-marker '(:pointer :void) checkpoint-marker :in :handle))
 
@@ -3257,7 +3501,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         ()
                         checkpoint-data-count
                         checkpoint-data
-                        t)
+                      t)
   (queue '%vk:queue queue :in :handle)
   (checkpoint-data-count :uint32 checkpoint-data-count :out)
   (checkpoint-data '(:struct %vk:checkpoint-data-nv) checkpoint-data :out :list))
@@ -3266,7 +3510,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-transform-feedback-buffers-ext
                    "Represents <vkCmdBindTransformFeedbackBuffersEXT>"
                    ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding cffi:foreign-pointer) (offsets list))
-                   (((sizes nil) list)))
+                   (((sizes nil) list))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-binding :uint32 first-binding :in :raw)
   (binding-count :uint32 (length sizes) :in :raw)
@@ -3278,7 +3523,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-transform-feedback-ext
                    "Represents <vkCmdBeginTransformFeedbackEXT>"
                    ((command-buffer cffi:foreign-pointer) (counter-buffers list) (first-counter-buffer cffi:foreign-pointer))
-                   (((counter-buffer-offsets nil) list)))
+                   (((counter-buffer-offsets nil) list))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-counter-buffer :uint32 first-counter-buffer :in :raw)
   (counter-buffer-count :uint32 (length counter-buffer-offsets) :in :raw)
@@ -3289,7 +3535,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-transform-feedback-ext
                    "Represents <vkCmdEndTransformFeedbackEXT>"
                    ((command-buffer cffi:foreign-pointer) (counter-buffers list) (first-counter-buffer cffi:foreign-pointer))
-                   (((counter-buffer-offsets nil) list)))
+                   (((counter-buffer-offsets nil) list))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-counter-buffer :uint32 first-counter-buffer :in :raw)
   (counter-buffer-count :uint32 (length counter-buffer-offsets) :in :raw)
@@ -3300,7 +3547,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-begin-query-indexed-ext
                    "Represents <vkCmdBeginQueryIndexedEXT>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query cffi:foreign-pointer) (index cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list))))
+                   (((flags nil) (or unsigned-byte list)))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw)
@@ -3311,7 +3559,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-end-query-indexed-ext
                    "Represents <vkCmdEndQueryIndexedEXT>"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query cffi:foreign-pointer) (index cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw)
@@ -3321,7 +3570,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-indirect-byte-count-ext
                    "Represents <vkCmdDrawIndirectByteCountEXT>"
                    ((command-buffer cffi:foreign-pointer) (counter-buffer cffi:foreign-pointer) (instance-count cffi:foreign-pointer) (first-instance cffi:foreign-pointer) (counter-buffer-offset cffi:foreign-pointer) (counter-offset cffi:foreign-pointer) (vertex-stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (instance-count :uint32 instance-count :in :raw)
   (first-instance :uint32 first-instance :in :raw)
@@ -3334,7 +3584,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-exclusive-scissor-nv
                    "Represents <vkCmdSetExclusiveScissorNV>"
                    ((command-buffer cffi:foreign-pointer) (first-exclusive-scissor cffi:foreign-pointer) (exclusive-scissors list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-exclusive-scissor :uint32 first-exclusive-scissor :in :raw)
   (exclusive-scissor-count :uint32 (length exclusive-scissors) :in :raw)
@@ -3344,7 +3595,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-shading-rate-image-nv
                    "Represents <vkCmdBindShadingRateImageNV>"
                    ((command-buffer cffi:foreign-pointer) (image-layout keyword))
-                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer)))
+                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (image-view '%vk:image-view image-view :in :handle :optional)
   (image-layout '%vk:image-layout image-layout :in))
@@ -3353,7 +3605,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-viewport-shading-rate-palette-nv
                    "Represents <vkCmdSetViewportShadingRatePaletteNV>"
                    ((command-buffer cffi:foreign-pointer) (first-viewport cffi:foreign-pointer) (shading-rate-palettes list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-viewport :uint32 first-viewport :in :raw)
   (viewport-count :uint32 (length shading-rate-palettes) :in :raw)
@@ -3363,7 +3616,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-coarse-sample-order-nv
                    "Represents <vkCmdSetCoarseSampleOrderNV>"
                    ((command-buffer cffi:foreign-pointer) (sample-order-type keyword) (custom-sample-orders list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (sample-order-type '%vk:coarse-sample-order-type-nv sample-order-type :in)
   (custom-sample-order-count :uint32 (length custom-sample-orders) :in :raw)
@@ -3373,7 +3627,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-mesh-tasks-nv
                    "Represents <vkCmdDrawMeshTasksNV>"
                    ((command-buffer cffi:foreign-pointer) (task-count cffi:foreign-pointer) (first-task cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (task-count :uint32 task-count :in :raw)
   (first-task :uint32 first-task :in :raw))
@@ -3382,7 +3637,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-mesh-tasks-indirect-nv
                    "Represents <vkCmdDrawMeshTasksIndirectNV>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3393,7 +3649,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-draw-mesh-tasks-indirect-count-nv
                    "Represents <vkCmdDrawMeshTasksIndirectCountNV>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (count-buffer-offset cffi:foreign-pointer) (max-draw-count cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
@@ -3406,7 +3663,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:compile-deferred-nv
                    "Represents <vkCompileDeferredNV>"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
   (shader :uint32 shader :in :raw))
@@ -3425,7 +3683,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-acceleration-structure-khr
                    "Represents <vkDestroyAccelerationStructureKHR>"
                    ((device cffi:foreign-pointer))
-                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -3434,7 +3693,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-acceleration-structure-nv
                    "Represents <vkDestroyAccelerationStructureNV>"
                    ((device cffi:foreign-pointer))
-                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -3461,7 +3721,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-acceleration-structure-memory-khr
                    "Represents <vkBindAccelerationStructureMemoryKHR>"
                    ((device cffi:foreign-pointer) (bind-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in :list))
@@ -3470,7 +3731,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:bind-acceleration-structure-memory-nv
                    "Represents <vkBindAccelerationStructureMemoryNV>"
                    ((device cffi:foreign-pointer) (bind-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in :list))
@@ -3479,7 +3741,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-acceleration-structure-nv
                    "Represents <vkCmdCopyAccelerationStructureNV>"
                    ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (src cffi:foreign-pointer) (mode keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (dst '%vk:acceleration-structure-khr dst :in :handle)
   (src '%vk:acceleration-structure-khr src :in :handle)
@@ -3489,7 +3752,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-acceleration-structure-khr
                    "Represents <vkCmdCopyAccelerationStructureKHR>"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (info '(:struct %vk:copy-acceleration-structure-info-khr) info :in))
 
@@ -3497,7 +3761,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:copy-acceleration-structure-khr
                    "Represents <vkCopyAccelerationStructureKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:copy-acceleration-structure-info-khr) info :in))
 
@@ -3505,7 +3770,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-acceleration-structure-to-memory-khr
                    "Represents <vkCmdCopyAccelerationStructureToMemoryKHR>"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (info '(:struct %vk:copy-acceleration-structure-to-memory-info-khr) info :in))
 
@@ -3513,7 +3779,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:copy-acceleration-structure-to-memory-khr
                    "Represents <vkCopyAccelerationStructureToMemoryKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:copy-acceleration-structure-to-memory-info-khr) info :in))
 
@@ -3521,7 +3788,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-copy-memory-to-acceleration-structure-khr
                    "Represents <vkCmdCopyMemoryToAccelerationStructureKHR>"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (info '(:struct %vk:copy-memory-to-acceleration-structure-info-khr) info :in))
 
@@ -3529,7 +3797,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:copy-memory-to-acceleration-structure-khr
                    "Represents <vkCopyMemoryToAccelerationStructureKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:copy-memory-to-acceleration-structure-info-khr) info :in))
 
@@ -3537,7 +3806,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-write-acceleration-structures-properties-khr
                    "Represents <vkCmdWriteAccelerationStructuresPropertiesKHR>"
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-pool cffi:foreign-pointer) (query-type keyword) (first-query cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
   (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
@@ -3549,7 +3819,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-write-acceleration-structures-properties-nv
                    "Represents <vkCmdWriteAccelerationStructuresPropertiesNV>"
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-pool cffi:foreign-pointer) (query-type keyword) (first-query cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
   (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
@@ -3561,7 +3832,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-build-acceleration-structure-nv
                    "Represents <vkCmdBuildAccelerationStructureNV>"
                    ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (instance-offset cffi:foreign-pointer) (update cffi:foreign-pointer) (scratch-offset cffi:foreign-pointer) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)))
-                   (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer)))
+                   (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (info '(:struct %vk:acceleration-structure-info-nv) info :in)
   (instance-data '%vk:buffer instance-data :in :handle :optional)
@@ -3576,7 +3848,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:write-acceleration-structures-properties-khr
                    "Represents <vkWriteAccelerationStructuresPropertiesKHR>"
                    ((device cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer) (stride cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
   (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
@@ -3589,7 +3862,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-trace-rays-khr
                    "Represents <vkCmdTraceRaysKHR>"
                    ((command-buffer cffi:foreign-pointer) (width cffi:foreign-pointer) (height cffi:foreign-pointer) (depth cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (raygen-shader-binding-table '(:struct %vk:strided-buffer-region-khr) raygen-shader-binding-table :in)
   (miss-shader-binding-table '(:struct %vk:strided-buffer-region-khr) miss-shader-binding-table :in)
@@ -3603,7 +3877,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-trace-rays-nv
                    "Represents <vkCmdTraceRaysNV>"
                    ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table-buffer cffi:foreign-pointer) (raygen-shader-binding-offset cffi:foreign-pointer) (miss-shader-binding-offset cffi:foreign-pointer) (miss-shader-binding-stride cffi:foreign-pointer) (hit-shader-binding-offset cffi:foreign-pointer) (hit-shader-binding-stride cffi:foreign-pointer) (callable-shader-binding-offset cffi:foreign-pointer) (callable-shader-binding-stride cffi:foreign-pointer) (width cffi:foreign-pointer) (height cffi:foreign-pointer) (depth cffi:foreign-pointer))
-                   (((miss-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((hit-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((callable-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer)))
+                   (((miss-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((hit-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((callable-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (raygen-shader-binding-table-buffer '%vk:buffer raygen-shader-binding-table-buffer :in :handle)
   (raygen-shader-binding-offset '%vk:device-size raygen-shader-binding-offset :in)
@@ -3624,7 +3899,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-ray-tracing-shader-group-handles-khr
                    "Represents <vkGetRayTracingShaderGroupHandlesKHR>"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group cffi:foreign-pointer) (group-count cffi:foreign-pointer) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
   (first-group :uint32 first-group :in :raw)
@@ -3636,7 +3912,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-ray-tracing-shader-group-handles-nv
                    "Represents <vkGetRayTracingShaderGroupHandlesNV>"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group cffi:foreign-pointer) (group-count cffi:foreign-pointer) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
   (first-group :uint32 first-group :in :raw)
@@ -3648,7 +3925,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-ray-tracing-capture-replay-shader-group-handles-khr
                    "Represents <vkGetRayTracingCaptureReplayShaderGroupHandlesKHR>"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group cffi:foreign-pointer) (group-count cffi:foreign-pointer) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
   (first-group :uint32 first-group :in :raw)
@@ -3660,7 +3938,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-acceleration-structure-handle-nv
                    "Represents <vkGetAccelerationStructureHandleNV>"
                    ((device cffi:foreign-pointer) (acceleration-structure cffi:foreign-pointer) (data-size cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle)
   (data-size '%vk:size-t data-size :in :raw)
@@ -3698,7 +3977,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties)
+                      properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:cooperative-matrix-properties-nv) properties :out :list))
@@ -3707,7 +3987,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-trace-rays-indirect-khr
                    "Represents <vkCmdTraceRaysIndirectKHR>"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (raygen-shader-binding-table '(:struct %vk:strided-buffer-region-khr) raygen-shader-binding-table :in)
   (miss-shader-binding-table '(:struct %vk:strided-buffer-region-khr) miss-shader-binding-table :in)
@@ -3720,7 +4001,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-device-acceleration-structure-compatibility-khr
                    "Represents <vkGetDeviceAccelerationStructureCompatibilityKHR>"
                    ((device cffi:foreign-pointer) (version (or vk:acceleration-structure-version-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (version '(:struct %vk:acceleration-structure-version-khr) version :in))
 
@@ -3748,7 +4030,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
                       present-mode-count
-                      present-modes)
+                      present-modes
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (present-mode-count :uint32 present-mode-count :out)
@@ -3767,7 +4050,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:acquire-full-screen-exclusive-mode-ext
                    "Represents <vkAcquireFullScreenExclusiveModeEXT>"
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle))
 
@@ -3775,7 +4059,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:release-full-screen-exclusive-mode-ext
                    "Represents <vkReleaseFullScreenExclusiveModeEXT>"
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle))
 
@@ -3785,7 +4070,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                                  ((physical-device cffi:foreign-pointer) (queue-family-index cffi:foreign-pointer))
                                  ()
                                  counter-count
-                                 (counters counter-descriptions))
+                                 (counters counter-descriptions)
+                                 nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (counter-count :uint32 counter-count :out)
@@ -3805,7 +4091,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:acquire-profiling-lock-khr
                    "Represents <vkAcquireProfilingLockKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:acquire-profiling-lock-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:acquire-profiling-lock-info-khr) info :in))
 
@@ -3813,7 +4100,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:release-profiling-lock-khr
                    "Represents <vkReleaseProfilingLockKHR>"
                    ((device cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle))
 
 (defvk-get-struct-fun (get-image-drm-format-modifier-properties-ext
@@ -3874,7 +4162,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-headless-surface-ext
                           "Represents <vkCreateHeadlessSurfaceEXT>"
                           ((instance cffi:foreign-pointer) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:headless-surface-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -3886,7 +4175,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       combination-count
-                      combinations)
+                      combinations
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (combination-count :uint32 combination-count :out)
   (combinations '(:struct %vk:framebuffer-mixed-samples-combination-nv) combinations :out :list))
@@ -3895,7 +4185,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:initialize-performance-api-intel
                    "Represents <vkInitializePerformanceApiINTEL>"
                    ((device cffi:foreign-pointer) (initialize-info (or vk:initialize-performance-api-info-intel cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (initialize-info '(:struct %vk:initialize-performance-api-info-intel) initialize-info :in))
 
@@ -3903,14 +4194,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:uninitialize-performance-api-intel
                    "Represents <vkUninitializePerformanceApiINTEL>"
                    ((device cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle))
 
 (defvk-simple-fun (cmd-set-performance-marker-intel
                    %vk:cmd-set-performance-marker-intel
                    "Represents <vkCmdSetPerformanceMarkerINTEL>"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-marker-info-intel cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (marker-info '(:struct %vk:performance-marker-info-intel) marker-info :in))
 
@@ -3918,7 +4211,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-performance-stream-marker-intel
                    "Represents <vkCmdSetPerformanceStreamMarkerINTEL>"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-stream-marker-info-intel cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (marker-info '(:struct %vk:performance-stream-marker-info-intel) marker-info :in))
 
@@ -3926,7 +4220,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-performance-override-intel
                    "Represents <vkCmdSetPerformanceOverrideINTEL>"
                    ((command-buffer cffi:foreign-pointer) (override-info (or vk:performance-override-info-intel cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (override-info '(:struct %vk:performance-override-info-intel) override-info :in))
 
@@ -3934,7 +4229,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:acquire-performance-configuration-intel
                           "Represents <vkAcquirePerformanceConfigurationINTEL>"
                           ((device cffi:foreign-pointer) (acquire-info (or vk:performance-configuration-acquire-info-intel cffi:foreign-pointer)))
-                          ())
+                          ()
+                          nil)
   (device '%vk:device device :in :handle)
   (acquire-info '(:struct %vk:performance-configuration-acquire-info-intel) acquire-info :in)
   (configuration '%vk:performance-configuration-intel configuration :out :handle))
@@ -3943,7 +4239,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:release-performance-configuration-intel
                    "Represents <vkReleasePerformanceConfigurationINTEL>"
                    ((device cffi:foreign-pointer))
-                   (((configuration (cffi:null-pointer)) cffi:foreign-pointer)))
+                   (((configuration (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
   (device '%vk:device device :in :handle)
   (configuration '%vk:performance-configuration-intel configuration :in :handle :optional))
 
@@ -3951,7 +4248,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:queue-set-performance-configuration-intel
                    "Represents <vkQueueSetPerformanceConfigurationINTEL>"
                    ((queue cffi:foreign-pointer) (configuration cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (queue '%vk:queue queue :in :handle)
   (configuration '%vk:performance-configuration-intel configuration :in :handle))
 
@@ -3988,7 +4286,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((device cffi:foreign-pointer) (pipeline-info (or vk:pipeline-info-khr cffi:foreign-pointer)))
                       ()
                       executable-count
-                      properties)
+                      properties
+                      nil)
   (device '%vk:device device :in :handle)
   (pipeline-info '(:struct %vk:pipeline-info-khr) pipeline-info :in)
   (executable-count :uint32 executable-count :out)
@@ -4000,7 +4299,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
                       statistic-count
-                      statistics)
+                      statistics
+                      nil)
   (device '%vk:device device :in :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (statistic-count :uint32 statistic-count :out)
@@ -4012,7 +4312,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
                       internal-representation-count
-                      internal-representations)
+                      internal-representations
+                      nil)
   (device '%vk:device device :in :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (internal-representation-count :uint32 internal-representation-count :out)
@@ -4022,7 +4323,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-line-stipple-ext
                    "Represents <vkCmdSetLineStippleEXT>"
                    ((command-buffer cffi:foreign-pointer) (line-stipple-factor cffi:foreign-pointer) (line-stipple-pattern cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (line-stipple-factor :uint32 line-stipple-factor :in :raw)
   (line-stipple-pattern :uint16 line-stipple-pattern :in :raw))
@@ -4033,7 +4335,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       tool-count
-                      tool-properties)
+                      tool-properties
+                      nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (tool-count :uint32 tool-count :out)
   (tool-properties '(:struct %vk:physical-device-tool-properties-ext) tool-properties :out :list))
@@ -4042,7 +4345,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-acceleration-structure-khr
                           "Represents <vkCreateAccelerationStructureKHR>"
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:acceleration-structure-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -4052,7 +4356,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-build-acceleration-structure-khr
                    "Represents <vkCmdBuildAccelerationStructureKHR>"
                    ((command-buffer cffi:foreign-pointer) (infos list) (p-offset-infos list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (info-count :uint32 (length p-offset-infos) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
@@ -4062,7 +4367,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-build-acceleration-structure-indirect-khr
                    "Represents <vkCmdBuildAccelerationStructureIndirectKHR>"
                    ((command-buffer cffi:foreign-pointer) (indirect-buffer cffi:foreign-pointer) (indirect-offset cffi:foreign-pointer) (indirect-stride cffi:foreign-pointer) (info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (info '(:struct %vk:acceleration-structure-build-geometry-info-khr) info :in)
   (indirect-buffer '%vk:buffer indirect-buffer :in :handle)
@@ -4073,7 +4379,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:build-acceleration-structure-khr
                    "Represents <vkBuildAccelerationStructureKHR>"
                    ((device cffi:foreign-pointer) (infos list) (p-offset-infos list))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (info-count :uint32 (length p-offset-infos) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
@@ -4092,7 +4399,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-deferred-operation-khr
                           "Represents <vkCreateDeferredOperationKHR>"
                           ((device cffi:foreign-pointer))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (deferred-operation '%vk:deferred-operation-khr deferred-operation :out :handle))
@@ -4101,7 +4409,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-deferred-operation-khr
                    "Represents <vkDestroyDeferredOperationKHR>"
                    ((device cffi:foreign-pointer))
-                   (((operation (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((operation (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (operation '%vk:deferred-operation-khr operation :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -4119,7 +4428,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:get-deferred-operation-result-khr
                    "Represents <vkGetDeferredOperationResultKHR>"
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (operation '%vk:deferred-operation-khr operation :in :handle))
 
@@ -4127,7 +4437,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:deferred-operation-join-khr
                    "Represents <vkDeferredOperationJoinKHR>"
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (operation '%vk:deferred-operation-khr operation :in :handle))
 
@@ -4135,7 +4446,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-cull-mode-ext
                    "Represents <vkCmdSetCullModeEXT>"
                    ((command-buffer cffi:foreign-pointer))
-                   (((cull-mode nil) (or unsigned-byte list))))
+                   (((cull-mode nil) (or unsigned-byte list)))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (cull-mode '%vk:cull-mode-flags cull-mode :in :optional))
 
@@ -4143,7 +4455,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-front-face-ext
                    "Represents <vkCmdSetFrontFaceEXT>"
                    ((command-buffer cffi:foreign-pointer) (front-face keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (front-face '%vk:front-face front-face :in))
 
@@ -4151,7 +4464,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-primitive-topology-ext
                    "Represents <vkCmdSetPrimitiveTopologyEXT>"
                    ((command-buffer cffi:foreign-pointer) (primitive-topology keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (primitive-topology '%vk:primitive-topology primitive-topology :in))
 
@@ -4159,7 +4473,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-viewport-with-count-ext
                    "Represents <vkCmdSetViewportWithCountEXT>"
                    ((command-buffer cffi:foreign-pointer) (viewports list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (viewport-count :uint32 (length viewports) :in :raw)
   (viewports '(:struct %vk:viewport) viewports :in :list))
@@ -4168,7 +4483,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-scissor-with-count-ext
                    "Represents <vkCmdSetScissorWithCountEXT>"
                    ((command-buffer cffi:foreign-pointer) (scissors list))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (scissor-count :uint32 (length scissors) :in :raw)
   (scissors '(:struct %vk:rect-2d) scissors :in :list))
@@ -4177,7 +4493,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-bind-vertex-buffers-2-ext
                    "Represents <vkCmdBindVertexBuffers2EXT>"
                    ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding cffi:foreign-pointer) (offsets list))
-                   (((sizes nil) list) ((strides nil) list)))
+                   (((sizes nil) list) ((strides nil) list))
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (first-binding :uint32 first-binding :in :raw)
   (binding-count :uint32 (length strides) :in :raw)
@@ -4190,7 +4507,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-depth-test-enable-ext
                    "Represents <vkCmdSetDepthTestEnableEXT>"
                    ((command-buffer cffi:foreign-pointer) (depth-test-enable cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (depth-test-enable '%vk:bool32 depth-test-enable :in))
 
@@ -4198,7 +4516,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-depth-write-enable-ext
                    "Represents <vkCmdSetDepthWriteEnableEXT>"
                    ((command-buffer cffi:foreign-pointer) (depth-write-enable cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (depth-write-enable '%vk:bool32 depth-write-enable :in))
 
@@ -4206,7 +4525,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-depth-compare-op-ext
                    "Represents <vkCmdSetDepthCompareOpEXT>"
                    ((command-buffer cffi:foreign-pointer) (depth-compare-op keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (depth-compare-op '%vk:compare-op depth-compare-op :in))
 
@@ -4214,7 +4534,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-depth-bounds-test-enable-ext
                    "Represents <vkCmdSetDepthBoundsTestEnableEXT>"
                    ((command-buffer cffi:foreign-pointer) (depth-bounds-test-enable cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (depth-bounds-test-enable '%vk:bool32 depth-bounds-test-enable :in))
 
@@ -4222,7 +4543,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-stencil-test-enable-ext
                    "Represents <vkCmdSetStencilTestEnableEXT>"
                    ((command-buffer cffi:foreign-pointer) (stencil-test-enable cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (stencil-test-enable '%vk:bool32 stencil-test-enable :in))
 
@@ -4230,7 +4552,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:cmd-set-stencil-op-ext
                    "Represents <vkCmdSetStencilOpEXT>"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (fail-op keyword) (pass-op keyword) (depth-fail-op keyword) (compare-op keyword))
-                   ())
+                   ()
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in)
   (fail-op '%vk:stencil-op fail-op :in)
@@ -4242,7 +4565,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           %vk:create-private-data-slot-ext
                           "Represents <vkCreatePrivateDataSlotEXT>"
                           ((device cffi:foreign-pointer) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:private-data-slot-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -4252,7 +4576,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:destroy-private-data-slot-ext
                    "Represents <vkDestroyPrivateDataSlotEXT>"
                    ((device cffi:foreign-pointer))
-                   (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer))))
+                   (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
   (device '%vk:device device :in :handle)
   (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -4261,7 +4586,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:set-private-data-ext
                    "Represents <vkSetPrivateDataEXT>"
                    ((device cffi:foreign-pointer) (private-data-slot cffi:foreign-pointer) (object-type keyword) (object-handle cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ())
+                   ()
+                  nil)
   (device '%vk:device device :in :handle)
   (object-type '%vk:object-type object-type :in)
   (object-handle :uint64 object-handle :in :raw)

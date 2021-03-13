@@ -230,7 +230,7 @@ E.g. vkGetPhysicalDeviceQueueFamilyProperties2"
                                  (loop for ,i from 0 below ,translated-count
                                        collect (cffi:mem-aref ,@ (second array-arg) ,i)))
                               `(let ((,result (,vulkan-fun ,@vk-input-args)))
-                                 (cl:values (loop for ,i from 0 beloq ,translated-count
+                                 (cl:values (loop for ,i from 0 below ,translated-count
                                                   collect (cffi:mem-aref ,@ (second array-arg) ,i)))))))))))))))))
 
 ;; case 2b: ???
@@ -364,6 +364,5 @@ E.g. vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR"
                                                          (loop for ,i from 0 below ,translated-count
                                                                collect (cffi:mem-aref ,@ (second (first array-args)) ,i) into ,first-array
                                                                collect (cffi:mem-aref ,@ (second (second array-args)) ,i) into ,second-array
-                                                               finally (return (values ,first-array ,second-array ,result)))))
+                                                               finally (return (cl:values ,first-array ,second-array ,result)))))
                                                    (cl:values nil nil ,result))))))))))))))))
-
