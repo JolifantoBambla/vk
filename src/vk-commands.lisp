@@ -98,7 +98,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (format keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (format '%vk:format format :in)
+  (format '%vk:format format :in :raw)
   (format-properties '(:struct %vk:format-properties) format-properties :out))
 
 (defvk-get-struct-fun (get-physical-device-image-format-properties
@@ -107,11 +107,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list))))
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (format '%vk:format format :in)
-  (type '%vk:image-type type :in)
-  (tiling '%vk:image-tiling tiling :in)
-  (usage '%vk:image-usage-flags usage :in)
-  (flags '%vk:image-create-flags flags :in :optional)
+  (format '%vk:format format :in :raw)
+  (type '%vk:image-type type :in :raw)
+  (tiling '%vk:image-tiling tiling :in :raw)
+  (usage '%vk:image-usage-flags usage :in :raw)
+  (flags '%vk:image-create-flags flags :in :raw :optional)
   (image-format-properties '(:struct %vk:image-format-properties) image-format-properties :out))
 
 (defvk-create-handle-fun (create-device
@@ -258,7 +258,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (memory '%vk:device-memory memory :in :handle)
   (offset '%vk:device-size offset :in)
   (size '%vk:device-size size :in)
-  (flags '%vk:memory-map-flags flags :in :optional)
+  (flags '%vk:memory-map-flags flags :in :raw :optional)
   (p-data '(:pointer :void) p-data :in :handle))
 
 (defvk-simple-fun (unmap-memory
@@ -361,11 +361,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                         properties
                       t)
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (format '%vk:format format :in)
-  (type '%vk:image-type type :in)
-  (samples '%vk:sample-count-flag-bits samples :in)
-  (usage '%vk:image-usage-flags usage :in)
-  (tiling '%vk:image-tiling tiling :in)
+  (format '%vk:format format :in :raw)
+  (type '%vk:image-type type :in :raw)
+  (samples '%vk:sample-count-flag-bits samples :in :raw)
+  (usage '%vk:image-usage-flags usage :in :raw)
+  (tiling '%vk:image-tiling tiling :in :raw)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:sparse-image-format-properties) properties :out :list))
 
@@ -535,7 +535,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle)
   (stride '%vk:device-size stride :in)
-  (flags '%vk:query-result-flags flags :in :optional))
+  (flags '%vk:query-result-flags flags :in :raw :optional))
 
 (defvk-simple-fun (reset-query-pool
                    %vk:reset-query-pool
@@ -844,7 +844,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (device '%vk:device device :in :handle)
   (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle)
-  (flags '%vk:descriptor-pool-reset-flags flags :in :optional))
+  (flags '%vk:descriptor-pool-reset-flags flags :in :raw :optional))
 
 (defvk-create-handles-fun (allocate-descriptor-sets
                            %vk:allocate-descriptor-sets
@@ -959,7 +959,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
-  (flags '%vk:command-pool-reset-flags flags :in :optional))
+  (flags '%vk:command-pool-reset-flags flags :in :raw :optional))
 
 (defvk-create-handles-fun (allocate-command-buffers
                            %vk:allocate-command-buffers
@@ -1006,7 +1006,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((flags nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (flags '%vk:command-buffer-reset-flags flags :in :optional))
+  (flags '%vk:command-buffer-reset-flags flags :in :raw :optional))
 
 (defvk-simple-fun (cmd-bind-pipeline
                    %vk:cmd-bind-pipeline
@@ -1015,7 +1015,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
+  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
   (pipeline '%vk:pipeline pipeline :in :handle))
 
 (defvk-simple-fun (cmd-set-viewport
@@ -1086,7 +1086,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (face-mask '%vk:stencil-face-flags face-mask :in)
+  (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (compare-mask :uint32 compare-mask :in :raw))
 
 (defvk-simple-fun (cmd-set-stencil-write-mask
@@ -1096,7 +1096,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (face-mask '%vk:stencil-face-flags face-mask :in)
+  (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (write-mask :uint32 write-mask :in :raw))
 
 (defvk-simple-fun (cmd-set-stencil-reference
@@ -1106,7 +1106,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (face-mask '%vk:stencil-face-flags face-mask :in)
+  (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (reference :uint32 reference :in :raw))
 
 (defvk-simple-fun (cmd-bind-descriptor-sets
@@ -1116,7 +1116,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
+  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
   (layout '%vk:pipeline-layout layout :in :handle)
   (first-set :uint32 first-set :in :raw)
   (descriptor-set-count :uint32 (length descriptor-sets) :in :raw)
@@ -1133,7 +1133,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in)
-  (index-type '%vk:index-type index-type :in))
+  (index-type '%vk:index-type index-type :in :raw))
 
 (defvk-simple-fun (cmd-bind-vertex-buffers
                    %vk:cmd-bind-vertex-buffers
@@ -1237,9 +1237,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
-  (src-image-layout '%vk:image-layout src-image-layout :in)
+  (src-image-layout '%vk:image-layout src-image-layout :in :raw)
   (dst-image '%vk:image dst-image :in :handle)
-  (dst-image-layout '%vk:image-layout dst-image-layout :in)
+  (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:image-copy) regions :in :list))
 
@@ -1251,12 +1251,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
-  (src-image-layout '%vk:image-layout src-image-layout :in)
+  (src-image-layout '%vk:image-layout src-image-layout :in :raw)
   (dst-image '%vk:image dst-image :in :handle)
-  (dst-image-layout '%vk:image-layout dst-image-layout :in)
+  (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:image-blit) regions :in :list)
-  (filter '%vk:filter filter :in))
+  (filter '%vk:filter filter :in :raw))
 
 (defvk-simple-fun (cmd-copy-buffer-to-image
                    %vk:cmd-copy-buffer-to-image
@@ -1267,7 +1267,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-buffer '%vk:buffer src-buffer :in :handle)
   (dst-image '%vk:image dst-image :in :handle)
-  (dst-image-layout '%vk:image-layout dst-image-layout :in)
+  (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:buffer-image-copy) regions :in :list))
 
@@ -1279,7 +1279,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
-  (src-image-layout '%vk:image-layout src-image-layout :in)
+  (src-image-layout '%vk:image-layout src-image-layout :in :raw)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:buffer-image-copy) regions :in :list))
@@ -1316,7 +1316,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (image '%vk:image image :in :handle)
-  (image-layout '%vk:image-layout image-layout :in)
+  (image-layout '%vk:image-layout image-layout :in :raw)
   (color '(:union %vk:clear-color-value) color :in)
   (range-count :uint32 (length ranges) :in :raw)
   (ranges '(:struct %vk:image-subresource-range) ranges :in :list))
@@ -1329,7 +1329,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (image '%vk:image image :in :handle)
-  (image-layout '%vk:image-layout image-layout :in)
+  (image-layout '%vk:image-layout image-layout :in :raw)
   (depth-stencil '(:struct %vk:clear-depth-stencil-value) depth-stencil :in)
   (range-count :uint32 (length ranges) :in :raw)
   (ranges '(:struct %vk:image-subresource-range) ranges :in :list))
@@ -1354,9 +1354,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (src-image '%vk:image src-image :in :handle)
-  (src-image-layout '%vk:image-layout src-image-layout :in)
+  (src-image-layout '%vk:image-layout src-image-layout :in :raw)
   (dst-image '%vk:image dst-image :in :handle)
-  (dst-image-layout '%vk:image-layout dst-image-layout :in)
+  (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:image-resolve) regions :in :list))
 
@@ -1368,7 +1368,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event '%vk:event event :in :handle)
-  (stage-mask '%vk:pipeline-stage-flags stage-mask :in))
+  (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw))
 
 (defvk-simple-fun (cmd-reset-event
                    %vk:cmd-reset-event
@@ -1378,7 +1378,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event '%vk:event event :in :handle)
-  (stage-mask '%vk:pipeline-stage-flags stage-mask :in))
+  (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw))
 
 (defvk-simple-fun (cmd-wait-events
                    %vk:cmd-wait-events
@@ -1389,8 +1389,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event-count :uint32 (length events) :in :raw)
   (events '%vk:event events :in :handle :list)
-  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in)
-  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in)
+  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw)
+  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw)
   (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
   (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in :list)
   (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in :raw)
@@ -1405,9 +1405,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((dependency-flags nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in)
-  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in)
-  (dependency-flags '%vk:dependency-flags dependency-flags :in :optional)
+  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw)
+  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw)
+  (dependency-flags '%vk:dependency-flags dependency-flags :in :raw :optional)
   (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
   (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in :list)
   (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in :raw)
@@ -1424,7 +1424,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw)
-  (flags '%vk:query-control-flags flags :in :optional))
+  (flags '%vk:query-control-flags flags :in :raw :optional))
 
 (defvk-simple-fun (cmd-end-query
                    %vk:cmd-end-query
@@ -1471,7 +1471,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in)
+  (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in :raw)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw))
 
@@ -1488,7 +1488,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
   (stride '%vk:device-size stride :in)
-  (flags '%vk:query-result-flags flags :in :optional))
+  (flags '%vk:query-result-flags flags :in :raw :optional))
 
 (defvk-simple-fun (cmd-push-constants
                    %vk:cmd-push-constants
@@ -1498,7 +1498,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (layout '%vk:pipeline-layout layout :in :handle)
-  (stage-flags '%vk:shader-stage-flags stage-flags :in)
+  (stage-flags '%vk:shader-stage-flags stage-flags :in :raw)
   (offset :uint32 offset :in :raw)
   (size :uint32 size :in :raw)
   (values '(:pointer :void) values :in :handle))
@@ -1511,7 +1511,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
-  (contents '%vk:subpass-contents contents :in))
+  (contents '%vk:subpass-contents contents :in :raw))
 
 (defvk-simple-fun (cmd-next-subpass
                    %vk:cmd-next-subpass
@@ -1520,7 +1520,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (contents '%vk:subpass-contents contents :in))
+  (contents '%vk:subpass-contents contents :in :raw))
 
 (defvk-simple-fun (cmd-end-render-pass
                    %vk:cmd-end-render-pass
@@ -1699,7 +1699,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (present-mode-count :uint32 present-mode-count :out)
-  (present-modes '%vk:present-mode-khr present-modes :out :list))
+  (present-modes '%vk:present-mode-khr present-modes :out :raw :list))
 
 (defvk-create-handle-fun (create-swapchain-khr
                           %vk:create-swapchain-khr
@@ -1923,8 +1923,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (instance '%vk:instance instance :in :handle)
-  (flags '%vk:debug-report-flags-ext flags :in)
-  (object-type '%vk:debug-report-object-type-ext object-type :in)
+  (flags '%vk:debug-report-flags-ext flags :in :raw)
+  (object-type '%vk:debug-report-object-type-ext object-type :in :raw)
   (object :uint64 object :in :raw)
   (location '%vk:size-t location :in :raw)
   (message-code :int32 message-code :in :raw)
@@ -1981,12 +1981,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list)) ((external-handle-type nil) (or unsigned-byte list))))
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (format '%vk:format format :in)
-  (type '%vk:image-type type :in)
-  (tiling '%vk:image-tiling tiling :in)
-  (usage '%vk:image-usage-flags usage :in)
-  (flags '%vk:image-create-flags flags :in :optional)
-  (external-handle-type '%vk:external-memory-handle-type-flags-nv external-handle-type :in :optional)
+  (format '%vk:format format :in :raw)
+  (type '%vk:image-type type :in :raw)
+  (tiling '%vk:image-tiling tiling :in :raw)
+  (usage '%vk:image-usage-flags usage :in :raw)
+  (flags '%vk:image-create-flags flags :in :raw :optional)
+  (external-handle-type '%vk:external-memory-handle-type-flags-nv external-handle-type :in :raw :optional)
   (external-image-format-properties '(:struct %vk:external-image-format-properties-nv) external-image-format-properties :out))
 
 (defvk-get-struct-fun (get-memory-win32-handle-nv
@@ -1996,7 +1996,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (device '%vk:device device :in :handle)
   (memory '%vk:device-memory memory :in :handle)
-  (handle-type '%vk:external-memory-handle-type-flags-nv handle-type :in)
+  (handle-type '%vk:external-memory-handle-type-flags-nv handle-type :in :raw)
   (handle '(:pointer :void) handle :out :handle))
 
 (defvk-simple-fun (cmd-execute-generated-commands-nv
@@ -2025,7 +2025,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
+  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
   (pipeline '%vk:pipeline pipeline :in :handle)
   (group-index :uint32 group-index :in :raw))
 
@@ -2097,7 +2097,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (format keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (format '%vk:format format :in)
+  (format '%vk:format format :in :raw)
   (format-properties '(:struct %vk:format-properties-2) format-properties :out))
 
 (defvk-get-struct-fun (get-physical-device-format-properties-2-khr
@@ -2106,7 +2106,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (format keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (format '%vk:format format :in)
+  (format '%vk:format format :in :raw)
   (format-properties '(:struct %vk:format-properties-2) format-properties :out))
 
 (defvk-get-struct-fun (get-physical-device-image-format-properties-2
@@ -2200,7 +2200,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in)
+  (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
   (layout '%vk:pipeline-layout layout :in :handle)
   (set :uint32 set :in :raw)
   (descriptor-write-count :uint32 (length descriptor-writes) :in :raw)
@@ -2214,7 +2214,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
-  (flags '%vk:command-pool-trim-flags flags :in :optional))
+  (flags '%vk:command-pool-trim-flags flags :in :raw :optional))
 
 (defvk-simple-fun (trim-command-pool-khr
                    %vk:trim-command-pool-khr
@@ -2224,7 +2224,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle)
-  (flags '%vk:command-pool-trim-flags flags :in :optional))
+  (flags '%vk:command-pool-trim-flags flags :in :raw :optional))
 
 (defvk-get-struct-fun (get-physical-device-external-buffer-properties
                        %vk:get-physical-device-external-buffer-properties
@@ -2259,7 +2259,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (handle-type keyword) (handle cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
-  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in)
+  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (handle '(:pointer :void) handle :in :handle)
   (memory-win32-handle-properties '(:struct %vk:memory-win32-handle-properties-khr) memory-win32-handle-properties :out))
 
@@ -2278,7 +2278,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (handle-type keyword) (fd integer))
                        ())
   (device '%vk:device device :in :handle)
-  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in)
+  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (fd :int fd :in :raw)
   (memory-fd-properties '(:struct %vk:memory-fd-properties-khr) memory-fd-properties :out))
 
@@ -2460,7 +2460,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
-  (counter '%vk:surface-counter-flag-bits-ext counter :in)
+  (counter '%vk:surface-counter-flag-bits-ext counter :in :raw)
   (counter-value :uint64 counter-value :out))
 
 (defvk-get-struct-fun (get-physical-device-surface-capabilities-2-ext
@@ -2505,7 +2505,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (heap-index :uint32 heap-index :in :raw)
   (local-device-index :uint32 local-device-index :in :raw)
   (remote-device-index :uint32 remote-device-index :in :raw)
-  (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out))
+  (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out :raw))
 
 (defvk-get-struct-fun (get-device-group-peer-memory-features-khr
                        %vk:get-device-group-peer-memory-features-khr
@@ -2516,7 +2516,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (heap-index :uint32 heap-index :in :raw)
   (local-device-index :uint32 local-device-index :in :raw)
   (remote-device-index :uint32 remote-device-index :in :raw)
-  (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out))
+  (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out :raw))
 
 (defvk-simple-fun (bind-buffer-memory-2
                    %vk:bind-buffer-memory-2
@@ -2591,7 +2591,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (device '%vk:device device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
-  (modes '%vk:device-group-present-mode-flags-khr modes :out))
+  (modes '%vk:device-group-present-mode-flags-khr modes :out :raw))
 
 (defvk-get-struct-fun (acquire-next-image-2-khr
                        %vk:acquire-next-image-2-khr
@@ -2831,7 +2831,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((physical-device cffi:foreign-pointer) (samples keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (samples '%vk:sample-count-flag-bits samples :in)
+  (samples '%vk:sample-count-flag-bits samples :in :raw)
   (multisample-properties '(:struct %vk:multisample-properties-ext) multisample-properties :out))
 
 (defvk-get-struct-fun (get-physical-device-surface-capabilities-2-khr
@@ -3083,8 +3083,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        (((info nil) cffi:foreign-pointer)))
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
-  (shader-stage '%vk:shader-stage-flag-bits shader-stage :in)
-  (info-type '%vk:shader-info-type-amd info-type :in)
+  (shader-stage '%vk:shader-stage-flag-bits shader-stage :in :raw)
+  (info-type '%vk:shader-info-type-amd info-type :in :raw)
   (info-size '%vk:size-t info-size :out)
   (info '(:pointer :void) info :in :handle :optional))
 
@@ -3108,7 +3108,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (time-domain-count :uint32 time-domain-count :out)
-  (time-domains '%vk:time-domain-ext time-domains :out :list))
+  (time-domains '%vk:time-domain-ext time-domains :out :raw :list))
 
 (defvk-get-array-and-singular-fun (get-calibrated-timestamps-ext
                                    %vk:get-calibrated-timestamps-ext
@@ -3221,8 +3221,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (instance '%vk:instance instance :in :handle)
-  (message-severity '%vk:debug-utils-message-severity-flag-bits-ext message-severity :in)
-  (message-types '%vk:debug-utils-message-type-flags-ext message-types :in)
+  (message-severity '%vk:debug-utils-message-severity-flag-bits-ext message-severity :in :raw)
+  (message-types '%vk:debug-utils-message-type-flags-ext message-types :in :raw)
   (callback-data '(:struct %vk:debug-utils-messenger-callback-data-ext) callback-data :in))
 
 (defvk-get-struct-fun (get-memory-host-pointer-properties-ext
@@ -3231,7 +3231,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (handle-type keyword) (host-pointer cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
-  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in)
+  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (host-pointer '(:pointer :void) host-pointer :in :handle)
   (memory-host-pointer-properties '(:struct %vk:memory-host-pointer-properties-ext) memory-host-pointer-properties :out))
 
@@ -3242,7 +3242,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in)
+  (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in :raw)
   (dst-buffer '%vk:buffer dst-buffer :in :handle)
   (dst-offset '%vk:device-size dst-offset :in)
   (marker :uint32 marker :in :raw))
@@ -3552,7 +3552,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (query :uint32 query :in :raw)
-  (flags '%vk:query-control-flags flags :in :optional)
+  (flags '%vk:query-control-flags flags :in :raw :optional)
   (index :uint32 index :in :raw))
 
 (defvk-simple-fun (cmd-end-query-indexed-ext
@@ -3599,7 +3599,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (image-view '%vk:image-view image-view :in :handle :optional)
-  (image-layout '%vk:image-layout image-layout :in))
+  (image-layout '%vk:image-layout image-layout :in :raw))
 
 (defvk-simple-fun (cmd-set-viewport-shading-rate-palette-nv
                    %vk:cmd-set-viewport-shading-rate-palette-nv
@@ -3619,7 +3619,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (sample-order-type '%vk:coarse-sample-order-type-nv sample-order-type :in)
+  (sample-order-type '%vk:coarse-sample-order-type-nv sample-order-type :in :raw)
   (custom-sample-order-count :uint32 (length custom-sample-orders) :in :raw)
   (custom-sample-orders '(:struct %vk:coarse-sample-order-custom-nv) custom-sample-orders :in :list))
 
@@ -3746,7 +3746,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (dst '%vk:acceleration-structure-khr dst :in :handle)
   (src '%vk:acceleration-structure-khr src :in :handle)
-  (mode '%vk:copy-acceleration-structure-mode-khr mode :in))
+  (mode '%vk:copy-acceleration-structure-mode-khr mode :in :raw))
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-khr
                    %vk:cmd-copy-acceleration-structure-khr
@@ -3811,7 +3811,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
   (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
-  (query-type '%vk:query-type query-type :in)
+  (query-type '%vk:query-type query-type :in :raw)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw))
 
@@ -3824,7 +3824,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
   (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
-  (query-type '%vk:query-type query-type :in)
+  (query-type '%vk:query-type query-type :in :raw)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw))
 
@@ -3853,7 +3853,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device '%vk:device device :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
   (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
-  (query-type '%vk:query-type query-type :in)
+  (query-type '%vk:query-type query-type :in :raw)
   (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle)
   (stride '%vk:size-t stride :in :raw))
@@ -4035,7 +4035,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (present-mode-count :uint32 present-mode-count :out)
-  (present-modes '%vk:present-mode-khr present-modes :out :list))
+  (present-modes '%vk:present-mode-khr present-modes :out :raw :list))
 
 (defvk-get-struct-fun (get-device-group-surface-present-modes-2-ext
                        %vk:get-device-group-surface-present-modes-2-ext
@@ -4044,7 +4044,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ())
   (device '%vk:device device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
-  (modes '%vk:device-group-present-mode-flags-khr modes :out))
+  (modes '%vk:device-group-present-mode-flags-khr modes :out :raw))
 
 (defvk-simple-fun (acquire-full-screen-exclusive-mode-ext
                    %vk:acquire-full-screen-exclusive-mode-ext
@@ -4259,7 +4259,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (parameter keyword))
                        ())
   (device '%vk:device device :in :handle)
-  (parameter '%vk:performance-parameter-type-intel parameter :in)
+  (parameter '%vk:performance-parameter-type-intel parameter :in :raw)
   (value '(:struct %vk:performance-value-intel) value :out))
 
 (defvk-simple-fun (get-device-memory-opaque-capture-address
@@ -4449,7 +4449,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((cull-mode nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (cull-mode '%vk:cull-mode-flags cull-mode :in :optional))
+  (cull-mode '%vk:cull-mode-flags cull-mode :in :raw :optional))
 
 (defvk-simple-fun (cmd-set-front-face-ext
                    %vk:cmd-set-front-face-ext
@@ -4458,7 +4458,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (front-face '%vk:front-face front-face :in))
+  (front-face '%vk:front-face front-face :in :raw))
 
 (defvk-simple-fun (cmd-set-primitive-topology-ext
                    %vk:cmd-set-primitive-topology-ext
@@ -4467,7 +4467,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (primitive-topology '%vk:primitive-topology primitive-topology :in))
+  (primitive-topology '%vk:primitive-topology primitive-topology :in :raw))
 
 (defvk-simple-fun (cmd-set-viewport-with-count-ext
                    %vk:cmd-set-viewport-with-count-ext
@@ -4528,7 +4528,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (depth-compare-op '%vk:compare-op depth-compare-op :in))
+  (depth-compare-op '%vk:compare-op depth-compare-op :in :raw))
 
 (defvk-simple-fun (cmd-set-depth-bounds-test-enable-ext
                    %vk:cmd-set-depth-bounds-test-enable-ext
@@ -4555,11 +4555,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (face-mask '%vk:stencil-face-flags face-mask :in)
-  (fail-op '%vk:stencil-op fail-op :in)
-  (pass-op '%vk:stencil-op pass-op :in)
-  (depth-fail-op '%vk:stencil-op depth-fail-op :in)
-  (compare-op '%vk:compare-op compare-op :in))
+  (face-mask '%vk:stencil-face-flags face-mask :in :raw)
+  (fail-op '%vk:stencil-op fail-op :in :raw)
+  (pass-op '%vk:stencil-op pass-op :in :raw)
+  (depth-fail-op '%vk:stencil-op depth-fail-op :in :raw)
+  (compare-op '%vk:compare-op compare-op :in :raw))
 
 (defvk-create-handle-fun (create-private-data-slot-ext
                           %vk:create-private-data-slot-ext
@@ -4589,7 +4589,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   nil)
   (device '%vk:device device :in :handle)
-  (object-type '%vk:object-type object-type :in)
+  (object-type '%vk:object-type object-type :in :raw)
   (object-handle :uint64 object-handle :in :raw)
   (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
   (data :uint64 data :in :raw))
@@ -4600,7 +4600,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                        ((device cffi:foreign-pointer) (private-data-slot cffi:foreign-pointer) (object-type keyword) (object-handle cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
-  (object-type '%vk:object-type object-type :in)
+  (object-type '%vk:object-type object-type :in :raw)
   (object-handle :uint64 object-handle :in :raw)
   (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
   (data :uint64 data :out))
