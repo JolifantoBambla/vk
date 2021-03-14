@@ -97,7 +97,7 @@ Note: VkBool32 and VkResult are treated as no return values, since they are impl
                  ,(if return-type
                       `(let ((,result (,vulkan-fun ,@vk-input-args)))
                          (unless (cffi:null-pointer-p ,result)
-                           (cffi:mem-aref ,result ,return-type)))
+                           ,result))
                       `(,vulkan-fun ,@vk-input-args))))))))))
 
 ;;; --------------------------------------------- 1 output parameter -------------------------------------------------------------------

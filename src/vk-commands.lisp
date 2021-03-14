@@ -45,7 +45,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    ()
                   '%vk:pfn-void-function)
   (device '%vk:device device :in :handle)
-  (name :string name :in))
+  (name :string name :in :raw))
 
 (defvk-simple-fun (get-instance-proc-addr
                    %vk:get-instance-proc-addr
@@ -54,7 +54,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    (((instance (cffi:null-pointer)) cffi:foreign-pointer))
                   '%vk:pfn-void-function)
   (instance '%vk:instance instance :in :handle :optional)
-  (name :string name :in))
+  (name :string name :in :raw))
 
 (defvk-get-struct-fun (get-physical-device-properties
                        %vk:get-physical-device-properties
@@ -160,7 +160,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       property-count
                       properties
                       nil)
-  (layer-name :string layer-name :in :optional)
+  (layer-name :string layer-name :in :raw :optional)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:extension-properties) properties :out :list))
 
@@ -185,7 +185,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                       properties
                       nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
-  (layer-name :string layer-name :in :optional)
+  (layer-name :string layer-name :in :raw :optional)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:extension-properties) properties :out :list))
 
@@ -1928,8 +1928,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (object :uint64 object :in :raw)
   (location '%vk:size-t location :in :raw)
   (message-code :int32 message-code :in :raw)
-  (layer-prefix :string layer-prefix :in)
-  (message :string message :in))
+  (layer-prefix :string layer-prefix :in :raw)
+  (message :string message :in :raw))
 
 (defvk-simple-fun (debug-marker-set-object-name-ext
                    %vk:debug-marker-set-object-name-ext
