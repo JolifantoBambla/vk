@@ -281,7 +281,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (first-query :uint32)
   (query-count :uint32))
 
-(defvkfun ("vkResetQueryPoolEXT" reset-query-pool-ext) :void
+(defvkextfun ("vkResetQueryPoolEXT" reset-query-pool-ext) :void
   (device device)
   (query-pool query-pool)
   (first-query :uint32)
@@ -772,11 +772,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (query-pool query-pool)
   (query :uint32))
 
-(defvkfun ("vkCmdBeginConditionalRenderingEXT" cmd-begin-conditional-rendering-ext) :void
+(defvkextfun ("vkCmdBeginConditionalRenderingEXT" cmd-begin-conditional-rendering-ext) :void
   (command-buffer command-buffer)
   (p-conditional-rendering-begin (:pointer (:struct conditional-rendering-begin-info-ext))))
 
-(defvkfun ("vkCmdEndConditionalRenderingEXT" cmd-end-conditional-rendering-ext) :void
+(defvkextfun ("vkCmdEndConditionalRenderingEXT" cmd-end-conditional-rendering-ext) :void
   (command-buffer command-buffer))
 
 (defvkfun ("vkCmdResetQueryPool" cmd-reset-query-pool) :void
@@ -937,7 +937,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (queue queue)
   (p-present-info (:pointer (:struct present-info-khr))))
 
-(defvkfun ("vkCreateViSurfaceNN" create-vi-surface-nn) checked-result
+(defvkextfun ("vkCreateViSurfaceNN" create-vi-surface-nn) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct vi-surface-create-info-nn)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
@@ -988,41 +988,41 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (connection (:pointer xcb_connection_t))
   (visual_id xcb_visualid_t))
 
-(defvkfun ("vkCreateDirectFBSurfaceEXT" create-direct-fb-surface-ext) checked-result
+(defvkextfun ("vkCreateDirectFBSurfaceEXT" create-direct-fb-surface-ext) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct direct-fb-surface-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkGetPhysicalDeviceDirectFBPresentationSupportEXT" get-physical-device-direct-fb-presentation-support-ext) bool32
+(defvkextfun ("vkGetPhysicalDeviceDirectFBPresentationSupportEXT" get-physical-device-direct-fb-presentation-support-ext) bool32
   (physical-device physical-device)
   (queue-family-index :uint32)
   (dfb (:pointer i-direct-fb)))
 
-(defvkfun ("vkCreateImagePipeSurfaceFUCHSIA" create-image-pipe-surface-fuchsia) checked-result
+(defvkextfun ("vkCreateImagePipeSurfaceFUCHSIA" create-image-pipe-surface-fuchsia) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct image-pipe-surface-create-info-fuchsia)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkCreateStreamDescriptorSurfaceGGP" create-stream-descriptor-surface-ggp) checked-result
+(defvkextfun ("vkCreateStreamDescriptorSurfaceGGP" create-stream-descriptor-surface-ggp) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct stream-descriptor-surface-create-info-ggp)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkCreateDebugReportCallbackEXT" create-debug-report-callback-ext) checked-result
+(defvkextfun ("vkCreateDebugReportCallbackEXT" create-debug-report-callback-ext) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct debug-report-callback-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-callback (:pointer debug-report-callback-ext)))
 
-(defvkfun ("vkDestroyDebugReportCallbackEXT" destroy-debug-report-callback-ext) :void
+(defvkextfun ("vkDestroyDebugReportCallbackEXT" destroy-debug-report-callback-ext) :void
   (instance instance)
   (callback debug-report-callback-ext)
   (p-allocator (:pointer (:struct allocation-callbacks))))
 
-(defvkfun ("vkDebugReportMessageEXT" debug-report-message-ext) :void
+(defvkextfun ("vkDebugReportMessageEXT" debug-report-message-ext) :void
   (instance instance)
   (flags debug-report-flags-ext)
   (object-type debug-report-object-type-ext)
@@ -1032,26 +1032,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-layer-prefix :string)
   (p-message :string))
 
-(defvkfun ("vkDebugMarkerSetObjectNameEXT" debug-marker-set-object-name-ext) checked-result
+(defvkextfun ("vkDebugMarkerSetObjectNameEXT" debug-marker-set-object-name-ext) checked-result
   (device device)
   (p-name-info (:pointer (:struct debug-marker-object-name-info-ext))))
 
-(defvkfun ("vkDebugMarkerSetObjectTagEXT" debug-marker-set-object-tag-ext) checked-result
+(defvkextfun ("vkDebugMarkerSetObjectTagEXT" debug-marker-set-object-tag-ext) checked-result
   (device device)
   (p-tag-info (:pointer (:struct debug-marker-object-tag-info-ext))))
 
-(defvkfun ("vkCmdDebugMarkerBeginEXT" cmd-debug-marker-begin-ext) :void
+(defvkextfun ("vkCmdDebugMarkerBeginEXT" cmd-debug-marker-begin-ext) :void
   (command-buffer command-buffer)
   (p-marker-info (:pointer (:struct debug-marker-marker-info-ext))))
 
-(defvkfun ("vkCmdDebugMarkerEndEXT" cmd-debug-marker-end-ext) :void
+(defvkextfun ("vkCmdDebugMarkerEndEXT" cmd-debug-marker-end-ext) :void
   (command-buffer command-buffer))
 
-(defvkfun ("vkCmdDebugMarkerInsertEXT" cmd-debug-marker-insert-ext) :void
+(defvkextfun ("vkCmdDebugMarkerInsertEXT" cmd-debug-marker-insert-ext) :void
   (command-buffer command-buffer)
   (p-marker-info (:pointer (:struct debug-marker-marker-info-ext))))
 
-(defvkfun ("vkGetPhysicalDeviceExternalImageFormatPropertiesNV" get-physical-device-external-image-format-properties-nv) checked-result
+(defvkextfun ("vkGetPhysicalDeviceExternalImageFormatPropertiesNV" get-physical-device-external-image-format-properties-nv) checked-result
   (physical-device physical-device)
   (format format)
   (type image-type)
@@ -1061,39 +1061,39 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (external-handle-type external-memory-handle-type-flags-nv)
   (p-external-image-format-properties (:pointer (:struct external-image-format-properties-nv))))
 
-(defvkfun ("vkGetMemoryWin32HandleNV" get-memory-win32-handle-nv) checked-result
+(defvkextfun ("vkGetMemoryWin32HandleNV" get-memory-win32-handle-nv) checked-result
   (device device)
   (memory device-memory)
   (handle-type external-memory-handle-type-flags-nv)
   (p-handle (:pointer handle)))
 
-(defvkfun ("vkCmdExecuteGeneratedCommandsNV" cmd-execute-generated-commands-nv) :void
+(defvkextfun ("vkCmdExecuteGeneratedCommandsNV" cmd-execute-generated-commands-nv) :void
   (command-buffer command-buffer)
   (is-preprocessed bool32)
   (p-generated-commands-info (:pointer (:struct generated-commands-info-nv))))
 
-(defvkfun ("vkCmdPreprocessGeneratedCommandsNV" cmd-preprocess-generated-commands-nv) :void
+(defvkextfun ("vkCmdPreprocessGeneratedCommandsNV" cmd-preprocess-generated-commands-nv) :void
   (command-buffer command-buffer)
   (p-generated-commands-info (:pointer (:struct generated-commands-info-nv))))
 
-(defvkfun ("vkCmdBindPipelineShaderGroupNV" cmd-bind-pipeline-shader-group-nv) :void
+(defvkextfun ("vkCmdBindPipelineShaderGroupNV" cmd-bind-pipeline-shader-group-nv) :void
   (command-buffer command-buffer)
   (pipeline-bind-point pipeline-bind-point)
   (pipeline pipeline)
   (group-index :uint32))
 
-(defvkfun ("vkGetGeneratedCommandsMemoryRequirementsNV" get-generated-commands-memory-requirements-nv) :void
+(defvkextfun ("vkGetGeneratedCommandsMemoryRequirementsNV" get-generated-commands-memory-requirements-nv) :void
   (device device)
   (p-info (:pointer (:struct generated-commands-memory-requirements-info-nv)))
   (p-memory-requirements (:pointer (:struct memory-requirements-2))))
 
-(defvkfun ("vkCreateIndirectCommandsLayoutNV" create-indirect-commands-layout-nv) checked-result
+(defvkextfun ("vkCreateIndirectCommandsLayoutNV" create-indirect-commands-layout-nv) checked-result
   (device device)
   (p-create-info (:pointer (:struct indirect-commands-layout-create-info-nv)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-indirect-commands-layout (:pointer indirect-commands-layout-nv)))
 
-(defvkfun ("vkDestroyIndirectCommandsLayoutNV" destroy-indirect-commands-layout-nv) :void
+(defvkextfun ("vkDestroyIndirectCommandsLayoutNV" destroy-indirect-commands-layout-nv) :void
   (device device)
   (indirect-commands-layout indirect-commands-layout-nv)
   (p-allocator (:pointer (:struct allocation-callbacks))))
@@ -1270,46 +1270,46 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (p-import-fence-fd-info (:pointer (:struct import-fence-fd-info-khr))))
 
-(defvkfun ("vkReleaseDisplayEXT" release-display-ext) checked-result
+(defvkextfun ("vkReleaseDisplayEXT" release-display-ext) checked-result
   (physical-device physical-device)
   (display display-khr))
 
-(defvkfun ("vkAcquireXlibDisplayEXT" acquire-xlib-display-ext) checked-result
+(defvkextfun ("vkAcquireXlibDisplayEXT" acquire-xlib-display-ext) checked-result
   (physical-device physical-device)
   (dpy (:pointer display))
   (display display-khr))
 
-(defvkfun ("vkGetRandROutputDisplayEXT" get-rand-r-output-display-ext) checked-result
+(defvkextfun ("vkGetRandROutputDisplayEXT" get-rand-r-output-display-ext) checked-result
   (physical-device physical-device)
   (dpy (:pointer display))
   (rr-output rr-output)
   (p-display (:pointer display-khr)))
 
-(defvkfun ("vkDisplayPowerControlEXT" display-power-control-ext) checked-result
+(defvkextfun ("vkDisplayPowerControlEXT" display-power-control-ext) checked-result
   (device device)
   (display display-khr)
   (p-display-power-info (:pointer (:struct display-power-info-ext))))
 
-(defvkfun ("vkRegisterDeviceEventEXT" register-device-event-ext) checked-result
+(defvkextfun ("vkRegisterDeviceEventEXT" register-device-event-ext) checked-result
   (device device)
   (p-device-event-info (:pointer (:struct device-event-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-fence (:pointer fence)))
 
-(defvkfun ("vkRegisterDisplayEventEXT" register-display-event-ext) checked-result
+(defvkextfun ("vkRegisterDisplayEventEXT" register-display-event-ext) checked-result
   (device device)
   (display display-khr)
   (p-display-event-info (:pointer (:struct display-event-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-fence (:pointer fence)))
 
-(defvkfun ("vkGetSwapchainCounterEXT" get-swapchain-counter-ext) checked-result
+(defvkextfun ("vkGetSwapchainCounterEXT" get-swapchain-counter-ext) checked-result
   (device device)
   (swapchain swapchain-khr)
   (counter surface-counter-flag-bits-ext)
   (p-counter-value (:pointer :uint64)))
 
-(defvkfun ("vkGetPhysicalDeviceSurfaceCapabilities2EXT" get-physical-device-surface-capabilities-2-ext) checked-result
+(defvkextfun ("vkGetPhysicalDeviceSurfaceCapabilities2EXT" get-physical-device-surface-capabilities-2-ext) checked-result
   (physical-device physical-device)
   (surface surface-khr)
   (p-surface-capabilities (:pointer (:struct surface-capabilities-2-ext))))
@@ -1445,7 +1445,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (set :uint32)
   (p-data (:pointer :void)))
 
-(defvkfun ("vkSetHdrMetadataEXT" set-hdr-metadata-ext) :void
+(defvkextfun ("vkSetHdrMetadataEXT" set-hdr-metadata-ext) :void
   (device device)
   (swapchain-count :uint32)
   (p-swapchains (:pointer swapchain-khr))
@@ -1455,52 +1455,52 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (swapchain swapchain-khr))
 
-(defvkfun ("vkGetRefreshCycleDurationGOOGLE" get-refresh-cycle-duration-google) checked-result
+(defvkextfun ("vkGetRefreshCycleDurationGOOGLE" get-refresh-cycle-duration-google) checked-result
   (device device)
   (swapchain swapchain-khr)
   (p-display-timing-properties (:pointer (:struct refresh-cycle-duration-google))))
 
-(defvkfun ("vkGetPastPresentationTimingGOOGLE" get-past-presentation-timing-google) checked-result
+(defvkextfun ("vkGetPastPresentationTimingGOOGLE" get-past-presentation-timing-google) checked-result
   (device device)
   (swapchain swapchain-khr)
   (p-presentation-timing-count (:pointer :uint32))
   (p-presentation-timings (:pointer (:struct past-presentation-timing-google))))
 
-(defvkfun ("vkCreateIOSSurfaceMVK" create-i-os-surface-mvk) checked-result
+(defvkextfun ("vkCreateIOSSurfaceMVK" create-i-os-surface-mvk) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct i-os-surface-create-info-mvk)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkCreateMacOSSurfaceMVK" create-mac-os-surface-mvk) checked-result
+(defvkextfun ("vkCreateMacOSSurfaceMVK" create-mac-os-surface-mvk) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct mac-os-surface-create-info-mvk)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkCreateMetalSurfaceEXT" create-metal-surface-ext) checked-result
+(defvkextfun ("vkCreateMetalSurfaceEXT" create-metal-surface-ext) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct metal-surface-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkCmdSetViewportWScalingNV" cmd-set-viewport-w-scaling-nv) :void
+(defvkextfun ("vkCmdSetViewportWScalingNV" cmd-set-viewport-w-scaling-nv) :void
   (command-buffer command-buffer)
   (first-viewport :uint32)
   (viewport-count :uint32)
   (p-viewport-w-scalings (:pointer (:struct viewport-w-scaling-nv))))
 
-(defvkfun ("vkCmdSetDiscardRectangleEXT" cmd-set-discard-rectangle-ext) :void
+(defvkextfun ("vkCmdSetDiscardRectangleEXT" cmd-set-discard-rectangle-ext) :void
   (command-buffer command-buffer)
   (first-discard-rectangle :uint32)
   (discard-rectangle-count :uint32)
   (p-discard-rectangles (:pointer (:struct rect-2d))))
 
-(defvkfun ("vkCmdSetSampleLocationsEXT" cmd-set-sample-locations-ext) :void
+(defvkextfun ("vkCmdSetSampleLocationsEXT" cmd-set-sample-locations-ext) :void
   (command-buffer command-buffer)
   (p-sample-locations-info (:pointer (:struct sample-locations-info-ext))))
 
-(defvkfun ("vkGetPhysicalDeviceMultisamplePropertiesEXT" get-physical-device-multisample-properties-ext) :void
+(defvkextfun ("vkGetPhysicalDeviceMultisamplePropertiesEXT" get-physical-device-multisample-properties-ext) :void
   (physical-device physical-device)
   (samples sample-count-flag-bits)
   (p-multisample-properties (:pointer (:struct multisample-properties-ext))))
@@ -1596,24 +1596,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-queue-info (:pointer (:struct device-queue-info-2)))
   (p-queue (:pointer queue)))
 
-(defvkfun ("vkCreateValidationCacheEXT" create-validation-cache-ext) checked-result
+(defvkextfun ("vkCreateValidationCacheEXT" create-validation-cache-ext) checked-result
   (device device)
   (p-create-info (:pointer (:struct validation-cache-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-validation-cache (:pointer validation-cache-ext)))
 
-(defvkfun ("vkDestroyValidationCacheEXT" destroy-validation-cache-ext) :void
+(defvkextfun ("vkDestroyValidationCacheEXT" destroy-validation-cache-ext) :void
   (device device)
   (validation-cache validation-cache-ext)
   (p-allocator (:pointer (:struct allocation-callbacks))))
 
-(defvkfun ("vkGetValidationCacheDataEXT" get-validation-cache-data-ext) checked-result
+(defvkextfun ("vkGetValidationCacheDataEXT" get-validation-cache-data-ext) checked-result
   (device device)
   (validation-cache validation-cache-ext)
   (p-data-size (:pointer size-t))
   (p-data (:pointer :void)))
 
-(defvkfun ("vkMergeValidationCachesEXT" merge-validation-caches-ext) checked-result
+(defvkextfun ("vkMergeValidationCachesEXT" merge-validation-caches-ext) checked-result
   (device device)
   (dst-cache validation-cache-ext)
   (src-cache-count :uint32)
@@ -1629,7 +1629,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-create-info (:pointer (:struct descriptor-set-layout-create-info)))
   (p-support (:pointer (:struct descriptor-set-layout-support))))
 
-(defvkfun ("vkGetShaderInfoAMD" get-shader-info-amd) checked-result
+(defvkextfun ("vkGetShaderInfoAMD" get-shader-info-amd) checked-result
   (device device)
   (pipeline pipeline)
   (shader-stage shader-stage-flag-bits)
@@ -1637,77 +1637,77 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-info-size (:pointer size-t))
   (p-info (:pointer :void)))
 
-(defvkfun ("vkSetLocalDimmingAMD" set-local-dimming-amd) :void
+(defvkextfun ("vkSetLocalDimmingAMD" set-local-dimming-amd) :void
   (device device)
   (swap-chain swapchain-khr)
   (local-dimming-enable bool32))
 
-(defvkfun ("vkGetPhysicalDeviceCalibrateableTimeDomainsEXT" get-physical-device-calibrateable-time-domains-ext) checked-result
+(defvkextfun ("vkGetPhysicalDeviceCalibrateableTimeDomainsEXT" get-physical-device-calibrateable-time-domains-ext) checked-result
   (physical-device physical-device)
   (p-time-domain-count (:pointer :uint32))
   (p-time-domains (:pointer time-domain-ext)))
 
-(defvkfun ("vkGetCalibratedTimestampsEXT" get-calibrated-timestamps-ext) checked-result
+(defvkextfun ("vkGetCalibratedTimestampsEXT" get-calibrated-timestamps-ext) checked-result
   (device device)
   (timestamp-count :uint32)
   (p-timestamp-infos (:pointer (:struct calibrated-timestamp-info-ext)))
   (p-timestamps (:pointer :uint64))
   (p-max-deviation (:pointer :uint64)))
 
-(defvkfun ("vkSetDebugUtilsObjectNameEXT" set-debug-utils-object-name-ext) checked-result
+(defvkextfun ("vkSetDebugUtilsObjectNameEXT" set-debug-utils-object-name-ext) checked-result
   (device device)
   (p-name-info (:pointer (:struct debug-utils-object-name-info-ext))))
 
-(defvkfun ("vkSetDebugUtilsObjectTagEXT" set-debug-utils-object-tag-ext) checked-result
+(defvkextfun ("vkSetDebugUtilsObjectTagEXT" set-debug-utils-object-tag-ext) checked-result
   (device device)
   (p-tag-info (:pointer (:struct debug-utils-object-tag-info-ext))))
 
-(defvkfun ("vkQueueBeginDebugUtilsLabelEXT" queue-begin-debug-utils-label-ext) :void
+(defvkextfun ("vkQueueBeginDebugUtilsLabelEXT" queue-begin-debug-utils-label-ext) :void
   (queue queue)
   (p-label-info (:pointer (:struct debug-utils-label-ext))))
 
-(defvkfun ("vkQueueEndDebugUtilsLabelEXT" queue-end-debug-utils-label-ext) :void
+(defvkextfun ("vkQueueEndDebugUtilsLabelEXT" queue-end-debug-utils-label-ext) :void
   (queue queue))
 
-(defvkfun ("vkQueueInsertDebugUtilsLabelEXT" queue-insert-debug-utils-label-ext) :void
+(defvkextfun ("vkQueueInsertDebugUtilsLabelEXT" queue-insert-debug-utils-label-ext) :void
   (queue queue)
   (p-label-info (:pointer (:struct debug-utils-label-ext))))
 
-(defvkfun ("vkCmdBeginDebugUtilsLabelEXT" cmd-begin-debug-utils-label-ext) :void
+(defvkextfun ("vkCmdBeginDebugUtilsLabelEXT" cmd-begin-debug-utils-label-ext) :void
   (command-buffer command-buffer)
   (p-label-info (:pointer (:struct debug-utils-label-ext))))
 
-(defvkfun ("vkCmdEndDebugUtilsLabelEXT" cmd-end-debug-utils-label-ext) :void
+(defvkextfun ("vkCmdEndDebugUtilsLabelEXT" cmd-end-debug-utils-label-ext) :void
   (command-buffer command-buffer))
 
-(defvkfun ("vkCmdInsertDebugUtilsLabelEXT" cmd-insert-debug-utils-label-ext) :void
+(defvkextfun ("vkCmdInsertDebugUtilsLabelEXT" cmd-insert-debug-utils-label-ext) :void
   (command-buffer command-buffer)
   (p-label-info (:pointer (:struct debug-utils-label-ext))))
 
-(defvkfun ("vkCreateDebugUtilsMessengerEXT" create-debug-utils-messenger-ext) checked-result
+(defvkextfun ("vkCreateDebugUtilsMessengerEXT" create-debug-utils-messenger-ext) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct debug-utils-messenger-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-messenger (:pointer debug-utils-messenger-ext)))
 
-(defvkfun ("vkDestroyDebugUtilsMessengerEXT" destroy-debug-utils-messenger-ext) :void
+(defvkextfun ("vkDestroyDebugUtilsMessengerEXT" destroy-debug-utils-messenger-ext) :void
   (instance instance)
   (messenger debug-utils-messenger-ext)
   (p-allocator (:pointer (:struct allocation-callbacks))))
 
-(defvkfun ("vkSubmitDebugUtilsMessageEXT" submit-debug-utils-message-ext) :void
+(defvkextfun ("vkSubmitDebugUtilsMessageEXT" submit-debug-utils-message-ext) :void
   (instance instance)
   (message-severity debug-utils-message-severity-flag-bits-ext)
   (message-types debug-utils-message-type-flags-ext)
   (p-callback-data (:pointer (:struct debug-utils-messenger-callback-data-ext))))
 
-(defvkfun ("vkGetMemoryHostPointerPropertiesEXT" get-memory-host-pointer-properties-ext) checked-result
+(defvkextfun ("vkGetMemoryHostPointerPropertiesEXT" get-memory-host-pointer-properties-ext) checked-result
   (device device)
   (handle-type external-memory-handle-type-flag-bits)
   (p-host-pointer (:pointer :void))
   (p-memory-host-pointer-properties (:pointer (:struct memory-host-pointer-properties-ext))))
 
-(defvkfun ("vkCmdWriteBufferMarkerAMD" cmd-write-buffer-marker-amd) :void
+(defvkextfun ("vkCmdWriteBufferMarkerAMD" cmd-write-buffer-marker-amd) :void
   (command-buffer command-buffer)
   (pipeline-stage pipeline-stage-flag-bits)
   (dst-buffer buffer)
@@ -1782,12 +1782,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (p-signal-info (:pointer (:struct semaphore-signal-info))))
 
-(defvkfun ("vkGetAndroidHardwareBufferPropertiesANDROID" get-android-hardware-buffer-properties-android) checked-result
+(defvkextfun ("vkGetAndroidHardwareBufferPropertiesANDROID" get-android-hardware-buffer-properties-android) checked-result
   (device device)
   (buffer (:pointer a-hardware-buffer))
   (p-properties (:pointer (:struct android-hardware-buffer-properties-android))))
 
-(defvkfun ("vkGetMemoryAndroidHardwareBufferANDROID" get-memory-android-hardware-buffer-android) checked-result
+(defvkextfun ("vkGetMemoryAndroidHardwareBufferANDROID" get-memory-android-hardware-buffer-android) checked-result
   (device device)
   (p-info (:pointer (:struct memory-get-android-hardware-buffer-info-android)))
   (p-buffer (:pointer (:pointer a-hardware-buffer))))
@@ -1801,7 +1801,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-draw-count :uint32)
   (stride :uint32))
 
-(defvkfun ("vkCmdDrawIndirectCountAMD" cmd-draw-indirect-count-amd) :void
+(defvkextfun ("vkCmdDrawIndirectCountAMD" cmd-draw-indirect-count-amd) :void
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size)
@@ -1828,7 +1828,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-draw-count :uint32)
   (stride :uint32))
 
-(defvkfun ("vkCmdDrawIndexedIndirectCountAMD" cmd-draw-indexed-indirect-count-amd) :void
+(defvkextfun ("vkCmdDrawIndexedIndirectCountAMD" cmd-draw-indexed-indirect-count-amd) :void
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size)
@@ -1846,16 +1846,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-draw-count :uint32)
   (stride :uint32))
 
-(defvkfun ("vkCmdSetCheckpointNV" cmd-set-checkpoint-nv) :void
+(defvkextfun ("vkCmdSetCheckpointNV" cmd-set-checkpoint-nv) :void
   (command-buffer command-buffer)
   (p-checkpoint-marker (:pointer :void)))
 
-(defvkfun ("vkGetQueueCheckpointDataNV" get-queue-checkpoint-data-nv) :void
+(defvkextfun ("vkGetQueueCheckpointDataNV" get-queue-checkpoint-data-nv) :void
   (queue queue)
   (p-checkpoint-data-count (:pointer :uint32))
   (p-checkpoint-data (:pointer (:struct checkpoint-data-nv))))
 
-(defvkfun ("vkCmdBindTransformFeedbackBuffersEXT" cmd-bind-transform-feedback-buffers-ext) :void
+(defvkextfun ("vkCmdBindTransformFeedbackBuffersEXT" cmd-bind-transform-feedback-buffers-ext) :void
   (command-buffer command-buffer)
   (first-binding :uint32)
   (binding-count :uint32)
@@ -1863,34 +1863,34 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-offsets (:pointer device-size))
   (p-sizes (:pointer device-size)))
 
-(defvkfun ("vkCmdBeginTransformFeedbackEXT" cmd-begin-transform-feedback-ext) :void
+(defvkextfun ("vkCmdBeginTransformFeedbackEXT" cmd-begin-transform-feedback-ext) :void
   (command-buffer command-buffer)
   (first-counter-buffer :uint32)
   (counter-buffer-count :uint32)
   (p-counter-buffers (:pointer buffer))
   (p-counter-buffer-offsets (:pointer device-size)))
 
-(defvkfun ("vkCmdEndTransformFeedbackEXT" cmd-end-transform-feedback-ext) :void
+(defvkextfun ("vkCmdEndTransformFeedbackEXT" cmd-end-transform-feedback-ext) :void
   (command-buffer command-buffer)
   (first-counter-buffer :uint32)
   (counter-buffer-count :uint32)
   (p-counter-buffers (:pointer buffer))
   (p-counter-buffer-offsets (:pointer device-size)))
 
-(defvkfun ("vkCmdBeginQueryIndexedEXT" cmd-begin-query-indexed-ext) :void
+(defvkextfun ("vkCmdBeginQueryIndexedEXT" cmd-begin-query-indexed-ext) :void
   (command-buffer command-buffer)
   (query-pool query-pool)
   (query :uint32)
   (flags query-control-flags)
   (index :uint32))
 
-(defvkfun ("vkCmdEndQueryIndexedEXT" cmd-end-query-indexed-ext) :void
+(defvkextfun ("vkCmdEndQueryIndexedEXT" cmd-end-query-indexed-ext) :void
   (command-buffer command-buffer)
   (query-pool query-pool)
   (query :uint32)
   (index :uint32))
 
-(defvkfun ("vkCmdDrawIndirectByteCountEXT" cmd-draw-indirect-byte-count-ext) :void
+(defvkextfun ("vkCmdDrawIndirectByteCountEXT" cmd-draw-indirect-byte-count-ext) :void
   (command-buffer command-buffer)
   (instance-count :uint32)
   (first-instance :uint32)
@@ -1899,42 +1899,42 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (counter-offset :uint32)
   (vertex-stride :uint32))
 
-(defvkfun ("vkCmdSetExclusiveScissorNV" cmd-set-exclusive-scissor-nv) :void
+(defvkextfun ("vkCmdSetExclusiveScissorNV" cmd-set-exclusive-scissor-nv) :void
   (command-buffer command-buffer)
   (first-exclusive-scissor :uint32)
   (exclusive-scissor-count :uint32)
   (p-exclusive-scissors (:pointer (:struct rect-2d))))
 
-(defvkfun ("vkCmdBindShadingRateImageNV" cmd-bind-shading-rate-image-nv) :void
+(defvkextfun ("vkCmdBindShadingRateImageNV" cmd-bind-shading-rate-image-nv) :void
   (command-buffer command-buffer)
   (image-view image-view)
   (image-layout image-layout))
 
-(defvkfun ("vkCmdSetViewportShadingRatePaletteNV" cmd-set-viewport-shading-rate-palette-nv) :void
+(defvkextfun ("vkCmdSetViewportShadingRatePaletteNV" cmd-set-viewport-shading-rate-palette-nv) :void
   (command-buffer command-buffer)
   (first-viewport :uint32)
   (viewport-count :uint32)
   (p-shading-rate-palettes (:pointer (:struct shading-rate-palette-nv))))
 
-(defvkfun ("vkCmdSetCoarseSampleOrderNV" cmd-set-coarse-sample-order-nv) :void
+(defvkextfun ("vkCmdSetCoarseSampleOrderNV" cmd-set-coarse-sample-order-nv) :void
   (command-buffer command-buffer)
   (sample-order-type coarse-sample-order-type-nv)
   (custom-sample-order-count :uint32)
   (p-custom-sample-orders (:pointer (:struct coarse-sample-order-custom-nv))))
 
-(defvkfun ("vkCmdDrawMeshTasksNV" cmd-draw-mesh-tasks-nv) :void
+(defvkextfun ("vkCmdDrawMeshTasksNV" cmd-draw-mesh-tasks-nv) :void
   (command-buffer command-buffer)
   (task-count :uint32)
   (first-task :uint32))
 
-(defvkfun ("vkCmdDrawMeshTasksIndirectNV" cmd-draw-mesh-tasks-indirect-nv) :void
+(defvkextfun ("vkCmdDrawMeshTasksIndirectNV" cmd-draw-mesh-tasks-indirect-nv) :void
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size)
   (draw-count :uint32)
   (stride :uint32))
 
-(defvkfun ("vkCmdDrawMeshTasksIndirectCountNV" cmd-draw-mesh-tasks-indirect-count-nv) :void
+(defvkextfun ("vkCmdDrawMeshTasksIndirectCountNV" cmd-draw-mesh-tasks-indirect-count-nv) :void
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size)
@@ -1943,12 +1943,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-draw-count :uint32)
   (stride :uint32))
 
-(defvkfun ("vkCompileDeferredNV" compile-deferred-nv) checked-result
+(defvkextfun ("vkCompileDeferredNV" compile-deferred-nv) checked-result
   (device device)
   (pipeline pipeline)
   (shader :uint32))
 
-(defvkfun ("vkCreateAccelerationStructureNV" create-acceleration-structure-nv) checked-result
+(defvkextfun ("vkCreateAccelerationStructureNV" create-acceleration-structure-nv) checked-result
   (device device)
   (p-create-info (:pointer (:struct acceleration-structure-create-info-nv)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
@@ -1959,7 +1959,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (acceleration-structure acceleration-structure-khr)
   (p-allocator (:pointer (:struct allocation-callbacks))))
 
-(defvkfun ("vkDestroyAccelerationStructureNV" destroy-acceleration-structure-nv) :void
+(defvkextfun ("vkDestroyAccelerationStructureNV" destroy-acceleration-structure-nv) :void
   (device device)
   (acceleration-structure acceleration-structure-khr)
   (p-allocator (:pointer (:struct allocation-callbacks))))
@@ -1969,7 +1969,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-info (:pointer (:struct acceleration-structure-memory-requirements-info-khr)))
   (p-memory-requirements (:pointer (:struct memory-requirements-2))))
 
-(defvkfun ("vkGetAccelerationStructureMemoryRequirementsNV" get-acceleration-structure-memory-requirements-nv) :void
+(defvkextfun ("vkGetAccelerationStructureMemoryRequirementsNV" get-acceleration-structure-memory-requirements-nv) :void
   (device device)
   (p-info (:pointer (:struct acceleration-structure-memory-requirements-info-nv)))
   (p-memory-requirements (:pointer (:struct memory-requirements-2-khr))))
@@ -1979,12 +1979,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (bind-info-count :uint32)
   (p-bind-infos (:pointer (:struct bind-acceleration-structure-memory-info-khr))))
 
-(defvkfun ("vkBindAccelerationStructureMemoryNV" bind-acceleration-structure-memory-nv) checked-result
+(defvkextfun ("vkBindAccelerationStructureMemoryNV" bind-acceleration-structure-memory-nv) checked-result
   (device device)
   (bind-info-count :uint32)
   (p-bind-infos (:pointer (:struct bind-acceleration-structure-memory-info-khr))))
 
-(defvkfun ("vkCmdCopyAccelerationStructureNV" cmd-copy-acceleration-structure-nv) :void
+(defvkextfun ("vkCmdCopyAccelerationStructureNV" cmd-copy-acceleration-structure-nv) :void
   (command-buffer command-buffer)
   (dst acceleration-structure-khr)
   (src acceleration-structure-khr)
@@ -2022,7 +2022,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (query-pool query-pool)
   (first-query :uint32))
 
-(defvkfun ("vkCmdWriteAccelerationStructuresPropertiesNV" cmd-write-acceleration-structures-properties-nv) :void
+(defvkextfun ("vkCmdWriteAccelerationStructuresPropertiesNV" cmd-write-acceleration-structures-properties-nv) :void
   (command-buffer command-buffer)
   (acceleration-structure-count :uint32)
   (p-acceleration-structures (:pointer acceleration-structure-khr))
@@ -2030,7 +2030,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (query-pool query-pool)
   (first-query :uint32))
 
-(defvkfun ("vkCmdBuildAccelerationStructureNV" cmd-build-acceleration-structure-nv) :void
+(defvkextfun ("vkCmdBuildAccelerationStructureNV" cmd-build-acceleration-structure-nv) :void
   (command-buffer command-buffer)
   (p-info (:pointer (:struct acceleration-structure-info-nv)))
   (instance-data buffer)
@@ -2060,7 +2060,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (height :uint32)
   (depth :uint32))
 
-(defvkfun ("vkCmdTraceRaysNV" cmd-trace-rays-nv) :void
+(defvkextfun ("vkCmdTraceRaysNV" cmd-trace-rays-nv) :void
   (command-buffer command-buffer)
   (raygen-shader-binding-table-buffer buffer)
   (raygen-shader-binding-offset device-size)
@@ -2085,7 +2085,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (data-size size-t)
   (p-data (:pointer :void)))
 
-(defvkfun ("vkGetRayTracingShaderGroupHandlesNV" get-ray-tracing-shader-group-handles-nv) checked-result
+(defvkextfun ("vkGetRayTracingShaderGroupHandlesNV" get-ray-tracing-shader-group-handles-nv) checked-result
   (device device)
   (pipeline pipeline)
   (first-group :uint32)
@@ -2101,13 +2101,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (data-size size-t)
   (p-data (:pointer :void)))
 
-(defvkfun ("vkGetAccelerationStructureHandleNV" get-acceleration-structure-handle-nv) checked-result
+(defvkextfun ("vkGetAccelerationStructureHandleNV" get-acceleration-structure-handle-nv) checked-result
   (device device)
   (acceleration-structure acceleration-structure-khr)
   (data-size size-t)
   (p-data (:pointer :void)))
 
-(defvkfun ("vkCreateRayTracingPipelinesNV" create-ray-tracing-pipelines-nv) checked-result
+(defvkextfun ("vkCreateRayTracingPipelinesNV" create-ray-tracing-pipelines-nv) checked-result
   (device device)
   (pipeline-cache pipeline-cache)
   (create-info-count :uint32)
@@ -2123,7 +2123,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-pipelines (:pointer pipeline)))
 
-(defvkfun ("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV" get-physical-device-cooperative-matrix-properties-nv) checked-result
+(defvkextfun ("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV" get-physical-device-cooperative-matrix-properties-nv) checked-result
   (physical-device physical-device)
   (p-property-count (:pointer :uint32))
   (p-properties (:pointer (:struct cooperative-matrix-properties-nv))))
@@ -2141,31 +2141,31 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (version (:pointer (:struct acceleration-structure-version-khr))))
 
-(defvkfun ("vkGetImageViewHandleNVX" get-image-view-handle-nv-x) :uint32
+(defvkextfun ("vkGetImageViewHandleNVX" get-image-view-handle-nv-x) :uint32
   (device device)
   (p-info (:pointer (:struct image-view-handle-info-nv-x))))
 
-(defvkfun ("vkGetImageViewAddressNVX" get-image-view-address-nv-x) checked-result
+(defvkextfun ("vkGetImageViewAddressNVX" get-image-view-address-nv-x) checked-result
   (device device)
   (image-view image-view)
   (p-properties (:pointer (:struct image-view-address-properties-nv-x))))
 
-(defvkfun ("vkGetPhysicalDeviceSurfacePresentModes2EXT" get-physical-device-surface-present-modes-2-ext) checked-result
+(defvkextfun ("vkGetPhysicalDeviceSurfacePresentModes2EXT" get-physical-device-surface-present-modes-2-ext) checked-result
   (physical-device physical-device)
   (p-surface-info (:pointer (:struct physical-device-surface-info-2-khr)))
   (p-present-mode-count (:pointer :uint32))
   (p-present-modes (:pointer present-mode-khr)))
 
-(defvkfun ("vkGetDeviceGroupSurfacePresentModes2EXT" get-device-group-surface-present-modes-2-ext) checked-result
+(defvkextfun ("vkGetDeviceGroupSurfacePresentModes2EXT" get-device-group-surface-present-modes-2-ext) checked-result
   (device device)
   (p-surface-info (:pointer (:struct physical-device-surface-info-2-khr)))
   (p-modes (:pointer device-group-present-mode-flags-khr)))
 
-(defvkfun ("vkAcquireFullScreenExclusiveModeEXT" acquire-full-screen-exclusive-mode-ext) checked-result
+(defvkextfun ("vkAcquireFullScreenExclusiveModeEXT" acquire-full-screen-exclusive-mode-ext) checked-result
   (device device)
   (swapchain swapchain-khr))
 
-(defvkfun ("vkReleaseFullScreenExclusiveModeEXT" release-full-screen-exclusive-mode-ext) checked-result
+(defvkextfun ("vkReleaseFullScreenExclusiveModeEXT" release-full-screen-exclusive-mode-ext) checked-result
   (device device)
   (swapchain swapchain-khr))
 
@@ -2188,7 +2188,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkfun ("vkReleaseProfilingLockKHR" release-profiling-lock-khr) :void
   (device device))
 
-(defvkfun ("vkGetImageDrmFormatModifierPropertiesEXT" get-image-drm-format-modifier-properties-ext) checked-result
+(defvkextfun ("vkGetImageDrmFormatModifierPropertiesEXT" get-image-drm-format-modifier-properties-ext) checked-result
   (device device)
   (image image)
   (p-properties (:pointer (:struct image-drm-format-modifier-properties-ext))))
@@ -2205,7 +2205,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (p-info (:pointer (:struct buffer-device-address-info))))
 
-(defvkfun ("vkGetBufferDeviceAddressEXT" get-buffer-device-address-ext) device-address
+(defvkextfun ("vkGetBufferDeviceAddressEXT" get-buffer-device-address-ext) device-address
   (device device)
   (p-info (:pointer (:struct buffer-device-address-info))))
 
@@ -2213,50 +2213,50 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (p-info (:pointer (:struct buffer-device-address-info))))
 
-(defvkfun ("vkCreateHeadlessSurfaceEXT" create-headless-surface-ext) checked-result
+(defvkextfun ("vkCreateHeadlessSurfaceEXT" create-headless-surface-ext) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct headless-surface-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
-(defvkfun ("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" get-physical-device-supported-framebuffer-mixed-samples-combinations-nv) checked-result
+(defvkextfun ("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" get-physical-device-supported-framebuffer-mixed-samples-combinations-nv) checked-result
   (physical-device physical-device)
   (p-combination-count (:pointer :uint32))
   (p-combinations (:pointer (:struct framebuffer-mixed-samples-combination-nv))))
 
-(defvkfun ("vkInitializePerformanceApiINTEL" initialize-performance-api-intel) checked-result
+(defvkextfun ("vkInitializePerformanceApiINTEL" initialize-performance-api-intel) checked-result
   (device device)
   (p-initialize-info (:pointer (:struct initialize-performance-api-info-intel))))
 
-(defvkfun ("vkUninitializePerformanceApiINTEL" uninitialize-performance-api-intel) :void
+(defvkextfun ("vkUninitializePerformanceApiINTEL" uninitialize-performance-api-intel) :void
   (device device))
 
-(defvkfun ("vkCmdSetPerformanceMarkerINTEL" cmd-set-performance-marker-intel) checked-result
+(defvkextfun ("vkCmdSetPerformanceMarkerINTEL" cmd-set-performance-marker-intel) checked-result
   (command-buffer command-buffer)
   (p-marker-info (:pointer (:struct performance-marker-info-intel))))
 
-(defvkfun ("vkCmdSetPerformanceStreamMarkerINTEL" cmd-set-performance-stream-marker-intel) checked-result
+(defvkextfun ("vkCmdSetPerformanceStreamMarkerINTEL" cmd-set-performance-stream-marker-intel) checked-result
   (command-buffer command-buffer)
   (p-marker-info (:pointer (:struct performance-stream-marker-info-intel))))
 
-(defvkfun ("vkCmdSetPerformanceOverrideINTEL" cmd-set-performance-override-intel) checked-result
+(defvkextfun ("vkCmdSetPerformanceOverrideINTEL" cmd-set-performance-override-intel) checked-result
   (command-buffer command-buffer)
   (p-override-info (:pointer (:struct performance-override-info-intel))))
 
-(defvkfun ("vkAcquirePerformanceConfigurationINTEL" acquire-performance-configuration-intel) checked-result
+(defvkextfun ("vkAcquirePerformanceConfigurationINTEL" acquire-performance-configuration-intel) checked-result
   (device device)
   (p-acquire-info (:pointer (:struct performance-configuration-acquire-info-intel)))
   (p-configuration (:pointer performance-configuration-intel)))
 
-(defvkfun ("vkReleasePerformanceConfigurationINTEL" release-performance-configuration-intel) checked-result
+(defvkextfun ("vkReleasePerformanceConfigurationINTEL" release-performance-configuration-intel) checked-result
   (device device)
   (configuration performance-configuration-intel))
 
-(defvkfun ("vkQueueSetPerformanceConfigurationINTEL" queue-set-performance-configuration-intel) checked-result
+(defvkextfun ("vkQueueSetPerformanceConfigurationINTEL" queue-set-performance-configuration-intel) checked-result
   (queue queue)
   (configuration performance-configuration-intel))
 
-(defvkfun ("vkGetPerformanceParameterINTEL" get-performance-parameter-intel) checked-result
+(defvkextfun ("vkGetPerformanceParameterINTEL" get-performance-parameter-intel) checked-result
   (device device)
   (parameter performance-parameter-type-intel)
   (p-value (:pointer (:struct performance-value-intel))))
@@ -2287,12 +2287,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-internal-representation-count (:pointer :uint32))
   (p-internal-representations (:pointer (:struct pipeline-executable-internal-representation-khr))))
 
-(defvkfun ("vkCmdSetLineStippleEXT" cmd-set-line-stipple-ext) :void
+(defvkextfun ("vkCmdSetLineStippleEXT" cmd-set-line-stipple-ext) :void
   (command-buffer command-buffer)
   (line-stipple-factor :uint32)
   (line-stipple-pattern :uint16))
 
-(defvkfun ("vkGetPhysicalDeviceToolPropertiesEXT" get-physical-device-tool-properties-ext) checked-result
+(defvkextfun ("vkGetPhysicalDeviceToolPropertiesEXT" get-physical-device-tool-properties-ext) checked-result
   (physical-device physical-device)
   (p-tool-count (:pointer :uint32))
   (p-tool-properties (:pointer (:struct physical-device-tool-properties-ext))))
@@ -2348,29 +2348,29 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (operation deferred-operation-khr))
 
-(defvkfun ("vkCmdSetCullModeEXT" cmd-set-cull-mode-ext) :void
+(defvkextfun ("vkCmdSetCullModeEXT" cmd-set-cull-mode-ext) :void
   (command-buffer command-buffer)
   (cull-mode cull-mode-flags))
 
-(defvkfun ("vkCmdSetFrontFaceEXT" cmd-set-front-face-ext) :void
+(defvkextfun ("vkCmdSetFrontFaceEXT" cmd-set-front-face-ext) :void
   (command-buffer command-buffer)
   (front-face front-face))
 
-(defvkfun ("vkCmdSetPrimitiveTopologyEXT" cmd-set-primitive-topology-ext) :void
+(defvkextfun ("vkCmdSetPrimitiveTopologyEXT" cmd-set-primitive-topology-ext) :void
   (command-buffer command-buffer)
   (primitive-topology primitive-topology))
 
-(defvkfun ("vkCmdSetViewportWithCountEXT" cmd-set-viewport-with-count-ext) :void
+(defvkextfun ("vkCmdSetViewportWithCountEXT" cmd-set-viewport-with-count-ext) :void
   (command-buffer command-buffer)
   (viewport-count :uint32)
   (p-viewports (:pointer (:struct viewport))))
 
-(defvkfun ("vkCmdSetScissorWithCountEXT" cmd-set-scissor-with-count-ext) :void
+(defvkextfun ("vkCmdSetScissorWithCountEXT" cmd-set-scissor-with-count-ext) :void
   (command-buffer command-buffer)
   (scissor-count :uint32)
   (p-scissors (:pointer (:struct rect-2d))))
 
-(defvkfun ("vkCmdBindVertexBuffers2EXT" cmd-bind-vertex-buffers-2-ext) :void
+(defvkextfun ("vkCmdBindVertexBuffers2EXT" cmd-bind-vertex-buffers-2-ext) :void
   (command-buffer command-buffer)
   (first-binding :uint32)
   (binding-count :uint32)
@@ -2379,27 +2379,27 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-sizes (:pointer device-size))
   (p-strides (:pointer device-size)))
 
-(defvkfun ("vkCmdSetDepthTestEnableEXT" cmd-set-depth-test-enable-ext) :void
+(defvkextfun ("vkCmdSetDepthTestEnableEXT" cmd-set-depth-test-enable-ext) :void
   (command-buffer command-buffer)
   (depth-test-enable bool32))
 
-(defvkfun ("vkCmdSetDepthWriteEnableEXT" cmd-set-depth-write-enable-ext) :void
+(defvkextfun ("vkCmdSetDepthWriteEnableEXT" cmd-set-depth-write-enable-ext) :void
   (command-buffer command-buffer)
   (depth-write-enable bool32))
 
-(defvkfun ("vkCmdSetDepthCompareOpEXT" cmd-set-depth-compare-op-ext) :void
+(defvkextfun ("vkCmdSetDepthCompareOpEXT" cmd-set-depth-compare-op-ext) :void
   (command-buffer command-buffer)
   (depth-compare-op compare-op))
 
-(defvkfun ("vkCmdSetDepthBoundsTestEnableEXT" cmd-set-depth-bounds-test-enable-ext) :void
+(defvkextfun ("vkCmdSetDepthBoundsTestEnableEXT" cmd-set-depth-bounds-test-enable-ext) :void
   (command-buffer command-buffer)
   (depth-bounds-test-enable bool32))
 
-(defvkfun ("vkCmdSetStencilTestEnableEXT" cmd-set-stencil-test-enable-ext) :void
+(defvkextfun ("vkCmdSetStencilTestEnableEXT" cmd-set-stencil-test-enable-ext) :void
   (command-buffer command-buffer)
   (stencil-test-enable bool32))
 
-(defvkfun ("vkCmdSetStencilOpEXT" cmd-set-stencil-op-ext) :void
+(defvkextfun ("vkCmdSetStencilOpEXT" cmd-set-stencil-op-ext) :void
   (command-buffer command-buffer)
   (face-mask stencil-face-flags)
   (fail-op stencil-op)
@@ -2407,25 +2407,25 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (depth-fail-op stencil-op)
   (compare-op compare-op))
 
-(defvkfun ("vkCreatePrivateDataSlotEXT" create-private-data-slot-ext) checked-result
+(defvkextfun ("vkCreatePrivateDataSlotEXT" create-private-data-slot-ext) checked-result
   (device device)
   (p-create-info (:pointer (:struct private-data-slot-create-info-ext)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-private-data-slot (:pointer private-data-slot-ext)))
 
-(defvkfun ("vkDestroyPrivateDataSlotEXT" destroy-private-data-slot-ext) :void
+(defvkextfun ("vkDestroyPrivateDataSlotEXT" destroy-private-data-slot-ext) :void
   (device device)
   (private-data-slot private-data-slot-ext)
   (p-allocator (:pointer (:struct allocation-callbacks))))
 
-(defvkfun ("vkSetPrivateDataEXT" set-private-data-ext) checked-result
+(defvkextfun ("vkSetPrivateDataEXT" set-private-data-ext) checked-result
   (device device)
   (object-type object-type)
   (object-handle :uint64)
   (private-data-slot private-data-slot-ext)
   (data :uint64))
 
-(defvkfun ("vkGetPrivateDataEXT" get-private-data-ext) :void
+(defvkextfun ("vkGetPrivateDataEXT" get-private-data-ext) :void
   (device device)
   (object-type object-type)
   (object-handle :uint64)

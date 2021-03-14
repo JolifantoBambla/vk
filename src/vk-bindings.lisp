@@ -18,11 +18,11 @@ If OPTIONAL-P is truthy NULL is appended to each type declaration."
           when (and optional-p
                     extension-p
                     (= i (length args)))
-          collect '(extension-loader *default-extension-loader) into arg-names
+          collect (list 'extension-loader '*default-extension-loader*) into arg-names
           when (and optional-p
                     extension-p
                     (= i (length args)))
-          collect (list 'declare (list (list or %vk:extension-loader null) extension-loader)) into arg-types
+          collect (list 'declare (list (list 'or '%vk:extension-loader 'null) 'extension-loader)) into arg-types
           finally (return (cl:values arg-names arg-types))))
   
   (defun process-variables (variables &optional (extension-p nil))
@@ -70,7 +70,7 @@ options are :handle, :in/:out, :optional
                      (push
                       (list var-sym (third var))
                       let-args))))
-      (when extension-p (push extension-loader vk-input-args))
+      (when extension-p (push 'extension-loader vk-input-args))
       (cl:values (reverse translated-args) (reverse let-args) (reverse vk-input-args) (reverse output-args)))))
 
 ;;; ---------------------------------------------- 0 output parameters -----------------------------------------------------------------

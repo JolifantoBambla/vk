@@ -189,7 +189,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:pfn-internal-free)
        ,ptr
        (:struct %vk:allocation-callbacks))
-    (setf %vk:p-user-data (vk:user-data ,value)
+    (setf %vk:p-user-data (if (vk:user-data ,value) (vk:user-data ,value) (cffi:null-pointer))
           %vk:pfn-allocation (vk:pfn-allocation ,value)
           %vk:pfn-reallocation (vk:pfn-reallocation ,value)
           %vk:pfn-free (vk:pfn-free ,value)
@@ -364,7 +364,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:mapped-memory-range))
     (setf %vk:s-type :mapped-memory-range
           %vk:p-next (cffi:null-pointer)
-          %vk:memory (vk:memory ,value)
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value)
           %vk:size (vk:size ,value))))
 
@@ -401,7 +401,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:range)
        ,ptr
        (:struct %vk:descriptor-buffer-info))
-    (setf %vk:buffer (vk:buffer ,value)
+    (setf %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value)
           %vk:range (vk:range ,value))))
 
@@ -412,8 +412,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:image-layout)
        ,ptr
        (:struct %vk:descriptor-image-info))
-    (setf %vk:sampler (vk:sampler ,value)
-          %vk:image-view (vk:image-view ,value)
+    (setf %vk:sampler (if (vk:sampler ,value) (vk:sampler ,value) (cffi:null-pointer))
+          %vk:image-view (if (vk:image-view ,value) (vk:image-view ,value) (cffi:null-pointer))
           %vk:image-layout (vk:image-layout ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-write-descriptor-set) ptr)
@@ -432,7 +432,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:write-descriptor-set))
     (setf %vk:s-type :write-descriptor-set
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:dst-set (vk:dst-set ,value)
+          %vk:dst-set (if (vk:dst-set ,value) (vk:dst-set ,value) (cffi:null-pointer))
           %vk:dst-binding (vk:dst-binding ,value)
           %vk:dst-array-element (vk:dst-array-element ,value)
           %vk:descriptor-count (reduce #'max (list (length (vk:image-info ,value))(length (vk:buffer-info ,value))(length (vk:texel-buffer-view ,value))))
@@ -456,10 +456,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-descriptor-set))
     (setf %vk:s-type :copy-descriptor-set
           %vk:p-next (cffi:null-pointer)
-          %vk:src-set (vk:src-set ,value)
+          %vk:src-set (if (vk:src-set ,value) (vk:src-set ,value) (cffi:null-pointer))
           %vk:src-binding (vk:src-binding ,value)
           %vk:src-array-element (vk:src-array-element ,value)
-          %vk:dst-set (vk:dst-set ,value)
+          %vk:dst-set (if (vk:dst-set ,value) (vk:dst-set ,value) (cffi:null-pointer))
           %vk:dst-binding (vk:dst-binding ,value)
           %vk:dst-array-element (vk:dst-array-element ,value)
           %vk:descriptor-count (vk:descriptor-count ,value))))
@@ -499,7 +499,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :buffer-view-create-info
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:buffer (vk:buffer ,value)
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:format (vk:format ,value)
           %vk:offset (vk:offset ,value)
           %vk:range (vk:range ,value))))
@@ -575,7 +575,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:dst-access-mask (vk:dst-access-mask ,value)
           %vk:src-queue-family-index (vk:src-queue-family-index ,value)
           %vk:dst-queue-family-index (vk:dst-queue-family-index ,value)
-          %vk:buffer (vk:buffer ,value)
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value)
           %vk:size (vk:size ,value))))
 
@@ -601,7 +601,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:new-layout (vk:new-layout ,value)
           %vk:src-queue-family-index (vk:src-queue-family-index ,value)
           %vk:dst-queue-family-index (vk:dst-queue-family-index ,value)
-          %vk:image (vk:image ,value)
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
           %vk:subresource-range (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-range) (vk:subresource-range ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-create-info) ptr)
@@ -669,7 +669,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :image-view-create-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
-          %vk:image (vk:image ,value)
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
           %vk:view-type (vk:view-type ,value)
           %vk:format (vk:format ,value)
           %vk:components (vk-alloc:foreign-allocate-and-fill '(:struct %vk:component-mapping) (vk:components ,value) ,ptr)
@@ -697,7 +697,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:sparse-memory-bind))
     (setf %vk:resource-offset (vk:resource-offset ,value)
           %vk:size (vk:size ,value)
-          %vk:memory (vk:memory ,value)
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:memory-offset (vk:memory-offset ,value)
           %vk:flags (vk:flags ,value))))
 
@@ -714,7 +714,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource) (vk:subresource ,value) ,ptr)
           %vk:offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:offset ,value) ,ptr)
           %vk:extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-3d) (vk:extent ,value) ,ptr)
-          %vk:memory (vk:memory ,value)
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:memory-offset (vk:memory-offset ,value)
           %vk:flags (vk:flags ,value))))
 
@@ -725,7 +725,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-binds)
        ,ptr
        (:struct %vk:sparse-buffer-memory-bind-info))
-    (setf %vk:buffer (vk:buffer ,value)
+    (setf %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:bind-count (length (vk:binds ,value))
           %vk:p-binds (vk-alloc:foreign-allocate-and-fill '(:struct %vk:sparse-memory-bind) (vk:binds ,value) ,ptr))))
 
@@ -736,7 +736,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-binds)
        ,ptr
        (:struct %vk:sparse-image-opaque-memory-bind-info))
-    (setf %vk:image (vk:image ,value)
+    (setf %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
           %vk:bind-count (length (vk:binds ,value))
           %vk:p-binds (vk-alloc:foreign-allocate-and-fill '(:struct %vk:sparse-memory-bind) (vk:binds ,value) ,ptr))))
 
@@ -747,7 +747,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-binds)
        ,ptr
        (:struct %vk:sparse-image-memory-bind-info))
-    (setf %vk:image (vk:image ,value)
+    (setf %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
           %vk:bind-count (length (vk:binds ,value))
           %vk:p-binds (vk-alloc:foreign-allocate-and-fill '(:struct %vk:sparse-image-memory-bind) (vk:binds ,value) ,ptr))))
 
@@ -922,7 +922,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:descriptor-set-allocate-info))
     (setf %vk:s-type :descriptor-set-allocate-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:descriptor-pool (vk:descriptor-pool ,value)
+          %vk:descriptor-pool (if (vk:descriptor-pool ,value) (vk:descriptor-pool ,value) (cffi:null-pointer))
           %vk:descriptor-set-count (length (vk:set-layouts ,value))
           %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill %vk:descriptor-set-layout (vk:set-layouts ,value) ,ptr))))
 
@@ -948,7 +948,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:map-entry-count (length (vk:map-entries ,value))
           %vk:p-map-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:specialization-map-entry) (vk:map-entries ,value) ,ptr)
           %vk:data-size (vk:data-size ,value)
-          %vk:p-data (vk:data ,value))))
+          %vk:p-data (if (vk:data ,value) (vk:data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-shader-stage-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -965,7 +965,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:stage (vk:stage ,value)
-          %vk:module (vk:module ,value)
+          %vk:module (if (vk:module ,value) (vk:module ,value) (cffi:null-pointer))
           %vk:p-name (vk:name ,value)
           %vk:p-specialization-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:specialization-info) (vk:specialization-info ,value) ,ptr))))
 
@@ -984,8 +984,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:stage (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-shader-stage-create-info) (vk:stage ,value) ,ptr)
-          %vk:layout (vk:layout ,value)
-          %vk:base-pipeline-handle (vk:base-pipeline-handle ,value)
+          %vk:layout (if (vk:layout ,value) (vk:layout ,value) (cffi:null-pointer))
+          %vk:base-pipeline-handle (if (vk:base-pipeline-handle ,value) (vk:base-pipeline-handle ,value) (cffi:null-pointer))
           %vk:base-pipeline-index (vk:base-pipeline-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-vertex-input-binding-description) ptr)
@@ -1274,10 +1274,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-depth-stencil-state (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-depth-stencil-state-create-info) (vk:depth-stencil-state ,value) ,ptr)
           %vk:p-color-blend-state (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-color-blend-state-create-info) (vk:color-blend-state ,value) ,ptr)
           %vk:p-dynamic-state (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-dynamic-state-create-info) (vk:dynamic-state ,value) ,ptr)
-          %vk:layout (vk:layout ,value)
-          %vk:render-pass (vk:render-pass ,value)
+          %vk:layout (if (vk:layout ,value) (vk:layout ,value) (cffi:null-pointer))
+          %vk:render-pass (if (vk:render-pass ,value) (vk:render-pass ,value) (cffi:null-pointer))
           %vk:subpass (vk:subpass ,value)
-          %vk:base-pipeline-handle (vk:base-pipeline-handle ,value)
+          %vk:base-pipeline-handle (if (vk:base-pipeline-handle ,value) (vk:base-pipeline-handle ,value) (cffi:null-pointer))
           %vk:base-pipeline-index (vk:base-pipeline-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-cache-create-info) ptr)
@@ -1293,7 +1293,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
           %vk:initial-data-size (vk:initial-data-size ,value)
-          %vk:p-initial-data (vk:initial-data ,value))))
+          %vk:p-initial-data (if (vk:initial-data ,value) (vk:initial-data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-push-constant-range) ptr)
   `(cffi:with-foreign-slots
@@ -1390,7 +1390,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:command-buffer-allocate-info))
     (setf %vk:s-type :command-buffer-allocate-info
           %vk:p-next (cffi:null-pointer)
-          %vk:command-pool (vk:command-pool ,value)
+          %vk:command-pool (if (vk:command-pool ,value) (vk:command-pool ,value) (cffi:null-pointer))
           %vk:level (vk:level ,value)
           %vk:command-buffer-count (vk:command-buffer-count ,value))))
 
@@ -1408,9 +1408,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:command-buffer-inheritance-info))
     (setf %vk:s-type :command-buffer-inheritance-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:render-pass (vk:render-pass ,value)
+          %vk:render-pass (if (vk:render-pass ,value) (vk:render-pass ,value) (cffi:null-pointer))
           %vk:subpass (vk:subpass ,value)
-          %vk:framebuffer (vk:framebuffer ,value)
+          %vk:framebuffer (if (vk:framebuffer ,value) (vk:framebuffer ,value) (cffi:null-pointer))
           %vk:occlusion-query-enable (vk:occlusion-query-enable ,value)
           %vk:query-flags (vk:query-flags ,value)
           %vk:pipeline-statistics (vk:pipeline-statistics ,value))))
@@ -1441,8 +1441,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:render-pass-begin-info))
     (setf %vk:s-type :render-pass-begin-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:render-pass (vk:render-pass ,value)
-          %vk:framebuffer (vk:framebuffer ,value)
+          %vk:render-pass (if (vk:render-pass ,value) (vk:render-pass ,value) (cffi:null-pointer))
+          %vk:framebuffer (if (vk:framebuffer ,value) (vk:framebuffer ,value) (cffi:null-pointer))
           %vk:render-area (vk-alloc:foreign-allocate-and-fill '(:struct %vk:rect-2d) (vk:render-area ,value) ,ptr)
           %vk:clear-value-count (length (vk:clear-values ,value))
           %vk:p-clear-values (let ((slot (vk:clear-values ,value))) (cond ((slot-boundp slot color) (let ((slot (vk:color slot))) (cond ((slot-boundp slot float-32) (vk:float-32 slot))((slot-boundp slot int-32) (vk:int-32 slot))((slot-boundp slot uint-32) (vk:uint-32 slot)))))((slot-boundp slot depth-stencil) (vk-alloc:foreign-allocate-and-fill '(:struct %vk:clear-depth-stencil-value) (vk:depth-stencil slot) ptr)))))))
@@ -1979,7 +1979,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :framebuffer-create-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
-          %vk:render-pass (vk:render-pass ,value)
+          %vk:render-pass (if (vk:render-pass ,value) (vk:render-pass ,value) (cffi:null-pointer))
           %vk:attachment-count (length (vk:attachments ,value))
           %vk:p-attachments (vk-alloc:foreign-allocate-and-fill %vk:image-view (vk:attachments ,value) ,ptr)
           %vk:width (vk:width ,value)
@@ -2059,7 +2059,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:persistent-content)
        ,ptr
        (:struct %vk:display-properties-khr))
-    (setf %vk:display (vk:display ,value)
+    (setf %vk:display (if (vk:display ,value) (vk:display ,value) (cffi:null-pointer))
           %vk:display-name (vk:display-name ,value)
           %vk:physical-dimensions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:physical-dimensions ,value) ,ptr)
           %vk:physical-resolution (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:physical-resolution ,value) ,ptr)
@@ -2073,7 +2073,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:current-stack-index)
        ,ptr
        (:struct %vk:display-plane-properties-khr))
-    (setf %vk:current-display (vk:current-display ,value)
+    (setf %vk:current-display (if (vk:current-display ,value) (vk:current-display ,value) (cffi:null-pointer))
           %vk:current-stack-index (vk:current-stack-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-display-mode-parameters-khr) ptr)
@@ -2091,7 +2091,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:parameters)
        ,ptr
        (:struct %vk:display-mode-properties-khr))
-    (setf %vk:display-mode (vk:display-mode ,value)
+    (setf %vk:display-mode (if (vk:display-mode ,value) (vk:display-mode ,value) (cffi:null-pointer))
           %vk:parameters (vk-alloc:foreign-allocate-and-fill '(:struct %vk:display-mode-parameters-khr) (vk:parameters ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-display-mode-create-info-khr) ptr)
@@ -2147,7 +2147,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :display-surface-create-info-khr
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:display-mode (vk:display-mode ,value)
+          %vk:display-mode (if (vk:display-mode ,value) (vk:display-mode ,value) (cffi:null-pointer))
           %vk:plane-index (vk:plane-index ,value)
           %vk:plane-stack-index (vk:plane-stack-index ,value)
           %vk:transform (vk:transform ,value)
@@ -2219,7 +2219,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :vi-surface-create-info-nn
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:window (vk:window ,value))))
+          %vk:window (if (vk:window ,value) (vk:window ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-wayland-surface-create-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -2356,7 +2356,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :swapchain-create-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
-          %vk:surface (vk:surface ,value)
+          %vk:surface (if (vk:surface ,value) (vk:surface ,value) (cffi:null-pointer))
           %vk:min-image-count (vk:min-image-count ,value)
           %vk:image-format (vk:image-format ,value)
           %vk:image-color-space (vk:image-color-space ,value)
@@ -2370,7 +2370,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:composite-alpha (vk:composite-alpha ,value)
           %vk:present-mode (vk:present-mode ,value)
           %vk:clipped (vk:clipped ,value)
-          %vk:old-swapchain (vk:old-swapchain ,value))))
+          %vk:old-swapchain (if (vk:old-swapchain ,value) (vk:old-swapchain ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-present-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -2406,7 +2406,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:pfn-callback (vk:pfn-callback ,value)
-          %vk:p-user-data (vk:user-data ,value))))
+          %vk:p-user-data (if (vk:user-data ,value) (vk:user-data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-validation-flags-ext) ptr)
   `(cffi:with-foreign-slots
@@ -2481,7 +2481,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:object (vk:object ,value)
           %vk:tag-name (vk:tag-name ,value)
           %vk:tag-size (vk:tag-size ,value)
-          %vk:p-tag (vk:tag ,value))))
+          %vk:p-tag (if (vk:tag ,value) (vk:tag ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-debug-marker-marker-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -2528,8 +2528,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:dedicated-allocation-memory-allocate-info-nv))
     (setf %vk:s-type :dedicated-allocation-memory-allocate-info-nv
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:image (vk:image ,value)
-          %vk:buffer (vk:buffer ,value))))
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-external-image-format-properties-nv) ptr)
   `(cffi:with-foreign-slots
@@ -2762,7 +2762,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:offset)
        ,ptr
        (:struct %vk:indirect-commands-stream-nv))
-    (setf %vk:buffer (vk:buffer ,value)
+    (setf %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-indirect-commands-layout-token-nv) ptr)
@@ -2791,7 +2791,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:offset (vk:offset ,value)
           %vk:vertex-binding-unit (vk:vertex-binding-unit ,value)
           %vk:vertex-dynamic-stride (vk:vertex-dynamic-stride ,value)
-          %vk:pushconstant-pipeline-layout (vk:pushconstant-pipeline-layout ,value)
+          %vk:pushconstant-pipeline-layout (if (vk:pushconstant-pipeline-layout ,value) (vk:pushconstant-pipeline-layout ,value) (cffi:null-pointer))
           %vk:pushconstant-shader-stage-flags (vk:pushconstant-shader-stage-flags ,value)
           %vk:pushconstant-offset (vk:pushconstant-offset ,value)
           %vk:pushconstant-size (vk:pushconstant-size ,value)
@@ -2843,17 +2843,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :generated-commands-info-nv
           %vk:p-next (cffi:null-pointer)
           %vk:pipeline-bind-point (vk:pipeline-bind-point ,value)
-          %vk:pipeline (vk:pipeline ,value)
-          %vk:indirect-commands-layout (vk:indirect-commands-layout ,value)
+          %vk:pipeline (if (vk:pipeline ,value) (vk:pipeline ,value) (cffi:null-pointer))
+          %vk:indirect-commands-layout (if (vk:indirect-commands-layout ,value) (vk:indirect-commands-layout ,value) (cffi:null-pointer))
           %vk:stream-count (length (vk:streams ,value))
           %vk:p-streams (vk-alloc:foreign-allocate-and-fill '(:struct %vk:indirect-commands-stream-nv) (vk:streams ,value) ,ptr)
           %vk:sequences-count (vk:sequences-count ,value)
-          %vk:preprocess-buffer (vk:preprocess-buffer ,value)
+          %vk:preprocess-buffer (if (vk:preprocess-buffer ,value) (vk:preprocess-buffer ,value) (cffi:null-pointer))
           %vk:preprocess-offset (vk:preprocess-offset ,value)
           %vk:preprocess-size (vk:preprocess-size ,value)
-          %vk:sequences-count-buffer (vk:sequences-count-buffer ,value)
+          %vk:sequences-count-buffer (if (vk:sequences-count-buffer ,value) (vk:sequences-count-buffer ,value) (cffi:null-pointer))
           %vk:sequences-count-offset (vk:sequences-count-offset ,value)
-          %vk:sequences-index-buffer (vk:sequences-index-buffer ,value)
+          %vk:sequences-index-buffer (if (vk:sequences-index-buffer ,value) (vk:sequences-index-buffer ,value) (cffi:null-pointer))
           %vk:sequences-index-offset (vk:sequences-index-offset ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-generated-commands-memory-requirements-info-nv) ptr)
@@ -2869,8 +2869,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :generated-commands-memory-requirements-info-nv
           %vk:p-next (cffi:null-pointer)
           %vk:pipeline-bind-point (vk:pipeline-bind-point ,value)
-          %vk:pipeline (vk:pipeline ,value)
-          %vk:indirect-commands-layout (vk:indirect-commands-layout ,value)
+          %vk:pipeline (if (vk:pipeline ,value) (vk:pipeline ,value) (cffi:null-pointer))
+          %vk:indirect-commands-layout (if (vk:indirect-commands-layout ,value) (vk:indirect-commands-layout ,value) (cffi:null-pointer))
           %vk:max-sequences-count (vk:max-sequences-count ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-features-2) ptr)
@@ -3237,7 +3237,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-win32-handle-info-khr))
     (setf %vk:s-type :memory-get-win32-handle-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:memory (vk:memory ,value)
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-import-memory-fd-info-khr) ptr)
@@ -3274,7 +3274,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-fd-info-khr))
     (setf %vk:s-type :memory-get-fd-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:memory (vk:memory ,value)
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-win32-keyed-mutex-acquire-release-info-khr) ptr)
@@ -3350,7 +3350,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-semaphore-win32-handle-info-khr))
     (setf %vk:s-type :import-semaphore-win32-handle-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:semaphore (vk:semaphore ,value)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:handle-type (vk:handle-type ,value)
           %vk:handle (vk:handle ,value)
@@ -3398,7 +3398,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-get-win32-handle-info-khr))
     (setf %vk:s-type :semaphore-get-win32-handle-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:semaphore (vk:semaphore ,value)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-import-semaphore-fd-info-khr) ptr)
@@ -3413,7 +3413,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-semaphore-fd-info-khr))
     (setf %vk:s-type :import-semaphore-fd-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:semaphore (vk:semaphore ,value)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:handle-type (vk:handle-type ,value)
           %vk:fd (vk:fd ,value))))
@@ -3428,7 +3428,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-get-fd-info-khr))
     (setf %vk:s-type :semaphore-get-fd-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:semaphore (vk:semaphore ,value)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-external-fence-info) ptr)
@@ -3481,7 +3481,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-fence-win32-handle-info-khr))
     (setf %vk:s-type :import-fence-win32-handle-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:fence (vk:fence ,value)
+          %vk:fence (if (vk:fence ,value) (vk:fence ,value) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:handle-type (vk:handle-type ,value)
           %vk:handle (vk:handle ,value)
@@ -3512,7 +3512,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:fence-get-win32-handle-info-khr))
     (setf %vk:s-type :fence-get-win32-handle-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:fence (vk:fence ,value)
+          %vk:fence (if (vk:fence ,value) (vk:fence ,value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-import-fence-fd-info-khr) ptr)
@@ -3527,7 +3527,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-fence-fd-info-khr))
     (setf %vk:s-type :import-fence-fd-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:fence (vk:fence ,value)
+          %vk:fence (if (vk:fence ,value) (vk:fence ,value) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:handle-type (vk:handle-type ,value)
           %vk:fd (vk:fd ,value))))
@@ -3542,7 +3542,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:fence-get-fd-info-khr))
     (setf %vk:s-type :fence-get-fd-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:fence (vk:fence ,value)
+          %vk:fence (if (vk:fence ,value) (vk:fence ,value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-multiview-features) ptr)
@@ -3681,7 +3681,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :physical-device-group-properties
           %vk:p-next (cffi:null-pointer)
           %vk:physical-device-count (vk:physical-device-count ,value)
-          %vk:physical-devices (vk:physical-devices ,value)
+          %vk:physical-devices (if (vk:physical-devices ,value) (vk:physical-devices ,value) (cffi:null-pointer))
           %vk:subset-allocation (vk:subset-allocation ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-memory-allocate-flags-info) ptr)
@@ -3708,8 +3708,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-buffer-memory-info))
     (setf %vk:s-type :bind-buffer-memory-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:buffer (vk:buffer ,value)
-          %vk:memory (vk:memory ,value)
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:memory-offset (vk:memory-offset ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-bind-buffer-memory-device-group-info) ptr)
@@ -3736,8 +3736,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-image-memory-info))
     (setf %vk:s-type :bind-image-memory-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:image (vk:image ,value)
-          %vk:memory (vk:memory ,value)
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:memory-offset (vk:memory-offset ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-bind-image-memory-device-group-info) ptr)
@@ -3839,7 +3839,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-swapchain-create-info-khr))
     (setf %vk:s-type :image-swapchain-create-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:swapchain (vk:swapchain ,value))))
+          %vk:swapchain (if (vk:swapchain ,value) (vk:swapchain ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-bind-image-memory-swapchain-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -3851,7 +3851,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-image-memory-swapchain-info-khr))
     (setf %vk:s-type :bind-image-memory-swapchain-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:swapchain (vk:swapchain ,value)
+          %vk:swapchain (if (vk:swapchain ,value) (vk:swapchain ,value) (cffi:null-pointer))
           %vk:image-index (vk:image-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acquire-next-image-info-khr) ptr)
@@ -3867,10 +3867,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:acquire-next-image-info-khr))
     (setf %vk:s-type :acquire-next-image-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:swapchain (vk:swapchain ,value)
+          %vk:swapchain (if (vk:swapchain ,value) (vk:swapchain ,value) (cffi:null-pointer))
           %vk:timeout (vk:timeout ,value)
-          %vk:semaphore (vk:semaphore ,value)
-          %vk:fence (vk:fence ,value)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
+          %vk:fence (if (vk:fence ,value) (vk:fence ,value) (cffi:null-pointer))
           %vk:device-mask (vk:device-mask ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-device-group-present-info-khr) ptr)
@@ -3949,9 +3949,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:descriptor-update-entry-count (length (vk:descriptor-update-entries ,value))
           %vk:p-descriptor-update-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:descriptor-update-template-entry) (vk:descriptor-update-entries ,value) ,ptr)
           %vk:template-type (vk:template-type ,value)
-          %vk:descriptor-set-layout (vk:descriptor-set-layout ,value)
+          %vk:descriptor-set-layout (if (vk:descriptor-set-layout ,value) (vk:descriptor-set-layout ,value) (cffi:null-pointer))
           %vk:pipeline-bind-point (vk:pipeline-bind-point ,value)
-          %vk:pipeline-layout (vk:pipeline-layout ,value)
+          %vk:pipeline-layout (if (vk:pipeline-layout ,value) (vk:pipeline-layout ,value) (cffi:null-pointer))
           %vk:set (vk:set ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-x-y-color-ext) ptr)
@@ -4065,7 +4065,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :ios-surface-create-info-mvk
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:p-view (vk:view ,value))))
+          %vk:p-view (if (vk:view ,value) (vk:view ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-mac-os-surface-create-info-mvk) ptr)
   `(cffi:with-foreign-slots
@@ -4078,7 +4078,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :macos-surface-create-info-mvk
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:p-view (vk:view ,value))))
+          %vk:p-view (if (vk:view ,value) (vk:view ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-metal-surface-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -4217,7 +4217,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-surface-info-2-khr))
     (setf %vk:s-type :physical-device-surface-info-2-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:surface (vk:surface ,value))))
+          %vk:surface (if (vk:surface ,value) (vk:surface ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-surface-capabilities-2-khr) ptr)
   `(cffi:with-foreign-slots
@@ -4284,7 +4284,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:display-plane-info-2-khr))
     (setf %vk:s-type :display-plane-info-2-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:mode (vk:mode ,value)
+          %vk:mode (if (vk:mode ,value) (vk:mode ,value) (cffi:null-pointer))
           %vk:plane-index (vk:plane-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-display-plane-capabilities-2-khr) ptr)
@@ -4363,7 +4363,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:buffer-memory-requirements-info-2))
     (setf %vk:s-type :buffer-memory-requirements-info-2
           %vk:p-next (cffi:null-pointer)
-          %vk:buffer (vk:buffer ,value))))
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-memory-requirements-info-2) ptr)
   `(cffi:with-foreign-slots
@@ -4374,7 +4374,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-memory-requirements-info-2))
     (setf %vk:s-type :image-memory-requirements-info-2
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:image (vk:image ,value))))
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-sparse-memory-requirements-info-2) ptr)
   `(cffi:with-foreign-slots
@@ -4385,7 +4385,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-sparse-memory-requirements-info-2))
     (setf %vk:s-type :image-sparse-memory-requirements-info-2
           %vk:p-next (cffi:null-pointer)
-          %vk:image (vk:image ,value))))
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-memory-requirements-2) ptr)
   `(cffi:with-foreign-slots
@@ -4443,8 +4443,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-dedicated-allocate-info))
     (setf %vk:s-type :memory-dedicated-allocate-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:image (vk:image ,value)
-          %vk:buffer (vk:buffer ,value))))
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-view-usage-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -4477,7 +4477,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:sampler-ycbcr-conversion-info))
     (setf %vk:s-type :sampler-ycbcr-conversion-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:conversion (vk:conversion ,value))))
+          %vk:conversion (if (vk:conversion ,value) (vk:conversion ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-sampler-ycbcr-conversion-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -4570,7 +4570,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:conditional-rendering-begin-info-ext))
     (setf %vk:s-type :conditional-rendering-begin-info-ext
           %vk:p-next (cffi:null-pointer)
-          %vk:buffer (vk:buffer ,value)
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value)
           %vk:flags (vk:flags ,value))))
 
@@ -4855,7 +4855,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :write-descriptor-set-inline-uniform-block-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:data-size (vk:data-size ,value)
-          %vk:p-data (vk:data ,value))))
+          %vk:p-data (if (vk:data ,value) (vk:data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-descriptor-pool-inline-uniform-block-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -4913,7 +4913,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
           %vk:initial-data-size (vk:initial-data-size ,value)
-          %vk:p-initial-data (vk:initial-data ,value))))
+          %vk:p-initial-data (if (vk:initial-data ,value) (vk:initial-data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-shader-module-validation-cache-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -4924,7 +4924,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:shader-module-validation-cache-create-info-ext))
     (setf %vk:s-type :shader-module-validation-cache-create-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:validation-cache (vk:validation-cache ,value))))
+          %vk:validation-cache (if (vk:validation-cache ,value) (vk:validation-cache ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-maintenance-3-properties) ptr)
   `(cffi:with-foreign-slots
@@ -5105,7 +5105,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:object-handle (vk:object-handle ,value)
           %vk:tag-name (vk:tag-name ,value)
           %vk:tag-size (vk:tag-size ,value)
-          %vk:p-tag (vk:tag ,value))))
+          %vk:p-tag (if (vk:tag ,value) (vk:tag ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-debug-utils-label-ext) ptr)
   `(cffi:with-foreign-slots
@@ -5137,7 +5137,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:message-severity (vk:message-severity ,value)
           %vk:message-type (vk:message-type ,value)
           %vk:pfn-user-callback (vk:pfn-user-callback ,value)
-          %vk:p-user-data (vk:user-data ,value))))
+          %vk:p-user-data (if (vk:user-data ,value) (vk:user-data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-debug-utils-messenger-callback-data-ext) ptr)
   `(cffi:with-foreign-slots
@@ -5179,7 +5179,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :import-memory-host-pointer-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type ,value)
-          %vk:p-host-pointer (vk:host-pointer ,value))))
+          %vk:p-host-pointer (if (vk:host-pointer ,value) (vk:host-pointer ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-memory-host-pointer-properties-ext) ptr)
   `(cffi:with-foreign-slots
@@ -5671,7 +5671,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-signal-info))
     (setf %vk:s-type :semaphore-signal-info
           %vk:p-next (cffi:null-pointer)
-          %vk:semaphore (vk:semaphore ,value)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
           %vk:value (vk:value ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-vertex-input-binding-divisor-description-ext) ptr)
@@ -5768,7 +5768,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-android-hardware-buffer-info-android))
     (setf %vk:s-type :memory-get-android-hardware-buffer-info-android
           %vk:p-next (cffi:null-pointer)
-          %vk:memory (vk:memory ,value))))
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-android-hardware-buffer-format-properties-android) ptr)
   `(cffi:with-foreign-slots
@@ -5941,7 +5941,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :checkpoint-data-nv
           %vk:p-next (cffi:null-pointer)
           %vk:stage (vk:stage ,value)
-          %vk:p-checkpoint-marker (vk:checkpoint-marker ,value))))
+          %vk:p-checkpoint-marker (if (vk:checkpoint-marker ,value) (vk:checkpoint-marker ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-depth-stencil-resolve-properties) ptr)
   `(cffi:with-foreign-slots
@@ -6341,7 +6341,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:closest-hit-shader (vk:closest-hit-shader ,value)
           %vk:any-hit-shader (vk:any-hit-shader ,value)
           %vk:intersection-shader (vk:intersection-shader ,value)
-          %vk:p-shader-group-capture-replay-handle (vk:shader-group-capture-replay-handle ,value))))
+          %vk:p-shader-group-capture-replay-handle (if (vk:shader-group-capture-replay-handle ,value) (vk:shader-group-capture-replay-handle ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-ray-tracing-pipeline-create-info-nv) ptr)
   `(cffi:with-foreign-slots
@@ -6366,8 +6366,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:group-count (length (vk:groups ,value))
           %vk:p-groups (vk-alloc:foreign-allocate-and-fill '(:struct %vk:ray-tracing-shader-group-create-info-nv) (vk:groups ,value) ,ptr)
           %vk:max-recursion-depth (vk:max-recursion-depth ,value)
-          %vk:layout (vk:layout ,value)
-          %vk:base-pipeline-handle (vk:base-pipeline-handle ,value)
+          %vk:layout (if (vk:layout ,value) (vk:layout ,value) (cffi:null-pointer))
+          %vk:base-pipeline-handle (if (vk:base-pipeline-handle ,value) (vk:base-pipeline-handle ,value) (cffi:null-pointer))
           %vk:base-pipeline-index (vk:base-pipeline-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-ray-tracing-pipeline-create-info-khr) ptr)
@@ -6397,8 +6397,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:max-recursion-depth (vk:max-recursion-depth ,value)
           %vk:libraries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-library-create-info-khr) (vk:libraries ,value) ,ptr)
           %vk:p-library-interface (vk-alloc:foreign-allocate-and-fill '(:struct %vk:ray-tracing-pipeline-interface-create-info-khr) (vk:library-interface ,value) ,ptr)
-          %vk:layout (vk:layout ,value)
-          %vk:base-pipeline-handle (vk:base-pipeline-handle ,value)
+          %vk:layout (if (vk:layout ,value) (vk:layout ,value) (cffi:null-pointer))
+          %vk:base-pipeline-handle (if (vk:base-pipeline-handle ,value) (vk:base-pipeline-handle ,value) (cffi:null-pointer))
           %vk:base-pipeline-index (vk:base-pipeline-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-geometry-triangles-nv) ptr)
@@ -6420,16 +6420,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:geometry-triangles-nv))
     (setf %vk:s-type :geometry-triangles-nv
           %vk:p-next (cffi:null-pointer)
-          %vk:vertex-data (vk:vertex-data ,value)
+          %vk:vertex-data (if (vk:vertex-data ,value) (vk:vertex-data ,value) (cffi:null-pointer))
           %vk:vertex-offset (vk:vertex-offset ,value)
           %vk:vertex-count (vk:vertex-count ,value)
           %vk:vertex-stride (vk:vertex-stride ,value)
           %vk:vertex-format (vk:vertex-format ,value)
-          %vk:index-data (vk:index-data ,value)
+          %vk:index-data (if (vk:index-data ,value) (vk:index-data ,value) (cffi:null-pointer))
           %vk:index-offset (vk:index-offset ,value)
           %vk:index-count (vk:index-count ,value)
           %vk:index-type (vk:index-type ,value)
-          %vk:transform-data (vk:transform-data ,value)
+          %vk:transform-data (if (vk:transform-data ,value) (vk:transform-data ,value) (cffi:null-pointer))
           %vk:transform-offset (vk:transform-offset ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-geometry-aabb-nv) ptr)
@@ -6444,7 +6444,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:geometry-aabb-nv))
     (setf %vk:s-type :geometry-aabb-nv
           %vk:p-next (cffi:null-pointer)
-          %vk:aabb-data (vk:aabb-data ,value)
+          %vk:aabb-data (if (vk:aabb-data ,value) (vk:aabb-data ,value) (cffi:null-pointer))
           %vk:num-aabbs (vk:num-aabbs ,value)
           %vk:stride (vk:stride ,value)
           %vk:offset (vk:offset ,value))))
@@ -6518,8 +6518,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-acceleration-structure-memory-info-khr))
     (setf %vk:s-type :bind-acceleration-structure-memory-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:acceleration-structure (vk:acceleration-structure ,value)
-          %vk:memory (vk:memory ,value)
+          %vk:acceleration-structure (if (vk:acceleration-structure ,value) (vk:acceleration-structure ,value) (cffi:null-pointer))
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
           %vk:memory-offset (vk:memory-offset ,value)
           %vk:device-index-count (length (vk:device-indices ,value))
           %vk:p-device-indices (vk-alloc:foreign-allocate-and-fill :uint32 (vk:device-indices ,value) ,ptr))))
@@ -6550,7 +6550,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:type (vk:type ,value)
           %vk:build-type (vk:build-type ,value)
-          %vk:acceleration-structure (vk:acceleration-structure ,value))))
+          %vk:acceleration-structure (if (vk:acceleration-structure ,value) (vk:acceleration-structure ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-memory-requirements-info-nv) ptr)
   `(cffi:with-foreign-slots
@@ -6652,7 +6652,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:size)
        ,ptr
        (:struct %vk:strided-buffer-region-khr))
-    (setf %vk:buffer (vk:buffer ,value)
+    (setf %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value)
           %vk:stride (vk:stride ,value)
           %vk:size (vk:size ,value))))
@@ -6970,7 +6970,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:buffer-device-address-info))
     (setf %vk:s-type :buffer-device-address-info
           %vk:p-next (cffi:null-pointer)
-          %vk:buffer (vk:buffer ,value))))
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-buffer-opaque-capture-address-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -7160,9 +7160,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-view-handle-info-nv-x))
     (setf %vk:s-type :image-view-handle-info-nvx
           %vk:p-next (cffi:null-pointer)
-          %vk:image-view (vk:image-view ,value)
+          %vk:image-view (if (vk:image-view ,value) (vk:image-view ,value) (cffi:null-pointer))
           %vk:descriptor-type (vk:descriptor-type ,value)
-          %vk:sampler (vk:sampler ,value))))
+          %vk:sampler (if (vk:sampler ,value) (vk:sampler ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-view-address-properties-nv-x) ptr)
   `(cffi:with-foreign-slots
@@ -7423,7 +7423,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:initialize-performance-api-info-intel))
     (setf %vk:s-type :initialize-performance-api-info-intel
           %vk:p-next (cffi:null-pointer)
-          %vk:p-user-data (vk:user-data ,value))))
+          %vk:p-user-data (if (vk:user-data ,value) (vk:user-data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-query-pool-performance-query-create-info-intel) ptr)
   `(cffi:with-foreign-slots
@@ -7602,7 +7602,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:pipeline-info-khr))
     (setf %vk:s-type :pipeline-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:pipeline (vk:pipeline ,value))))
+          %vk:pipeline (if (vk:pipeline ,value) (vk:pipeline ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-executable-properties-khr) ptr)
   `(cffi:with-foreign-slots
@@ -7631,7 +7631,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:pipeline-executable-info-khr))
     (setf %vk:s-type :pipeline-executable-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:pipeline (vk:pipeline ,value)
+          %vk:pipeline (if (vk:pipeline ,value) (vk:pipeline ,value) (cffi:null-pointer))
           %vk:executable-index (vk:executable-index ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-executable-statistic-khr) ptr)
@@ -7668,7 +7668,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:description (vk:description ,value)
           %vk:is-text (vk:is-text ,value)
           %vk:data-size (vk:data-size ,value)
-          %vk:p-data (vk:data ,value))))
+          %vk:p-data (if (vk:data ,value) (vk:data ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-shader-demote-to-helper-invocation-features-ext) ptr)
   `(cffi:with-foreign-slots
@@ -7770,7 +7770,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:device-memory-opaque-capture-address-info))
     (setf %vk:s-type :device-memory-opaque-capture-address-info
           %vk:p-next (cffi:null-pointer)
-          %vk:memory (vk:memory ,value))))
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-line-rasterization-features-ext) ptr)
   `(cffi:with-foreign-slots
@@ -8213,11 +8213,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :acceleration-structure-geometry-triangles-data-khr
           %vk:p-next (cffi:null-pointer)
           %vk:vertex-format (vk:vertex-format ,value)
-          %vk:vertex-data (let ((slot (vk:vertex-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot))))
+          %vk:vertex-data (let ((slot (vk:vertex-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
           %vk:vertex-stride (vk:vertex-stride ,value)
           %vk:index-type (vk:index-type ,value)
-          %vk:index-data (let ((slot (vk:index-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot))))
-          %vk:transform-data (let ((slot (vk:transform-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot)))))))
+          %vk:index-data (let ((slot (vk:index-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
+          %vk:transform-data (let ((slot (vk:transform-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer))))))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-aabbs-data-khr) ptr)
   `(cffi:with-foreign-slots
@@ -8229,7 +8229,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:acceleration-structure-geometry-aabbs-data-khr))
     (setf %vk:s-type :acceleration-structure-geometry-aabbs-data-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:data (let ((slot (vk:data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot))))
+          %vk:data (let ((slot (vk:data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
           %vk:stride (vk:stride ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-instances-data-khr) ptr)
@@ -8243,7 +8243,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :acceleration-structure-geometry-instances-data-khr
           %vk:p-next (cffi:null-pointer)
           %vk:array-of-pointers (vk:array-of-pointers ,value)
-          %vk:data (let ((slot (vk:data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot)))))))
+          %vk:data (let ((slot (vk:data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer))))))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-khr) ptr)
   `(cffi:with-foreign-slots
@@ -8280,12 +8280,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:type (vk:type ,value)
           %vk:flags (vk:flags ,value)
           %vk:update (vk:update ,value)
-          %vk:src-acceleration-structure (vk:src-acceleration-structure ,value)
-          %vk:dst-acceleration-structure (vk:dst-acceleration-structure ,value)
+          %vk:src-acceleration-structure (if (vk:src-acceleration-structure ,value) (vk:src-acceleration-structure ,value) (cffi:null-pointer))
+          %vk:dst-acceleration-structure (if (vk:dst-acceleration-structure ,value) (vk:dst-acceleration-structure ,value) (cffi:null-pointer))
           %vk:geometry-array-of-pointers (vk:geometry-array-of-pointers ,value)
           %vk:geometry-count (vk:geometry-count ,value)
           %vk:pp-geometries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-khr) (vk:p-geometries ,value) ,ptr)
-          %vk:scratch-data (let ((slot (vk:scratch-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot)))))))
+          %vk:scratch-data (let ((slot (vk:scratch-data ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer))))))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-build-offset-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -8392,7 +8392,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:acceleration-structure-device-address-info-khr))
     (setf %vk:s-type :acceleration-structure-device-address-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:acceleration-structure (vk:acceleration-structure ,value))))
+          %vk:acceleration-structure (if (vk:acceleration-structure ,value) (vk:acceleration-structure ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-version-khr) ptr)
   `(cffi:with-foreign-slots
@@ -8416,8 +8416,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-acceleration-structure-info-khr))
     (setf %vk:s-type :copy-acceleration-structure-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:src (vk:src ,value)
-          %vk:dst (vk:dst ,value)
+          %vk:src (if (vk:src ,value) (vk:src ,value) (cffi:null-pointer))
+          %vk:dst (if (vk:dst ,value) (vk:dst ,value) (cffi:null-pointer))
           %vk:mode (vk:mode ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-copy-acceleration-structure-to-memory-info-khr) ptr)
@@ -8431,8 +8431,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-acceleration-structure-to-memory-info-khr))
     (setf %vk:s-type :copy-acceleration-structure-to-memory-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:src (vk:src ,value)
-          %vk:dst (let ((slot (vk:dst ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot))))
+          %vk:src (if (vk:src ,value) (vk:src ,value) (cffi:null-pointer))
+          %vk:dst (let ((slot (vk:dst ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
           %vk:mode (vk:mode ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-copy-memory-to-acceleration-structure-info-khr) ptr)
@@ -8446,8 +8446,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-memory-to-acceleration-structure-info-khr))
     (setf %vk:s-type :copy-memory-to-acceleration-structure-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:src (let ((slot (vk:src ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (vk:host-address slot))))
-          %vk:dst (vk:dst ,value)
+          %vk:src (let ((slot (vk:src ,value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
+          %vk:dst (if (vk:dst ,value) (vk:dst ,value) (cffi:null-pointer))
           %vk:mode (vk:mode ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-ray-tracing-pipeline-interface-create-info-khr) ptr)
@@ -8474,7 +8474,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:deferred-operation-info-khr))
     (setf %vk:s-type :deferred-operation-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:operation-handle (vk:operation-handle ,value))))
+          %vk:operation-handle (if (vk:operation-handle ,value) (vk:operation-handle ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-library-create-info-khr) ptr)
   `(cffi:with-foreign-slots
