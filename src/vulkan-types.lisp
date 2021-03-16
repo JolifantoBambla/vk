@@ -3640,9 +3640,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (physical-device-memory-properties :class c-physical-device-memory-properties)
   (memory-type-count :uint32)
-  (memory-types :pointer :count 32)
+  (memory-types memory-type :count 32)
   (memory-heap-count :uint32)
-  (memory-heaps :pointer :count 16))
+  (memory-heaps memory-heap :count 16))
 
 (defcstruct (memory-allocate-info :class c-memory-allocate-info)
   (s-type structure-type)
@@ -3878,9 +3878,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (image-blit :class c-image-blit)
   (src-subresource image-subresource-layers)
-  (src-offsets :pointer :count 2)
+  (src-offsets offset-3d :count 2)
   (dst-subresource image-subresource-layers)
-  (dst-offsets :pointer :count 2))
+  (dst-offsets offset-3d :count 2))
 
 (defcstruct (buffer-image-copy :class c-buffer-image-copy)
   (buffer-offset device-size)

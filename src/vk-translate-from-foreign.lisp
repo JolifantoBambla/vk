@@ -291,9 +291,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-memory-properties))
     (make-instance 'vk:physical-device-memory-properties
                    :memory-type-count %vk:memory-type-count
-                   :memory-types (loop for i from 0 below 32 collect (cffi:mem-aref %vk:memory-types '(:struct %vk:memory-type) i))
+                   :memory-types (loop for i from 0 below 32 collect (cffi:mem-aref (cffi:foreign-slot-pointer ptr '(:struct %vk:physical-device-memory-properties) '%vk:memory-types) '(:struct %vk:memory-type) i))
                    :memory-heap-count %vk:memory-heap-count
-                   :memory-heaps (loop for i from 0 below 16 collect (cffi:mem-aref %vk:memory-heaps '(:struct %vk:memory-heap) i)))))
+                   :memory-heaps (loop for i from 0 below 16 collect (cffi:mem-aref (cffi:foreign-slot-pointer ptr '(:struct %vk:physical-device-memory-properties) '%vk:memory-heaps) '(:struct %vk:memory-heap) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-allocate-info))
   (cffi:with-foreign-slots
@@ -824,9 +824,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-blit))
     (make-instance 'vk:image-blit
                    :src-subresource %vk:src-subresource
-                   :src-offsets (loop for i from 0 below 2 collect (cffi:mem-aref %vk:src-offsets '(:struct %vk:offset-3d) i))
+                   :src-offsets (loop for i from 0 below 2 collect (cffi:mem-aref (cffi:foreign-slot-pointer ptr '(:struct %vk:image-blit) '%vk:src-offsets) '(:struct %vk:offset-3d) i))
                    :dst-subresource %vk:dst-subresource
-                   :dst-offsets (loop for i from 0 below 2 collect (cffi:mem-aref %vk:dst-offsets '(:struct %vk:offset-3d) i)))))
+                   :dst-offsets (loop for i from 0 below 2 collect (cffi:mem-aref (cffi:foreign-slot-pointer ptr '(:struct %vk:image-blit) '%vk:dst-offsets) '(:struct %vk:offset-3d) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-image-copy))
   (cffi:with-foreign-slots
