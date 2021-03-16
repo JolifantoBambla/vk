@@ -145,7 +145,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :device-id %vk:device-id
                    :device-type %vk:device-type
                    :device-name (cffi:foreign-string-to-lisp %vk:device-name)
-                   :pipeline-cache-uuid %vk:pipeline-cache-uuid
+                   :pipeline-cache-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:pipeline-cache-uuid :uint8 i))
                    :limits %vk:limits
                    :sparse-properties %vk:sparse-properties)))
 
@@ -291,9 +291,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-memory-properties))
     (make-instance 'vk:physical-device-memory-properties
                    :memory-type-count %vk:memory-type-count
-                   :memory-types %vk:memory-types
+                   :memory-types (loop for i from 0 below 32 collect (cffi:mem-aref %vk:memory-types '(:struct %vk:memory-type) i))
                    :memory-heap-count %vk:memory-heap-count
-                   :memory-heaps %vk:memory-heaps)))
+                   :memory-heaps (loop for i from 0 below 16 collect (cffi:mem-aref %vk:memory-heaps '(:struct %vk:memory-heap) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-allocate-info))
   (cffi:with-foreign-slots
@@ -824,9 +824,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-blit))
     (make-instance 'vk:image-blit
                    :src-subresource %vk:src-subresource
-                   :src-offsets %vk:src-offsets
+                   :src-offsets (loop for i from 0 below 2 collect (cffi:mem-aref %vk:src-offsets '(:struct %vk:offset-3d) i))
                    :dst-subresource %vk:dst-subresource
-                   :dst-offsets %vk:dst-offsets)))
+                   :dst-offsets (loop for i from 0 below 2 collect (cffi:mem-aref %vk:dst-offsets '(:struct %vk:offset-3d) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-image-copy))
   (cffi:with-foreign-slots
@@ -1190,7 +1190,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :logic-op-enable %vk:logic-op-enable
                    :logic-op %vk:logic-op
                    :attachments (loop for i from 0 below %vk:attachment-count collect (cffi:mem-aref %vk:p-attachments '(:struct %vk:pipeline-color-blend-attachment-state) i))
-                   :blend-constants %vk:blend-constants)))
+                   :blend-constants (loop for i from 0 below 4 collect (cffi:mem-aref %vk:blend-constants :float i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-dynamic-state-create-info))
   (cffi:with-foreign-slots
@@ -1898,9 +1898,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-fragment-dual-src-attachments %vk:max-fragment-dual-src-attachments
                    :max-fragment-combined-output-resources %vk:max-fragment-combined-output-resources
                    :max-compute-shared-memory-size %vk:max-compute-shared-memory-size
-                   :max-compute-work-group-count %vk:max-compute-work-group-count
+                   :max-compute-work-group-count (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-compute-work-group-count :uint32 i))
                    :max-compute-work-group-invocations %vk:max-compute-work-group-invocations
-                   :max-compute-work-group-size %vk:max-compute-work-group-size
+                   :max-compute-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-compute-work-group-size :uint32 i))
                    :sub-pixel-precision-bits %vk:sub-pixel-precision-bits
                    :sub-texel-precision-bits %vk:sub-texel-precision-bits
                    :mipmap-precision-bits %vk:mipmap-precision-bits
@@ -1909,8 +1909,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-sampler-lod-bias %vk:max-sampler-lod-bias
                    :max-sampler-anisotropy %vk:max-sampler-anisotropy
                    :max-viewports %vk:max-viewports
-                   :max-viewport-dimensions %vk:max-viewport-dimensions
-                   :viewport-bounds-range %vk:viewport-bounds-range
+                   :max-viewport-dimensions (loop for i from 0 below 2 collect (cffi:mem-aref %vk:max-viewport-dimensions :uint32 i))
+                   :viewport-bounds-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:viewport-bounds-range :float i))
                    :viewport-sub-pixel-bits %vk:viewport-sub-pixel-bits
                    :min-memory-map-alignment %vk:min-memory-map-alignment
                    :min-texel-buffer-offset-alignment %vk:min-texel-buffer-offset-alignment
@@ -1943,8 +1943,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-cull-distances %vk:max-cull-distances
                    :max-combined-clip-and-cull-distances %vk:max-combined-clip-and-cull-distances
                    :discrete-queue-priorities %vk:discrete-queue-priorities
-                   :point-size-range %vk:point-size-range
-                   :line-width-range %vk:line-width-range
+                   :point-size-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:point-size-range :float i))
+                   :line-width-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:line-width-range :float i))
                    :point-size-granularity %vk:point-size-granularity
                    :line-width-granularity %vk:line-width-granularity
                    :strict-lines %vk:strict-lines
@@ -2512,7 +2512,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:debug-marker-marker-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :marker-name %vk:p-marker-name
-                   :color %vk:color)))
+                   :color (loop for i from 0 below 4 collect (cffi:mem-aref %vk:color :float i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-dedicated-allocation-image-create-info-nv))
   (cffi:with-foreign-slots
@@ -3164,9 +3164,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-id-properties))
     (make-instance 'vk:physical-device-id-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :device-uuid %vk:device-uuid
-                   :driver-uuid %vk:driver-uuid
-                   :device-luid %vk:device-luid
+                   :device-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:device-uuid :uint8 i))
+                   :driver-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:driver-uuid :uint8 i))
+                   :device-luid (loop for i from 0 below 8 collect (cffi:mem-aref %vk:device-luid :uint8 i))
                    :device-node-mask %vk:device-node-mask
                    :device-luid-valid %vk:device-luid-valid)))
 
@@ -3691,7 +3691,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:physical-device-group-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :physical-device-count %vk:physical-device-count
-                   :physical-devices %vk:physical-devices
+                   :physical-devices (loop for i from 0 below 32 collect (cffi:mem-aref %vk:physical-devices '(:struct %vk:physical-device) i))
                    :subset-allocation %vk:subset-allocation)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-allocate-flags-info))
@@ -3830,7 +3830,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:device-group-present-capabilities-khr))
     (make-instance 'vk:device-group-present-capabilities-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :present-mask %vk:present-mask
+                   :present-mask (loop for i from 0 below 32 collect (cffi:mem-aref %vk:present-mask :uint32 i))
                    :modes %vk:modes)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-swapchain-create-info-khr))
@@ -4742,7 +4742,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :sample-location-sample-counts %vk:sample-location-sample-counts
                    :max-sample-location-grid-size %vk:max-sample-location-grid-size
-                   :sample-location-coordinate-range %vk:sample-location-coordinate-range
+                   :sample-location-coordinate-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:sample-location-coordinate-range :float i))
                    :sample-location-sub-pixel-bits %vk:sample-location-sub-pixel-bits
                    :variable-sample-locations %vk:variable-sample-locations)))
 
@@ -5063,7 +5063,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :num-physical-sgprs %vk:num-physical-sgprs
                    :num-available-vgprs %vk:num-available-vgprs
                    :num-available-sgprs %vk:num-available-sgprs
-                   :compute-work-group-size %vk:compute-work-group-size)))
+                   :compute-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:compute-work-group-size :uint32 i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-device-queue-global-priority-create-info-ext))
   (cffi:with-foreign-slots
@@ -5121,7 +5121,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:debug-utils-label-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :label-name %vk:p-label-name
-                   :color %vk:color)))
+                   :color (loop for i from 0 below 4 collect (cffi:mem-aref %vk:color :float i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-debug-utils-messenger-create-info-ext))
   (cffi:with-foreign-slots
@@ -6268,11 +6268,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :max-draw-mesh-tasks-count %vk:max-draw-mesh-tasks-count
                    :max-task-work-group-invocations %vk:max-task-work-group-invocations
-                   :max-task-work-group-size %vk:max-task-work-group-size
+                   :max-task-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-task-work-group-size :uint32 i))
                    :max-task-total-memory-size %vk:max-task-total-memory-size
                    :max-task-output-count %vk:max-task-output-count
                    :max-mesh-work-group-invocations %vk:max-mesh-work-group-invocations
-                   :max-mesh-work-group-size %vk:max-mesh-work-group-size
+                   :max-mesh-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-mesh-work-group-size :uint32 i))
                    :max-mesh-total-memory-size %vk:max-mesh-total-memory-size
                    :max-mesh-output-vertices %vk:max-mesh-output-vertices
                    :max-mesh-output-primitives %vk:max-mesh-output-primitives
@@ -6886,8 +6886,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-memory-budget-properties-ext))
     (make-instance 'vk:physical-device-memory-budget-properties-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :heap-budget %vk:heap-budget
-                   :heap-usage %vk:heap-usage)))
+                   :heap-budget (loop for i from 0 below 16 collect (cffi:mem-aref %vk:heap-budget '(:struct %vk:device-size) i))
+                   :heap-usage (loop for i from 0 below 16 collect (cffi:mem-aref %vk:heap-usage '(:struct %vk:device-size) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-memory-priority-features-ext))
   (cffi:with-foreign-slots
@@ -7261,7 +7261,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :unit %vk:unit
                    :scope %vk:scope
                    :storage %vk:storage
-                   :uuid %vk:uuid)))
+                   :uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:uuid :uint8 i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-performance-counter-description-khr))
   (cffi:with-foreign-slots
@@ -7865,9 +7865,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-vulkan-1-1-properties))
     (make-instance 'vk:physical-device-vulkan-1-1-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :device-uuid %vk:device-uuid
-                   :driver-uuid %vk:driver-uuid
-                   :device-luid %vk:device-luid
+                   :device-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:device-uuid :uint8 i))
+                   :driver-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:driver-uuid :uint8 i))
+                   :device-luid (loop for i from 0 below 8 collect (cffi:mem-aref %vk:device-luid :uint8 i))
                    :device-node-mask %vk:device-node-mask
                    :device-luid-valid %vk:device-luid-valid
                    :subgroup-size %vk:subgroup-size
@@ -8343,7 +8343,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:transform-matrix-khr))
     (make-instance 'vk:transform-matrix-khr
-                   :matrix %vk:matrix)))
+                   :matrix (loop for i from 0 below 12 collect (cffi:mem-aref %vk:matrix :float i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-instance-khr))
   (cffi:with-foreign-slots
