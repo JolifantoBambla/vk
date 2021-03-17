@@ -1767,6 +1767,10 @@ See SHADER-MODULE-CREATE-FLAGS
      :initarg :descriptor-type
      :initform nil
      :accessor descriptor-type)
+   (descriptor-count
+     :initarg :descriptor-count
+     :initform nil
+     :accessor descriptor-count)
    (stage-flags
      :initarg :stage-flags
      :initform nil
@@ -1780,8 +1784,9 @@ See SHADER-MODULE-CREATE-FLAGS
 Slots:
  - BINDING: a positive (32-bit) integer.
  - DESCRIPTOR-TYPE: an enum value of DESCRIPTOR-TYPE.
+ - DESCRIPTOR-COUNT (optional): a positive (32-bit) integer.
  - STAGE-FLAGS: a list containing a valid combination of SHADER-STAGE-FLAGS.
- - IMMUTABLE-SAMPLERS (optional): a list of foreign pointer to a buffer of size DESCRIPTOR-COUNTs.
+ - IMMUTABLE-SAMPLERS (optional): a foreign pointer to a buffer of size DESCRIPTOR-COUNT.
 
 See DESCRIPTOR-TYPE
 See SHADER-STAGE-FLAGS
@@ -6311,6 +6316,10 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :initarg :next
      :initform nil
      :accessor next)
+   (swapchain-count
+     :initarg :swapchain-count
+     :initform nil
+     :accessor swapchain-count)
    (regions
      :initarg :regions
      :initform nil
@@ -6319,7 +6328,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - REGIONS (optional): a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
+ - SWAPCHAIN-COUNT: a positive (32-bit) integer.
+ - REGIONS (optional): a foreign pointer to a buffer of size SWAPCHAIN-COUNT.
 
 See PRESENT-REGION-KHR
 
@@ -8216,6 +8226,10 @@ Slots:
      :initarg :next
      :initform nil
      :accessor next)
+   (swapchain-count
+     :initarg :swapchain-count
+     :initform nil
+     :accessor swapchain-count)
    (times
      :initarg :times
      :initform nil
@@ -8224,7 +8238,8 @@ Slots:
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TIMES (optional): a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
+ - SWAPCHAIN-COUNT: a positive (32-bit) integer.
+ - TIMES (optional): a foreign pointer to a buffer of size SWAPCHAIN-COUNT.
 
 See PRESENT-TIME-GOOGLE
 

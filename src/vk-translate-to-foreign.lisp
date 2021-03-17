@@ -439,7 +439,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:descriptor-type (vk:descriptor-type value)
           %vk:p-image-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:descriptor-image-info) (vk:image-info value) ptr)
           %vk:p-buffer-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:descriptor-buffer-info) (vk:buffer-info value) ptr)
-          %vk:p-texel-buffer-view (vk-alloc:foreign-allocate-and-fill %vk:buffer-view (vk:texel-buffer-view value) ptr))))
+          %vk:p-texel-buffer-view (vk-alloc:foreign-allocate-and-fill '%vk:buffer-view (vk:texel-buffer-view value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-descriptor-set) ptr)
   (cffi:with-foreign-slots
@@ -770,7 +770,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :bind-sparse-info
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:wait-semaphore-count (length (vk:p-wait-semaphores value))
-          %vk:p-wait-semaphores (vk-alloc:foreign-allocate-and-fill %vk:semaphore (vk:p-wait-semaphores value) ptr)
+          %vk:p-wait-semaphores (vk-alloc:foreign-allocate-and-fill '%vk:semaphore (vk:p-wait-semaphores value) ptr)
           %vk:buffer-bind-count (length (vk:buffer-binds value))
           %vk:p-buffer-binds (vk-alloc:foreign-allocate-and-fill '(:struct %vk:sparse-buffer-memory-bind-info) (vk:buffer-binds value) ptr)
           %vk:image-opaque-bind-count (length (vk:image-opaque-binds value))
@@ -778,7 +778,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:image-bind-count (length (vk:image-binds value))
           %vk:p-image-binds (vk-alloc:foreign-allocate-and-fill '(:struct %vk:sparse-image-memory-bind-info) (vk:image-binds value) ptr)
           %vk:signal-semaphore-count (length (vk:signal-semaphores value))
-          %vk:p-signal-semaphores (vk-alloc:foreign-allocate-and-fill %vk:semaphore (vk:signal-semaphores value) ptr))))
+          %vk:p-signal-semaphores (vk-alloc:foreign-allocate-and-fill '%vk:semaphore (vk:signal-semaphores value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-copy) ptr)
   (cffi:with-foreign-slots
@@ -866,9 +866,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:descriptor-set-layout-binding))
     (setf %vk:binding (vk:binding value)
           %vk:descriptor-type (vk:descriptor-type value)
-          %vk:descriptor-count (length (vk:immutable-samplers value))
+          %vk:descriptor-count (vk:descriptor-count value)
           %vk:stage-flags (vk:stage-flags value)
-          %vk:p-immutable-samplers (vk-alloc:foreign-allocate-and-fill %vk:sampler (vk:immutable-samplers value) ptr))))
+          %vk:p-immutable-samplers (if (vk:immutable-samplers value) (vk:immutable-samplers value) (cffi:null-pointer)))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-descriptor-set-layout-create-info) ptr)
   (cffi:with-foreign-slots
@@ -924,7 +924,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:descriptor-pool (if (vk:descriptor-pool value) (vk:descriptor-pool value) (cffi:null-pointer))
           %vk:descriptor-set-count (length (vk:set-layouts value))
-          %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill %vk:descriptor-set-layout (vk:set-layouts value) ptr))))
+          %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill '%vk:descriptor-set-layout (vk:set-layouts value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-specialization-map-entry) ptr)
   (cffi:with-foreign-slots
@@ -1187,7 +1187,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags value)
           %vk:dynamic-state-count (length (vk:dynamic-states value))
-          %vk:p-dynamic-states (vk-alloc:foreign-allocate-and-fill %vk:dynamic-state (vk:dynamic-states value) ptr))))
+          %vk:p-dynamic-states (vk-alloc:foreign-allocate-and-fill '%vk:dynamic-state (vk:dynamic-states value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-stencil-op-state) ptr)
   (cffi:with-foreign-slots
@@ -1321,7 +1321,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags value)
           %vk:set-layout-count (length (vk:set-layouts value))
-          %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill %vk:descriptor-set-layout (vk:set-layouts value) ptr)
+          %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill '%vk:descriptor-set-layout (vk:set-layouts value) ptr)
           %vk:push-constant-range-count (length (vk:push-constant-ranges value))
           %vk:p-push-constant-ranges (vk-alloc:foreign-allocate-and-fill '(:struct %vk:push-constant-range) (vk:push-constant-ranges value) ptr))))
 
@@ -1981,7 +1981,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:flags (vk:flags value)
           %vk:render-pass (if (vk:render-pass value) (vk:render-pass value) (cffi:null-pointer))
           %vk:attachment-count (length (vk:attachments value))
-          %vk:p-attachments (vk-alloc:foreign-allocate-and-fill %vk:image-view (vk:attachments value) ptr)
+          %vk:p-attachments (vk-alloc:foreign-allocate-and-fill '%vk:image-view (vk:attachments value) ptr)
           %vk:width (vk:width value)
           %vk:height (vk:height value)
           %vk:layers (vk:layers value))))
@@ -2041,12 +2041,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :submit-info
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:wait-semaphore-count (reduce #'max (list (length (vk:p-wait-semaphores value))(length (vk:wait-dst-stage-mask value))))
-          %vk:p-wait-semaphores (vk-alloc:foreign-allocate-and-fill %vk:semaphore (vk:p-wait-semaphores value) ptr)
-          %vk:p-wait-dst-stage-mask (vk-alloc:foreign-allocate-and-fill %vk:pipeline-stage-flags (vk:wait-dst-stage-mask value) ptr)
+          %vk:p-wait-semaphores (vk-alloc:foreign-allocate-and-fill '%vk:semaphore (vk:p-wait-semaphores value) ptr)
+          %vk:p-wait-dst-stage-mask (vk-alloc:foreign-allocate-and-fill '%vk:pipeline-stage-flags (vk:wait-dst-stage-mask value) ptr)
           %vk:command-buffer-count (length (vk:command-buffers value))
-          %vk:p-command-buffers (vk-alloc:foreign-allocate-and-fill %vk:command-buffer (vk:command-buffers value) ptr)
+          %vk:p-command-buffers (vk-alloc:foreign-allocate-and-fill '%vk:command-buffer (vk:command-buffers value) ptr)
           %vk:signal-semaphore-count (length (vk:signal-semaphores value))
-          %vk:p-signal-semaphores (vk-alloc:foreign-allocate-and-fill %vk:semaphore (vk:signal-semaphores value) ptr))))
+          %vk:p-signal-semaphores (vk-alloc:foreign-allocate-and-fill '%vk:semaphore (vk:signal-semaphores value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-display-properties-khr) ptr)
   (cffi:with-foreign-slots
@@ -2387,11 +2387,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :present-info-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:wait-semaphore-count (length (vk:p-wait-semaphores value))
-          %vk:p-wait-semaphores (vk-alloc:foreign-allocate-and-fill %vk:semaphore (vk:p-wait-semaphores value) ptr)
+          %vk:p-wait-semaphores (vk-alloc:foreign-allocate-and-fill '%vk:semaphore (vk:p-wait-semaphores value) ptr)
           %vk:swapchain-count (reduce #'max (list (length (vk:swapchains value))(length (vk:image-indices value))(length (vk:results value))))
-          %vk:p-swapchains (vk-alloc:foreign-allocate-and-fill %vk:swapchain-khr (vk:swapchains value) ptr)
+          %vk:p-swapchains (vk-alloc:foreign-allocate-and-fill '%vk:swapchain-khr (vk:swapchains value) ptr)
           %vk:p-image-indices (vk-alloc:foreign-allocate-and-fill :uint32 (vk:image-indices value) ptr)
-          %vk:p-results (vk-alloc:foreign-allocate-and-fill %vk:result (vk:results value) ptr))))
+          %vk:p-results (vk-alloc:foreign-allocate-and-fill '%vk:result (vk:results value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-debug-report-callback-create-info-ext) ptr)
   (cffi:with-foreign-slots
@@ -2419,7 +2419,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :validation-flags-ext
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:disabled-validation-check-count (length (vk:disabled-validation-checks value))
-          %vk:p-disabled-validation-checks (vk-alloc:foreign-allocate-and-fill %vk:validation-check-ext (vk:disabled-validation-checks value) ptr))))
+          %vk:p-disabled-validation-checks (vk-alloc:foreign-allocate-and-fill '%vk:validation-check-ext (vk:disabled-validation-checks value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-validation-features-ext) ptr)
   (cffi:with-foreign-slots
@@ -2434,9 +2434,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :validation-features-ext
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:enabled-validation-feature-count (length (vk:enabled-validation-features value))
-          %vk:p-enabled-validation-features (vk-alloc:foreign-allocate-and-fill %vk:validation-feature-enable-ext (vk:enabled-validation-features value) ptr)
+          %vk:p-enabled-validation-features (vk-alloc:foreign-allocate-and-fill '%vk:validation-feature-enable-ext (vk:enabled-validation-features value) ptr)
           %vk:disabled-validation-feature-count (length (vk:disabled-validation-features value))
-          %vk:p-disabled-validation-features (vk-alloc:foreign-allocate-and-fill %vk:validation-feature-disable-ext (vk:disabled-validation-features value) ptr))))
+          %vk:p-disabled-validation-features (vk-alloc:foreign-allocate-and-fill '%vk:validation-feature-disable-ext (vk:disabled-validation-features value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-rasterization-state-rasterization-order-amd) ptr)
   (cffi:with-foreign-slots
@@ -2608,11 +2608,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :win32-keyed-mutex-acquire-release-info-nv
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:acquire-count (reduce #'max (list (length (vk:acquire-syncs value))(length (vk:acquire-keys value))(length (vk:acquire-timeout-milliseconds value))))
-          %vk:p-acquire-syncs (vk-alloc:foreign-allocate-and-fill %vk:device-memory (vk:acquire-syncs value) ptr)
+          %vk:p-acquire-syncs (vk-alloc:foreign-allocate-and-fill '%vk:device-memory (vk:acquire-syncs value) ptr)
           %vk:p-acquire-keys (vk-alloc:foreign-allocate-and-fill :uint64 (vk:acquire-keys value) ptr)
           %vk:p-acquire-timeout-milliseconds (vk-alloc:foreign-allocate-and-fill :uint32 (vk:acquire-timeout-milliseconds value) ptr)
           %vk:release-count (reduce #'max (list (length (vk:release-syncs value))(length (vk:release-keys value))))
-          %vk:p-release-syncs (vk-alloc:foreign-allocate-and-fill %vk:device-memory (vk:release-syncs value) ptr)
+          %vk:p-release-syncs (vk-alloc:foreign-allocate-and-fill '%vk:device-memory (vk:release-syncs value) ptr)
           %vk:p-release-keys (vk-alloc:foreign-allocate-and-fill :uint64 (vk:release-keys value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-device-generated-commands-features-nv) ptr)
@@ -2718,7 +2718,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:group-count (length (vk:groups value))
           %vk:p-groups (vk-alloc:foreign-allocate-and-fill '(:struct %vk:graphics-shader-group-create-info-nv) (vk:groups value) ptr)
           %vk:pipeline-count (length (vk:pipelines value))
-          %vk:p-pipelines (vk-alloc:foreign-allocate-and-fill %vk:pipeline (vk:pipelines value) ptr))))
+          %vk:p-pipelines (vk-alloc:foreign-allocate-and-fill '%vk:pipeline (vk:pipelines value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-bind-shader-group-indirect-command-nv) ptr)
   (cffi:with-foreign-slots
@@ -2797,7 +2797,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:pushconstant-size (vk:pushconstant-size value)
           %vk:indirect-state-flags (vk:indirect-state-flags value)
           %vk:index-type-count (reduce #'max (list (length (vk:index-types value))(length (vk:index-type-values value))))
-          %vk:p-index-types (vk-alloc:foreign-allocate-and-fill %vk:index-type (vk:index-types value) ptr)
+          %vk:p-index-types (vk-alloc:foreign-allocate-and-fill '%vk:index-type (vk:index-types value) ptr)
           %vk:p-index-type-values (vk-alloc:foreign-allocate-and-fill :uint32 (vk:index-type-values value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-indirect-commands-layout-create-info-nv) ptr)
@@ -3039,7 +3039,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:present-regions-khr))
     (setf %vk:s-type :present-regions-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
-          %vk:swapchain-count (length (vk:regions value))
+          %vk:swapchain-count (vk:swapchain-count value)
           %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:present-region-khr) (vk:regions value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-present-region-khr) ptr)
@@ -3293,11 +3293,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :win32-keyed-mutex-acquire-release-info-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:acquire-count (reduce #'max (list (length (vk:acquire-syncs value))(length (vk:acquire-keys value))(length (vk:acquire-timeouts value))))
-          %vk:p-acquire-syncs (vk-alloc:foreign-allocate-and-fill %vk:device-memory (vk:acquire-syncs value) ptr)
+          %vk:p-acquire-syncs (vk-alloc:foreign-allocate-and-fill '%vk:device-memory (vk:acquire-syncs value) ptr)
           %vk:p-acquire-keys (vk-alloc:foreign-allocate-and-fill :uint64 (vk:acquire-keys value) ptr)
           %vk:p-acquire-timeouts (vk-alloc:foreign-allocate-and-fill :uint32 (vk:acquire-timeouts value) ptr)
           %vk:release-count (reduce #'max (list (length (vk:release-syncs value))(length (vk:release-keys value))))
-          %vk:p-release-syncs (vk-alloc:foreign-allocate-and-fill %vk:device-memory (vk:release-syncs value) ptr)
+          %vk:p-release-syncs (vk-alloc:foreign-allocate-and-fill '%vk:device-memory (vk:release-syncs value) ptr)
           %vk:p-release-keys (vk-alloc:foreign-allocate-and-fill :uint64 (vk:release-keys value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-external-semaphore-info) ptr)
@@ -3899,7 +3899,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :device-group-device-create-info
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:physical-device-count (length (vk:physical-devices value))
-          %vk:p-physical-devices (vk-alloc:foreign-allocate-and-fill %vk:physical-device (vk:physical-devices value) ptr))))
+          %vk:p-physical-devices (vk-alloc:foreign-allocate-and-fill '%vk:physical-device (vk:physical-devices value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-device-group-swapchain-create-info-khr) ptr)
   (cffi:with-foreign-slots
@@ -4042,7 +4042,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:present-times-info-google))
     (setf %vk:s-type :present-times-info-google
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
-          %vk:swapchain-count (length (vk:times value))
+          %vk:swapchain-count (vk:swapchain-count value)
           %vk:p-times (vk-alloc:foreign-allocate-and-fill '(:struct %vk:present-time-google) (vk:times value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-present-time-google) ptr)
@@ -4898,7 +4898,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :image-format-list-create-info
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:view-format-count (length (vk:view-formats value))
-          %vk:p-view-formats (vk-alloc:foreign-allocate-and-fill %vk:format (vk:view-formats value) ptr))))
+          %vk:p-view-formats (vk-alloc:foreign-allocate-and-fill '%vk:format (vk:view-formats value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-validation-cache-create-info-ext) ptr)
   (cffi:with-foreign-slots
@@ -5421,7 +5421,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :descriptor-set-layout-binding-flags-create-info
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:binding-count (length (vk:binding-flags value))
-          %vk:p-binding-flags (vk-alloc:foreign-allocate-and-fill %vk:descriptor-binding-flags (vk:binding-flags value) ptr))))
+          %vk:p-binding-flags (vk-alloc:foreign-allocate-and-fill '%vk:descriptor-binding-flags (vk:binding-flags value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-descriptor-set-variable-descriptor-count-allocate-info) ptr)
   (cffi:with-foreign-slots
@@ -5658,7 +5658,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags value)
           %vk:semaphore-count (reduce #'max (list (length (vk:semaphores value))(length (vk:values value))))
-          %vk:p-semaphores (vk-alloc:foreign-allocate-and-fill %vk:semaphore (vk:semaphores value) ptr)
+          %vk:p-semaphores (vk-alloc:foreign-allocate-and-fill '%vk:semaphore (vk:semaphores value) ptr)
           %vk:p-values (vk-alloc:foreign-allocate-and-fill :uint64 (vk:values value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-semaphore-signal-info) ptr)
@@ -6162,7 +6162,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:shading-rate-palette-nv))
     (setf %vk:shading-rate-palette-entry-count (length (vk:shading-rate-palette-entries value))
-          %vk:p-shading-rate-palette-entries (vk-alloc:foreign-allocate-and-fill %vk:shading-rate-palette-entry-nv (vk:shading-rate-palette-entries value) ptr))))
+          %vk:p-shading-rate-palette-entries (vk-alloc:foreign-allocate-and-fill '%vk:shading-rate-palette-entry-nv (vk:shading-rate-palette-entries value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-viewport-shading-rate-image-state-create-info-nv) ptr)
   (cffi:with-foreign-slots
@@ -6535,7 +6535,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :write-descriptor-set-acceleration-structure-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:acceleration-structure-count (length (vk:acceleration-structures value))
-          %vk:p-acceleration-structures (vk-alloc:foreign-allocate-and-fill %vk:acceleration-structure-khr (vk:acceleration-structures value) ptr))))
+          %vk:p-acceleration-structures (vk-alloc:foreign-allocate-and-fill '%vk:acceleration-structure-khr (vk:acceleration-structures value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-memory-requirements-info-khr) ptr)
   (cffi:with-foreign-slots
@@ -7063,7 +7063,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:height (vk:height value)
           %vk:layer-count (vk:layer-count value)
           %vk:view-format-count (length (vk:view-formats value))
-          %vk:p-view-formats (vk-alloc:foreign-allocate-and-fill %vk:format (vk:view-formats value) ptr))))
+          %vk:p-view-formats (vk-alloc:foreign-allocate-and-fill '%vk:format (vk:view-formats value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-render-pass-attachment-begin-info) ptr)
   (cffi:with-foreign-slots
@@ -7076,7 +7076,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :render-pass-attachment-begin-info
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:attachment-count (length (vk:attachments value))
-          %vk:p-attachments (vk-alloc:foreign-allocate-and-fill %vk:image-view (vk:attachments value) ptr))))
+          %vk:p-attachments (vk-alloc:foreign-allocate-and-fill '%vk:image-view (vk:attachments value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-texture-compression-astc-h-d-r-features-ext) ptr)
   (cffi:with-foreign-slots
@@ -8487,7 +8487,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :pipeline-library-create-info-khr
           %vk:p-next (cffi:null-pointer)
           %vk:library-count (length (vk:libraries value))
-          %vk:p-libraries (vk-alloc:foreign-allocate-and-fill %vk:pipeline (vk:libraries value) ptr))))
+          %vk:p-libraries (vk-alloc:foreign-allocate-and-fill '%vk:pipeline (vk:libraries value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-extended-dynamic-state-features-ext) ptr)
   (cffi:with-foreign-slots

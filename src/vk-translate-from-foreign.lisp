@@ -888,8 +888,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:descriptor-set-layout-binding
                    :binding %vk:binding
                    :descriptor-type %vk:descriptor-type
+                   :descriptor-count %vk:descriptor-count
                    :stage-flags %vk:stage-flags
-                   :immutable-samplers (loop for i from 0 below %vk:descriptor-count collect (cffi:mem-aref %vk:p-immutable-samplers '%vk:sampler i)))))
+                   :immutable-samplers %vk:p-immutable-samplers)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-descriptor-set-layout-create-info))
   (cffi:with-foreign-slots
@@ -3055,7 +3056,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:present-regions-khr))
     (make-instance 'vk:present-regions-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :regions (loop for i from 0 below %vk:swapchain-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:present-region-khr) i)))))
+                   :swapchain-count %vk:swapchain-count
+                   :regions %vk:p-regions)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-present-region-khr))
   (cffi:with-foreign-slots
@@ -4046,7 +4048,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:present-times-info-google))
     (make-instance 'vk:present-times-info-google
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :times (loop for i from 0 below %vk:swapchain-count collect (cffi:mem-aref %vk:p-times '(:struct %vk:present-time-google) i)))))
+                   :swapchain-count %vk:swapchain-count
+                   :times %vk:p-times)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-present-time-google))
   (cffi:with-foreign-slots
