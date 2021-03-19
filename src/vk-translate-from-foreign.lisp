@@ -874,7 +874,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:shader-module-create-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :code %vk:p-code)))
+                   :code (loop for i from 0 below %vk:code-size collect (cffi:mem-aref %vk:p-code :uint32 i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-descriptor-set-layout-binding))
   (cffi:with-foreign-slots

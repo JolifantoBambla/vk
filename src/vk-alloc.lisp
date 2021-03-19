@@ -77,15 +77,15 @@ See *ALLOCATED-FOREIGN-OBJECTS*
 See *ALLOCATE-FOREIGN-FUNC*"
   (if content
       (let ((p-resource nil))
-        (cond
-          ((listp content)
-           (setf p-resource (funcall *allocate-foreign-object-func* type :initial-contents content)))
-          ((arrayp content)
-           (setf p-resource (funcall *allocate-foreign-object-func* type :count (array-total-size content))))
-          (t (setf p-resource (funcall *allocate-foreign-object-func* type :initial-element content))))
+        (if (arrayp content)
+            (let ((array-type (alexandria:flatten (list :array type (array-dimensions content))))
+                  (array-size ()))
+              (setf p-resource (funcall *allocate-foreign-object-func* array-type :count (array-total-size content)))
+              (cffi:lisp-array-to-foreign content p-resource array-type))
+            (if (listp content)
+                (setf p-resource (funcall *allocate-foreign-object-func* type :initial-contents content))
+                (setf p-resource (funcall *allocate-foreign-object-func* type :initial-element content))))
         (push p-resource (gethash parent-ptr *allocated-foreign-objects*))
-        ;; this should probably go in an unwind-protect
-        (when (arrayp content) (cffi:lisp-array-to-foreign content p-resource type))
         p-resource)
       (cffi:null-pointer)))
 

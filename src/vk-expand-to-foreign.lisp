@@ -853,7 +853,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:flags (vk:flags ,value)
           %vk:code-size (* 4 (length (vk:code ,value)))
-          %vk:p-code (vk:code ,value))))
+          %vk:p-code (vk-alloc:foreign-allocate-and-fill :uint32 (vk:code ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-descriptor-set-layout-binding) ptr)
   `(cffi:with-foreign-slots
