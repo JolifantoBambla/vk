@@ -1445,7 +1445,31 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:framebuffer (if (vk:framebuffer value) (vk:framebuffer value) (cffi:null-pointer))
           %vk:render-area (vk-alloc:foreign-allocate-and-fill '(:struct %vk:rect-2d) (vk:render-area value) ptr)
           %vk:clear-value-count (length (vk:clear-values value))
-          %vk:p-clear-values (let ((slot (vk:clear-values value))) (cond ((slot-boundp slot color) (let ((slot (vk:color slot))) (cond ((slot-boundp slot float-32) (vk:float-32 slot))((slot-boundp slot int-32) (vk:int-32 slot))((slot-boundp slot uint-32) (vk:uint-32 slot)))))((slot-boundp slot depth-stencil) (vk-alloc:foreign-allocate-and-fill '(:struct %vk:clear-depth-stencil-value) (vk:depth-stencil slot) ptr)))))))
+          %vk:p-clear-values (vk-alloc:foreign-allocate-and-fill '(:union %vk:clear-value) (vk:clear-values value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory ((value vk:clear-color-value) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:float-32
+        %vk:int-32
+        %vk:uint-32)
+       ptr
+       (:struct %vk:clear-color-value))
+    (cond
+      ((slot-boundp value 'vk:float-32)
+       (setf %vk:float-32
+             (vk-alloc:foreign-allocate-and-fill :float
+                                                  (vk:float-32 value)
+                                                  ptr)))
+      ((slot-boundp value 'vk:int-32)
+       (setf %vk:int-32
+             (vk-alloc:foreign-allocate-and-fill :int32
+                                                  (vk:int-32 value)
+                                                  ptr)))
+      ((slot-boundp value 'vk:uint-32)
+       (setf %vk:uint-32
+             (vk-alloc:foreign-allocate-and-fill :uint32
+                                                  (vk:uint-32 value)
+                                                  ptr))))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-clear-depth-stencil-value) ptr)
   (cffi:with-foreign-slots
@@ -1456,6 +1480,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:depth (vk:depth value)
           %vk:stencil (vk:stencil value))))
 
+(defmethod cffi:translate-into-foreign-memory ((value vk:clear-value) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:color
+        %vk:depth-stencil)
+       ptr
+       (:struct %vk:clear-value))
+    (cond
+      ((slot-boundp value 'vk:color)
+       (setf %vk:color
+             (vk-alloc:foreign-allocate-and-fill '(:union %vk:clear-color-value)
+                                                  (vk:color value)
+                                                  ptr)))
+      ((slot-boundp value 'vk:depth-stencil)
+       (setf %vk:depth-stencil
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:clear-depth-stencil-value)
+                                                  (vk:depth-stencil value)
+                                                  ptr))))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-clear-attachment) ptr)
   (cffi:with-foreign-slots
       ((%vk:aspect-mask
@@ -1465,7 +1507,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:clear-attachment))
     (setf %vk:aspect-mask (vk:aspect-mask value)
           %vk:color-attachment (vk:color-attachment value)
-          %vk:clear-value (let ((slot (vk:clear-value value))) (cond ((slot-boundp slot color) (let ((slot (vk:color slot))) (cond ((slot-boundp slot float-32) (vk:float-32 slot))((slot-boundp slot int-32) (vk:int-32 slot))((slot-boundp slot uint-32) (vk:uint-32 slot)))))((slot-boundp slot depth-stencil) (vk-alloc:foreign-allocate-and-fill '(:struct %vk:clear-depth-stencil-value) (vk:depth-stencil slot) ptr)))))))
+          %vk:clear-value (vk-alloc:foreign-allocate-and-fill '(:union %vk:clear-value) (vk:clear-value value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-attachment-description) ptr)
   (cffi:with-foreign-slots
@@ -7318,6 +7360,36 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:counter-index-count (length (vk:counter-indices value))
           %vk:p-counter-indices (vk-alloc:foreign-allocate-and-fill :uint32 (vk:counter-indices value) ptr))))
 
+(defmethod cffi:translate-into-foreign-memory ((value vk:performance-counter-result-khr) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:int-32
+        %vk:int-64
+        %vk:uint-32
+        %vk:uint-64
+        %vk:float-32
+        %vk:float-64)
+       ptr
+       (:struct %vk:performance-counter-result-khr))
+    (cond
+      ((slot-boundp value 'vk:int-32)
+       (setf %vk:int-32
+             (vk:int-32 value)))
+      ((slot-boundp value 'vk:int-64)
+       (setf %vk:int-64
+             (vk:int-64 value)))
+      ((slot-boundp value 'vk:uint-32)
+       (setf %vk:uint-32
+             (vk:uint-32 value)))
+      ((slot-boundp value 'vk:uint-64)
+       (setf %vk:uint-64
+             (vk:uint-64 value)))
+      ((slot-boundp value 'vk:float-32)
+       (setf %vk:float-32
+             (vk:float-32 value)))
+      ((slot-boundp value 'vk:float-64)
+       (setf %vk:float-64
+             (vk:float-64 value))))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acquire-profiling-lock-info-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -7405,6 +7477,32 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:shader-integer-functions-2 (vk:shader-integer-functions-2 value))))
 
+(defmethod cffi:translate-into-foreign-memory ((value vk:performance-value-data-intel) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:value-32
+        %vk:value-64
+        %vk:value-float
+        %vk:value-bool
+        %vk:value-string)
+       ptr
+       (:struct %vk:performance-value-data-intel))
+    (cond
+      ((slot-boundp value 'vk:value-32)
+       (setf %vk:value-32
+             (vk:value-32 value)))
+      ((slot-boundp value 'vk:value-64)
+       (setf %vk:value-64
+             (vk:value-64 value)))
+      ((slot-boundp value 'vk:value-float)
+       (setf %vk:value-float
+             (vk:value-float value)))
+      ((slot-boundp value 'vk:value-bool)
+       (setf %vk:value-bool
+             (vk:value-bool value)))
+      ((slot-boundp value 'vk:value-string)
+       (setf %vk:value-string
+             (vk:value-string value))))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-performance-value-intel) ptr)
   (cffi:with-foreign-slots
       ((%vk:type
@@ -7412,7 +7510,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:performance-value-intel))
     (setf %vk:type (vk:type value)
-          %vk:data (let ((slot (vk:data value))) (cond ((slot-boundp slot value-32) (vk:value-32 slot))((slot-boundp slot value-64) (vk:value-64 slot))((slot-boundp slot value-float) (vk:value-float slot))((slot-boundp slot value-bool) (vk:value-bool slot))((slot-boundp slot value-string) (vk:value-string slot)))))))
+          %vk:data (vk-alloc:foreign-allocate-and-fill '(:union %vk:performance-value-data-intel) (vk:data value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-initialize-performance-api-info-intel) ptr)
   (cffi:with-foreign-slots
@@ -7634,6 +7732,28 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:pipeline (if (vk:pipeline value) (vk:pipeline value) (cffi:null-pointer))
           %vk:executable-index (vk:executable-index value))))
 
+(defmethod cffi:translate-into-foreign-memory ((value vk:pipeline-executable-statistic-value-khr) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:b32
+        %vk:i64
+        %vk:u64
+        %vk:f64)
+       ptr
+       (:struct %vk:pipeline-executable-statistic-value-khr))
+    (cond
+      ((slot-boundp value 'vk:b32)
+       (setf %vk:b32
+             (vk:b32 value)))
+      ((slot-boundp value 'vk:i64)
+       (setf %vk:i64
+             (vk:i64 value)))
+      ((slot-boundp value 'vk:u64)
+       (setf %vk:u64
+             (vk:u64 value)))
+      ((slot-boundp value 'vk:f64)
+       (setf %vk:f64
+             (vk:f64 value))))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-executable-statistic-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -7649,7 +7769,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:name (vk:name value)
           %vk:description (vk:description value)
           %vk:format (vk:format value)
-          %vk:value (let ((slot (vk:value value))) (cond ((slot-boundp slot b32) (vk:b32 slot))((slot-boundp slot i64) (vk:i64 slot))((slot-boundp slot u64) (vk:u64 slot))((slot-boundp slot f64) (vk:f64 slot)))))))
+          %vk:value (vk-alloc:foreign-allocate-and-fill '(:union %vk:pipeline-executable-statistic-value-khr) (vk:value value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-executable-internal-representation-khr) ptr)
   (cffi:with-foreign-slots
@@ -8171,7 +8291,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:sampler-custom-border-color-create-info-ext))
     (setf %vk:s-type :sampler-custom-border-color-create-info-ext
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
-          %vk:custom-border-color (let ((slot (vk:custom-border-color value))) (cond ((slot-boundp slot float-32) (vk:float-32 slot))((slot-boundp slot int-32) (vk:int-32 slot))((slot-boundp slot uint-32) (vk:uint-32 slot))))
+          %vk:custom-border-color (vk-alloc:foreign-allocate-and-fill '(:union %vk:clear-color-value) (vk:custom-border-color value) ptr)
           %vk:format (vk:format value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-custom-border-color-properties-ext) ptr)
@@ -8198,6 +8318,34 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:custom-border-colors (vk:custom-border-colors value)
           %vk:custom-border-color-without-format (vk:custom-border-color-without-format value))))
 
+(defmethod cffi:translate-into-foreign-memory ((value vk:device-or-host-address-khr) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:device-address
+        %vk:host-address)
+       ptr
+       (:struct %vk:device-or-host-address-khr))
+    (cond
+      ((slot-boundp value 'vk:device-address)
+       (setf %vk:device-address
+             (vk:device-address value)))
+      ((slot-boundp value 'vk:host-address)
+       (setf %vk:host-address
+             (vk:host-address value))))))
+
+(defmethod cffi:translate-into-foreign-memory ((value vk:device-or-host-address-const-khr) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:device-address
+        %vk:host-address)
+       ptr
+       (:struct %vk:device-or-host-address-const-khr))
+    (cond
+      ((slot-boundp value 'vk:device-address)
+       (setf %vk:device-address
+             (vk:device-address value)))
+      ((slot-boundp value 'vk:host-address)
+       (setf %vk:host-address
+             (vk:host-address value))))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-triangles-data-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -8213,11 +8361,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :acceleration-structure-geometry-triangles-data-khr
           %vk:p-next (cffi:null-pointer)
           %vk:vertex-format (vk:vertex-format value)
-          %vk:vertex-data (let ((slot (vk:vertex-data value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
+          %vk:vertex-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:vertex-data value) ptr)
           %vk:vertex-stride (vk:vertex-stride value)
           %vk:index-type (vk:index-type value)
-          %vk:index-data (let ((slot (vk:index-data value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
-          %vk:transform-data (let ((slot (vk:transform-data value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer))))))))
+          %vk:index-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:index-data value) ptr)
+          %vk:transform-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:transform-data value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-aabbs-data-khr) ptr)
   (cffi:with-foreign-slots
@@ -8229,7 +8377,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:acceleration-structure-geometry-aabbs-data-khr))
     (setf %vk:s-type :acceleration-structure-geometry-aabbs-data-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:data (let ((slot (vk:data value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
+          %vk:data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:data value) ptr)
           %vk:stride (vk:stride value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-instances-data-khr) ptr)
@@ -8243,7 +8391,31 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :acceleration-structure-geometry-instances-data-khr
           %vk:p-next (cffi:null-pointer)
           %vk:array-of-pointers (vk:array-of-pointers value)
-          %vk:data (let ((slot (vk:data value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer))))))))
+          %vk:data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:data value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory ((value vk:acceleration-structure-geometry-data-khr) type ptr)
+  (cffi:with-foreign-slots
+      ((%vk:triangles
+        %vk:aabbs
+        %vk:instances)
+       ptr
+       (:struct %vk:acceleration-structure-geometry-data-khr))
+    (cond
+      ((slot-boundp value 'vk:triangles)
+       (setf %vk:triangles
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-triangles-data-khr)
+                                                  (vk:triangles value)
+                                                  ptr)))
+      ((slot-boundp value 'vk:aabbs)
+       (setf %vk:aabbs
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-aabbs-data-khr)
+                                                  (vk:aabbs value)
+                                                  ptr)))
+      ((slot-boundp value 'vk:instances)
+       (setf %vk:instances
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-instances-data-khr)
+                                                  (vk:instances value)
+                                                  ptr))))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-khr) ptr)
   (cffi:with-foreign-slots
@@ -8257,7 +8429,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :acceleration-structure-geometry-khr
           %vk:p-next (cffi:null-pointer)
           %vk:geometry-type (vk:geometry-type value)
-          %vk:geometry (let ((slot (vk:geometry value))) (cond ((slot-boundp slot triangles) (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-triangles-data-khr) (vk:triangles slot) ptr))((slot-boundp slot aabbs) (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-aabbs-data-khr) (vk:aabbs slot) ptr))((slot-boundp slot instances) (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-instances-data-khr) (vk:instances slot) ptr))))
+          %vk:geometry (vk-alloc:foreign-allocate-and-fill '(:union %vk:acceleration-structure-geometry-data-khr) (vk:geometry value) ptr)
           %vk:flags (vk:flags value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-build-geometry-info-khr) ptr)
@@ -8285,7 +8457,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:geometry-array-of-pointers (vk:geometry-array-of-pointers value)
           %vk:geometry-count (vk:geometry-count value)
           %vk:pp-geometries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-khr) (vk:p-geometries value) ptr)
-          %vk:scratch-data (let ((slot (vk:scratch-data value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer))))))))
+          %vk:scratch-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-khr) (vk:scratch-data value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-build-offset-info-khr) ptr)
   (cffi:with-foreign-slots
@@ -8432,7 +8604,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :copy-acceleration-structure-to-memory-info-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:src (if (vk:src value) (vk:src value) (cffi:null-pointer))
-          %vk:dst (let ((slot (vk:dst value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
+          %vk:dst (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-khr) (vk:dst value) ptr)
           %vk:mode (vk:mode value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-memory-to-acceleration-structure-info-khr) ptr)
@@ -8446,7 +8618,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-memory-to-acceleration-structure-info-khr))
     (setf %vk:s-type :copy-memory-to-acceleration-structure-info-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
-          %vk:src (let ((slot (vk:src value))) (cond ((slot-boundp slot device-address) (vk:device-address slot))((slot-boundp slot host-address) (if (vk:host-address slot) (vk:host-address slot) (cffi:null-pointer)))))
+          %vk:src (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:src value) ptr)
           %vk:dst (if (vk:dst value) (vk:dst value) (cffi:null-pointer))
           %vk:mode (vk:mode value))))
 
