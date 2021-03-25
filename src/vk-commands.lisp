@@ -425,7 +425,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (wait-for-fences
                    %vk:wait-for-fences
                    "Represents <vkWaitForFences>"
-                   ((device cffi:foreign-pointer) (fences list) (wait-all unsigned-byte) (timeout unsigned-byte))
+                   ((device cffi:foreign-pointer) (fences list) (wait-all boolean) (timeout unsigned-byte))
                    ()
                   nil)
   (device '%vk:device device :in :handle)
@@ -2025,7 +2025,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-execute-generated-commands-nv
                    %vk:cmd-execute-generated-commands-nv
                    "Represents <vkCmdExecuteGeneratedCommandsNV>"
-                   ((command-buffer cffi:foreign-pointer) (is-preprocessed unsigned-byte) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (is-preprocessed boolean) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
                    ()
                   nil
                   t)
@@ -3150,7 +3150,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (set-local-dimming-amd
                    %vk:set-local-dimming-amd
                    "Represents <vkSetLocalDimmingAMD>"
-                   ((device cffi:foreign-pointer) (swap-chain cffi:foreign-pointer) (local-dimming-enable unsigned-byte))
+                   ((device cffi:foreign-pointer) (swap-chain cffi:foreign-pointer) (local-dimming-enable boolean))
                    ()
                   nil
                   t)
@@ -3934,7 +3934,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-build-acceleration-structure-nv
                    %vk:cmd-build-acceleration-structure-nv
                    "Represents <vkCmdBuildAccelerationStructureNV>"
-                   ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (instance-offset unsigned-byte) (update unsigned-byte) (scratch-offset unsigned-byte) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (instance-offset unsigned-byte) (update boolean) (scratch-offset unsigned-byte) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)))
                    (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer))
                   nil
                   t)
@@ -4643,7 +4643,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-set-depth-test-enable-ext
                    %vk:cmd-set-depth-test-enable-ext
                    "Represents <vkCmdSetDepthTestEnableEXT>"
-                   ((command-buffer cffi:foreign-pointer) (depth-test-enable unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (depth-test-enable boolean))
                    ()
                   nil
                   t)
@@ -4653,7 +4653,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-set-depth-write-enable-ext
                    %vk:cmd-set-depth-write-enable-ext
                    "Represents <vkCmdSetDepthWriteEnableEXT>"
-                   ((command-buffer cffi:foreign-pointer) (depth-write-enable unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (depth-write-enable boolean))
                    ()
                   nil
                   t)
@@ -4673,7 +4673,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-set-depth-bounds-test-enable-ext
                    %vk:cmd-set-depth-bounds-test-enable-ext
                    "Represents <vkCmdSetDepthBoundsTestEnableEXT>"
-                   ((command-buffer cffi:foreign-pointer) (depth-bounds-test-enable unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (depth-bounds-test-enable boolean))
                    ()
                   nil
                   t)
@@ -4683,7 +4683,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-set-stencil-test-enable-ext
                    %vk:cmd-set-stencil-test-enable-ext
                    "Represents <vkCmdSetStencilTestEnableEXT>"
-                   ((command-buffer cffi:foreign-pointer) (stencil-test-enable unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (stencil-test-enable boolean))
                    ()
                   nil
                   t)
