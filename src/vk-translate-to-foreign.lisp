@@ -1453,23 +1453,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:int-32
         %vk:uint-32)
        ptr
-       (:struct %vk:clear-color-value))
+       (:union %vk:clear-color-value))
     (cond
       ((slot-boundp value 'vk:float-32)
-       (setf %vk:float-32
-             (vk-alloc:foreign-allocate-and-fill :float
-                                                  (vk:float-32 value)
-                                                  ptr)))
+       (cffi:lisp-array-to-foreign (vk:float-32 value) ptr '(:array :float 4)))
       ((slot-boundp value 'vk:int-32)
-       (setf %vk:int-32
-             (vk-alloc:foreign-allocate-and-fill :int32
-                                                  (vk:int-32 value)
-                                                  ptr)))
+       (cffi:lisp-array-to-foreign (vk:int-32 value) ptr '(:array :int32 4)))
       ((slot-boundp value 'vk:uint-32)
-       (setf %vk:uint-32
-             (vk-alloc:foreign-allocate-and-fill :uint32
-                                                  (vk:uint-32 value)
-                                                  ptr))))))
+       (cffi:lisp-array-to-foreign (vk:uint-32 value) ptr '(:array :uint32 4))))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-clear-depth-stencil-value) ptr)
   (cffi:with-foreign-slots
@@ -1485,7 +1476,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:color
         %vk:depth-stencil)
        ptr
-       (:struct %vk:clear-value))
+       (:union %vk:clear-value))
     (cond
       ((slot-boundp value 'vk:color)
        (setf %vk:color
@@ -7369,7 +7360,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:float-32
         %vk:float-64)
        ptr
-       (:struct %vk:performance-counter-result-khr))
+       (:union %vk:performance-counter-result-khr))
     (cond
       ((slot-boundp value 'vk:int-32)
        (setf %vk:int-32
@@ -7485,7 +7476,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:value-bool
         %vk:value-string)
        ptr
-       (:struct %vk:performance-value-data-intel))
+       (:union %vk:performance-value-data-intel))
     (cond
       ((slot-boundp value 'vk:value-32)
        (setf %vk:value-32
@@ -7739,7 +7730,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:u64
         %vk:f64)
        ptr
-       (:struct %vk:pipeline-executable-statistic-value-khr))
+       (:union %vk:pipeline-executable-statistic-value-khr))
     (cond
       ((slot-boundp value 'vk:b32)
        (setf %vk:b32
@@ -8323,7 +8314,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:device-address
         %vk:host-address)
        ptr
-       (:struct %vk:device-or-host-address-khr))
+       (:union %vk:device-or-host-address-khr))
     (cond
       ((slot-boundp value 'vk:device-address)
        (setf %vk:device-address
@@ -8337,7 +8328,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:device-address
         %vk:host-address)
        ptr
-       (:struct %vk:device-or-host-address-const-khr))
+       (:union %vk:device-or-host-address-const-khr))
     (cond
       ((slot-boundp value 'vk:device-address)
        (setf %vk:device-address
@@ -8399,7 +8390,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:aabbs
         %vk:instances)
        ptr
-       (:struct %vk:acceleration-structure-geometry-data-khr))
+       (:union %vk:acceleration-structure-geometry-data-khr))
     (cond
       ((slot-boundp value 'vk:triangles)
        (setf %vk:triangles
