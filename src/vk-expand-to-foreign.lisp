@@ -134,9 +134,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:device-id (vk:device-id ,value)
           %vk:device-type (vk:device-type ,value)
           %vk:device-name (vk:device-name ,value)
-          %vk:pipeline-cache-uuid (vk:pipeline-cache-uuid ,value)
           %vk:limits (vk-alloc:foreign-allocate-and-fill '(:struct %vk:physical-device-limits) (vk:limits ,value) ,ptr)
-          %vk:sparse-properties (vk-alloc:foreign-allocate-and-fill '(:struct %vk:physical-device-sparse-properties) (vk:sparse-properties ,value) ,ptr))))
+          %vk:sparse-properties (vk-alloc:foreign-allocate-and-fill '(:struct %vk:physical-device-sparse-properties) (vk:sparse-properties ,value) ,ptr))
+    (cffi:lisp-array-to-foreign (vk:pipeline-cache-uuid ,value) %vk:pipeline-cache-uuid '(:array :uint8 vk_uuid_size))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-extension-properties) ptr)
   `(cffi:with-foreign-slots
@@ -1171,8 +1171,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:logic-op-enable (vk:logic-op-enable ,value)
           %vk:logic-op (vk:logic-op ,value)
           %vk:attachment-count (length (vk:attachments ,value))
-          %vk:p-attachments (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-color-blend-attachment-state) (vk:attachments ,value) ,ptr)
-          %vk:blend-constants (vk:blend-constants ,value))))
+          %vk:p-attachments (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-color-blend-attachment-state) (vk:attachments ,value) ,ptr))
+    (cffi:lisp-array-to-foreign (vk:blend-constants ,value) %vk:blend-constants '(:array :float 4))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-dynamic-state-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -1913,9 +1913,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:max-fragment-dual-src-attachments (vk:max-fragment-dual-src-attachments ,value)
           %vk:max-fragment-combined-output-resources (vk:max-fragment-combined-output-resources ,value)
           %vk:max-compute-shared-memory-size (vk:max-compute-shared-memory-size ,value)
-          %vk:max-compute-work-group-count (vk:max-compute-work-group-count ,value)
           %vk:max-compute-work-group-invocations (vk:max-compute-work-group-invocations ,value)
-          %vk:max-compute-work-group-size (vk:max-compute-work-group-size ,value)
           %vk:sub-pixel-precision-bits (vk:sub-pixel-precision-bits ,value)
           %vk:sub-texel-precision-bits (vk:sub-texel-precision-bits ,value)
           %vk:mipmap-precision-bits (vk:mipmap-precision-bits ,value)
@@ -1924,8 +1922,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:max-sampler-lod-bias (vk:max-sampler-lod-bias ,value)
           %vk:max-sampler-anisotropy (vk:max-sampler-anisotropy ,value)
           %vk:max-viewports (vk:max-viewports ,value)
-          %vk:max-viewport-dimensions (vk:max-viewport-dimensions ,value)
-          %vk:viewport-bounds-range (vk:viewport-bounds-range ,value)
           %vk:viewport-sub-pixel-bits (vk:viewport-sub-pixel-bits ,value)
           %vk:min-memory-map-alignment (vk:min-memory-map-alignment ,value)
           %vk:min-texel-buffer-offset-alignment (vk:min-texel-buffer-offset-alignment ,value)
@@ -1958,15 +1954,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:max-cull-distances (vk:max-cull-distances ,value)
           %vk:max-combined-clip-and-cull-distances (vk:max-combined-clip-and-cull-distances ,value)
           %vk:discrete-queue-priorities (vk:discrete-queue-priorities ,value)
-          %vk:point-size-range (vk:point-size-range ,value)
-          %vk:line-width-range (vk:line-width-range ,value)
           %vk:point-size-granularity (vk:point-size-granularity ,value)
           %vk:line-width-granularity (vk:line-width-granularity ,value)
           %vk:strict-lines (vk:strict-lines ,value)
           %vk:standard-sample-locations (vk:standard-sample-locations ,value)
           %vk:optimal-buffer-copy-offset-alignment (vk:optimal-buffer-copy-offset-alignment ,value)
           %vk:optimal-buffer-copy-row-pitch-alignment (vk:optimal-buffer-copy-row-pitch-alignment ,value)
-          %vk:non-coherent-atom-size (vk:non-coherent-atom-size ,value))))
+          %vk:non-coherent-atom-size (vk:non-coherent-atom-size ,value))
+    (cffi:lisp-array-to-foreign (vk:max-compute-work-group-count ,value) %vk:max-compute-work-group-count '(:array :uint32 3))
+    (cffi:lisp-array-to-foreign (vk:max-compute-work-group-size ,value) %vk:max-compute-work-group-size '(:array :uint32 3))
+    (cffi:lisp-array-to-foreign (vk:max-viewport-dimensions ,value) %vk:max-viewport-dimensions '(:array :uint32 2))
+    (cffi:lisp-array-to-foreign (vk:viewport-bounds-range ,value) %vk:viewport-bounds-range '(:array :float 2))
+    (cffi:lisp-array-to-foreign (vk:point-size-range ,value) %vk:point-size-range '(:array :float 2))
+    (cffi:lisp-array-to-foreign (vk:line-width-range ,value) %vk:line-width-range '(:array :float 2))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-semaphore-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -2526,8 +2526,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:debug-marker-marker-info-ext))
     (setf %vk:s-type :debug-marker-marker-info-ext
           %vk:p-next (cffi:null-pointer)
-          %vk:p-marker-name (vk:marker-name ,value)
-          %vk:color (vk:color ,value))))
+          %vk:p-marker-name (vk:marker-name ,value))
+    (cffi:lisp-array-to-foreign (vk:color ,value) %vk:color '(:array :float 4))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-dedicated-allocation-image-create-info-nv) ptr)
   `(cffi:with-foreign-slots
@@ -3180,11 +3180,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-id-properties))
     (setf %vk:s-type :physical-device-id-properties
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:device-uuid (vk:device-uuid ,value)
-          %vk:driver-uuid (vk:driver-uuid ,value)
-          %vk:device-luid (vk:device-luid ,value)
           %vk:device-node-mask (vk:device-node-mask ,value)
-          %vk:device-luid-valid (vk:device-luid-valid ,value))))
+          %vk:device-luid-valid (vk:device-luid-valid ,value))
+    (cffi:lisp-array-to-foreign (vk:device-uuid ,value) %vk:device-uuid '(:array :uint8 vk_uuid_size))
+    (cffi:lisp-array-to-foreign (vk:driver-uuid ,value) %vk:driver-uuid '(:array :uint8 vk_uuid_size))
+    (cffi:lisp-array-to-foreign (vk:device-luid ,value) %vk:device-luid '(:array :uint8 vk_luid_size))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-external-memory-image-create-info) ptr)
   `(cffi:with-foreign-slots
@@ -3860,8 +3860,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:device-group-present-capabilities-khr))
     (setf %vk:s-type :device-group-present-capabilities-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:present-mask (vk:present-mask ,value)
-          %vk:modes (vk:modes ,value))))
+          %vk:modes (vk:modes ,value))
+    (cffi:lisp-array-to-foreign (vk:present-mask ,value) %vk:present-mask '(:array :uint32 vk_max_device_group_size))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-swapchain-create-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -4772,9 +4772,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:sample-location-sample-counts (vk:sample-location-sample-counts ,value)
           %vk:max-sample-location-grid-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-sample-location-grid-size ,value) ,ptr)
-          %vk:sample-location-coordinate-range (vk:sample-location-coordinate-range ,value)
           %vk:sample-location-sub-pixel-bits (vk:sample-location-sub-pixel-bits ,value)
-          %vk:variable-sample-locations (vk:variable-sample-locations ,value))))
+          %vk:variable-sample-locations (vk:variable-sample-locations ,value))
+    (cffi:lisp-array-to-foreign (vk:sample-location-coordinate-range ,value) %vk:sample-location-coordinate-range '(:array :float 2))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-multisample-properties-ext) ptr)
   `(cffi:with-foreign-slots
@@ -5092,8 +5092,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:num-physical-vgprs (vk:num-physical-vgprs ,value)
           %vk:num-physical-sgprs (vk:num-physical-sgprs ,value)
           %vk:num-available-vgprs (vk:num-available-vgprs ,value)
-          %vk:num-available-sgprs (vk:num-available-sgprs ,value)
-          %vk:compute-work-group-size (vk:compute-work-group-size ,value))))
+          %vk:num-available-sgprs (vk:num-available-sgprs ,value))
+    (cffi:lisp-array-to-foreign (vk:compute-work-group-size ,value) %vk:compute-work-group-size '(:array :uint32 3))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-device-queue-global-priority-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -5150,8 +5150,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:debug-utils-label-ext))
     (setf %vk:s-type :debug-utils-label-ext
           %vk:p-next (cffi:null-pointer)
-          %vk:p-label-name (vk:label-name ,value)
-          %vk:color (vk:color ,value))))
+          %vk:p-label-name (vk:label-name ,value))
+    (cffi:lisp-array-to-foreign (vk:color ,value) %vk:color '(:array :float 4))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-debug-utils-messenger-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -6315,17 +6315,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:max-draw-mesh-tasks-count (vk:max-draw-mesh-tasks-count ,value)
           %vk:max-task-work-group-invocations (vk:max-task-work-group-invocations ,value)
-          %vk:max-task-work-group-size (vk:max-task-work-group-size ,value)
           %vk:max-task-total-memory-size (vk:max-task-total-memory-size ,value)
           %vk:max-task-output-count (vk:max-task-output-count ,value)
           %vk:max-mesh-work-group-invocations (vk:max-mesh-work-group-invocations ,value)
-          %vk:max-mesh-work-group-size (vk:max-mesh-work-group-size ,value)
           %vk:max-mesh-total-memory-size (vk:max-mesh-total-memory-size ,value)
           %vk:max-mesh-output-vertices (vk:max-mesh-output-vertices ,value)
           %vk:max-mesh-output-primitives (vk:max-mesh-output-primitives ,value)
           %vk:max-mesh-multiview-view-count (vk:max-mesh-multiview-view-count ,value)
           %vk:mesh-output-per-vertex-granularity (vk:mesh-output-per-vertex-granularity ,value)
-          %vk:mesh-output-per-primitive-granularity (vk:mesh-output-per-primitive-granularity ,value))))
+          %vk:mesh-output-per-primitive-granularity (vk:mesh-output-per-primitive-granularity ,value))
+    (cffi:lisp-array-to-foreign (vk:max-task-work-group-size ,value) %vk:max-task-work-group-size '(:array :uint32 3))
+    (cffi:lisp-array-to-foreign (vk:max-mesh-work-group-size ,value) %vk:max-mesh-work-group-size '(:array :uint32 3))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-draw-mesh-tasks-indirect-command-nv) ptr)
   `(cffi:with-foreign-slots
@@ -7316,8 +7316,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:unit (vk:unit ,value)
           %vk:scope (vk:scope ,value)
-          %vk:storage (vk:storage ,value)
-          %vk:uuid (vk:uuid ,value))))
+          %vk:storage (vk:storage ,value))
+    (cffi:lisp-array-to-foreign (vk:uuid ,value) %vk:uuid '(:array :uint8 vk_uuid_size))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-performance-counter-description-khr) ptr)
   `(cffi:with-foreign-slots
@@ -7999,9 +7999,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-vulkan-1-1-properties))
     (setf %vk:s-type :physical-device-vulkan-1-1-properties
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:device-uuid (vk:device-uuid ,value)
-          %vk:driver-uuid (vk:driver-uuid ,value)
-          %vk:device-luid (vk:device-luid ,value)
           %vk:device-node-mask (vk:device-node-mask ,value)
           %vk:device-luid-valid (vk:device-luid-valid ,value)
           %vk:subgroup-size (vk:subgroup-size ,value)
@@ -8013,7 +8010,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:max-multiview-instance-index (vk:max-multiview-instance-index ,value)
           %vk:protected-no-fault (vk:protected-no-fault ,value)
           %vk:max-per-set-descriptors (vk:max-per-set-descriptors ,value)
-          %vk:max-memory-allocation-size (vk:max-memory-allocation-size ,value))))
+          %vk:max-memory-allocation-size (vk:max-memory-allocation-size ,value))
+    (cffi:lisp-array-to-foreign (vk:device-uuid ,value) %vk:device-uuid '(:array :uint8 vk_uuid_size))
+    (cffi:lisp-array-to-foreign (vk:driver-uuid ,value) %vk:driver-uuid '(:array :uint8 vk_uuid_size))
+    (cffi:lisp-array-to-foreign (vk:device-luid ,value) %vk:device-luid '(:array :uint8 vk_luid_size))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-vulkan-1-2-features) ptr)
   `(cffi:with-foreign-slots
@@ -8527,7 +8527,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:matrix)
        ,ptr
        (:struct %vk:transform-matrix-khr))
-    (setf %vk:matrix (vk:matrix ,value))))
+    (cffi:lisp-array-to-foreign (vk:matrix ,value) %vk:matrix '(:array :float 4 3))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-instance-khr) ptr)
   `(cffi:with-foreign-slots
