@@ -1128,7 +1128,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:rasterization-samples (vk:rasterization-samples ,value)
           %vk:sample-shading-enable (vk:sample-shading-enable ,value)
           %vk:min-sample-shading (vk:min-sample-shading ,value)
-          %vk:p-sample-mask (vk:sample-mask ,value)
+          %vk:p-sample-mask (if (vk:sample-mask ,value) (vk:sample-mask ,value) (cffi:null-pointer))
           %vk:alpha-to-coverage-enable (vk:alpha-to-coverage-enable ,value)
           %vk:alpha-to-one-enable (vk:alpha-to-one-enable ,value))))
 

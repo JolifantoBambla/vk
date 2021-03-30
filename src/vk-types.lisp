@@ -49,11 +49,11 @@ See BASE-IN-STRUCTURE
 (defclass offset-2d ()
   ((x
      :initarg :x
-     :initform nil
+     :initform 0
      :accessor x)
    (y
      :initarg :y
-     :initform nil
+     :initform 0
      :accessor y))
   (:documentation "Represents the struct [VkOffset2D](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkOffset2D.html).
 
@@ -65,15 +65,15 @@ Slots:
 (defclass offset-3d ()
   ((x
      :initarg :x
-     :initform nil
+     :initform 0
      :accessor x)
    (y
      :initarg :y
-     :initform nil
+     :initform 0
      :accessor y)
    (z
      :initarg :z
-     :initform nil
+     :initform 0
      :accessor z))
   (:documentation "Represents the struct [VkOffset3D](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkOffset3D.html).
 
@@ -86,11 +86,11 @@ Slots:
 (defclass extent-2d ()
   ((width
      :initarg :width
-     :initform nil
+     :initform 0
      :accessor width)
    (height
      :initarg :height
-     :initform nil
+     :initform 0
      :accessor height))
   (:documentation "Represents the struct [VkExtent2D](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExtent2D.html).
 
@@ -102,15 +102,15 @@ Slots:
 (defclass extent-3d ()
   ((width
      :initarg :width
-     :initform nil
+     :initform 0
      :accessor width)
    (height
      :initarg :height
-     :initform nil
+     :initform 0
      :accessor height)
    (depth
      :initarg :depth
-     :initform nil
+     :initform 0
      :accessor depth))
   (:documentation "Represents the struct [VkExtent3D](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExtent3D.html).
 
@@ -123,27 +123,27 @@ Slots:
 (defclass viewport ()
   ((x
      :initarg :x
-     :initform nil
+     :initform 0.0
      :accessor x)
    (y
      :initarg :y
-     :initform nil
+     :initform 0.0
      :accessor y)
    (width
      :initarg :width
-     :initform nil
+     :initform 0.0
      :accessor width)
    (height
      :initarg :height
-     :initform nil
+     :initform 0.0
      :accessor height)
    (min-depth
      :initarg :min-depth
-     :initform nil
+     :initform 0.0
      :accessor min-depth)
    (max-depth
      :initarg :max-depth
-     :initform nil
+     :initform 0.0
      :accessor max-depth))
   (:documentation "Represents the struct [VkViewport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkViewport.html).
 
@@ -182,11 +182,11 @@ See EXTENT-2D
      :accessor rect)
    (base-array-layer
      :initarg :base-array-layer
-     :initform nil
+     :initform 0
      :accessor base-array-layer)
    (layer-count
      :initarg :layer-count
-     :initform nil
+     :initform 0
      :accessor layer-count))
   (:documentation "Represents the struct [VkClearRect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkClearRect.html).
 
@@ -229,19 +229,19 @@ See COMPONENT-SWIZZLE
 (defclass physical-device-properties ()
   ((api-version
      :initarg :api-version
-     :initform nil
+     :initform 0
      :accessor api-version)
    (driver-version
      :initarg :driver-version
-     :initform nil
+     :initform 0
      :accessor driver-version)
    (vendor-id
      :initarg :vendor-id
-     :initform nil
+     :initform 0
      :accessor vendor-id)
    (device-id
      :initarg :device-id
-     :initform nil
+     :initform 0
      :accessor device-id)
    (device-type
      :initarg :device-type
@@ -249,11 +249,11 @@ See COMPONENT-SWIZZLE
      :accessor device-type)
    (device-name
      :initarg :device-name
-     :initform nil
+     :initform ""
      :accessor device-name)
    (pipeline-cache-uuid
      :initarg :pipeline-cache-uuid
-     :initform nil
+     :initform 0
      :accessor pipeline-cache-uuid)
    (limits
      :initarg :limits
@@ -284,11 +284,11 @@ See PHYSICAL-DEVICE-SPARSE-PROPERTIES
 (defclass extension-properties ()
   ((extension-name
      :initarg :extension-name
-     :initform nil
+     :initform ""
      :accessor extension-name)
    (spec-version
      :initarg :spec-version
-     :initform nil
+     :initform 0
      :accessor spec-version))
   (:documentation "Represents the struct [VkExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExtensionProperties.html).
 
@@ -300,19 +300,19 @@ Slots:
 (defclass layer-properties ()
   ((layer-name
      :initarg :layer-name
-     :initform nil
+     :initform ""
      :accessor layer-name)
    (spec-version
      :initarg :spec-version
-     :initform nil
+     :initform 0
      :accessor spec-version)
    (implementation-version
      :initarg :implementation-version
-     :initform nil
+     :initform 0
      :accessor implementation-version)
    (description
      :initarg :description
-     :initform nil
+     :initform ""
      :accessor description))
   (:documentation "Represents the struct [VkLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkLayerProperties.html).
 
@@ -330,23 +330,23 @@ Slots:
      :accessor next)
    (application-name
      :initarg :application-name
-     :initform nil
+     :initform ""
      :accessor application-name)
    (application-version
      :initarg :application-version
-     :initform nil
+     :initform 0
      :accessor application-version)
    (engine-name
      :initarg :engine-name
-     :initform nil
+     :initform ""
      :accessor engine-name)
    (engine-version
      :initarg :engine-version
-     :initform nil
+     :initform 0
      :accessor engine-version)
    (api-version
      :initarg :api-version
-     :initform nil
+     :initform 0
      :accessor api-version))
   (:documentation "Represents the struct [VkApplicationInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkApplicationInfo.html).
 
@@ -412,7 +412,7 @@ See PFN-INTERNAL-FREE-NOTIFICATION
      :accessor flags)
    (queue-family-index
      :initarg :queue-family-index
-     :initform nil
+     :initform 0
      :accessor queue-family-index)
    (queue-priorities
      :initarg :queue-priorities
@@ -510,11 +510,11 @@ See APPLICATION-INFO
      :accessor queue-flags)
    (queue-count
      :initarg :queue-count
-     :initform nil
+     :initform 0
      :accessor queue-count)
    (timestamp-valid-bits
      :initarg :timestamp-valid-bits
-     :initform nil
+     :initform 0
      :accessor timestamp-valid-bits)
    (min-image-transfer-granularity
      :initarg :min-image-transfer-granularity
@@ -535,7 +535,7 @@ See EXTENT-3D
 (defclass physical-device-memory-properties ()
   ((memory-type-count
      :initarg :memory-type-count
-     :initform nil
+     :initform 0
      :accessor memory-type-count)
    (memory-types
      :initarg :memory-types
@@ -543,7 +543,7 @@ See EXTENT-3D
      :accessor memory-types)
    (memory-heap-count
      :initarg :memory-heap-count
-     :initform nil
+     :initform 0
      :accessor memory-heap-count)
    (memory-heaps
      :initarg :memory-heaps
@@ -572,7 +572,7 @@ See MEMORY-HEAP
      :accessor allocation-size)
    (memory-type-index
      :initarg :memory-type-index
-     :initform nil
+     :initform 0
      :accessor memory-type-index))
   (:documentation "Represents the struct [VkMemoryAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryAllocateInfo.html).
 
@@ -595,7 +595,7 @@ See DEVICE-SIZE
      :accessor alignment)
    (memory-type-bits
      :initarg :memory-type-bits
-     :initform nil
+     :initform 0
      :accessor memory-type-bits))
   (:documentation "Represents the struct [VkMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryRequirements.html).
 
@@ -639,7 +639,7 @@ See SPARSE-IMAGE-FORMAT-FLAGS
      :accessor format-properties)
    (image-mip-tail-first-lod
      :initarg :image-mip-tail-first-lod
-     :initform nil
+     :initform 0
      :accessor image-mip-tail-first-lod)
    (image-mip-tail-size
      :initarg :image-mip-tail-size
@@ -673,7 +673,7 @@ See DEVICE-SIZE
      :accessor property-flags)
    (heap-index
      :initarg :heap-index
-     :initform nil
+     :initform 0
      :accessor heap-index))
   (:documentation "Represents the struct [VkMemoryType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryType.html).
 
@@ -762,11 +762,11 @@ See FORMAT-FEATURE-FLAGS
      :accessor max-extent)
    (max-mip-levels
      :initarg :max-mip-levels
-     :initform nil
+     :initform 0
      :accessor max-mip-levels)
    (max-array-layers
      :initarg :max-array-layers
-     :initform nil
+     :initform 0
      :accessor max-array-layers)
    (sample-counts
      :initarg :sample-counts
@@ -850,11 +850,11 @@ See IMAGE-LAYOUT
      :accessor dst-set)
    (dst-binding
      :initarg :dst-binding
-     :initform nil
+     :initform 0
      :accessor dst-binding)
    (dst-array-element
      :initarg :dst-array-element
-     :initform nil
+     :initform 0
      :accessor dst-array-element)
    (descriptor-type
      :initarg :descriptor-type
@@ -902,11 +902,11 @@ See BUFFER-VIEW
      :accessor src-set)
    (src-binding
      :initarg :src-binding
-     :initform nil
+     :initform 0
      :accessor src-binding)
    (src-array-element
      :initarg :src-array-element
-     :initform nil
+     :initform 0
      :accessor src-array-element)
    (dst-set
      :initarg :dst-set
@@ -914,15 +914,15 @@ See BUFFER-VIEW
      :accessor dst-set)
    (dst-binding
      :initarg :dst-binding
-     :initform nil
+     :initform 0
      :accessor dst-binding)
    (dst-array-element
      :initarg :dst-array-element
-     :initform nil
+     :initform 0
      :accessor dst-array-element)
    (descriptor-count
      :initarg :descriptor-count
-     :initform nil
+     :initform 0
      :accessor descriptor-count))
   (:documentation "Represents the struct [VkCopyDescriptorSet](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyDescriptorSet.html).
 
@@ -1028,11 +1028,11 @@ See DEVICE-SIZE
      :accessor aspect-mask)
    (mip-level
      :initarg :mip-level
-     :initform nil
+     :initform 0
      :accessor mip-level)
    (array-layer
      :initarg :array-layer
-     :initform nil
+     :initform 0
      :accessor array-layer))
   (:documentation "Represents the struct [VkImageSubresource](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageSubresource.html).
 
@@ -1051,15 +1051,15 @@ See IMAGE-ASPECT-FLAGS
      :accessor aspect-mask)
    (mip-level
      :initarg :mip-level
-     :initform nil
+     :initform 0
      :accessor mip-level)
    (base-array-layer
      :initarg :base-array-layer
-     :initform nil
+     :initform 0
      :accessor base-array-layer)
    (layer-count
      :initarg :layer-count
-     :initform nil
+     :initform 0
      :accessor layer-count))
   (:documentation "Represents the struct [VkImageSubresourceLayers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageSubresourceLayers.html).
 
@@ -1079,19 +1079,19 @@ See IMAGE-ASPECT-FLAGS
      :accessor aspect-mask)
    (base-mip-level
      :initarg :base-mip-level
-     :initform nil
+     :initform 0
      :accessor base-mip-level)
    (level-count
      :initarg :level-count
-     :initform nil
+     :initform 0
      :accessor level-count)
    (base-array-layer
      :initarg :base-array-layer
-     :initform nil
+     :initform 0
      :accessor base-array-layer)
    (layer-count
      :initarg :layer-count
-     :initform nil
+     :initform 0
      :accessor layer-count))
   (:documentation "Represents the struct [VkImageSubresourceRange](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageSubresourceRange.html).
 
@@ -1143,11 +1143,11 @@ See ACCESS-FLAGS
      :accessor dst-access-mask)
    (src-queue-family-index
      :initarg :src-queue-family-index
-     :initform nil
+     :initform 0
      :accessor src-queue-family-index)
    (dst-queue-family-index
      :initarg :dst-queue-family-index
-     :initform nil
+     :initform 0
      :accessor dst-queue-family-index)
    (buffer
      :initarg :buffer
@@ -1201,11 +1201,11 @@ See DEVICE-SIZE
      :accessor new-layout)
    (src-queue-family-index
      :initarg :src-queue-family-index
-     :initform nil
+     :initform 0
      :accessor src-queue-family-index)
    (dst-queue-family-index
      :initarg :dst-queue-family-index
-     :initform nil
+     :initform 0
      :accessor dst-queue-family-index)
    (image
      :initarg :image
@@ -1257,11 +1257,11 @@ See IMAGE-SUBRESOURCE-RANGE
      :accessor extent)
    (mip-levels
      :initarg :mip-levels
-     :initform nil
+     :initform 0
      :accessor mip-levels)
    (array-layers
      :initarg :array-layers
-     :initform nil
+     :initform 0
      :accessor array-layers)
    (samples
      :initarg :samples
@@ -1666,11 +1666,11 @@ See OFFSET-3D
      :accessor buffer-offset)
    (buffer-row-length
      :initarg :buffer-row-length
-     :initform nil
+     :initform 0
      :accessor buffer-row-length)
    (buffer-image-height
      :initarg :buffer-image-height
-     :initform nil
+     :initform 0
      :accessor buffer-image-height)
    (image-subresource
      :initarg :image-subresource
@@ -1746,7 +1746,7 @@ See EXTENT-3D
      :accessor flags)
    (code
      :initarg :code
-     :initform nil
+     :initform 0
      :accessor code))
   (:documentation "Represents the struct [VkShaderModuleCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModuleCreateInfo.html).
 
@@ -1761,7 +1761,7 @@ See SHADER-MODULE-CREATE-FLAGS
 (defclass descriptor-set-layout-binding ()
   ((binding
      :initarg :binding
-     :initform nil
+     :initform 0
      :accessor binding)
    (descriptor-type
      :initarg :descriptor-type
@@ -1769,7 +1769,7 @@ See SHADER-MODULE-CREATE-FLAGS
      :accessor descriptor-type)
    (descriptor-count
      :initarg :descriptor-count
-     :initform nil
+     :initform 0
      :accessor descriptor-count)
    (stage-flags
      :initarg :stage-flags
@@ -1824,7 +1824,7 @@ See DESCRIPTOR-SET-LAYOUT-BINDING
      :accessor type)
    (descriptor-count
      :initarg :descriptor-count
-     :initform nil
+     :initform 0
      :accessor descriptor-count))
   (:documentation "Represents the struct [VkDescriptorPoolSize](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPoolSize.html).
 
@@ -1846,7 +1846,7 @@ See DESCRIPTOR-TYPE
      :accessor flags)
    (max-sets
      :initarg :max-sets
-     :initform nil
+     :initform 0
      :accessor max-sets)
    (pool-sizes
      :initarg :pool-sizes
@@ -1891,15 +1891,15 @@ See DESCRIPTOR-SET-LAYOUT
 (defclass specialization-map-entry ()
   ((constant-id
      :initarg :constant-id
-     :initform nil
+     :initform 0
      :accessor constant-id)
    (offset
      :initarg :offset
-     :initform nil
+     :initform 0
      :accessor offset)
    (size
      :initarg :size
-     :initform nil
+     :initform 0
      :accessor size))
   (:documentation "Represents the struct [VkSpecializationMapEntry](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationMapEntry.html).
 
@@ -1916,7 +1916,7 @@ Slots:
      :accessor map-entries)
    (data-size
      :initarg :data-size
-     :initform nil
+     :initform 0
      :accessor data-size)
    (data
      :initarg :data
@@ -1951,7 +1951,7 @@ See SPECIALIZATION-MAP-ENTRY
      :accessor module)
    (name
      :initarg :name
-     :initform nil
+     :initform ""
      :accessor name)
    (specialization-info
      :initarg :specialization-info
@@ -1996,7 +1996,7 @@ See SPECIALIZATION-INFO
      :accessor base-pipeline-handle)
    (base-pipeline-index
      :initarg :base-pipeline-index
-     :initform nil
+     :initform 0
      :accessor base-pipeline-index))
   (:documentation "Represents the struct [VkComputePipelineCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComputePipelineCreateInfo.html).
 
@@ -2017,11 +2017,11 @@ See PIPELINE
 (defclass vertex-input-binding-description ()
   ((binding
      :initarg :binding
-     :initform nil
+     :initform 0
      :accessor binding)
    (stride
      :initarg :stride
-     :initform nil
+     :initform 0
      :accessor stride)
    (input-rate
      :initarg :input-rate
@@ -2040,11 +2040,11 @@ See VERTEX-INPUT-RATE
 (defclass vertex-input-attribute-description ()
   ((location
      :initarg :location
-     :initform nil
+     :initform 0
      :accessor location)
    (binding
      :initarg :binding
-     :initform nil
+     :initform 0
      :accessor binding)
    (format
      :initarg :format
@@ -2052,7 +2052,7 @@ See VERTEX-INPUT-RATE
      :accessor format)
    (offset
      :initarg :offset
-     :initform nil
+     :initform 0
      :accessor offset))
   (:documentation "Represents the struct [VkVertexInputAttributeDescription](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVertexInputAttributeDescription.html).
 
@@ -2136,7 +2136,7 @@ See BOOL32
      :accessor flags)
    (patch-control-points
      :initarg :patch-control-points
-     :initform nil
+     :initform 0
      :accessor patch-control-points))
   (:documentation "Represents the struct [VkPipelineTessellationStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineTessellationStateCreateInfo.html).
 
@@ -2213,19 +2213,19 @@ See RECT-2D
      :accessor depth-bias-enable)
    (depth-bias-constant-factor
      :initarg :depth-bias-constant-factor
-     :initform nil
+     :initform 0.0
      :accessor depth-bias-constant-factor)
    (depth-bias-clamp
      :initarg :depth-bias-clamp
-     :initform nil
+     :initform 0.0
      :accessor depth-bias-clamp)
    (depth-bias-slope-factor
      :initarg :depth-bias-slope-factor
-     :initform nil
+     :initform 0.0
      :accessor depth-bias-slope-factor)
    (line-width
      :initarg :line-width
-     :initform nil
+     :initform 0.0
      :accessor line-width))
   (:documentation "Represents the struct [VkPipelineRasterizationStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationStateCreateInfo.html).
 
@@ -2269,7 +2269,7 @@ See BOOL32
      :accessor sample-shading-enable)
    (min-sample-shading
      :initarg :min-sample-shading
-     :initform nil
+     :initform 0.0
      :accessor min-sample-shading)
    (sample-mask
      :initarg :sample-mask
@@ -2375,7 +2375,7 @@ See COLOR-COMPONENT-FLAGS
      :accessor attachments)
    (blend-constants
      :initarg :blend-constants
-     :initform nil
+     :initform 0.0
      :accessor blend-constants))
   (:documentation "Represents the struct [VkPipelineColorBlendStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendStateCreateInfo.html).
 
@@ -2436,15 +2436,15 @@ See DYNAMIC-STATE
      :accessor compare-op)
    (compare-mask
      :initarg :compare-mask
-     :initform nil
+     :initform 0
      :accessor compare-mask)
    (write-mask
      :initarg :write-mask
-     :initform nil
+     :initform 0
      :accessor write-mask)
    (reference
      :initarg :reference
-     :initform nil
+     :initform 0
      :accessor reference))
   (:documentation "Represents the struct [VkStencilOpState](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStencilOpState.html).
 
@@ -2500,11 +2500,11 @@ See COMPARE-OP
      :accessor back)
    (min-depth-bounds
      :initarg :min-depth-bounds
-     :initform nil
+     :initform 0.0
      :accessor min-depth-bounds)
    (max-depth-bounds
      :initarg :max-depth-bounds
-     :initform nil
+     :initform 0.0
      :accessor max-depth-bounds))
   (:documentation "Represents the struct [VkPipelineDepthStencilStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineDepthStencilStateCreateInfo.html).
 
@@ -2586,7 +2586,7 @@ See STENCIL-OP-STATE
      :accessor render-pass)
    (subpass
      :initarg :subpass
-     :initform nil
+     :initform 0
      :accessor subpass)
    (base-pipeline-handle
      :initarg :base-pipeline-handle
@@ -2594,7 +2594,7 @@ See STENCIL-OP-STATE
      :accessor base-pipeline-handle)
    (base-pipeline-index
      :initarg :base-pipeline-index
-     :initform nil
+     :initform 0
      :accessor base-pipeline-index))
   (:documentation "Represents the struct [VkGraphicsPipelineCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGraphicsPipelineCreateInfo.html).
 
@@ -2644,7 +2644,7 @@ See PIPELINE
      :accessor flags)
    (initial-data-size
      :initarg :initial-data-size
-     :initform nil
+     :initform 0
      :accessor initial-data-size)
    (initial-data
      :initarg :initial-data
@@ -2668,11 +2668,11 @@ See PIPELINE-CACHE-CREATE-FLAGS
      :accessor stage-flags)
    (offset
      :initarg :offset
-     :initform nil
+     :initform 0
      :accessor offset)
    (size
      :initarg :size
-     :initform nil
+     :initform 0
      :accessor size))
   (:documentation "Represents the struct [VkPushConstantRange](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPushConstantRange.html).
 
@@ -2749,7 +2749,7 @@ See PUSH-CONSTANT-RANGE
      :accessor address-mode-w)
    (mip-lod-bias
      :initarg :mip-lod-bias
-     :initform nil
+     :initform 0.0
      :accessor mip-lod-bias)
    (anisotropy-enable
      :initarg :anisotropy-enable
@@ -2757,7 +2757,7 @@ See PUSH-CONSTANT-RANGE
      :accessor anisotropy-enable)
    (max-anisotropy
      :initarg :max-anisotropy
-     :initform nil
+     :initform 0.0
      :accessor max-anisotropy)
    (compare-enable
      :initarg :compare-enable
@@ -2769,11 +2769,11 @@ See PUSH-CONSTANT-RANGE
      :accessor compare-op)
    (min-lod
      :initarg :min-lod
-     :initform nil
+     :initform 0.0
      :accessor min-lod)
    (max-lod
      :initarg :max-lod
-     :initform nil
+     :initform 0.0
      :accessor max-lod)
    (border-color
      :initarg :border-color
@@ -2824,7 +2824,7 @@ See BOOL32
      :accessor flags)
    (queue-family-index
      :initarg :queue-family-index
-     :initform nil
+     :initform 0
      :accessor queue-family-index))
   (:documentation "Represents the struct [VkCommandPoolCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPoolCreateInfo.html).
 
@@ -2851,7 +2851,7 @@ See COMMAND-POOL-CREATE-FLAGS
      :accessor level)
    (command-buffer-count
      :initarg :command-buffer-count
-     :initform nil
+     :initform 0
      :accessor command-buffer-count))
   (:documentation "Represents the struct [VkCommandBufferAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferAllocateInfo.html).
 
@@ -2876,7 +2876,7 @@ See COMMAND-BUFFER-LEVEL
      :accessor render-pass)
    (subpass
      :initarg :subpass
-     :initform nil
+     :initform 0
      :accessor subpass)
    (framebuffer
      :initarg :framebuffer
@@ -2993,11 +2993,11 @@ Slots:
 (defclass clear-depth-stencil-value ()
   ((depth
      :initarg :depth
-     :initform nil
+     :initform 0.0
      :accessor depth)
    (stencil
      :initarg :stencil
-     :initform nil
+     :initform 0
      :accessor stencil))
   (:documentation "Represents the struct [VkClearDepthStencilValue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkClearDepthStencilValue.html).
 
@@ -3030,7 +3030,7 @@ See CLEAR-DEPTH-STENCIL-VALUE
      :accessor aspect-mask)
    (color-attachment
      :initarg :color-attachment
-     :initform nil
+     :initform 0
      :accessor color-attachment)
    (clear-value
      :initarg :clear-value
@@ -3108,7 +3108,7 @@ See IMAGE-LAYOUT
 (defclass attachment-reference ()
   ((attachment
      :initarg :attachment
-     :initform nil
+     :initform 0
      :accessor attachment)
    (layout
      :initarg :layout
@@ -3171,11 +3171,11 @@ See ATTACHMENT-REFERENCE
 (defclass subpass-dependency ()
   ((src-subpass
      :initarg :src-subpass
-     :initform nil
+     :initform 0
      :accessor src-subpass)
    (dst-subpass
      :initarg :dst-subpass
-     :initform nil
+     :initform 0
      :accessor dst-subpass)
    (src-stage-mask
      :initarg :src-stage-mask
@@ -3604,47 +3604,47 @@ See BOOL32
 (defclass physical-device-limits ()
   ((max-image-dimension-1d
      :initarg :max-image-dimension-1d
-     :initform nil
+     :initform 0
      :accessor max-image-dimension-1d)
    (max-image-dimension-2d
      :initarg :max-image-dimension-2d
-     :initform nil
+     :initform 0
      :accessor max-image-dimension-2d)
    (max-image-dimension-3d
      :initarg :max-image-dimension-3d
-     :initform nil
+     :initform 0
      :accessor max-image-dimension-3d)
    (max-image-dimension-cube
      :initarg :max-image-dimension-cube
-     :initform nil
+     :initform 0
      :accessor max-image-dimension-cube)
    (max-image-array-layers
      :initarg :max-image-array-layers
-     :initform nil
+     :initform 0
      :accessor max-image-array-layers)
    (max-texel-buffer-elements
      :initarg :max-texel-buffer-elements
-     :initform nil
+     :initform 0
      :accessor max-texel-buffer-elements)
    (max-uniform-buffer-range
      :initarg :max-uniform-buffer-range
-     :initform nil
+     :initform 0
      :accessor max-uniform-buffer-range)
    (max-storage-buffer-range
      :initarg :max-storage-buffer-range
-     :initform nil
+     :initform 0
      :accessor max-storage-buffer-range)
    (max-push-constants-size
      :initarg :max-push-constants-size
-     :initform nil
+     :initform 0
      :accessor max-push-constants-size)
    (max-memory-allocation-count
      :initarg :max-memory-allocation-count
-     :initform nil
+     :initform 0
      :accessor max-memory-allocation-count)
    (max-sampler-allocation-count
      :initarg :max-sampler-allocation-count
-     :initform nil
+     :initform 0
      :accessor max-sampler-allocation-count)
    (buffer-image-granularity
      :initarg :buffer-image-granularity
@@ -3656,219 +3656,219 @@ See BOOL32
      :accessor sparse-address-space-size)
    (max-bound-descriptor-sets
      :initarg :max-bound-descriptor-sets
-     :initform nil
+     :initform 0
      :accessor max-bound-descriptor-sets)
    (max-per-stage-descriptor-samplers
      :initarg :max-per-stage-descriptor-samplers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-samplers)
    (max-per-stage-descriptor-uniform-buffers
      :initarg :max-per-stage-descriptor-uniform-buffers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-uniform-buffers)
    (max-per-stage-descriptor-storage-buffers
      :initarg :max-per-stage-descriptor-storage-buffers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-storage-buffers)
    (max-per-stage-descriptor-sampled-images
      :initarg :max-per-stage-descriptor-sampled-images
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-sampled-images)
    (max-per-stage-descriptor-storage-images
      :initarg :max-per-stage-descriptor-storage-images
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-storage-images)
    (max-per-stage-descriptor-input-attachments
      :initarg :max-per-stage-descriptor-input-attachments
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-input-attachments)
    (max-per-stage-resources
      :initarg :max-per-stage-resources
-     :initform nil
+     :initform 0
      :accessor max-per-stage-resources)
    (max-descriptor-set-samplers
      :initarg :max-descriptor-set-samplers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-samplers)
    (max-descriptor-set-uniform-buffers
      :initarg :max-descriptor-set-uniform-buffers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-uniform-buffers)
    (max-descriptor-set-uniform-buffers-dynamic
      :initarg :max-descriptor-set-uniform-buffers-dynamic
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-uniform-buffers-dynamic)
    (max-descriptor-set-storage-buffers
      :initarg :max-descriptor-set-storage-buffers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-storage-buffers)
    (max-descriptor-set-storage-buffers-dynamic
      :initarg :max-descriptor-set-storage-buffers-dynamic
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-storage-buffers-dynamic)
    (max-descriptor-set-sampled-images
      :initarg :max-descriptor-set-sampled-images
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-sampled-images)
    (max-descriptor-set-storage-images
      :initarg :max-descriptor-set-storage-images
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-storage-images)
    (max-descriptor-set-input-attachments
      :initarg :max-descriptor-set-input-attachments
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-input-attachments)
    (max-vertex-input-attributes
      :initarg :max-vertex-input-attributes
-     :initform nil
+     :initform 0
      :accessor max-vertex-input-attributes)
    (max-vertex-input-bindings
      :initarg :max-vertex-input-bindings
-     :initform nil
+     :initform 0
      :accessor max-vertex-input-bindings)
    (max-vertex-input-attribute-offset
      :initarg :max-vertex-input-attribute-offset
-     :initform nil
+     :initform 0
      :accessor max-vertex-input-attribute-offset)
    (max-vertex-input-binding-stride
      :initarg :max-vertex-input-binding-stride
-     :initform nil
+     :initform 0
      :accessor max-vertex-input-binding-stride)
    (max-vertex-output-components
      :initarg :max-vertex-output-components
-     :initform nil
+     :initform 0
      :accessor max-vertex-output-components)
    (max-tessellation-generation-level
      :initarg :max-tessellation-generation-level
-     :initform nil
+     :initform 0
      :accessor max-tessellation-generation-level)
    (max-tessellation-patch-size
      :initarg :max-tessellation-patch-size
-     :initform nil
+     :initform 0
      :accessor max-tessellation-patch-size)
    (max-tessellation-control-per-vertex-input-components
      :initarg :max-tessellation-control-per-vertex-input-components
-     :initform nil
+     :initform 0
      :accessor max-tessellation-control-per-vertex-input-components)
    (max-tessellation-control-per-vertex-output-components
      :initarg :max-tessellation-control-per-vertex-output-components
-     :initform nil
+     :initform 0
      :accessor max-tessellation-control-per-vertex-output-components)
    (max-tessellation-control-per-patch-output-components
      :initarg :max-tessellation-control-per-patch-output-components
-     :initform nil
+     :initform 0
      :accessor max-tessellation-control-per-patch-output-components)
    (max-tessellation-control-total-output-components
      :initarg :max-tessellation-control-total-output-components
-     :initform nil
+     :initform 0
      :accessor max-tessellation-control-total-output-components)
    (max-tessellation-evaluation-input-components
      :initarg :max-tessellation-evaluation-input-components
-     :initform nil
+     :initform 0
      :accessor max-tessellation-evaluation-input-components)
    (max-tessellation-evaluation-output-components
      :initarg :max-tessellation-evaluation-output-components
-     :initform nil
+     :initform 0
      :accessor max-tessellation-evaluation-output-components)
    (max-geometry-shader-invocations
      :initarg :max-geometry-shader-invocations
-     :initform nil
+     :initform 0
      :accessor max-geometry-shader-invocations)
    (max-geometry-input-components
      :initarg :max-geometry-input-components
-     :initform nil
+     :initform 0
      :accessor max-geometry-input-components)
    (max-geometry-output-components
      :initarg :max-geometry-output-components
-     :initform nil
+     :initform 0
      :accessor max-geometry-output-components)
    (max-geometry-output-vertices
      :initarg :max-geometry-output-vertices
-     :initform nil
+     :initform 0
      :accessor max-geometry-output-vertices)
    (max-geometry-total-output-components
      :initarg :max-geometry-total-output-components
-     :initform nil
+     :initform 0
      :accessor max-geometry-total-output-components)
    (max-fragment-input-components
      :initarg :max-fragment-input-components
-     :initform nil
+     :initform 0
      :accessor max-fragment-input-components)
    (max-fragment-output-attachments
      :initarg :max-fragment-output-attachments
-     :initform nil
+     :initform 0
      :accessor max-fragment-output-attachments)
    (max-fragment-dual-src-attachments
      :initarg :max-fragment-dual-src-attachments
-     :initform nil
+     :initform 0
      :accessor max-fragment-dual-src-attachments)
    (max-fragment-combined-output-resources
      :initarg :max-fragment-combined-output-resources
-     :initform nil
+     :initform 0
      :accessor max-fragment-combined-output-resources)
    (max-compute-shared-memory-size
      :initarg :max-compute-shared-memory-size
-     :initform nil
+     :initform 0
      :accessor max-compute-shared-memory-size)
    (max-compute-work-group-count
      :initarg :max-compute-work-group-count
-     :initform nil
+     :initform 0
      :accessor max-compute-work-group-count)
    (max-compute-work-group-invocations
      :initarg :max-compute-work-group-invocations
-     :initform nil
+     :initform 0
      :accessor max-compute-work-group-invocations)
    (max-compute-work-group-size
      :initarg :max-compute-work-group-size
-     :initform nil
+     :initform 0
      :accessor max-compute-work-group-size)
    (sub-pixel-precision-bits
      :initarg :sub-pixel-precision-bits
-     :initform nil
+     :initform 0
      :accessor sub-pixel-precision-bits)
    (sub-texel-precision-bits
      :initarg :sub-texel-precision-bits
-     :initform nil
+     :initform 0
      :accessor sub-texel-precision-bits)
    (mipmap-precision-bits
      :initarg :mipmap-precision-bits
-     :initform nil
+     :initform 0
      :accessor mipmap-precision-bits)
    (max-draw-indexed-index-value
      :initarg :max-draw-indexed-index-value
-     :initform nil
+     :initform 0
      :accessor max-draw-indexed-index-value)
    (max-draw-indirect-count
      :initarg :max-draw-indirect-count
-     :initform nil
+     :initform 0
      :accessor max-draw-indirect-count)
    (max-sampler-lod-bias
      :initarg :max-sampler-lod-bias
-     :initform nil
+     :initform 0.0
      :accessor max-sampler-lod-bias)
    (max-sampler-anisotropy
      :initarg :max-sampler-anisotropy
-     :initform nil
+     :initform 0.0
      :accessor max-sampler-anisotropy)
    (max-viewports
      :initarg :max-viewports
-     :initform nil
+     :initform 0
      :accessor max-viewports)
    (max-viewport-dimensions
      :initarg :max-viewport-dimensions
-     :initform nil
+     :initform 0
      :accessor max-viewport-dimensions)
    (viewport-bounds-range
      :initarg :viewport-bounds-range
-     :initform nil
+     :initform 0.0
      :accessor viewport-bounds-range)
    (viewport-sub-pixel-bits
      :initarg :viewport-sub-pixel-bits
-     :initform nil
+     :initform 0
      :accessor viewport-sub-pixel-bits)
    (min-memory-map-alignment
      :initarg :min-memory-map-alignment
-     :initform nil
+     :initform 0
      :accessor min-memory-map-alignment)
    (min-texel-buffer-offset-alignment
      :initarg :min-texel-buffer-offset-alignment
@@ -3884,43 +3884,43 @@ See BOOL32
      :accessor min-storage-buffer-offset-alignment)
    (min-texel-offset
      :initarg :min-texel-offset
-     :initform nil
+     :initform 0
      :accessor min-texel-offset)
    (max-texel-offset
      :initarg :max-texel-offset
-     :initform nil
+     :initform 0
      :accessor max-texel-offset)
    (min-texel-gather-offset
      :initarg :min-texel-gather-offset
-     :initform nil
+     :initform 0
      :accessor min-texel-gather-offset)
    (max-texel-gather-offset
      :initarg :max-texel-gather-offset
-     :initform nil
+     :initform 0
      :accessor max-texel-gather-offset)
    (min-interpolation-offset
      :initarg :min-interpolation-offset
-     :initform nil
+     :initform 0.0
      :accessor min-interpolation-offset)
    (max-interpolation-offset
      :initarg :max-interpolation-offset
-     :initform nil
+     :initform 0.0
      :accessor max-interpolation-offset)
    (sub-pixel-interpolation-offset-bits
      :initarg :sub-pixel-interpolation-offset-bits
-     :initform nil
+     :initform 0
      :accessor sub-pixel-interpolation-offset-bits)
    (max-framebuffer-width
      :initarg :max-framebuffer-width
-     :initform nil
+     :initform 0
      :accessor max-framebuffer-width)
    (max-framebuffer-height
      :initarg :max-framebuffer-height
-     :initform nil
+     :initform 0
      :accessor max-framebuffer-height)
    (max-framebuffer-layers
      :initarg :max-framebuffer-layers
-     :initform nil
+     :initform 0
      :accessor max-framebuffer-layers)
    (framebuffer-color-sample-counts
      :initarg :framebuffer-color-sample-counts
@@ -3940,7 +3940,7 @@ See BOOL32
      :accessor framebuffer-no-attachments-sample-counts)
    (max-color-attachments
      :initarg :max-color-attachments
-     :initform nil
+     :initform 0
      :accessor max-color-attachments)
    (sampled-image-color-sample-counts
      :initarg :sampled-image-color-sample-counts
@@ -3964,7 +3964,7 @@ See BOOL32
      :accessor storage-image-sample-counts)
    (max-sample-mask-words
      :initarg :max-sample-mask-words
-     :initform nil
+     :initform 0
      :accessor max-sample-mask-words)
    (timestamp-compute-and-graphics
      :initarg :timestamp-compute-and-graphics
@@ -3972,39 +3972,39 @@ See BOOL32
      :accessor timestamp-compute-and-graphics)
    (timestamp-period
      :initarg :timestamp-period
-     :initform nil
+     :initform 0.0
      :accessor timestamp-period)
    (max-clip-distances
      :initarg :max-clip-distances
-     :initform nil
+     :initform 0
      :accessor max-clip-distances)
    (max-cull-distances
      :initarg :max-cull-distances
-     :initform nil
+     :initform 0
      :accessor max-cull-distances)
    (max-combined-clip-and-cull-distances
      :initarg :max-combined-clip-and-cull-distances
-     :initform nil
+     :initform 0
      :accessor max-combined-clip-and-cull-distances)
    (discrete-queue-priorities
      :initarg :discrete-queue-priorities
-     :initform nil
+     :initform 0
      :accessor discrete-queue-priorities)
    (point-size-range
      :initarg :point-size-range
-     :initform nil
+     :initform 0.0
      :accessor point-size-range)
    (line-width-range
      :initarg :line-width-range
-     :initform nil
+     :initform 0.0
      :accessor line-width-range)
    (point-size-granularity
      :initarg :point-size-granularity
-     :initform nil
+     :initform 0.0
      :accessor point-size-granularity)
    (line-width-granularity
      :initarg :line-width-granularity
-     :initform nil
+     :initform 0.0
      :accessor line-width-granularity)
    (strict-lines
      :initarg :strict-lines
@@ -4174,7 +4174,7 @@ See SEMAPHORE-CREATE-FLAGS
      :accessor query-type)
    (query-count
      :initarg :query-count
-     :initform nil
+     :initform 0
      :accessor query-count)
    (pipeline-statistics
      :initarg :pipeline-statistics
@@ -4213,15 +4213,15 @@ See QUERY-PIPELINE-STATISTIC-FLAGS
      :accessor attachments)
    (width
      :initarg :width
-     :initform nil
+     :initform 0
      :accessor width)
    (height
      :initarg :height
-     :initform nil
+     :initform 0
      :accessor height)
    (layers
      :initarg :layers
-     :initform nil
+     :initform 0
      :accessor layers))
   (:documentation "Represents the struct [VkFramebufferCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferCreateInfo.html).
 
@@ -4242,19 +4242,19 @@ See IMAGE-VIEW
 (defclass draw-indirect-command ()
   ((vertex-count
      :initarg :vertex-count
-     :initform nil
+     :initform 0
      :accessor vertex-count)
    (instance-count
      :initarg :instance-count
-     :initform nil
+     :initform 0
      :accessor instance-count)
    (first-vertex
      :initarg :first-vertex
-     :initform nil
+     :initform 0
      :accessor first-vertex)
    (first-instance
      :initarg :first-instance
-     :initform nil
+     :initform 0
      :accessor first-instance))
   (:documentation "Represents the struct [VkDrawIndirectCommand](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDrawIndirectCommand.html).
 
@@ -4268,23 +4268,23 @@ Slots:
 (defclass draw-indexed-indirect-command ()
   ((index-count
      :initarg :index-count
-     :initform nil
+     :initform 0
      :accessor index-count)
    (instance-count
      :initarg :instance-count
-     :initform nil
+     :initform 0
      :accessor instance-count)
    (first-index
      :initarg :first-index
-     :initform nil
+     :initform 0
      :accessor first-index)
    (vertex-offset
      :initarg :vertex-offset
-     :initform nil
+     :initform 0
      :accessor vertex-offset)
    (first-instance
      :initarg :first-instance
-     :initform nil
+     :initform 0
      :accessor first-instance))
   (:documentation "Represents the struct [VkDrawIndexedIndirectCommand](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDrawIndexedIndirectCommand.html).
 
@@ -4299,15 +4299,15 @@ Slots:
 (defclass dispatch-indirect-command ()
   ((x
      :initarg :x
-     :initform nil
+     :initform 0
      :accessor x)
    (y
      :initarg :y
-     :initform nil
+     :initform 0
      :accessor y)
    (z
      :initarg :z
-     :initform nil
+     :initform 0
      :accessor z))
   (:documentation "Represents the struct [VkDispatchIndirectCommand](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDispatchIndirectCommand.html).
 
@@ -4359,7 +4359,7 @@ See SEMAPHORE
      :accessor display)
    (display-name
      :initarg :display-name
-     :initform nil
+     :initform ""
      :accessor display-name)
    (physical-dimensions
      :initarg :physical-dimensions
@@ -4405,7 +4405,7 @@ See BOOL32
      :accessor current-display)
    (current-stack-index
      :initarg :current-stack-index
-     :initform nil
+     :initform 0
      :accessor current-stack-index))
   (:documentation "Represents the struct [VkDisplayPlanePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlanePropertiesKHR.html).
 
@@ -4423,7 +4423,7 @@ See DISPLAY-KHR
      :accessor visible-region)
    (refresh-rate
      :initarg :refresh-rate
-     :initform nil
+     :initform 0
      :accessor refresh-rate))
   (:documentation "Represents the struct [VkDisplayModeParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayModeParametersKHR.html).
 
@@ -4547,11 +4547,11 @@ See EXTENT-2D
      :accessor display-mode)
    (plane-index
      :initarg :plane-index
-     :initform nil
+     :initform 0
      :accessor plane-index)
    (plane-stack-index
      :initarg :plane-stack-index
-     :initform nil
+     :initform 0
      :accessor plane-stack-index)
    (transform
      :initarg :transform
@@ -4559,7 +4559,7 @@ See EXTENT-2D
      :accessor transform)
    (global-alpha
      :initarg :global-alpha
-     :initform nil
+     :initform 0.0
      :accessor global-alpha)
    (alpha-mode
      :initarg :alpha-mode
@@ -4624,11 +4624,11 @@ See PRESENT-INFO-KHR
 (defclass surface-capabilities-khr ()
   ((min-image-count
      :initarg :min-image-count
-     :initform nil
+     :initform 0
      :accessor min-image-count)
    (max-image-count
      :initarg :max-image-count
-     :initform nil
+     :initform 0
      :accessor max-image-count)
    (current-extent
      :initarg :current-extent
@@ -4644,7 +4644,7 @@ See PRESENT-INFO-KHR
      :accessor max-image-extent)
    (max-image-array-layers
      :initarg :max-image-array-layers
-     :initform nil
+     :initform 0
      :accessor max-image-array-layers)
    (supported-transforms
      :initarg :supported-transforms
@@ -4962,7 +4962,7 @@ See COLOR-SPACE-KHR
      :accessor surface)
    (min-image-count
      :initarg :min-image-count
-     :initform nil
+     :initform 0
      :accessor min-image-count)
    (image-format
      :initarg :image-format
@@ -4978,7 +4978,7 @@ See COLOR-SPACE-KHR
      :accessor image-extent)
    (image-array-layers
      :initarg :image-array-layers
-     :initform nil
+     :initform 0
      :accessor image-array-layers)
    (image-usage
      :initarg :image-usage
@@ -5193,11 +5193,11 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
      :accessor object-type)
    (object
      :initarg :object
-     :initform nil
+     :initform 0
      :accessor object)
    (object-name
      :initarg :object-name
-     :initform nil
+     :initform ""
      :accessor object-name))
   (:documentation "Represents the struct [VkDebugMarkerObjectNameInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugMarkerObjectNameInfoEXT.html).
 
@@ -5221,15 +5221,15 @@ See DEBUG-REPORT-OBJECT-TYPE-EXT
      :accessor object-type)
    (object
      :initarg :object
-     :initform nil
+     :initform 0
      :accessor object)
    (tag-name
      :initarg :tag-name
-     :initform nil
+     :initform 0
      :accessor tag-name)
    (tag-size
      :initarg :tag-size
-     :initform nil
+     :initform 0
      :accessor tag-size)
    (tag
      :initarg :tag
@@ -5255,11 +5255,11 @@ See DEBUG-REPORT-OBJECT-TYPE-EXT
      :accessor next)
    (marker-name
      :initarg :marker-name
-     :initform nil
+     :initform ""
      :accessor marker-name)
    (color
      :initarg :color
-     :initform nil
+     :initform 0.0
      :accessor color))
   (:documentation "Represents the struct [VkDebugMarkerMarkerInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugMarkerMarkerInfoEXT.html).
 
@@ -5534,7 +5534,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (private-data-slot-request-count
      :initarg :private-data-slot-request-count
-     :initform nil
+     :initform 0
      :accessor private-data-slot-request-count))
   (:documentation "Represents the struct [VkDevicePrivateDataCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDevicePrivateDataCreateInfoEXT.html).
 
@@ -5593,39 +5593,39 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-graphics-shader-group-count
      :initarg :max-graphics-shader-group-count
-     :initform nil
+     :initform 0
      :accessor max-graphics-shader-group-count)
    (max-indirect-sequence-count
      :initarg :max-indirect-sequence-count
-     :initform nil
+     :initform 0
      :accessor max-indirect-sequence-count)
    (max-indirect-commands-token-count
      :initarg :max-indirect-commands-token-count
-     :initform nil
+     :initform 0
      :accessor max-indirect-commands-token-count)
    (max-indirect-commands-stream-count
      :initarg :max-indirect-commands-stream-count
-     :initform nil
+     :initform 0
      :accessor max-indirect-commands-stream-count)
    (max-indirect-commands-token-offset
      :initarg :max-indirect-commands-token-offset
-     :initform nil
+     :initform 0
      :accessor max-indirect-commands-token-offset)
    (max-indirect-commands-stream-stride
      :initarg :max-indirect-commands-stream-stride
-     :initform nil
+     :initform 0
      :accessor max-indirect-commands-stream-stride)
    (min-sequences-count-buffer-offset-alignment
      :initarg :min-sequences-count-buffer-offset-alignment
-     :initform nil
+     :initform 0
      :accessor min-sequences-count-buffer-offset-alignment)
    (min-sequences-index-buffer-offset-alignment
      :initarg :min-sequences-index-buffer-offset-alignment
-     :initform nil
+     :initform 0
      :accessor min-sequences-index-buffer-offset-alignment)
    (min-indirect-commands-buffer-offset-alignment
      :initarg :min-indirect-commands-buffer-offset-alignment
-     :initform nil
+     :initform 0
      :accessor min-indirect-commands-buffer-offset-alignment))
   (:documentation "Represents the struct [VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV.html).
 
@@ -5705,7 +5705,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
 (defclass bind-shader-group-indirect-command-nv ()
   ((group-index
      :initarg :group-index
-     :initform nil
+     :initform 0
      :accessor group-index))
   (:documentation "Represents the struct [VkBindShaderGroupIndirectCommandNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindShaderGroupIndirectCommandNV.html).
 
@@ -5720,7 +5720,7 @@ Slots:
      :accessor buffer-address)
    (size
      :initarg :size
-     :initform nil
+     :initform 0
      :accessor size)
    (index-type
      :initarg :index-type
@@ -5744,11 +5744,11 @@ See INDEX-TYPE
      :accessor buffer-address)
    (size
      :initarg :size
-     :initform nil
+     :initform 0
      :accessor size)
    (stride
      :initarg :stride
-     :initform nil
+     :initform 0
      :accessor stride))
   (:documentation "Represents the struct [VkBindVertexBufferIndirectCommandNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindVertexBufferIndirectCommandNV.html).
 
@@ -5763,7 +5763,7 @@ See DEVICE-ADDRESS
 (defclass set-state-flags-indirect-command-nv ()
   ((data
      :initarg :data
-     :initform nil
+     :initform 0
      :accessor data))
   (:documentation "Represents the struct [VkSetStateFlagsIndirectCommandNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSetStateFlagsIndirectCommandNV.html).
 
@@ -5801,15 +5801,15 @@ See DEVICE-SIZE
      :accessor token-type)
    (stream
      :initarg :stream
-     :initform nil
+     :initform 0
      :accessor stream)
    (offset
      :initarg :offset
-     :initform nil
+     :initform 0
      :accessor offset)
    (vertex-binding-unit
      :initarg :vertex-binding-unit
-     :initform nil
+     :initform 0
      :accessor vertex-binding-unit)
    (vertex-dynamic-stride
      :initarg :vertex-dynamic-stride
@@ -5825,11 +5825,11 @@ See DEVICE-SIZE
      :accessor pushconstant-shader-stage-flags)
    (pushconstant-offset
      :initarg :pushconstant-offset
-     :initform nil
+     :initform 0
      :accessor pushconstant-offset)
    (pushconstant-size
      :initarg :pushconstant-size
-     :initform nil
+     :initform 0
      :accessor pushconstant-size)
    (indirect-state-flags
      :initarg :indirect-state-flags
@@ -5926,7 +5926,7 @@ See INDIRECT-COMMANDS-LAYOUT-TOKEN-NV
      :accessor streams)
    (sequences-count
      :initarg :sequences-count
-     :initform nil
+     :initform 0
      :accessor sequences-count)
    (preprocess-buffer
      :initarg :preprocess-buffer
@@ -6000,7 +6000,7 @@ See DEVICE-SIZE
      :accessor indirect-commands-layout)
    (max-sequences-count
      :initarg :max-sequences-count
-     :initform nil
+     :initform 0
      :accessor max-sequences-count))
   (:documentation "Represents the struct [VkGeneratedCommandsMemoryRequirementsInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeneratedCommandsMemoryRequirementsInfoNV.html).
 
@@ -6236,7 +6236,7 @@ See IMAGE-TILING
      :accessor next)
    (max-push-descriptors
      :initarg :max-push-descriptors
-     :initform nil
+     :initform 0
      :accessor max-push-descriptors))
   (:documentation "Represents the struct [VkPhysicalDevicePushDescriptorPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePushDescriptorPropertiesKHR.html).
 
@@ -6251,19 +6251,19 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 (defclass conformance-version ()
   ((major
      :initarg :major
-     :initform nil
+     :initform 0
      :accessor major)
    (minor
      :initarg :minor
-     :initform nil
+     :initform 0
      :accessor minor)
    (subminor
      :initarg :subminor
-     :initform nil
+     :initform 0
      :accessor subminor)
    (patch
      :initarg :patch
-     :initform nil
+     :initform 0
      :accessor patch))
   (:documentation "Represents the struct [VkConformanceVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkConformanceVersion.html).
 
@@ -6285,11 +6285,11 @@ Slots:
      :accessor driver-id)
    (driver-name
      :initarg :driver-name
-     :initform nil
+     :initform ""
      :accessor driver-name)
    (driver-info
      :initarg :driver-info
-     :initform nil
+     :initform ""
      :accessor driver-info)
    (conformance-version
      :initarg :conformance-version
@@ -6318,7 +6318,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (swapchain-count
      :initarg :swapchain-count
-     :initform nil
+     :initform 0
      :accessor swapchain-count)
    (regions
      :initarg :regions
@@ -6361,7 +6361,7 @@ See RECT-LAYER-KHR
      :accessor extent)
    (layer
      :initarg :layer
-     :initform nil
+     :initform 0
      :accessor layer))
   (:documentation "Represents the struct [VkRectLayerKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRectLayerKHR.html).
 
@@ -6522,19 +6522,19 @@ See EXTERNAL-MEMORY-PROPERTIES
      :accessor next)
    (device-uuid
      :initarg :device-uuid
-     :initform nil
+     :initform 0
      :accessor device-uuid)
    (driver-uuid
      :initarg :driver-uuid
-     :initform nil
+     :initform 0
      :accessor driver-uuid)
    (device-luid
      :initarg :device-luid
-     :initform nil
+     :initform 0
      :accessor device-luid)
    (device-node-mask
      :initarg :device-node-mask
-     :initform nil
+     :initform 0
      :accessor device-node-mask)
    (device-luid-valid
      :initarg :device-luid-valid
@@ -6692,7 +6692,7 @@ See MEMORY-ALLOCATE-INFO
      :accessor next)
    (memory-type-bits
      :initarg :memory-type-bits
-     :initform nil
+     :initform 0
      :accessor memory-type-bits))
   (:documentation "Represents the struct [VkMemoryWin32HandlePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryWin32HandlePropertiesKHR.html).
 
@@ -6736,7 +6736,7 @@ See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
      :accessor handle-type)
    (fd
      :initarg :fd
-     :initform nil
+     :initform 0
      :accessor fd))
   (:documentation "Represents the struct [VkImportMemoryFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryFdInfoKHR.html).
 
@@ -6758,7 +6758,7 @@ See MEMORY-ALLOCATE-INFO
      :accessor next)
    (memory-type-bits
      :initarg :memory-type-bits
-     :initform nil
+     :initform 0
      :accessor memory-type-bits))
   (:documentation "Represents the struct [VkMemoryFdPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryFdPropertiesKHR.html).
 
@@ -7042,7 +7042,7 @@ See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
      :accessor handle-type)
    (fd
      :initarg :fd
-     :initform nil
+     :initform 0
      :accessor fd))
   (:documentation "Represents the struct [VkImportSemaphoreFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportSemaphoreFdInfoKHR.html).
 
@@ -7268,7 +7268,7 @@ See EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS
      :accessor handle-type)
    (fd
      :initarg :fd
-     :initform nil
+     :initform 0
      :accessor fd))
   (:documentation "Represents the struct [VkImportFenceFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportFenceFdInfoKHR.html).
 
@@ -7347,11 +7347,11 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-multiview-view-count
      :initarg :max-multiview-view-count
-     :initform nil
+     :initform 0
      :accessor max-multiview-view-count)
    (max-multiview-instance-index
      :initarg :max-multiview-instance-index
-     :initform nil
+     :initform 0
      :accessor max-multiview-instance-index))
   (:documentation "Represents the struct [VkPhysicalDeviceMultiviewProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMultiviewProperties.html).
 
@@ -7400,11 +7400,11 @@ See RENDER-PASS-CREATE-INFO
      :accessor next)
    (min-image-count
      :initarg :min-image-count
-     :initform nil
+     :initform 0
      :accessor min-image-count)
    (max-image-count
      :initarg :max-image-count
-     :initform nil
+     :initform 0
      :accessor max-image-count)
    (current-extent
      :initarg :current-extent
@@ -7420,7 +7420,7 @@ See RENDER-PASS-CREATE-INFO
      :accessor max-image-extent)
    (max-image-array-layers
      :initarg :max-image-array-layers
-     :initform nil
+     :initform 0
      :accessor max-image-array-layers)
    (supported-transforms
      :initarg :supported-transforms
@@ -7548,7 +7548,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
      :accessor next)
    (physical-device-count
      :initarg :physical-device-count
-     :initform nil
+     :initform 0
      :accessor physical-device-count)
    (physical-devices
      :initarg :physical-devices
@@ -7581,7 +7581,7 @@ See BOOL32
      :accessor flags)
    (device-mask
      :initarg :device-mask
-     :initform nil
+     :initform 0
      :accessor device-mask))
   (:documentation "Represents the struct [VkMemoryAllocateFlagsInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryAllocateFlagsInfo.html).
 
@@ -7708,7 +7708,7 @@ See BIND-IMAGE-MEMORY-INFO
      :accessor next)
    (device-mask
      :initarg :device-mask
-     :initform nil
+     :initform 0
      :accessor device-mask)
    (device-render-areas
      :initarg :device-render-areas
@@ -7734,7 +7734,7 @@ See RENDER-PASS-BEGIN-INFO
      :accessor next)
    (device-mask
      :initarg :device-mask
-     :initform nil
+     :initform 0
      :accessor device-mask))
   (:documentation "Represents the struct [VkDeviceGroupCommandBufferBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupCommandBufferBeginInfo.html).
 
@@ -7782,11 +7782,11 @@ See SUBMIT-INFO
      :accessor next)
    (resource-device-index
      :initarg :resource-device-index
-     :initform nil
+     :initform 0
      :accessor resource-device-index)
    (memory-device-index
      :initarg :memory-device-index
-     :initform nil
+     :initform 0
      :accessor memory-device-index))
   (:documentation "Represents the struct [VkDeviceGroupBindSparseInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupBindSparseInfo.html).
 
@@ -7806,7 +7806,7 @@ See BIND-SPARSE-INFO
      :accessor next)
    (present-mask
      :initarg :present-mask
-     :initform nil
+     :initform 0
      :accessor present-mask)
    (modes
      :initarg :modes
@@ -7854,7 +7854,7 @@ See IMAGE-CREATE-INFO
      :accessor swapchain)
    (image-index
      :initarg :image-index
-     :initform nil
+     :initform 0
      :accessor image-index))
   (:documentation "Represents the struct [VkBindImageMemorySwapchainInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindImageMemorySwapchainInfoKHR.html).
 
@@ -7880,7 +7880,7 @@ See BIND-IMAGE-MEMORY-INFO
      :accessor swapchain)
    (timeout
      :initarg :timeout
-     :initform nil
+     :initform 0
      :accessor timeout)
    (semaphore
      :initarg :semaphore
@@ -7892,7 +7892,7 @@ See BIND-IMAGE-MEMORY-INFO
      :accessor fence)
    (device-mask
      :initarg :device-mask
-     :initform nil
+     :initform 0
      :accessor device-mask))
   (:documentation "Represents the struct [VkAcquireNextImageInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAcquireNextImageInfoKHR.html).
 
@@ -7980,15 +7980,15 @@ See SWAPCHAIN-CREATE-INFO-KHR
 (defclass descriptor-update-template-entry ()
   ((dst-binding
      :initarg :dst-binding
-     :initform nil
+     :initform 0
      :accessor dst-binding)
    (dst-array-element
      :initarg :dst-array-element
-     :initform nil
+     :initform 0
      :accessor dst-array-element)
    (descriptor-count
      :initarg :descriptor-count
-     :initform nil
+     :initform 0
      :accessor descriptor-count)
    (descriptor-type
      :initarg :descriptor-type
@@ -7996,11 +7996,11 @@ See SWAPCHAIN-CREATE-INFO-KHR
      :accessor descriptor-type)
    (offset
      :initarg :offset
-     :initform nil
+     :initform 0
      :accessor offset)
    (stride
      :initarg :stride
-     :initform nil
+     :initform 0
      :accessor stride))
   (:documentation "Represents the struct [VkDescriptorUpdateTemplateEntry](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplateEntry.html).
 
@@ -8046,7 +8046,7 @@ See DESCRIPTOR-TYPE
      :accessor pipeline-layout)
    (set
      :initarg :set
-     :initform nil
+     :initform 0
      :accessor set))
   (:documentation "Represents the struct [VkDescriptorUpdateTemplateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplateCreateInfo.html).
 
@@ -8071,11 +8071,11 @@ See PIPELINE-LAYOUT
 (defclass x-y-color-ext ()
   ((x
      :initarg :x
-     :initform nil
+     :initform 0.0
      :accessor x)
    (y
      :initarg :y
-     :initform nil
+     :initform 0.0
      :accessor y))
   (:documentation "Represents the struct [VkXYColorEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkXYColorEXT.html).
 
@@ -8107,19 +8107,19 @@ Slots:
      :accessor white-point)
    (max-luminance
      :initarg :max-luminance
-     :initform nil
+     :initform 0.0
      :accessor max-luminance)
    (min-luminance
      :initarg :min-luminance
-     :initform nil
+     :initform 0.0
      :accessor min-luminance)
    (max-content-light-level
      :initarg :max-content-light-level
-     :initform nil
+     :initform 0.0
      :accessor max-content-light-level)
    (max-frame-average-light-level
      :initarg :max-frame-average-light-level
-     :initform nil
+     :initform 0.0
      :accessor max-frame-average-light-level))
   (:documentation "Represents the struct [VkHdrMetadataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkHdrMetadataEXT.html).
 
@@ -8182,7 +8182,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
 (defclass refresh-cycle-duration-google ()
   ((refresh-duration
      :initarg :refresh-duration
-     :initform nil
+     :initform 0
      :accessor refresh-duration))
   (:documentation "Represents the struct [VkRefreshCycleDurationGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRefreshCycleDurationGOOGLE.html).
 
@@ -8193,23 +8193,23 @@ Slots:
 (defclass past-presentation-timing-google ()
   ((present-id
      :initarg :present-id
-     :initform nil
+     :initform 0
      :accessor present-id)
    (desired-present-time
      :initarg :desired-present-time
-     :initform nil
+     :initform 0
      :accessor desired-present-time)
    (actual-present-time
      :initarg :actual-present-time
-     :initform nil
+     :initform 0
      :accessor actual-present-time)
    (earliest-present-time
      :initarg :earliest-present-time
-     :initform nil
+     :initform 0
      :accessor earliest-present-time)
    (present-margin
      :initarg :present-margin
-     :initform nil
+     :initform 0
      :accessor present-margin))
   (:documentation "Represents the struct [VkPastPresentationTimingGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPastPresentationTimingGOOGLE.html).
 
@@ -8228,7 +8228,7 @@ Slots:
      :accessor next)
    (swapchain-count
      :initarg :swapchain-count
-     :initform nil
+     :initform 0
      :accessor swapchain-count)
    (times
      :initarg :times
@@ -8250,11 +8250,11 @@ See PRESENT-INFO-KHR
 (defclass present-time-google ()
   ((present-id
      :initarg :present-id
-     :initform nil
+     :initform 0
      :accessor present-id)
    (desired-present-time
      :initarg :desired-present-time
-     :initform nil
+     :initform 0
      :accessor desired-present-time))
   (:documentation "Represents the struct [VkPresentTimeGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentTimeGOOGLE.html).
 
@@ -8336,11 +8336,11 @@ See CA-METAL-LAYER
 (defclass viewport-w-scaling-nv ()
   ((xcoeff
      :initarg :xcoeff
-     :initform nil
+     :initform 0.0
      :accessor xcoeff)
    (ycoeff
      :initarg :ycoeff
-     :initform nil
+     :initform 0.0
      :accessor ycoeff))
   (:documentation "Represents the struct [VkViewportWScalingNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkViewportWScalingNV.html).
 
@@ -8438,7 +8438,7 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
      :accessor next)
    (max-discard-rectangles
      :initarg :max-discard-rectangles
-     :initform nil
+     :initform 0
      :accessor max-discard-rectangles))
   (:documentation "Represents the struct [VkPhysicalDeviceDiscardRectanglePropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDiscardRectanglePropertiesEXT.html).
 
@@ -8507,11 +8507,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 (defclass input-attachment-aspect-reference ()
   ((subpass
      :initarg :subpass
-     :initform nil
+     :initform 0
      :accessor subpass)
    (input-attachment-index
      :initarg :input-attachment-index
-     :initform nil
+     :initform 0
      :accessor input-attachment-index)
    (aspect-mask
      :initarg :aspect-mask
@@ -8667,7 +8667,7 @@ See DISPLAY-MODE-PROPERTIES-KHR
      :accessor mode)
    (plane-index
      :initarg :plane-index
-     :initform nil
+     :initform 0
      :accessor plane-index))
   (:documentation "Represents the struct [VkDisplayPlaneInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlaneInfo2KHR.html).
 
@@ -8762,7 +8762,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (subgroup-size
      :initarg :subgroup-size
-     :initform nil
+     :initform 0
      :accessor subgroup-size)
    (supported-stages
      :initarg :supported-stages
@@ -9173,7 +9173,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (combined-image-sampler-descriptor-count
      :initarg :combined-image-sampler-descriptor-count
-     :initform nil
+     :initform 0
      :accessor combined-image-sampler-descriptor-count))
   (:documentation "Represents the struct [VkSamplerYcbcrConversionImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversionImageFormatProperties.html).
 
@@ -9311,11 +9311,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor flags)
    (queue-family-index
      :initarg :queue-family-index
-     :initform nil
+     :initform 0
      :accessor queue-family-index)
    (queue-index
      :initarg :queue-index
-     :initform nil
+     :initform 0
      :accessor queue-index))
   (:documentation "Represents the struct [VkDeviceQueueInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceQueueInfo2.html).
 
@@ -9343,7 +9343,7 @@ See DEVICE-QUEUE-CREATE-FLAGS
      :accessor coverage-to-color-enable)
    (coverage-to-color-location
      :initarg :coverage-to-color-location
-     :initform nil
+     :initform 0
      :accessor coverage-to-color-location))
   (:documentation "Represents the struct [VkPipelineCoverageToColorStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCoverageToColorStateCreateInfoNV.html).
 
@@ -9389,11 +9389,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 (defclass sample-location-ext ()
   ((x
      :initarg :x
-     :initform nil
+     :initform 0.0
      :accessor x)
    (y
      :initarg :y
-     :initform nil
+     :initform 0.0
      :accessor y))
   (:documentation "Represents the struct [VkSampleLocationEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampleLocationEXT.html).
 
@@ -9438,7 +9438,7 @@ See IMAGE-MEMORY-BARRIER
 (defclass attachment-sample-locations-ext ()
   ((attachment-index
      :initarg :attachment-index
-     :initform nil
+     :initform 0
      :accessor attachment-index)
    (sample-locations-info
      :initarg :sample-locations-info
@@ -9456,7 +9456,7 @@ See SAMPLE-LOCATIONS-INFO-EXT
 (defclass subpass-sample-locations-ext ()
   ((subpass-index
      :initarg :subpass-index
-     :initform nil
+     :initform 0
      :accessor subpass-index)
    (sample-locations-info
      :initarg :sample-locations-info
@@ -9540,11 +9540,11 @@ See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
      :accessor max-sample-location-grid-size)
    (sample-location-coordinate-range
      :initarg :sample-location-coordinate-range
-     :initform nil
+     :initform 0.0
      :accessor sample-location-coordinate-range)
    (sample-location-sub-pixel-bits
      :initarg :sample-location-sub-pixel-bits
-     :initform nil
+     :initform 0
      :accessor sample-location-sub-pixel-bits)
    (variable-sample-locations
      :initarg :variable-sample-locations
@@ -9636,7 +9636,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (advanced-blend-max-color-attachments
      :initarg :advanced-blend-max-color-attachments
-     :initform nil
+     :initform 0
      :accessor advanced-blend-max-color-attachments)
    (advanced-blend-independent-blend
      :initarg :advanced-blend-independent-blend
@@ -9741,23 +9741,23 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-inline-uniform-block-size
      :initarg :max-inline-uniform-block-size
-     :initform nil
+     :initform 0
      :accessor max-inline-uniform-block-size)
    (max-per-stage-descriptor-inline-uniform-blocks
      :initarg :max-per-stage-descriptor-inline-uniform-blocks
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-inline-uniform-blocks)
    (max-per-stage-descriptor-update-after-bind-inline-uniform-blocks
      :initarg :max-per-stage-descriptor-update-after-bind-inline-uniform-blocks
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-inline-uniform-blocks)
    (max-descriptor-set-inline-uniform-blocks
      :initarg :max-descriptor-set-inline-uniform-blocks
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-inline-uniform-blocks)
    (max-descriptor-set-update-after-bind-inline-uniform-blocks
      :initarg :max-descriptor-set-update-after-bind-inline-uniform-blocks
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-inline-uniform-blocks))
   (:documentation "Represents the struct [VkPhysicalDeviceInlineUniformBlockPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceInlineUniformBlockPropertiesEXT.html).
 
@@ -9780,7 +9780,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (data-size
      :initarg :data-size
-     :initform nil
+     :initform 0
      :accessor data-size)
    (data
      :initarg :data
@@ -9804,7 +9804,7 @@ See WRITE-DESCRIPTOR-SET
      :accessor next)
    (max-inline-uniform-block-bindings
      :initarg :max-inline-uniform-block-bindings
-     :initform nil
+     :initform 0
      :accessor max-inline-uniform-block-bindings))
   (:documentation "Represents the struct [VkDescriptorPoolInlineUniformBlockCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPoolInlineUniformBlockCreateInfoEXT.html).
 
@@ -9888,7 +9888,7 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
      :accessor flags)
    (initial-data-size
      :initarg :initial-data-size
-     :initform nil
+     :initform 0
      :accessor initial-data-size)
    (initial-data
      :initarg :initial-data
@@ -9933,7 +9933,7 @@ See SHADER-MODULE-CREATE-INFO
      :accessor next)
    (max-per-set-descriptors
      :initarg :max-per-set-descriptors
-     :initform nil
+     :initform 0
      :accessor max-per-set-descriptors)
    (max-memory-allocation-size
      :initarg :max-memory-allocation-size
@@ -10146,23 +10146,23 @@ See DEVICE-CREATE-INFO
 (defclass shader-resource-usage-amd ()
   ((num-used-vgprs
      :initarg :num-used-vgprs
-     :initform nil
+     :initform 0
      :accessor num-used-vgprs)
    (num-used-sgprs
      :initarg :num-used-sgprs
-     :initform nil
+     :initform 0
      :accessor num-used-sgprs)
    (lds-size-per-local-work-group
      :initarg :lds-size-per-local-work-group
-     :initform nil
+     :initform 0
      :accessor lds-size-per-local-work-group)
    (lds-usage-size-in-bytes
      :initarg :lds-usage-size-in-bytes
-     :initform nil
+     :initform 0
      :accessor lds-usage-size-in-bytes)
    (scratch-mem-usage-in-bytes
      :initarg :scratch-mem-usage-in-bytes
-     :initform nil
+     :initform 0
      :accessor scratch-mem-usage-in-bytes))
   (:documentation "Represents the struct [VkShaderResourceUsageAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderResourceUsageAMD.html).
 
@@ -10185,23 +10185,23 @@ Slots:
      :accessor resource-usage)
    (num-physical-vgprs
      :initarg :num-physical-vgprs
-     :initform nil
+     :initform 0
      :accessor num-physical-vgprs)
    (num-physical-sgprs
      :initarg :num-physical-sgprs
-     :initform nil
+     :initform 0
      :accessor num-physical-sgprs)
    (num-available-vgprs
      :initarg :num-available-vgprs
-     :initform nil
+     :initform 0
      :accessor num-available-vgprs)
    (num-available-sgprs
      :initarg :num-available-sgprs
-     :initform nil
+     :initform 0
      :accessor num-available-sgprs)
    (compute-work-group-size
      :initarg :compute-work-group-size
-     :initform nil
+     :initform 0
      :accessor compute-work-group-size))
   (:documentation "Represents the struct [VkShaderStatisticsInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderStatisticsInfoAMD.html).
 
@@ -10250,11 +10250,11 @@ See DEVICE-QUEUE-CREATE-INFO
      :accessor object-type)
    (object-handle
      :initarg :object-handle
-     :initform nil
+     :initform 0
      :accessor object-handle)
    (object-name
      :initarg :object-name
-     :initform nil
+     :initform ""
      :accessor object-name))
   (:documentation "Represents the struct [VkDebugUtilsObjectNameInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsObjectNameInfoEXT.html).
 
@@ -10278,15 +10278,15 @@ See OBJECT-TYPE
      :accessor object-type)
    (object-handle
      :initarg :object-handle
-     :initform nil
+     :initform 0
      :accessor object-handle)
    (tag-name
      :initarg :tag-name
-     :initform nil
+     :initform 0
      :accessor tag-name)
    (tag-size
      :initarg :tag-size
-     :initform nil
+     :initform 0
      :accessor tag-size)
    (tag
      :initarg :tag
@@ -10312,11 +10312,11 @@ See OBJECT-TYPE
      :accessor next)
    (label-name
      :initarg :label-name
-     :initform nil
+     :initform ""
      :accessor label-name)
    (color
      :initarg :color
-     :initform nil
+     :initform 0.0
      :accessor color))
   (:documentation "Represents the struct [VkDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsLabelEXT.html).
 
@@ -10381,15 +10381,15 @@ See INSTANCE-CREATE-INFO
      :accessor flags)
    (message-id-name
      :initarg :message-id-name
-     :initform nil
+     :initform ""
      :accessor message-id-name)
    (message-id-number
      :initarg :message-id-number
-     :initform nil
+     :initform 0
      :accessor message-id-number)
    (message
      :initarg :message
-     :initform nil
+     :initform ""
      :accessor message)
    (queue-labels
      :initarg :queue-labels
@@ -10453,7 +10453,7 @@ See MEMORY-ALLOCATE-INFO
      :accessor next)
    (memory-type-bits
      :initarg :memory-type-bits
-     :initform nil
+     :initform 0
      :accessor memory-type-bits))
   (:documentation "Represents the struct [VkMemoryHostPointerPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryHostPointerPropertiesEXT.html).
 
@@ -10490,15 +10490,15 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (primitive-overestimation-size
      :initarg :primitive-overestimation-size
-     :initform nil
+     :initform 0.0
      :accessor primitive-overestimation-size)
    (max-extra-primitive-overestimation-size
      :initarg :max-extra-primitive-overestimation-size
-     :initform nil
+     :initform 0.0
      :accessor max-extra-primitive-overestimation-size)
    (extra-primitive-overestimation-size-granularity
      :initarg :extra-primitive-overestimation-size-granularity
-     :initform nil
+     :initform 0.0
      :accessor extra-primitive-overestimation-size-granularity)
    (primitive-underestimation
      :initarg :primitive-underestimation
@@ -10569,59 +10569,59 @@ See TIME-DOMAIN-EXT
      :accessor next)
    (shader-engine-count
      :initarg :shader-engine-count
-     :initform nil
+     :initform 0
      :accessor shader-engine-count)
    (shader-arrays-per-engine-count
      :initarg :shader-arrays-per-engine-count
-     :initform nil
+     :initform 0
      :accessor shader-arrays-per-engine-count)
    (compute-units-per-shader-array
      :initarg :compute-units-per-shader-array
-     :initform nil
+     :initform 0
      :accessor compute-units-per-shader-array)
    (simd-per-compute-unit
      :initarg :simd-per-compute-unit
-     :initform nil
+     :initform 0
      :accessor simd-per-compute-unit)
    (wavefronts-per-simd
      :initarg :wavefronts-per-simd
-     :initform nil
+     :initform 0
      :accessor wavefronts-per-simd)
    (wavefront-size
      :initarg :wavefront-size
-     :initform nil
+     :initform 0
      :accessor wavefront-size)
    (sgprs-per-simd
      :initarg :sgprs-per-simd
-     :initform nil
+     :initform 0
      :accessor sgprs-per-simd)
    (min-sgpr-allocation
      :initarg :min-sgpr-allocation
-     :initform nil
+     :initform 0
      :accessor min-sgpr-allocation)
    (max-sgpr-allocation
      :initarg :max-sgpr-allocation
-     :initform nil
+     :initform 0
      :accessor max-sgpr-allocation)
    (sgpr-allocation-granularity
      :initarg :sgpr-allocation-granularity
-     :initform nil
+     :initform 0
      :accessor sgpr-allocation-granularity)
    (vgprs-per-simd
      :initarg :vgprs-per-simd
-     :initform nil
+     :initform 0
      :accessor vgprs-per-simd)
    (min-vgpr-allocation
      :initarg :min-vgpr-allocation
-     :initform nil
+     :initform 0
      :accessor min-vgpr-allocation)
    (max-vgpr-allocation
      :initarg :max-vgpr-allocation
-     :initform nil
+     :initform 0
      :accessor max-vgpr-allocation)
    (vgpr-allocation-granularity
      :initarg :vgpr-allocation-granularity
-     :initform nil
+     :initform 0
      :accessor vgpr-allocation-granularity))
   (:documentation "Represents the struct [VkPhysicalDeviceShaderCorePropertiesAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderCorePropertiesAMD.html).
 
@@ -10657,7 +10657,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor shader-core-features)
    (active-compute-unit-count
      :initarg :active-compute-unit-count
-     :initform nil
+     :initform 0
      :accessor active-compute-unit-count))
   (:documentation "Represents the struct [VkPhysicalDeviceShaderCoreProperties2AMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderCoreProperties2AMD.html).
 
@@ -10687,7 +10687,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor conservative-rasterization-mode)
    (extra-primitive-overestimation-size
      :initarg :extra-primitive-overestimation-size
-     :initform nil
+     :initform 0.0
      :accessor extra-primitive-overestimation-size))
   (:documentation "Represents the struct [VkPipelineRasterizationConservativeStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationConservativeStateCreateInfoEXT.html).
 
@@ -10828,7 +10828,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-update-after-bind-descriptors-in-all-pools
      :initarg :max-update-after-bind-descriptors-in-all-pools
-     :initform nil
+     :initform 0
      :accessor max-update-after-bind-descriptors-in-all-pools)
    (shader-uniform-buffer-array-non-uniform-indexing-native
      :initarg :shader-uniform-buffer-array-non-uniform-indexing-native
@@ -10860,63 +10860,63 @@ See DEVICE-CREATE-INFO
      :accessor quad-divergent-implicit-lod)
    (max-per-stage-descriptor-update-after-bind-samplers
      :initarg :max-per-stage-descriptor-update-after-bind-samplers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-samplers)
    (max-per-stage-descriptor-update-after-bind-uniform-buffers
      :initarg :max-per-stage-descriptor-update-after-bind-uniform-buffers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-uniform-buffers)
    (max-per-stage-descriptor-update-after-bind-storage-buffers
      :initarg :max-per-stage-descriptor-update-after-bind-storage-buffers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-storage-buffers)
    (max-per-stage-descriptor-update-after-bind-sampled-images
      :initarg :max-per-stage-descriptor-update-after-bind-sampled-images
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-sampled-images)
    (max-per-stage-descriptor-update-after-bind-storage-images
      :initarg :max-per-stage-descriptor-update-after-bind-storage-images
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-storage-images)
    (max-per-stage-descriptor-update-after-bind-input-attachments
      :initarg :max-per-stage-descriptor-update-after-bind-input-attachments
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-input-attachments)
    (max-per-stage-update-after-bind-resources
      :initarg :max-per-stage-update-after-bind-resources
-     :initform nil
+     :initform 0
      :accessor max-per-stage-update-after-bind-resources)
    (max-descriptor-set-update-after-bind-samplers
      :initarg :max-descriptor-set-update-after-bind-samplers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-samplers)
    (max-descriptor-set-update-after-bind-uniform-buffers
      :initarg :max-descriptor-set-update-after-bind-uniform-buffers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-uniform-buffers)
    (max-descriptor-set-update-after-bind-uniform-buffers-dynamic
      :initarg :max-descriptor-set-update-after-bind-uniform-buffers-dynamic
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-uniform-buffers-dynamic)
    (max-descriptor-set-update-after-bind-storage-buffers
      :initarg :max-descriptor-set-update-after-bind-storage-buffers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-storage-buffers)
    (max-descriptor-set-update-after-bind-storage-buffers-dynamic
      :initarg :max-descriptor-set-update-after-bind-storage-buffers-dynamic
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-storage-buffers-dynamic)
    (max-descriptor-set-update-after-bind-sampled-images
      :initarg :max-descriptor-set-update-after-bind-sampled-images
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-sampled-images)
    (max-descriptor-set-update-after-bind-storage-images
      :initarg :max-descriptor-set-update-after-bind-storage-images
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-storage-images)
    (max-descriptor-set-update-after-bind-input-attachments
      :initarg :max-descriptor-set-update-after-bind-input-attachments
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-input-attachments))
   (:documentation "Represents the struct [VkPhysicalDeviceDescriptorIndexingProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDescriptorIndexingProperties.html).
 
@@ -10999,7 +10999,7 @@ See DESCRIPTOR-SET-ALLOCATE-INFO
      :accessor next)
    (max-variable-descriptor-count
      :initarg :max-variable-descriptor-count
-     :initform nil
+     :initform 0
      :accessor max-variable-descriptor-count))
   (:documentation "Represents the struct [VkDescriptorSetVariableDescriptorCountLayoutSupport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html).
 
@@ -11081,7 +11081,7 @@ See IMAGE-LAYOUT
      :accessor next)
    (attachment
      :initarg :attachment
-     :initform nil
+     :initform 0
      :accessor attachment)
    (layout
      :initarg :layout
@@ -11118,7 +11118,7 @@ See IMAGE-ASPECT-FLAGS
      :accessor pipeline-bind-point)
    (view-mask
      :initarg :view-mask
-     :initform nil
+     :initform 0
      :accessor view-mask)
    (input-attachments
      :initarg :input-attachments
@@ -11165,11 +11165,11 @@ See ATTACHMENT-REFERENCE-2
      :accessor next)
    (src-subpass
      :initarg :src-subpass
-     :initform nil
+     :initform 0
      :accessor src-subpass)
    (dst-subpass
      :initarg :dst-subpass
-     :initform nil
+     :initform 0
      :accessor dst-subpass)
    (src-stage-mask
      :initarg :src-stage-mask
@@ -11193,7 +11193,7 @@ See ATTACHMENT-REFERENCE-2
      :accessor dependency-flags)
    (view-offset
      :initarg :view-offset
-     :initform nil
+     :initform 0
      :accessor view-offset))
   (:documentation "Represents the struct [VkSubpassDependency2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDependency2.html).
 
@@ -11312,7 +11312,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-timeline-semaphore-value-difference
      :initarg :max-timeline-semaphore-value-difference
-     :initform nil
+     :initform 0
      :accessor max-timeline-semaphore-value-difference))
   (:documentation "Represents the struct [VkPhysicalDeviceTimelineSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreProperties.html).
 
@@ -11335,7 +11335,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor semaphore-type)
    (initial-value
      :initarg :initial-value
-     :initform nil
+     :initform 0
      :accessor initial-value))
   (:documentation "Represents the struct [VkSemaphoreTypeCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreTypeCreateInfo.html).
 
@@ -11416,7 +11416,7 @@ See SEMAPHORE
      :accessor semaphore)
    (value
      :initarg :value
-     :initform nil
+     :initform 0
      :accessor value))
   (:documentation "Represents the struct [VkSemaphoreSignalInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreSignalInfo.html).
 
@@ -11431,11 +11431,11 @@ See SEMAPHORE
 (defclass vertex-input-binding-divisor-description-ext ()
   ((binding
      :initarg :binding
-     :initform nil
+     :initform 0
      :accessor binding)
    (divisor
      :initarg :divisor
-     :initform nil
+     :initform 0
      :accessor divisor))
   (:documentation "Represents the struct [VkVertexInputBindingDivisorDescriptionEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVertexInputBindingDivisorDescriptionEXT.html).
 
@@ -11472,7 +11472,7 @@ See PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO
      :accessor next)
    (max-vertex-attrib-divisor
      :initarg :max-vertex-attrib-divisor
-     :initform nil
+     :initform 0
      :accessor max-vertex-attrib-divisor))
   (:documentation "Represents the struct [VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.html).
 
@@ -11491,19 +11491,19 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (pci-domain
      :initarg :pci-domain
-     :initform nil
+     :initform 0
      :accessor pci-domain)
    (pci-bus
      :initarg :pci-bus
-     :initform nil
+     :initform 0
      :accessor pci-bus)
    (pci-device
      :initarg :pci-device
-     :initform nil
+     :initform 0
      :accessor pci-device)
    (pci-function
      :initarg :pci-function
-     :initform nil
+     :initform 0
      :accessor pci-function))
   (:documentation "Represents the struct [VkPhysicalDevicePCIBusInfoPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePCIBusInfoPropertiesEXT.html).
 
@@ -11546,7 +11546,7 @@ See MEMORY-ALLOCATE-INFO
      :accessor next)
    (android-hardware-buffer-usage
      :initarg :android-hardware-buffer-usage
-     :initform nil
+     :initform 0
      :accessor android-hardware-buffer-usage))
   (:documentation "Represents the struct [VkAndroidHardwareBufferUsageANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAndroidHardwareBufferUsageANDROID.html).
 
@@ -11569,7 +11569,7 @@ See IMAGE-FORMAT-PROPERTIES-2
      :accessor allocation-size)
    (memory-type-bits
      :initarg :memory-type-bits
-     :initform nil
+     :initform 0
      :accessor memory-type-bits))
   (:documentation "Represents the struct [VkAndroidHardwareBufferPropertiesANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAndroidHardwareBufferPropertiesANDROID.html).
 
@@ -11610,7 +11610,7 @@ See DEVICE-MEMORY
      :accessor format)
    (external-format
      :initarg :external-format
-     :initform nil
+     :initform 0
      :accessor external-format)
    (format-features
      :initarg :format-features
@@ -11688,7 +11688,7 @@ See COMMAND-BUFFER-INHERITANCE-INFO
      :accessor next)
    (external-format
      :initarg :external-format
-     :initform nil
+     :initform 0
      :accessor external-format))
   (:documentation "Represents the struct [VkExternalFormatANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFormatANDROID.html).
 
@@ -12113,11 +12113,11 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-transform-feedback-streams
      :initarg :max-transform-feedback-streams
-     :initform nil
+     :initform 0
      :accessor max-transform-feedback-streams)
    (max-transform-feedback-buffers
      :initarg :max-transform-feedback-buffers
-     :initform nil
+     :initform 0
      :accessor max-transform-feedback-buffers)
    (max-transform-feedback-buffer-size
      :initarg :max-transform-feedback-buffer-size
@@ -12125,15 +12125,15 @@ See DEVICE-CREATE-INFO
      :accessor max-transform-feedback-buffer-size)
    (max-transform-feedback-stream-data-size
      :initarg :max-transform-feedback-stream-data-size
-     :initform nil
+     :initform 0
      :accessor max-transform-feedback-stream-data-size)
    (max-transform-feedback-buffer-data-size
      :initarg :max-transform-feedback-buffer-data-size
-     :initform nil
+     :initform 0
      :accessor max-transform-feedback-buffer-data-size)
    (max-transform-feedback-buffer-data-stride
      :initarg :max-transform-feedback-buffer-data-stride
-     :initform nil
+     :initform 0
      :accessor max-transform-feedback-buffer-data-stride)
    (transform-feedback-queries
      :initarg :transform-feedback-queries
@@ -12184,7 +12184,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor flags)
    (rasterization-stream
      :initarg :rasterization-stream
-     :initform nil
+     :initform 0
      :accessor rasterization-stream))
   (:documentation "Represents the struct [VkPipelineRasterizationStateStreamCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationStateStreamCreateInfoEXT.html).
 
@@ -12478,11 +12478,11 @@ See DEVICE-CREATE-INFO
      :accessor shading-rate-texel-size)
    (shading-rate-palette-size
      :initarg :shading-rate-palette-size
-     :initform nil
+     :initform 0
      :accessor shading-rate-palette-size)
    (shading-rate-max-coarse-samples
      :initarg :shading-rate-max-coarse-samples
-     :initform nil
+     :initform 0
      :accessor shading-rate-max-coarse-samples))
   (:documentation "Represents the struct [VkPhysicalDeviceShadingRateImagePropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShadingRateImagePropertiesNV.html).
 
@@ -12501,15 +12501,15 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 (defclass coarse-sample-location-nv ()
   ((pixel-x
      :initarg :pixel-x
-     :initform nil
+     :initform 0
      :accessor pixel-x)
    (pixel-y
      :initarg :pixel-y
-     :initform nil
+     :initform 0
      :accessor pixel-y)
    (sample
      :initarg :sample
-     :initform nil
+     :initform 0
      :accessor sample))
   (:documentation "Represents the struct [VkCoarseSampleLocationNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoarseSampleLocationNV.html).
 
@@ -12526,7 +12526,7 @@ Slots:
      :accessor shading-rate)
    (sample-count
      :initarg :sample-count
-     :initform nil
+     :initform 0
      :accessor sample-count)
    (sample-locations
      :initarg :sample-locations
@@ -12604,55 +12604,55 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (max-draw-mesh-tasks-count
      :initarg :max-draw-mesh-tasks-count
-     :initform nil
+     :initform 0
      :accessor max-draw-mesh-tasks-count)
    (max-task-work-group-invocations
      :initarg :max-task-work-group-invocations
-     :initform nil
+     :initform 0
      :accessor max-task-work-group-invocations)
    (max-task-work-group-size
      :initarg :max-task-work-group-size
-     :initform nil
+     :initform 0
      :accessor max-task-work-group-size)
    (max-task-total-memory-size
      :initarg :max-task-total-memory-size
-     :initform nil
+     :initform 0
      :accessor max-task-total-memory-size)
    (max-task-output-count
      :initarg :max-task-output-count
-     :initform nil
+     :initform 0
      :accessor max-task-output-count)
    (max-mesh-work-group-invocations
      :initarg :max-mesh-work-group-invocations
-     :initform nil
+     :initform 0
      :accessor max-mesh-work-group-invocations)
    (max-mesh-work-group-size
      :initarg :max-mesh-work-group-size
-     :initform nil
+     :initform 0
      :accessor max-mesh-work-group-size)
    (max-mesh-total-memory-size
      :initarg :max-mesh-total-memory-size
-     :initform nil
+     :initform 0
      :accessor max-mesh-total-memory-size)
    (max-mesh-output-vertices
      :initarg :max-mesh-output-vertices
-     :initform nil
+     :initform 0
      :accessor max-mesh-output-vertices)
    (max-mesh-output-primitives
      :initarg :max-mesh-output-primitives
-     :initform nil
+     :initform 0
      :accessor max-mesh-output-primitives)
    (max-mesh-multiview-view-count
      :initarg :max-mesh-multiview-view-count
-     :initform nil
+     :initform 0
      :accessor max-mesh-multiview-view-count)
    (mesh-output-per-vertex-granularity
      :initarg :mesh-output-per-vertex-granularity
-     :initform nil
+     :initform 0
      :accessor mesh-output-per-vertex-granularity)
    (mesh-output-per-primitive-granularity
      :initarg :mesh-output-per-primitive-granularity
-     :initform nil
+     :initform 0
      :accessor mesh-output-per-primitive-granularity))
   (:documentation "Represents the struct [VkPhysicalDeviceMeshShaderPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMeshShaderPropertiesNV.html).
 
@@ -12679,11 +12679,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 (defclass draw-mesh-tasks-indirect-command-nv ()
   ((task-count
      :initarg :task-count
-     :initform nil
+     :initform 0
      :accessor task-count)
    (first-task
      :initarg :first-task
-     :initform nil
+     :initform 0
      :accessor first-task))
   (:documentation "Represents the struct [VkDrawMeshTasksIndirectCommandNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDrawMeshTasksIndirectCommandNV.html).
 
@@ -12703,19 +12703,19 @@ Slots:
      :accessor type)
    (general-shader
      :initarg :general-shader
-     :initform nil
+     :initform 0
      :accessor general-shader)
    (closest-hit-shader
      :initarg :closest-hit-shader
-     :initform nil
+     :initform 0
      :accessor closest-hit-shader)
    (any-hit-shader
      :initarg :any-hit-shader
-     :initform nil
+     :initform 0
      :accessor any-hit-shader)
    (intersection-shader
      :initarg :intersection-shader
-     :initform nil
+     :initform 0
      :accessor intersection-shader))
   (:documentation "Represents the struct [VkRayTracingShaderGroupCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingShaderGroupCreateInfoNV.html).
 
@@ -12741,19 +12741,19 @@ See RAY-TRACING-SHADER-GROUP-TYPE-KHR
      :accessor type)
    (general-shader
      :initarg :general-shader
-     :initform nil
+     :initform 0
      :accessor general-shader)
    (closest-hit-shader
      :initarg :closest-hit-shader
-     :initform nil
+     :initform 0
      :accessor closest-hit-shader)
    (any-hit-shader
      :initarg :any-hit-shader
-     :initform nil
+     :initform 0
      :accessor any-hit-shader)
    (intersection-shader
      :initarg :intersection-shader
-     :initform nil
+     :initform 0
      :accessor intersection-shader)
    (shader-group-capture-replay-handle
      :initarg :shader-group-capture-replay-handle
@@ -12792,7 +12792,7 @@ See RAY-TRACING-SHADER-GROUP-TYPE-KHR
      :accessor groups)
    (max-recursion-depth
      :initarg :max-recursion-depth
-     :initform nil
+     :initform 0
      :accessor max-recursion-depth)
    (layout
      :initarg :layout
@@ -12804,7 +12804,7 @@ See RAY-TRACING-SHADER-GROUP-TYPE-KHR
      :accessor base-pipeline-handle)
    (base-pipeline-index
      :initarg :base-pipeline-index
-     :initform nil
+     :initform 0
      :accessor base-pipeline-index))
   (:documentation "Represents the struct [VkRayTracingPipelineCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineCreateInfoNV.html).
 
@@ -12844,7 +12844,7 @@ See PIPELINE
      :accessor groups)
    (max-recursion-depth
      :initarg :max-recursion-depth
-     :initform nil
+     :initform 0
      :accessor max-recursion-depth)
    (libraries
      :initarg :libraries
@@ -12864,7 +12864,7 @@ See PIPELINE
      :accessor base-pipeline-handle)
    (base-pipeline-index
      :initarg :base-pipeline-index
-     :initform nil
+     :initform 0
      :accessor base-pipeline-index))
   (:documentation "Represents the struct [VkRayTracingPipelineCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineCreateInfoKHR.html).
 
@@ -12904,7 +12904,7 @@ See PIPELINE
      :accessor vertex-offset)
    (vertex-count
      :initarg :vertex-count
-     :initform nil
+     :initform 0
      :accessor vertex-count)
    (vertex-stride
      :initarg :vertex-stride
@@ -12924,7 +12924,7 @@ See PIPELINE
      :accessor index-offset)
    (index-count
      :initarg :index-count
-     :initform nil
+     :initform 0
      :accessor index-count)
    (index-type
      :initarg :index-type
@@ -12971,11 +12971,11 @@ See DEVICE-SIZE
      :accessor aabb-data)
    (num-aabbs
      :initarg :num-aabbs
-     :initform nil
+     :initform 0
      :accessor num-aabbs)
    (stride
      :initarg :stride
-     :initform nil
+     :initform 0
      :accessor stride)
    (offset
      :initarg :offset
@@ -13058,7 +13058,7 @@ See GEOMETRY-FLAGS-KHR
      :accessor flags)
    (instance-count
      :initarg :instance-count
-     :initform nil
+     :initform 0
      :accessor instance-count)
    (geometries
      :initarg :geometries
@@ -13281,39 +13281,39 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (shader-group-handle-size
      :initarg :shader-group-handle-size
-     :initform nil
+     :initform 0
      :accessor shader-group-handle-size)
    (max-recursion-depth
      :initarg :max-recursion-depth
-     :initform nil
+     :initform 0
      :accessor max-recursion-depth)
    (max-shader-group-stride
      :initarg :max-shader-group-stride
-     :initform nil
+     :initform 0
      :accessor max-shader-group-stride)
    (shader-group-base-alignment
      :initarg :shader-group-base-alignment
-     :initform nil
+     :initform 0
      :accessor shader-group-base-alignment)
    (max-geometry-count
      :initarg :max-geometry-count
-     :initform nil
+     :initform 0
      :accessor max-geometry-count)
    (max-instance-count
      :initarg :max-instance-count
-     :initform nil
+     :initform 0
      :accessor max-instance-count)
    (max-primitive-count
      :initarg :max-primitive-count
-     :initform nil
+     :initform 0
      :accessor max-primitive-count)
    (max-descriptor-set-acceleration-structures
      :initarg :max-descriptor-set-acceleration-structures
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-acceleration-structures)
    (shader-group-handle-capture-replay-size
      :initarg :shader-group-handle-capture-replay-size
-     :initform nil
+     :initform 0
      :accessor shader-group-handle-capture-replay-size))
   (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPropertiesKHR.html).
 
@@ -13340,35 +13340,35 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (shader-group-handle-size
      :initarg :shader-group-handle-size
-     :initform nil
+     :initform 0
      :accessor shader-group-handle-size)
    (max-recursion-depth
      :initarg :max-recursion-depth
-     :initform nil
+     :initform 0
      :accessor max-recursion-depth)
    (max-shader-group-stride
      :initarg :max-shader-group-stride
-     :initform nil
+     :initform 0
      :accessor max-shader-group-stride)
    (shader-group-base-alignment
      :initarg :shader-group-base-alignment
-     :initform nil
+     :initform 0
      :accessor shader-group-base-alignment)
    (max-geometry-count
      :initarg :max-geometry-count
-     :initform nil
+     :initform 0
      :accessor max-geometry-count)
    (max-instance-count
      :initarg :max-instance-count
-     :initform nil
+     :initform 0
      :accessor max-instance-count)
    (max-triangle-count
      :initarg :max-triangle-count
-     :initform nil
+     :initform 0
      :accessor max-triangle-count)
    (max-descriptor-set-acceleration-structures
      :initarg :max-descriptor-set-acceleration-structures
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-acceleration-structures))
   (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPropertiesNV.html).
 
@@ -13419,15 +13419,15 @@ See DEVICE-SIZE
 (defclass trace-rays-indirect-command-khr ()
   ((width
      :initarg :width
-     :initform nil
+     :initform 0
      :accessor width)
    (height
      :initarg :height
-     :initform nil
+     :initform 0
      :accessor height)
    (depth
      :initarg :depth
-     :initform nil
+     :initform 0
      :accessor depth))
   (:documentation "Represents the struct [VkTraceRaysIndirectCommandKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTraceRaysIndirectCommandKHR.html).
 
@@ -13461,11 +13461,11 @@ See FORMAT-PROPERTIES-2
 (defclass drm-format-modifier-properties-ext ()
   ((drm-format-modifier
      :initarg :drm-format-modifier
-     :initform nil
+     :initform 0
      :accessor drm-format-modifier)
    (drm-format-modifier-plane-count
      :initarg :drm-format-modifier-plane-count
-     :initform nil
+     :initform 0
      :accessor drm-format-modifier-plane-count)
    (drm-format-modifier-tiling-features
      :initarg :drm-format-modifier-tiling-features
@@ -13488,7 +13488,7 @@ See FORMAT-FEATURE-FLAGS
      :accessor next)
    (drm-format-modifier
      :initarg :drm-format-modifier
-     :initform nil
+     :initform 0
      :accessor drm-format-modifier)
    (sharing-mode
      :initarg :sharing-mode
@@ -13538,7 +13538,7 @@ See IMAGE-CREATE-INFO
      :accessor next)
    (drm-format-modifier
      :initarg :drm-format-modifier
-     :initform nil
+     :initform 0
      :accessor drm-format-modifier)
    (plane-layouts
      :initarg :plane-layouts
@@ -13564,7 +13564,7 @@ See IMAGE-CREATE-INFO
      :accessor next)
    (drm-format-modifier
      :initarg :drm-format-modifier
-     :initform nil
+     :initform 0
      :accessor drm-format-modifier))
   (:documentation "Represents the struct [VkImageDrmFormatModifierPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageDrmFormatModifierPropertiesEXT.html).
 
@@ -13717,11 +13717,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor subsampled-coarse-reconstruction-early-access)
    (max-subsampled-array-layers
      :initarg :max-subsampled-array-layers
-     :initform nil
+     :initform 0
      :accessor max-subsampled-array-layers)
    (max-descriptor-set-subsampled-samplers
      :initarg :max-descriptor-set-subsampled-samplers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-subsampled-samplers))
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentDensityMap2PropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentDensityMap2PropertiesEXT.html).
 
@@ -13929,7 +13929,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (priority
      :initarg :priority
-     :initform nil
+     :initform 0.0
      :accessor priority))
   (:documentation "Represents the struct [VkMemoryPriorityAllocateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryPriorityAllocateInfoEXT.html).
 
@@ -14030,7 +14030,7 @@ See BUFFER
      :accessor next)
    (opaque-capture-address
      :initarg :opaque-capture-address
-     :initform nil
+     :initform 0
      :accessor opaque-capture-address))
   (:documentation "Represents the struct [VkBufferOpaqueCaptureAddressCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferOpaqueCaptureAddressCreateInfo.html).
 
@@ -14168,15 +14168,15 @@ See FRAMEBUFFER-CREATE-INFO
      :accessor usage)
    (width
      :initarg :width
-     :initform nil
+     :initform 0
      :accessor width)
    (height
      :initarg :height
-     :initform nil
+     :initform 0
      :accessor height)
    (layer-count
      :initarg :layer-count
-     :initform nil
+     :initform 0
      :accessor layer-count)
    (view-formats
      :initarg :view-formats
@@ -14296,15 +14296,15 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (m-size
      :initarg :m-size
-     :initform nil
+     :initform 0
      :accessor m-size)
    (n-size
      :initarg :n-size
-     :initform nil
+     :initform 0
      :accessor n-size)
    (k-size
      :initarg :k-size
-     :initform nil
+     :initform 0
      :accessor k-size)
    (a-type
      :initarg :a-type
@@ -14447,7 +14447,7 @@ See PRESENT-INFO-KHR
      :accessor flags)
    (duration
      :initarg :duration
-     :initform nil
+     :initform 0
      :accessor duration))
   (:documentation "Represents the struct [VkPipelineCreationFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCreationFeedbackEXT.html).
 
@@ -14619,7 +14619,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor storage)
    (uuid
      :initarg :uuid
-     :initform nil
+     :initform 0
      :accessor uuid))
   (:documentation "Represents the struct [VkPerformanceCounterKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterKHR.html).
 
@@ -14646,15 +14646,15 @@ See PERFORMANCE-COUNTER-STORAGE-KHR
      :accessor flags)
    (name
      :initarg :name
-     :initform nil
+     :initform ""
      :accessor name)
    (category
      :initarg :category
-     :initform nil
+     :initform ""
      :accessor category)
    (description
      :initarg :description
-     :initform nil
+     :initform ""
      :accessor description))
   (:documentation "Represents the struct [VkPerformanceCounterDescriptionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterDescriptionKHR.html).
 
@@ -14675,7 +14675,7 @@ See PERFORMANCE-COUNTER-DESCRIPTION-FLAGS-KHR
      :accessor next)
    (queue-family-index
      :initarg :queue-family-index
-     :initform nil
+     :initform 0
      :accessor queue-family-index)
    (counter-indices
      :initarg :counter-indices
@@ -14733,7 +14733,7 @@ Slots:
      :accessor flags)
    (timeout
      :initarg :timeout
-     :initform nil
+     :initform 0
      :accessor timeout))
   (:documentation "Represents the struct [VkAcquireProfilingLockInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAcquireProfilingLockInfoKHR.html).
 
@@ -14752,7 +14752,7 @@ See ACQUIRE-PROFILING-LOCK-FLAGS-KHR
      :accessor next)
    (counter-pass-index
      :initarg :counter-pass-index
-     :initform nil
+     :initform 0
      :accessor counter-pass-index))
   (:documentation "Represents the struct [VkPerformanceQuerySubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceQuerySubmitInfoKHR.html).
 
@@ -14979,7 +14979,7 @@ See QUERY-POOL-CREATE-INFO
      :accessor next)
    (marker
      :initarg :marker
-     :initform nil
+     :initform 0
      :accessor marker))
   (:documentation "Represents the struct [VkPerformanceMarkerInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceMarkerInfoINTEL.html).
 
@@ -14995,7 +14995,7 @@ Slots:
      :accessor next)
    (marker
      :initarg :marker
-     :initform nil
+     :initform 0
      :accessor marker))
   (:documentation "Represents the struct [VkPerformanceStreamMarkerInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceStreamMarkerInfoINTEL.html).
 
@@ -15019,7 +15019,7 @@ Slots:
      :accessor enable)
    (parameter
      :initarg :parameter
-     :initform nil
+     :initform 0
      :accessor parameter))
   (:documentation "Represents the struct [VkPerformanceOverrideInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceOverrideInfoINTEL.html).
 
@@ -15107,11 +15107,11 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (shader-s-m-count
      :initarg :shader-s-m-count
-     :initform nil
+     :initform 0
      :accessor shader-s-m-count)
    (shader-warps-per-s-m
      :initarg :shader-warps-per-s-m
-     :initform nil
+     :initform 0
      :accessor shader-warps-per-s-m))
   (:documentation "Represents the struct [VkPhysicalDeviceShaderSMBuiltinsPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderSMBuiltinsPropertiesNV.html).
 
@@ -15298,15 +15298,15 @@ See PIPELINE
      :accessor stages)
    (name
      :initarg :name
-     :initform nil
+     :initform ""
      :accessor name)
    (description
      :initarg :description
-     :initform nil
+     :initform ""
      :accessor description)
    (subgroup-size
      :initarg :subgroup-size
-     :initform nil
+     :initform 0
      :accessor subgroup-size))
   (:documentation "Represents the struct [VkPipelineExecutablePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutablePropertiesKHR.html).
 
@@ -15331,7 +15331,7 @@ See SHADER-STAGE-FLAGS
      :accessor pipeline)
    (executable-index
      :initarg :executable-index
-     :initform nil
+     :initform 0
      :accessor executable-index))
   (:documentation "Represents the struct [VkPipelineExecutableInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableInfoKHR.html).
 
@@ -15374,11 +15374,11 @@ See BOOL32
      :accessor next)
    (name
      :initarg :name
-     :initform nil
+     :initform ""
      :accessor name)
    (description
      :initarg :description
-     :initform nil
+     :initform ""
      :accessor description)
    (format
      :initarg :format
@@ -15408,11 +15408,11 @@ See PIPELINE-EXECUTABLE-STATISTIC-VALUE-KHR
      :accessor next)
    (name
      :initarg :name
-     :initform nil
+     :initform ""
      :accessor name)
    (description
      :initarg :description
-     :initform nil
+     :initform ""
      :accessor description)
    (is-text
      :initarg :is-text
@@ -15420,7 +15420,7 @@ See PIPELINE-EXECUTABLE-STATISTIC-VALUE-KHR
      :accessor is-text)
    (data-size
      :initarg :data-size
-     :initform nil
+     :initform 0
      :accessor data-size)
    (data
      :initarg :data
@@ -15554,15 +15554,15 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (min-subgroup-size
      :initarg :min-subgroup-size
-     :initform nil
+     :initform 0
      :accessor min-subgroup-size)
    (max-subgroup-size
      :initarg :max-subgroup-size
-     :initform nil
+     :initform 0
      :accessor max-subgroup-size)
    (max-compute-workgroup-subgroups
      :initarg :max-compute-workgroup-subgroups
-     :initform nil
+     :initform 0
      :accessor max-compute-workgroup-subgroups)
    (required-subgroup-size-stages
      :initarg :required-subgroup-size-stages
@@ -15590,7 +15590,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor next)
    (required-subgroup-size
      :initarg :required-subgroup-size
-     :initform nil
+     :initform 0
      :accessor required-subgroup-size))
   (:documentation "Represents the struct [VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html).
 
@@ -15609,7 +15609,7 @@ See PIPELINE-SHADER-STAGE-CREATE-INFO
      :accessor next)
    (opaque-capture-address
      :initarg :opaque-capture-address
-     :initform nil
+     :initform 0
      :accessor opaque-capture-address))
   (:documentation "Represents the struct [VkMemoryOpaqueCaptureAddressAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryOpaqueCaptureAddressAllocateInfo.html).
 
@@ -15693,7 +15693,7 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (line-sub-pixel-precision-bits
      :initarg :line-sub-pixel-precision-bits
-     :initform nil
+     :initform 0
      :accessor line-sub-pixel-precision-bits))
   (:documentation "Represents the struct [VkPhysicalDeviceLineRasterizationPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceLineRasterizationPropertiesEXT.html).
 
@@ -15720,11 +15720,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :accessor stippled-line-enable)
    (line-stipple-factor
      :initarg :line-stipple-factor
-     :initform nil
+     :initform 0
      :accessor line-stipple-factor)
    (line-stipple-pattern
      :initarg :line-stipple-pattern
-     :initform nil
+     :initform 0
      :accessor line-stipple-pattern))
   (:documentation "Represents the struct [VkPipelineRasterizationLineStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationLineStateCreateInfoEXT.html).
 
@@ -15848,19 +15848,19 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (device-uuid
      :initarg :device-uuid
-     :initform nil
+     :initform 0
      :accessor device-uuid)
    (driver-uuid
      :initarg :driver-uuid
-     :initform nil
+     :initform 0
      :accessor driver-uuid)
    (device-luid
      :initarg :device-luid
-     :initform nil
+     :initform 0
      :accessor device-luid)
    (device-node-mask
      :initarg :device-node-mask
-     :initform nil
+     :initform 0
      :accessor device-node-mask)
    (device-luid-valid
      :initarg :device-luid-valid
@@ -15868,7 +15868,7 @@ See DEVICE-CREATE-INFO
      :accessor device-luid-valid)
    (subgroup-size
      :initarg :subgroup-size
-     :initform nil
+     :initform 0
      :accessor subgroup-size)
    (subgroup-supported-stages
      :initarg :subgroup-supported-stages
@@ -15888,11 +15888,11 @@ See DEVICE-CREATE-INFO
      :accessor point-clipping-behavior)
    (max-multiview-view-count
      :initarg :max-multiview-view-count
-     :initform nil
+     :initform 0
      :accessor max-multiview-view-count)
    (max-multiview-instance-index
      :initarg :max-multiview-instance-index
-     :initform nil
+     :initform 0
      :accessor max-multiview-instance-index)
    (protected-no-fault
      :initarg :protected-no-fault
@@ -15900,7 +15900,7 @@ See DEVICE-CREATE-INFO
      :accessor protected-no-fault)
    (max-per-set-descriptors
      :initarg :max-per-set-descriptors
-     :initform nil
+     :initform 0
      :accessor max-per-set-descriptors)
    (max-memory-allocation-size
      :initarg :max-memory-allocation-size
@@ -16199,11 +16199,11 @@ See DEVICE-CREATE-INFO
      :accessor driver-id)
    (driver-name
      :initarg :driver-name
-     :initform nil
+     :initform ""
      :accessor driver-name)
    (driver-info
      :initarg :driver-info
-     :initform nil
+     :initform ""
      :accessor driver-info)
    (conformance-version
      :initarg :conformance-version
@@ -16279,7 +16279,7 @@ See DEVICE-CREATE-INFO
      :accessor shader-rounding-mode-rtz-float-64)
    (max-update-after-bind-descriptors-in-all-pools
      :initarg :max-update-after-bind-descriptors-in-all-pools
-     :initform nil
+     :initform 0
      :accessor max-update-after-bind-descriptors-in-all-pools)
    (shader-uniform-buffer-array-non-uniform-indexing-native
      :initarg :shader-uniform-buffer-array-non-uniform-indexing-native
@@ -16311,63 +16311,63 @@ See DEVICE-CREATE-INFO
      :accessor quad-divergent-implicit-lod)
    (max-per-stage-descriptor-update-after-bind-samplers
      :initarg :max-per-stage-descriptor-update-after-bind-samplers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-samplers)
    (max-per-stage-descriptor-update-after-bind-uniform-buffers
      :initarg :max-per-stage-descriptor-update-after-bind-uniform-buffers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-uniform-buffers)
    (max-per-stage-descriptor-update-after-bind-storage-buffers
      :initarg :max-per-stage-descriptor-update-after-bind-storage-buffers
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-storage-buffers)
    (max-per-stage-descriptor-update-after-bind-sampled-images
      :initarg :max-per-stage-descriptor-update-after-bind-sampled-images
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-sampled-images)
    (max-per-stage-descriptor-update-after-bind-storage-images
      :initarg :max-per-stage-descriptor-update-after-bind-storage-images
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-storage-images)
    (max-per-stage-descriptor-update-after-bind-input-attachments
      :initarg :max-per-stage-descriptor-update-after-bind-input-attachments
-     :initform nil
+     :initform 0
      :accessor max-per-stage-descriptor-update-after-bind-input-attachments)
    (max-per-stage-update-after-bind-resources
      :initarg :max-per-stage-update-after-bind-resources
-     :initform nil
+     :initform 0
      :accessor max-per-stage-update-after-bind-resources)
    (max-descriptor-set-update-after-bind-samplers
      :initarg :max-descriptor-set-update-after-bind-samplers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-samplers)
    (max-descriptor-set-update-after-bind-uniform-buffers
      :initarg :max-descriptor-set-update-after-bind-uniform-buffers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-uniform-buffers)
    (max-descriptor-set-update-after-bind-uniform-buffers-dynamic
      :initarg :max-descriptor-set-update-after-bind-uniform-buffers-dynamic
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-uniform-buffers-dynamic)
    (max-descriptor-set-update-after-bind-storage-buffers
      :initarg :max-descriptor-set-update-after-bind-storage-buffers
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-storage-buffers)
    (max-descriptor-set-update-after-bind-storage-buffers-dynamic
      :initarg :max-descriptor-set-update-after-bind-storage-buffers-dynamic
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-storage-buffers-dynamic)
    (max-descriptor-set-update-after-bind-sampled-images
      :initarg :max-descriptor-set-update-after-bind-sampled-images
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-sampled-images)
    (max-descriptor-set-update-after-bind-storage-images
      :initarg :max-descriptor-set-update-after-bind-storage-images
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-storage-images)
    (max-descriptor-set-update-after-bind-input-attachments
      :initarg :max-descriptor-set-update-after-bind-input-attachments
-     :initform nil
+     :initform 0
      :accessor max-descriptor-set-update-after-bind-input-attachments)
    (supported-depth-resolve-modes
      :initarg :supported-depth-resolve-modes
@@ -16395,7 +16395,7 @@ See DEVICE-CREATE-INFO
      :accessor filter-minmax-image-component-mapping)
    (max-timeline-semaphore-value-difference
      :initarg :max-timeline-semaphore-value-difference
-     :initform nil
+     :initform 0
      :accessor max-timeline-semaphore-value-difference)
    (framebuffer-integer-color-sample-counts
      :initarg :framebuffer-integer-color-sample-counts
@@ -16520,11 +16520,11 @@ See DEVICE-CREATE-INFO
      :accessor next)
    (name
      :initarg :name
-     :initform nil
+     :initform ""
      :accessor name)
    (version
      :initarg :version
-     :initform nil
+     :initform ""
      :accessor version)
    (purposes
      :initarg :purposes
@@ -16532,11 +16532,11 @@ See DEVICE-CREATE-INFO
      :accessor purposes)
    (description
      :initarg :description
-     :initform nil
+     :initform ""
      :accessor description)
    (layer
      :initarg :layer
-     :initform nil
+     :initform ""
      :accessor layer))
   (:documentation "Represents the struct [VkPhysicalDeviceToolPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceToolPropertiesEXT.html).
 
@@ -16585,7 +16585,7 @@ See SAMPLER-CREATE-INFO
      :accessor next)
    (max-custom-border-color-samplers
      :initarg :max-custom-border-color-samplers
-     :initform nil
+     :initform 0
      :accessor max-custom-border-color-samplers))
   (:documentation "Represents the struct [VkPhysicalDeviceCustomBorderColorPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCustomBorderColorPropertiesEXT.html).
 
@@ -16833,7 +16833,7 @@ See GEOMETRY-FLAGS-KHR
      :accessor geometry-array-of-pointers)
    (geometry-count
      :initarg :geometry-count
-     :initform nil
+     :initform 0
      :accessor geometry-count)
    (p-geometries
      :initarg :p-geometries
@@ -16868,19 +16868,19 @@ See DEVICE-OR-HOST-ADDRESS-KHR
 (defclass acceleration-structure-build-offset-info-khr ()
   ((primitive-count
      :initarg :primitive-count
-     :initform nil
+     :initform 0
      :accessor primitive-count)
    (primitive-offset
      :initarg :primitive-offset
-     :initform nil
+     :initform 0
      :accessor primitive-offset)
    (first-vertex
      :initarg :first-vertex
-     :initform nil
+     :initform 0
      :accessor first-vertex)
    (transform-offset
      :initarg :transform-offset
-     :initform nil
+     :initform 0
      :accessor transform-offset))
   (:documentation "Represents the struct [VkAccelerationStructureBuildOffsetInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildOffsetInfoKHR.html).
 
@@ -16902,7 +16902,7 @@ Slots:
      :accessor geometry-type)
    (max-primitive-count
      :initarg :max-primitive-count
-     :initform nil
+     :initform 0
      :accessor max-primitive-count)
    (index-type
      :initarg :index-type
@@ -16910,7 +16910,7 @@ Slots:
      :accessor index-type)
    (max-vertex-count
      :initarg :max-vertex-count
-     :initform nil
+     :initform 0
      :accessor max-vertex-count)
    (vertex-format
      :initarg :vertex-format
@@ -16982,27 +16982,27 @@ See DEVICE-ADDRESS
 (defclass aabb-positions-khr ()
   ((min-x
      :initarg :min-x
-     :initform nil
+     :initform 0.0
      :accessor min-x)
    (min-y
      :initarg :min-y
-     :initform nil
+     :initform 0.0
      :accessor min-y)
    (min-z
      :initarg :min-z
-     :initform nil
+     :initform 0.0
      :accessor min-z)
    (max-x
      :initarg :max-x
-     :initform nil
+     :initform 0.0
      :accessor max-x)
    (max-y
      :initarg :max-y
-     :initform nil
+     :initform 0.0
      :accessor max-y)
    (max-z
      :initarg :max-z
-     :initform nil
+     :initform 0.0
      :accessor max-z))
   (:documentation "Represents the struct [VkAabbPositionsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAabbPositionsKHR.html).
 
@@ -17018,7 +17018,7 @@ Slots:
 (defclass transform-matrix-khr ()
   ((matrix
      :initarg :matrix
-     :initform nil
+     :initform 0.0
      :accessor matrix))
   (:documentation "Represents the struct [VkTransformMatrixKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTransformMatrixKHR.html).
 
@@ -17033,15 +17033,15 @@ Slots:
      :accessor transform)
    (instance-custom-index
      :initarg :instance-custom-index
-     :initform nil
+     :initform 0
      :accessor instance-custom-index)
    (mask
      :initarg :mask
-     :initform nil
+     :initform 0
      :accessor mask)
    (instance-shader-binding-table-record-offset
      :initarg :instance-shader-binding-table-record-offset
-     :initform nil
+     :initform 0
      :accessor instance-shader-binding-table-record-offset)
    (flags
      :initarg :flags
@@ -17049,7 +17049,7 @@ Slots:
      :accessor flags)
    (acceleration-structure-reference
      :initarg :acceleration-structure-reference
-     :initform nil
+     :initform 0
      :accessor acceleration-structure-reference))
   (:documentation "Represents the struct [VkAccelerationStructureInstanceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureInstanceKHR.html).
 
@@ -17090,7 +17090,7 @@ See ACCELERATION-STRUCTURE-KHR
      :accessor next)
    (version-data
      :initarg :version-data
-     :initform nil
+     :initform 0
      :accessor version-data))
   (:documentation "Represents the struct [VkAccelerationStructureVersionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureVersionKHR.html).
 
@@ -17195,15 +17195,15 @@ See COPY-ACCELERATION-STRUCTURE-MODE-KHR
      :accessor next)
    (max-payload-size
      :initarg :max-payload-size
-     :initform nil
+     :initform 0
      :accessor max-payload-size)
    (max-attribute-size
      :initarg :max-attribute-size
-     :initform nil
+     :initform 0
      :accessor max-attribute-size)
    (max-callable-size
      :initarg :max-callable-size
-     :initform nil
+     :initform 0
      :accessor max-callable-size))
   (:documentation "Represents the struct [VkRayTracingPipelineInterfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineInterfaceCreateInfoKHR.html).
 
