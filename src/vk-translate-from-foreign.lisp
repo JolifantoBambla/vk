@@ -8567,6 +8567,56 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :robust-image-access %vk:robust-image-access)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-portability-subset-features-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:constant-alpha-color-blend-factors
+        %vk:events
+        %vk:image-view-format-reinterpretation
+        %vk:image-view-format-swizzle
+        %vk:image-view-2d-on-3d-image
+        %vk:multisample-array-image
+        %vk:mutable-comparison-samplers
+        %vk:point-polygons
+        %vk:sampler-mip-lod-bias
+        %vk:separate-stencil-mask-ref
+        %vk:shader-sample-rate-interpolation-functions
+        %vk:tessellation-isolines
+        %vk:tessellation-point-mode
+        %vk:triangle-fans
+        %vk:vertex-attribute-access-beyond-stride)
+       ptr
+       (:struct %vk:physical-device-portability-subset-features-khr))
+    (make-instance 'vk:physical-device-portability-subset-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :constant-alpha-color-blend-factors %vk:constant-alpha-color-blend-factors
+                   :events %vk:events
+                   :image-view-format-reinterpretation %vk:image-view-format-reinterpretation
+                   :image-view-format-swizzle %vk:image-view-format-swizzle
+                   :image-view-2d-on-3d-image %vk:image-view-2d-on-3d-image
+                   :multisample-array-image %vk:multisample-array-image
+                   :mutable-comparison-samplers %vk:mutable-comparison-samplers
+                   :point-polygons %vk:point-polygons
+                   :sampler-mip-lod-bias %vk:sampler-mip-lod-bias
+                   :separate-stencil-mask-ref %vk:separate-stencil-mask-ref
+                   :shader-sample-rate-interpolation-functions %vk:shader-sample-rate-interpolation-functions
+                   :tessellation-isolines %vk:tessellation-isolines
+                   :tessellation-point-mode %vk:tessellation-point-mode
+                   :triangle-fans %vk:triangle-fans
+                   :vertex-attribute-access-beyond-stride %vk:vertex-attribute-access-beyond-stride)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-portability-subset-properties-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:min-vertex-input-binding-stride-alignment)
+       ptr
+       (:struct %vk:physical-device-portability-subset-properties-khr))
+    (make-instance 'vk:physical-device-portability-subset-properties-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :min-vertex-input-binding-stride-alignment %vk:min-vertex-input-binding-stride-alignment)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-4444-formats-features-ext))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -8579,4 +8629,209 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :format-a4r4g4b4 %vk:format-a4r4g4b4
                    :format-a4b4g4r4 %vk:format-a4b4g4r4)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-copy-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-offset
+        %vk:dst-offset
+        %vk:size)
+       ptr
+       (:struct %vk:buffer-copy-2-khr))
+    (make-instance 'vk:buffer-copy-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-offset %vk:src-offset
+                   :dst-offset %vk:dst-offset
+                   :size %vk:size)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-copy-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-subresource
+        %vk:src-offset
+        %vk:dst-subresource
+        %vk:dst-offset
+        %vk:extent)
+       ptr
+       (:struct %vk:image-copy-2-khr))
+    (make-instance 'vk:image-copy-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-subresource %vk:src-subresource
+                   :src-offset %vk:src-offset
+                   :dst-subresource %vk:dst-subresource
+                   :dst-offset %vk:dst-offset
+                   :extent %vk:extent)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-blit-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-subresource
+        %vk:src-offsets
+        %vk:dst-subresource
+        %vk:dst-offsets)
+       ptr
+       (:struct %vk:image-blit-2-khr))
+    (make-instance 'vk:image-blit-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-subresource %vk:src-subresource
+                   :src-offsets (loop for i from 0 below 2 collect (cffi:mem-aref (cffi:foreign-slot-pointer ptr '(:struct %vk:image-blit-2-khr) '%vk:src-offsets) '(:struct %vk:offset-3d) i))
+                   :dst-subresource %vk:dst-subresource
+                   :dst-offsets (loop for i from 0 below 2 collect (cffi:mem-aref (cffi:foreign-slot-pointer ptr '(:struct %vk:image-blit-2-khr) '%vk:dst-offsets) '(:struct %vk:offset-3d) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-image-copy-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:buffer-offset
+        %vk:buffer-row-length
+        %vk:buffer-image-height
+        %vk:image-subresource
+        %vk:image-offset
+        %vk:image-extent)
+       ptr
+       (:struct %vk:buffer-image-copy-2-khr))
+    (make-instance 'vk:buffer-image-copy-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :buffer-offset %vk:buffer-offset
+                   :buffer-row-length %vk:buffer-row-length
+                   :buffer-image-height %vk:buffer-image-height
+                   :image-subresource %vk:image-subresource
+                   :image-offset %vk:image-offset
+                   :image-extent %vk:image-extent)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-resolve-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-subresource
+        %vk:src-offset
+        %vk:dst-subresource
+        %vk:dst-offset
+        %vk:extent)
+       ptr
+       (:struct %vk:image-resolve-2-khr))
+    (make-instance 'vk:image-resolve-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-subresource %vk:src-subresource
+                   :src-offset %vk:src-offset
+                   :dst-subresource %vk:dst-subresource
+                   :dst-offset %vk:dst-offset
+                   :extent %vk:extent)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-buffer-info-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-buffer
+        %vk:dst-buffer
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-buffer-info-2-khr))
+    (make-instance 'vk:copy-buffer-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-buffer %vk:src-buffer
+                   :dst-buffer %vk:dst-buffer
+                   :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:buffer-copy-2-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-image-info-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-image-info-2-khr))
+    (make-instance 'vk:copy-image-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-image %vk:src-image
+                   :src-image-layout %vk:src-image-layout
+                   :dst-image %vk:dst-image
+                   :dst-image-layout %vk:dst-image-layout
+                   :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-copy-2-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-blit-image-info-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions
+        %vk:filter)
+       ptr
+       (:struct %vk:blit-image-info-2-khr))
+    (make-instance 'vk:blit-image-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-image %vk:src-image
+                   :src-image-layout %vk:src-image-layout
+                   :dst-image %vk:dst-image
+                   :dst-image-layout %vk:dst-image-layout
+                   :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-blit-2-khr) i))
+                   :filter %vk:filter)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-buffer-to-image-info-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-buffer
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-buffer-to-image-info-2-khr))
+    (make-instance 'vk:copy-buffer-to-image-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-buffer %vk:src-buffer
+                   :dst-image %vk:dst-image
+                   :dst-image-layout %vk:dst-image-layout
+                   :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:buffer-image-copy-2-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-image-to-buffer-info-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-buffer
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-image-to-buffer-info-2-khr))
+    (make-instance 'vk:copy-image-to-buffer-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-image %vk:src-image
+                   :src-image-layout %vk:src-image-layout
+                   :dst-buffer %vk:dst-buffer
+                   :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:buffer-image-copy-2-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-resolve-image-info-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:resolve-image-info-2-khr))
+    (make-instance 'vk:resolve-image-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-image %vk:src-image
+                   :src-image-layout %vk:src-image-layout
+                   :dst-image %vk:dst-image
+                   :dst-image-layout %vk:dst-image-layout
+                   :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-resolve-2-khr) i)))))
 

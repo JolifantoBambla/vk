@@ -17450,6 +17450,117 @@ See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
+(defclass physical-device-portability-subset-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (constant-alpha-color-blend-factors
+     :initarg :constant-alpha-color-blend-factors
+     :initform nil
+     :accessor constant-alpha-color-blend-factors)
+   (events
+     :initarg :events
+     :initform nil
+     :accessor events)
+   (image-view-format-reinterpretation
+     :initarg :image-view-format-reinterpretation
+     :initform nil
+     :accessor image-view-format-reinterpretation)
+   (image-view-format-swizzle
+     :initarg :image-view-format-swizzle
+     :initform nil
+     :accessor image-view-format-swizzle)
+   (image-view-2d-on-3d-image
+     :initarg :image-view-2d-on-3d-image
+     :initform nil
+     :accessor image-view-2d-on-3d-image)
+   (multisample-array-image
+     :initarg :multisample-array-image
+     :initform nil
+     :accessor multisample-array-image)
+   (mutable-comparison-samplers
+     :initarg :mutable-comparison-samplers
+     :initform nil
+     :accessor mutable-comparison-samplers)
+   (point-polygons
+     :initarg :point-polygons
+     :initform nil
+     :accessor point-polygons)
+   (sampler-mip-lod-bias
+     :initarg :sampler-mip-lod-bias
+     :initform nil
+     :accessor sampler-mip-lod-bias)
+   (separate-stencil-mask-ref
+     :initarg :separate-stencil-mask-ref
+     :initform nil
+     :accessor separate-stencil-mask-ref)
+   (shader-sample-rate-interpolation-functions
+     :initarg :shader-sample-rate-interpolation-functions
+     :initform nil
+     :accessor shader-sample-rate-interpolation-functions)
+   (tessellation-isolines
+     :initarg :tessellation-isolines
+     :initform nil
+     :accessor tessellation-isolines)
+   (tessellation-point-mode
+     :initarg :tessellation-point-mode
+     :initform nil
+     :accessor tessellation-point-mode)
+   (triangle-fans
+     :initarg :triangle-fans
+     :initform nil
+     :accessor triangle-fans)
+   (vertex-attribute-access-beyond-stride
+     :initarg :vertex-attribute-access-beyond-stride
+     :initform nil
+     :accessor vertex-attribute-access-beyond-stride))
+  (:documentation "Represents the struct [VkPhysicalDevicePortabilitySubsetFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePortabilitySubsetFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - CONSTANT-ALPHA-COLOR-BLEND-FACTORS: a BOOL32.
+ - EVENTS: a BOOL32.
+ - IMAGE-VIEW-FORMAT-REINTERPRETATION: a BOOL32.
+ - IMAGE-VIEW-FORMAT-SWIZZLE: a BOOL32.
+ - IMAGE-VIEW-2D-ON-3D-IMAGE: a BOOL32.
+ - MULTISAMPLE-ARRAY-IMAGE: a BOOL32.
+ - MUTABLE-COMPARISON-SAMPLERS: a BOOL32.
+ - POINT-POLYGONS: a BOOL32.
+ - SAMPLER-MIP-LOD-BIAS: a BOOL32.
+ - SEPARATE-STENCIL-MASK-REF: a BOOL32.
+ - SHADER-SAMPLE-RATE-INTERPOLATION-FUNCTIONS: a BOOL32.
+ - TESSELLATION-ISOLINES: a BOOL32.
+ - TESSELLATION-POINT-MODE: a BOOL32.
+ - TRIANGLE-FANS: a BOOL32.
+ - VERTEX-ATTRIBUTE-ACCESS-BEYOND-STRIDE: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-portability-subset-properties-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (min-vertex-input-binding-stride-alignment
+     :initarg :min-vertex-input-binding-stride-alignment
+     :initform 0
+     :accessor min-vertex-input-binding-stride-alignment))
+  (:documentation "Represents the struct [VkPhysicalDevicePortabilitySubsetPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePortabilitySubsetPropertiesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MIN-VERTEX-INPUT-BINDING-STRIDE-ALIGNMENT: a positive (32-bit) integer.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-PROPERTIES-2
+"))
+
 (defclass physical-device-4444-formats-features-ext ()
   ((next
      :initarg :next
@@ -17475,4 +17586,419 @@ See BOOL32
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
+"))
+
+(defclass buffer-copy-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-offset
+     :initarg :src-offset
+     :initform nil
+     :accessor src-offset)
+   (dst-offset
+     :initarg :dst-offset
+     :initform nil
+     :accessor dst-offset)
+   (size
+     :initarg :size
+     :initform nil
+     :accessor size))
+  (:documentation "Represents the struct [VkBufferCopy2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferCopy2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-OFFSET: a DEVICE-SIZE.
+ - DST-OFFSET: a DEVICE-SIZE.
+ - SIZE: a DEVICE-SIZE.
+
+See DEVICE-SIZE
+"))
+
+(defclass image-copy-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-subresource
+     :initarg :src-subresource
+     :initform nil
+     :accessor src-subresource)
+   (src-offset
+     :initarg :src-offset
+     :initform nil
+     :accessor src-offset)
+   (dst-subresource
+     :initarg :dst-subresource
+     :initform nil
+     :accessor dst-subresource)
+   (dst-offset
+     :initarg :dst-offset
+     :initform nil
+     :accessor dst-offset)
+   (extent
+     :initarg :extent
+     :initform nil
+     :accessor extent))
+  (:documentation "Represents the struct [VkImageCopy2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageCopy2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - SRC-OFFSET: an OFFSET-3D.
+ - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - DST-OFFSET: an OFFSET-3D.
+ - EXTENT: an EXTENT-3D.
+
+See IMAGE-SUBRESOURCE-LAYERS
+See OFFSET-3D
+See EXTENT-3D
+"))
+
+(defclass image-blit-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-subresource
+     :initarg :src-subresource
+     :initform nil
+     :accessor src-subresource)
+   (src-offsets
+     :initarg :src-offsets
+     :initform nil
+     :accessor src-offsets)
+   (dst-subresource
+     :initarg :dst-subresource
+     :initform nil
+     :accessor dst-subresource)
+   (dst-offsets
+     :initarg :dst-offsets
+     :initform nil
+     :accessor dst-offsets))
+  (:documentation "Represents the struct [VkImageBlit2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageBlit2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - SRC-OFFSETS: an OFFSET-3D.
+ - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - DST-OFFSETS: an OFFSET-3D.
+
+See IMAGE-SUBRESOURCE-LAYERS
+See OFFSET-3D
+"))
+
+(defclass buffer-image-copy-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (buffer-offset
+     :initarg :buffer-offset
+     :initform nil
+     :accessor buffer-offset)
+   (buffer-row-length
+     :initarg :buffer-row-length
+     :initform 0
+     :accessor buffer-row-length)
+   (buffer-image-height
+     :initarg :buffer-image-height
+     :initform 0
+     :accessor buffer-image-height)
+   (image-subresource
+     :initarg :image-subresource
+     :initform nil
+     :accessor image-subresource)
+   (image-offset
+     :initarg :image-offset
+     :initform nil
+     :accessor image-offset)
+   (image-extent
+     :initarg :image-extent
+     :initform nil
+     :accessor image-extent))
+  (:documentation "Represents the struct [VkBufferImageCopy2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferImageCopy2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - BUFFER-OFFSET: a DEVICE-SIZE.
+ - BUFFER-ROW-LENGTH: a positive (32-bit) integer.
+ - BUFFER-IMAGE-HEIGHT: a positive (32-bit) integer.
+ - IMAGE-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - IMAGE-OFFSET: an OFFSET-3D.
+ - IMAGE-EXTENT: an EXTENT-3D.
+
+See DEVICE-SIZE
+See IMAGE-SUBRESOURCE-LAYERS
+See OFFSET-3D
+See EXTENT-3D
+"))
+
+(defclass image-resolve-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-subresource
+     :initarg :src-subresource
+     :initform nil
+     :accessor src-subresource)
+   (src-offset
+     :initarg :src-offset
+     :initform nil
+     :accessor src-offset)
+   (dst-subresource
+     :initarg :dst-subresource
+     :initform nil
+     :accessor dst-subresource)
+   (dst-offset
+     :initarg :dst-offset
+     :initform nil
+     :accessor dst-offset)
+   (extent
+     :initarg :extent
+     :initform nil
+     :accessor extent))
+  (:documentation "Represents the struct [VkImageResolve2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageResolve2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - SRC-OFFSET: an OFFSET-3D.
+ - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
+ - DST-OFFSET: an OFFSET-3D.
+ - EXTENT: an EXTENT-3D.
+
+See IMAGE-SUBRESOURCE-LAYERS
+See OFFSET-3D
+See EXTENT-3D
+"))
+
+(defclass copy-buffer-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-buffer
+     :initarg :src-buffer
+     :initform nil
+     :accessor src-buffer)
+   (dst-buffer
+     :initarg :dst-buffer
+     :initform nil
+     :accessor dst-buffer)
+   (regions
+     :initarg :regions
+     :initform nil
+     :accessor regions))
+  (:documentation "Represents the struct [VkCopyBufferInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyBufferInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-BUFFER: a BUFFER.
+ - DST-BUFFER: a BUFFER.
+ - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+
+See BUFFER
+See BUFFER-COPY-2-KHR
+"))
+
+(defclass copy-image-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-image
+     :initarg :src-image
+     :initform nil
+     :accessor src-image)
+   (src-image-layout
+     :initarg :src-image-layout
+     :initform nil
+     :accessor src-image-layout)
+   (dst-image
+     :initarg :dst-image
+     :initform nil
+     :accessor dst-image)
+   (dst-image-layout
+     :initarg :dst-image-layout
+     :initform nil
+     :accessor dst-image-layout)
+   (regions
+     :initarg :regions
+     :initform nil
+     :accessor regions))
+  (:documentation "Represents the struct [VkCopyImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyImageInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-IMAGE: an IMAGE.
+ - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - DST-IMAGE: an IMAGE.
+ - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+
+See IMAGE
+See IMAGE-LAYOUT
+See IMAGE-COPY-2-KHR
+"))
+
+(defclass blit-image-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-image
+     :initarg :src-image
+     :initform nil
+     :accessor src-image)
+   (src-image-layout
+     :initarg :src-image-layout
+     :initform nil
+     :accessor src-image-layout)
+   (dst-image
+     :initarg :dst-image
+     :initform nil
+     :accessor dst-image)
+   (dst-image-layout
+     :initarg :dst-image-layout
+     :initform nil
+     :accessor dst-image-layout)
+   (regions
+     :initarg :regions
+     :initform nil
+     :accessor regions)
+   (filter
+     :initarg :filter
+     :initform nil
+     :accessor filter))
+  (:documentation "Represents the struct [VkBlitImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlitImageInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-IMAGE: an IMAGE.
+ - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - DST-IMAGE: an IMAGE.
+ - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - FILTER: an enum value of FILTER.
+
+See IMAGE
+See IMAGE-LAYOUT
+See IMAGE-BLIT-2-KHR
+See FILTER
+"))
+
+(defclass copy-buffer-to-image-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-buffer
+     :initarg :src-buffer
+     :initform nil
+     :accessor src-buffer)
+   (dst-image
+     :initarg :dst-image
+     :initform nil
+     :accessor dst-image)
+   (dst-image-layout
+     :initarg :dst-image-layout
+     :initform nil
+     :accessor dst-image-layout)
+   (regions
+     :initarg :regions
+     :initform nil
+     :accessor regions))
+  (:documentation "Represents the struct [VkCopyBufferToImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyBufferToImageInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-BUFFER: a BUFFER.
+ - DST-IMAGE: an IMAGE.
+ - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+
+See BUFFER
+See IMAGE
+See IMAGE-LAYOUT
+See BUFFER-IMAGE-COPY-2-KHR
+"))
+
+(defclass copy-image-to-buffer-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-image
+     :initarg :src-image
+     :initform nil
+     :accessor src-image)
+   (src-image-layout
+     :initarg :src-image-layout
+     :initform nil
+     :accessor src-image-layout)
+   (dst-buffer
+     :initarg :dst-buffer
+     :initform nil
+     :accessor dst-buffer)
+   (regions
+     :initarg :regions
+     :initform nil
+     :accessor regions))
+  (:documentation "Represents the struct [VkCopyImageToBufferInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyImageToBufferInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-IMAGE: an IMAGE.
+ - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - DST-BUFFER: a BUFFER.
+ - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+
+See IMAGE
+See IMAGE-LAYOUT
+See BUFFER
+See BUFFER-IMAGE-COPY-2-KHR
+"))
+
+(defclass resolve-image-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-image
+     :initarg :src-image
+     :initform nil
+     :accessor src-image)
+   (src-image-layout
+     :initarg :src-image-layout
+     :initform nil
+     :accessor src-image-layout)
+   (dst-image
+     :initarg :dst-image
+     :initform nil
+     :accessor dst-image)
+   (dst-image-layout
+     :initarg :dst-image-layout
+     :initform nil
+     :accessor dst-image-layout)
+   (regions
+     :initarg :regions
+     :initform nil
+     :accessor regions))
+  (:documentation "Represents the struct [VkResolveImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkResolveImageInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-IMAGE: an IMAGE.
+ - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - DST-IMAGE: an IMAGE.
+ - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+
+See IMAGE
+See IMAGE-LAYOUT
+See IMAGE-RESOLVE-2-KHR
 "))

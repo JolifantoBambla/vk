@@ -2432,3 +2432,27 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (private-data-slot private-data-slot-ext)
   (p-data (:pointer :uint64)))
 
+(defvkfun ("vkCmdCopyBuffer2KHR" cmd-copy-buffer-2-khr) :void
+  (command-buffer command-buffer)
+  (p-copy-buffer-info (:pointer (:struct copy-buffer-info-2-khr))))
+
+(defvkfun ("vkCmdCopyImage2KHR" cmd-copy-image-2-khr) :void
+  (command-buffer command-buffer)
+  (p-copy-image-info (:pointer (:struct copy-image-info-2-khr))))
+
+(defvkfun ("vkCmdBlitImage2KHR" cmd-blit-image-2-khr) :void
+  (command-buffer command-buffer)
+  (p-blit-image-info (:pointer (:struct blit-image-info-2-khr))))
+
+(defvkfun ("vkCmdCopyBufferToImage2KHR" cmd-copy-buffer-to-image-2-khr) :void
+  (command-buffer command-buffer)
+  (p-copy-buffer-to-image-info (:pointer (:struct copy-buffer-to-image-info-2-khr))))
+
+(defvkfun ("vkCmdCopyImageToBuffer2KHR" cmd-copy-image-to-buffer-2-khr) :void
+  (command-buffer command-buffer)
+  (p-copy-image-to-buffer-info (:pointer (:struct copy-image-to-buffer-info-2-khr))))
+
+(defvkfun ("vkCmdResolveImage2KHR" cmd-resolve-image-2-khr) :void
+  (command-buffer command-buffer)
+  (p-resolve-image-info (:pointer (:struct resolve-image-info-2-khr))))
+

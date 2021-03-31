@@ -114,6 +114,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-android-surface-extension-name+ "VK_KHR_android_surface" :test #'string=)
 (alexandria:define-constant +khr-bind-memory-2-extension-name+ "VK_KHR_bind_memory2" :test #'string=)
 (alexandria:define-constant +khr-buffer-device-address-extension-name+ "VK_KHR_buffer_device_address" :test #'string=)
+(alexandria:define-constant +khr-copy-commands-2-extension-name+ "VK_KHR_copy_commands2" :test #'string=)
 (alexandria:define-constant +khr-create-renderpass-2-extension-name+ "VK_KHR_create_renderpass2" :test #'string=)
 (alexandria:define-constant +khr-dedicated-allocation-extension-name+ "VK_KHR_dedicated_allocation" :test #'string=)
 (alexandria:define-constant +khr-deferred-host-operations-extension-name+ "VK_KHR_deferred_host_operations" :test #'string=)
@@ -151,6 +152,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-performance-query-extension-name+ "VK_KHR_performance_query" :test #'string=)
 (alexandria:define-constant +khr-pipeline-executable-properties-extension-name+ "VK_KHR_pipeline_executable_properties" :test #'string=)
 (alexandria:define-constant +khr-pipeline-library-extension-name+ "VK_KHR_pipeline_library" :test #'string=)
+(alexandria:define-constant +khr-portability-subset-extension-name+ "VK_KHR_portability_subset" :test #'string=)
 (alexandria:define-constant +khr-push-descriptor-extension-name+ "VK_KHR_push_descriptor" :test #'string=)
 (alexandria:define-constant +khr-ray-tracing-extension-name+ "VK_KHR_ray_tracing" :test #'string=)
 (alexandria:define-constant +khr-relaxed-block-layout-extension-name+ "VK_KHR_relaxed_block_layout" :test #'string=)
@@ -2284,6 +2286,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-descriptor-indexing-properties #x3B9D3EEA) ;; 
   (:descriptor-set-variable-descriptor-count-allocate-info #x3B9D3EEB) ;; 
   (:descriptor-set-variable-descriptor-count-layout-support #x3B9D3EEC) ;; 
+  (:physical-device-portability-subset-features-khr #x3B9D46B8) ;; 
+  (:physical-device-portability-subset-properties-khr #x3B9D46B9) ;; 
   (:pipeline-viewport-shading-rate-image-state-create-info-nv #x3B9D4AA0) ;; 
   (:physical-device-shading-rate-image-features-nv #x3B9D4AA1) ;; 
   (:physical-device-shading-rate-image-properties-nv #x3B9D4AA2) ;; 
@@ -2436,6 +2440,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-fragment-density-map-2-features-ext #x3B9FDAE0) ;; 
   (:physical-device-fragment-density-map-2-properties-ext #x3B9FDAE1) ;; 
   (:physical-device-image-robustness-features-ext #x3B9FE698) ;; 
+  (:copy-buffer-info-2-khr #x3B9FEE68) ;; 
+  (:copy-image-info-2-khr #x3B9FEE69) ;; 
+  (:copy-buffer-to-image-info-2-khr #x3B9FEE6A) ;; 
+  (:copy-image-to-buffer-info-2-khr #x3B9FEE6B) ;; 
+  (:blit-image-info-2-khr #x3B9FEE6C) ;; 
+  (:resolve-image-info-2-khr #x3B9FEE6D) ;; 
+  (:buffer-copy-2-khr #x3B9FEE6E) ;; 
+  (:image-copy-2-khr #x3B9FEE6F) ;; 
+  (:image-blit-2-khr #x3B9FEE70) ;; 
+  (:buffer-image-copy-2-khr #x3B9FEE71) ;; 
+  (:image-resolve-2-khr #x3B9FEE72) ;; 
   (:physical-device-4444-formats-features-ext #x3B9FFA20) ;; 
   (:directfb-surface-create-info-ext #x3BA01190)) ;; 
 
@@ -8237,9 +8252,133 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (robust-image-access bool32))
 
+(defcstruct (physical-device-portability-subset-features-khr :class c-physical-device-portability-subset-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (constant-alpha-color-blend-factors bool32)
+  (events bool32)
+  (image-view-format-reinterpretation bool32)
+  (image-view-format-swizzle bool32)
+  (image-view-2d-on-3d-image bool32)
+  (multisample-array-image bool32)
+  (mutable-comparison-samplers bool32)
+  (point-polygons bool32)
+  (sampler-mip-lod-bias bool32)
+  (separate-stencil-mask-ref bool32)
+  (shader-sample-rate-interpolation-functions bool32)
+  (tessellation-isolines bool32)
+  (tessellation-point-mode bool32)
+  (triangle-fans bool32)
+  (vertex-attribute-access-beyond-stride bool32))
+
+(defcstruct (physical-device-portability-subset-properties-khr :class c-physical-device-portability-subset-properties-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (min-vertex-input-binding-stride-alignment :uint32))
+
 (defcstruct (physical-device-4444-formats-features-ext :class c-physical-device-4444-formats-features-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (format-a4r4g4b4 bool32)
   (format-a4b4g4r4 bool32))
+
+(defcstruct (buffer-copy-2-khr :class c-buffer-copy-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-offset device-size)
+  (dst-offset device-size)
+  (size device-size))
+
+(defcstruct (image-copy-2-khr :class c-image-copy-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-subresource image-subresource-layers)
+  (src-offset offset-3d)
+  (dst-subresource image-subresource-layers)
+  (dst-offset offset-3d)
+  (extent extent-3d))
+
+(defcstruct (image-blit-2-khr :class c-image-blit-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-subresource image-subresource-layers)
+  (src-offsets offset-3d :count 2)
+  (dst-subresource image-subresource-layers)
+  (dst-offsets offset-3d :count 2))
+
+(defcstruct (buffer-image-copy-2-khr :class c-buffer-image-copy-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (buffer-offset device-size)
+  (buffer-row-length :uint32)
+  (buffer-image-height :uint32)
+  (image-subresource image-subresource-layers)
+  (image-offset offset-3d)
+  (image-extent extent-3d))
+
+(defcstruct (image-resolve-2-khr :class c-image-resolve-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-subresource image-subresource-layers)
+  (src-offset offset-3d)
+  (dst-subresource image-subresource-layers)
+  (dst-offset offset-3d)
+  (extent extent-3d))
+
+(defcstruct (copy-buffer-info-2-khr :class c-copy-buffer-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-buffer buffer)
+  (dst-buffer buffer)
+  (region-count :uint32)
+  (p-regions (:pointer (:struct buffer-copy-2-khr))))
+
+(defcstruct (copy-image-info-2-khr :class c-copy-image-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-image image)
+  (src-image-layout image-layout)
+  (dst-image image)
+  (dst-image-layout image-layout)
+  (region-count :uint32)
+  (p-regions (:pointer (:struct image-copy-2-khr))))
+
+(defcstruct (blit-image-info-2-khr :class c-blit-image-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-image image)
+  (src-image-layout image-layout)
+  (dst-image image)
+  (dst-image-layout image-layout)
+  (region-count :uint32)
+  (p-regions (:pointer (:struct image-blit-2-khr)))
+  (filter filter))
+
+(defcstruct (copy-buffer-to-image-info-2-khr :class c-copy-buffer-to-image-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-buffer buffer)
+  (dst-image image)
+  (dst-image-layout image-layout)
+  (region-count :uint32)
+  (p-regions (:pointer (:struct buffer-image-copy-2-khr))))
+
+(defcstruct (copy-image-to-buffer-info-2-khr :class c-copy-image-to-buffer-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-image image)
+  (src-image-layout image-layout)
+  (dst-buffer buffer)
+  (region-count :uint32)
+  (p-regions (:pointer (:struct buffer-image-copy-2-khr))))
+
+(defcstruct (resolve-image-info-2-khr :class c-resolve-image-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-image image)
+  (src-image-layout image-layout)
+  (dst-image image)
+  (dst-image-layout image-layout)
+  (region-count :uint32)
+  (p-regions (:pointer (:struct image-resolve-2-khr))))
 

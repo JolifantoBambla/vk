@@ -8748,6 +8748,56 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:robust-image-access (vk:robust-image-access value))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-portability-subset-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:constant-alpha-color-blend-factors
+        %vk:events
+        %vk:image-view-format-reinterpretation
+        %vk:image-view-format-swizzle
+        %vk:image-view-2d-on-3d-image
+        %vk:multisample-array-image
+        %vk:mutable-comparison-samplers
+        %vk:point-polygons
+        %vk:sampler-mip-lod-bias
+        %vk:separate-stencil-mask-ref
+        %vk:shader-sample-rate-interpolation-functions
+        %vk:tessellation-isolines
+        %vk:tessellation-point-mode
+        %vk:triangle-fans
+        %vk:vertex-attribute-access-beyond-stride)
+       ptr
+       (:struct %vk:physical-device-portability-subset-features-khr))
+    (setf %vk:s-type :physical-device-portability-subset-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:constant-alpha-color-blend-factors (vk:constant-alpha-color-blend-factors value)
+          %vk:events (vk:events value)
+          %vk:image-view-format-reinterpretation (vk:image-view-format-reinterpretation value)
+          %vk:image-view-format-swizzle (vk:image-view-format-swizzle value)
+          %vk:image-view-2d-on-3d-image (vk:image-view-2d-on-3d-image value)
+          %vk:multisample-array-image (vk:multisample-array-image value)
+          %vk:mutable-comparison-samplers (vk:mutable-comparison-samplers value)
+          %vk:point-polygons (vk:point-polygons value)
+          %vk:sampler-mip-lod-bias (vk:sampler-mip-lod-bias value)
+          %vk:separate-stencil-mask-ref (vk:separate-stencil-mask-ref value)
+          %vk:shader-sample-rate-interpolation-functions (vk:shader-sample-rate-interpolation-functions value)
+          %vk:tessellation-isolines (vk:tessellation-isolines value)
+          %vk:tessellation-point-mode (vk:tessellation-point-mode value)
+          %vk:triangle-fans (vk:triangle-fans value)
+          %vk:vertex-attribute-access-beyond-stride (vk:vertex-attribute-access-beyond-stride value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-portability-subset-properties-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:min-vertex-input-binding-stride-alignment)
+       ptr
+       (:struct %vk:physical-device-portability-subset-properties-khr))
+    (setf %vk:s-type :physical-device-portability-subset-properties-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:min-vertex-input-binding-stride-alignment (vk:min-vertex-input-binding-stride-alignment value))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-4444-formats-features-ext) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -8760,4 +8810,215 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:format-a4r4g4b4 (vk:format-a4r4g4b4 value)
           %vk:format-a4b4g4r4 (vk:format-a4b4g4r4 value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-buffer-copy-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-offset
+        %vk:dst-offset
+        %vk:size)
+       ptr
+       (:struct %vk:buffer-copy-2-khr))
+    (setf %vk:s-type :buffer-copy-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-offset (vk:src-offset value)
+          %vk:dst-offset (vk:dst-offset value)
+          %vk:size (vk:size value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-copy-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-subresource
+        %vk:src-offset
+        %vk:dst-subresource
+        %vk:dst-offset
+        %vk:extent)
+       ptr
+       (:struct %vk:image-copy-2-khr))
+    (setf %vk:s-type :image-copy-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:src-subresource value) ptr)
+          %vk:src-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:src-offset value) ptr)
+          %vk:dst-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:dst-subresource value) ptr)
+          %vk:dst-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:dst-offset value) ptr)
+          %vk:extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-3d) (vk:extent value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-blit-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-subresource
+        %vk:src-offsets
+        %vk:dst-subresource
+        %vk:dst-offsets)
+       ptr
+       (:struct %vk:image-blit-2-khr))
+    (setf %vk:s-type :image-blit-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:src-subresource value) ptr)
+          %vk:src-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:src-offsets value) ptr)
+          %vk:dst-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:dst-subresource value) ptr)
+          %vk:dst-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:dst-offsets value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-buffer-image-copy-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:buffer-offset
+        %vk:buffer-row-length
+        %vk:buffer-image-height
+        %vk:image-subresource
+        %vk:image-offset
+        %vk:image-extent)
+       ptr
+       (:struct %vk:buffer-image-copy-2-khr))
+    (setf %vk:s-type :buffer-image-copy-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:buffer-offset (vk:buffer-offset value)
+          %vk:buffer-row-length (vk:buffer-row-length value)
+          %vk:buffer-image-height (vk:buffer-image-height value)
+          %vk:image-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:image-subresource value) ptr)
+          %vk:image-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:image-offset value) ptr)
+          %vk:image-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-3d) (vk:image-extent value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-resolve-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-subresource
+        %vk:src-offset
+        %vk:dst-subresource
+        %vk:dst-offset
+        %vk:extent)
+       ptr
+       (:struct %vk:image-resolve-2-khr))
+    (setf %vk:s-type :image-resolve-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:src-subresource value) ptr)
+          %vk:src-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:src-offset value) ptr)
+          %vk:dst-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:dst-subresource value) ptr)
+          %vk:dst-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:dst-offset value) ptr)
+          %vk:extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-3d) (vk:extent value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-buffer-info-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-buffer
+        %vk:dst-buffer
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-buffer-info-2-khr))
+    (setf %vk:s-type :copy-buffer-info-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-buffer (if (vk:src-buffer value) (vk:src-buffer value) (cffi:null-pointer))
+          %vk:dst-buffer (if (vk:dst-buffer value) (vk:dst-buffer value) (cffi:null-pointer))
+          %vk:region-count (length (vk:regions value))
+          %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:buffer-copy-2-khr) (vk:regions value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-image-info-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-image-info-2-khr))
+    (setf %vk:s-type :copy-image-info-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-image (if (vk:src-image value) (vk:src-image value) (cffi:null-pointer))
+          %vk:src-image-layout (vk:src-image-layout value)
+          %vk:dst-image (if (vk:dst-image value) (vk:dst-image value) (cffi:null-pointer))
+          %vk:dst-image-layout (vk:dst-image-layout value)
+          %vk:region-count (length (vk:regions value))
+          %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-copy-2-khr) (vk:regions value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-blit-image-info-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions
+        %vk:filter)
+       ptr
+       (:struct %vk:blit-image-info-2-khr))
+    (setf %vk:s-type :blit-image-info-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-image (if (vk:src-image value) (vk:src-image value) (cffi:null-pointer))
+          %vk:src-image-layout (vk:src-image-layout value)
+          %vk:dst-image (if (vk:dst-image value) (vk:dst-image value) (cffi:null-pointer))
+          %vk:dst-image-layout (vk:dst-image-layout value)
+          %vk:region-count (length (vk:regions value))
+          %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-blit-2-khr) (vk:regions value) ptr)
+          %vk:filter (vk:filter value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-buffer-to-image-info-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-buffer
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-buffer-to-image-info-2-khr))
+    (setf %vk:s-type :copy-buffer-to-image-info-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-buffer (if (vk:src-buffer value) (vk:src-buffer value) (cffi:null-pointer))
+          %vk:dst-image (if (vk:dst-image value) (vk:dst-image value) (cffi:null-pointer))
+          %vk:dst-image-layout (vk:dst-image-layout value)
+          %vk:region-count (length (vk:regions value))
+          %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:buffer-image-copy-2-khr) (vk:regions value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-image-to-buffer-info-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-buffer
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:copy-image-to-buffer-info-2-khr))
+    (setf %vk:s-type :copy-image-to-buffer-info-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-image (if (vk:src-image value) (vk:src-image value) (cffi:null-pointer))
+          %vk:src-image-layout (vk:src-image-layout value)
+          %vk:dst-buffer (if (vk:dst-buffer value) (vk:dst-buffer value) (cffi:null-pointer))
+          %vk:region-count (length (vk:regions value))
+          %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:buffer-image-copy-2-khr) (vk:regions value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-resolve-image-info-2-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-image
+        %vk:src-image-layout
+        %vk:dst-image
+        %vk:dst-image-layout
+        %vk:region-count
+        %vk:p-regions)
+       ptr
+       (:struct %vk:resolve-image-info-2-khr))
+    (setf %vk:s-type :resolve-image-info-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-image (if (vk:src-image value) (vk:src-image value) (cffi:null-pointer))
+          %vk:src-image-layout (vk:src-image-layout value)
+          %vk:dst-image (if (vk:dst-image value) (vk:dst-image value) (cffi:null-pointer))
+          %vk:dst-image-layout (vk:dst-image-layout value)
+          %vk:region-count (length (vk:regions value))
+          %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-resolve-2-khr) (vk:regions value) ptr))))
 

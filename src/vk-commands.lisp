@@ -4753,3 +4753,57 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
   (data :uint64 data :out))
 
+(defvk-simple-fun (cmd-copy-buffer-2-khr
+                   %vk:cmd-copy-buffer-2-khr
+                   "Represents <vkCmdCopyBuffer2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (copy-buffer-info (or vk:copy-buffer-info-2-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (copy-buffer-info '(:struct %vk:copy-buffer-info-2-khr) copy-buffer-info :in))
+
+(defvk-simple-fun (cmd-copy-image-2-khr
+                   %vk:cmd-copy-image-2-khr
+                   "Represents <vkCmdCopyImage2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (copy-image-info (or vk:copy-image-info-2-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (copy-image-info '(:struct %vk:copy-image-info-2-khr) copy-image-info :in))
+
+(defvk-simple-fun (cmd-blit-image-2-khr
+                   %vk:cmd-blit-image-2-khr
+                   "Represents <vkCmdBlitImage2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (blit-image-info (or vk:blit-image-info-2-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (blit-image-info '(:struct %vk:blit-image-info-2-khr) blit-image-info :in))
+
+(defvk-simple-fun (cmd-copy-buffer-to-image-2-khr
+                   %vk:cmd-copy-buffer-to-image-2-khr
+                   "Represents <vkCmdCopyBufferToImage2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (copy-buffer-to-image-info (or vk:copy-buffer-to-image-info-2-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (copy-buffer-to-image-info '(:struct %vk:copy-buffer-to-image-info-2-khr) copy-buffer-to-image-info :in))
+
+(defvk-simple-fun (cmd-copy-image-to-buffer-2-khr
+                   %vk:cmd-copy-image-to-buffer-2-khr
+                   "Represents <vkCmdCopyImageToBuffer2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (copy-image-to-buffer-info (or vk:copy-image-to-buffer-info-2-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (copy-image-to-buffer-info '(:struct %vk:copy-image-to-buffer-info-2-khr) copy-image-to-buffer-info :in))
+
+(defvk-simple-fun (cmd-resolve-image-2-khr
+                   %vk:cmd-resolve-image-2-khr
+                   "Represents <vkCmdResolveImage2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (resolve-image-info (or vk:resolve-image-info-2-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (resolve-image-info '(:struct %vk:resolve-image-info-2-khr) resolve-image-info :in))
+
