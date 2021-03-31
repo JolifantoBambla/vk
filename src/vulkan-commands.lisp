@@ -1225,6 +1225,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (fd :int)
   (p-memory-fd-properties (:pointer (:struct memory-fd-properties-khr))))
 
+(defvkextfun ("vkGetMemoryZirconHandleFUCHSIA" get-memory-zircon-handle-fuchsia) checked-result
+  (device device)
+  (p-get-zircon-handle-info (:pointer (:struct memory-get-zircon-handle-info-fuchsia)))
+  (p-zircon-handle (:pointer zx_handle_t)))
+
+(defvkextfun ("vkGetMemoryZirconHandlePropertiesFUCHSIA" get-memory-zircon-handle-properties-fuchsia) checked-result
+  (device device)
+  (handle-type external-memory-handle-type-flag-bits)
+  (zircon-handle zx_handle_t)
+  (p-memory-zircon-handle-properties (:pointer (:struct memory-zircon-handle-properties-fuchsia))))
+
 (defvkfun ("vkGetPhysicalDeviceExternalSemaphoreProperties" get-physical-device-external-semaphore-properties) :void
   (physical-device physical-device)
   (p-external-semaphore-info (:pointer (:struct physical-device-external-semaphore-info)))
@@ -1252,6 +1263,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkfun ("vkImportSemaphoreFdKHR" import-semaphore-fd-khr) checked-result
   (device device)
   (p-import-semaphore-fd-info (:pointer (:struct import-semaphore-fd-info-khr))))
+
+(defvkextfun ("vkGetSemaphoreZirconHandleFUCHSIA" get-semaphore-zircon-handle-fuchsia) checked-result
+  (device device)
+  (p-get-zircon-handle-info (:pointer (:struct semaphore-get-zircon-handle-info-fuchsia)))
+  (p-zircon-handle (:pointer zx_handle_t)))
+
+(defvkextfun ("vkImportSemaphoreZirconHandleFUCHSIA" import-semaphore-zircon-handle-fuchsia) checked-result
+  (device device)
+  (p-import-semaphore-zircon-handle-info (:pointer (:struct import-semaphore-zircon-handle-info-fuchsia))))
 
 (defvkfun ("vkGetPhysicalDeviceExternalFenceProperties" get-physical-device-external-fence-properties) :void
   (physical-device physical-device)

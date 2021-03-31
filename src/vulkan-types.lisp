@@ -100,6 +100,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-validation-flags-extension-name+ "VK_EXT_validation_flags" :test #'string=)
 (alexandria:define-constant +ext-vertex-attribute-divisor-extension-name+ "VK_EXT_vertex_attribute_divisor" :test #'string=)
 (alexandria:define-constant +ext-ycbcr-image-arrays-extension-name+ "VK_EXT_ycbcr_image_arrays" :test #'string=)
+(alexandria:define-constant +fuchsia-external-memory-extension-name+ "VK_FUCHSIA_external_memory" :test #'string=)
+(alexandria:define-constant +fuchsia-external-semaphore-extension-name+ "VK_FUCHSIA_external_semaphore" :test #'string=)
 (alexandria:define-constant +fuchsia-imagepipe-surface-extension-name+ "VK_FUCHSIA_imagepipe_surface" :test #'string=)
 (alexandria:define-constant +ggp-frame-token-extension-name+ "VK_GGP_frame_token" :test #'string=)
 (alexandria:define-constant +ggp-stream-descriptor-surface-extension-name+ "VK_GGP_stream_descriptor_surface" :test #'string=)
@@ -1050,7 +1052,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:host-allocation #x80) ;; 
   (:host-mapped-foreign-memory #x100) ;; 
   (:dma-buf #x200) ;; 
-  (:android-hardware-buffer #x400)) ;; 
+  (:android-hardware-buffer #x400) ;; 
+  (:zircon-vmo #x800)) ;; 
 
 (defbitfield (external-memory-handle-type-flags-khr flags)
   (:opaque-fd #x1)
@@ -1063,7 +1066,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:host-allocation #x80) ;; 
   (:host-mapped-foreign-memory #x100) ;; 
   (:dma-buf #x200) ;; 
-  (:android-hardware-buffer #x400)) ;; 
+  (:android-hardware-buffer #x400) ;; 
+  (:zircon-vmo #x800)) ;; 
 
 (defbitfield (external-memory-feature-flags flags)
   (:dedicated-only #x1)
@@ -1080,14 +1084,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:opaque-win32 #x2)
   (:opaque-win32-kmt #x4)
   (:d3d12-fence #x8)
-  (:sync-fd #x10))
+  (:sync-fd #x10)
+  (:zircon-event #x80)) ;; 
 
 (defbitfield (external-semaphore-handle-type-flags-khr flags)
   (:opaque-fd #x1)
   (:opaque-win32 #x2)
   (:opaque-win32-kmt #x4)
   (:d3d12-fence #x8)
-  (:sync-fd #x10))
+  (:sync-fd #x10)
+  (:zircon-event #x80)) ;; 
 
 (defbitfield (external-semaphore-feature-flags flags)
   (:exportable #x1)
@@ -2602,6 +2608,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-ray-query-features-khr #x3BA0196D) ;; 
   (:physical-device-mutable-descriptor-type-features-valve #x3BA02518) ;; 
   (:mutable-descriptor-type-create-info-valve #x3BA0251A) ;; 
+  (:import-memory-zircon-handle-info-fuchsia #x3BA057E0) ;; 
+  (:memory-zircon-handle-properties-fuchsia #x3BA057E1) ;; 
+  (:memory-get-zircon-handle-info-fuchsia #x3BA057E2) ;; 
+  (:import-semaphore-zircon-handle-info-fuchsia #x3BA05BC8) ;; 
+  (:semaphore-get-zircon-handle-info-fuchsia #x3BA05BC9) ;; 
   (:screen-surface-create-info-qnx #x3BA08E90)) ;; 
 
 (defcenum (system-allocation-scope)
@@ -3316,7 +3327,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:host-allocation #x80) ;; 
   (:host-mapped-foreign-memory #x100) ;; 
   (:dma-buf #x200) ;; 
-  (:android-hardware-buffer #x400)) ;; 
+  (:android-hardware-buffer #x400) ;; 
+  (:zircon-vmo #x800)) ;; 
 
 (defcenum (external-memory-handle-type-flag-bits-khr)
   (:opaque-fd #x1)
@@ -3329,7 +3341,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:host-allocation #x80) ;; 
   (:host-mapped-foreign-memory #x100) ;; 
   (:dma-buf #x200) ;; 
-  (:android-hardware-buffer #x400)) ;; 
+  (:android-hardware-buffer #x400) ;; 
+  (:zircon-vmo #x800)) ;; 
 
 (defcenum (external-memory-feature-flag-bits)
   (:dedicated-only #x1)
@@ -3346,14 +3359,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:opaque-win32 #x2)
   (:opaque-win32-kmt #x4)
   (:d3d12-fence #x8)
-  (:sync-fd #x10))
+  (:sync-fd #x10)
+  (:zircon-event #x80)) ;; 
 
 (defcenum (external-semaphore-handle-type-flag-bits-khr)
   (:opaque-fd #x1)
   (:opaque-win32 #x2)
   (:opaque-win32-kmt #x4)
   (:d3d12-fence #x8)
-  (:sync-fd #x10))
+  (:sync-fd #x10)
+  (:zircon-event #x80)) ;; 
 
 (defcenum (external-semaphore-feature-flag-bits)
   (:exportable #x1)
@@ -5303,6 +5318,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dw-access dword)
   (name lpcwstr))
 
+(defcstruct (import-memory-zircon-handle-info-fuchsia :class c-import-memory-zircon-handle-info-fuchsia)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (handle-type external-memory-handle-type-flag-bits)
+  (handle zx_handle_t))
+
+(defcstruct (memory-zircon-handle-properties-fuchsia :class c-memory-zircon-handle-properties-fuchsia)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (memory-type-bits :uint32))
+
+(defcstruct (memory-get-zircon-handle-info-fuchsia :class c-memory-get-zircon-handle-info-fuchsia)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (memory device-memory)
+  (handle-type external-memory-handle-type-flag-bits))
+
 (defcstruct (memory-win32-handle-properties-khr :class c-memory-win32-handle-properties-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
@@ -5415,6 +5447,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (fd :int))
 
 (defcstruct (semaphore-get-fd-info-khr :class c-semaphore-get-fd-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (semaphore semaphore)
+  (handle-type external-semaphore-handle-type-flag-bits))
+
+(defcstruct (import-semaphore-zircon-handle-info-fuchsia :class c-import-semaphore-zircon-handle-info-fuchsia)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (semaphore semaphore)
+  (flags semaphore-import-flags)
+  (handle-type external-semaphore-handle-type-flag-bits)
+  (zircon-handle zx_handle_t))
+
+(defcstruct (semaphore-get-zircon-handle-info-fuchsia :class c-semaphore-get-zircon-handle-info-fuchsia)
   (s-type structure-type)
   (p-next (:pointer :void))
   (semaphore semaphore)

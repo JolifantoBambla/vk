@@ -6716,6 +6716,73 @@ Instances of this class can be used to extend the following classes (using their
 See MEMORY-ALLOCATE-INFO
 "))
 
+(defclass import-memory-zircon-handle-info-fuchsia ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (handle-type
+     :initarg :handle-type
+     :initform nil
+     :accessor handle-type)
+   (handle
+     :initarg :handle
+     :initform nil
+     :accessor handle))
+  (:documentation "Represents the struct [VkImportMemoryZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryZirconHandleInfoFUCHSIA.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
+ - HANDLE (optional): a ZX_HANDLE_T.
+
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+See ZX_HANDLE_T
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See MEMORY-ALLOCATE-INFO
+"))
+
+(defclass memory-zircon-handle-properties-fuchsia ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (memory-type-bits
+     :initarg :memory-type-bits
+     :initform 0
+     :accessor memory-type-bits))
+  (:documentation "Represents the struct [VkMemoryZirconHandlePropertiesFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryZirconHandlePropertiesFUCHSIA.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MEMORY-TYPE-BITS: a positive (32-bit) integer.
+"))
+
+(defclass memory-get-zircon-handle-info-fuchsia ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (memory
+     :initarg :memory
+     :initform nil
+     :accessor memory)
+   (handle-type
+     :initarg :handle-type
+     :initform nil
+     :accessor handle-type))
+  (:documentation "Represents the struct [VkMemoryGetZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryGetZirconHandleInfoFUCHSIA.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MEMORY: a DEVICE-MEMORY.
+ - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
+
+See DEVICE-MEMORY
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+"))
+
 (defclass memory-win32-handle-properties-khr ()
   ((next
      :initarg :next
@@ -7104,6 +7171,66 @@ See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
      :initform nil
      :accessor handle-type))
   (:documentation "Represents the struct [VkSemaphoreGetFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreGetFdInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SEMAPHORE: a SEMAPHORE.
+ - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
+
+See SEMAPHORE
+See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+"))
+
+(defclass import-semaphore-zircon-handle-info-fuchsia ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (semaphore
+     :initarg :semaphore
+     :initform nil
+     :accessor semaphore)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (handle-type
+     :initarg :handle-type
+     :initform nil
+     :accessor handle-type)
+   (zircon-handle
+     :initarg :zircon-handle
+     :initform nil
+     :accessor zircon-handle))
+  (:documentation "Represents the struct [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportSemaphoreZirconHandleInfoFUCHSIA.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SEMAPHORE: a SEMAPHORE.
+ - FLAGS (optional): a list containing a valid combination of SEMAPHORE-IMPORT-FLAGS.
+ - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
+ - ZIRCON-HANDLE: a ZX_HANDLE_T.
+
+See SEMAPHORE
+See SEMAPHORE-IMPORT-FLAGS
+See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+See ZX_HANDLE_T
+"))
+
+(defclass semaphore-get-zircon-handle-info-fuchsia ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (semaphore
+     :initarg :semaphore
+     :initform nil
+     :accessor semaphore)
+   (handle-type
+     :initarg :handle-type
+     :initform nil
+     :accessor handle-type))
+  (:documentation "Represents the struct [VkSemaphoreGetZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreGetZirconHandleInfoFUCHSIA.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.

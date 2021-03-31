@@ -3250,6 +3250,43 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :dw-access %vk:dw-access
                    :name %vk:name)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-import-memory-zircon-handle-info-fuchsia))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:handle-type
+        %vk:handle)
+       ,ptr
+       (:struct %vk:import-memory-zircon-handle-info-fuchsia))
+    (make-instance 'vk:import-memory-zircon-handle-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :handle-type %vk:handle-type
+                   :handle %vk:handle)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-memory-zircon-handle-properties-fuchsia))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-type-bits)
+       ,ptr
+       (:struct %vk:memory-zircon-handle-properties-fuchsia))
+    (make-instance 'vk:memory-zircon-handle-properties-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :memory-type-bits %vk:memory-type-bits)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-memory-get-zircon-handle-info-fuchsia))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory
+        %vk:handle-type)
+       ,ptr
+       (:struct %vk:memory-get-zircon-handle-info-fuchsia))
+    (make-instance 'vk:memory-get-zircon-handle-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :memory %vk:memory
+                   :handle-type %vk:handle-type)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-memory-win32-handle-properties-khr))
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -3457,6 +3494,36 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ,ptr
        (:struct %vk:semaphore-get-fd-info-khr))
     (make-instance 'vk:semaphore-get-fd-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :semaphore %vk:semaphore
+                   :handle-type %vk:handle-type)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-import-semaphore-zircon-handle-info-fuchsia))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:semaphore
+        %vk:flags
+        %vk:handle-type
+        %vk:zircon-handle)
+       ,ptr
+       (:struct %vk:import-semaphore-zircon-handle-info-fuchsia))
+    (make-instance 'vk:import-semaphore-zircon-handle-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :semaphore %vk:semaphore
+                   :flags %vk:flags
+                   :handle-type %vk:handle-type
+                   :zircon-handle %vk:zircon-handle)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-semaphore-get-zircon-handle-info-fuchsia))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:semaphore
+        %vk:handle-type)
+       ,ptr
+       (:struct %vk:semaphore-get-zircon-handle-info-fuchsia))
+    (make-instance 'vk:semaphore-get-zircon-handle-info-fuchsia
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :semaphore %vk:semaphore
                    :handle-type %vk:handle-type)))

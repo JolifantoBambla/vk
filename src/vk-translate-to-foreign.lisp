@@ -3264,6 +3264,43 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:dw-access (vk:dw-access value)
           %vk:name (vk:name value))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-import-memory-zircon-handle-info-fuchsia) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:handle-type
+        %vk:handle)
+       ptr
+       (:struct %vk:import-memory-zircon-handle-info-fuchsia))
+    (setf %vk:s-type :import-memory-zircon-handle-info-fuchsia
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:handle-type (vk:handle-type value)
+          %vk:handle (vk:handle value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-memory-zircon-handle-properties-fuchsia) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-type-bits)
+       ptr
+       (:struct %vk:memory-zircon-handle-properties-fuchsia))
+    (setf %vk:s-type :memory-zircon-handle-properties-fuchsia
+          %vk:p-next (cffi:null-pointer)
+          %vk:memory-type-bits (vk:memory-type-bits value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-memory-get-zircon-handle-info-fuchsia) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory
+        %vk:handle-type)
+       ptr
+       (:struct %vk:memory-get-zircon-handle-info-fuchsia))
+    (setf %vk:s-type :memory-get-zircon-handle-info-fuchsia
+          %vk:p-next (cffi:null-pointer)
+          %vk:memory (if (vk:memory value) (vk:memory value) (cffi:null-pointer))
+          %vk:handle-type (vk:handle-type value))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-memory-win32-handle-properties-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -3475,6 +3512,36 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:semaphore-get-fd-info-khr))
     (setf %vk:s-type :semaphore-get-fd-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:semaphore (if (vk:semaphore value) (vk:semaphore value) (cffi:null-pointer))
+          %vk:handle-type (vk:handle-type value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-import-semaphore-zircon-handle-info-fuchsia) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:semaphore
+        %vk:flags
+        %vk:handle-type
+        %vk:zircon-handle)
+       ptr
+       (:struct %vk:import-semaphore-zircon-handle-info-fuchsia))
+    (setf %vk:s-type :import-semaphore-zircon-handle-info-fuchsia
+          %vk:p-next (cffi:null-pointer)
+          %vk:semaphore (if (vk:semaphore value) (vk:semaphore value) (cffi:null-pointer))
+          %vk:flags (vk:flags value)
+          %vk:handle-type (vk:handle-type value)
+          %vk:zircon-handle (vk:zircon-handle value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-semaphore-get-zircon-handle-info-fuchsia) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:semaphore
+        %vk:handle-type)
+       ptr
+       (:struct %vk:semaphore-get-zircon-handle-info-fuchsia))
+    (setf %vk:s-type :semaphore-get-zircon-handle-info-fuchsia
           %vk:p-next (cffi:null-pointer)
           %vk:semaphore (if (vk:semaphore value) (vk:semaphore value) (cffi:null-pointer))
           %vk:handle-type (vk:handle-type value))))

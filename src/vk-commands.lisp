@@ -2334,6 +2334,27 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (fd :int fd :in :raw)
   (memory-fd-properties '(:struct %vk:memory-fd-properties-khr) memory-fd-properties :out))
 
+(defvk-get-struct-fun (get-memory-zircon-handle-fuchsia
+                       %vk:get-memory-zircon-handle-fuchsia
+                       "Represents <vkGetMemoryZirconHandleFUCHSIA>"
+                       ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:memory-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
+                       ()
+                       t)
+  (device '%vk:device device :in :handle)
+  (get-zircon-handle-info '(:struct %vk:memory-get-zircon-handle-info-fuchsia) get-zircon-handle-info :in)
+  (zircon-handle '(:pointer :void) zircon-handle :out :handle))
+
+(defvk-get-struct-fun (get-memory-zircon-handle-properties-fuchsia
+                       %vk:get-memory-zircon-handle-properties-fuchsia
+                       "Represents <vkGetMemoryZirconHandlePropertiesFUCHSIA>"
+                       ((device cffi:foreign-pointer) (handle-type keyword) (zircon-handle cffi:foreign-pointer))
+                       ()
+                       t)
+  (device '%vk:device device :in :handle)
+  (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
+  (zircon-handle '(:pointer :void) zircon-handle :in :handle)
+  (memory-zircon-handle-properties '(:struct %vk:memory-zircon-handle-properties-fuchsia) memory-zircon-handle-properties :out))
+
 (defvk-get-struct-fun (get-physical-device-external-semaphore-properties
                        %vk:get-physical-device-external-semaphore-properties
                        "Represents <vkGetPhysicalDeviceExternalSemaphoreProperties>"
@@ -2388,6 +2409,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil)
   (device '%vk:device device :in :handle)
   (import-semaphore-fd-info '(:struct %vk:import-semaphore-fd-info-khr) import-semaphore-fd-info :in))
+
+(defvk-get-struct-fun (get-semaphore-zircon-handle-fuchsia
+                       %vk:get-semaphore-zircon-handle-fuchsia
+                       "Represents <vkGetSemaphoreZirconHandleFUCHSIA>"
+                       ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:semaphore-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
+                       ()
+                       t)
+  (device '%vk:device device :in :handle)
+  (get-zircon-handle-info '(:struct %vk:semaphore-get-zircon-handle-info-fuchsia) get-zircon-handle-info :in)
+  (zircon-handle '(:pointer :void) zircon-handle :out :handle))
+
+(defvk-simple-fun (import-semaphore-zircon-handle-fuchsia
+                   %vk:import-semaphore-zircon-handle-fuchsia
+                   "Represents <vkImportSemaphoreZirconHandleFUCHSIA>"
+                   ((device cffi:foreign-pointer) (import-semaphore-zircon-handle-info (or vk:import-semaphore-zircon-handle-info-fuchsia cffi:foreign-pointer)))
+                   ()
+                  nil
+                  t)
+  (device '%vk:device device :in :handle)
+  (import-semaphore-zircon-handle-info '(:struct %vk:import-semaphore-zircon-handle-info-fuchsia) import-semaphore-zircon-handle-info :in))
 
 (defvk-get-struct-fun (get-physical-device-external-fence-properties
                        %vk:get-physical-device-external-fence-properties

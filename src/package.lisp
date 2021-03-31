@@ -123,6 +123,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-validation-flags-extension-name+
     #:+ext-vertex-attribute-divisor-extension-name+
     #:+ext-ycbcr-image-arrays-extension-name+
+    #:+fuchsia-external-memory-extension-name+
+    #:+fuchsia-external-semaphore-extension-name+
     #:+fuchsia-imagepipe-surface-extension-name+
     #:+ggp-frame-token-extension-name+
     #:+ggp-stream-descriptor-surface-extension-name+
@@ -1054,10 +1056,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-import-memory-win32-handle-info-khr
     #:import-memory-win32-handle-info-nv ;; :struct
     #:c-import-memory-win32-handle-info-nv
+    #:import-memory-zircon-handle-info-fuchsia ;; :struct
+    #:c-import-memory-zircon-handle-info-fuchsia
     #:import-semaphore-fd-info-khr ;; :struct
     #:c-import-semaphore-fd-info-khr
     #:import-semaphore-win32-handle-info-khr ;; :struct
     #:c-import-semaphore-win32-handle-info-khr
+    #:import-semaphore-zircon-handle-info-fuchsia ;; :struct
+    #:c-import-semaphore-zircon-handle-info-fuchsia
     #:index-type ;; :enum
     #:indirect-commands-layout-create-info-nv ;; :struct
     #:c-indirect-commands-layout-create-info-nv
@@ -1122,6 +1128,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-memory-get-fd-info-khr
     #:memory-get-win32-handle-info-khr ;; :struct
     #:c-memory-get-win32-handle-info-khr
+    #:memory-get-zircon-handle-info-fuchsia ;; :struct
+    #:c-memory-get-zircon-handle-info-fuchsia
     #:memory-heap ;; :struct
     #:c-memory-heap
     #:memory-heap-flag-bits ;; :enum
@@ -1148,6 +1156,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-memory-type
     #:memory-win32-handle-properties-khr ;; :struct
     #:c-memory-win32-handle-properties-khr
+    #:memory-zircon-handle-properties-fuchsia ;; :struct
+    #:c-memory-zircon-handle-properties-fuchsia
     #:metal-surface-create-flags-ext ;; :bitmask
     #:metal-surface-create-info-ext ;; :struct
     #:c-metal-surface-create-info-ext
@@ -1877,6 +1887,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-semaphore-get-fd-info-khr
     #:semaphore-get-win32-handle-info-khr ;; :struct
     #:c-semaphore-get-win32-handle-info-khr
+    #:semaphore-get-zircon-handle-info-fuchsia ;; :struct
+    #:c-semaphore-get-zircon-handle-info-fuchsia
     #:semaphore-import-flag-bits ;; :enum
     #:semaphore-import-flag-bits-khr ;; :enum
     #:semaphore-import-flags ;; :bitmask
@@ -2443,6 +2455,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-memory-win32-handle-khr
     #:get-memory-win32-handle-nv
     #:get-memory-win32-handle-properties-khr
+    #:get-memory-zircon-handle-fuchsia
+    #:get-memory-zircon-handle-properties-fuchsia
     #:get-past-presentation-timing-google
     #:get-performance-parameter-intel
     #:get-physical-device-calibrateable-time-domains-ext
@@ -2518,6 +2532,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-semaphore-counter-value-khr
     #:get-semaphore-fd-khr
     #:get-semaphore-win32-handle-khr
+    #:get-semaphore-zircon-handle-fuchsia
     #:get-shader-info-amd
     #:get-swapchain-counter-ext
     #:get-swapchain-images-khr
@@ -2528,6 +2543,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:import-fence-win32-handle-khr
     #:import-semaphore-fd-khr
     #:import-semaphore-win32-handle-khr
+    #:import-semaphore-zircon-handle-fuchsia
     #:initialize-performance-api-intel
     #:invalidate-mapped-memory-ranges
     #:map-memory
@@ -3995,6 +4011,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:ycbcr-range ;; :accessor
     #:ycoeff ;; :accessor
     #:z ;; :accessor
+    #:zircon-handle ;; :accessor
 ))
 
 (defpackage :vk
@@ -4100,6 +4117,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-validation-flags-extension-name+
     #:+ext-vertex-attribute-divisor-extension-name+
     #:+ext-ycbcr-image-arrays-extension-name+
+    #:+fuchsia-external-memory-extension-name+
+    #:+fuchsia-external-semaphore-extension-name+
     #:+fuchsia-imagepipe-surface-extension-name+
     #:+ggp-frame-token-extension-name+
     #:+ggp-stream-descriptor-surface-extension-name+
@@ -4335,6 +4354,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-validation-flags-extension-name+
     #:+ext-vertex-attribute-divisor-extension-name+
     #:+ext-ycbcr-image-arrays-extension-name+
+    #:+fuchsia-external-memory-extension-name+
+    #:+fuchsia-external-semaphore-extension-name+
     #:+fuchsia-imagepipe-surface-extension-name+
     #:+ggp-frame-token-extension-name+
     #:+ggp-stream-descriptor-surface-extension-name+
@@ -4712,8 +4733,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:import-memory-host-pointer-info-ext ;; :class
     #:import-memory-win32-handle-info-khr ;; :class
     #:import-memory-win32-handle-info-nv ;; :class
+    #:import-memory-zircon-handle-info-fuchsia ;; :class
     #:import-semaphore-fd-info-khr ;; :class
     #:import-semaphore-win32-handle-info-khr ;; :class
+    #:import-semaphore-zircon-handle-info-fuchsia ;; :class
     #:indirect-commands-layout-create-info-nv ;; :class
     #:indirect-commands-layout-token-nv ;; :class
     #:indirect-commands-stream-nv ;; :class
@@ -4733,6 +4756,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-get-android-hardware-buffer-info-android ;; :class
     #:memory-get-fd-info-khr ;; :class
     #:memory-get-win32-handle-info-khr ;; :class
+    #:memory-get-zircon-handle-info-fuchsia ;; :class
     #:memory-heap ;; :class
     #:memory-host-pointer-properties-ext ;; :class
     #:memory-opaque-capture-address-allocate-info ;; :class
@@ -4741,6 +4765,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-requirements-2 ;; :class
     #:memory-type ;; :class
     #:memory-win32-handle-properties-khr ;; :class
+    #:memory-zircon-handle-properties-fuchsia ;; :class
     #:metal-surface-create-info-ext ;; :class
     #:multisample-properties-ext ;; :class
     #:mutable-descriptor-type-create-info-valve ;; :class
@@ -4996,6 +5021,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:semaphore-create-info ;; :class
     #:semaphore-get-fd-info-khr ;; :class
     #:semaphore-get-win32-handle-info-khr ;; :class
+    #:semaphore-get-zircon-handle-info-fuchsia ;; :class
     #:semaphore-signal-info ;; :class
     #:semaphore-submit-info-khr ;; :class
     #:semaphore-type-create-info ;; :class
@@ -6484,6 +6510,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:ycbcr-range ;; :accessor
     #:ycoeff ;; :accessor
     #:z ;; :accessor
+    #:zircon-handle ;; :accessor
 
     #:acquire-full-screen-exclusive-mode-ext
     #:acquire-next-image-2-khr
@@ -6809,6 +6836,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-memory-win32-handle-khr
     #:get-memory-win32-handle-nv
     #:get-memory-win32-handle-properties-khr
+    #:get-memory-zircon-handle-fuchsia
+    #:get-memory-zircon-handle-properties-fuchsia
     #:get-past-presentation-timing-google
     #:get-performance-parameter-intel
     #:get-physical-device-calibrateable-time-domains-ext
@@ -6884,6 +6913,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-semaphore-counter-value-khr
     #:get-semaphore-fd-khr
     #:get-semaphore-win32-handle-khr
+    #:get-semaphore-zircon-handle-fuchsia
     #:get-shader-info-amd
     #:get-swapchain-counter-ext
     #:get-swapchain-images-khr
@@ -6894,6 +6924,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:import-fence-win32-handle-khr
     #:import-semaphore-fd-khr
     #:import-semaphore-win32-handle-khr
+    #:import-semaphore-zircon-handle-fuchsia
     #:initialize-performance-api-intel
     #:invalidate-mapped-memory-ranges
     #:map-memory
