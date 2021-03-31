@@ -4871,11 +4871,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-get-struct-fun (get-acceleration-structure-build-sizes-khr
                        %vk:get-acceleration-structure-build-sizes-khr
                        "Represents <vkGetAccelerationStructureBuildSizesKHR>"
-                       ((device cffi:foreign-pointer) (build-type keyword) (build-info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)) (max-primitive-counts list))
-                       ())
+                       ((device cffi:foreign-pointer) (build-type keyword) (build-info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)))
+                       (((max-primitive-counts nil) list)))
   (device '%vk:device device :in :handle)
   (build-type '%vk:acceleration-structure-build-type-khr build-type :in :raw)
   (build-info '(:struct %vk:acceleration-structure-build-geometry-info-khr) build-info :in)
-  (max-primitive-counts :uint32 max-primitive-counts :in :list)
+  (max-primitive-counts :uint32 max-primitive-counts :in :list :optional)
   (size-info '(:struct %vk:acceleration-structure-build-sizes-info-khr) size-info :out))
 

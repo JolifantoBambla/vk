@@ -5266,7 +5266,7 @@ See DEBUG-REPORT-OBJECT-TYPE-EXT
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MARKER-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
- - COLOR (optional): a single-float.
+ - COLOR: a single-float.
 "))
 
 (defclass dedicated-allocation-image-create-info-nv ()
@@ -5969,9 +5969,9 @@ Slots:
  - PREPROCESS-OFFSET: a DEVICE-SIZE.
  - PREPROCESS-SIZE: a DEVICE-SIZE.
  - SEQUENCES-COUNT-BUFFER (optional): a BUFFER.
- - SEQUENCES-COUNT-OFFSET (optional): a DEVICE-SIZE.
+ - SEQUENCES-COUNT-OFFSET: a DEVICE-SIZE.
  - SEQUENCES-INDEX-BUFFER (optional): a BUFFER.
- - SEQUENCES-INDEX-OFFSET (optional): a DEVICE-SIZE.
+ - SEQUENCES-INDEX-OFFSET: a DEVICE-SIZE.
 
 See PIPELINE-BIND-POINT
 See PIPELINE
@@ -6931,7 +6931,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SEMAPHORE: a SEMAPHORE.
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-IMPORT-FLAGS.
- - HANDLE-TYPE (optional): an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
+ - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
  - HANDLE (optional): a HANDLE.
  - NAME (optional): a LPCWSTR.
 
@@ -7181,7 +7181,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FENCE: a FENCE.
  - FLAGS (optional): a list containing a valid combination of FENCE-IMPORT-FLAGS.
- - HANDLE-TYPE (optional): an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
+ - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
  - HANDLE (optional): a HANDLE.
  - NAME (optional): a LPCWSTR.
 
@@ -9423,7 +9423,7 @@ Slots:
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SAMPLE-LOCATIONS-PER-PIXEL (optional): an enum value of SAMPLE-COUNT-FLAG-BITS.
+ - SAMPLE-LOCATIONS-PER-PIXEL: an enum value of SAMPLE-COUNT-FLAG-BITS.
  - SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
  - SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size SAMPLE-LOCATIONS-COUNTs.
 
@@ -10323,7 +10323,7 @@ See OBJECT-TYPE
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LABEL-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
- - COLOR (optional): a single-float.
+ - COLOR: a single-float.
 "))
 
 (defclass debug-utils-messenger-create-info-ext ()
@@ -10409,7 +10409,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of DEBUG-UTILS-MESSENGER-CALLBACK-DATA-FLAGS-EXT.
  - MESSAGE-ID-NAME (optional): a foreign pointer to a buffer of size NULL-TERMINATED.
- - MESSAGE-ID-NUMBER (optional): a (32-bit) integer.
+ - MESSAGE-ID-NUMBER: a (32-bit) integer.
  - MESSAGE: a foreign pointer to a buffer of size NULL-TERMINATED.
  - QUEUE-LABELS: a list of foreign pointer to a buffer of size QUEUE-LABEL-COUNTs.
  - CMD-BUF-LABELS: a list of foreign pointer to a buffer of size CMD-BUF-LABEL-COUNTs.
@@ -10514,10 +10514,10 @@ Slots:
  - FLAGS: a list containing a valid combination of DEVICE-MEMORY-REPORT-FLAGS-EXT.
  - TYPE: an enum value of DEVICE-MEMORY-REPORT-EVENT-TYPE-EXT.
  - MEMORY-OBJECT-ID: a positive (64-bit) integer.
- - SIZE (optional): a DEVICE-SIZE.
- - OBJECT-TYPE (optional): an enum value of OBJECT-TYPE.
- - OBJECT-HANDLE (optional): a positive (64-bit) integer.
- - HEAP-INDEX (optional): a positive (32-bit) integer.
+ - SIZE: a DEVICE-SIZE.
+ - OBJECT-TYPE: an enum value of OBJECT-TYPE.
+ - OBJECT-HANDLE: a positive (64-bit) integer.
+ - HEAP-INDEX: a positive (32-bit) integer.
 
 See DEVICE-MEMORY-REPORT-FLAGS-EXT
 See DEVICE-MEMORY-REPORT-EVENT-TYPE-EXT
@@ -11311,7 +11311,7 @@ Slots:
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
- - VIEW-OFFSET (optional): a (32-bit) integer.
+ - VIEW-OFFSET: a (32-bit) integer.
 
 See PIPELINE-STAGE-FLAGS
 See ACCESS-FLAGS
@@ -15623,7 +15623,7 @@ Slots:
  - NAME: a string.
  - DESCRIPTION: a string.
  - IS-TEXT: a BOOL32.
- - DATA-SIZE (optional): a positive integer.
+ - DATA-SIZE: a positive integer.
  - DATA (optional): a foreign pointer to a buffer of size DATA-SIZE.
 
 See BOOL32
@@ -15922,8 +15922,8 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LINE-RASTERIZATION-MODE: an enum value of LINE-RASTERIZATION-MODE-EXT.
  - STIPPLED-LINE-ENABLE: a BOOL32.
- - LINE-STIPPLE-FACTOR (optional): a positive (32-bit) integer.
- - LINE-STIPPLE-PATTERN (optional): a positive (16-bit) integer.
+ - LINE-STIPPLE-FACTOR: a positive (32-bit) integer.
+ - LINE-STIPPLE-PATTERN: a positive (16-bit) integer.
 
 See LINE-RASTERIZATION-MODE-EXT
 See BOOL32
@@ -16888,8 +16888,8 @@ Slots:
  - VERTEX-STRIDE: a DEVICE-SIZE.
  - MAX-VERTEX: a positive (32-bit) integer.
  - INDEX-TYPE: an enum value of INDEX-TYPE.
- - INDEX-DATA (optional): a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
- - TRANSFORM-DATA (optional): a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
+ - INDEX-DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
+ - TRANSFORM-DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
 
 See FORMAT
 See DEVICE-SIZE
@@ -17077,8 +17077,8 @@ See DEVICE-OR-HOST-ADDRESS-KHR
 Slots:
  - PRIMITIVE-COUNT: a positive (32-bit) integer.
  - PRIMITIVE-OFFSET: a positive (32-bit) integer.
- - FIRST-VERTEX (optional): a positive (32-bit) integer.
- - TRANSFORM-OFFSET (optional): a positive (32-bit) integer.
+ - FIRST-VERTEX: a positive (32-bit) integer.
+ - TRANSFORM-OFFSET: a positive (32-bit) integer.
 "))
 
 (defclass acceleration-structure-create-info-khr ()
