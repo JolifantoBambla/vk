@@ -1908,6 +1908,28 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (surface '%vk:surface-khr surface :out :handle))
 
+(defvk-create-handle-fun (create-screen-surface-qnx
+                          %vk:create-screen-surface-qnx
+                          "Represents <vkCreateScreenSurfaceQNX>"
+                          ((instance cffi:foreign-pointer) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil
+                          t)
+  (instance '%vk:instance instance :in :handle)
+  (create-info '(:struct %vk:screen-surface-create-info-qnx) create-info :in)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
+  (surface '%vk:surface-khr surface :out :handle))
+
+(defvk-get-struct-fun (get-physical-device-screen-presentation-support-qnx
+                       %vk:get-physical-device-screen-presentation-support-qnx
+                       "Represents <vkGetPhysicalDeviceScreenPresentationSupportQNX>"
+                       ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
+                       ()
+                       t)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (queue-family-index :uint32 queue-family-index :in :raw)
+  (window '(:pointer :void) window :out :handle))
+
 (defvk-create-handle-fun (create-debug-report-callback-ext
                           %vk:create-debug-report-callback-ext
                           "Represents <vkCreateDebugReportCallbackEXT>"

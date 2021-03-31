@@ -2355,6 +2355,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:flags (vk:flags value)
           %vk:stream-descriptor (vk:stream-descriptor value))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-screen-surface-create-info-qnx) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:context
+        %vk:window)
+       ptr
+       (:struct %vk:screen-surface-create-info-qnx))
+    (setf %vk:s-type :screen-surface-create-info-qnx
+          %vk:p-next (cffi:null-pointer)
+          %vk:flags (vk:flags value)
+          %vk:context (vk:context value)
+          %vk:window (vk:window value))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-surface-format-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:format

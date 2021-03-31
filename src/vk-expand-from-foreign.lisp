@@ -2346,6 +2346,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :flags %vk:flags
                    :stream-descriptor %vk:stream-descriptor)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-screen-surface-create-info-qnx))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:context
+        %vk:window)
+       ,ptr
+       (:struct %vk:screen-surface-create-info-qnx))
+    (make-instance 'vk:screen-surface-create-info-qnx
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :context %vk:context
+                   :window %vk:window)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-surface-format-khr))
   `(cffi:with-foreign-slots
       ((%vk:format

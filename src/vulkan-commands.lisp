@@ -1011,6 +1011,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-surface (:pointer surface-khr)))
 
+(defvkextfun ("vkCreateScreenSurfaceQNX" create-screen-surface-qnx) checked-result
+  (instance instance)
+  (p-create-info (:pointer (:struct screen-surface-create-info-qnx)))
+  (p-allocator (:pointer (:struct allocation-callbacks)))
+  (p-surface (:pointer surface-khr)))
+
+(defvkextfun ("vkGetPhysicalDeviceScreenPresentationSupportQNX" get-physical-device-screen-presentation-support-qnx) bool32
+  (physical-device physical-device)
+  (queue-family-index :uint32)
+  (window (:pointer _screen_window)))
+
 (defvkextfun ("vkCreateDebugReportCallbackEXT" create-debug-report-callback-ext) checked-result
   (instance instance)
   (p-create-info (:pointer (:struct debug-report-callback-create-info-ext)))

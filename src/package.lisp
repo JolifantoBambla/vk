@@ -256,6 +256,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
+    #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+
 
     #:a-hardware-buffer ;; :basetype
@@ -1865,6 +1866,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sampler-ycbcr-range ;; :enum
     #:sampler-ycbcr-range-khr ;; :enum
     #:scope-nv ;; :enum
+    #:screen-surface-create-flags-qnx ;; :bitmask
+    #:screen-surface-create-info-qnx ;; :struct
+    #:c-screen-surface-create-info-qnx
     #:semaphore ;; :handle
     #:semaphore-create-flags ;; :bitmask
     #:semaphore-create-info ;; :struct
@@ -2315,6 +2319,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:create-sampler
     #:create-sampler-ycbcr-conversion
     #:create-sampler-ycbcr-conversion-khr
+    #:create-screen-surface-qnx
     #:create-semaphore
     #:create-shader-module
     #:create-shared-swapchains-khr
@@ -2476,6 +2481,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-physical-device-queue-family-properties
     #:get-physical-device-queue-family-properties-2
     #:get-physical-device-queue-family-properties-2-khr
+    #:get-physical-device-screen-presentation-support-qnx
     #:get-physical-device-sparse-image-format-properties
     #:get-physical-device-sparse-image-format-properties-2
     #:get-physical-device-sparse-image-format-properties-2-khr
@@ -2699,6 +2705,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:constant-alpha-color-blend-factors ;; :accessor
     #:constant-id ;; :accessor
     #:contents ;; :accessor
+    #:context ;; :accessor
     #:conversion ;; :accessor
     #:cooperative-matrix ;; :accessor
     #:cooperative-matrix-robust-buffer-access ;; :accessor
@@ -4226,6 +4233,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
+    #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+)
   (:export
     #:make-extension-loader
@@ -4460,6 +4468,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
+    #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+
 
     #:aabb-positions-khr ;; :class
@@ -4983,6 +4992,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sampler-ycbcr-conversion-create-info ;; :class
     #:sampler-ycbcr-conversion-image-format-properties ;; :class
     #:sampler-ycbcr-conversion-info ;; :class
+    #:screen-surface-create-info-qnx ;; :class
     #:semaphore-create-info ;; :class
     #:semaphore-get-fd-info-khr ;; :class
     #:semaphore-get-win32-handle-info-khr ;; :class
@@ -5189,6 +5199,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:constant-alpha-color-blend-factors ;; :accessor
     #:constant-id ;; :accessor
     #:contents ;; :accessor
+    #:context ;; :accessor
     #:conversion ;; :accessor
     #:cooperative-matrix ;; :accessor
     #:cooperative-matrix-robust-buffer-access ;; :accessor
@@ -6674,6 +6685,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:create-sampler
     #:create-sampler-ycbcr-conversion
     #:create-sampler-ycbcr-conversion-khr
+    #:create-screen-surface-qnx
     #:create-semaphore
     #:create-shader-module
     #:create-shared-swapchains-khr
@@ -6835,6 +6847,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-physical-device-queue-family-properties
     #:get-physical-device-queue-family-properties-2
     #:get-physical-device-queue-family-properties-2-khr
+    #:get-physical-device-screen-presentation-support-qnx
     #:get-physical-device-sparse-image-format-properties
     #:get-physical-device-sparse-image-format-properties-2
     #:get-physical-device-sparse-image-format-properties-2-khr

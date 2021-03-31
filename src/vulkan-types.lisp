@@ -233,6 +233,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +qcom-render-pass-transform-extension-name+ "VK_QCOM_render_pass_transform" :test #'string=)
 (alexandria:define-constant +qcom-rotated-copy-commands-extension-name+ "VK_QCOM_rotated_copy_commands" :test #'string=)
 (alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops" :test #'string=)
+(alexandria:define-constant +qnx-screen-surface-extension-name+ "VK_QNX_screen_surface" :test #'string=)
 (alexandria:define-constant +valve-mutable-descriptor-type-extension-name+ "VK_VALVE_mutable_descriptor_type" :test #'string=)
 
 (defctype sample-mask :uint32)
@@ -303,6 +304,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct wl_surface)
 
 (defcstruct security_attributes)
+
+(defcstruct _screen_context)
+
+(defcstruct _screen_window)
 
 (defctype instance handle)
 
@@ -981,6 +986,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defbitfield (stream-descriptor-surface-create-flags-ggp flags))
 
 (defbitfield (headless-surface-create-flags-ext flags))
+
+(defbitfield (screen-surface-create-flags-qnx flags))
 
 (defbitfield (peer-memory-feature-flags flags)
   (:copy-src #x1) ;; Can read with vkCmdCopy commands
@@ -2594,7 +2601,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-ray-tracing-pipeline-properties-khr #x3BA01579) ;; 
   (:physical-device-ray-query-features-khr #x3BA0196D) ;; 
   (:physical-device-mutable-descriptor-type-features-valve #x3BA02518) ;; 
-  (:mutable-descriptor-type-create-info-valve #x3BA0251A)) ;; 
+  (:mutable-descriptor-type-create-info-valve #x3BA0251A) ;; 
+  (:screen-surface-create-info-qnx #x3BA08E90)) ;; 
 
 (defcenum (system-allocation-scope)
   (:command #x0)
@@ -4733,6 +4741,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags stream-descriptor-surface-create-flags-ggp)
   (stream-descriptor ggp-stream-descriptor))
+
+(defcstruct (screen-surface-create-info-qnx :class c-screen-surface-create-info-qnx)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags screen-surface-create-flags-qnx)
+  (context (:pointer _screen_context))
+  (window (:pointer _screen_window)))
 
 (defcstruct (surface-format-khr :class c-surface-format-khr)
   (format format)

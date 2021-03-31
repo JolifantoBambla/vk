@@ -4928,6 +4928,36 @@ See STREAM-DESCRIPTOR-SURFACE-CREATE-FLAGS-GGP
 See GGP-STREAM-DESCRIPTOR
 "))
 
+(defclass screen-surface-create-info-qnx ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (context
+     :initarg :context
+     :initform nil
+     :accessor context)
+   (window
+     :initarg :window
+     :initform nil
+     :accessor window))
+  (:documentation "Represents the struct [VkScreenSurfaceCreateInfoQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkScreenSurfaceCreateInfoQNX.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FLAGS (optional): a list containing a valid combination of SCREEN-SURFACE-CREATE-FLAGS-QNX.
+ - CONTEXT: a _SCREEN_CONTEXT.
+ - WINDOW: a _SCREEN_WINDOW.
+
+See SCREEN-SURFACE-CREATE-FLAGS-QNX
+See _SCREEN_CONTEXT
+See _SCREEN_WINDOW
+"))
+
 (defclass surface-format-khr ()
   ((format
      :initarg :format
