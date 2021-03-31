@@ -45,6 +45,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-depth-clip-enable-extension-name+ "VK_EXT_depth_clip_enable" :test #'string=)
 (alexandria:define-constant +ext-depth-range-unrestricted-extension-name+ "VK_EXT_depth_range_unrestricted" :test #'string=)
 (alexandria:define-constant +ext-descriptor-indexing-extension-name+ "VK_EXT_descriptor_indexing" :test #'string=)
+(alexandria:define-constant +ext-device-memory-report-extension-name+ "VK_EXT_device_memory_report" :test #'string=)
 (alexandria:define-constant +ext-directfb-surface-extension-name+ "VK_EXT_directfb_surface" :test #'string=)
 (alexandria:define-constant +ext-direct-mode-display-extension-name+ "VK_EXT_direct_mode_display" :test #'string=)
 (alexandria:define-constant +ext-discard-rectangles-extension-name+ "VK_EXT_discard_rectangles" :test #'string=)
@@ -1055,6 +1056,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defbitfield (debug-utils-messenger-create-flags-ext flags))
 
 (defbitfield (debug-utils-messenger-callback-data-flags-ext flags))
+
+(defbitfield (device-memory-report-flags-ext flags))
 
 (defbitfield (pipeline-rasterization-conservative-state-create-flags-ext flags))
 
@@ -2427,6 +2430,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-texel-buffer-alignment-properties-ext #x3B9F13A9) ;; 
   (:command-buffer-inheritance-render-pass-transform-info-qcom #x3B9F1790) ;; 
   (:render-pass-transform-begin-info-qcom #x3B9F1791) ;; 
+  (:physical-device-device-memory-report-features-ext #x3B9F1F60) ;; 
+  (:device-device-memory-report-create-info-ext #x3B9F1F61) ;; 
+  (:device-memory-report-callback-data-ext #x3B9F1F62) ;; 
   (:physical-device-robustness-2-features-ext #x3B9F2730) ;; 
   (:physical-device-robustness-2-properties-ext #x3B9F2731) ;; 
   (:sampler-custom-border-color-create-info-ext #x3B9F2B18) ;; 
@@ -3006,6 +3012,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:sampler-ycbcr-conversion-ext #x3B9D2B60) ;; 
   (:acceleration-structure-khr-ext #x3B9D4E88)) ;; 
 
+(defcenum (device-memory-report-event-type-ext)
+  (:allocate-ext #x0)
+  (:free-ext #x1)
+  (:import-ext #x2)
+  (:unimport-ext #x3)
+  (:allocation-failed-ext #x4))
+
 (defcenum (rasterization-order-amd)
   (:strict-amd #x0)
   (:relaxed-amd #x1))
@@ -3351,6 +3364,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defctype pfn-debug-report-callback-ext :pointer)
 
 (defctype pfn-debug-utils-messenger-callback-ext :pointer)
+
+(defctype pfn-device-memory-report-callback-ext :pointer)
 
 (defcstruct (base-out-structure :class c-base-out-structure)
   (s-type structure-type)
@@ -6267,6 +6282,29 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-cmd-buf-labels (:pointer (:struct debug-utils-label-ext)))
   (object-count :uint32)
   (p-objects (:pointer (:struct debug-utils-object-name-info-ext))))
+
+(defcstruct (physical-device-device-memory-report-features-ext :class c-physical-device-device-memory-report-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (device-memory-report bool32))
+
+(defcstruct (device-device-memory-report-create-info-ext :class c-device-device-memory-report-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags device-memory-report-flags-ext)
+  (pfn-user-callback pfn-device-memory-report-callback-ext)
+  (p-user-data (:pointer :void)))
+
+(defcstruct (device-memory-report-callback-data-ext :class c-device-memory-report-callback-data-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags device-memory-report-flags-ext)
+  (type device-memory-report-event-type-ext)
+  (memory-object-id :uint64)
+  (size device-size)
+  (object-type object-type)
+  (object-handle :uint64)
+  (heap-index :uint32))
 
 (defcstruct (import-memory-host-pointer-info-ext :class c-import-memory-host-pointer-info-ext)
   (s-type structure-type)

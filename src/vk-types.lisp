@@ -10420,6 +10420,111 @@ See DEBUG-UTILS-LABEL-EXT
 See DEBUG-UTILS-OBJECT-NAME-INFO-EXT
 "))
 
+(defclass physical-device-device-memory-report-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (device-memory-report
+     :initarg :device-memory-report
+     :initform nil
+     :accessor device-memory-report))
+  (:documentation "Represents the struct [VkPhysicalDeviceDeviceMemoryReportFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDeviceMemoryReportFeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - DEVICE-MEMORY-REPORT: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass device-device-memory-report-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (pfn-user-callback
+     :initarg :pfn-user-callback
+     :initform nil
+     :accessor pfn-user-callback)
+   (user-data
+     :initarg :user-data
+     :initform nil
+     :accessor user-data))
+  (:documentation "Represents the struct [VkDeviceDeviceMemoryReportCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceDeviceMemoryReportCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FLAGS: a list containing a valid combination of DEVICE-MEMORY-REPORT-FLAGS-EXT.
+ - PFN-USER-CALLBACK: a PFN-DEVICE-MEMORY-REPORT-CALLBACK-EXT.
+ - USER-DATA: a foreign pointer.
+
+See DEVICE-MEMORY-REPORT-FLAGS-EXT
+See PFN-DEVICE-MEMORY-REPORT-CALLBACK-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See DEVICE-CREATE-INFO
+"))
+
+(defclass device-memory-report-callback-data-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (type
+     :initarg :type
+     :initform nil
+     :accessor type)
+   (memory-object-id
+     :initarg :memory-object-id
+     :initform 0
+     :accessor memory-object-id)
+   (size
+     :initarg :size
+     :initform nil
+     :accessor size)
+   (object-type
+     :initarg :object-type
+     :initform nil
+     :accessor object-type)
+   (object-handle
+     :initarg :object-handle
+     :initform 0
+     :accessor object-handle)
+   (heap-index
+     :initarg :heap-index
+     :initform 0
+     :accessor heap-index))
+  (:documentation "Represents the struct [VkDeviceMemoryReportCallbackDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemoryReportCallbackDataEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FLAGS: a list containing a valid combination of DEVICE-MEMORY-REPORT-FLAGS-EXT.
+ - TYPE: an enum value of DEVICE-MEMORY-REPORT-EVENT-TYPE-EXT.
+ - MEMORY-OBJECT-ID: a positive (64-bit) integer.
+ - SIZE (optional): a DEVICE-SIZE.
+ - OBJECT-TYPE (optional): an enum value of OBJECT-TYPE.
+ - OBJECT-HANDLE (optional): a positive (64-bit) integer.
+ - HEAP-INDEX (optional): a positive (32-bit) integer.
+
+See DEVICE-MEMORY-REPORT-FLAGS-EXT
+See DEVICE-MEMORY-REPORT-EVENT-TYPE-EXT
+See DEVICE-SIZE
+See OBJECT-TYPE
+"))
+
 (defclass import-memory-host-pointer-info-ext ()
   ((next
      :initarg :next

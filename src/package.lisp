@@ -68,6 +68,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-depth-clip-enable-extension-name+
     #:+ext-depth-range-unrestricted-extension-name+
     #:+ext-descriptor-indexing-extension-name+
+    #:+ext-device-memory-report-extension-name+
     #:+ext-directfb-surface-extension-name+
     #:+ext-direct-mode-display-extension-name+
     #:+ext-discard-rectangles-extension-name+
@@ -252,6 +253,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pfn-allocation-function ;; :funcpointer
     #:pfn-debug-report-callback-ext ;; :funcpointer
     #:pfn-debug-utils-messenger-callback-ext ;; :funcpointer
+    #:pfn-device-memory-report-callback-ext ;; :funcpointer
     #:pfn-free-function ;; :funcpointer
     #:pfn-internal-allocation-notification ;; :funcpointer
     #:pfn-internal-free-notification ;; :funcpointer
@@ -630,6 +632,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-create-flags ;; :bitmask
     #:device-create-info ;; :struct
     #:c-device-create-info
+    #:device-device-memory-report-create-info-ext ;; :struct
+    #:c-device-device-memory-report-create-info-ext
     #:device-diagnostics-config-create-info-nv ;; :struct
     #:c-device-diagnostics-config-create-info-nv
     #:device-diagnostics-config-flag-bits-nv ;; :enum
@@ -672,6 +676,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-device-memory-opaque-capture-address-info-khr
     #:device-memory-overallocation-create-info-amd ;; :struct
     #:c-device-memory-overallocation-create-info-amd
+    #:device-memory-report-callback-data-ext ;; :struct
+    #:c-device-memory-report-callback-data-ext
+    #:device-memory-report-event-type-ext ;; :enum
+    #:device-memory-report-flags-ext ;; :bitmask
     #:device-or-host-address-const-khr ;; :union
     #:device-or-host-address-khr ;; :union
     #:device-private-data-create-info-ext ;; :struct
@@ -1221,6 +1229,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-device-generated-commands-features-nv
     #:physical-device-device-generated-commands-properties-nv ;; :struct
     #:c-physical-device-device-generated-commands-properties-nv
+    #:physical-device-device-memory-report-features-ext ;; :struct
+    #:c-physical-device-device-memory-report-features-ext
     #:physical-device-diagnostics-config-features-nv ;; :struct
     #:c-physical-device-diagnostics-config-features-nv
     #:physical-device-discard-rectangle-properties-ext ;; :struct
@@ -2673,6 +2683,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-luid ;; :accessor
     #:device-luid-valid ;; :accessor
     #:device-mask ;; :accessor
+    #:device-memory-report ;; :accessor
     #:device-name ;; :accessor
     #:device-node-mask ;; :accessor
     #:device-render-area-count ;; :accessor
@@ -3090,6 +3101,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-device-index ;; :accessor
     #:memory-heap-count ;; :accessor
     #:memory-heaps ;; :accessor
+    #:memory-object-id ;; :accessor
     #:memory-offset ;; :accessor
     #:memory-priority ;; :accessor
     #:memory-properties ;; :accessor
@@ -3874,6 +3886,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-depth-clip-enable-extension-name+
     #:+ext-depth-range-unrestricted-extension-name+
     #:+ext-descriptor-indexing-extension-name+
+    #:+ext-device-memory-report-extension-name+
     #:+ext-directfb-surface-extension-name+
     #:+ext-direct-mode-display-extension-name+
     #:+ext-discard-rectangles-extension-name+
@@ -4096,6 +4109,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-depth-clip-enable-extension-name+
     #:+ext-depth-range-unrestricted-extension-name+
     #:+ext-descriptor-indexing-extension-name+
+    #:+ext-device-memory-report-extension-name+
     #:+ext-directfb-surface-extension-name+
     #:+ext-direct-mode-display-extension-name+
     #:+ext-discard-rectangles-extension-name+
@@ -4388,6 +4402,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:descriptor-update-template-create-info ;; :class
     #:descriptor-update-template-entry ;; :class
     #:device-create-info ;; :class
+    #:device-device-memory-report-create-info-ext ;; :class
     #:device-diagnostics-config-create-info-nv ;; :class
     #:device-event-info-ext ;; :class
     #:device-group-bind-sparse-info ;; :class
@@ -4400,6 +4415,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-group-swapchain-create-info-khr ;; :class
     #:device-memory-opaque-capture-address-info ;; :class
     #:device-memory-overallocation-create-info-amd ;; :class
+    #:device-memory-report-callback-data-ext ;; :class
     #:device-or-host-address-const-khr ;; :class
     #:device-or-host-address-khr ;; :class
     #:device-private-data-create-info-ext ;; :class
@@ -4576,6 +4592,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-descriptor-indexing-properties ;; :class
     #:physical-device-device-generated-commands-features-nv ;; :class
     #:physical-device-device-generated-commands-properties-nv ;; :class
+    #:physical-device-device-memory-report-features-ext ;; :class
     #:physical-device-diagnostics-config-features-nv ;; :class
     #:physical-device-discard-rectangle-properties-ext ;; :class
     #:physical-device-driver-properties ;; :class
@@ -5043,6 +5060,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-luid ;; :accessor
     #:device-luid-valid ;; :accessor
     #:device-mask ;; :accessor
+    #:device-memory-report ;; :accessor
     #:device-name ;; :accessor
     #:device-node-mask ;; :accessor
     #:device-render-area-count ;; :accessor
@@ -5458,6 +5476,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-device-index ;; :accessor
     #:memory-heap-count ;; :accessor
     #:memory-heaps ;; :accessor
+    #:memory-object-id ;; :accessor
     #:memory-offset ;; :accessor
     #:memory-priority ;; :accessor
     #:memory-properties ;; :accessor

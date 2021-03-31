@@ -5201,6 +5201,55 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:object-count (length (vk:objects value))
           %vk:p-objects (vk-alloc:foreign-allocate-and-fill '(:struct %vk:debug-utils-object-name-info-ext) (vk:objects value) ptr))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-device-memory-report-features-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:device-memory-report)
+       ptr
+       (:struct %vk:physical-device-device-memory-report-features-ext))
+    (setf %vk:s-type :physical-device-device-memory-report-features-ext
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:device-memory-report (vk:device-memory-report value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-device-device-memory-report-create-info-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:pfn-user-callback
+        %vk:p-user-data)
+       ptr
+       (:struct %vk:device-device-memory-report-create-info-ext))
+    (setf %vk:s-type :device-device-memory-report-create-info-ext
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags value)
+          %vk:pfn-user-callback (vk:pfn-user-callback value)
+          %vk:p-user-data (if (vk:user-data value) (vk:user-data value) (cffi:null-pointer)))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-device-memory-report-callback-data-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:type
+        %vk:memory-object-id
+        %vk:size
+        %vk:object-type
+        %vk:object-handle
+        %vk:heap-index)
+       ptr
+       (:struct %vk:device-memory-report-callback-data-ext))
+    (setf %vk:s-type :device-memory-report-callback-data-ext
+          %vk:p-next (cffi:null-pointer)
+          %vk:flags (vk:flags value)
+          %vk:type (vk:type value)
+          %vk:memory-object-id (vk:memory-object-id value)
+          %vk:size (vk:size value)
+          %vk:object-type (vk:object-type value)
+          %vk:object-handle (vk:object-handle value)
+          %vk:heap-index (vk:heap-index value))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-import-memory-host-pointer-info-ext) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type

@@ -5171,6 +5171,55 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :cmd-buf-labels (loop for i from 0 below %vk:cmd-buf-label-count collect (cffi:mem-aref %vk:p-cmd-buf-labels '(:struct %vk:debug-utils-label-ext) i))
                    :objects (loop for i from 0 below %vk:object-count collect (cffi:mem-aref %vk:p-objects '(:struct %vk:debug-utils-object-name-info-ext) i)))))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-device-memory-report-features-ext))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:device-memory-report)
+       ,ptr
+       (:struct %vk:physical-device-device-memory-report-features-ext))
+    (make-instance 'vk:physical-device-device-memory-report-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :device-memory-report %vk:device-memory-report)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-device-device-memory-report-create-info-ext))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:pfn-user-callback
+        %vk:p-user-data)
+       ,ptr
+       (:struct %vk:device-device-memory-report-create-info-ext))
+    (make-instance 'vk:device-device-memory-report-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :pfn-user-callback %vk:pfn-user-callback
+                   :user-data %vk:p-user-data)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-device-memory-report-callback-data-ext))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:type
+        %vk:memory-object-id
+        %vk:size
+        %vk:object-type
+        %vk:object-handle
+        %vk:heap-index)
+       ,ptr
+       (:struct %vk:device-memory-report-callback-data-ext))
+    (make-instance 'vk:device-memory-report-callback-data-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :type %vk:type
+                   :memory-object-id %vk:memory-object-id
+                   :size %vk:size
+                   :object-type %vk:object-type
+                   :object-handle %vk:object-handle
+                   :heap-index %vk:heap-index)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-import-memory-host-pointer-info-ext))
   `(cffi:with-foreign-slots
       ((%vk:s-type
