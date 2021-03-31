@@ -186,8 +186,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-wayland-surface-extension-name+ "VK_KHR_wayland_surface" :test #'string=)
 (alexandria:define-constant +khr-win32-keyed-mutex-extension-name+ "VK_KHR_win32_keyed_mutex" :test #'string=)
 (alexandria:define-constant +khr-win32-surface-extension-name+ "VK_KHR_win32_surface" :test #'string=)
+(alexandria:define-constant +khr-workgroup-memory-explicit-layout-extension-name+ "VK_KHR_workgroup_memory_explicit_layout" :test #'string=)
 (alexandria:define-constant +khr-xcb-surface-extension-name+ "VK_KHR_xcb_surface" :test #'string=)
 (alexandria:define-constant +khr-xlib-surface-extension-name+ "VK_KHR_xlib_surface" :test #'string=)
+(alexandria:define-constant +khr-zero-initialize-workgroup-memory-extension-name+ "VK_KHR_zero_initialize_workgroup_memory" :test #'string=)
 (alexandria:define-constant +mvk-ios-surface-extension-name+ "VK_MVK_ios_surface" :test #'string=)
 (alexandria:define-constant +mvk-macos-surface-extension-name+ "VK_MVK_macos_surface" :test #'string=)
 (alexandria:define-constant +nn-vi-surface-extension-name+ "VK_NN_vi_surface" :test #'string=)
@@ -2474,6 +2476,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-pipeline-creation-cache-control-features-ext #x3B9F5228) ;; 
   (:physical-device-diagnostics-config-features-nv #x3B9F5DE0) ;; 
   (:device-diagnostics-config-create-info-nv #x3B9F5DE1) ;; 
+  (:physical-device-zero-initialize-workgroup-memory-features-khr #x3B9FBF88) ;; 
   (:physical-device-fragment-shading-rate-enums-properties-nv #x3B9FC370) ;; 
   (:physical-device-fragment-shading-rate-enums-features-nv #x3B9FC371) ;; 
   (:pipeline-fragment-shading-rate-enum-state-create-info-nv #x3B9FC372) ;; 
@@ -2481,6 +2484,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-fragment-density-map-2-properties-ext #x3B9FDAE1) ;; 
   (:copy-command-transform-info-qcom #x3B9FDEC8) ;; 
   (:physical-device-image-robustness-features-ext #x3B9FE698) ;; 
+  (:physical-device-workgroup-memory-explicit-layout-features-khr #x3B9FEA80) ;; 
   (:copy-buffer-info-2-khr #x3B9FEE68) ;; 
   (:copy-image-info-2-khr #x3B9FEE69) ;; 
   (:copy-buffer-to-image-info-2-khr #x3B9FEE6A) ;; 
@@ -8346,6 +8350,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags device-diagnostics-config-flags-nv))
 
+(defcstruct (physical-device-zero-initialize-workgroup-memory-features-khr :class c-physical-device-zero-initialize-workgroup-memory-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (shader-zero-initialize-workgroup-memory bool32))
+
 (defcstruct (physical-device-robustness-2-features-ext :class c-physical-device-robustness-2-features-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
@@ -8363,6 +8372,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (robust-image-access bool32))
+
+(defcstruct (physical-device-workgroup-memory-explicit-layout-features-khr :class c-physical-device-workgroup-memory-explicit-layout-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (workgroup-memory-explicit-layout bool32)
+  (workgroup-memory-explicit-layout-scalar-block-layout bool32)
+  (workgroup-memory-explicit-layout-8-bit-access bool32)
+  (workgroup-memory-explicit-layout-16-bit-access bool32))
 
 (defcstruct (physical-device-portability-subset-features-khr :class c-physical-device-portability-subset-features-khr)
   (s-type structure-type)

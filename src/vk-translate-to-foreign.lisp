@@ -8780,6 +8780,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:flags (vk:flags value))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-zero-initialize-workgroup-memory-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-zero-initialize-workgroup-memory)
+       ptr
+       (:struct %vk:physical-device-zero-initialize-workgroup-memory-features-khr))
+    (setf %vk:s-type :physical-device-zero-initialize-workgroup-memory-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:shader-zero-initialize-workgroup-memory (vk:shader-zero-initialize-workgroup-memory value))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-robustness-2-features-ext) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -8818,6 +8829,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :physical-device-image-robustness-features-ext
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:robust-image-access (vk:robust-image-access value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-workgroup-memory-explicit-layout-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:workgroup-memory-explicit-layout
+        %vk:workgroup-memory-explicit-layout-scalar-block-layout
+        %vk:workgroup-memory-explicit-layout-8-bit-access
+        %vk:workgroup-memory-explicit-layout-16-bit-access)
+       ptr
+       (:struct %vk:physical-device-workgroup-memory-explicit-layout-features-khr))
+    (setf %vk:s-type :physical-device-workgroup-memory-explicit-layout-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:workgroup-memory-explicit-layout (vk:workgroup-memory-explicit-layout value)
+          %vk:workgroup-memory-explicit-layout-scalar-block-layout (vk:workgroup-memory-explicit-layout-scalar-block-layout value)
+          %vk:workgroup-memory-explicit-layout-8-bit-access (vk:workgroup-memory-explicit-layout-8-bit-access value)
+          %vk:workgroup-memory-explicit-layout-16-bit-access (vk:workgroup-memory-explicit-layout-16-bit-access value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-portability-subset-features-khr) ptr)
   (cffi:with-foreign-slots

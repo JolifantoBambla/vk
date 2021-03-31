@@ -8598,6 +8598,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-zero-initialize-workgroup-memory-features-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-zero-initialize-workgroup-memory)
+       ptr
+       (:struct %vk:physical-device-zero-initialize-workgroup-memory-features-khr))
+    (make-instance 'vk:physical-device-zero-initialize-workgroup-memory-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :shader-zero-initialize-workgroup-memory %vk:shader-zero-initialize-workgroup-memory)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-robustness-2-features-ext))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -8636,6 +8647,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:physical-device-image-robustness-features-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :robust-image-access %vk:robust-image-access)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-workgroup-memory-explicit-layout-features-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:workgroup-memory-explicit-layout
+        %vk:workgroup-memory-explicit-layout-scalar-block-layout
+        %vk:workgroup-memory-explicit-layout-8-bit-access
+        %vk:workgroup-memory-explicit-layout-16-bit-access)
+       ptr
+       (:struct %vk:physical-device-workgroup-memory-explicit-layout-features-khr))
+    (make-instance 'vk:physical-device-workgroup-memory-explicit-layout-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :workgroup-memory-explicit-layout %vk:workgroup-memory-explicit-layout
+                   :workgroup-memory-explicit-layout-scalar-block-layout %vk:workgroup-memory-explicit-layout-scalar-block-layout
+                   :workgroup-memory-explicit-layout-8-bit-access %vk:workgroup-memory-explicit-layout-8-bit-access
+                   :workgroup-memory-explicit-layout-16-bit-access %vk:workgroup-memory-explicit-layout-16-bit-access)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-portability-subset-features-khr))
   (cffi:with-foreign-slots

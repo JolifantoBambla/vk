@@ -17511,6 +17511,28 @@ Instances of this class can be used to extend the following classes (using their
 See DEVICE-CREATE-INFO
 "))
 
+(defclass physical-device-zero-initialize-workgroup-memory-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (shader-zero-initialize-workgroup-memory
+     :initarg :shader-zero-initialize-workgroup-memory
+     :initform nil
+     :accessor shader-zero-initialize-workgroup-memory))
+  (:documentation "Represents the struct [VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SHADER-ZERO-INITIALIZE-WORKGROUP-MEMORY: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
 (defclass physical-device-robustness-2-features-ext ()
   ((next
      :initarg :next
@@ -17583,6 +17605,43 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ROBUST-IMAGE-ACCESS: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-workgroup-memory-explicit-layout-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (workgroup-memory-explicit-layout
+     :initarg :workgroup-memory-explicit-layout
+     :initform nil
+     :accessor workgroup-memory-explicit-layout)
+   (workgroup-memory-explicit-layout-scalar-block-layout
+     :initarg :workgroup-memory-explicit-layout-scalar-block-layout
+     :initform nil
+     :accessor workgroup-memory-explicit-layout-scalar-block-layout)
+   (workgroup-memory-explicit-layout-8-bit-access
+     :initarg :workgroup-memory-explicit-layout-8-bit-access
+     :initform nil
+     :accessor workgroup-memory-explicit-layout-8-bit-access)
+   (workgroup-memory-explicit-layout-16-bit-access
+     :initarg :workgroup-memory-explicit-layout-16-bit-access
+     :initform nil
+     :accessor workgroup-memory-explicit-layout-16-bit-access))
+  (:documentation "Represents the struct [VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT: a BOOL32.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-SCALAR-BLOCK-LAYOUT: a BOOL32.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-8-BIT-ACCESS: a BOOL32.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-16-BIT-ACCESS: a BOOL32.
 
 See BOOL32
 

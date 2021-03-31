@@ -209,8 +209,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-wayland-surface-extension-name+
     #:+khr-win32-keyed-mutex-extension-name+
     #:+khr-win32-surface-extension-name+
+    #:+khr-workgroup-memory-explicit-layout-extension-name+
     #:+khr-xcb-surface-extension-name+
     #:+khr-xlib-surface-extension-name+
+    #:+khr-zero-initialize-workgroup-memory-extension-name+
     #:+mvk-ios-surface-extension-name+
     #:+mvk-macos-surface-extension-name+
     #:+nn-vi-surface-extension-name+
@@ -1554,8 +1556,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-vulkan-memory-model-features
     #:physical-device-vulkan-memory-model-features-khr ;; :struct
     #:c-physical-device-vulkan-memory-model-features-khr
+    #:physical-device-workgroup-memory-explicit-layout-features-khr ;; :struct
+    #:c-physical-device-workgroup-memory-explicit-layout-features-khr
     #:physical-device-ycbcr-image-arrays-features-ext ;; :struct
     #:c-physical-device-ycbcr-image-arrays-features-ext
+    #:physical-device-zero-initialize-workgroup-memory-features-khr ;; :struct
+    #:c-physical-device-zero-initialize-workgroup-memory-features-khr
     #:pipeline ;; :handle
     #:pipeline-bind-point ;; :enum
     #:pipeline-cache ;; :handle
@@ -3688,6 +3694,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-uniform-texel-buffer-array-dynamic-indexing ;; :accessor
     #:shader-uniform-texel-buffer-array-non-uniform-indexing ;; :accessor
     #:shader-warps-per-s-m ;; :accessor
+    #:shader-zero-initialize-workgroup-memory ;; :accessor
     #:shading-rate ;; :accessor
     #:shading-rate-attachment-texel-size ;; :accessor
     #:shading-rate-coarse-sample-order ;; :accessor
@@ -3913,6 +3920,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wide-lines ;; :accessor
     #:width ;; :accessor
     #:window ;; :accessor
+    #:workgroup-memory-explicit-layout ;; :accessor
+    #:workgroup-memory-explicit-layout-16-bit-access ;; :accessor
+    #:workgroup-memory-explicit-layout-8-bit-access ;; :accessor
+    #:workgroup-memory-explicit-layout-scalar-block-layout ;; :accessor
     #:write-mask ;; :accessor
     #:x ;; :accessor
     #:x-chroma-offset ;; :accessor
@@ -4115,8 +4126,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-wayland-surface-extension-name+
     #:+khr-win32-keyed-mutex-extension-name+
     #:+khr-win32-surface-extension-name+
+    #:+khr-workgroup-memory-explicit-layout-extension-name+
     #:+khr-xcb-surface-extension-name+
     #:+khr-xlib-surface-extension-name+
+    #:+khr-zero-initialize-workgroup-memory-extension-name+
     #:+mvk-ios-surface-extension-name+
     #:+mvk-macos-surface-extension-name+
     #:+nn-vi-surface-extension-name+
@@ -4346,8 +4359,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-wayland-surface-extension-name+
     #:+khr-win32-keyed-mutex-extension-name+
     #:+khr-win32-surface-extension-name+
+    #:+khr-workgroup-memory-explicit-layout-extension-name+
     #:+khr-xcb-surface-extension-name+
     #:+khr-xlib-surface-extension-name+
+    #:+khr-zero-initialize-workgroup-memory-extension-name+
     #:+mvk-ios-surface-extension-name+
     #:+mvk-macos-surface-extension-name+
     #:+nn-vi-surface-extension-name+
@@ -4816,7 +4831,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-vulkan-1-2-features ;; :class
     #:physical-device-vulkan-1-2-properties ;; :class
     #:physical-device-vulkan-memory-model-features ;; :class
+    #:physical-device-workgroup-memory-explicit-layout-features-khr ;; :class
     #:physical-device-ycbcr-image-arrays-features-ext ;; :class
+    #:physical-device-zero-initialize-workgroup-memory-features-khr ;; :class
     #:pipeline-cache-create-info ;; :class
     #:pipeline-color-blend-advanced-state-create-info-ext ;; :class
     #:pipeline-color-blend-attachment-state ;; :class
@@ -6134,6 +6151,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-uniform-texel-buffer-array-dynamic-indexing ;; :accessor
     #:shader-uniform-texel-buffer-array-non-uniform-indexing ;; :accessor
     #:shader-warps-per-s-m ;; :accessor
+    #:shader-zero-initialize-workgroup-memory ;; :accessor
     #:shading-rate ;; :accessor
     #:shading-rate-attachment-texel-size ;; :accessor
     #:shading-rate-coarse-sample-order ;; :accessor
@@ -6359,6 +6377,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wide-lines ;; :accessor
     #:width ;; :accessor
     #:window ;; :accessor
+    #:workgroup-memory-explicit-layout ;; :accessor
+    #:workgroup-memory-explicit-layout-16-bit-access ;; :accessor
+    #:workgroup-memory-explicit-layout-8-bit-access ;; :accessor
+    #:workgroup-memory-explicit-layout-scalar-block-layout ;; :accessor
     #:write-mask ;; :accessor
     #:x ;; :accessor
     #:x-chroma-offset ;; :accessor
