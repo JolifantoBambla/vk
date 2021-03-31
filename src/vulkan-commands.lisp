@@ -1961,33 +1961,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkextfun ("vkDestroyAccelerationStructureNV" destroy-acceleration-structure-nv) :void
   (device device)
-  (acceleration-structure acceleration-structure-khr)
+  (acceleration-structure acceleration-structure-nv)
   (p-allocator (:pointer (:struct allocation-callbacks))))
-
-(defvkfun ("vkGetAccelerationStructureMemoryRequirementsKHR" get-acceleration-structure-memory-requirements-khr) :void
-  (device device)
-  (p-info (:pointer (:struct acceleration-structure-memory-requirements-info-khr)))
-  (p-memory-requirements (:pointer (:struct memory-requirements-2))))
 
 (defvkextfun ("vkGetAccelerationStructureMemoryRequirementsNV" get-acceleration-structure-memory-requirements-nv) :void
   (device device)
   (p-info (:pointer (:struct acceleration-structure-memory-requirements-info-nv)))
   (p-memory-requirements (:pointer (:struct memory-requirements-2-khr))))
 
-(defvkfun ("vkBindAccelerationStructureMemoryKHR" bind-acceleration-structure-memory-khr) checked-result
-  (device device)
-  (bind-info-count :uint32)
-  (p-bind-infos (:pointer (:struct bind-acceleration-structure-memory-info-khr))))
-
 (defvkextfun ("vkBindAccelerationStructureMemoryNV" bind-acceleration-structure-memory-nv) checked-result
   (device device)
   (bind-info-count :uint32)
-  (p-bind-infos (:pointer (:struct bind-acceleration-structure-memory-info-khr))))
+  (p-bind-infos (:pointer (:struct bind-acceleration-structure-memory-info-nv))))
 
 (defvkextfun ("vkCmdCopyAccelerationStructureNV" cmd-copy-acceleration-structure-nv) :void
   (command-buffer command-buffer)
-  (dst acceleration-structure-khr)
-  (src acceleration-structure-khr)
+  (dst acceleration-structure-nv)
+  (src acceleration-structure-nv)
   (mode copy-acceleration-structure-mode-khr))
 
 (defvkfun ("vkCmdCopyAccelerationStructureKHR" cmd-copy-acceleration-structure-khr) :void
@@ -1996,6 +1986,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkfun ("vkCopyAccelerationStructureKHR" copy-acceleration-structure-khr) checked-result
   (device device)
+  (deferred-operation deferred-operation-khr)
   (p-info (:pointer (:struct copy-acceleration-structure-info-khr))))
 
 (defvkfun ("vkCmdCopyAccelerationStructureToMemoryKHR" cmd-copy-acceleration-structure-to-memory-khr) :void
@@ -2004,6 +1995,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkfun ("vkCopyAccelerationStructureToMemoryKHR" copy-acceleration-structure-to-memory-khr) checked-result
   (device device)
+  (deferred-operation deferred-operation-khr)
   (p-info (:pointer (:struct copy-acceleration-structure-to-memory-info-khr))))
 
 (defvkfun ("vkCmdCopyMemoryToAccelerationStructureKHR" cmd-copy-memory-to-acceleration-structure-khr) :void
@@ -2012,6 +2004,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkfun ("vkCopyMemoryToAccelerationStructureKHR" copy-memory-to-acceleration-structure-khr) checked-result
   (device device)
+  (deferred-operation deferred-operation-khr)
   (p-info (:pointer (:struct copy-memory-to-acceleration-structure-info-khr))))
 
 (defvkfun ("vkCmdWriteAccelerationStructuresPropertiesKHR" cmd-write-acceleration-structures-properties-khr) :void
@@ -2025,7 +2018,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkextfun ("vkCmdWriteAccelerationStructuresPropertiesNV" cmd-write-acceleration-structures-properties-nv) :void
   (command-buffer command-buffer)
   (acceleration-structure-count :uint32)
-  (p-acceleration-structures (:pointer acceleration-structure-khr))
+  (p-acceleration-structures (:pointer acceleration-structure-nv))
   (query-type query-type)
   (query-pool query-pool)
   (first-query :uint32))
@@ -2036,8 +2029,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (instance-data buffer)
   (instance-offset device-size)
   (update bool32)
-  (dst acceleration-structure-khr)
-  (src acceleration-structure-khr)
+  (dst acceleration-structure-nv)
+  (src acceleration-structure-nv)
   (scratch buffer)
   (scratch-offset device-size))
 
@@ -2052,10 +2045,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkfun ("vkCmdTraceRaysKHR" cmd-trace-rays-khr) :void
   (command-buffer command-buffer)
-  (p-raygen-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (p-miss-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (p-hit-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (p-callable-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
+  (p-raygen-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (p-miss-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (p-hit-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (p-callable-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
   (width :uint32)
   (height :uint32)
   (depth :uint32))
@@ -2103,7 +2096,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkextfun ("vkGetAccelerationStructureHandleNV" get-acceleration-structure-handle-nv) checked-result
   (device device)
-  (acceleration-structure acceleration-structure-khr)
+  (acceleration-structure acceleration-structure-nv)
   (data-size size-t)
   (p-data (:pointer :void)))
 
@@ -2117,6 +2110,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkfun ("vkCreateRayTracingPipelinesKHR" create-ray-tracing-pipelines-khr) checked-result
   (device device)
+  (deferred-operation deferred-operation-khr)
   (pipeline-cache pipeline-cache)
   (create-info-count :uint32)
   (p-create-infos (:pointer (:struct ray-tracing-pipeline-create-info-khr)))
@@ -2130,16 +2124,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvkfun ("vkCmdTraceRaysIndirectKHR" cmd-trace-rays-indirect-khr) :void
   (command-buffer command-buffer)
-  (p-raygen-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (p-miss-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (p-hit-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (p-callable-shader-binding-table (:pointer (:struct strided-buffer-region-khr)))
-  (buffer buffer)
-  (offset device-size))
+  (p-raygen-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (p-miss-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (p-hit-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (p-callable-shader-binding-table (:pointer (:struct strided-device-address-region-khr)))
+  (indirect-device-address device-address))
 
-(defvkfun ("vkGetDeviceAccelerationStructureCompatibilityKHR" get-device-acceleration-structure-compatibility-khr) checked-result
+(defvkfun ("vkGetDeviceAccelerationStructureCompatibilityKHR" get-device-acceleration-structure-compatibility-khr) :void
   (device device)
-  (version (:pointer (:struct acceleration-structure-version-khr))))
+  (p-version-info (:pointer (:struct acceleration-structure-version-info-khr)))
+  (p-compatibility (:pointer acceleration-structure-compatibility-khr)))
+
+(defvkfun ("vkGetRayTracingShaderGroupStackSizeKHR" get-ray-tracing-shader-group-stack-size-khr) device-size
+  (device device)
+  (pipeline pipeline)
+  (group :uint32)
+  (group-shader shader-group-shader-khr))
+
+(defvkfun ("vkCmdSetRayTracingPipelineStackSizeKHR" cmd-set-ray-tracing-pipeline-stack-size-khr) :void
+  (command-buffer command-buffer)
+  (pipeline-stack-size :uint32))
 
 (defvkextfun ("vkGetImageViewHandleNVX" get-image-view-handle-nv-x) :uint32
   (device device)
@@ -2303,24 +2307,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-acceleration-structure (:pointer acceleration-structure-khr)))
 
-(defvkfun ("vkCmdBuildAccelerationStructureKHR" cmd-build-acceleration-structure-khr) :void
+(defvkfun ("vkCmdBuildAccelerationStructuresKHR" cmd-build-acceleration-structures-khr) :void
   (command-buffer command-buffer)
   (info-count :uint32)
   (p-infos (:pointer (:struct acceleration-structure-build-geometry-info-khr)))
-  (pp-offset-infos (:pointer (:pointer (:struct acceleration-structure-build-offset-info-khr)))))
+  (pp-build-range-infos (:pointer (:pointer (:struct acceleration-structure-build-range-info-khr)))))
 
-(defvkfun ("vkCmdBuildAccelerationStructureIndirectKHR" cmd-build-acceleration-structure-indirect-khr) :void
+(defvkfun ("vkCmdBuildAccelerationStructuresIndirectKHR" cmd-build-acceleration-structures-indirect-khr) :void
   (command-buffer command-buffer)
-  (p-info (:pointer (:struct acceleration-structure-build-geometry-info-khr)))
-  (indirect-buffer buffer)
-  (indirect-offset device-size)
-  (indirect-stride :uint32))
+  (info-count :uint32)
+  (p-infos (:pointer (:struct acceleration-structure-build-geometry-info-khr)))
+  (p-indirect-device-addresses (:pointer device-address))
+  (p-indirect-strides (:pointer :uint32))
+  (pp-max-primitive-counts (:pointer (:pointer :uint32))))
 
-(defvkfun ("vkBuildAccelerationStructureKHR" build-acceleration-structure-khr) checked-result
+(defvkfun ("vkBuildAccelerationStructuresKHR" build-acceleration-structures-khr) checked-result
   (device device)
+  (deferred-operation deferred-operation-khr)
   (info-count :uint32)
   (p-infos (:pointer (:struct acceleration-structure-build-geometry-info-khr)))
-  (pp-offset-infos (:pointer (:pointer (:struct acceleration-structure-build-offset-info-khr)))))
+  (pp-build-range-infos (:pointer (:pointer (:struct acceleration-structure-build-range-info-khr)))))
 
 (defvkfun ("vkGetAccelerationStructureDeviceAddressKHR" get-acceleration-structure-device-address-khr) device-address
   (device device)
@@ -2470,4 +2476,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer command-buffer)
   (shading-rate fragment-shading-rate-nv)
   (combiner-ops fragment-shading-rate-combiner-op-khr))
+
+(defvkfun ("vkGetAccelerationStructureBuildSizesKHR" get-acceleration-structure-build-sizes-khr) :void
+  (device device)
+  (build-type acceleration-structure-build-type-khr)
+  (p-build-info (:pointer (:struct acceleration-structure-build-geometry-info-khr)))
+  (p-max-primitive-counts (:pointer :uint32))
+  (p-size-info (:pointer (:struct acceleration-structure-build-sizes-info-khr))))
 

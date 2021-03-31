@@ -136,6 +136,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+intel-shader-integer-functions-2-extension-name+
     #:+khr-16bit-storage-extension-name+
     #:+khr-8bit-storage-extension-name+
+    #:+khr-acceleration-structure-extension-name+
     #:+khr-android-surface-extension-name+
     #:+khr-bind-memory-2-extension-name+
     #:+khr-buffer-device-address-extension-name+
@@ -180,7 +181,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-pipeline-library-extension-name+
     #:+khr-portability-subset-extension-name+
     #:+khr-push-descriptor-extension-name+
-    #:+khr-ray-tracing-extension-name+
+    #:+khr-ray-query-extension-name+
+    #:+khr-ray-tracing-pipeline-extension-name+
     #:+khr-relaxed-block-layout-extension-name+
     #:+khr-sampler-mirror-clamp-to-edge-extension-name+
     #:+khr-sampler-ycbcr-conversion-extension-name+
@@ -269,11 +271,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-aabb-positions-nv
     #:acceleration-structure-build-geometry-info-khr ;; :struct
     #:c-acceleration-structure-build-geometry-info-khr
-    #:acceleration-structure-build-offset-info-khr ;; :struct
-    #:c-acceleration-structure-build-offset-info-khr
+    #:acceleration-structure-build-range-info-khr ;; :struct
+    #:c-acceleration-structure-build-range-info-khr
+    #:acceleration-structure-build-sizes-info-khr ;; :struct
+    #:c-acceleration-structure-build-sizes-info-khr
     #:acceleration-structure-build-type-khr ;; :enum
-    #:acceleration-structure-create-geometry-type-info-khr ;; :struct
-    #:c-acceleration-structure-create-geometry-type-info-khr
+    #:acceleration-structure-compatibility-khr ;; :enum
+    #:acceleration-structure-create-flag-bits-khr ;; :enum
+    #:acceleration-structure-create-flags-khr ;; :bitmask
     #:acceleration-structure-create-info-khr ;; :struct
     #:c-acceleration-structure-create-info-khr
     #:acceleration-structure-create-info-nv ;; :struct
@@ -296,17 +301,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acceleration-structure-instance-nv ;; :struct
     #:c-acceleration-structure-instance-nv
     #:acceleration-structure-khr ;; :handle
-    #:acceleration-structure-memory-requirements-info-khr ;; :struct
-    #:c-acceleration-structure-memory-requirements-info-khr
     #:acceleration-structure-memory-requirements-info-nv ;; :struct
     #:c-acceleration-structure-memory-requirements-info-nv
-    #:acceleration-structure-memory-requirements-type-khr ;; :enum
     #:acceleration-structure-memory-requirements-type-nv ;; :enum
     #:acceleration-structure-nv ;; :handle
     #:acceleration-structure-type-khr ;; :enum
     #:acceleration-structure-type-nv ;; :enum
-    #:acceleration-structure-version-khr ;; :struct
-    #:c-acceleration-structure-version-khr
+    #:acceleration-structure-version-info-khr ;; :struct
+    #:c-acceleration-structure-version-info-khr
     #:access-flag-bits ;; :enum
     #:access-flags ;; :bitmask
     #:acquire-next-image-info-khr ;; :struct
@@ -358,8 +360,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-base-in-structure
     #:base-out-structure ;; :struct
     #:c-base-out-structure
-    #:bind-acceleration-structure-memory-info-khr ;; :struct
-    #:c-bind-acceleration-structure-memory-info-khr
     #:bind-acceleration-structure-memory-info-nv ;; :struct
     #:c-bind-acceleration-structure-memory-info-nv
     #:bind-buffer-memory-device-group-info ;; :struct
@@ -440,6 +440,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:build-acceleration-structure-flag-bits-nv ;; :enum
     #:build-acceleration-structure-flags-khr ;; :bitmask
     #:build-acceleration-structure-flags-nv ;; :bitmask
+    #:build-acceleration-structure-mode-khr ;; :enum
     #:calibrated-timestamp-info-ext ;; :struct
     #:c-calibrated-timestamp-info-ext
     #:checkpoint-data-nv ;; :struct
@@ -568,8 +569,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-dedicated-allocation-image-create-info-nv
     #:dedicated-allocation-memory-allocate-info-nv ;; :struct
     #:c-dedicated-allocation-memory-allocate-info-nv
-    #:deferred-operation-info-khr ;; :struct
-    #:c-deferred-operation-info-khr
     #:deferred-operation-khr ;; :handle
     #:dependency-flag-bits ;; :enum
     #:dependency-flags ;; :bitmask
@@ -1188,6 +1187,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-8-bit-storage-features-khr
     #:physical-device-astc-decode-features-ext ;; :struct
     #:c-physical-device-astc-decode-features-ext
+    #:physical-device-acceleration-structure-features-khr ;; :struct
+    #:c-physical-device-acceleration-structure-features-khr
+    #:physical-device-acceleration-structure-properties-khr ;; :struct
+    #:c-physical-device-acceleration-structure-properties-khr
     #:physical-device-blend-operation-advanced-features-ext ;; :struct
     #:c-physical-device-blend-operation-advanced-features-ext
     #:physical-device-blend-operation-advanced-properties-ext ;; :struct
@@ -1406,10 +1409,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-protected-memory-properties
     #:physical-device-push-descriptor-properties-khr ;; :struct
     #:c-physical-device-push-descriptor-properties-khr
-    #:physical-device-ray-tracing-features-khr ;; :struct
-    #:c-physical-device-ray-tracing-features-khr
-    #:physical-device-ray-tracing-properties-khr ;; :struct
-    #:c-physical-device-ray-tracing-properties-khr
+    #:physical-device-ray-query-features-khr ;; :struct
+    #:c-physical-device-ray-query-features-khr
+    #:physical-device-ray-tracing-pipeline-features-khr ;; :struct
+    #:c-physical-device-ray-tracing-pipeline-features-khr
+    #:physical-device-ray-tracing-pipeline-properties-khr ;; :struct
+    #:c-physical-device-ray-tracing-pipeline-properties-khr
     #:physical-device-ray-tracing-properties-nv ;; :struct
     #:c-physical-device-ray-tracing-properties-nv
     #:physical-device-representative-fragment-test-features-nv ;; :struct
@@ -1859,6 +1864,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-core-properties-flags-amd ;; :bitmask
     #:shader-float-controls-independence ;; :enum
     #:shader-float-controls-independence-khr ;; :enum
+    #:shader-group-shader-khr ;; :enum
     #:shader-info-type-amd ;; :enum
     #:shader-module ;; :handle
     #:shader-module-create-flag-bits ;; :enum
@@ -1917,8 +1923,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:stream-descriptor-surface-create-flags-ggp ;; :bitmask
     #:stream-descriptor-surface-create-info-ggp ;; :struct
     #:c-stream-descriptor-surface-create-info-ggp
-    #:strided-buffer-region-khr ;; :struct
-    #:c-strided-buffer-region-khr
+    #:strided-device-address-region-khr ;; :struct
+    #:c-strided-device-address-region-khr
     #:structure-type ;; :enum
     #:subgroup-feature-flag-bits ;; :enum
     #:subgroup-feature-flags ;; :bitmask
@@ -2076,7 +2082,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:allocate-descriptor-sets
     #:allocate-memory
     #:begin-command-buffer
-    #:bind-acceleration-structure-memory-khr
     #:bind-acceleration-structure-memory-nv
     #:bind-buffer-memory
     #:bind-buffer-memory-2
@@ -2084,7 +2089,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:bind-image-memory
     #:bind-image-memory-2
     #:bind-image-memory-2-khr
-    #:build-acceleration-structure-khr
+    #:build-acceleration-structures-khr
     #:cmd-begin-conditional-rendering-ext
     #:cmd-begin-debug-utils-label-ext
     #:cmd-begin-query
@@ -2103,9 +2108,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-bind-vertex-buffers-2-ext
     #:cmd-blit-image
     #:cmd-blit-image-2-khr
-    #:cmd-build-acceleration-structure-indirect-khr
-    #:cmd-build-acceleration-structure-khr
     #:cmd-build-acceleration-structure-nv
+    #:cmd-build-acceleration-structures-indirect-khr
+    #:cmd-build-acceleration-structures-khr
     #:cmd-clear-attachments
     #:cmd-clear-color-image
     #:cmd-clear-depth-stencil-image
@@ -2191,6 +2196,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-performance-override-intel
     #:cmd-set-performance-stream-marker-intel
     #:cmd-set-primitive-topology-ext
+    #:cmd-set-ray-tracing-pipeline-stack-size-khr
     #:cmd-set-sample-locations-ext
     #:cmd-set-scissor
     #:cmd-set-scissor-with-count-ext
@@ -2324,9 +2330,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:free-command-buffers
     #:free-descriptor-sets
     #:free-memory
+    #:get-acceleration-structure-build-sizes-khr
     #:get-acceleration-structure-device-address-khr
     #:get-acceleration-structure-handle-nv
-    #:get-acceleration-structure-memory-requirements-khr
     #:get-acceleration-structure-memory-requirements-nv
     #:get-android-hardware-buffer-properties-android
     #:get-buffer-device-address
@@ -2448,6 +2454,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-ray-tracing-capture-replay-shader-group-handles-khr
     #:get-ray-tracing-shader-group-handles-khr
     #:get-ray-tracing-shader-group-handles-nv
+    #:get-ray-tracing-shader-group-stack-size-khr
     #:get-refresh-cycle-duration-google
     #:get-render-area-granularity
     #:get-semaphore-counter-value
@@ -2521,8 +2528,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:aabb-data ;; :accessor
     #:aabbs ;; :accessor
     #:acceleration-structure ;; :accessor
+    #:acceleration-structure-capture-replay ;; :accessor
     #:acceleration-structure-count ;; :accessor
+    #:acceleration-structure-host-commands ;; :accessor
+    #:acceleration-structure-indirect-build ;; :accessor
     #:acceleration-structure-reference ;; :accessor
+    #:acceleration-structure-size ;; :accessor
     #:acquire-count ;; :accessor
     #:active-compute-unit-count ;; :accessor
     #:actual-present-time ;; :accessor
@@ -2539,7 +2550,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:alignment ;; :accessor
     #:allocation-size ;; :accessor
     #:allow-command-buffer-query-copies ;; :accessor
-    #:allows-transforms ;; :accessor
     #:alpha-blend-op ;; :accessor
     #:alpha-mode ;; :accessor
     #:alpha-to-coverage-enable ;; :accessor
@@ -2588,7 +2598,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-image-height ;; :accessor
     #:buffer-offset ;; :accessor
     #:buffer-row-length ;; :accessor
-    #:build-type ;; :accessor
+    #:build-scratch-size ;; :accessor
     #:capabilities ;; :accessor
     #:category ;; :accessor
     #:checkpoint-execution-stage-mask ;; :accessor
@@ -2648,6 +2658,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:coverage-reduction-mode ;; :accessor
     #:coverage-to-color-enable ;; :accessor
     #:coverage-to-color-location ;; :accessor
+    #:create-flags ;; :accessor
     #:cull-mode ;; :accessor
     #:current-display ;; :accessor
     #:current-extent ;; :accessor
@@ -2687,6 +2698,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:depth-test-enable ;; :accessor
     #:depth-write-enable ;; :accessor
     #:description ;; :accessor
+    #:descriptor-binding-acceleration-structure-update-after-bind ;; :accessor
     #:descriptor-binding-inline-uniform-block-update-after-bind ;; :accessor
     #:descriptor-binding-partially-bound ;; :accessor
     #:descriptor-binding-sampled-image-update-after-bind ;; :accessor
@@ -2857,7 +2869,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:g ;; :accessor
     #:general-shader ;; :accessor
     #:geometry ;; :accessor
-    #:geometry-array-of-pointers ;; :accessor
     #:geometry-count ;; :accessor
     #:geometry-shader ;; :accessor
     #:geometry-streams ;; :accessor
@@ -2949,7 +2960,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:lds-usage-size-in-bytes ;; :accessor
     #:level ;; :accessor
     #:level-count ;; :accessor
-    #:libraries ;; :accessor
     #:library-count ;; :accessor
     #:limits ;; :accessor
     #:line-rasterization-mode ;; :accessor
@@ -2974,9 +2984,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:matrix ;; :accessor
     #:max-anisotropy ;; :accessor
     #:max-array-layers ;; :accessor
-    #:max-attribute-size ;; :accessor
     #:max-bound-descriptor-sets ;; :accessor
-    #:max-callable-size ;; :accessor
     #:max-clip-distances ;; :accessor
     #:max-color-attachments ;; :accessor
     #:max-combined-clip-and-cull-distances ;; :accessor
@@ -3001,6 +3009,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-descriptor-set-subsampled-samplers ;; :accessor
     #:max-descriptor-set-uniform-buffers ;; :accessor
     #:max-descriptor-set-uniform-buffers-dynamic ;; :accessor
+    #:max-descriptor-set-update-after-bind-acceleration-structures ;; :accessor
     #:max-descriptor-set-update-after-bind-inline-uniform-blocks ;; :accessor
     #:max-descriptor-set-update-after-bind-input-attachments ;; :accessor
     #:max-descriptor-set-update-after-bind-sampled-images ;; :accessor
@@ -3070,8 +3079,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-mip-levels ;; :accessor
     #:max-multiview-instance-index ;; :accessor
     #:max-multiview-view-count ;; :accessor
-    #:max-payload-size ;; :accessor
     #:max-per-set-descriptors ;; :accessor
+    #:max-per-stage-descriptor-acceleration-structures ;; :accessor
     #:max-per-stage-descriptor-inline-uniform-blocks ;; :accessor
     #:max-per-stage-descriptor-input-attachments ;; :accessor
     #:max-per-stage-descriptor-sampled-images ;; :accessor
@@ -3079,6 +3088,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-per-stage-descriptor-storage-buffers ;; :accessor
     #:max-per-stage-descriptor-storage-images ;; :accessor
     #:max-per-stage-descriptor-uniform-buffers ;; :accessor
+    #:max-per-stage-descriptor-update-after-bind-acceleration-structures ;; :accessor
     #:max-per-stage-descriptor-update-after-bind-inline-uniform-blocks ;; :accessor
     #:max-per-stage-descriptor-update-after-bind-input-attachments ;; :accessor
     #:max-per-stage-descriptor-update-after-bind-sampled-images ;; :accessor
@@ -3088,9 +3098,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-per-stage-descriptor-update-after-bind-uniform-buffers ;; :accessor
     #:max-per-stage-resources ;; :accessor
     #:max-per-stage-update-after-bind-resources ;; :accessor
+    #:max-pipeline-ray-hit-attribute-size ;; :accessor
+    #:max-pipeline-ray-payload-size ;; :accessor
+    #:max-pipeline-ray-recursion-depth ;; :accessor
     #:max-primitive-count ;; :accessor
     #:max-push-constants-size ;; :accessor
     #:max-push-descriptors ;; :accessor
+    #:max-ray-dispatch-invocation-count ;; :accessor
+    #:max-ray-hit-attribute-size ;; :accessor
+    #:max-ray-recursion-depth ;; :accessor
     #:max-recursion-depth ;; :accessor
     #:max-resource-size ;; :accessor
     #:max-sample-location-grid-size ;; :accessor
@@ -3133,8 +3149,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-uniform-buffer-range ;; :accessor
     #:max-update-after-bind-descriptors-in-all-pools ;; :accessor
     #:max-variable-descriptor-count ;; :accessor
+    #:max-vertex ;; :accessor
     #:max-vertex-attrib-divisor ;; :accessor
-    #:max-vertex-count ;; :accessor
     #:max-vertex-input-attribute-offset ;; :accessor
     #:max-vertex-input-attributes ;; :accessor
     #:max-vertex-input-binding-stride ;; :accessor
@@ -3165,6 +3181,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:message-id-number ;; :accessor
     #:message-severity ;; :accessor
     #:message-type ;; :accessor
+    #:min-acceleration-structure-scratch-offset-alignment ;; :accessor
     #:min-depth ;; :accessor
     #:min-depth-bounds ;; :accessor
     #:min-dst-extent ;; :accessor
@@ -3236,7 +3253,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:old-layout ;; :accessor
     #:old-swapchain ;; :accessor
     #:opaque-capture-address ;; :accessor
-    #:operation-handle ;; :accessor
     #:optimal-buffer-copy-offset-alignment ;; :accessor
     #:optimal-buffer-copy-row-pitch-alignment ;; :accessor
     #:optimal-tiling-features ;; :accessor
@@ -3294,7 +3310,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-exclusive-scissors ;; :accessor
     #:p-fragment-shading-rate-attachment ;; :accessor
     #:p-geometries ;; :accessor
-    #:p-geometry-infos ;; :accessor
     #:p-groups ;; :accessor
     #:p-host-pointer ;; :accessor
     #:p-image-binds ;; :accessor
@@ -3311,6 +3326,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-label-name ;; :accessor
     #:p-layer ;; :accessor
     #:p-libraries ;; :accessor
+    #:p-library-info ;; :accessor
     #:p-library-interface ;; :accessor
     #:p-map-entries ;; :accessor
     #:p-marker-name ;; :accessor
@@ -3366,6 +3382,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-tokens ;; :accessor
     #:p-user-data ;; :accessor
     #:p-values ;; :accessor
+    #:p-version-data ;; :accessor
     #:p-vertex-attribute-descriptions ;; :accessor
     #:p-vertex-binding-descriptions ;; :accessor
     #:p-vertex-binding-divisors ;; :accessor
@@ -3487,14 +3504,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:rasterization-stream ;; :accessor
     #:rasterizer-discard-enable ;; :accessor
     #:ray-query ;; :accessor
-    #:ray-tracing ;; :accessor
-    #:ray-tracing-acceleration-structure-capture-replay ;; :accessor
-    #:ray-tracing-host-acceleration-structure-commands ;; :accessor
-    #:ray-tracing-indirect-acceleration-structure-build ;; :accessor
-    #:ray-tracing-indirect-trace-rays ;; :accessor
-    #:ray-tracing-primitive-culling ;; :accessor
-    #:ray-tracing-shader-group-handle-capture-replay ;; :accessor
-    #:ray-tracing-shader-group-handle-capture-replay-mixed ;; :accessor
+    #:ray-tracing-pipeline ;; :accessor
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay ;; :accessor
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed ;; :accessor
+    #:ray-tracing-pipeline-trace-rays-indirect ;; :accessor
+    #:ray-traversal-primitive-culling ;; :accessor
     #:rect ;; :accessor
     #:rectangle-count ;; :accessor
     #:rectangular-lines ;; :accessor
@@ -3598,6 +3612,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-float-16 ;; :accessor
     #:shader-float-64 ;; :accessor
     #:shader-group-base-alignment ;; :accessor
+    #:shader-group-handle-alignment ;; :accessor
     #:shader-group-handle-capture-replay-size ;; :accessor
     #:shader-group-handle-size ;; :accessor
     #:shader-image-float-32-atomic-add ;; :accessor
@@ -3829,7 +3844,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:uniform-texel-buffer-offset-single-texel-alignment ;; :accessor
     #:unit ;; :accessor
     #:unnormalized-coordinates ;; :accessor
-    #:update ;; :accessor
+    #:update-scratch-size ;; :accessor
     #:usage ;; :accessor
     #:uuid ;; :accessor
     #:validation-cache ;; :accessor
@@ -3845,7 +3860,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:variable-sample-locations ;; :accessor
     #:vendor-id ;; :accessor
     #:version ;; :accessor
-    #:version-data ;; :accessor
     #:vertex-attribute-access-beyond-stride ;; :accessor
     #:vertex-attribute-description-count ;; :accessor
     #:vertex-attribute-instance-rate-divisor ;; :accessor
@@ -4013,6 +4027,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+intel-shader-integer-functions-2-extension-name+
     #:+khr-16bit-storage-extension-name+
     #:+khr-8bit-storage-extension-name+
+    #:+khr-acceleration-structure-extension-name+
     #:+khr-android-surface-extension-name+
     #:+khr-bind-memory-2-extension-name+
     #:+khr-buffer-device-address-extension-name+
@@ -4057,7 +4072,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-pipeline-library-extension-name+
     #:+khr-portability-subset-extension-name+
     #:+khr-push-descriptor-extension-name+
-    #:+khr-ray-tracing-extension-name+
+    #:+khr-ray-query-extension-name+
+    #:+khr-ray-tracing-pipeline-extension-name+
     #:+khr-relaxed-block-layout-extension-name+
     #:+khr-sampler-mirror-clamp-to-edge-extension-name+
     #:+khr-sampler-ycbcr-conversion-extension-name+
@@ -4240,6 +4256,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+intel-shader-integer-functions-2-extension-name+
     #:+khr-16bit-storage-extension-name+
     #:+khr-8bit-storage-extension-name+
+    #:+khr-acceleration-structure-extension-name+
     #:+khr-android-surface-extension-name+
     #:+khr-bind-memory-2-extension-name+
     #:+khr-buffer-device-address-extension-name+
@@ -4284,7 +4301,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-pipeline-library-extension-name+
     #:+khr-portability-subset-extension-name+
     #:+khr-push-descriptor-extension-name+
-    #:+khr-ray-tracing-extension-name+
+    #:+khr-ray-query-extension-name+
+    #:+khr-ray-tracing-pipeline-extension-name+
     #:+khr-relaxed-block-layout-extension-name+
     #:+khr-sampler-mirror-clamp-to-edge-extension-name+
     #:+khr-sampler-ycbcr-conversion-extension-name+
@@ -4357,8 +4375,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
     #:aabb-positions-khr ;; :class
     #:acceleration-structure-build-geometry-info-khr ;; :class
-    #:acceleration-structure-build-offset-info-khr ;; :class
-    #:acceleration-structure-create-geometry-type-info-khr ;; :class
+    #:acceleration-structure-build-range-info-khr ;; :class
+    #:acceleration-structure-build-sizes-info-khr ;; :class
     #:acceleration-structure-create-info-khr ;; :class
     #:acceleration-structure-create-info-nv ;; :class
     #:acceleration-structure-device-address-info-khr ;; :class
@@ -4369,9 +4387,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acceleration-structure-geometry-triangles-data-khr ;; :class
     #:acceleration-structure-info-nv ;; :class
     #:acceleration-structure-instance-khr ;; :class
-    #:acceleration-structure-memory-requirements-info-khr ;; :class
     #:acceleration-structure-memory-requirements-info-nv ;; :class
-    #:acceleration-structure-version-khr ;; :class
+    #:acceleration-structure-version-info-khr ;; :class
     #:acquire-next-image-info-khr ;; :class
     #:acquire-profiling-lock-info-khr ;; :class
     #:allocation-callbacks ;; :class
@@ -4389,7 +4406,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:attachment-sample-locations-ext ;; :class
     #:base-in-structure ;; :class
     #:base-out-structure ;; :class
-    #:bind-acceleration-structure-memory-info-khr ;; :class
+    #:bind-acceleration-structure-memory-info-nv ;; :class
     #:bind-buffer-memory-device-group-info ;; :class
     #:bind-buffer-memory-info ;; :class
     #:bind-image-memory-device-group-info ;; :class
@@ -4454,7 +4471,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:dedicated-allocation-buffer-create-info-nv ;; :class
     #:dedicated-allocation-image-create-info-nv ;; :class
     #:dedicated-allocation-memory-allocate-info-nv ;; :class
-    #:deferred-operation-info-khr ;; :class
     #:descriptor-buffer-info ;; :class
     #:descriptor-image-info ;; :class
     #:descriptor-pool-create-info ;; :class
@@ -4640,6 +4656,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-4444-formats-features-ext ;; :class
     #:physical-device-8-bit-storage-features ;; :class
     #:physical-device-astc-decode-features-ext ;; :class
+    #:physical-device-acceleration-structure-features-khr ;; :class
+    #:physical-device-acceleration-structure-properties-khr ;; :class
     #:physical-device-blend-operation-advanced-features-ext ;; :class
     #:physical-device-blend-operation-advanced-properties-ext ;; :class
     #:physical-device-buffer-device-address-features ;; :class
@@ -4724,8 +4742,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-protected-memory-features ;; :class
     #:physical-device-protected-memory-properties ;; :class
     #:physical-device-push-descriptor-properties-khr ;; :class
-    #:physical-device-ray-tracing-features-khr ;; :class
-    #:physical-device-ray-tracing-properties-khr ;; :class
+    #:physical-device-ray-query-features-khr ;; :class
+    #:physical-device-ray-tracing-pipeline-features-khr ;; :class
+    #:physical-device-ray-tracing-pipeline-properties-khr ;; :class
     #:physical-device-ray-tracing-properties-nv ;; :class
     #:physical-device-representative-fragment-test-features-nv ;; :class
     #:physical-device-robustness-2-features-ext ;; :class
@@ -4888,7 +4907,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:specialization-map-entry ;; :class
     #:stencil-op-state ;; :class
     #:stream-descriptor-surface-create-info-ggp ;; :class
-    #:strided-buffer-region-khr ;; :class
+    #:strided-device-address-region-khr ;; :class
     #:submit-info ;; :class
     #:subpass-begin-info ;; :class
     #:subpass-dependency ;; :class
@@ -4931,6 +4950,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:win32-surface-create-info-khr ;; :class
     #:write-descriptor-set ;; :class
     #:write-descriptor-set-acceleration-structure-khr ;; :class
+    #:write-descriptor-set-acceleration-structure-nv ;; :class
     #:write-descriptor-set-inline-uniform-block-ext ;; :class
     #:x-y-color-ext ;; :class
     #:xcb-surface-create-info-khr ;; :class
@@ -4947,8 +4967,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:aabb-data ;; :accessor
     #:aabbs ;; :accessor
     #:acceleration-structure ;; :accessor
+    #:acceleration-structure-capture-replay ;; :accessor
     #:acceleration-structure-count ;; :accessor
+    #:acceleration-structure-host-commands ;; :accessor
+    #:acceleration-structure-indirect-build ;; :accessor
     #:acceleration-structure-reference ;; :accessor
+    #:acceleration-structure-size ;; :accessor
     #:acquire-count ;; :accessor
     #:active-compute-unit-count ;; :accessor
     #:actual-present-time ;; :accessor
@@ -4965,7 +4989,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:alignment ;; :accessor
     #:allocation-size ;; :accessor
     #:allow-command-buffer-query-copies ;; :accessor
-    #:allows-transforms ;; :accessor
     #:alpha-blend-op ;; :accessor
     #:alpha-mode ;; :accessor
     #:alpha-to-coverage-enable ;; :accessor
@@ -5014,7 +5037,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-image-height ;; :accessor
     #:buffer-offset ;; :accessor
     #:buffer-row-length ;; :accessor
-    #:build-type ;; :accessor
+    #:build-scratch-size ;; :accessor
     #:capabilities ;; :accessor
     #:category ;; :accessor
     #:checkpoint-execution-stage-mask ;; :accessor
@@ -5074,6 +5097,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:coverage-reduction-mode ;; :accessor
     #:coverage-to-color-enable ;; :accessor
     #:coverage-to-color-location ;; :accessor
+    #:create-flags ;; :accessor
     #:cull-mode ;; :accessor
     #:current-display ;; :accessor
     #:current-extent ;; :accessor
@@ -5112,6 +5136,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:depth-test-enable ;; :accessor
     #:depth-write-enable ;; :accessor
     #:description ;; :accessor
+    #:descriptor-binding-acceleration-structure-update-after-bind ;; :accessor
     #:descriptor-binding-inline-uniform-block-update-after-bind ;; :accessor
     #:descriptor-binding-partially-bound ;; :accessor
     #:descriptor-binding-sampled-image-update-after-bind ;; :accessor
@@ -5282,7 +5307,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:g ;; :accessor
     #:general-shader ;; :accessor
     #:geometry ;; :accessor
-    #:geometry-array-of-pointers ;; :accessor
     #:geometry-count ;; :accessor
     #:geometry-shader ;; :accessor
     #:geometry-streams ;; :accessor
@@ -5397,9 +5421,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:matrix ;; :accessor
     #:max-anisotropy ;; :accessor
     #:max-array-layers ;; :accessor
-    #:max-attribute-size ;; :accessor
     #:max-bound-descriptor-sets ;; :accessor
-    #:max-callable-size ;; :accessor
     #:max-clip-distances ;; :accessor
     #:max-color-attachments ;; :accessor
     #:max-combined-clip-and-cull-distances ;; :accessor
@@ -5424,6 +5446,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-descriptor-set-subsampled-samplers ;; :accessor
     #:max-descriptor-set-uniform-buffers ;; :accessor
     #:max-descriptor-set-uniform-buffers-dynamic ;; :accessor
+    #:max-descriptor-set-update-after-bind-acceleration-structures ;; :accessor
     #:max-descriptor-set-update-after-bind-inline-uniform-blocks ;; :accessor
     #:max-descriptor-set-update-after-bind-input-attachments ;; :accessor
     #:max-descriptor-set-update-after-bind-sampled-images ;; :accessor
@@ -5493,8 +5516,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-mip-levels ;; :accessor
     #:max-multiview-instance-index ;; :accessor
     #:max-multiview-view-count ;; :accessor
-    #:max-payload-size ;; :accessor
     #:max-per-set-descriptors ;; :accessor
+    #:max-per-stage-descriptor-acceleration-structures ;; :accessor
     #:max-per-stage-descriptor-inline-uniform-blocks ;; :accessor
     #:max-per-stage-descriptor-input-attachments ;; :accessor
     #:max-per-stage-descriptor-sampled-images ;; :accessor
@@ -5502,6 +5525,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-per-stage-descriptor-storage-buffers ;; :accessor
     #:max-per-stage-descriptor-storage-images ;; :accessor
     #:max-per-stage-descriptor-uniform-buffers ;; :accessor
+    #:max-per-stage-descriptor-update-after-bind-acceleration-structures ;; :accessor
     #:max-per-stage-descriptor-update-after-bind-inline-uniform-blocks ;; :accessor
     #:max-per-stage-descriptor-update-after-bind-input-attachments ;; :accessor
     #:max-per-stage-descriptor-update-after-bind-sampled-images ;; :accessor
@@ -5511,9 +5535,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-per-stage-descriptor-update-after-bind-uniform-buffers ;; :accessor
     #:max-per-stage-resources ;; :accessor
     #:max-per-stage-update-after-bind-resources ;; :accessor
+    #:max-pipeline-ray-hit-attribute-size ;; :accessor
+    #:max-pipeline-ray-payload-size ;; :accessor
+    #:max-pipeline-ray-recursion-depth ;; :accessor
     #:max-primitive-count ;; :accessor
     #:max-push-constants-size ;; :accessor
     #:max-push-descriptors ;; :accessor
+    #:max-ray-dispatch-invocation-count ;; :accessor
+    #:max-ray-hit-attribute-size ;; :accessor
+    #:max-ray-recursion-depth ;; :accessor
     #:max-recursion-depth ;; :accessor
     #:max-resource-size ;; :accessor
     #:max-sample-location-grid-size ;; :accessor
@@ -5556,8 +5586,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-uniform-buffer-range ;; :accessor
     #:max-update-after-bind-descriptors-in-all-pools ;; :accessor
     #:max-variable-descriptor-count ;; :accessor
+    #:max-vertex ;; :accessor
     #:max-vertex-attrib-divisor ;; :accessor
-    #:max-vertex-count ;; :accessor
     #:max-vertex-input-attribute-offset ;; :accessor
     #:max-vertex-input-attributes ;; :accessor
     #:max-vertex-input-binding-stride ;; :accessor
@@ -5588,6 +5618,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:message-id-number ;; :accessor
     #:message-severity ;; :accessor
     #:message-type ;; :accessor
+    #:min-acceleration-structure-scratch-offset-alignment ;; :accessor
     #:min-depth ;; :accessor
     #:min-depth-bounds ;; :accessor
     #:min-dst-extent ;; :accessor
@@ -5658,7 +5689,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:old-layout ;; :accessor
     #:old-swapchain ;; :accessor
     #:opaque-capture-address ;; :accessor
-    #:operation-handle ;; :accessor
     #:optimal-buffer-copy-offset-alignment ;; :accessor
     #:optimal-buffer-copy-row-pitch-alignment ;; :accessor
     #:optimal-tiling-features ;; :accessor
@@ -5716,7 +5746,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:exclusive-scissors ;; :accessor
     #:fragment-shading-rate-attachment ;; :accessor
     #:geometries ;; :accessor
-    #:geometry-infos ;; :accessor
     #:groups ;; :accessor
     #:host-pointer ;; :accessor
     #:image-binds ;; :accessor
@@ -5733,6 +5762,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:label-name ;; :accessor
     #:layer ;; :accessor
     #:libraries ;; :accessor
+    #:library-info ;; :accessor
     #:library-interface ;; :accessor
     #:map-entries ;; :accessor
     #:marker-name ;; :accessor
@@ -5786,6 +5816,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:tokens ;; :accessor
     #:user-data ;; :accessor
     #:values ;; :accessor
+    #:version-data ;; :accessor
     #:vertex-attribute-descriptions ;; :accessor
     #:vertex-binding-descriptions ;; :accessor
     #:vertex-binding-divisors ;; :accessor
@@ -5907,14 +5938,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:rasterization-stream ;; :accessor
     #:rasterizer-discard-enable ;; :accessor
     #:ray-query ;; :accessor
-    #:ray-tracing ;; :accessor
-    #:ray-tracing-acceleration-structure-capture-replay ;; :accessor
-    #:ray-tracing-host-acceleration-structure-commands ;; :accessor
-    #:ray-tracing-indirect-acceleration-structure-build ;; :accessor
-    #:ray-tracing-indirect-trace-rays ;; :accessor
-    #:ray-tracing-primitive-culling ;; :accessor
-    #:ray-tracing-shader-group-handle-capture-replay ;; :accessor
-    #:ray-tracing-shader-group-handle-capture-replay-mixed ;; :accessor
+    #:ray-tracing-pipeline ;; :accessor
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay ;; :accessor
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed ;; :accessor
+    #:ray-tracing-pipeline-trace-rays-indirect ;; :accessor
+    #:ray-traversal-primitive-culling ;; :accessor
     #:rect ;; :accessor
     #:rectangle-count ;; :accessor
     #:rectangular-lines ;; :accessor
@@ -6018,6 +6046,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-float-16 ;; :accessor
     #:shader-float-64 ;; :accessor
     #:shader-group-base-alignment ;; :accessor
+    #:shader-group-handle-alignment ;; :accessor
     #:shader-group-handle-capture-replay-size ;; :accessor
     #:shader-group-handle-size ;; :accessor
     #:shader-image-float-32-atomic-add ;; :accessor
@@ -6249,7 +6278,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:uniform-texel-buffer-offset-single-texel-alignment ;; :accessor
     #:unit ;; :accessor
     #:unnormalized-coordinates ;; :accessor
-    #:update ;; :accessor
+    #:update-scratch-size ;; :accessor
     #:usage ;; :accessor
     #:uuid ;; :accessor
     #:validation-cache ;; :accessor
@@ -6265,7 +6294,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:variable-sample-locations ;; :accessor
     #:vendor-id ;; :accessor
     #:version ;; :accessor
-    #:version-data ;; :accessor
     #:vertex-attribute-access-beyond-stride ;; :accessor
     #:vertex-attribute-description-count ;; :accessor
     #:vertex-attribute-instance-rate-divisor ;; :accessor
@@ -6326,7 +6354,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:allocate-descriptor-sets
     #:allocate-memory
     #:begin-command-buffer
-    #:bind-acceleration-structure-memory-khr
     #:bind-acceleration-structure-memory-nv
     #:bind-buffer-memory
     #:bind-buffer-memory-2
@@ -6334,7 +6361,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:bind-image-memory
     #:bind-image-memory-2
     #:bind-image-memory-2-khr
-    #:build-acceleration-structure-khr
+    #:build-acceleration-structures-khr
     #:cmd-begin-conditional-rendering-ext
     #:cmd-begin-debug-utils-label-ext
     #:cmd-begin-query
@@ -6353,9 +6380,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-bind-vertex-buffers-2-ext
     #:cmd-blit-image
     #:cmd-blit-image-2-khr
-    #:cmd-build-acceleration-structure-indirect-khr
-    #:cmd-build-acceleration-structure-khr
     #:cmd-build-acceleration-structure-nv
+    #:cmd-build-acceleration-structures-indirect-khr
+    #:cmd-build-acceleration-structures-khr
     #:cmd-clear-attachments
     #:cmd-clear-color-image
     #:cmd-clear-depth-stencil-image
@@ -6441,6 +6468,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-performance-override-intel
     #:cmd-set-performance-stream-marker-intel
     #:cmd-set-primitive-topology-ext
+    #:cmd-set-ray-tracing-pipeline-stack-size-khr
     #:cmd-set-sample-locations-ext
     #:cmd-set-scissor
     #:cmd-set-scissor-with-count-ext
@@ -6574,9 +6602,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:free-command-buffers
     #:free-descriptor-sets
     #:free-memory
+    #:get-acceleration-structure-build-sizes-khr
     #:get-acceleration-structure-device-address-khr
     #:get-acceleration-structure-handle-nv
-    #:get-acceleration-structure-memory-requirements-khr
     #:get-acceleration-structure-memory-requirements-nv
     #:get-android-hardware-buffer-properties-android
     #:get-buffer-device-address
@@ -6698,6 +6726,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-ray-tracing-capture-replay-shader-group-handles-khr
     #:get-ray-tracing-shader-group-handles-khr
     #:get-ray-tracing-shader-group-handles-nv
+    #:get-ray-tracing-shader-group-stack-size-khr
     #:get-refresh-cycle-duration-google
     #:get-render-area-granularity
     #:get-semaphore-counter-value

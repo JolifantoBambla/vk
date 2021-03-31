@@ -6461,9 +6461,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-stages
         %vk:group-count
         %vk:p-groups
-        %vk:max-recursion-depth
-        %vk:libraries
+        %vk:max-pipeline-ray-recursion-depth
+        %vk:p-library-info
         %vk:p-library-interface
+        %vk:p-dynamic-state
         %vk:layout
         %vk:base-pipeline-handle
         %vk:base-pipeline-index)
@@ -6476,9 +6477,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-stages (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-shader-stage-create-info) (vk:stages value) ptr)
           %vk:group-count (length (vk:groups value))
           %vk:p-groups (vk-alloc:foreign-allocate-and-fill '(:struct %vk:ray-tracing-shader-group-create-info-khr) (vk:groups value) ptr)
-          %vk:max-recursion-depth (vk:max-recursion-depth value)
-          %vk:libraries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-library-create-info-khr) (vk:libraries value) ptr)
+          %vk:max-pipeline-ray-recursion-depth (vk:max-pipeline-ray-recursion-depth value)
+          %vk:p-library-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-library-create-info-khr) (vk:library-info value) ptr)
           %vk:p-library-interface (vk-alloc:foreign-allocate-and-fill '(:struct %vk:ray-tracing-pipeline-interface-create-info-khr) (vk:library-interface value) ptr)
+          %vk:p-dynamic-state (vk-alloc:foreign-allocate-and-fill '(:struct %vk:pipeline-dynamic-state-create-info) (vk:dynamic-state value) ptr)
           %vk:layout (if (vk:layout value) (vk:layout value) (cffi:null-pointer))
           %vk:base-pipeline-handle (if (vk:base-pipeline-handle value) (vk:base-pipeline-handle value) (cffi:null-pointer))
           %vk:base-pipeline-index (vk:base-pipeline-index value))))
@@ -6587,7 +6589,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:compacted-size (vk:compacted-size value)
           %vk:info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-info-nv) (vk:info value) ptr))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-bind-acceleration-structure-memory-info-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-bind-acceleration-structure-memory-info-nv) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
@@ -6597,8 +6599,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:device-index-count
         %vk:p-device-indices)
        ptr
-       (:struct %vk:bind-acceleration-structure-memory-info-khr))
-    (setf %vk:s-type :bind-acceleration-structure-memory-info-khr
+       (:struct %vk:bind-acceleration-structure-memory-info-nv))
+    (setf %vk:s-type :bind-acceleration-structure-memory-info-nv
           %vk:p-next (cffi:null-pointer)
           %vk:acceleration-structure (if (vk:acceleration-structure value) (vk:acceleration-structure value) (cffi:null-pointer))
           %vk:memory (if (vk:memory value) (vk:memory value) (cffi:null-pointer))
@@ -6619,20 +6621,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:acceleration-structure-count (length (vk:acceleration-structures value))
           %vk:p-acceleration-structures (vk-alloc:foreign-allocate-and-fill '%vk:acceleration-structure-khr (vk:acceleration-structures value) ptr))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-memory-requirements-info-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-write-descriptor-set-acceleration-structure-nv) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:type
-        %vk:build-type
-        %vk:acceleration-structure)
+        %vk:acceleration-structure-count
+        %vk:p-acceleration-structures)
        ptr
-       (:struct %vk:acceleration-structure-memory-requirements-info-khr))
-    (setf %vk:s-type :acceleration-structure-memory-requirements-info-khr
-          %vk:p-next (cffi:null-pointer)
-          %vk:type (vk:type value)
-          %vk:build-type (vk:build-type value)
-          %vk:acceleration-structure (if (vk:acceleration-structure value) (vk:acceleration-structure value) (cffi:null-pointer)))))
+       (:struct %vk:write-descriptor-set-acceleration-structure-nv))
+    (setf %vk:s-type :write-descriptor-set-acceleration-structure-nv
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:acceleration-structure-count (length (vk:acceleration-structures value))
+          %vk:p-acceleration-structures (vk-alloc:foreign-allocate-and-fill '%vk:acceleration-structure-nv (vk:acceleration-structures value) ptr))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-memory-requirements-info-nv) ptr)
   (cffi:with-foreign-slots
@@ -6645,61 +6645,106 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :acceleration-structure-memory-requirements-info-nv
           %vk:p-next (cffi:null-pointer)
           %vk:type (vk:type value)
-          %vk:acceleration-structure (vk:acceleration-structure value))))
+          %vk:acceleration-structure (if (vk:acceleration-structure value) (vk:acceleration-structure value) (cffi:null-pointer)))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-ray-tracing-features-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-acceleration-structure-features-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:ray-tracing
-        %vk:ray-tracing-shader-group-handle-capture-replay
-        %vk:ray-tracing-shader-group-handle-capture-replay-mixed
-        %vk:ray-tracing-acceleration-structure-capture-replay
-        %vk:ray-tracing-indirect-trace-rays
-        %vk:ray-tracing-indirect-acceleration-structure-build
-        %vk:ray-tracing-host-acceleration-structure-commands
-        %vk:ray-query
-        %vk:ray-tracing-primitive-culling)
+        %vk:acceleration-structure
+        %vk:acceleration-structure-capture-replay
+        %vk:acceleration-structure-indirect-build
+        %vk:acceleration-structure-host-commands
+        %vk:descriptor-binding-acceleration-structure-update-after-bind)
        ptr
-       (:struct %vk:physical-device-ray-tracing-features-khr))
-    (setf %vk:s-type :physical-device-ray-tracing-features-khr
+       (:struct %vk:physical-device-acceleration-structure-features-khr))
+    (setf %vk:s-type :physical-device-acceleration-structure-features-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
-          %vk:ray-tracing (vk:ray-tracing value)
-          %vk:ray-tracing-shader-group-handle-capture-replay (vk:ray-tracing-shader-group-handle-capture-replay value)
-          %vk:ray-tracing-shader-group-handle-capture-replay-mixed (vk:ray-tracing-shader-group-handle-capture-replay-mixed value)
-          %vk:ray-tracing-acceleration-structure-capture-replay (vk:ray-tracing-acceleration-structure-capture-replay value)
-          %vk:ray-tracing-indirect-trace-rays (vk:ray-tracing-indirect-trace-rays value)
-          %vk:ray-tracing-indirect-acceleration-structure-build (vk:ray-tracing-indirect-acceleration-structure-build value)
-          %vk:ray-tracing-host-acceleration-structure-commands (vk:ray-tracing-host-acceleration-structure-commands value)
-          %vk:ray-query (vk:ray-query value)
-          %vk:ray-tracing-primitive-culling (vk:ray-tracing-primitive-culling value))))
+          %vk:acceleration-structure (vk:acceleration-structure value)
+          %vk:acceleration-structure-capture-replay (vk:acceleration-structure-capture-replay value)
+          %vk:acceleration-structure-indirect-build (vk:acceleration-structure-indirect-build value)
+          %vk:acceleration-structure-host-commands (vk:acceleration-structure-host-commands value)
+          %vk:descriptor-binding-acceleration-structure-update-after-bind (vk:descriptor-binding-acceleration-structure-update-after-bind value))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-ray-tracing-properties-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-ray-tracing-pipeline-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ray-tracing-pipeline
+        %vk:ray-tracing-pipeline-shader-group-handle-capture-replay
+        %vk:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
+        %vk:ray-tracing-pipeline-trace-rays-indirect
+        %vk:ray-traversal-primitive-culling)
+       ptr
+       (:struct %vk:physical-device-ray-tracing-pipeline-features-khr))
+    (setf %vk:s-type :physical-device-ray-tracing-pipeline-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:ray-tracing-pipeline (vk:ray-tracing-pipeline value)
+          %vk:ray-tracing-pipeline-shader-group-handle-capture-replay (vk:ray-tracing-pipeline-shader-group-handle-capture-replay value)
+          %vk:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed (vk:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed value)
+          %vk:ray-tracing-pipeline-trace-rays-indirect (vk:ray-tracing-pipeline-trace-rays-indirect value)
+          %vk:ray-traversal-primitive-culling (vk:ray-traversal-primitive-culling value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-ray-query-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ray-query)
+       ptr
+       (:struct %vk:physical-device-ray-query-features-khr))
+    (setf %vk:s-type :physical-device-ray-query-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:ray-query (vk:ray-query value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-acceleration-structure-properties-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-geometry-count
+        %vk:max-instance-count
+        %vk:max-primitive-count
+        %vk:max-per-stage-descriptor-acceleration-structures
+        %vk:max-per-stage-descriptor-update-after-bind-acceleration-structures
+        %vk:max-descriptor-set-acceleration-structures
+        %vk:max-descriptor-set-update-after-bind-acceleration-structures
+        %vk:min-acceleration-structure-scratch-offset-alignment)
+       ptr
+       (:struct %vk:physical-device-acceleration-structure-properties-khr))
+    (setf %vk:s-type :physical-device-acceleration-structure-properties-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:max-geometry-count (vk:max-geometry-count value)
+          %vk:max-instance-count (vk:max-instance-count value)
+          %vk:max-primitive-count (vk:max-primitive-count value)
+          %vk:max-per-stage-descriptor-acceleration-structures (vk:max-per-stage-descriptor-acceleration-structures value)
+          %vk:max-per-stage-descriptor-update-after-bind-acceleration-structures (vk:max-per-stage-descriptor-update-after-bind-acceleration-structures value)
+          %vk:max-descriptor-set-acceleration-structures (vk:max-descriptor-set-acceleration-structures value)
+          %vk:max-descriptor-set-update-after-bind-acceleration-structures (vk:max-descriptor-set-update-after-bind-acceleration-structures value)
+          %vk:min-acceleration-structure-scratch-offset-alignment (vk:min-acceleration-structure-scratch-offset-alignment value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-ray-tracing-pipeline-properties-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
         %vk:shader-group-handle-size
-        %vk:max-recursion-depth
+        %vk:max-ray-recursion-depth
         %vk:max-shader-group-stride
         %vk:shader-group-base-alignment
-        %vk:max-geometry-count
-        %vk:max-instance-count
-        %vk:max-primitive-count
-        %vk:max-descriptor-set-acceleration-structures
-        %vk:shader-group-handle-capture-replay-size)
+        %vk:shader-group-handle-capture-replay-size
+        %vk:max-ray-dispatch-invocation-count
+        %vk:shader-group-handle-alignment
+        %vk:max-ray-hit-attribute-size)
        ptr
-       (:struct %vk:physical-device-ray-tracing-properties-khr))
-    (setf %vk:s-type :physical-device-ray-tracing-properties-khr
+       (:struct %vk:physical-device-ray-tracing-pipeline-properties-khr))
+    (setf %vk:s-type :physical-device-ray-tracing-pipeline-properties-khr
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:shader-group-handle-size (vk:shader-group-handle-size value)
-          %vk:max-recursion-depth (vk:max-recursion-depth value)
+          %vk:max-ray-recursion-depth (vk:max-ray-recursion-depth value)
           %vk:max-shader-group-stride (vk:max-shader-group-stride value)
           %vk:shader-group-base-alignment (vk:shader-group-base-alignment value)
-          %vk:max-geometry-count (vk:max-geometry-count value)
-          %vk:max-instance-count (vk:max-instance-count value)
-          %vk:max-primitive-count (vk:max-primitive-count value)
-          %vk:max-descriptor-set-acceleration-structures (vk:max-descriptor-set-acceleration-structures value)
-          %vk:shader-group-handle-capture-replay-size (vk:shader-group-handle-capture-replay-size value))))
+          %vk:shader-group-handle-capture-replay-size (vk:shader-group-handle-capture-replay-size value)
+          %vk:max-ray-dispatch-invocation-count (vk:max-ray-dispatch-invocation-count value)
+          %vk:shader-group-handle-alignment (vk:shader-group-handle-alignment value)
+          %vk:max-ray-hit-attribute-size (vk:max-ray-hit-attribute-size value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-ray-tracing-properties-nv) ptr)
   (cffi:with-foreign-slots
@@ -6726,16 +6771,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:max-triangle-count (vk:max-triangle-count value)
           %vk:max-descriptor-set-acceleration-structures (vk:max-descriptor-set-acceleration-structures value))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-strided-buffer-region-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-strided-device-address-region-khr) ptr)
   (cffi:with-foreign-slots
-      ((%vk:buffer
-        %vk:offset
+      ((%vk:device-address
         %vk:stride
         %vk:size)
        ptr
-       (:struct %vk:strided-buffer-region-khr))
-    (setf %vk:buffer (if (vk:buffer value) (vk:buffer value) (cffi:null-pointer))
-          %vk:offset (vk:offset value)
+       (:struct %vk:strided-device-address-region-khr))
+    (setf %vk:device-address (vk:device-address value)
           %vk:stride (vk:stride value)
           %vk:size (vk:size value))))
 
@@ -8393,6 +8436,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:vertex-format
         %vk:vertex-data
         %vk:vertex-stride
+        %vk:max-vertex
         %vk:index-type
         %vk:index-data
         %vk:transform-data)
@@ -8403,6 +8447,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:vertex-format (vk:vertex-format value)
           %vk:vertex-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:vertex-data value) ptr)
           %vk:vertex-stride (vk:vertex-stride value)
+          %vk:max-vertex (vk:max-vertex value)
           %vk:index-type (vk:index-type value)
           %vk:index-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:index-data value) ptr)
           %vk:transform-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:transform-data value) ptr))))
@@ -8478,80 +8523,59 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-next
         %vk:type
         %vk:flags
-        %vk:update
+        %vk:mode
         %vk:src-acceleration-structure
         %vk:dst-acceleration-structure
-        %vk:geometry-array-of-pointers
         %vk:geometry-count
+        %vk:p-geometries
         %vk:pp-geometries
         %vk:scratch-data)
        ptr
        (:struct %vk:acceleration-structure-build-geometry-info-khr))
     (setf %vk:s-type :acceleration-structure-build-geometry-info-khr
-          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:p-next (cffi:null-pointer)
           %vk:type (vk:type value)
           %vk:flags (vk:flags value)
-          %vk:update (vk:update value)
+          %vk:mode (vk:mode value)
           %vk:src-acceleration-structure (if (vk:src-acceleration-structure value) (vk:src-acceleration-structure value) (cffi:null-pointer))
           %vk:dst-acceleration-structure (if (vk:dst-acceleration-structure value) (vk:dst-acceleration-structure value) (cffi:null-pointer))
-          %vk:geometry-array-of-pointers (vk:geometry-array-of-pointers value)
-          %vk:geometry-count (vk:geometry-count value)
+          %vk:geometry-count (reduce #'max (list (length (vk:geometries value))(length (vk:p-geometries value))))
+          %vk:p-geometries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-khr) (vk:geometries value) ptr)
           %vk:pp-geometries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-geometry-khr) (vk:p-geometries value) ptr)
           %vk:scratch-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-khr) (vk:scratch-data value) ptr))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-build-offset-info-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-build-range-info-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:primitive-count
         %vk:primitive-offset
         %vk:first-vertex
         %vk:transform-offset)
        ptr
-       (:struct %vk:acceleration-structure-build-offset-info-khr))
+       (:struct %vk:acceleration-structure-build-range-info-khr))
     (setf %vk:primitive-count (vk:primitive-count value)
           %vk:primitive-offset (vk:primitive-offset value)
           %vk:first-vertex (vk:first-vertex value)
           %vk:transform-offset (vk:transform-offset value))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-create-geometry-type-info-khr) ptr)
-  (cffi:with-foreign-slots
-      ((%vk:s-type
-        %vk:p-next
-        %vk:geometry-type
-        %vk:max-primitive-count
-        %vk:index-type
-        %vk:max-vertex-count
-        %vk:vertex-format
-        %vk:allows-transforms)
-       ptr
-       (:struct %vk:acceleration-structure-create-geometry-type-info-khr))
-    (setf %vk:s-type :acceleration-structure-create-geometry-type-info-khr
-          %vk:p-next (cffi:null-pointer)
-          %vk:geometry-type (vk:geometry-type value)
-          %vk:max-primitive-count (vk:max-primitive-count value)
-          %vk:index-type (vk:index-type value)
-          %vk:max-vertex-count (vk:max-vertex-count value)
-          %vk:vertex-format (vk:vertex-format value)
-          %vk:allows-transforms (vk:allows-transforms value))))
-
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-create-info-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:compacted-size
+        %vk:create-flags
+        %vk:buffer
+        %vk:offset
+        %vk:size
         %vk:type
-        %vk:flags
-        %vk:max-geometry-count
-        %vk:p-geometry-infos
         %vk:device-address)
        ptr
        (:struct %vk:acceleration-structure-create-info-khr))
     (setf %vk:s-type :acceleration-structure-create-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:compacted-size (vk:compacted-size value)
+          %vk:create-flags (vk:create-flags value)
+          %vk:buffer (if (vk:buffer value) (vk:buffer value) (cffi:null-pointer))
+          %vk:offset (vk:offset value)
+          %vk:size (vk:size value)
           %vk:type (vk:type value)
-          %vk:flags (vk:flags value)
-          %vk:max-geometry-count (length (vk:geometry-infos value))
-          %vk:p-geometry-infos (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-create-geometry-type-info-khr) (vk:geometry-infos value) ptr)
           %vk:device-address (vk:device-address value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-aabb-positions-khr) ptr)
@@ -8606,16 +8630,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (cffi:null-pointer)
           %vk:acceleration-structure (if (vk:acceleration-structure value) (vk:acceleration-structure value) (cffi:null-pointer)))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-version-khr) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-version-info-khr) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:version-data)
+        %vk:p-version-data)
        ptr
-       (:struct %vk:acceleration-structure-version-khr))
-    (setf %vk:s-type :acceleration-structure-version-khr
+       (:struct %vk:acceleration-structure-version-info-khr))
+    (setf %vk:s-type :acceleration-structure-version-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:version-data (vk:version-data value))))
+          %vk:p-version-data (vk:version-data value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-copy-acceleration-structure-info-khr) ptr)
   (cffi:with-foreign-slots
@@ -8627,7 +8651,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:copy-acceleration-structure-info-khr))
     (setf %vk:s-type :copy-acceleration-structure-info-khr
-          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:p-next (cffi:null-pointer)
           %vk:src (if (vk:src value) (vk:src value) (cffi:null-pointer))
           %vk:dst (if (vk:dst value) (vk:dst value) (cffi:null-pointer))
           %vk:mode (vk:mode value))))
@@ -8642,7 +8666,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:copy-acceleration-structure-to-memory-info-khr))
     (setf %vk:s-type :copy-acceleration-structure-to-memory-info-khr
-          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:p-next (cffi:null-pointer)
           %vk:src (if (vk:src value) (vk:src value) (cffi:null-pointer))
           %vk:dst (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-khr) (vk:dst value) ptr)
           %vk:mode (vk:mode value))))
@@ -8657,7 +8681,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:copy-memory-to-acceleration-structure-info-khr))
     (setf %vk:s-type :copy-memory-to-acceleration-structure-info-khr
-          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:p-next (cffi:null-pointer)
           %vk:src (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:src value) ptr)
           %vk:dst (if (vk:dst value) (vk:dst value) (cffi:null-pointer))
           %vk:mode (vk:mode value))))
@@ -8666,27 +8690,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:max-payload-size
-        %vk:max-attribute-size
-        %vk:max-callable-size)
+        %vk:max-pipeline-ray-payload-size
+        %vk:max-pipeline-ray-hit-attribute-size)
        ptr
        (:struct %vk:ray-tracing-pipeline-interface-create-info-khr))
     (setf %vk:s-type :ray-tracing-pipeline-interface-create-info-khr
           %vk:p-next (cffi:null-pointer)
-          %vk:max-payload-size (vk:max-payload-size value)
-          %vk:max-attribute-size (vk:max-attribute-size value)
-          %vk:max-callable-size (vk:max-callable-size value))))
-
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-deferred-operation-info-khr) ptr)
-  (cffi:with-foreign-slots
-      ((%vk:s-type
-        %vk:p-next
-        %vk:operation-handle)
-       ptr
-       (:struct %vk:deferred-operation-info-khr))
-    (setf %vk:s-type :deferred-operation-info-khr
-          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
-          %vk:operation-handle (if (vk:operation-handle value) (vk:operation-handle value) (cffi:null-pointer)))))
+          %vk:max-pipeline-ray-payload-size (vk:max-pipeline-ray-payload-size value)
+          %vk:max-pipeline-ray-hit-attribute-size (vk:max-pipeline-ray-hit-attribute-size value))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-library-create-info-khr) ptr)
   (cffi:with-foreign-slots
@@ -9243,4 +9254,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:shading-rate-type (vk:shading-rate-type value)
           %vk:shading-rate (vk:shading-rate value)
           %vk:combiner-ops (vk:combiner-ops value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-build-sizes-info-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:acceleration-structure-size
+        %vk:update-scratch-size
+        %vk:build-scratch-size)
+       ptr
+       (:struct %vk:acceleration-structure-build-sizes-info-khr))
+    (setf %vk:s-type :acceleration-structure-build-sizes-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:acceleration-structure-size (vk:acceleration-structure-size value)
+          %vk:update-scratch-size (vk:update-scratch-size value)
+          %vk:build-scratch-size (vk:build-scratch-size value))))
 

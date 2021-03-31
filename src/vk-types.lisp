@@ -12947,18 +12947,22 @@ See PIPELINE
      :initarg :groups
      :initform nil
      :accessor groups)
-   (max-recursion-depth
-     :initarg :max-recursion-depth
+   (max-pipeline-ray-recursion-depth
+     :initarg :max-pipeline-ray-recursion-depth
      :initform 0
-     :accessor max-recursion-depth)
-   (libraries
-     :initarg :libraries
+     :accessor max-pipeline-ray-recursion-depth)
+   (library-info
+     :initarg :library-info
      :initform nil
-     :accessor libraries)
+     :accessor library-info)
    (library-interface
      :initarg :library-interface
      :initform nil
      :accessor library-interface)
+   (dynamic-state
+     :initarg :dynamic-state
+     :initform nil
+     :accessor dynamic-state)
    (layout
      :initarg :layout
      :initform nil
@@ -12978,9 +12982,10 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-CREATE-FLAGS.
  - STAGES: a list of foreign pointer to a buffer of size STAGE-COUNTs.
  - GROUPS: a list of foreign pointer to a buffer of size GROUP-COUNTs.
- - MAX-RECURSION-DEPTH: a positive (32-bit) integer.
- - LIBRARIES: a PIPELINE-LIBRARY-CREATE-INFO-KHR.
+ - MAX-PIPELINE-RAY-RECURSION-DEPTH: a positive (32-bit) integer.
+ - LIBRARY-INFO (optional): a PIPELINE-LIBRARY-CREATE-INFO-KHR.
  - LIBRARY-INTERFACE (optional): a RAY-TRACING-PIPELINE-INTERFACE-CREATE-INFO-KHR.
+ - DYNAMIC-STATE (optional): a PIPELINE-DYNAMIC-STATE-CREATE-INFO.
  - LAYOUT: a PIPELINE-LAYOUT.
  - BASE-PIPELINE-HANDLE (optional): a PIPELINE.
  - BASE-PIPELINE-INDEX: a (32-bit) integer.
@@ -12990,6 +12995,7 @@ See PIPELINE-SHADER-STAGE-CREATE-INFO
 See RAY-TRACING-SHADER-GROUP-CREATE-INFO-KHR
 See PIPELINE-LIBRARY-CREATE-INFO-KHR
 See RAY-TRACING-PIPELINE-INTERFACE-CREATE-INFO-KHR
+See PIPELINE-DYNAMIC-STATE-CREATE-INFO
 See PIPELINE-LAYOUT
 See PIPELINE
 "))
@@ -13207,7 +13213,7 @@ See DEVICE-SIZE
 See ACCELERATION-STRUCTURE-INFO-NV
 "))
 
-(defclass bind-acceleration-structure-memory-info-khr ()
+(defclass bind-acceleration-structure-memory-info-nv ()
   ((next
      :initarg :next
      :initform nil
@@ -13228,16 +13234,16 @@ See ACCELERATION-STRUCTURE-INFO-NV
      :initarg :device-indices
      :initform nil
      :accessor device-indices))
-  (:documentation "Represents the struct [VkBindAccelerationStructureMemoryInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindAccelerationStructureMemoryInfoKHR.html).
+  (:documentation "Represents the struct [VkBindAccelerationStructureMemoryInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindAccelerationStructureMemoryInfoNV.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-KHR.
+ - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-NV.
  - MEMORY: a DEVICE-MEMORY.
  - MEMORY-OFFSET: a DEVICE-SIZE.
  - DEVICE-INDICES: a list of foreign pointer to a buffer of size DEVICE-INDEX-COUNTs.
 
-See ACCELERATION-STRUCTURE-KHR
+See ACCELERATION-STRUCTURE-NV
 See DEVICE-MEMORY
 See DEVICE-SIZE
 "))
@@ -13263,34 +13269,25 @@ Instances of this class can be used to extend the following classes (using their
 See WRITE-DESCRIPTOR-SET
 "))
 
-(defclass acceleration-structure-memory-requirements-info-khr ()
+(defclass write-descriptor-set-acceleration-structure-nv ()
   ((next
      :initarg :next
      :initform nil
      :accessor next)
-   (type
-     :initarg :type
+   (acceleration-structures
+     :initarg :acceleration-structures
      :initform nil
-     :accessor type)
-   (build-type
-     :initarg :build-type
-     :initform nil
-     :accessor build-type)
-   (acceleration-structure
-     :initarg :acceleration-structure
-     :initform nil
-     :accessor acceleration-structure))
-  (:documentation "Represents the struct [VkAccelerationStructureMemoryRequirementsInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureMemoryRequirementsInfoKHR.html).
+     :accessor acceleration-structures))
+  (:documentation "Represents the struct [VkWriteDescriptorSetAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSetAccelerationStructureNV.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TYPE: an enum value of ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-KHR.
- - BUILD-TYPE: an enum value of ACCELERATION-STRUCTURE-BUILD-TYPE-KHR.
- - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-KHR.
+ - ACCELERATION-STRUCTURES: a list of foreign pointer to a buffer of size ACCELERATION-STRUCTURE-COUNTs.
 
-See ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-KHR
-See ACCELERATION-STRUCTURE-BUILD-TYPE-KHR
-See ACCELERATION-STRUCTURE-KHR
+See ACCELERATION-STRUCTURE-NV
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See WRITE-DESCRIPTOR-SET
 "))
 
 (defclass acceleration-structure-memory-requirements-info-nv ()
@@ -13310,67 +13307,47 @@ See ACCELERATION-STRUCTURE-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TYPE: an ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-NV.
+ - TYPE: an enum value of ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-NV.
  - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-NV.
 
 See ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-NV
 See ACCELERATION-STRUCTURE-NV
 "))
 
-(defclass physical-device-ray-tracing-features-khr ()
+(defclass physical-device-acceleration-structure-features-khr ()
   ((next
      :initarg :next
      :initform nil
      :accessor next)
-   (ray-tracing
-     :initarg :ray-tracing
+   (acceleration-structure
+     :initarg :acceleration-structure
      :initform nil
-     :accessor ray-tracing)
-   (ray-tracing-shader-group-handle-capture-replay
-     :initarg :ray-tracing-shader-group-handle-capture-replay
+     :accessor acceleration-structure)
+   (acceleration-structure-capture-replay
+     :initarg :acceleration-structure-capture-replay
      :initform nil
-     :accessor ray-tracing-shader-group-handle-capture-replay)
-   (ray-tracing-shader-group-handle-capture-replay-mixed
-     :initarg :ray-tracing-shader-group-handle-capture-replay-mixed
+     :accessor acceleration-structure-capture-replay)
+   (acceleration-structure-indirect-build
+     :initarg :acceleration-structure-indirect-build
      :initform nil
-     :accessor ray-tracing-shader-group-handle-capture-replay-mixed)
-   (ray-tracing-acceleration-structure-capture-replay
-     :initarg :ray-tracing-acceleration-structure-capture-replay
+     :accessor acceleration-structure-indirect-build)
+   (acceleration-structure-host-commands
+     :initarg :acceleration-structure-host-commands
      :initform nil
-     :accessor ray-tracing-acceleration-structure-capture-replay)
-   (ray-tracing-indirect-trace-rays
-     :initarg :ray-tracing-indirect-trace-rays
+     :accessor acceleration-structure-host-commands)
+   (descriptor-binding-acceleration-structure-update-after-bind
+     :initarg :descriptor-binding-acceleration-structure-update-after-bind
      :initform nil
-     :accessor ray-tracing-indirect-trace-rays)
-   (ray-tracing-indirect-acceleration-structure-build
-     :initarg :ray-tracing-indirect-acceleration-structure-build
-     :initform nil
-     :accessor ray-tracing-indirect-acceleration-structure-build)
-   (ray-tracing-host-acceleration-structure-commands
-     :initarg :ray-tracing-host-acceleration-structure-commands
-     :initform nil
-     :accessor ray-tracing-host-acceleration-structure-commands)
-   (ray-query
-     :initarg :ray-query
-     :initform nil
-     :accessor ray-query)
-   (ray-tracing-primitive-culling
-     :initarg :ray-tracing-primitive-culling
-     :initform nil
-     :accessor ray-tracing-primitive-culling))
-  (:documentation "Represents the struct [VkPhysicalDeviceRayTracingFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingFeaturesKHR.html).
+     :accessor descriptor-binding-acceleration-structure-update-after-bind))
+  (:documentation "Represents the struct [VkPhysicalDeviceAccelerationStructureFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceAccelerationStructureFeaturesKHR.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - RAY-TRACING: a BOOL32.
- - RAY-TRACING-SHADER-GROUP-HANDLE-CAPTURE-REPLAY: a BOOL32.
- - RAY-TRACING-SHADER-GROUP-HANDLE-CAPTURE-REPLAY-MIXED: a BOOL32.
- - RAY-TRACING-ACCELERATION-STRUCTURE-CAPTURE-REPLAY: a BOOL32.
- - RAY-TRACING-INDIRECT-TRACE-RAYS: a BOOL32.
- - RAY-TRACING-INDIRECT-ACCELERATION-STRUCTURE-BUILD: a BOOL32.
- - RAY-TRACING-HOST-ACCELERATION-STRUCTURE-COMMANDS: a BOOL32.
- - RAY-QUERY: a BOOL32.
- - RAY-TRACING-PRIMITIVE-CULLING: a BOOL32.
+ - ACCELERATION-STRUCTURE: a BOOL32.
+ - ACCELERATION-STRUCTURE-CAPTURE-REPLAY: a BOOL32.
+ - ACCELERATION-STRUCTURE-INDIRECT-BUILD: a BOOL32.
+ - ACCELERATION-STRUCTURE-HOST-COMMANDS: a BOOL32.
+ - DESCRIPTOR-BINDING-ACCELERATION-STRUCTURE-UPDATE-AFTER-BIND: a BOOL32.
 
 See BOOL32
 
@@ -13379,27 +13356,75 @@ See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
-(defclass physical-device-ray-tracing-properties-khr ()
+(defclass physical-device-ray-tracing-pipeline-features-khr ()
   ((next
      :initarg :next
      :initform nil
      :accessor next)
-   (shader-group-handle-size
-     :initarg :shader-group-handle-size
-     :initform 0
-     :accessor shader-group-handle-size)
-   (max-recursion-depth
-     :initarg :max-recursion-depth
-     :initform 0
-     :accessor max-recursion-depth)
-   (max-shader-group-stride
-     :initarg :max-shader-group-stride
-     :initform 0
-     :accessor max-shader-group-stride)
-   (shader-group-base-alignment
-     :initarg :shader-group-base-alignment
-     :initform 0
-     :accessor shader-group-base-alignment)
+   (ray-tracing-pipeline
+     :initarg :ray-tracing-pipeline
+     :initform nil
+     :accessor ray-tracing-pipeline)
+   (ray-tracing-pipeline-shader-group-handle-capture-replay
+     :initarg :ray-tracing-pipeline-shader-group-handle-capture-replay
+     :initform nil
+     :accessor ray-tracing-pipeline-shader-group-handle-capture-replay)
+   (ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
+     :initarg :ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
+     :initform nil
+     :accessor ray-tracing-pipeline-shader-group-handle-capture-replay-mixed)
+   (ray-tracing-pipeline-trace-rays-indirect
+     :initarg :ray-tracing-pipeline-trace-rays-indirect
+     :initform nil
+     :accessor ray-tracing-pipeline-trace-rays-indirect)
+   (ray-traversal-primitive-culling
+     :initarg :ray-traversal-primitive-culling
+     :initform nil
+     :accessor ray-traversal-primitive-culling))
+  (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPipelineFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - RAY-TRACING-PIPELINE: a BOOL32.
+ - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY: a BOOL32.
+ - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY-MIXED: a BOOL32.
+ - RAY-TRACING-PIPELINE-TRACE-RAYS-INDIRECT: a BOOL32.
+ - RAY-TRAVERSAL-PRIMITIVE-CULLING: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-ray-query-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (ray-query
+     :initarg :ray-query
+     :initform nil
+     :accessor ray-query))
+  (:documentation "Represents the struct [VkPhysicalDeviceRayQueryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayQueryFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - RAY-QUERY: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-acceleration-structure-properties-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
    (max-geometry-count
      :initarg :max-geometry-count
      :initform 0
@@ -13412,27 +13437,92 @@ See DEVICE-CREATE-INFO
      :initarg :max-primitive-count
      :initform 0
      :accessor max-primitive-count)
+   (max-per-stage-descriptor-acceleration-structures
+     :initarg :max-per-stage-descriptor-acceleration-structures
+     :initform 0
+     :accessor max-per-stage-descriptor-acceleration-structures)
+   (max-per-stage-descriptor-update-after-bind-acceleration-structures
+     :initarg :max-per-stage-descriptor-update-after-bind-acceleration-structures
+     :initform 0
+     :accessor max-per-stage-descriptor-update-after-bind-acceleration-structures)
    (max-descriptor-set-acceleration-structures
      :initarg :max-descriptor-set-acceleration-structures
      :initform 0
      :accessor max-descriptor-set-acceleration-structures)
+   (max-descriptor-set-update-after-bind-acceleration-structures
+     :initarg :max-descriptor-set-update-after-bind-acceleration-structures
+     :initform 0
+     :accessor max-descriptor-set-update-after-bind-acceleration-structures)
+   (min-acceleration-structure-scratch-offset-alignment
+     :initarg :min-acceleration-structure-scratch-offset-alignment
+     :initform 0
+     :accessor min-acceleration-structure-scratch-offset-alignment))
+  (:documentation "Represents the struct [VkPhysicalDeviceAccelerationStructurePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceAccelerationStructurePropertiesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MAX-GEOMETRY-COUNT: a positive (64-bit) integer.
+ - MAX-INSTANCE-COUNT: a positive (64-bit) integer.
+ - MAX-PRIMITIVE-COUNT: a positive (64-bit) integer.
+ - MAX-PER-STAGE-DESCRIPTOR-ACCELERATION-STRUCTURES: a positive (32-bit) integer.
+ - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-ACCELERATION-STRUCTURES: a positive (32-bit) integer.
+ - MAX-DESCRIPTOR-SET-ACCELERATION-STRUCTURES: a positive (32-bit) integer.
+ - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-ACCELERATION-STRUCTURES: a positive (32-bit) integer.
+ - MIN-ACCELERATION-STRUCTURE-SCRATCH-OFFSET-ALIGNMENT: a positive (32-bit) integer.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-PROPERTIES-2
+"))
+
+(defclass physical-device-ray-tracing-pipeline-properties-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (shader-group-handle-size
+     :initarg :shader-group-handle-size
+     :initform 0
+     :accessor shader-group-handle-size)
+   (max-ray-recursion-depth
+     :initarg :max-ray-recursion-depth
+     :initform 0
+     :accessor max-ray-recursion-depth)
+   (max-shader-group-stride
+     :initarg :max-shader-group-stride
+     :initform 0
+     :accessor max-shader-group-stride)
+   (shader-group-base-alignment
+     :initarg :shader-group-base-alignment
+     :initform 0
+     :accessor shader-group-base-alignment)
    (shader-group-handle-capture-replay-size
      :initarg :shader-group-handle-capture-replay-size
      :initform 0
-     :accessor shader-group-handle-capture-replay-size))
-  (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPropertiesKHR.html).
+     :accessor shader-group-handle-capture-replay-size)
+   (max-ray-dispatch-invocation-count
+     :initarg :max-ray-dispatch-invocation-count
+     :initform 0
+     :accessor max-ray-dispatch-invocation-count)
+   (shader-group-handle-alignment
+     :initarg :shader-group-handle-alignment
+     :initform 0
+     :accessor shader-group-handle-alignment)
+   (max-ray-hit-attribute-size
+     :initarg :max-ray-hit-attribute-size
+     :initform 0
+     :accessor max-ray-hit-attribute-size))
+  (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPipelinePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPipelinePropertiesKHR.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-GROUP-HANDLE-SIZE: a positive (32-bit) integer.
- - MAX-RECURSION-DEPTH: a positive (32-bit) integer.
+ - MAX-RAY-RECURSION-DEPTH: a positive (32-bit) integer.
  - MAX-SHADER-GROUP-STRIDE: a positive (32-bit) integer.
  - SHADER-GROUP-BASE-ALIGNMENT: a positive (32-bit) integer.
- - MAX-GEOMETRY-COUNT: a positive (64-bit) integer.
- - MAX-INSTANCE-COUNT: a positive (64-bit) integer.
- - MAX-PRIMITIVE-COUNT: a positive (64-bit) integer.
- - MAX-DESCRIPTOR-SET-ACCELERATION-STRUCTURES: a positive (32-bit) integer.
  - SHADER-GROUP-HANDLE-CAPTURE-REPLAY-SIZE: a positive (32-bit) integer.
+ - MAX-RAY-DISPATCH-INVOCATION-COUNT: a positive (32-bit) integer.
+ - SHADER-GROUP-HANDLE-ALIGNMENT: a positive (32-bit) integer.
+ - MAX-RAY-HIT-ATTRIBUTE-SIZE: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -13492,15 +13582,11 @@ Instances of this class can be used to extend the following classes (using their
 See PHYSICAL-DEVICE-PROPERTIES-2
 "))
 
-(defclass strided-buffer-region-khr ()
-  ((buffer
-     :initarg :buffer
+(defclass strided-device-address-region-khr ()
+  ((device-address
+     :initarg :device-address
      :initform nil
-     :accessor buffer)
-   (offset
-     :initarg :offset
-     :initform nil
-     :accessor offset)
+     :accessor device-address)
    (stride
      :initarg :stride
      :initform nil
@@ -13509,15 +13595,14 @@ See PHYSICAL-DEVICE-PROPERTIES-2
      :initarg :size
      :initform nil
      :accessor size))
-  (:documentation "Represents the struct [VkStridedBufferRegionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStridedBufferRegionKHR.html).
+  (:documentation "Represents the struct [VkStridedDeviceAddressRegionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStridedDeviceAddressRegionKHR.html).
 
 Slots:
- - BUFFER (optional): a BUFFER.
- - OFFSET: a DEVICE-SIZE.
+ - DEVICE-ADDRESS (optional): a DEVICE-ADDRESS.
  - STRIDE: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
-See BUFFER
+See DEVICE-ADDRESS
 See DEVICE-SIZE
 "))
 
@@ -16778,6 +16863,10 @@ See DEVICE-ADDRESS
      :initarg :vertex-stride
      :initform nil
      :accessor vertex-stride)
+   (max-vertex
+     :initarg :max-vertex
+     :initform 0
+     :accessor max-vertex)
    (index-type
      :initarg :index-type
      :initform nil
@@ -16797,6 +16886,7 @@ Slots:
  - VERTEX-FORMAT: an enum value of FORMAT.
  - VERTEX-DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - VERTEX-STRIDE: a DEVICE-SIZE.
+ - MAX-VERTEX: a positive (32-bit) integer.
  - INDEX-TYPE: an enum value of INDEX-TYPE.
  - INDEX-DATA (optional): a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - TRANSFORM-DATA (optional): a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
@@ -16920,10 +17010,10 @@ See GEOMETRY-FLAGS-KHR
      :initarg :flags
      :initform nil
      :accessor flags)
-   (update
-     :initarg :update
+   (mode
+     :initarg :mode
      :initform nil
-     :accessor update)
+     :accessor mode)
    (src-acceleration-structure
      :initarg :src-acceleration-structure
      :initform nil
@@ -16932,14 +17022,10 @@ See GEOMETRY-FLAGS-KHR
      :initarg :dst-acceleration-structure
      :initform nil
      :accessor dst-acceleration-structure)
-   (geometry-array-of-pointers
-     :initarg :geometry-array-of-pointers
+   (geometries
+     :initarg :geometries
      :initform nil
-     :accessor geometry-array-of-pointers)
-   (geometry-count
-     :initarg :geometry-count
-     :initform 0
-     :accessor geometry-count)
+     :accessor geometries)
    (p-geometries
      :initarg :p-geometries
      :initform nil
@@ -16954,23 +17040,22 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TYPE: an enum value of ACCELERATION-STRUCTURE-TYPE-KHR.
  - FLAGS (optional): a list containing a valid combination of BUILD-ACCELERATION-STRUCTURE-FLAGS-KHR.
- - UPDATE: a BOOL32.
+ - MODE: an enum value of BUILD-ACCELERATION-STRUCTURE-MODE-KHR.
  - SRC-ACCELERATION-STRUCTURE (optional): an ACCELERATION-STRUCTURE-KHR.
- - DST-ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-KHR.
- - GEOMETRY-ARRAY-OF-POINTERS: a BOOL32.
- - GEOMETRY-COUNT (optional): a positive (32-bit) integer.
- - P-GEOMETRIES: an ACCELERATION-STRUCTURE-GEOMETRY-KHR.
+ - DST-ACCELERATION-STRUCTURE (optional): an ACCELERATION-STRUCTURE-KHR.
+ - GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
+ - P-GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
  - SCRATCH-DATA: a DEVICE-OR-HOST-ADDRESS-KHR.
 
 See ACCELERATION-STRUCTURE-TYPE-KHR
 See BUILD-ACCELERATION-STRUCTURE-FLAGS-KHR
+See BUILD-ACCELERATION-STRUCTURE-MODE-KHR
 See ACCELERATION-STRUCTURE-KHR
-See BOOL32
 See ACCELERATION-STRUCTURE-GEOMETRY-KHR
 See DEVICE-OR-HOST-ADDRESS-KHR
 "))
 
-(defclass acceleration-structure-build-offset-info-khr ()
+(defclass acceleration-structure-build-range-info-khr ()
   ((primitive-count
      :initarg :primitive-count
      :initform 0
@@ -16987,7 +17072,7 @@ See DEVICE-OR-HOST-ADDRESS-KHR
      :initarg :transform-offset
      :initform 0
      :accessor transform-offset))
-  (:documentation "Represents the struct [VkAccelerationStructureBuildOffsetInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildOffsetInfoKHR.html).
+  (:documentation "Represents the struct [VkAccelerationStructureBuildRangeInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildRangeInfoKHR.html).
 
 Slots:
  - PRIMITIVE-COUNT: a positive (32-bit) integer.
@@ -16996,73 +17081,31 @@ Slots:
  - TRANSFORM-OFFSET (optional): a positive (32-bit) integer.
 "))
 
-(defclass acceleration-structure-create-geometry-type-info-khr ()
-  ((next
-     :initarg :next
-     :initform nil
-     :accessor next)
-   (geometry-type
-     :initarg :geometry-type
-     :initform nil
-     :accessor geometry-type)
-   (max-primitive-count
-     :initarg :max-primitive-count
-     :initform 0
-     :accessor max-primitive-count)
-   (index-type
-     :initarg :index-type
-     :initform nil
-     :accessor index-type)
-   (max-vertex-count
-     :initarg :max-vertex-count
-     :initform 0
-     :accessor max-vertex-count)
-   (vertex-format
-     :initarg :vertex-format
-     :initform nil
-     :accessor vertex-format)
-   (allows-transforms
-     :initarg :allows-transforms
-     :initform nil
-     :accessor allows-transforms))
-  (:documentation "Represents the struct [VkAccelerationStructureCreateGeometryTypeInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCreateGeometryTypeInfoKHR.html).
-
-Slots:
- - NEXT (optional): an instance of a class extending this class.
- - GEOMETRY-TYPE: an enum value of GEOMETRY-TYPE-KHR.
- - MAX-PRIMITIVE-COUNT: a positive (32-bit) integer.
- - INDEX-TYPE: an enum value of INDEX-TYPE.
- - MAX-VERTEX-COUNT (optional): a positive (32-bit) integer.
- - VERTEX-FORMAT (optional): an enum value of FORMAT.
- - ALLOWS-TRANSFORMS (optional): a BOOL32.
-
-See GEOMETRY-TYPE-KHR
-See INDEX-TYPE
-See FORMAT
-See BOOL32
-"))
-
 (defclass acceleration-structure-create-info-khr ()
   ((next
      :initarg :next
      :initform nil
      :accessor next)
-   (compacted-size
-     :initarg :compacted-size
+   (create-flags
+     :initarg :create-flags
      :initform nil
-     :accessor compacted-size)
+     :accessor create-flags)
+   (buffer
+     :initarg :buffer
+     :initform nil
+     :accessor buffer)
+   (offset
+     :initarg :offset
+     :initform nil
+     :accessor offset)
+   (size
+     :initarg :size
+     :initform nil
+     :accessor size)
    (type
      :initarg :type
      :initform nil
      :accessor type)
-   (flags
-     :initarg :flags
-     :initform nil
-     :accessor flags)
-   (geometry-infos
-     :initarg :geometry-infos
-     :initform nil
-     :accessor geometry-infos)
    (device-address
      :initarg :device-address
      :initform nil
@@ -17071,16 +17114,17 @@ See BOOL32
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - COMPACTED-SIZE: a DEVICE-SIZE.
+ - CREATE-FLAGS (optional): a list containing a valid combination of ACCELERATION-STRUCTURE-CREATE-FLAGS-KHR.
+ - BUFFER: a BUFFER.
+ - OFFSET: a DEVICE-SIZE.
+ - SIZE: a DEVICE-SIZE.
  - TYPE: an enum value of ACCELERATION-STRUCTURE-TYPE-KHR.
- - FLAGS (optional): a list containing a valid combination of BUILD-ACCELERATION-STRUCTURE-FLAGS-KHR.
- - GEOMETRY-INFOS: a list of foreign pointer to a buffer of size MAX-GEOMETRY-COUNTs.
  - DEVICE-ADDRESS (optional): a DEVICE-ADDRESS.
 
+See ACCELERATION-STRUCTURE-CREATE-FLAGS-KHR
+See BUFFER
 See DEVICE-SIZE
 See ACCELERATION-STRUCTURE-TYPE-KHR
-See BUILD-ACCELERATION-STRUCTURE-FLAGS-KHR
-See ACCELERATION-STRUCTURE-CREATE-GEOMETRY-TYPE-INFO-KHR
 See DEVICE-ADDRESS
 "))
 
@@ -17188,7 +17232,7 @@ Slots:
 See ACCELERATION-STRUCTURE-KHR
 "))
 
-(defclass acceleration-structure-version-khr ()
+(defclass acceleration-structure-version-info-khr ()
   ((next
      :initarg :next
      :initform nil
@@ -17197,11 +17241,11 @@ See ACCELERATION-STRUCTURE-KHR
      :initarg :version-data
      :initform 0
      :accessor version-data))
-  (:documentation "Represents the struct [VkAccelerationStructureVersionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureVersionKHR.html).
+  (:documentation "Represents the struct [VkAccelerationStructureVersionInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureVersionInfoKHR.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - VERSION-DATA: a foreign pointer to a buffer of size 2*-V-K_-U-U-I-D_-S-I-Z-E.
+ - VERSION-DATA: a foreign pointer to a buffer of size 2*ENAME:-V-K_-U-U-I-D_-S-I-Z-E.
 "))
 
 (defclass copy-acceleration-structure-info-khr ()
@@ -17298,50 +17342,20 @@ See COPY-ACCELERATION-STRUCTURE-MODE-KHR
      :initarg :next
      :initform nil
      :accessor next)
-   (max-payload-size
-     :initarg :max-payload-size
+   (max-pipeline-ray-payload-size
+     :initarg :max-pipeline-ray-payload-size
      :initform 0
-     :accessor max-payload-size)
-   (max-attribute-size
-     :initarg :max-attribute-size
+     :accessor max-pipeline-ray-payload-size)
+   (max-pipeline-ray-hit-attribute-size
+     :initarg :max-pipeline-ray-hit-attribute-size
      :initform 0
-     :accessor max-attribute-size)
-   (max-callable-size
-     :initarg :max-callable-size
-     :initform 0
-     :accessor max-callable-size))
+     :accessor max-pipeline-ray-hit-attribute-size))
   (:documentation "Represents the struct [VkRayTracingPipelineInterfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineInterfaceCreateInfoKHR.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - MAX-PAYLOAD-SIZE: a positive (32-bit) integer.
- - MAX-ATTRIBUTE-SIZE: a positive (32-bit) integer.
- - MAX-CALLABLE-SIZE: a positive (32-bit) integer.
-"))
-
-(defclass deferred-operation-info-khr ()
-  ((next
-     :initarg :next
-     :initform nil
-     :accessor next)
-   (operation-handle
-     :initarg :operation-handle
-     :initform nil
-     :accessor operation-handle))
-  (:documentation "Represents the struct [VkDeferredOperationInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeferredOperationInfoKHR.html).
-
-Slots:
- - NEXT (optional): an instance of a class extending this class.
- - OPERATION-HANDLE: a DEFERRED-OPERATION-KHR.
-
-See DEFERRED-OPERATION-KHR
-
-Instances of this class can be used to extend the following classes (using their NEXT slot):
-See RAY-TRACING-PIPELINE-CREATE-INFO-KHR
-See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
-See COPY-ACCELERATION-STRUCTURE-INFO-KHR
-See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
-See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
+ - MAX-PIPELINE-RAY-PAYLOAD-SIZE: a positive (32-bit) integer.
+ - MAX-PIPELINE-RAY-HIT-ATTRIBUTE-SIZE: a positive (32-bit) integer.
 "))
 
 (defclass pipeline-library-create-info-khr ()
@@ -18476,4 +18490,32 @@ See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See GRAPHICS-PIPELINE-CREATE-INFO
+"))
+
+(defclass acceleration-structure-build-sizes-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (acceleration-structure-size
+     :initarg :acceleration-structure-size
+     :initform nil
+     :accessor acceleration-structure-size)
+   (update-scratch-size
+     :initarg :update-scratch-size
+     :initform nil
+     :accessor update-scratch-size)
+   (build-scratch-size
+     :initarg :build-scratch-size
+     :initform nil
+     :accessor build-scratch-size))
+  (:documentation "Represents the struct [VkAccelerationStructureBuildSizesInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildSizesInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - ACCELERATION-STRUCTURE-SIZE: a DEVICE-SIZE.
+ - UPDATE-SCRATCH-SIZE: a DEVICE-SIZE.
+ - BUILD-SCRATCH-SIZE: a DEVICE-SIZE.
+
+See DEVICE-SIZE
 "))

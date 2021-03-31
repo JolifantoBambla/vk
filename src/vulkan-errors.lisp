@@ -26,7 +26,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   error-not-permitted-ext
   error-fragmentation
   error-invalid-drm-format-modifier-plane-layout-ext
-  error-incompatible-version-khr
   error-invalid-external-handle
   error-out-of-pool-memory
   error-invalid-shader-nv

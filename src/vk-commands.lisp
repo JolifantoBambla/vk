@@ -3766,16 +3766,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline '%vk:pipeline pipeline :in :handle)
   (shader :uint32 shader :in :raw))
 
-(defvk-get-struct-fun (create-acceleration-structure-nv
-                       %vk:create-acceleration-structure-nv
-                       "Represents <vkCreateAccelerationStructureNV>"
-                       ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
-                       (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                       t)
+(defvk-create-handle-fun (create-acceleration-structure-nv
+                          %vk:create-acceleration-structure-nv
+                          "Represents <vkCreateAccelerationStructureNV>"
+                          ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil
+                          t)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:acceleration-structure-create-info-nv) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :out))
+  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :out :handle))
 
 (defvk-simple-fun (destroy-acceleration-structure-khr
                    %vk:destroy-acceleration-structure-khr
@@ -3795,17 +3796,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil
                   t)
   (device '%vk:device device :in :handle)
-  (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle :optional)
+  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
-
-(defvk-get-struct-fun (get-acceleration-structure-memory-requirements-khr
-                       %vk:get-acceleration-structure-memory-requirements-khr
-                       "Represents <vkGetAccelerationStructureMemoryRequirementsKHR>"
-                       ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-memory-requirements-info-khr cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
-  (info '(:struct %vk:acceleration-structure-memory-requirements-info-khr) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2) memory-requirements :out))
 
 (defvk-get-struct-fun (get-acceleration-structure-memory-requirements-nv
                        %vk:get-acceleration-structure-memory-requirements-nv
@@ -3817,16 +3809,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (info '(:struct %vk:acceleration-structure-memory-requirements-info-nv) info :in)
   (memory-requirements '%vk:memory-requirements-2-khr memory-requirements :out))
 
-(defvk-simple-fun (bind-acceleration-structure-memory-khr
-                   %vk:bind-acceleration-structure-memory-khr
-                   "Represents <vkBindAccelerationStructureMemoryKHR>"
-                   ((device cffi:foreign-pointer) (bind-infos list))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (bind-info-count :uint32 (length bind-infos) :in :raw)
-  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in :list))
-
 (defvk-simple-fun (bind-acceleration-structure-memory-nv
                    %vk:bind-acceleration-structure-memory-nv
                    "Represents <vkBindAccelerationStructureMemoryNV>"
@@ -3836,7 +3818,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   t)
   (device '%vk:device device :in :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
-  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-khr) bind-infos :in :list))
+  (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-nv) bind-infos :in :list))
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-nv
                    %vk:cmd-copy-acceleration-structure-nv
@@ -3846,8 +3828,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil
                   t)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (dst '%vk:acceleration-structure-khr dst :in :handle)
-  (src '%vk:acceleration-structure-khr src :in :handle)
+  (dst '%vk:acceleration-structure-nv dst :in :handle)
+  (src '%vk:acceleration-structure-nv src :in :handle)
   (mode '%vk:copy-acceleration-structure-mode-khr mode :in :raw))
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-khr
@@ -3863,9 +3845,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:copy-acceleration-structure-khr
                    "Represents <vkCopyAccelerationStructureKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ()
+                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
   (device '%vk:device device :in :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
   (info '(:struct %vk:copy-acceleration-structure-info-khr) info :in))
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-to-memory-khr
@@ -3881,9 +3864,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:copy-acceleration-structure-to-memory-khr
                    "Represents <vkCopyAccelerationStructureToMemoryKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
-                   ()
+                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
   (device '%vk:device device :in :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
   (info '(:struct %vk:copy-acceleration-structure-to-memory-info-khr) info :in))
 
 (defvk-simple-fun (cmd-copy-memory-to-acceleration-structure-khr
@@ -3899,9 +3883,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    %vk:copy-memory-to-acceleration-structure-khr
                    "Represents <vkCopyMemoryToAccelerationStructureKHR>"
                    ((device cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ()
+                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
   (device '%vk:device device :in :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
   (info '(:struct %vk:copy-memory-to-acceleration-structure-info-khr) info :in))
 
 (defvk-simple-fun (cmd-write-acceleration-structures-properties-khr
@@ -3926,7 +3911,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   t)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
-  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
+  (acceleration-structures '%vk:acceleration-structure-nv acceleration-structures :in :handle :list)
   (query-type '%vk:query-type query-type :in :raw)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw))
@@ -3943,8 +3928,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (instance-data '%vk:buffer instance-data :in :handle :optional)
   (instance-offset '%vk:device-size instance-offset :in :raw)
   (update '%vk:bool32 update :in :raw)
-  (dst '%vk:acceleration-structure-khr dst :in :handle)
-  (src '%vk:acceleration-structure-khr src :in :handle :optional)
+  (dst '%vk:acceleration-structure-nv dst :in :handle)
+  (src '%vk:acceleration-structure-nv src :in :handle :optional)
   (scratch '%vk:buffer scratch :in :handle)
   (scratch-offset '%vk:device-size scratch-offset :in :raw))
 
@@ -3965,14 +3950,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-trace-rays-khr
                    %vk:cmd-trace-rays-khr
                    "Represents <vkCmdTraceRaysKHR>"
-                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (raygen-shader-binding-table '(:struct %vk:strided-buffer-region-khr) raygen-shader-binding-table :in)
-  (miss-shader-binding-table '(:struct %vk:strided-buffer-region-khr) miss-shader-binding-table :in)
-  (hit-shader-binding-table '(:struct %vk:strided-buffer-region-khr) hit-shader-binding-table :in)
-  (callable-shader-binding-table '(:struct %vk:strided-buffer-region-khr) callable-shader-binding-table :in)
+  (raygen-shader-binding-table '(:struct %vk:strided-device-address-region-khr) raygen-shader-binding-table :in)
+  (miss-shader-binding-table '(:struct %vk:strided-device-address-region-khr) miss-shader-binding-table :in)
+  (hit-shader-binding-table '(:struct %vk:strided-device-address-region-khr) hit-shader-binding-table :in)
+  (callable-shader-binding-table '(:struct %vk:strided-device-address-region-khr) callable-shader-binding-table :in)
   (width :uint32 width :in :raw)
   (height :uint32 height :in :raw)
   (depth :uint32 depth :in :raw))
@@ -4048,7 +4033,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                   nil
                   t)
   (device '%vk:device device :in :handle)
-  (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle)
+  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :in :handle)
   (data-size '%vk:size-t data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
@@ -4070,9 +4055,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            %vk:create-ray-tracing-pipelines-khr
                            "Represents <vkCreateRayTracingPipelinesKHR>"
                            ((device cffi:foreign-pointer) (create-infos list))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                           (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer) ((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
   (device '%vk:device device :in :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
   (create-info-count :uint32 (length create-infos) :in :raw)
   (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-khr) create-infos :in :list)
@@ -4095,25 +4081,44 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-trace-rays-indirect-khr
                    %vk:cmd-trace-rays-indirect-khr
                    "Represents <vkCmdTraceRaysIndirectKHR>"
-                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (buffer cffi:foreign-pointer) (offset unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (indirect-device-address unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (raygen-shader-binding-table '(:struct %vk:strided-buffer-region-khr) raygen-shader-binding-table :in)
-  (miss-shader-binding-table '(:struct %vk:strided-buffer-region-khr) miss-shader-binding-table :in)
-  (hit-shader-binding-table '(:struct %vk:strided-buffer-region-khr) hit-shader-binding-table :in)
-  (callable-shader-binding-table '(:struct %vk:strided-buffer-region-khr) callable-shader-binding-table :in)
-  (buffer '%vk:buffer buffer :in :handle)
-  (offset '%vk:device-size offset :in :raw))
+  (raygen-shader-binding-table '(:struct %vk:strided-device-address-region-khr) raygen-shader-binding-table :in)
+  (miss-shader-binding-table '(:struct %vk:strided-device-address-region-khr) miss-shader-binding-table :in)
+  (hit-shader-binding-table '(:struct %vk:strided-device-address-region-khr) hit-shader-binding-table :in)
+  (callable-shader-binding-table '(:struct %vk:strided-device-address-region-khr) callable-shader-binding-table :in)
+  (indirect-device-address '%vk:device-address indirect-device-address :in :raw))
 
-(defvk-simple-fun (get-device-acceleration-structure-compatibility-khr
-                   %vk:get-device-acceleration-structure-compatibility-khr
-                   "Represents <vkGetDeviceAccelerationStructureCompatibilityKHR>"
-                   ((device cffi:foreign-pointer) (version (or vk:acceleration-structure-version-khr cffi:foreign-pointer)))
+(defvk-get-struct-fun (get-device-acceleration-structure-compatibility-khr
+                       %vk:get-device-acceleration-structure-compatibility-khr
+                       "Represents <vkGetDeviceAccelerationStructureCompatibilityKHR>"
+                       ((device cffi:foreign-pointer) (version-info (or vk:acceleration-structure-version-info-khr cffi:foreign-pointer)))
+                       ())
+  (device '%vk:device device :in :handle)
+  (version-info '(:struct %vk:acceleration-structure-version-info-khr) version-info :in)
+  (compatibility '%vk:acceleration-structure-compatibility-khr compatibility :out :raw))
+
+(defvk-simple-fun (get-ray-tracing-shader-group-stack-size-khr
+                   %vk:get-ray-tracing-shader-group-stack-size-khr
+                   "Represents <vkGetRayTracingShaderGroupStackSizeKHR>"
+                   ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (group unsigned-byte) (group-shader keyword))
+                   ()
+                  '%vk:device-size)
+  (device '%vk:device device :in :handle)
+  (pipeline '%vk:pipeline pipeline :in :handle)
+  (group :uint32 group :in :raw)
+  (group-shader '%vk:shader-group-shader-khr group-shader :in :raw))
+
+(defvk-simple-fun (cmd-set-ray-tracing-pipeline-stack-size-khr
+                   %vk:cmd-set-ray-tracing-pipeline-stack-size-khr
+                   "Represents <vkCmdSetRayTracingPipelineStackSizeKHR>"
+                   ((command-buffer cffi:foreign-pointer) (pipeline-stack-size unsigned-byte))
                    ()
                   nil)
-  (device '%vk:device device :in :handle)
-  (version '(:struct %vk:acceleration-structure-version-khr) version :in))
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (pipeline-stack-size :uint32 pipeline-stack-size :in :raw))
 
 (defvk-simple-fun (get-image-view-handle-nv-x
                    %vk:get-image-view-handle-nv-x
@@ -4483,39 +4488,41 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :out :handle))
 
-(defvk-simple-fun (cmd-build-acceleration-structure-khr
-                   %vk:cmd-build-acceleration-structure-khr
-                   "Represents <vkCmdBuildAccelerationStructureKHR>"
-                   ((command-buffer cffi:foreign-pointer) (infos list) (p-offset-infos list))
+(defvk-simple-fun (cmd-build-acceleration-structures-khr
+                   %vk:cmd-build-acceleration-structures-khr
+                   "Represents <vkCmdBuildAccelerationStructuresKHR>"
+                   ((command-buffer cffi:foreign-pointer) (infos list) (p-build-range-infos list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (info-count :uint32 (length p-offset-infos) :in :raw)
+  (info-count :uint32 (length p-build-range-infos) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
-  (p-offset-infos '(:struct %vk:acceleration-structure-build-offset-info-khr) p-offset-infos :in :list))
+  (p-build-range-infos '(:struct %vk:acceleration-structure-build-range-info-khr) p-build-range-infos :in :list))
 
-(defvk-simple-fun (cmd-build-acceleration-structure-indirect-khr
-                   %vk:cmd-build-acceleration-structure-indirect-khr
-                   "Represents <vkCmdBuildAccelerationStructureIndirectKHR>"
-                   ((command-buffer cffi:foreign-pointer) (info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)) (indirect-buffer cffi:foreign-pointer) (indirect-offset unsigned-byte) (indirect-stride unsigned-byte))
+(defvk-simple-fun (cmd-build-acceleration-structures-indirect-khr
+                   %vk:cmd-build-acceleration-structures-indirect-khr
+                   "Represents <vkCmdBuildAccelerationStructuresIndirectKHR>"
+                   ((command-buffer cffi:foreign-pointer) (infos list) (indirect-device-addresses list) (indirect-strides list) (p-max-primitive-counts list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (info '(:struct %vk:acceleration-structure-build-geometry-info-khr) info :in)
-  (indirect-buffer '%vk:buffer indirect-buffer :in :handle)
-  (indirect-offset '%vk:device-size indirect-offset :in :raw)
-  (indirect-stride :uint32 indirect-stride :in :raw))
+  (info-count :uint32 (length p-max-primitive-counts) :in :raw)
+  (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
+  (indirect-device-addresses '%vk:device-address indirect-device-addresses :in :list)
+  (indirect-strides :uint32 indirect-strides :in :list)
+  (p-max-primitive-counts :uint32 p-max-primitive-counts :in :list))
 
-(defvk-simple-fun (build-acceleration-structure-khr
-                   %vk:build-acceleration-structure-khr
-                   "Represents <vkBuildAccelerationStructureKHR>"
-                   ((device cffi:foreign-pointer) (infos list) (p-offset-infos list))
-                   ()
+(defvk-simple-fun (build-acceleration-structures-khr
+                   %vk:build-acceleration-structures-khr
+                   "Represents <vkBuildAccelerationStructuresKHR>"
+                   ((device cffi:foreign-pointer) (infos list) (p-build-range-infos list))
+                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
   (device '%vk:device device :in :handle)
-  (info-count :uint32 (length p-offset-infos) :in :raw)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
+  (info-count :uint32 (length p-build-range-infos) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
-  (p-offset-infos '(:struct %vk:acceleration-structure-build-offset-info-khr) p-offset-infos :in :list))
+  (p-build-range-infos '(:struct %vk:acceleration-structure-build-range-info-khr) p-build-range-infos :in :list))
 
 (defvk-simple-fun (get-acceleration-structure-device-address-khr
                    %vk:get-acceleration-structure-device-address-khr
@@ -4839,4 +4846,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (shading-rate '%vk:fragment-shading-rate-nv shading-rate :in :raw)
   (combiner-ops '%vk:fragment-shading-rate-combiner-op-khr combiner-ops :in :raw))
+
+(defvk-get-struct-fun (get-acceleration-structure-build-sizes-khr
+                       %vk:get-acceleration-structure-build-sizes-khr
+                       "Represents <vkGetAccelerationStructureBuildSizesKHR>"
+                       ((device cffi:foreign-pointer) (build-type keyword) (build-info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)) (max-primitive-counts list))
+                       ())
+  (device '%vk:device device :in :handle)
+  (build-type '%vk:acceleration-structure-build-type-khr build-type :in :raw)
+  (build-info '(:struct %vk:acceleration-structure-build-geometry-info-khr) build-info :in)
+  (max-primitive-counts :uint32 max-primitive-counts :in :list)
+  (size-info '(:struct %vk:acceleration-structure-build-sizes-info-khr) size-info :out))
 

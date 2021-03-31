@@ -113,6 +113,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +intel-shader-integer-functions-2-extension-name+ "VK_INTEL_shader_integer_functions2" :test #'string=)
 (alexandria:define-constant +khr-16bit-storage-extension-name+ "VK_KHR_16bit_storage" :test #'string=)
 (alexandria:define-constant +khr-8bit-storage-extension-name+ "VK_KHR_8bit_storage" :test #'string=)
+(alexandria:define-constant +khr-acceleration-structure-extension-name+ "VK_KHR_acceleration_structure" :test #'string=)
 (alexandria:define-constant +khr-android-surface-extension-name+ "VK_KHR_android_surface" :test #'string=)
 (alexandria:define-constant +khr-bind-memory-2-extension-name+ "VK_KHR_bind_memory2" :test #'string=)
 (alexandria:define-constant +khr-buffer-device-address-extension-name+ "VK_KHR_buffer_device_address" :test #'string=)
@@ -157,7 +158,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-pipeline-library-extension-name+ "VK_KHR_pipeline_library" :test #'string=)
 (alexandria:define-constant +khr-portability-subset-extension-name+ "VK_KHR_portability_subset" :test #'string=)
 (alexandria:define-constant +khr-push-descriptor-extension-name+ "VK_KHR_push_descriptor" :test #'string=)
-(alexandria:define-constant +khr-ray-tracing-extension-name+ "VK_KHR_ray_tracing" :test #'string=)
+(alexandria:define-constant +khr-ray-query-extension-name+ "VK_KHR_ray_query" :test #'string=)
+(alexandria:define-constant +khr-ray-tracing-pipeline-extension-name+ "VK_KHR_ray_tracing_pipeline" :test #'string=)
 (alexandria:define-constant +khr-relaxed-block-layout-extension-name+ "VK_KHR_relaxed_block_layout" :test #'string=)
 (alexandria:define-constant +khr-sampler-mirror-clamp-to-edge-extension-name+ "VK_KHR_sampler_mirror_clamp_to_edge" :test #'string=)
 (alexandria:define-constant +khr-sampler-ycbcr-conversion-extension-name+ "VK_KHR_sampler_ycbcr_conversion" :test #'string=)
@@ -493,10 +495,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:vertex-buffer #x80) ;; Can be used as source of fixed-function vertex fetch (VBO)
   (:indirect-buffer #x100) ;; Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
   (:conditional-rendering #x200) ;; 
-  (:ray-tracing #x400) ;; 
+  (:shader-binding-table #x400) ;; 
   (:transform-feedback-buffer #x800) ;; 
   (:transform-feedback-counter-buffer #x1000) ;; 
-  (:shader-device-address #x20000)) ;; 
+  (:shader-device-address #x20000) ;; 
+  (:acceleration-structure-build-input-read-only #x80000) ;; 
+  (:acceleration-structure-storage #x100000)) ;; 
 
 (defbitfield (buffer-create-flags flags)
   (:sparse-binding #x1) ;; Buffer should support sparse backing
@@ -574,7 +578,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:ray-tracing-no-null-closest-hit-shaders #x8000) ;; 
   (:ray-tracing-no-null-miss-shaders #x10000) ;; 
   (:ray-tracing-no-null-intersection-shaders #x20000) ;; 
-  (:indirect-bindable #x40000)) ;; 
+  (:indirect-bindable #x40000) ;; 
+  (:ray-tracing-shader-group-handle-capture-replay #x80000)) ;; 
 
 (defbitfield (color-component-flags flags)
   (:r #x1)
@@ -803,6 +808,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:low-memory #x10))
 
 (defbitfield (private-data-slot-create-flags-ext flags))
+
+(defbitfield (acceleration-structure-create-flags-khr flags)
+  (:device-address-capture-replay #x1))
 
 (defbitfield (descriptor-update-template-create-flags flags))
 
@@ -1251,10 +1259,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:vertex-buffer #x80) ;; Can be used as source of fixed-function vertex fetch (VBO)
   (:indirect-buffer #x100) ;; Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
   (:conditional-rendering #x200) ;; 
-  (:ray-tracing #x400) ;; 
+  (:shader-binding-table #x400) ;; 
   (:transform-feedback-buffer #x800) ;; 
   (:transform-feedback-counter-buffer #x1000) ;; 
-  (:shader-device-address #x20000)) ;; 
+  (:shader-device-address #x20000) ;; 
+  (:acceleration-structure-build-input-read-only #x80000) ;; 
+  (:acceleration-structure-storage #x100000)) ;; 
 
 (defcenum (color-component-flag-bits)
   (:r #x1)
@@ -1320,7 +1330,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:storage-buffer-dynamic #x9)
   (:input-attachment #xA)
   (:inline-uniform-block-ext #x3B9CE510) ;; 
-  (:acceleration-structure-khr #x3B9D4E88)) ;; 
+  (:acceleration-structure-khr #x3B9D13F0) ;; 
+  (:acceleration-structure-nv #x3B9D4E88)) ;; 
 
 (defcenum (device-create-flag-bits))
 
@@ -1353,7 +1364,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:depth-compare-op-ext #x3B9EDD00) ;; 
   (:depth-bounds-test-enable-ext #x3B9EDD01) ;; 
   (:stencil-test-enable-ext #x3B9EDD02) ;; 
-  (:stencil-op-ext #x3B9EDD03)) ;; 
+  (:stencil-op-ext #x3B9EDD03) ;; 
+  (:ray-tracing-pipeline-stack-size-khr #x3BA01578)) ;; 
 
 (defcenum (fence-create-flag-bits)
   (:signaled #x1))
@@ -1830,7 +1842,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:ray-tracing-no-null-closest-hit-shaders #x8000) ;; 
   (:ray-tracing-no-null-miss-shaders #x10000) ;; 
   (:ray-tracing-no-null-intersection-shaders #x20000) ;; 
-  (:indirect-bindable #x40000)) ;; 
+  (:indirect-bindable #x40000) ;; 
+  (:ray-tracing-shader-group-handle-capture-replay #x80000)) ;; 
 
 (defcenum (primitive-topology)
   (:point-list #x0)
@@ -1873,8 +1886,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:timestamp #x2)
   (:transform-feedback-stream-ext #x3B9B3764) ;; 
   (:performance-query-khr #x3B9C8F20) ;; 
-  (:acceleration-structure-serialization-size-khr #x3B9D13F0) ;; 
-  (:acceleration-structure-compacted-size-khr #x3B9D4E88) ;; 
+  (:acceleration-structure-compacted-size-khr #x3B9D13F0) ;; 
+  (:acceleration-structure-serialization-size-khr #x3B9D13F1) ;; 
+  (:acceleration-structure-compacted-size-nv #x3B9D4E88) ;; 
   (:performance-query-intel #x3B9DFE50)) ;; 
 
 (defcenum (queue-flag-bits)
@@ -1894,7 +1908,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:error-not-permitted-ext -1000174001) ;; 
   (:error-fragmentation -1000161000) ;; 
   (:error-invalid-drm-format-modifier-plane-layout-ext -1000158000) ;; 
-  (:error-incompatible-version-khr -1000150000) ;; 
   (:error-invalid-external-handle -1000072003) ;; 
   (:error-out-of-pool-memory -1000069000) ;; 
   (:error-invalid-shader-nv -1000012000) ;; 
@@ -1936,7 +1949,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
      :error-not-permitted-ext ""
      :error-fragmentation ""
      :error-invalid-drm-format-modifier-plane-layout-ext ""
-     :error-incompatible-version-khr ""
      :error-invalid-external-handle ""
      :error-out-of-pool-memory ""
      :error-invalid-shader-nv ""
@@ -2256,23 +2268,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:pipeline-color-blend-advanced-state-create-info-ext #x3B9D0C22) ;; 
   (:pipeline-coverage-to-color-state-create-info-nv #x3B9D1008) ;; 
   (:acceleration-structure-build-geometry-info-khr #x3B9D13F0) ;; 
-  (:acceleration-structure-create-geometry-type-info-khr #x3B9D13F1) ;; 
   (:acceleration-structure-device-address-info-khr #x3B9D13F2) ;; 
   (:acceleration-structure-geometry-aabbs-data-khr #x3B9D13F3) ;; 
   (:acceleration-structure-geometry-instances-data-khr #x3B9D13F4) ;; 
   (:acceleration-structure-geometry-triangles-data-khr #x3B9D13F5) ;; 
   (:acceleration-structure-geometry-khr #x3B9D13F6) ;; 
-  (:acceleration-structure-memory-requirements-info-khr #x3B9D13F8) ;; 
-  (:acceleration-structure-version-khr #x3B9D13F9) ;; 
+  (:write-descriptor-set-acceleration-structure-khr #x3B9D13F7) ;; 
+  (:acceleration-structure-version-info-khr #x3B9D13F9) ;; 
   (:copy-acceleration-structure-info-khr #x3B9D13FA) ;; 
   (:copy-acceleration-structure-to-memory-info-khr #x3B9D13FB) ;; 
   (:copy-memory-to-acceleration-structure-info-khr #x3B9D13FC) ;; 
-  (:physical-device-ray-tracing-features-khr #x3B9D13FD) ;; 
-  (:physical-device-ray-tracing-properties-khr #x3B9D13FE) ;; 
+  (:physical-device-acceleration-structure-features-khr #x3B9D13FD) ;; 
+  (:physical-device-acceleration-structure-properties-khr #x3B9D13FE) ;; 
   (:ray-tracing-pipeline-create-info-khr #x3B9D13FF) ;; 
   (:ray-tracing-shader-group-create-info-khr #x3B9D1400) ;; 
   (:acceleration-structure-create-info-khr #x3B9D1401) ;; 
   (:ray-tracing-pipeline-interface-create-info-khr #x3B9D1402) ;; 
+  (:acceleration-structure-build-sizes-info-khr #x3B9D1404) ;; 
   (:pipeline-coverage-modulation-state-create-info-nv #x3B9D1BC0) ;; 
   (:physical-device-shader-sm-builtins-features-nv #x3B9D2390) ;; 
   (:physical-device-shader-sm-builtins-properties-nv #x3B9D2391) ;; 
@@ -2307,8 +2319,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:geometry-nv #x3B9D4E8B) ;; 
   (:geometry-triangles-nv #x3B9D4E8C) ;; 
   (:geometry-aabb-nv #x3B9D4E8D) ;; 
-  (:bind-acceleration-structure-memory-info-khr #x3B9D4E8E) ;; 
-  (:write-descriptor-set-acceleration-structure-khr #x3B9D4E8F) ;; 
+  (:bind-acceleration-structure-memory-info-nv #x3B9D4E8E) ;; 
+  (:write-descriptor-set-acceleration-structure-nv #x3B9D4E8F) ;; 
   (:acceleration-structure-memory-requirements-info-nv #x3B9D4E90) ;; 
   (:physical-device-ray-tracing-properties-nv #x3B9D4E91) ;; 
   (:ray-tracing-shader-group-create-info-nv #x3B9D4E93) ;; 
@@ -2422,7 +2434,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-host-query-reset-features #x3B9EC588) ;; 
   (:physical-device-index-type-uint8-features-ext #x3B9ED528) ;; 
   (:physical-device-extended-dynamic-state-features-ext #x3B9EDCF8) ;; 
-  (:deferred-operation-info-khr #x3B9EE0E0) ;; 
   (:physical-device-pipeline-executable-properties-features-khr #x3B9EE4C8) ;; 
   (:pipeline-info-khr #x3B9EE4C9) ;; 
   (:pipeline-executable-properties-khr #x3B9EE4CA) ;; 
@@ -2476,7 +2487,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:buffer-image-copy-2-khr #x3B9FEE71) ;; 
   (:image-resolve-2-khr #x3B9FEE72) ;; 
   (:physical-device-4444-formats-features-ext #x3B9FFA20) ;; 
-  (:directfb-surface-create-info-ext #x3BA01190)) ;; 
+  (:directfb-surface-create-info-ext #x3BA01190) ;; 
+  (:physical-device-ray-tracing-pipeline-features-khr #x3BA01578) ;; 
+  (:physical-device-ray-tracing-pipeline-properties-khr #x3BA01579) ;; 
+  (:physical-device-ray-query-features-khr #x3BA0196D)) ;; 
 
 (defcenum (system-allocation-scope)
   (:command #x0)
@@ -2596,9 +2610,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:debug-report-callback-ext #x3B9AF4F8) ;; 
   (:descriptor-update-template #x3B9C1608) ;; 
   (:debug-utils-messenger-ext #x3B9CBE00) ;; 
+  (:acceleration-structure-khr #x3B9D13F0) ;; 
   (:sampler-ycbcr-conversion #x3B9D2B60) ;; 
   (:validation-cache-ext #x3B9D3B00) ;; 
-  (:acceleration-structure-khr #x3B9D4E88) ;; 
+  (:acceleration-structure-nv #x3B9D4E88) ;; 
   (:performance-configuration-intel #x3B9DFE50) ;; 
   (:deferred-operation-khr #x3B9EE0E0) ;; 
   (:indirect-commands-layout-nv #x3B9F0408) ;; 
@@ -2766,6 +2781,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:prefer-fast-build #x8)
   (:low-memory #x10))
 
+(defcenum (acceleration-structure-create-flag-bits-khr)
+  (:device-address-capture-replay #x1))
+
+(defcenum (build-acceleration-structure-mode-khr)
+  (:build-khr #x0)
+  (:update-khr #x1))
+
 (defcenum (copy-acceleration-structure-mode-khr)
   (:clone-khr #x0)
   (:compact-khr #x1)
@@ -2780,21 +2802,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcenum (acceleration-structure-type-khr)
   (:top-level-khr #x0)
-  (:bottom-level-khr #x1))
+  (:bottom-level-khr #x1)
+  (:generic-khr #x2))
 
 (defcenum (acceleration-structure-type-nv)
   (:top-level-khr #x0)
-  (:bottom-level-khr #x1))
+  (:bottom-level-khr #x1)
+  (:generic-khr #x2))
 
 (defcenum (geometry-type-khr)
   (:triangles-khr #x0)
   (:aabbs-khr #x1)
-  (:instances-khr #x3B9D13F0)) ;; 
+  (:instances-khr #x2))
 
 (defcenum (geometry-type-nv)
   (:triangles-khr #x0)
   (:aabbs-khr #x1)
-  (:instances-khr #x3B9D13F0)) ;; 
+  (:instances-khr #x2))
 
 (defcenum (ray-tracing-shader-group-type-khr)
   (:general-khr #x0)
@@ -2806,20 +2830,25 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:triangles-hit-group-khr #x1)
   (:procedural-hit-group-khr #x2))
 
-(defcenum (acceleration-structure-memory-requirements-type-khr)
-  (:object-khr #x0)
-  (:build-scratch-khr #x1)
-  (:update-scratch-khr #x2))
-
 (defcenum (acceleration-structure-memory-requirements-type-nv)
-  (:object-khr #x0)
-  (:build-scratch-khr #x1)
-  (:update-scratch-khr #x2))
+  (:object-nv #x0)
+  (:build-scratch-nv #x1)
+  (:update-scratch-nv #x2))
 
 (defcenum (acceleration-structure-build-type-khr)
   (:host-khr #x0)
   (:device-khr #x1)
   (:host-or-device-khr #x2))
+
+(defcenum (acceleration-structure-compatibility-khr)
+  (:compatible-khr #x0)
+  (:incompatible-khr #x1))
+
+(defcenum (shader-group-shader-khr)
+  (:general-khr #x0)
+  (:closest-hit-khr #x1)
+  (:any-hit-khr #x2)
+  (:intersection-khr #x3))
 
 (defcenum (memory-overallocation-behavior-amd)
   (:default-amd #x0)
@@ -3043,8 +3072,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:display-mode-khr-ext #x1E)
   (:validation-cache-ext-ext #x21)
   (:descriptor-update-template-ext #x3B9C1608) ;; 
+  (:acceleration-structure-khr-ext #x3B9D13F0) ;; 
   (:sampler-ycbcr-conversion-ext #x3B9D2B60) ;; 
-  (:acceleration-structure-khr-ext #x3B9D4E88)) ;; 
+  (:acceleration-structure-nv-ext #x3B9D4E88)) ;; 
 
 (defcenum (device-memory-report-event-type-ext)
   (:allocate-ext #x0)
@@ -7132,9 +7162,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (ray-tracing-pipeline-interface-create-info-khr :class c-ray-tracing-pipeline-interface-create-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (max-payload-size :uint32)
-  (max-attribute-size :uint32)
-  (max-callable-size :uint32))
+  (max-pipeline-ray-payload-size :uint32)
+  (max-pipeline-ray-hit-attribute-size :uint32))
 
 (defcstruct (ray-tracing-pipeline-create-info-khr :class c-ray-tracing-pipeline-create-info-khr)
   (s-type structure-type)
@@ -7144,11 +7173,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-stages (:pointer (:struct pipeline-shader-stage-create-info)))
   (group-count :uint32)
   (p-groups (:pointer (:struct ray-tracing-shader-group-create-info-khr)))
-  (max-recursion-depth :uint32)
-  (libraries pipeline-library-create-info-khr)
+  (max-pipeline-ray-recursion-depth :uint32)
+  (p-library-info (:pointer (:struct pipeline-library-create-info-khr)))
   (p-library-interface (:pointer
                         (:struct
                          ray-tracing-pipeline-interface-create-info-khr)))
+  (p-dynamic-state (:pointer (:struct pipeline-dynamic-state-create-info)))
   (layout pipeline-layout)
   (base-pipeline-handle pipeline)
   (base-pipeline-index :int32))
@@ -7202,19 +7232,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (compacted-size device-size)
   (info acceleration-structure-info-nv))
 
-(defcstruct (bind-acceleration-structure-memory-info-khr :class c-bind-acceleration-structure-memory-info-khr)
-  (s-type structure-type)
-  (p-next (:pointer :void))
-  (acceleration-structure acceleration-structure-khr)
-  (memory device-memory)
-  (memory-offset device-size)
-  (device-index-count :uint32)
-  (p-device-indices (:pointer :uint32)))
-
 (defcstruct (bind-acceleration-structure-memory-info-nv :class c-bind-acceleration-structure-memory-info-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (acceleration-structure acceleration-structure-khr)
+  (acceleration-structure acceleration-structure-nv)
   (memory device-memory)
   (memory-offset device-size)
   (device-index-count :uint32)
@@ -7230,14 +7251,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (acceleration-structure-count :uint32)
-  (p-acceleration-structures (:pointer acceleration-structure-khr)))
-
-(defcstruct (acceleration-structure-memory-requirements-info-khr :class c-acceleration-structure-memory-requirements-info-khr)
-  (s-type structure-type)
-  (p-next (:pointer :void))
-  (type acceleration-structure-memory-requirements-type-khr)
-  (build-type acceleration-structure-build-type-khr)
-  (acceleration-structure acceleration-structure-khr))
+  (p-acceleration-structures (:pointer acceleration-structure-nv)))
 
 (defcstruct (acceleration-structure-memory-requirements-info-nv :class c-acceleration-structure-memory-requirements-info-nv)
   (s-type structure-type)
@@ -7245,31 +7259,52 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (type acceleration-structure-memory-requirements-type-nv)
   (acceleration-structure acceleration-structure-nv))
 
-(defcstruct (physical-device-ray-tracing-features-khr :class c-physical-device-ray-tracing-features-khr)
+(defcstruct (physical-device-acceleration-structure-features-khr :class c-physical-device-acceleration-structure-features-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (ray-tracing bool32)
-  (ray-tracing-shader-group-handle-capture-replay bool32)
-  (ray-tracing-shader-group-handle-capture-replay-mixed bool32)
-  (ray-tracing-acceleration-structure-capture-replay bool32)
-  (ray-tracing-indirect-trace-rays bool32)
-  (ray-tracing-indirect-acceleration-structure-build bool32)
-  (ray-tracing-host-acceleration-structure-commands bool32)
-  (ray-query bool32)
-  (ray-tracing-primitive-culling bool32))
+  (acceleration-structure bool32)
+  (acceleration-structure-capture-replay bool32)
+  (acceleration-structure-indirect-build bool32)
+  (acceleration-structure-host-commands bool32)
+  (descriptor-binding-acceleration-structure-update-after-bind bool32))
 
-(defcstruct (physical-device-ray-tracing-properties-khr :class c-physical-device-ray-tracing-properties-khr)
+(defcstruct (physical-device-ray-tracing-pipeline-features-khr :class c-physical-device-ray-tracing-pipeline-features-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (shader-group-handle-size :uint32)
-  (max-recursion-depth :uint32)
-  (max-shader-group-stride :uint32)
-  (shader-group-base-alignment :uint32)
+  (ray-tracing-pipeline bool32)
+  (ray-tracing-pipeline-shader-group-handle-capture-replay bool32)
+  (ray-tracing-pipeline-shader-group-handle-capture-replay-mixed bool32)
+  (ray-tracing-pipeline-trace-rays-indirect bool32)
+  (ray-traversal-primitive-culling bool32))
+
+(defcstruct (physical-device-ray-query-features-khr :class c-physical-device-ray-query-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (ray-query bool32))
+
+(defcstruct (physical-device-acceleration-structure-properties-khr :class c-physical-device-acceleration-structure-properties-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
   (max-geometry-count :uint64)
   (max-instance-count :uint64)
   (max-primitive-count :uint64)
+  (max-per-stage-descriptor-acceleration-structures :uint32)
+  (max-per-stage-descriptor-update-after-bind-acceleration-structures :uint32)
   (max-descriptor-set-acceleration-structures :uint32)
-  (shader-group-handle-capture-replay-size :uint32))
+  (max-descriptor-set-update-after-bind-acceleration-structures :uint32)
+  (min-acceleration-structure-scratch-offset-alignment :uint32))
+
+(defcstruct (physical-device-ray-tracing-pipeline-properties-khr :class c-physical-device-ray-tracing-pipeline-properties-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (shader-group-handle-size :uint32)
+  (max-ray-recursion-depth :uint32)
+  (max-shader-group-stride :uint32)
+  (shader-group-base-alignment :uint32)
+  (shader-group-handle-capture-replay-size :uint32)
+  (max-ray-dispatch-invocation-count :uint32)
+  (shader-group-handle-alignment :uint32)
+  (max-ray-hit-attribute-size :uint32))
 
 (defcstruct (physical-device-ray-tracing-properties-nv :class c-physical-device-ray-tracing-properties-nv)
   (s-type structure-type)
@@ -7283,9 +7318,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-triangle-count :uint64)
   (max-descriptor-set-acceleration-structures :uint32))
 
-(defcstruct (strided-buffer-region-khr :class c-strided-buffer-region-khr)
-  (buffer buffer)
-  (offset device-size)
+(defcstruct (strided-device-address-region-khr :class c-strided-device-address-region-khr)
+  (device-address device-address)
   (stride device-size)
   (size device-size))
 
@@ -8143,6 +8177,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (vertex-format format)
   (vertex-data device-or-host-address-const-khr)
   (vertex-stride device-size)
+  (max-vertex :uint32)
   (index-type index-type)
   (index-data device-or-host-address-const-khr)
   (transform-data device-or-host-address-const-khr))
@@ -8176,41 +8211,29 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (type acceleration-structure-type-khr)
   (flags build-acceleration-structure-flags-khr)
-  (update bool32)
+  (mode build-acceleration-structure-mode-khr)
   (src-acceleration-structure acceleration-structure-khr)
   (dst-acceleration-structure acceleration-structure-khr)
-  (geometry-array-of-pointers bool32)
   (geometry-count :uint32)
+  (p-geometries (:pointer (:struct acceleration-structure-geometry-khr)))
   (pp-geometries (:pointer
                   (:pointer (:struct acceleration-structure-geometry-khr))))
   (scratch-data device-or-host-address-khr))
 
-(defcstruct (acceleration-structure-build-offset-info-khr :class c-acceleration-structure-build-offset-info-khr)
+(defcstruct (acceleration-structure-build-range-info-khr :class c-acceleration-structure-build-range-info-khr)
   (primitive-count :uint32)
   (primitive-offset :uint32)
   (first-vertex :uint32)
   (transform-offset :uint32))
 
-(defcstruct (acceleration-structure-create-geometry-type-info-khr :class c-acceleration-structure-create-geometry-type-info-khr)
-  (s-type structure-type)
-  (p-next (:pointer :void))
-  (geometry-type geometry-type-khr)
-  (max-primitive-count :uint32)
-  (index-type index-type)
-  (max-vertex-count :uint32)
-  (vertex-format format)
-  (allows-transforms bool32))
-
 (defcstruct (acceleration-structure-create-info-khr :class c-acceleration-structure-create-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (compacted-size device-size)
+  (create-flags acceleration-structure-create-flags-khr)
+  (buffer buffer)
+  (offset device-size)
+  (size device-size)
   (type acceleration-structure-type-khr)
-  (flags build-acceleration-structure-flags-khr)
-  (max-geometry-count :uint32)
-  (p-geometry-infos (:pointer
-                     (:struct
-                      acceleration-structure-create-geometry-type-info-khr)))
   (device-address device-address))
 
 (defcstruct (aabb-positions-khr :class c-aabb-positions-khr)
@@ -8256,10 +8279,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (acceleration-structure acceleration-structure-khr))
 
-(defcstruct (acceleration-structure-version-khr :class c-acceleration-structure-version-khr)
+(defcstruct (acceleration-structure-version-info-khr :class c-acceleration-structure-version-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (version-data (:pointer :uint8)))
+  (p-version-data (:pointer :uint8)))
 
 (defcstruct (copy-acceleration-structure-info-khr :class c-copy-acceleration-structure-info-khr)
   (s-type structure-type)
@@ -8281,11 +8304,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src device-or-host-address-const-khr)
   (dst acceleration-structure-khr)
   (mode copy-acceleration-structure-mode-khr))
-
-(defcstruct (deferred-operation-info-khr :class c-deferred-operation-info-khr)
-  (s-type structure-type)
-  (p-next (:pointer :void))
-  (operation-handle deferred-operation-khr))
 
 (defcstruct (physical-device-extended-dynamic-state-features-ext :class c-physical-device-extended-dynamic-state-features-ext)
   (s-type structure-type)
@@ -8542,4 +8560,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (shading-rate-type fragment-shading-rate-type-nv)
   (shading-rate fragment-shading-rate-nv)
   (combiner-ops fragment-shading-rate-combiner-op-khr :count 2))
+
+(defcstruct (acceleration-structure-build-sizes-info-khr :class c-acceleration-structure-build-sizes-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (acceleration-structure-size device-size)
+  (update-scratch-size device-size)
+  (build-scratch-size device-size))
 
