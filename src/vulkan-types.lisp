@@ -225,6 +225,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +qcom-render-pass-shader-resolve-extension-name+ "VK_QCOM_render_pass_shader_resolve" :test #'string=)
 (alexandria:define-constant +qcom-render-pass-transform-extension-name+ "VK_QCOM_render_pass_transform" :test #'string=)
 (alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops" :test #'string=)
+(alexandria:define-constant +qcom-rotated-copy-commands-extension-name+ "VK_QCOM_rotated_copy_commands" :test #'string=)
 
 (defctype sample-mask :uint32)
 
@@ -812,8 +813,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:base-pipeline-acceleration #x4))
 
 (defbitfield (performance-counter-description-flags-khr flags)
-  (:performance-impacting-khr #x1)
-  (:concurrently-impacted-khr #x2))
+  (:performance-impacting #x1)
+  (:concurrently-impacted #x2))
 
 (defbitfield (acquire-profiling-lock-flags-khr flags))
 
@@ -1031,7 +1032,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:temporary #x1))
 
 (defbitfield (surface-counter-flags-ext flags)
-  (:vblank-ext #x1))
+  (:vblank #x1))
 
 (defbitfield (pipeline-viewport-swizzle-state-create-flags-nv flags))
 
@@ -2457,6 +2458,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:device-diagnostics-config-create-info-nv #x3B9F5DE1) ;; 
   (:physical-device-fragment-density-map-2-features-ext #x3B9FDAE0) ;; 
   (:physical-device-fragment-density-map-2-properties-ext #x3B9FDAE1) ;; 
+  (:copy-command-transform-info-qcom #x3B9FDEC8) ;; 
   (:physical-device-image-robustness-features-ext #x3B9FE698) ;; 
   (:copy-buffer-info-2-khr #x3B9FEE68) ;; 
   (:copy-image-info-2-khr #x3B9FEE69) ;; 
@@ -2876,8 +2878,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:float64-khr #x5))
 
 (defcenum (performance-counter-description-flag-bits-khr)
-  (:performance-impacting-khr #x1)
-  (:concurrently-impacted-khr #x2))
+  (:performance-impacting #x1)
+  (:concurrently-impacted #x2))
 
 (defcenum (acquire-profiling-lock-flag-bits-khr))
 
@@ -3155,7 +3157,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:temporary #x1))
 
 (defcenum (surface-counter-flag-bits-ext)
-  (:vblank-ext #x1))
+  (:vblank #x1))
 
 (defcenum (display-power-state-ext)
   (:off-ext #x0)
@@ -8271,6 +8273,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (extended-dynamic-state bool32))
 
 (defcstruct (render-pass-transform-begin-info-qcom :class c-render-pass-transform-begin-info-qcom)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (transform surface-transform-flag-bits-khr))
+
+(defcstruct (copy-command-transform-info-qcom :class c-copy-command-transform-info-qcom)
   (s-type structure-type)
   (p-next (:pointer :void))
   (transform surface-transform-flag-bits-khr))

@@ -8542,6 +8542,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :transform %vk:transform)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-copy-command-transform-info-qcom))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:transform)
+       ,ptr
+       (:struct %vk:copy-command-transform-info-qcom))
+    (make-instance 'vk:copy-command-transform-info-qcom
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :transform %vk:transform)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-command-buffer-inheritance-render-pass-transform-info-qcom))
   `(cffi:with-foreign-slots
       ((%vk:s-type

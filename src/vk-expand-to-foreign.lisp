@@ -8723,6 +8723,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:transform (vk:transform ,value))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-copy-command-transform-info-qcom) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:transform)
+       ,ptr
+       (:struct %vk:copy-command-transform-info-qcom))
+    (setf %vk:s-type :copy-command-transform-info-qcom
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:transform (vk:transform ,value))))
+
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-command-buffer-inheritance-render-pass-transform-info-qcom) ptr)
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -8905,7 +8916,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ,ptr
        (:struct %vk:image-blit-2-khr))
     (setf %vk:s-type :image-blit-2-khr
-          %vk:p-next (cffi:null-pointer)
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:src-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:src-subresource ,value) ,ptr)
           %vk:src-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:src-offsets ,value) ,ptr)
           %vk:dst-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:dst-subresource ,value) ,ptr)
@@ -8924,7 +8935,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ,ptr
        (:struct %vk:buffer-image-copy-2-khr))
     (setf %vk:s-type :buffer-image-copy-2-khr
-          %vk:p-next (cffi:null-pointer)
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:buffer-offset (vk:buffer-offset ,value)
           %vk:buffer-row-length (vk:buffer-row-length ,value)
           %vk:buffer-image-height (vk:buffer-image-height ,value)

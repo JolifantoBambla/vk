@@ -248,6 +248,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-shader-resolve-extension-name+
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
+    #:+qcom-rotated-copy-commands-extension-name+
 
     #:a-hardware-buffer ;; :basetype
     #:a-native-window ;; :basetype
@@ -515,6 +516,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-copy-buffer-info-2-khr
     #:copy-buffer-to-image-info-2-khr ;; :struct
     #:c-copy-buffer-to-image-info-2-khr
+    #:copy-command-transform-info-qcom ;; :struct
+    #:c-copy-command-transform-info-qcom
     #:copy-descriptor-set ;; :struct
     #:c-copy-descriptor-set
     #:copy-image-info-2-khr ;; :struct
@@ -4107,7 +4110,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-win32-keyed-mutex-extension-name+
     #:+qcom-render-pass-shader-resolve-extension-name+
     #:+qcom-render-pass-transform-extension-name+
-    #:+qcom-render-pass-store-ops-extension-name+)
+    #:+qcom-render-pass-store-ops-extension-name+
+    #:+qcom-rotated-copy-commands-extension-name+)
   (:export
     #:make-extension-loader
     #:*default-allocator*
@@ -4333,6 +4337,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-shader-resolve-extension-name+
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
+    #:+qcom-rotated-copy-commands-extension-name+
 
     #:aabb-positions-khr ;; :class
     #:acceleration-structure-build-geometry-info-khr ;; :class
@@ -4415,6 +4420,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:copy-acceleration-structure-to-memory-info-khr ;; :class
     #:copy-buffer-info-2-khr ;; :class
     #:copy-buffer-to-image-info-2-khr ;; :class
+    #:copy-command-transform-info-qcom ;; :class
     #:copy-descriptor-set ;; :class
     #:copy-image-info-2-khr ;; :class
     #:copy-image-to-buffer-info-2-khr ;; :class

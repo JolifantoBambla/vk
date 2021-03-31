@@ -17405,6 +17405,28 @@ Instances of this class can be used to extend the following classes (using their
 See RENDER-PASS-BEGIN-INFO
 "))
 
+(defclass copy-command-transform-info-qcom ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (transform
+     :initarg :transform
+     :initform nil
+     :accessor transform))
+  (:documentation "Represents the struct [VkCopyCommandTransformInfoQCOM](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyCommandTransformInfoQCOM.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
+
+See SURFACE-TRANSFORM-FLAG-BITS-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See BUFFER-IMAGE-COPY-2-KHR
+See IMAGE-BLIT-2-KHR
+"))
+
 (defclass command-buffer-inheritance-render-pass-transform-info-qcom ()
   ((next
      :initarg :next
