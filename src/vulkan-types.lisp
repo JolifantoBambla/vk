@@ -3388,8 +3388,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:uint64-khr #x2)
   (:float64-khr #x3))
 
-(defcenum (semaphore-create-flag-bits))
-
 (defctype pfn-internal-allocation-notification :pointer)
 
 (defctype pfn-internal-free-notification :pointer)

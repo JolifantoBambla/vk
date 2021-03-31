@@ -1824,7 +1824,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sampler-ycbcr-range-khr ;; :enum
     #:scope-nv ;; :enum
     #:semaphore ;; :handle
-    #:semaphore-create-flag-bits ;; :enum
     #:semaphore-create-flags ;; :bitmask
     #:semaphore-create-info ;; :struct
     #:c-semaphore-create-info

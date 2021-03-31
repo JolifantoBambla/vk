@@ -6569,7 +6569,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - HANDLE-TYPES: a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
+ - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS
 
