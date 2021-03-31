@@ -1015,7 +1015,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-bind-pipeline
                    %vk:cmd-bind-pipeline
                    "Represents <vkCmdBindPipeline>"
-                   ((command-buffer cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (pipeline-bind-point keyword))
+                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1116,7 +1116,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-bind-descriptor-sets
                    %vk:cmd-bind-descriptor-sets
                    "Represents <vkCmdBindDescriptorSets>"
-                   ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (descriptor-sets list) (pipeline-bind-point keyword) (first-set unsigned-byte) (dynamic-offsets list))
+                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (layout cffi:foreign-pointer) (first-set unsigned-byte) (descriptor-sets list) (dynamic-offsets list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1142,7 +1142,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-bind-vertex-buffers
                    %vk:cmd-bind-vertex-buffers
                    "Represents <vkCmdBindVertexBuffers>"
-                   ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding unsigned-byte) (offsets list))
+                   ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers list) (offsets list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1236,7 +1236,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-copy-image
                    %vk:cmd-copy-image
                    "Represents <vkCmdCopyImage>"
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image-layout keyword) (regions list))
+                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1250,7 +1250,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-blit-image
                    %vk:cmd-blit-image
                    "Represents <vkCmdBlitImage>"
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image-layout keyword) (filter keyword) (regions list))
+                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list) (filter keyword))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1278,7 +1278,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-copy-image-to-buffer
                    %vk:cmd-copy-image-to-buffer
                    "Represents <vkCmdCopyImageToBuffer>"
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (src-image-layout keyword) (regions list))
+                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-buffer cffi:foreign-pointer) (regions list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1353,7 +1353,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-resolve-image
                    %vk:cmd-resolve-image
                    "Represents <vkCmdResolveImage>"
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image-layout keyword) (regions list))
+                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1473,7 +1473,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-write-timestamp
                    %vk:cmd-write-timestamp
                    "Represents <vkCmdWriteTimestamp>"
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (pipeline-stage keyword) (query unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (query-pool cffi:foreign-pointer) (query unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1484,7 +1484,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-copy-query-pool-results
                    %vk:cmd-copy-query-pool-results
                    "Represents <vkCmdCopyQueryPoolResults>"
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (dst-offset unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (stride unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1512,7 +1512,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-begin-render-pass
                    %vk:cmd-begin-render-pass
                    "Represents <vkCmdBeginRenderPass>"
-                   ((command-buffer cffi:foreign-pointer) (contents keyword) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (contents keyword))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -1665,7 +1665,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-create-handle-fun (get-physical-device-surface-support-khr
                           %vk:get-physical-device-surface-support-khr
                           "Represents <vkGetPhysicalDeviceSurfaceSupportKHR>"
-                          ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer) (queue-family-index unsigned-byte))
+                          ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (surface cffi:foreign-pointer))
                           ()
                           nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2046,7 +2046,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-bind-pipeline-shader-group-nv
                    %vk:cmd-bind-pipeline-shader-group-nv
                    "Represents <vkCmdBindPipelineShaderGroupNV>"
-                   ((command-buffer cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (pipeline-bind-point keyword) (group-index unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer) (group-index unsigned-byte))
                    ()
                   nil
                   t)
@@ -2225,7 +2225,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-push-descriptor-set-khr
                    %vk:cmd-push-descriptor-set-khr
                    "Represents <vkCmdPushDescriptorSetKHR>"
-                   ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (pipeline-bind-point keyword) (set unsigned-byte) (descriptor-writes list))
+                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (layout cffi:foreign-pointer) (set unsigned-byte) (descriptor-writes list))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -2435,7 +2435,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (acquire-xlib-display-ext
                    %vk:acquire-xlib-display-ext
                    "Represents <vkAcquireXlibDisplayEXT>"
-                   ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (dpy cffi:foreign-pointer))
+                   ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
                   nil
                   t)
@@ -3312,7 +3312,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-write-buffer-marker-amd
                    %vk:cmd-write-buffer-marker-amd
                    "Represents <vkCmdWriteBufferMarkerAMD>"
-                   ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (pipeline-stage keyword) (dst-offset unsigned-byte) (marker unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
                    ()
                   nil
                   t)
@@ -3425,7 +3425,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (wait-semaphores
                    %vk:wait-semaphores
                    "Represents <vkWaitSemaphores>"
-                   ((device cffi:foreign-pointer) (timeout unsigned-byte) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)))
+                   ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
                    ()
                   nil)
   (device '%vk:device device :in :handle)
@@ -3435,7 +3435,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (wait-semaphores-khr
                    %vk:wait-semaphores-khr
                    "Represents <vkWaitSemaphoresKHR>"
-                   ((device cffi:foreign-pointer) (timeout unsigned-byte) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)))
+                   ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
                    ()
                   nil)
   (device '%vk:device device :in :handle)
@@ -3483,7 +3483,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indirect-count
                    %vk:cmd-draw-indirect-count
                    "Represents <vkCmdDrawIndirectCount>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -3497,7 +3497,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indirect-count-amd
                    %vk:cmd-draw-indirect-count-amd
                    "Represents <vkCmdDrawIndirectCountAMD>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
                   t)
@@ -3512,7 +3512,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indirect-count-khr
                    %vk:cmd-draw-indirect-count-khr
                    "Represents <vkCmdDrawIndirectCountKHR>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -3526,7 +3526,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indexed-indirect-count
                    %vk:cmd-draw-indexed-indirect-count
                    "Represents <vkCmdDrawIndexedIndirectCount>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -3540,7 +3540,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indexed-indirect-count-amd
                    %vk:cmd-draw-indexed-indirect-count-amd
                    "Represents <vkCmdDrawIndexedIndirectCountAMD>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
                   t)
@@ -3555,7 +3555,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indexed-indirect-count-khr
                    %vk:cmd-draw-indexed-indirect-count-khr
                    "Represents <vkCmdDrawIndexedIndirectCountKHR>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -3592,7 +3592,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-bind-transform-feedback-buffers-ext
                    %vk:cmd-bind-transform-feedback-buffers-ext
                    "Represents <vkCmdBindTransformFeedbackBuffersEXT>"
-                   ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding unsigned-byte) (offsets list))
+                   ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers list) (offsets list))
                    (((sizes nil) list))
                   nil
                   t)
@@ -3606,7 +3606,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-begin-transform-feedback-ext
                    %vk:cmd-begin-transform-feedback-ext
                    "Represents <vkCmdBeginTransformFeedbackEXT>"
-                   ((command-buffer cffi:foreign-pointer) (counter-buffers list) (first-counter-buffer unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers list))
                    (((counter-buffer-offsets nil) list))
                   nil
                   t)
@@ -3619,7 +3619,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-end-transform-feedback-ext
                    %vk:cmd-end-transform-feedback-ext
                    "Represents <vkCmdEndTransformFeedbackEXT>"
-                   ((command-buffer cffi:foreign-pointer) (counter-buffers list) (first-counter-buffer unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers list))
                    (((counter-buffer-offsets nil) list))
                   nil
                   t)
@@ -3657,7 +3657,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-indirect-byte-count-ext
                    %vk:cmd-draw-indirect-byte-count-ext
                    "Represents <vkCmdDrawIndirectByteCountEXT>"
-                   ((command-buffer cffi:foreign-pointer) (counter-buffer cffi:foreign-pointer) (instance-count unsigned-byte) (first-instance unsigned-byte) (counter-buffer-offset unsigned-byte) (counter-offset unsigned-byte) (vertex-stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (instance-count unsigned-byte) (first-instance unsigned-byte) (counter-buffer cffi:foreign-pointer) (counter-buffer-offset unsigned-byte) (counter-offset unsigned-byte) (vertex-stride unsigned-byte))
                    ()
                   nil
                   t)
@@ -3743,7 +3743,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-draw-mesh-tasks-indirect-count-nv
                    %vk:cmd-draw-mesh-tasks-indirect-count-nv
                    "Represents <vkCmdDrawMeshTasksIndirectCountNV>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (count-buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
                   t)
@@ -3907,7 +3907,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-write-acceleration-structures-properties-khr
                    %vk:cmd-write-acceleration-structures-properties-khr
                    "Represents <vkCmdWriteAccelerationStructuresPropertiesKHR>"
-                   ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-pool cffi:foreign-pointer) (query-type keyword) (first-query unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -3920,7 +3920,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-write-acceleration-structures-properties-nv
                    %vk:cmd-write-acceleration-structures-properties-nv
                    "Represents <vkCmdWriteAccelerationStructuresPropertiesNV>"
-                   ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-pool cffi:foreign-pointer) (query-type keyword) (first-query unsigned-byte))
+                   ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
                    ()
                   nil
                   t)
@@ -3934,7 +3934,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-build-acceleration-structure-nv
                    %vk:cmd-build-acceleration-structure-nv
                    "Represents <vkCmdBuildAccelerationStructureNV>"
-                   ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (instance-offset unsigned-byte) (update boolean) (scratch-offset unsigned-byte) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)) (instance-offset unsigned-byte) (update boolean) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (scratch-offset unsigned-byte))
                    (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer))
                   nil
                   t)
@@ -3965,7 +3965,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-trace-rays-khr
                    %vk:cmd-trace-rays-khr
                    "Represents <vkCmdTraceRaysKHR>"
-                   ((command-buffer cffi:foreign-pointer) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -4095,7 +4095,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-trace-rays-indirect-khr
                    %vk:cmd-trace-rays-indirect-khr
                    "Represents <vkCmdTraceRaysIndirectKHR>"
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-buffer-region-khr cffi:foreign-pointer)) (buffer cffi:foreign-pointer) (offset unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -4497,7 +4497,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-build-acceleration-structure-indirect-khr
                    %vk:cmd-build-acceleration-structure-indirect-khr
                    "Represents <vkCmdBuildAccelerationStructureIndirectKHR>"
-                   ((command-buffer cffi:foreign-pointer) (indirect-buffer cffi:foreign-pointer) (indirect-offset unsigned-byte) (indirect-stride unsigned-byte) (info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)))
+                   ((command-buffer cffi:foreign-pointer) (info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)) (indirect-buffer cffi:foreign-pointer) (indirect-offset unsigned-byte) (indirect-stride unsigned-byte))
                    ()
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
@@ -4628,7 +4628,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-bind-vertex-buffers-2-ext
                    %vk:cmd-bind-vertex-buffers-2-ext
                    "Represents <vkCmdBindVertexBuffers2EXT>"
-                   ((command-buffer cffi:foreign-pointer) (buffers list) (first-binding unsigned-byte) (offsets list))
+                   ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers list) (offsets list))
                    (((sizes nil) list) ((strides nil) list))
                   nil
                   t)
@@ -4730,7 +4730,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (set-private-data-ext
                    %vk:set-private-data-ext
                    "Represents <vkSetPrivateDataEXT>"
-                   ((device cffi:foreign-pointer) (private-data-slot cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (data unsigned-byte))
+                   ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer) (data unsigned-byte))
                    ()
                   nil
                   t)
@@ -4743,7 +4743,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-create-handle-fun (get-private-data-ext
                           %vk:get-private-data-ext
                           "Represents <vkGetPrivateDataEXT>"
-                          ((device cffi:foreign-pointer) (private-data-slot cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte))
+                          ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer))
                           ()
                           t
                           t)
