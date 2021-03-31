@@ -83,6 +83,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-separate-stencil-usage-extension-name+ "VK_EXT_separate_stencil_usage" :test #'string=)
 (alexandria:define-constant +ext-shader-atomic-float-extension-name+ "VK_EXT_shader_atomic_float" :test #'string=)
 (alexandria:define-constant +ext-shader-demote-to-helper-invocation-extension-name+ "VK_EXT_shader_demote_to_helper_invocation" :test #'string=)
+(alexandria:define-constant +ext-shader-image-atomic-int64-extension-name+ "VK_EXT_shader_image_atomic_int64" :test #'string=)
 (alexandria:define-constant +ext-shader-stencil-export-extension-name+ "VK_EXT_shader_stencil_export" :test #'string=)
 (alexandria:define-constant +ext-shader-subgroup-ballot-extension-name+ "VK_EXT_shader_subgroup_ballot" :test #'string=)
 (alexandria:define-constant +ext-shader-subgroup-vote-extension-name+ "VK_EXT_shader_subgroup_vote" :test #'string=)
@@ -2367,6 +2368,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-subgroup-size-control-features-ext #x3B9E38EA) ;; 
   (:physical-device-shader-core-properties-2-amd #x3B9E40B8) ;; 
   (:physical-device-coherent-memory-features-amd #x3B9E4888) ;; 
+  (:physical-device-shader-image-atomic-int64-features-ext #x3B9E5C10) ;; 
   (:physical-device-memory-budget-properties-ext #x3B9E67C8) ;; 
   (:physical-device-memory-priority-features-ext #x3B9E6BB0) ;; 
   (:memory-priority-allocate-info-ext #x3B9E6BB1) ;; 
@@ -8381,4 +8383,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-image-layout image-layout)
   (region-count :uint32)
   (p-regions (:pointer (:struct image-resolve-2-khr))))
+
+(defcstruct (physical-device-shader-image-atomic-int-64-features-ext :class c-physical-device-shader-image-atomic-int-64-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (shader-image-int-64-atomics bool32)
+  (sparse-image-int-64-atomics bool32))
 

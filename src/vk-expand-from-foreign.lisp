@@ -8835,3 +8835,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :dst-image-layout %vk:dst-image-layout
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-resolve-2-khr) i)))))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-shader-image-atomic-int-64-features-ext))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-image-int-64-atomics
+        %vk:sparse-image-int-64-atomics)
+       ,ptr
+       (:struct %vk:physical-device-shader-image-atomic-int-64-features-ext))
+    (make-instance 'vk:physical-device-shader-image-atomic-int-64-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :shader-image-int-64-atomics %vk:shader-image-int-64-atomics
+                   :sparse-image-int-64-atomics %vk:sparse-image-int-64-atomics)))
+

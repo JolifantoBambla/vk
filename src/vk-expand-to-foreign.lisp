@@ -9022,3 +9022,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:region-count (length (vk:regions ,value))
           %vk:p-regions (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-resolve-2-khr) (vk:regions ,value) ,ptr))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-shader-image-atomic-int-64-features-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-image-int-64-atomics
+        %vk:sparse-image-int-64-atomics)
+       ,ptr
+       (:struct %vk:physical-device-shader-image-atomic-int-64-features-ext))
+    (setf %vk:s-type :physical-device-shader-image-atomic-int64-features-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:shader-image-int-64-atomics (vk:shader-image-int-64-atomics ,value)
+          %vk:sparse-image-int-64-atomics (vk:sparse-image-int-64-atomics ,value))))
+

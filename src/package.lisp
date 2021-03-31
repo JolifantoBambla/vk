@@ -106,6 +106,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-separate-stencil-usage-extension-name+
     #:+ext-shader-atomic-float-extension-name+
     #:+ext-shader-demote-to-helper-invocation-extension-name+
+    #:+ext-shader-image-atomic-int64-extension-name+
     #:+ext-shader-stencil-export-extension-name+
     #:+ext-shader-subgroup-ballot-extension-name+
     #:+ext-shader-subgroup-vote-extension-name+
@@ -1426,6 +1427,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-shader-float-16-int-8-features
     #:physical-device-shader-float-16-int-8-features-khr ;; :struct
     #:c-physical-device-shader-float-16-int-8-features-khr
+    #:physical-device-shader-image-atomic-int-64-features-ext ;; :struct
+    #:c-physical-device-shader-image-atomic-int-64-features-ext
     #:physical-device-shader-image-footprint-features-nv ;; :struct
     #:c-physical-device-shader-image-footprint-features-nv
     #:physical-device-shader-integer-functions-2-features-intel ;; :struct
@@ -3533,6 +3536,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-image-float-32-atomic-add ;; :accessor
     #:shader-image-float-32-atomics ;; :accessor
     #:shader-image-gather-extended ;; :accessor
+    #:shader-image-int-64-atomics ;; :accessor
     #:shader-input-attachment-array-dynamic-indexing ;; :accessor
     #:shader-input-attachment-array-non-uniform-indexing ;; :accessor
     #:shader-input-attachment-array-non-uniform-indexing-native ;; :accessor
@@ -3606,6 +3610,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sparse-binding ;; :accessor
     #:sparse-image-float-32-atomic-add ;; :accessor
     #:sparse-image-float-32-atomics ;; :accessor
+    #:sparse-image-int-64-atomics ;; :accessor
     #:sparse-properties ;; :accessor
     #:sparse-residency-16-samples ;; :accessor
     #:sparse-residency-2-samples ;; :accessor
@@ -3907,6 +3912,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-separate-stencil-usage-extension-name+
     #:+ext-shader-atomic-float-extension-name+
     #:+ext-shader-demote-to-helper-invocation-extension-name+
+    #:+ext-shader-image-atomic-int64-extension-name+
     #:+ext-shader-stencil-export-extension-name+
     #:+ext-shader-subgroup-ballot-extension-name+
     #:+ext-shader-subgroup-vote-extension-name+
@@ -4128,6 +4134,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-separate-stencil-usage-extension-name+
     #:+ext-shader-atomic-float-extension-name+
     #:+ext-shader-demote-to-helper-invocation-extension-name+
+    #:+ext-shader-image-atomic-int64-extension-name+
     #:+ext-shader-stencil-export-extension-name+
     #:+ext-shader-subgroup-ballot-extension-name+
     #:+ext-shader-subgroup-vote-extension-name+
@@ -4645,6 +4652,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-shader-demote-to-helper-invocation-features-ext ;; :class
     #:physical-device-shader-draw-parameters-features ;; :class
     #:physical-device-shader-float-16-int-8-features ;; :class
+    #:physical-device-shader-image-atomic-int-64-features-ext ;; :class
     #:physical-device-shader-image-footprint-features-nv ;; :class
     #:physical-device-shader-integer-functions-2-features-intel ;; :class
     #:physical-device-shader-s-m-builtins-features-nv ;; :class
@@ -5893,6 +5901,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-image-float-32-atomic-add ;; :accessor
     #:shader-image-float-32-atomics ;; :accessor
     #:shader-image-gather-extended ;; :accessor
+    #:shader-image-int-64-atomics ;; :accessor
     #:shader-input-attachment-array-dynamic-indexing ;; :accessor
     #:shader-input-attachment-array-non-uniform-indexing ;; :accessor
     #:shader-input-attachment-array-non-uniform-indexing-native ;; :accessor
@@ -5966,6 +5975,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sparse-binding ;; :accessor
     #:sparse-image-float-32-atomic-add ;; :accessor
     #:sparse-image-float-32-atomics ;; :accessor
+    #:sparse-image-int-64-atomics ;; :accessor
     #:sparse-properties ;; :accessor
     #:sparse-residency-16-samples ;; :accessor
     #:sparse-residency-2-samples ;; :accessor

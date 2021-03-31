@@ -18002,3 +18002,30 @@ See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-RESOLVE-2-KHR
 "))
+
+(defclass physical-device-shader-image-atomic-int-64-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (shader-image-int-64-atomics
+     :initarg :shader-image-int-64-atomics
+     :initform nil
+     :accessor shader-image-int-64-atomics)
+   (sparse-image-int-64-atomics
+     :initarg :sparse-image-int-64-atomics
+     :initform nil
+     :accessor sparse-image-int-64-atomics))
+  (:documentation "Represents the struct [VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SHADER-IMAGE-INT-64-ATOMICS: a BOOL32.
+ - SPARSE-IMAGE-INT-64-ATOMICS: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
