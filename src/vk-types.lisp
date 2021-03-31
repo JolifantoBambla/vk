@@ -18391,3 +18391,89 @@ Instances of this class can be used to extend the following classes (using their
 See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
+
+(defclass physical-device-fragment-shading-rate-enums-features-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (fragment-shading-rate-enums
+     :initarg :fragment-shading-rate-enums
+     :initform nil
+     :accessor fragment-shading-rate-enums)
+   (supersample-fragment-shading-rates
+     :initarg :supersample-fragment-shading-rates
+     :initform nil
+     :accessor supersample-fragment-shading-rates)
+   (no-invocation-fragment-shading-rates
+     :initarg :no-invocation-fragment-shading-rates
+     :initform nil
+     :accessor no-invocation-fragment-shading-rates))
+  (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FRAGMENT-SHADING-RATE-ENUMS: a BOOL32.
+ - SUPERSAMPLE-FRAGMENT-SHADING-RATES: a BOOL32.
+ - NO-INVOCATION-FRAGMENT-SHADING-RATES: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-fragment-shading-rate-enums-properties-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (max-fragment-shading-rate-invocation-count
+     :initarg :max-fragment-shading-rate-invocation-count
+     :initform nil
+     :accessor max-fragment-shading-rate-invocation-count))
+  (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MAX-FRAGMENT-SHADING-RATE-INVOCATION-COUNT: an enum value of SAMPLE-COUNT-FLAG-BITS.
+
+See SAMPLE-COUNT-FLAG-BITS
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-PROPERTIES-2
+"))
+
+(defclass pipeline-fragment-shading-rate-enum-state-create-info-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (shading-rate-type
+     :initarg :shading-rate-type
+     :initform nil
+     :accessor shading-rate-type)
+   (shading-rate
+     :initarg :shading-rate
+     :initform nil
+     :accessor shading-rate)
+   (combiner-ops
+     :initarg :combiner-ops
+     :initform nil
+     :accessor combiner-ops))
+  (:documentation "Represents the struct [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineFragmentShadingRateEnumStateCreateInfoNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SHADING-RATE-TYPE: an enum value of FRAGMENT-SHADING-RATE-TYPE-NV.
+ - SHADING-RATE: an enum value of FRAGMENT-SHADING-RATE-NV.
+ - COMBINER-OPS: an enum value of FRAGMENT-SHADING-RATE-COMBINER-OP-KHR.
+
+See FRAGMENT-SHADING-RATE-TYPE-NV
+See FRAGMENT-SHADING-RATE-NV
+See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See GRAPHICS-PIPELINE-CREATE-INFO
+"))

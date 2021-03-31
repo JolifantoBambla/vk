@@ -9016,3 +9016,44 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :shader-terminate-invocation %vk:shader-terminate-invocation)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-fragment-shading-rate-enums-features-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:fragment-shading-rate-enums
+        %vk:supersample-fragment-shading-rates
+        %vk:no-invocation-fragment-shading-rates)
+       ,ptr
+       (:struct %vk:physical-device-fragment-shading-rate-enums-features-nv))
+    (make-instance 'vk:physical-device-fragment-shading-rate-enums-features-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :fragment-shading-rate-enums %vk:fragment-shading-rate-enums
+                   :supersample-fragment-shading-rates %vk:supersample-fragment-shading-rates
+                   :no-invocation-fragment-shading-rates %vk:no-invocation-fragment-shading-rates)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-fragment-shading-rate-enums-properties-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-fragment-shading-rate-invocation-count)
+       ,ptr
+       (:struct %vk:physical-device-fragment-shading-rate-enums-properties-nv))
+    (make-instance 'vk:physical-device-fragment-shading-rate-enums-properties-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-fragment-shading-rate-invocation-count %vk:max-fragment-shading-rate-invocation-count)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-pipeline-fragment-shading-rate-enum-state-create-info-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shading-rate-type
+        %vk:shading-rate
+        %vk:combiner-ops)
+       ,ptr
+       (:struct %vk:pipeline-fragment-shading-rate-enum-state-create-info-nv))
+    (make-instance 'vk:pipeline-fragment-shading-rate-enum-state-create-info-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :shading-rate-type %vk:shading-rate-type
+                   :shading-rate %vk:shading-rate
+                   :combiner-ops (loop for i from 0 below 2 collect (cffi:mem-aref %vk:combiner-ops '(:struct %vk:fragment-shading-rate-combiner-op-khr) i)))))
+

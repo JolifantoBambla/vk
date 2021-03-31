@@ -2466,3 +2466,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-fragment-shading-rate-count (:pointer :uint32))
   (p-fragment-shading-rates (:pointer (:struct physical-device-fragment-shading-rate-khr))))
 
+(defvkextfun ("vkCmdSetFragmentShadingRateEnumNV" cmd-set-fragment-shading-rate-enum-nv) :void
+  (command-buffer command-buffer)
+  (shading-rate fragment-shading-rate-nv)
+  (combiner-ops fragment-shading-rate-combiner-op-khr))
+

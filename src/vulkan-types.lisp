@@ -207,6 +207,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +nv-fill-rectangle-extension-name+ "VK_NV_fill_rectangle" :test #'string=)
 (alexandria:define-constant +nv-fragment-coverage-to-color-extension-name+ "VK_NV_fragment_coverage_to_color" :test #'string=)
 (alexandria:define-constant +nv-fragment-shader-barycentric-extension-name+ "VK_NV_fragment_shader_barycentric" :test #'string=)
+(alexandria:define-constant +nv-fragment-shading-rate-enums-extension-name+ "VK_NV_fragment_shading_rate_enums" :test #'string=)
 (alexandria:define-constant +nv-framebuffer-mixed-samples-extension-name+ "VK_NV_framebuffer_mixed_samples" :test #'string=)
 (alexandria:define-constant +nv-geometry-shader-passthrough-extension-name+ "VK_NV_geometry_shader_passthrough" :test #'string=)
 (alexandria:define-constant +nv-glsl-shader-extension-name+ "VK_NV_glsl_shader" :test #'string=)
@@ -2456,6 +2457,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-pipeline-creation-cache-control-features-ext #x3B9F5228) ;; 
   (:physical-device-diagnostics-config-features-nv #x3B9F5DE0) ;; 
   (:device-diagnostics-config-create-info-nv #x3B9F5DE1) ;; 
+  (:physical-device-fragment-shading-rate-enums-properties-nv #x3B9FC370) ;; 
+  (:physical-device-fragment-shading-rate-enums-features-nv #x3B9FC371) ;; 
+  (:pipeline-fragment-shading-rate-enum-state-create-info-nv #x3B9FC372) ;; 
   (:physical-device-fragment-density-map-2-features-ext #x3B9FDAE0) ;; 
   (:physical-device-fragment-density-map-2-properties-ext #x3B9FDAE1) ;; 
   (:copy-command-transform-info-qcom #x3B9FDEC8) ;; 
@@ -2930,6 +2934,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:modifying-features #x10)
   (:debug-reporting #x20) ;; 
   (:debug-markers #x40)) ;; 
+
+(defcenum (fragment-shading-rate-nv)
+  (:1-invocation-per-pixel-nv #x0)
+  (:1-invocation-per-1x2-pixels-nv #x1)
+  (:1-invocation-per-2x1-pixels-nv #x4)
+  (:1-invocation-per-2x2-pixels-nv #x5)
+  (:1-invocation-per-2x4-pixels-nv #x6)
+  (:1-invocation-per-4x2-pixels-nv #x9)
+  (:1-invocation-per-4x4-pixels-nv #xA)
+  (:2-invocations-per-pixel-nv #xB)
+  (:4-invocations-per-pixel-nv #xC)
+  (:8-invocations-per-pixel-nv #xD)
+  (:16-invocations-per-pixel-nv #xE)
+  (:no-invocations-nv #xF))
+
+(defcenum (fragment-shading-rate-type-nv)
+  (:fragment-size-nv #x0)
+  (:enums-nv #x1))
 
 (defcenum (color-space-khr)
   (:srgb-nonlinear-khr #x0)
@@ -8503,4 +8525,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (shader-terminate-invocation bool32))
+
+(defcstruct (physical-device-fragment-shading-rate-enums-features-nv :class c-physical-device-fragment-shading-rate-enums-features-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (fragment-shading-rate-enums bool32)
+  (supersample-fragment-shading-rates bool32)
+  (no-invocation-fragment-shading-rates bool32))
+
+(defcstruct (physical-device-fragment-shading-rate-enums-properties-nv :class c-physical-device-fragment-shading-rate-enums-properties-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (max-fragment-shading-rate-invocation-count sample-count-flag-bits))
+
+(defcstruct (pipeline-fragment-shading-rate-enum-state-create-info-nv :class c-pipeline-fragment-shading-rate-enum-state-create-info-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (shading-rate-type fragment-shading-rate-type-nv)
+  (shading-rate fragment-shading-rate-nv)
+  (combiner-ops fragment-shading-rate-combiner-op-khr :count 2))
 

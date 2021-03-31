@@ -230,6 +230,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-fill-rectangle-extension-name+
     #:+nv-fragment-coverage-to-color-extension-name+
     #:+nv-fragment-shader-barycentric-extension-name+
+    #:+nv-fragment-shading-rate-enums-extension-name+
     #:+nv-framebuffer-mixed-samples-extension-name+
     #:+nv-geometry-shader-passthrough-extension-name+
     #:+nv-glsl-shader-extension-name+
@@ -880,6 +881,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:fragment-shading-rate-attachment-info-khr ;; :struct
     #:c-fragment-shading-rate-attachment-info-khr
     #:fragment-shading-rate-combiner-op-khr ;; :enum
+    #:fragment-shading-rate-nv ;; :enum
+    #:fragment-shading-rate-type-nv ;; :enum
     #:framebuffer ;; :handle
     #:framebuffer-attachment-image-info ;; :struct
     #:c-framebuffer-attachment-image-info
@@ -1293,6 +1296,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-fragment-shader-barycentric-features-nv
     #:physical-device-fragment-shader-interlock-features-ext ;; :struct
     #:c-physical-device-fragment-shader-interlock-features-ext
+    #:physical-device-fragment-shading-rate-enums-features-nv ;; :struct
+    #:c-physical-device-fragment-shading-rate-enums-features-nv
+    #:physical-device-fragment-shading-rate-enums-properties-nv ;; :struct
+    #:c-physical-device-fragment-shading-rate-enums-properties-nv
     #:physical-device-fragment-shading-rate-features-khr ;; :struct
     #:c-physical-device-fragment-shading-rate-features-khr
     #:physical-device-fragment-shading-rate-khr ;; :struct
@@ -1591,6 +1598,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-executable-statistic-khr ;; :struct
     #:c-pipeline-executable-statistic-khr
     #:pipeline-executable-statistic-value-khr ;; :union
+    #:pipeline-fragment-shading-rate-enum-state-create-info-nv ;; :struct
+    #:c-pipeline-fragment-shading-rate-enum-state-create-info-nv
     #:pipeline-fragment-shading-rate-state-create-info-khr ;; :struct
     #:c-pipeline-fragment-shading-rate-state-create-info-khr
     #:pipeline-info-khr ;; :struct
@@ -2174,6 +2183,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-discard-rectangle-ext
     #:cmd-set-event
     #:cmd-set-exclusive-scissor-nv
+    #:cmd-set-fragment-shading-rate-enum-nv
     #:cmd-set-fragment-shading-rate-khr
     #:cmd-set-front-face-ext
     #:cmd-set-line-stipple-ext
@@ -2821,6 +2831,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:fragment-shader-pixel-interlock ;; :accessor
     #:fragment-shader-sample-interlock ;; :accessor
     #:fragment-shader-shading-rate-interlock ;; :accessor
+    #:fragment-shading-rate-enums ;; :accessor
     #:fragment-shading-rate-non-trivial-combiner-ops ;; :accessor
     #:fragment-shading-rate-strict-multiply-combiner ;; :accessor
     #:fragment-shading-rate-with-conservative-rasterization ;; :accessor
@@ -3016,6 +3027,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-fragment-shading-rate-attachment-texel-size ;; :accessor
     #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio ;; :accessor
     #:max-fragment-shading-rate-coverage-samples ;; :accessor
+    #:max-fragment-shading-rate-invocation-count ;; :accessor
     #:max-fragment-shading-rate-rasterization-samples ;; :accessor
     #:max-fragment-size ;; :accessor
     #:max-fragment-size-aspect-ratio ;; :accessor
@@ -3205,6 +3217,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:mutable-comparison-samplers ;; :accessor
     #:name ;; :accessor
     #:new-layout ;; :accessor
+    #:no-invocation-fragment-shading-rates ;; :accessor
     #:non-coherent-atom-size ;; :accessor
     #:null-descriptor ;; :accessor
     #:num-aabbs ;; :accessor
@@ -3655,6 +3668,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shading-rate-palette-entry-count ;; :accessor
     #:shading-rate-palette-size ;; :accessor
     #:shading-rate-texel-size ;; :accessor
+    #:shading-rate-type ;; :accessor
     #:shared-present-supported-usage-flags ;; :accessor
     #:sharing-mode ;; :accessor
     #:signal-semaphore-count ;; :accessor
@@ -3753,6 +3767,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:suggested-y-chroma-offset ;; :accessor
     #:suggested-ycbcr-model ;; :accessor
     #:suggested-ycbcr-range ;; :accessor
+    #:supersample-fragment-shading-rates ;; :accessor
     #:supported ;; :accessor
     #:supported-alpha ;; :accessor
     #:supported-composite-alpha ;; :accessor
@@ -4093,6 +4108,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-fill-rectangle-extension-name+
     #:+nv-fragment-coverage-to-color-extension-name+
     #:+nv-fragment-shader-barycentric-extension-name+
+    #:+nv-fragment-shading-rate-enums-extension-name+
     #:+nv-framebuffer-mixed-samples-extension-name+
     #:+nv-geometry-shader-passthrough-extension-name+
     #:+nv-glsl-shader-extension-name+
@@ -4319,6 +4335,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-fill-rectangle-extension-name+
     #:+nv-fragment-coverage-to-color-extension-name+
     #:+nv-fragment-shader-barycentric-extension-name+
+    #:+nv-fragment-shading-rate-enums-extension-name+
     #:+nv-framebuffer-mixed-samples-extension-name+
     #:+nv-geometry-shader-passthrough-extension-name+
     #:+nv-glsl-shader-extension-name+
@@ -4665,6 +4682,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-fragment-density-map-properties-ext ;; :class
     #:physical-device-fragment-shader-barycentric-features-nv ;; :class
     #:physical-device-fragment-shader-interlock-features-ext ;; :class
+    #:physical-device-fragment-shading-rate-enums-features-nv ;; :class
+    #:physical-device-fragment-shading-rate-enums-properties-nv ;; :class
     #:physical-device-fragment-shading-rate-features-khr ;; :class
     #:physical-device-fragment-shading-rate-khr ;; :class
     #:physical-device-fragment-shading-rate-properties-khr ;; :class
@@ -4776,6 +4795,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-executable-properties-khr ;; :class
     #:pipeline-executable-statistic-khr ;; :class
     #:pipeline-executable-statistic-value-khr ;; :class
+    #:pipeline-fragment-shading-rate-enum-state-create-info-nv ;; :class
     #:pipeline-fragment-shading-rate-state-create-info-khr ;; :class
     #:pipeline-info-khr ;; :class
     #:pipeline-input-assembly-state-create-info ;; :class
@@ -5236,6 +5256,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:fragment-shader-pixel-interlock ;; :accessor
     #:fragment-shader-sample-interlock ;; :accessor
     #:fragment-shader-shading-rate-interlock ;; :accessor
+    #:fragment-shading-rate-enums ;; :accessor
     #:fragment-shading-rate-non-trivial-combiner-ops ;; :accessor
     #:fragment-shading-rate-strict-multiply-combiner ;; :accessor
     #:fragment-shading-rate-with-conservative-rasterization ;; :accessor
@@ -5429,6 +5450,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-fragment-shading-rate-attachment-texel-size ;; :accessor
     #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio ;; :accessor
     #:max-fragment-shading-rate-coverage-samples ;; :accessor
+    #:max-fragment-shading-rate-invocation-count ;; :accessor
     #:max-fragment-shading-rate-rasterization-samples ;; :accessor
     #:max-fragment-size ;; :accessor
     #:max-fragment-size-aspect-ratio ;; :accessor
@@ -5617,6 +5639,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:multiview-tessellation-shader ;; :accessor
     #:mutable-comparison-samplers ;; :accessor
     #:new-layout ;; :accessor
+    #:no-invocation-fragment-shading-rates ;; :accessor
     #:non-coherent-atom-size ;; :accessor
     #:null-descriptor ;; :accessor
     #:num-aabbs ;; :accessor
@@ -6065,6 +6088,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shading-rate-palette-entry-count ;; :accessor
     #:shading-rate-palette-size ;; :accessor
     #:shading-rate-texel-size ;; :accessor
+    #:shading-rate-type ;; :accessor
     #:shared-present-supported-usage-flags ;; :accessor
     #:sharing-mode ;; :accessor
     #:signal-semaphore-count ;; :accessor
@@ -6163,6 +6187,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:suggested-y-chroma-offset ;; :accessor
     #:suggested-ycbcr-model ;; :accessor
     #:suggested-ycbcr-range ;; :accessor
+    #:supersample-fragment-shading-rates ;; :accessor
     #:supported ;; :accessor
     #:supported-alpha ;; :accessor
     #:supported-composite-alpha ;; :accessor
@@ -6408,6 +6433,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-discard-rectangle-ext
     #:cmd-set-event
     #:cmd-set-exclusive-scissor-nv
+    #:cmd-set-fragment-shading-rate-enum-nv
     #:cmd-set-fragment-shading-rate-khr
     #:cmd-set-front-face-ext
     #:cmd-set-line-stipple-ext
