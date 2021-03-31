@@ -179,6 +179,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-surface-protected-capabilities-extension-name+ "VK_KHR_surface_protected_capabilities" :test #'string=)
 (alexandria:define-constant +khr-swapchain-extension-name+ "VK_KHR_swapchain" :test #'string=)
 (alexandria:define-constant +khr-swapchain-mutable-format-extension-name+ "VK_KHR_swapchain_mutable_format" :test #'string=)
+(alexandria:define-constant +khr-synchronization-2-extension-name+ "VK_KHR_synchronization2" :test #'string=)
 (alexandria:define-constant +khr-timeline-semaphore-extension-name+ "VK_KHR_timeline_semaphore" :test #'string=)
 (alexandria:define-constant +khr-uniform-buffer-standard-layout-extension-name+ "VK_KHR_uniform_buffer_standard_layout" :test #'string=)
 (alexandria:define-constant +khr-variable-pointers-extension-name+ "VK_KHR_variable_pointers" :test #'string=)
@@ -239,6 +240,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defctype bool32 :uint32)
 
 (defctype flags :uint32)
+
+(defctype flags-64 :uint64)
 
 (defctype device-size :uint64)
 
@@ -460,6 +463,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:multi-instance #x2)) ;; 
 
 (defbitfield (access-flags flags)
+  (:none-khr #x0) ;; 
   (:indirect-command-read #x1) ;; Controls coherency of indirect command reads
   (:index-read #x2) ;; Controls coherency of index reads
   (:vertex-attribute-read #x4) ;; Controls coherency of vertex attribute reads
@@ -510,7 +514,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defbitfield (buffer-create-flags flags)
   (:sparse-binding #x1) ;; Buffer should support sparse backing
   (:sparse-residency #x2) ;; Buffer should support sparse backing with partial residency
-  (:sparse-aliased #x4) ;; Buffer should support constent data access to physical memory ranges mapped into multiple locations of sparse buffers
+  (:sparse-aliased #x4) ;; Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers
   (:protected #x8) ;; 
   (:device-address-capture-replay #x10)) ;; 
 
@@ -547,7 +551,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defbitfield (image-create-flags flags)
   (:sparse-binding #x1) ;; Image should support sparse backing
   (:sparse-residency #x2) ;; Image should support sparse backing with partial residency
-  (:sparse-aliased #x4) ;; Image should support constent data access to physical memory ranges mapped into multiple locations of sparse images
+  (:sparse-aliased #x4) ;; Image should support constant data access to physical memory ranges mapped into multiple locations of sparse images
   (:mutable-format #x8) ;; Allows image views to have different format than the base image
   (:cube-compatible #x10) ;; Allows creating image views with cube type from the created image
   (:2d-array-compatible #x20) ;; 
@@ -637,7 +641,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defbitfield (shader-module-create-flags flags))
 
-(defbitfield (event-create-flags flags))
+(defbitfield (event-create-flags flags)
+  (:device-only #x1)) ;; 
 
 (defbitfield (command-pool-create-flags flags)
   (:transient #x1) ;; Command buffers have a short lifetime
@@ -698,6 +703,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:shader-resolve #x8)) ;; 
 
 (defbitfield (pipeline-stage-flags flags)
+  (:none-khr #x0) ;; 
   (:top-of-pipe #x1) ;; Before subsequent commands are processed
   (:draw-indirect #x2) ;; Draw/DispatchIndirect command fetch
   (:vertex-input #x4) ;; Vertex/index fetch
@@ -847,6 +853,76 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:enable-shader-debug-info #x1)
   (:enable-resource-tracking #x2)
   (:enable-automatic-checkpoints #x4))
+
+(defbitfield (access-flags-2-khr flags-64)
+  (:2-none-khr #x0)
+  (:2-indirect-command-read #x1)
+  (:2-index-read #x2)
+  (:2-vertex-attribute-read #x4)
+  (:2-uniform-read #x8)
+  (:2-input-attachment-read #x10)
+  (:2-shader-read #x20)
+  (:2-shader-write #x40)
+  (:2-color-attachment-read #x80)
+  (:2-color-attachment-write #x100)
+  (:2-depth-stencil-attachment-read #x200)
+  (:2-depth-stencil-attachment-write #x400)
+  (:2-transfer-read #x800)
+  (:2-transfer-write #x1000)
+  (:2-host-read #x2000)
+  (:2-host-write #x4000)
+  (:2-memory-read #x8000)
+  (:2-memory-write #x10000)
+  (:2-command-preprocess-read #x20000) ;; 
+  (:2-command-preprocess-write #x40000) ;; 
+  (:2-color-attachment-read-noncoherent #x80000) ;; 
+  (:2-conditional-rendering-read #x100000) ;; 
+  (:2-acceleration-structure-read #x200000) ;; 
+  (:2-acceleration-structure-write #x400000) ;; 
+  (:2-fragment-shading-rate-attachment-read #x800000) ;; 
+  (:2-fragment-density-map-read #x1000000) ;; 
+  (:2-transform-feedback-write #x2000000) ;; 
+  (:2-transform-feedback-counter-read #x4000000) ;; 
+  (:2-transform-feedback-counter-write #x8000000) ;; 
+  (:2-shader-sampled-read #x100000000)
+  (:2-shader-storage-read #x200000000)
+  (:2-shader-storage-write #x400000000))
+
+(defbitfield (pipeline-stage-flags-2-khr flags-64)
+  (:2-none-khr #x0)
+  (:2-top-of-pipe #x1)
+  (:2-draw-indirect #x2)
+  (:2-vertex-input #x4)
+  (:2-vertex-shader #x8)
+  (:2-tessellation-control-shader #x10)
+  (:2-tessellation-evaluation-shader #x20)
+  (:2-geometry-shader #x40)
+  (:2-fragment-shader #x80)
+  (:2-early-fragment-tests #x100)
+  (:2-late-fragment-tests #x200)
+  (:2-color-attachment-output #x400)
+  (:2-compute-shader #x800)
+  (:2-all-transfer #x1000)
+  (:2-bottom-of-pipe #x2000)
+  (:2-host #x4000)
+  (:2-all-graphics #x8000)
+  (:2-all-commands #x10000)
+  (:2-command-preprocess #x20000) ;; 
+  (:2-conditional-rendering #x40000) ;; 
+  (:2-task-shader #x80000) ;; 
+  (:2-mesh-shader #x100000) ;; 
+  (:2-ray-tracing-shader #x200000) ;; 
+  (:2-fragment-shading-rate-attachment #x400000) ;; 
+  (:2-fragment-density-process #x800000) ;; 
+  (:2-transform-feedback #x1000000) ;; 
+  (:2-acceleration-structure-build #x2000000) ;; 
+  (:2-copy #x100000000)
+  (:2-resolve #x200000000)
+  (:2-blit #x400000000)
+  (:2-clear #x800000000)
+  (:2-index-input #x1000000000)
+  (:2-vertex-attribute-input #x2000000000)
+  (:2-pre-rasterization-shaders #x4000000000))
 
 (defbitfield (composite-alpha-flags-khr flags)
   (:opaque #x1)
@@ -1122,6 +1198,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:debug-reporting #x20) ;; 
   (:debug-markers #x40)) ;; 
 
+(defbitfield (submit-flags-khr flags)
+  (:protected #x1))
+
 (defcenum (attachment-load-op)
   (:load #x0)
   (:clear #x1)
@@ -1251,7 +1330,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcenum (buffer-create-flag-bits)
   (:sparse-binding #x1) ;; Buffer should support sparse backing
   (:sparse-residency #x2) ;; Buffer should support sparse backing with partial residency
-  (:sparse-aliased #x4) ;; Buffer should support constent data access to physical memory ranges mapped into multiple locations of sparse buffers
+  (:sparse-aliased #x4) ;; Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers
   (:protected #x8) ;; 
   (:device-address-capture-replay #x10)) ;; 
 
@@ -1678,7 +1757,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcenum (image-create-flag-bits)
   (:sparse-binding #x1) ;; Image should support sparse backing
   (:sparse-residency #x2) ;; Image should support sparse backing with partial residency
-  (:sparse-aliased #x4) ;; Image should support constent data access to physical memory ranges mapped into multiple locations of sparse images
+  (:sparse-aliased #x4) ;; Image should support constant data access to physical memory ranges mapped into multiple locations of sparse images
   (:mutable-format #x8) ;; Allows image views to have different format than the base image
   (:cube-compatible #x10) ;; Allows creating image views with cube type from the created image
   (:2d-array-compatible #x20) ;; 
@@ -1711,7 +1790,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:depth-attachment-optimal #x3B9E7768) ;; 
   (:depth-read-only-optimal #x3B9E7769) ;; 
   (:stencil-attachment-optimal #x3B9E776A) ;; 
-  (:stencil-read-only-optimal #x3B9E776B)) ;; 
+  (:stencil-read-only-optimal #x3B9E776B) ;; 
+  (:read-only-optimal-khr #x3B9F9490) ;; 
+  (:attachment-optimal-khr #x3B9F9491)) ;; 
 
 (defcenum (image-tiling)
   (:optimal #x0)
@@ -1781,6 +1862,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:multi-instance #x2)) ;; 
 
 (defcenum (access-flag-bits)
+  (:none-khr #x0) ;; 
   (:indirect-command-read #x1) ;; Controls coherency of indirect command reads
   (:index-read #x2) ;; Controls coherency of index reads
   (:vertex-attribute-read #x4) ;; Controls coherency of vertex attribute reads
@@ -2476,6 +2558,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-pipeline-creation-cache-control-features-ext #x3B9F5228) ;; 
   (:physical-device-diagnostics-config-features-nv #x3B9F5DE0) ;; 
   (:device-diagnostics-config-create-info-nv #x3B9F5DE1) ;; 
+  (:memory-barrier-2-khr #x3B9F9490) ;; 
+  (:buffer-memory-barrier-2-khr #x3B9F9491) ;; 
+  (:image-memory-barrier-2-khr #x3B9F9492) ;; 
+  (:dependency-info-khr #x3B9F9493) ;; 
+  (:submit-info-2-khr #x3B9F9494) ;; 
+  (:semaphore-submit-info-khr #x3B9F9495) ;; 
+  (:command-buffer-submit-info-khr #x3B9F9496) ;; 
+  (:physical-device-synchronization-2-features-khr #x3B9F9497) ;; 
+  (:queue-family-checkpoint-properties-2-nv #x3B9F9498) ;; 
+  (:checkpoint-data-2-nv #x3B9F9499) ;; 
   (:physical-device-zero-initialize-workgroup-memory-features-khr #x3B9FBF88) ;; 
   (:physical-device-fragment-shading-rate-enums-properties-nv #x3B9FC370) ;; 
   (:physical-device-fragment-shading-rate-enums-features-nv #x3B9FC371) ;; 
@@ -2535,6 +2627,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:instance #x1))
 
 (defcenum (pipeline-stage-flag-bits)
+  (:none-khr #x0) ;; 
   (:top-of-pipe #x1) ;; Before subsequent commands are processed
   (:draw-indirect #x2) ;; Draw/DispatchIndirect command fetch
   (:vertex-input #x4) ;; Vertex/index fetch
@@ -2631,6 +2724,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:deferred-operation-khr #x3B9EE0E0) ;; 
   (:indirect-commands-layout-nv #x3B9F0408) ;; 
   (:private-data-slot-ext #x3B9F4A58)) ;; 
+
+(defcenum (event-create-flag-bits)
+  (:device-only #x1)) ;; 
 
 (defcenum (indirect-commands-layout-usage-flag-bits-nv)
   (:explicit-preprocess #x1)
@@ -2994,6 +3090,76 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcenum (fragment-shading-rate-type-nv)
   (:fragment-size-nv #x0)
   (:enums-nv #x1))
+
+(defcenum (access-flag-bits-2-khr)
+  (:2-none-khr #x0)
+  (:2-indirect-command-read #x1)
+  (:2-index-read #x2)
+  (:2-vertex-attribute-read #x4)
+  (:2-uniform-read #x8)
+  (:2-input-attachment-read #x10)
+  (:2-shader-read #x20)
+  (:2-shader-write #x40)
+  (:2-color-attachment-read #x80)
+  (:2-color-attachment-write #x100)
+  (:2-depth-stencil-attachment-read #x200)
+  (:2-depth-stencil-attachment-write #x400)
+  (:2-transfer-read #x800)
+  (:2-transfer-write #x1000)
+  (:2-host-read #x2000)
+  (:2-host-write #x4000)
+  (:2-memory-read #x8000)
+  (:2-memory-write #x10000)
+  (:2-command-preprocess-read #x20000) ;; 
+  (:2-command-preprocess-write #x40000) ;; 
+  (:2-color-attachment-read-noncoherent #x80000) ;; 
+  (:2-conditional-rendering-read #x100000) ;; 
+  (:2-acceleration-structure-read #x200000) ;; 
+  (:2-acceleration-structure-write #x400000) ;; 
+  (:2-fragment-shading-rate-attachment-read #x800000) ;; 
+  (:2-fragment-density-map-read #x1000000) ;; 
+  (:2-transform-feedback-write #x2000000) ;; 
+  (:2-transform-feedback-counter-read #x4000000) ;; 
+  (:2-transform-feedback-counter-write #x8000000) ;; 
+  (:2-shader-sampled-read #x100000000)
+  (:2-shader-storage-read #x200000000)
+  (:2-shader-storage-write #x400000000))
+
+(defcenum (pipeline-stage-flag-bits-2-khr)
+  (:2-none-khr #x0)
+  (:2-top-of-pipe #x1)
+  (:2-draw-indirect #x2)
+  (:2-vertex-input #x4)
+  (:2-vertex-shader #x8)
+  (:2-tessellation-control-shader #x10)
+  (:2-tessellation-evaluation-shader #x20)
+  (:2-geometry-shader #x40)
+  (:2-fragment-shader #x80)
+  (:2-early-fragment-tests #x100)
+  (:2-late-fragment-tests #x200)
+  (:2-color-attachment-output #x400)
+  (:2-compute-shader #x800)
+  (:2-all-transfer #x1000)
+  (:2-bottom-of-pipe #x2000)
+  (:2-host #x4000)
+  (:2-all-graphics #x8000)
+  (:2-all-commands #x10000)
+  (:2-command-preprocess #x20000) ;; 
+  (:2-conditional-rendering #x40000) ;; 
+  (:2-task-shader #x80000) ;; 
+  (:2-mesh-shader #x100000) ;; 
+  (:2-ray-tracing-shader #x200000) ;; 
+  (:2-fragment-shading-rate-attachment #x400000) ;; 
+  (:2-fragment-density-process #x800000) ;; 
+  (:2-transform-feedback #x1000000) ;; 
+  (:2-acceleration-structure-build #x2000000) ;; 
+  (:2-copy #x100000000)
+  (:2-resolve #x200000000)
+  (:2-blit #x400000000)
+  (:2-clear #x800000000)
+  (:2-index-input #x1000000000)
+  (:2-vertex-attribute-input #x2000000000)
+  (:2-pre-rasterization-shaders #x4000000000))
 
 (defcenum (color-space-khr)
   (:srgb-nonlinear-khr #x0)
@@ -3365,6 +3531,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:min-khr #x2)
   (:max-khr #x3)
   (:mul-khr #x4))
+
+(defcenum (submit-flag-bits-khr)
+  (:protected #x1))
 
 (defcenum (vendor-id)
   (:viv #x10001) ;; Vivante vendor ID
@@ -8611,4 +8780,91 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-mutable-descriptor-type-lists (:pointer
                                     (:struct
                                      mutable-descriptor-type-list-valve))))
+
+(defcstruct (memory-barrier-2-khr :class c-memory-barrier-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-stage-mask pipeline-stage-flags-2-khr)
+  (src-access-mask access-flags-2-khr)
+  (dst-stage-mask pipeline-stage-flags-2-khr)
+  (dst-access-mask access-flags-2-khr))
+
+(defcstruct (image-memory-barrier-2-khr :class c-image-memory-barrier-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-stage-mask pipeline-stage-flags-2-khr)
+  (src-access-mask access-flags-2-khr)
+  (dst-stage-mask pipeline-stage-flags-2-khr)
+  (dst-access-mask access-flags-2-khr)
+  (old-layout image-layout)
+  (new-layout image-layout)
+  (src-queue-family-index :uint32)
+  (dst-queue-family-index :uint32)
+  (image image)
+  (subresource-range image-subresource-range))
+
+(defcstruct (buffer-memory-barrier-2-khr :class c-buffer-memory-barrier-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (src-stage-mask pipeline-stage-flags-2-khr)
+  (src-access-mask access-flags-2-khr)
+  (dst-stage-mask pipeline-stage-flags-2-khr)
+  (dst-access-mask access-flags-2-khr)
+  (src-queue-family-index :uint32)
+  (dst-queue-family-index :uint32)
+  (buffer buffer)
+  (offset device-size)
+  (size device-size))
+
+(defcstruct (dependency-info-khr :class c-dependency-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (dependency-flags dependency-flags)
+  (memory-barrier-count :uint32)
+  (p-memory-barriers (:pointer (:struct memory-barrier-2-khr)))
+  (buffer-memory-barrier-count :uint32)
+  (p-buffer-memory-barriers (:pointer (:struct buffer-memory-barrier-2-khr)))
+  (image-memory-barrier-count :uint32)
+  (p-image-memory-barriers (:pointer (:struct image-memory-barrier-2-khr))))
+
+(defcstruct (semaphore-submit-info-khr :class c-semaphore-submit-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (semaphore semaphore)
+  (value :uint64)
+  (stage-mask pipeline-stage-flags-2-khr)
+  (device-index :uint32))
+
+(defcstruct (command-buffer-submit-info-khr :class c-command-buffer-submit-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (command-buffer command-buffer)
+  (device-mask :uint32))
+
+(defcstruct (submit-info-2-khr :class c-submit-info-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags submit-flags-khr)
+  (wait-semaphore-info-count :uint32)
+  (p-wait-semaphore-infos (:pointer (:struct semaphore-submit-info-khr)))
+  (command-buffer-info-count :uint32)
+  (p-command-buffer-infos (:pointer (:struct command-buffer-submit-info-khr)))
+  (signal-semaphore-info-count :uint32)
+  (p-signal-semaphore-infos (:pointer (:struct semaphore-submit-info-khr))))
+
+(defcstruct (queue-family-checkpoint-properties-2-nv :class c-queue-family-checkpoint-properties-2-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (checkpoint-execution-stage-mask pipeline-stage-flags-2-khr))
+
+(defcstruct (checkpoint-data-2-nv :class c-checkpoint-data-2-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (stage pipeline-stage-flags-2-khr)
+  (p-checkpoint-marker (:pointer :void)))
+
+(defcstruct (physical-device-synchronization-2-features-khr :class c-physical-device-synchronization-2-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (synchronization-2 bool32))
 

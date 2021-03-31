@@ -1387,14 +1387,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvk-simple-fun (cmd-wait-events
                    %vk:cmd-wait-events
                    "Represents <vkCmdWaitEvents>"
-                   ((command-buffer cffi:foreign-pointer) (events list) (src-stage-mask (or unsigned-byte list)) (dst-stage-mask (or unsigned-byte list)) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
-                   ()
+                   ((command-buffer cffi:foreign-pointer) (events list) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
+                   (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event-count :uint32 (length events) :in :raw)
   (events '%vk:event events :in :handle :list)
-  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw)
-  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw)
+  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw :optional)
+  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw :optional)
   (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
   (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in :list)
   (buffer-memory-barrier-count :uint32 (length buffer-memory-barriers) :in :raw)
@@ -4878,4 +4878,92 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (build-info '(:struct %vk:acceleration-structure-build-geometry-info-khr) build-info :in)
   (max-primitive-counts :uint32 max-primitive-counts :in :list :optional)
   (size-info '(:struct %vk:acceleration-structure-build-sizes-info-khr) size-info :out))
+
+(defvk-simple-fun (cmd-set-event-2-khr
+                   %vk:cmd-set-event-2-khr
+                   "Represents <vkCmdSetEvent2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (event '%vk:event event :in :handle)
+  (dependency-info '(:struct %vk:dependency-info-khr) dependency-info :in))
+
+(defvk-simple-fun (cmd-reset-event-2-khr
+                   %vk:cmd-reset-event-2-khr
+                   "Represents <vkCmdResetEvent2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (event '%vk:event event :in :handle)
+  (stage-mask '%vk:pipeline-stage-flags-2-khr stage-mask :in :raw))
+
+(defvk-simple-fun (cmd-wait-events-2-khr
+                   %vk:cmd-wait-events-2-khr
+                   "Represents <vkCmdWaitEvents2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (events list) (dependency-infos list))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (event-count :uint32 (length dependency-infos) :in :raw)
+  (events '%vk:event events :in :handle :list)
+  (dependency-infos '(:struct %vk:dependency-info-khr) dependency-infos :in :list))
+
+(defvk-simple-fun (cmd-pipeline-barrier-2-khr
+                   %vk:cmd-pipeline-barrier-2-khr
+                   "Represents <vkCmdPipelineBarrier2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (dependency-info '(:struct %vk:dependency-info-khr) dependency-info :in))
+
+(defvk-simple-fun (queue-submit-2-khr
+                   %vk:queue-submit-2-khr
+                   "Represents <vkQueueSubmit2KHR>"
+                   ((queue cffi:foreign-pointer) (submits list))
+                   (((fence (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil)
+  (queue '%vk:queue queue :in :handle)
+  (submit-count :uint32 (length submits) :in :raw)
+  (submits '(:struct %vk:submit-info-2-khr) submits :in :list)
+  (fence '%vk:fence fence :in :handle :optional))
+
+(defvk-simple-fun (cmd-write-timestamp-2-khr
+                   %vk:cmd-write-timestamp-2-khr
+                   "Represents <vkCmdWriteTimestamp2KHR>"
+                   ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (query-pool cffi:foreign-pointer) (query unsigned-byte))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (stage '%vk:pipeline-stage-flags-2-khr stage :in :raw)
+  (query-pool '%vk:query-pool query-pool :in :handle)
+  (query :uint32 query :in :raw))
+
+(defvk-simple-fun (cmd-write-buffer-marker-2-amd
+                   %vk:cmd-write-buffer-marker-2-amd
+                   "Represents <vkCmdWriteBufferMarker2AMD>"
+                   ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (stage '%vk:pipeline-stage-flags-2-khr stage :in :raw)
+  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (dst-offset '%vk:device-size dst-offset :in :raw)
+  (marker :uint32 marker :in :raw))
+
+(defvk-get-structs-fun (get-queue-checkpoint-data-2-nv
+                        %vk:get-queue-checkpoint-data-2-nv
+                        "Represents <vkGetQueueCheckpointData2NV>"
+                        ((queue cffi:foreign-pointer))
+                        ()
+                        checkpoint-data-count
+                        checkpoint-data
+                      t
+                        t)
+  (queue '%vk:queue queue :in :handle)
+  (checkpoint-data-count :uint32 checkpoint-data-count :out)
+  (checkpoint-data '(:struct %vk:checkpoint-data-2-nv) checkpoint-data :out :list))
 

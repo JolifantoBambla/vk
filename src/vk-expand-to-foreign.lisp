@@ -5617,7 +5617,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ,ptr
        (:struct %vk:subpass-dependency-2))
     (setf %vk:s-type :subpass-dependency-2
-          %vk:p-next (cffi:null-pointer)
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:src-subpass (vk:src-subpass ,value)
           %vk:dst-subpass (vk:dst-subpass ,value)
           %vk:src-stage-mask (vk:src-stage-mask ,value)
@@ -9330,4 +9330,188 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:mutable-descriptor-type-list-count (length (vk:mutable-descriptor-type-lists ,value))
           %vk:p-mutable-descriptor-type-lists (vk-alloc:foreign-allocate-and-fill '(:struct %vk:mutable-descriptor-type-list-valve) (vk:mutable-descriptor-type-lists ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-memory-barrier-2-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-stage-mask
+        %vk:src-access-mask
+        %vk:dst-stage-mask
+        %vk:dst-access-mask)
+       ,ptr
+       (:struct %vk:memory-barrier-2-khr))
+    (setf %vk:s-type :memory-barrier-2-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:src-stage-mask (vk:src-stage-mask ,value)
+          %vk:src-access-mask (vk:src-access-mask ,value)
+          %vk:dst-stage-mask (vk:dst-stage-mask ,value)
+          %vk:dst-access-mask (vk:dst-access-mask ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-image-memory-barrier-2-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-stage-mask
+        %vk:src-access-mask
+        %vk:dst-stage-mask
+        %vk:dst-access-mask
+        %vk:old-layout
+        %vk:new-layout
+        %vk:src-queue-family-index
+        %vk:dst-queue-family-index
+        %vk:image
+        %vk:subresource-range)
+       ,ptr
+       (:struct %vk:image-memory-barrier-2-khr))
+    (setf %vk:s-type :image-memory-barrier-2-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:src-stage-mask (vk:src-stage-mask ,value)
+          %vk:src-access-mask (vk:src-access-mask ,value)
+          %vk:dst-stage-mask (vk:dst-stage-mask ,value)
+          %vk:dst-access-mask (vk:dst-access-mask ,value)
+          %vk:old-layout (vk:old-layout ,value)
+          %vk:new-layout (vk:new-layout ,value)
+          %vk:src-queue-family-index (vk:src-queue-family-index ,value)
+          %vk:dst-queue-family-index (vk:dst-queue-family-index ,value)
+          %vk:image (if (vk:image ,value) (vk:image ,value) (cffi:null-pointer))
+          %vk:subresource-range (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-range) (vk:subresource-range ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-buffer-memory-barrier-2-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-stage-mask
+        %vk:src-access-mask
+        %vk:dst-stage-mask
+        %vk:dst-access-mask
+        %vk:src-queue-family-index
+        %vk:dst-queue-family-index
+        %vk:buffer
+        %vk:offset
+        %vk:size)
+       ,ptr
+       (:struct %vk:buffer-memory-barrier-2-khr))
+    (setf %vk:s-type :buffer-memory-barrier-2-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:src-stage-mask (vk:src-stage-mask ,value)
+          %vk:src-access-mask (vk:src-access-mask ,value)
+          %vk:dst-stage-mask (vk:dst-stage-mask ,value)
+          %vk:dst-access-mask (vk:dst-access-mask ,value)
+          %vk:src-queue-family-index (vk:src-queue-family-index ,value)
+          %vk:dst-queue-family-index (vk:dst-queue-family-index ,value)
+          %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
+          %vk:offset (vk:offset ,value)
+          %vk:size (vk:size ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-dependency-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:dependency-flags
+        %vk:memory-barrier-count
+        %vk:p-memory-barriers
+        %vk:buffer-memory-barrier-count
+        %vk:p-buffer-memory-barriers
+        %vk:image-memory-barrier-count
+        %vk:p-image-memory-barriers)
+       ,ptr
+       (:struct %vk:dependency-info-khr))
+    (setf %vk:s-type :dependency-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:dependency-flags (vk:dependency-flags ,value)
+          %vk:memory-barrier-count (length (vk:memory-barriers ,value))
+          %vk:p-memory-barriers (vk-alloc:foreign-allocate-and-fill '(:struct %vk:memory-barrier-2-khr) (vk:memory-barriers ,value) ,ptr)
+          %vk:buffer-memory-barrier-count (length (vk:buffer-memory-barriers ,value))
+          %vk:p-buffer-memory-barriers (vk-alloc:foreign-allocate-and-fill '(:struct %vk:buffer-memory-barrier-2-khr) (vk:buffer-memory-barriers ,value) ,ptr)
+          %vk:image-memory-barrier-count (length (vk:image-memory-barriers ,value))
+          %vk:p-image-memory-barriers (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-memory-barrier-2-khr) (vk:image-memory-barriers ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-semaphore-submit-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:semaphore
+        %vk:value
+        %vk:stage-mask
+        %vk:device-index)
+       ,ptr
+       (:struct %vk:semaphore-submit-info-khr))
+    (setf %vk:s-type :semaphore-submit-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:semaphore (if (vk:semaphore ,value) (vk:semaphore ,value) (cffi:null-pointer))
+          %vk:value (vk:value ,value)
+          %vk:stage-mask (vk:stage-mask ,value)
+          %vk:device-index (vk:device-index ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-command-buffer-submit-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:command-buffer
+        %vk:device-mask)
+       ,ptr
+       (:struct %vk:command-buffer-submit-info-khr))
+    (setf %vk:s-type :command-buffer-submit-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:command-buffer (if (vk:command-buffer ,value) (vk:command-buffer ,value) (cffi:null-pointer))
+          %vk:device-mask (vk:device-mask ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-submit-info-2-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:wait-semaphore-info-count
+        %vk:p-wait-semaphore-infos
+        %vk:command-buffer-info-count
+        %vk:p-command-buffer-infos
+        %vk:signal-semaphore-info-count
+        %vk:p-signal-semaphore-infos)
+       ,ptr
+       (:struct %vk:submit-info-2-khr))
+    (setf %vk:s-type :submit-info-2-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:wait-semaphore-info-count (length (vk:wait-semaphore-infos ,value))
+          %vk:p-wait-semaphore-infos (vk-alloc:foreign-allocate-and-fill '(:struct %vk:semaphore-submit-info-khr) (vk:wait-semaphore-infos ,value) ,ptr)
+          %vk:command-buffer-info-count (length (vk:command-buffer-infos ,value))
+          %vk:p-command-buffer-infos (vk-alloc:foreign-allocate-and-fill '(:struct %vk:command-buffer-submit-info-khr) (vk:command-buffer-infos ,value) ,ptr)
+          %vk:signal-semaphore-info-count (length (vk:signal-semaphore-infos ,value))
+          %vk:p-signal-semaphore-infos (vk-alloc:foreign-allocate-and-fill '(:struct %vk:semaphore-submit-info-khr) (vk:signal-semaphore-infos ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-queue-family-checkpoint-properties-2-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:checkpoint-execution-stage-mask)
+       ,ptr
+       (:struct %vk:queue-family-checkpoint-properties-2-nv))
+    (setf %vk:s-type :queue-family-checkpoint-properties-2-nv
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:checkpoint-execution-stage-mask (vk:checkpoint-execution-stage-mask ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-checkpoint-data-2-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:stage
+        %vk:p-checkpoint-marker)
+       ,ptr
+       (:struct %vk:checkpoint-data-2-nv))
+    (setf %vk:s-type :checkpoint-data-2-nv
+          %vk:p-next (cffi:null-pointer)
+          %vk:stage (vk:stage ,value)
+          %vk:p-checkpoint-marker (if (vk:checkpoint-marker ,value) (vk:checkpoint-marker ,value) (cffi:null-pointer)))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-synchronization-2-features-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:synchronization-2)
+       ,ptr
+       (:struct %vk:physical-device-synchronization-2-features-khr))
+    (setf %vk:s-type :physical-device-synchronization-2-features-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:synchronization-2 (vk:synchronization-2 ,value))))
 

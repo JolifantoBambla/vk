@@ -202,6 +202,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-surface-protected-capabilities-extension-name+
     #:+khr-swapchain-extension-name+
     #:+khr-swapchain-mutable-format-extension-name+
+    #:+khr-synchronization-2-extension-name+
     #:+khr-timeline-semaphore-extension-name+
     #:+khr-uniform-buffer-standard-layout-extension-name+
     #:+khr-variable-pointers-extension-name+
@@ -314,7 +315,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acceleration-structure-version-info-khr ;; :struct
     #:c-acceleration-structure-version-info-khr
     #:access-flag-bits ;; :enum
+    #:access-flag-bits-2-khr ;; :enum
     #:access-flags ;; :bitmask
+    #:access-flags-2-khr ;; :bitmask
     #:acquire-next-image-info-khr ;; :struct
     #:c-acquire-next-image-info-khr
     #:acquire-profiling-lock-flag-bits-khr ;; :enum
@@ -426,6 +429,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-buffer-image-copy-2-khr
     #:buffer-memory-barrier ;; :struct
     #:c-buffer-memory-barrier
+    #:buffer-memory-barrier-2-khr ;; :struct
+    #:c-buffer-memory-barrier-2-khr
     #:buffer-memory-requirements-info-2 ;; :struct
     #:c-buffer-memory-requirements-info-2
     #:buffer-memory-requirements-info-2-khr ;; :struct
@@ -447,6 +452,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:build-acceleration-structure-mode-khr ;; :enum
     #:calibrated-timestamp-info-ext ;; :struct
     #:c-calibrated-timestamp-info-ext
+    #:checkpoint-data-2-nv ;; :struct
+    #:c-checkpoint-data-2-nv
     #:checkpoint-data-nv ;; :struct
     #:c-checkpoint-data-nv
     #:chroma-location ;; :enum
@@ -481,6 +488,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:command-buffer-level ;; :enum
     #:command-buffer-reset-flag-bits ;; :enum
     #:command-buffer-reset-flags ;; :bitmask
+    #:command-buffer-submit-info-khr ;; :struct
+    #:c-command-buffer-submit-info-khr
     #:command-buffer-usage-flag-bits ;; :enum
     #:command-buffer-usage-flags ;; :bitmask
     #:command-pool ;; :handle
@@ -576,6 +585,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:deferred-operation-khr ;; :handle
     #:dependency-flag-bits ;; :enum
     #:dependency-flags ;; :bitmask
+    #:dependency-info-khr ;; :struct
+    #:c-dependency-info-khr
     #:descriptor-binding-flag-bits ;; :enum
     #:descriptor-binding-flag-bits-ext ;; :enum
     #:descriptor-binding-flags ;; :bitmask
@@ -762,6 +773,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-drm-format-modifier-properties-list-ext
     #:dynamic-state ;; :enum
     #:event ;; :handle
+    #:event-create-flag-bits ;; :enum
     #:event-create-flags ;; :bitmask
     #:event-create-info ;; :struct
     #:c-event-create-info
@@ -872,6 +884,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:filter-cubic-image-view-image-format-properties-ext ;; :struct
     #:c-filter-cubic-image-view-image-format-properties-ext
     #:flags ;; :basetype
+    #:flags-64 ;; :basetype
     #:format ;; :enum
     #:format-feature-flag-bits ;; :enum
     #:format-feature-flags ;; :bitmask
@@ -973,6 +986,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-layout ;; :enum
     #:image-memory-barrier ;; :struct
     #:c-image-memory-barrier
+    #:image-memory-barrier-2-khr ;; :struct
+    #:c-image-memory-barrier-2-khr
     #:image-memory-requirements-info-2 ;; :struct
     #:c-image-memory-requirements-info-2
     #:image-memory-requirements-info-2-khr ;; :struct
@@ -1088,6 +1103,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-memory-allocate-info
     #:memory-barrier ;; :struct
     #:c-memory-barrier
+    #:memory-barrier-2-khr ;; :struct
+    #:c-memory-barrier-2-khr
     #:memory-dedicated-allocate-info ;; :struct
     #:c-memory-dedicated-allocate-info
     #:memory-dedicated-allocate-info-khr ;; :struct
@@ -1507,6 +1524,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-subgroup-size-control-properties-ext
     #:physical-device-surface-info-2-khr ;; :struct
     #:c-physical-device-surface-info-2-khr
+    #:physical-device-synchronization-2-features-khr ;; :struct
+    #:c-physical-device-synchronization-2-features-khr
     #:physical-device-texel-buffer-alignment-features-ext ;; :struct
     #:c-physical-device-texel-buffer-alignment-features-ext
     #:physical-device-texel-buffer-alignment-properties-ext ;; :struct
@@ -1662,7 +1681,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-shader-stage-required-subgroup-size-create-info-ext ;; :struct
     #:c-pipeline-shader-stage-required-subgroup-size-create-info-ext
     #:pipeline-stage-flag-bits ;; :enum
+    #:pipeline-stage-flag-bits-2-khr ;; :enum
     #:pipeline-stage-flags ;; :bitmask
+    #:pipeline-stage-flags-2-khr ;; :bitmask
     #:pipeline-tessellation-domain-origin-state-create-info ;; :struct
     #:c-pipeline-tessellation-domain-origin-state-create-info
     #:pipeline-tessellation-domain-origin-state-create-info-khr ;; :struct
@@ -1735,6 +1756,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:query-result-flags ;; :bitmask
     #:query-type ;; :enum
     #:queue ;; :handle
+    #:queue-family-checkpoint-properties-2-nv ;; :struct
+    #:c-queue-family-checkpoint-properties-2-nv
     #:queue-family-checkpoint-properties-nv ;; :struct
     #:c-queue-family-checkpoint-properties-nv
     #:queue-family-properties ;; :struct
@@ -1858,6 +1881,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-semaphore-signal-info
     #:semaphore-signal-info-khr ;; :struct
     #:c-semaphore-signal-info-khr
+    #:semaphore-submit-info-khr ;; :struct
+    #:c-semaphore-submit-info-khr
     #:semaphore-type ;; :enum
     #:semaphore-type-create-info ;; :struct
     #:c-semaphore-type-create-info
@@ -1942,8 +1967,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:structure-type ;; :enum
     #:subgroup-feature-flag-bits ;; :enum
     #:subgroup-feature-flags ;; :bitmask
+    #:submit-flag-bits-khr ;; :enum
+    #:submit-flags-khr ;; :bitmask
     #:submit-info ;; :struct
     #:c-submit-info
+    #:submit-info-2-khr ;; :struct
+    #:c-submit-info-2-khr
     #:subpass-begin-info ;; :struct
     #:c-subpass-begin-info
     #:subpass-begin-info-khr ;; :struct
@@ -2179,11 +2208,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-next-subpass-2
     #:cmd-next-subpass-2-khr
     #:cmd-pipeline-barrier
+    #:cmd-pipeline-barrier-2-khr
     #:cmd-preprocess-generated-commands-nv
     #:cmd-push-constants
     #:cmd-push-descriptor-set-khr
     #:cmd-push-descriptor-set-with-template-khr
     #:cmd-reset-event
+    #:cmd-reset-event-2-khr
     #:cmd-reset-query-pool
     #:cmd-resolve-image
     #:cmd-resolve-image-2-khr
@@ -2201,6 +2232,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-device-mask-khr
     #:cmd-set-discard-rectangle-ext
     #:cmd-set-event
+    #:cmd-set-event-2-khr
     #:cmd-set-exclusive-scissor-nv
     #:cmd-set-fragment-shading-rate-enum-nv
     #:cmd-set-fragment-shading-rate-khr
@@ -2229,10 +2261,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-trace-rays-nv
     #:cmd-update-buffer
     #:cmd-wait-events
+    #:cmd-wait-events-2-khr
     #:cmd-write-acceleration-structures-properties-khr
     #:cmd-write-acceleration-structures-properties-nv
+    #:cmd-write-buffer-marker-2-amd
     #:cmd-write-buffer-marker-amd
     #:cmd-write-timestamp
+    #:cmd-write-timestamp-2-khr
     #:compile-deferred-nv
     #:copy-acceleration-structure-khr
     #:copy-acceleration-structure-to-memory-khr
@@ -2464,6 +2499,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-pipeline-executable-statistics-khr
     #:get-private-data-ext
     #:get-query-pool-results
+    #:get-queue-checkpoint-data-2-nv
     #:get-queue-checkpoint-data-nv
     #:get-rand-r-output-display-ext
     #:get-ray-tracing-capture-replay-shader-group-handles-khr
@@ -2498,6 +2534,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:queue-present-khr
     #:queue-set-performance-configuration-intel
     #:queue-submit
+    #:queue-submit-2-khr
     #:queue-wait-idle
     #:register-device-event-ext
     #:register-display-event-ext
@@ -2612,6 +2649,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-features ;; :accessor
     #:buffer-image-granularity ;; :accessor
     #:buffer-image-height ;; :accessor
+    #:buffer-memory-barrier-count ;; :accessor
     #:buffer-offset ;; :accessor
     #:buffer-row-length ;; :accessor
     #:build-scratch-size ;; :accessor
@@ -2634,7 +2672,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:color-write-mask ;; :accessor
     #:combined-image-sampler-descriptor-count ;; :accessor
     #:combiner-ops ;; :accessor
+    #:command-buffer ;; :accessor
     #:command-buffer-count ;; :accessor
+    #:command-buffer-info-count ;; :accessor
     #:command-pool ;; :accessor
     #:compacted-size ;; :accessor
     #:compare-enable ;; :accessor
@@ -2739,6 +2779,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-event ;; :accessor
     #:device-generated-commands ;; :accessor
     #:device-id ;; :accessor
+    #:device-index ;; :accessor
     #:device-index-count ;; :accessor
     #:device-luid ;; :accessor
     #:device-luid-valid ;; :accessor
@@ -2919,6 +2960,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-granularity ;; :accessor
     #:image-index ;; :accessor
     #:image-layout ;; :accessor
+    #:image-memory-barrier-count ;; :accessor
     #:image-mip-tail-first-lod ;; :accessor
     #:image-mip-tail-offset ;; :accessor
     #:image-mip-tail-size ;; :accessor
@@ -3180,6 +3222,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-y ;; :accessor
     #:max-z ;; :accessor
     #:memory ;; :accessor
+    #:memory-barrier-count ;; :accessor
     #:memory-device-index ;; :accessor
     #:memory-heap-count ;; :accessor
     #:memory-heaps ;; :accessor
@@ -3293,6 +3336,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-binds ;; :accessor
     #:p-buffer-binds ;; :accessor
     #:p-buffer-info ;; :accessor
+    #:p-buffer-memory-barriers ;; :accessor
     #:p-checkpoint-marker ;; :accessor
     #:p-clear-values ;; :accessor
     #:p-cmd-buf-labels ;; :accessor
@@ -3300,6 +3344,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-color-attachments ;; :accessor
     #:p-color-blend-state ;; :accessor
     #:p-command-buffer-device-masks ;; :accessor
+    #:p-command-buffer-infos ;; :accessor
     #:p-command-buffers ;; :accessor
     #:p-correlated-view-masks ;; :accessor
     #:p-correlation-masks ;; :accessor
@@ -3335,6 +3380,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-image-binds ;; :accessor
     #:p-image-indices ;; :accessor
     #:p-image-info ;; :accessor
+    #:p-image-memory-barriers ;; :accessor
     #:p-image-opaque-binds ;; :accessor
     #:p-immutable-samplers ;; :accessor
     #:p-index-type-values ;; :accessor
@@ -3350,6 +3396,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-library-interface ;; :accessor
     #:p-map-entries ;; :accessor
     #:p-marker-name ;; :accessor
+    #:p-memory-barriers ;; :accessor
     #:p-message ;; :accessor
     #:p-message-id-name ;; :accessor
     #:p-multisample-state ;; :accessor
@@ -3387,6 +3434,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-shading-rate-palette-entries ;; :accessor
     #:p-shading-rate-palettes ;; :accessor
     #:p-signal-semaphore-device-indices ;; :accessor
+    #:p-signal-semaphore-infos ;; :accessor
     #:p-signal-semaphore-values ;; :accessor
     #:p-signal-semaphores ;; :accessor
     #:p-specialization-info ;; :accessor
@@ -3418,6 +3466,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-viewports ;; :accessor
     #:p-wait-dst-stage-mask ;; :accessor
     #:p-wait-semaphore-device-indices ;; :accessor
+    #:p-wait-semaphore-infos ;; :accessor
     #:p-wait-semaphore-values ;; :accessor
     #:p-wait-semaphores ;; :accessor
     #:parameter ;; :accessor
@@ -3708,6 +3757,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shared-present-supported-usage-flags ;; :accessor
     #:sharing-mode ;; :accessor
     #:signal-semaphore-count ;; :accessor
+    #:signal-semaphore-info-count ;; :accessor
     #:signal-semaphore-value-count ;; :accessor
     #:signal-semaphore-values-count ;; :accessor
     #:simd-per-compute-unit ;; :accessor
@@ -3751,6 +3801,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:stage ;; :accessor
     #:stage-count ;; :accessor
     #:stage-flags ;; :accessor
+    #:stage-mask ;; :accessor
     #:stages ;; :accessor
     #:standard-sample-locations ;; :accessor
     #:stencil ;; :accessor
@@ -3822,6 +3873,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:surface-format ;; :accessor
     #:swapchain ;; :accessor
     #:swapchain-count ;; :accessor
+    #:synchronization-2 ;; :accessor
     #:tag-name ;; :accessor
     #:tag-size ;; :accessor
     #:task-count ;; :accessor
@@ -3912,6 +3964,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:vulkan-memory-model-device-scope ;; :accessor
     #:w ;; :accessor
     #:wait-semaphore-count ;; :accessor
+    #:wait-semaphore-info-count ;; :accessor
     #:wait-semaphore-value-count ;; :accessor
     #:wait-semaphore-values-count ;; :accessor
     #:wavefront-size ;; :accessor
@@ -4119,6 +4172,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-surface-protected-capabilities-extension-name+
     #:+khr-swapchain-extension-name+
     #:+khr-swapchain-mutable-format-extension-name+
+    #:+khr-synchronization-2-extension-name+
     #:+khr-timeline-semaphore-extension-name+
     #:+khr-uniform-buffer-standard-layout-extension-name+
     #:+khr-variable-pointers-extension-name+
@@ -4352,6 +4406,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-surface-protected-capabilities-extension-name+
     #:+khr-swapchain-extension-name+
     #:+khr-swapchain-mutable-format-extension-name+
+    #:+khr-synchronization-2-extension-name+
     #:+khr-timeline-semaphore-extension-name+
     #:+khr-uniform-buffer-standard-layout-extension-name+
     #:+khr-variable-pointers-extension-name+
@@ -4460,10 +4515,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-image-copy ;; :class
     #:buffer-image-copy-2-khr ;; :class
     #:buffer-memory-barrier ;; :class
+    #:buffer-memory-barrier-2-khr ;; :class
     #:buffer-memory-requirements-info-2 ;; :class
     #:buffer-opaque-capture-address-create-info ;; :class
     #:buffer-view-create-info ;; :class
     #:calibrated-timestamp-info-ext ;; :class
+    #:checkpoint-data-2-nv ;; :class
     #:checkpoint-data-nv ;; :class
     #:clear-attachment ;; :class
     #:clear-color-value ;; :class
@@ -4477,6 +4534,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:command-buffer-inheritance-conditional-rendering-info-ext ;; :class
     #:command-buffer-inheritance-info ;; :class
     #:command-buffer-inheritance-render-pass-transform-info-qcom ;; :class
+    #:command-buffer-submit-info-khr ;; :class
     #:command-pool-create-info ;; :class
     #:component-mapping ;; :class
     #:compute-pipeline-create-info ;; :class
@@ -4505,6 +4563,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:dedicated-allocation-buffer-create-info-nv ;; :class
     #:dedicated-allocation-image-create-info-nv ;; :class
     #:dedicated-allocation-memory-allocate-info-nv ;; :class
+    #:dependency-info-khr ;; :class
     #:descriptor-buffer-info ;; :class
     #:descriptor-image-info ;; :class
     #:descriptor-pool-create-info ;; :class
@@ -4620,6 +4679,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-format-properties ;; :class
     #:image-format-properties-2 ;; :class
     #:image-memory-barrier ;; :class
+    #:image-memory-barrier-2-khr ;; :class
     #:image-memory-requirements-info-2 ;; :class
     #:image-pipe-surface-create-info-fuchsia ;; :class
     #:image-plane-memory-requirements-info ;; :class
@@ -4657,6 +4717,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-allocate-flags-info ;; :class
     #:memory-allocate-info ;; :class
     #:memory-barrier ;; :class
+    #:memory-barrier-2-khr ;; :class
     #:memory-dedicated-allocate-info ;; :class
     #:memory-dedicated-requirements ;; :class
     #:memory-fd-properties-khr ;; :class
@@ -4814,6 +4875,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-subgroup-size-control-features-ext ;; :class
     #:physical-device-subgroup-size-control-properties-ext ;; :class
     #:physical-device-surface-info-2-khr ;; :class
+    #:physical-device-synchronization-2-features-khr ;; :class
     #:physical-device-texel-buffer-alignment-features-ext ;; :class
     #:physical-device-texel-buffer-alignment-properties-ext ;; :class
     #:physical-device-texture-compression-astc-h-d-r-features-ext ;; :class
@@ -4891,6 +4953,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:query-pool-create-info ;; :class
     #:query-pool-performance-create-info-khr ;; :class
     #:query-pool-performance-query-create-info-intel ;; :class
+    #:queue-family-checkpoint-properties-2-nv ;; :class
     #:queue-family-checkpoint-properties-nv ;; :class
     #:queue-family-properties ;; :class
     #:queue-family-properties-2 ;; :class
@@ -4924,6 +4987,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:semaphore-get-fd-info-khr ;; :class
     #:semaphore-get-win32-handle-info-khr ;; :class
     #:semaphore-signal-info ;; :class
+    #:semaphore-submit-info-khr ;; :class
     #:semaphore-type-create-info ;; :class
     #:semaphore-wait-info ;; :class
     #:set-state-flags-indirect-command-nv ;; :class
@@ -4948,6 +5012,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:stream-descriptor-surface-create-info-ggp ;; :class
     #:strided-device-address-region-khr ;; :class
     #:submit-info ;; :class
+    #:submit-info-2-khr ;; :class
     #:subpass-begin-info ;; :class
     #:subpass-dependency ;; :class
     #:subpass-dependency-2 ;; :class
@@ -5074,6 +5139,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-features ;; :accessor
     #:buffer-image-granularity ;; :accessor
     #:buffer-image-height ;; :accessor
+    #:buffer-memory-barrier-count ;; :accessor
     #:buffer-offset ;; :accessor
     #:buffer-row-length ;; :accessor
     #:build-scratch-size ;; :accessor
@@ -5096,7 +5162,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:color-write-mask ;; :accessor
     #:combined-image-sampler-descriptor-count ;; :accessor
     #:combiner-ops ;; :accessor
+    #:command-buffer ;; :accessor
     #:command-buffer-count ;; :accessor
+    #:command-buffer-info-count ;; :accessor
     #:command-pool ;; :accessor
     #:compacted-size ;; :accessor
     #:compare-enable ;; :accessor
@@ -5200,6 +5268,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-event ;; :accessor
     #:device-generated-commands ;; :accessor
     #:device-id ;; :accessor
+    #:device-index ;; :accessor
     #:device-index-count ;; :accessor
     #:device-luid ;; :accessor
     #:device-luid-valid ;; :accessor
@@ -5380,6 +5449,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-granularity ;; :accessor
     #:image-index ;; :accessor
     #:image-layout ;; :accessor
+    #:image-memory-barrier-count ;; :accessor
     #:image-mip-tail-first-lod ;; :accessor
     #:image-mip-tail-offset ;; :accessor
     #:image-mip-tail-size ;; :accessor
@@ -5640,6 +5710,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-y ;; :accessor
     #:max-z ;; :accessor
     #:memory ;; :accessor
+    #:memory-barrier-count ;; :accessor
     #:memory-device-index ;; :accessor
     #:memory-heap-count ;; :accessor
     #:memory-heaps ;; :accessor
@@ -5752,6 +5823,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:binds ;; :accessor
     #:buffer-binds ;; :accessor
     #:buffer-info ;; :accessor
+    #:buffer-memory-barriers ;; :accessor
     #:checkpoint-marker ;; :accessor
     #:clear-values ;; :accessor
     #:cmd-buf-labels ;; :accessor
@@ -5759,6 +5831,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:color-attachments ;; :accessor
     #:color-blend-state ;; :accessor
     #:command-buffer-device-masks ;; :accessor
+    #:command-buffer-infos ;; :accessor
     #:command-buffers ;; :accessor
     #:correlated-view-masks ;; :accessor
     #:correlation-masks ;; :accessor
@@ -5794,6 +5867,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-binds ;; :accessor
     #:image-indices ;; :accessor
     #:image-info ;; :accessor
+    #:image-memory-barriers ;; :accessor
     #:image-opaque-binds ;; :accessor
     #:immutable-samplers ;; :accessor
     #:index-type-values ;; :accessor
@@ -5809,6 +5883,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:library-interface ;; :accessor
     #:map-entries ;; :accessor
     #:marker-name ;; :accessor
+    #:memory-barriers ;; :accessor
     #:message ;; :accessor
     #:message-id-name ;; :accessor
     #:multisample-state ;; :accessor
@@ -5845,6 +5920,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shading-rate-palette-entries ;; :accessor
     #:shading-rate-palettes ;; :accessor
     #:signal-semaphore-device-indices ;; :accessor
+    #:signal-semaphore-infos ;; :accessor
     #:signal-semaphore-values ;; :accessor
     #:signal-semaphores ;; :accessor
     #:specialization-info ;; :accessor
@@ -5875,6 +5951,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:viewports ;; :accessor
     #:wait-dst-stage-mask ;; :accessor
     #:wait-semaphore-device-indices ;; :accessor
+    #:wait-semaphore-infos ;; :accessor
     #:wait-semaphore-values ;; :accessor
     #:p-wait-semaphores ;; :accessor
     #:parameter ;; :accessor
@@ -6165,6 +6242,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shared-present-supported-usage-flags ;; :accessor
     #:sharing-mode ;; :accessor
     #:signal-semaphore-count ;; :accessor
+    #:signal-semaphore-info-count ;; :accessor
     #:signal-semaphore-value-count ;; :accessor
     #:signal-semaphore-values-count ;; :accessor
     #:simd-per-compute-unit ;; :accessor
@@ -6208,6 +6286,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:stage ;; :accessor
     #:stage-count ;; :accessor
     #:stage-flags ;; :accessor
+    #:stage-mask ;; :accessor
     #:stages ;; :accessor
     #:standard-sample-locations ;; :accessor
     #:stencil ;; :accessor
@@ -6279,6 +6358,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:surface-format ;; :accessor
     #:swapchain ;; :accessor
     #:swapchain-count ;; :accessor
+    #:synchronization-2 ;; :accessor
     #:tag-name ;; :accessor
     #:tag-size ;; :accessor
     #:task-count ;; :accessor
@@ -6369,6 +6449,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:vulkan-memory-model-device-scope ;; :accessor
     #:w ;; :accessor
     #:wait-semaphore-count ;; :accessor
+    #:wait-semaphore-info-count ;; :accessor
     #:wait-semaphore-value-count ;; :accessor
     #:wait-semaphore-values-count ;; :accessor
     #:wavefront-size ;; :accessor
@@ -6486,11 +6567,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-next-subpass-2
     #:cmd-next-subpass-2-khr
     #:cmd-pipeline-barrier
+    #:cmd-pipeline-barrier-2-khr
     #:cmd-preprocess-generated-commands-nv
     #:cmd-push-constants
     #:cmd-push-descriptor-set-khr
     #:cmd-push-descriptor-set-with-template-khr
     #:cmd-reset-event
+    #:cmd-reset-event-2-khr
     #:cmd-reset-query-pool
     #:cmd-resolve-image
     #:cmd-resolve-image-2-khr
@@ -6508,6 +6591,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-device-mask-khr
     #:cmd-set-discard-rectangle-ext
     #:cmd-set-event
+    #:cmd-set-event-2-khr
     #:cmd-set-exclusive-scissor-nv
     #:cmd-set-fragment-shading-rate-enum-nv
     #:cmd-set-fragment-shading-rate-khr
@@ -6536,10 +6620,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-trace-rays-nv
     #:cmd-update-buffer
     #:cmd-wait-events
+    #:cmd-wait-events-2-khr
     #:cmd-write-acceleration-structures-properties-khr
     #:cmd-write-acceleration-structures-properties-nv
+    #:cmd-write-buffer-marker-2-amd
     #:cmd-write-buffer-marker-amd
     #:cmd-write-timestamp
+    #:cmd-write-timestamp-2-khr
     #:compile-deferred-nv
     #:copy-acceleration-structure-khr
     #:copy-acceleration-structure-to-memory-khr
@@ -6771,6 +6858,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-pipeline-executable-statistics-khr
     #:get-private-data-ext
     #:get-query-pool-results
+    #:get-queue-checkpoint-data-2-nv
     #:get-queue-checkpoint-data-nv
     #:get-rand-r-output-display-ext
     #:get-ray-tracing-capture-replay-shader-group-handles-khr
@@ -6805,6 +6893,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:queue-present-khr
     #:queue-set-performance-configuration-intel
     #:queue-submit
+    #:queue-submit-2-khr
     #:queue-wait-idle
     #:register-device-event-ext
     #:register-display-event-ext

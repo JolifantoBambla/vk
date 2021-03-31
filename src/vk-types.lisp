@@ -3202,8 +3202,8 @@ See ATTACHMENT-REFERENCE
 Slots:
  - SRC-SUBPASS: a positive (32-bit) integer.
  - DST-SUBPASS: a positive (32-bit) integer.
- - SRC-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS.
- - DST-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS.
+ - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS.
+ - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS.
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
@@ -5503,6 +5503,7 @@ See DEVICE-MEMORY
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
+See SUBMIT-INFO-2-KHR
 "))
 
 (defclass physical-device-device-generated-commands-features-nv ()
@@ -6830,6 +6831,7 @@ See DEVICE-MEMORY
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
+See SUBMIT-INFO-2-KHR
 "))
 
 (defclass physical-device-external-semaphore-info ()
@@ -9433,6 +9435,7 @@ See SAMPLE-LOCATION-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See IMAGE-MEMORY-BARRIER
+See IMAGE-MEMORY-BARRIER-2-KHR
 "))
 
 (defclass attachment-sample-locations-ext ()
@@ -11306,8 +11309,8 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SRC-SUBPASS: a positive (32-bit) integer.
  - DST-SUBPASS: a positive (32-bit) integer.
- - SRC-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS.
- - DST-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS.
+ - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS.
+ - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS.
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
@@ -14952,6 +14955,7 @@ Slots:
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
+See SUBMIT-INFO-2-KHR
 "))
 
 (defclass headless-surface-create-info-ext ()
@@ -18634,4 +18638,363 @@ See MUTABLE-DESCRIPTOR-TYPE-LIST-VALVE
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
 See DESCRIPTOR-POOL-CREATE-INFO
+"))
+
+(defclass memory-barrier-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-stage-mask
+     :initarg :src-stage-mask
+     :initform nil
+     :accessor src-stage-mask)
+   (src-access-mask
+     :initarg :src-access-mask
+     :initform nil
+     :accessor src-access-mask)
+   (dst-stage-mask
+     :initarg :dst-stage-mask
+     :initform nil
+     :accessor dst-stage-mask)
+   (dst-access-mask
+     :initarg :dst-access-mask
+     :initform nil
+     :accessor dst-access-mask))
+  (:documentation "Represents the struct [VkMemoryBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryBarrier2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
+ - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
+
+See PIPELINE-STAGE-FLAGS-2-KHR
+See ACCESS-FLAGS-2-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See SUBPASS-DEPENDENCY-2
+"))
+
+(defclass image-memory-barrier-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-stage-mask
+     :initarg :src-stage-mask
+     :initform nil
+     :accessor src-stage-mask)
+   (src-access-mask
+     :initarg :src-access-mask
+     :initform nil
+     :accessor src-access-mask)
+   (dst-stage-mask
+     :initarg :dst-stage-mask
+     :initform nil
+     :accessor dst-stage-mask)
+   (dst-access-mask
+     :initarg :dst-access-mask
+     :initform nil
+     :accessor dst-access-mask)
+   (old-layout
+     :initarg :old-layout
+     :initform nil
+     :accessor old-layout)
+   (new-layout
+     :initarg :new-layout
+     :initform nil
+     :accessor new-layout)
+   (src-queue-family-index
+     :initarg :src-queue-family-index
+     :initform 0
+     :accessor src-queue-family-index)
+   (dst-queue-family-index
+     :initarg :dst-queue-family-index
+     :initform 0
+     :accessor dst-queue-family-index)
+   (image
+     :initarg :image
+     :initform nil
+     :accessor image)
+   (subresource-range
+     :initarg :subresource-range
+     :initform nil
+     :accessor subresource-range))
+  (:documentation "Represents the struct [VkImageMemoryBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageMemoryBarrier2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
+ - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
+ - OLD-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - NEW-LAYOUT: an enum value of IMAGE-LAYOUT.
+ - SRC-QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
+ - DST-QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
+ - IMAGE: an IMAGE.
+ - SUBRESOURCE-RANGE: an IMAGE-SUBRESOURCE-RANGE.
+
+See PIPELINE-STAGE-FLAGS-2-KHR
+See ACCESS-FLAGS-2-KHR
+See IMAGE-LAYOUT
+See IMAGE
+See IMAGE-SUBRESOURCE-RANGE
+"))
+
+(defclass buffer-memory-barrier-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (src-stage-mask
+     :initarg :src-stage-mask
+     :initform nil
+     :accessor src-stage-mask)
+   (src-access-mask
+     :initarg :src-access-mask
+     :initform nil
+     :accessor src-access-mask)
+   (dst-stage-mask
+     :initarg :dst-stage-mask
+     :initform nil
+     :accessor dst-stage-mask)
+   (dst-access-mask
+     :initarg :dst-access-mask
+     :initform nil
+     :accessor dst-access-mask)
+   (src-queue-family-index
+     :initarg :src-queue-family-index
+     :initform 0
+     :accessor src-queue-family-index)
+   (dst-queue-family-index
+     :initarg :dst-queue-family-index
+     :initform 0
+     :accessor dst-queue-family-index)
+   (buffer
+     :initarg :buffer
+     :initform nil
+     :accessor buffer)
+   (offset
+     :initarg :offset
+     :initform nil
+     :accessor offset)
+   (size
+     :initarg :size
+     :initform nil
+     :accessor size))
+  (:documentation "Represents the struct [VkBufferMemoryBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferMemoryBarrier2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
+ - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
+ - SRC-QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
+ - DST-QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
+ - BUFFER: a BUFFER.
+ - OFFSET: a DEVICE-SIZE.
+ - SIZE: a DEVICE-SIZE.
+
+See PIPELINE-STAGE-FLAGS-2-KHR
+See ACCESS-FLAGS-2-KHR
+See BUFFER
+See DEVICE-SIZE
+"))
+
+(defclass dependency-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (dependency-flags
+     :initarg :dependency-flags
+     :initform nil
+     :accessor dependency-flags)
+   (memory-barriers
+     :initarg :memory-barriers
+     :initform nil
+     :accessor memory-barriers)
+   (buffer-memory-barriers
+     :initarg :buffer-memory-barriers
+     :initform nil
+     :accessor buffer-memory-barriers)
+   (image-memory-barriers
+     :initarg :image-memory-barriers
+     :initform nil
+     :accessor image-memory-barriers))
+  (:documentation "Represents the struct [VkDependencyInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDependencyInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
+ - MEMORY-BARRIERS: a list of foreign pointer to a buffer of size MEMORY-BARRIER-COUNTs.
+ - BUFFER-MEMORY-BARRIERS: a list of foreign pointer to a buffer of size BUFFER-MEMORY-BARRIER-COUNTs.
+ - IMAGE-MEMORY-BARRIERS: a list of foreign pointer to a buffer of size IMAGE-MEMORY-BARRIER-COUNTs.
+
+See DEPENDENCY-FLAGS
+See MEMORY-BARRIER-2-KHR
+See BUFFER-MEMORY-BARRIER-2-KHR
+See IMAGE-MEMORY-BARRIER-2-KHR
+"))
+
+(defclass semaphore-submit-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (semaphore
+     :initarg :semaphore
+     :initform nil
+     :accessor semaphore)
+   (value
+     :initarg :value
+     :initform 0
+     :accessor value)
+   (stage-mask
+     :initarg :stage-mask
+     :initform nil
+     :accessor stage-mask)
+   (device-index
+     :initarg :device-index
+     :initform 0
+     :accessor device-index))
+  (:documentation "Represents the struct [VkSemaphoreSubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreSubmitInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SEMAPHORE: a SEMAPHORE.
+ - VALUE: a positive (64-bit) integer.
+ - STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - DEVICE-INDEX: a positive (32-bit) integer.
+
+See SEMAPHORE
+See PIPELINE-STAGE-FLAGS-2-KHR
+"))
+
+(defclass command-buffer-submit-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (command-buffer
+     :initarg :command-buffer
+     :initform nil
+     :accessor command-buffer)
+   (device-mask
+     :initarg :device-mask
+     :initform 0
+     :accessor device-mask))
+  (:documentation "Represents the struct [VkCommandBufferSubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferSubmitInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - COMMAND-BUFFER: a COMMAND-BUFFER.
+ - DEVICE-MASK: a positive (32-bit) integer.
+
+See COMMAND-BUFFER
+"))
+
+(defclass submit-info-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (wait-semaphore-infos
+     :initarg :wait-semaphore-infos
+     :initform nil
+     :accessor wait-semaphore-infos)
+   (command-buffer-infos
+     :initarg :command-buffer-infos
+     :initform nil
+     :accessor command-buffer-infos)
+   (signal-semaphore-infos
+     :initarg :signal-semaphore-infos
+     :initform nil
+     :accessor signal-semaphore-infos))
+  (:documentation "Represents the struct [VkSubmitInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubmitInfo2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FLAGS (optional): a list containing a valid combination of SUBMIT-FLAGS-KHR.
+ - WAIT-SEMAPHORE-INFOS: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-INFO-COUNTs.
+ - COMMAND-BUFFER-INFOS: a list of foreign pointer to a buffer of size COMMAND-BUFFER-INFO-COUNTs.
+ - SIGNAL-SEMAPHORE-INFOS: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-INFO-COUNTs.
+
+See SUBMIT-FLAGS-KHR
+See COMMAND-BUFFER-SUBMIT-INFO-KHR
+See SEMAPHORE-SUBMIT-INFO-KHR
+"))
+
+(defclass queue-family-checkpoint-properties-2-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (checkpoint-execution-stage-mask
+     :initarg :checkpoint-execution-stage-mask
+     :initform nil
+     :accessor checkpoint-execution-stage-mask))
+  (:documentation "Represents the struct [VkQueueFamilyCheckpointProperties2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFamilyCheckpointProperties2NV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - CHECKPOINT-EXECUTION-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+
+See PIPELINE-STAGE-FLAGS-2-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See QUEUE-FAMILY-PROPERTIES-2
+"))
+
+(defclass checkpoint-data-2-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (stage
+     :initarg :stage
+     :initform nil
+     :accessor stage)
+   (checkpoint-marker
+     :initarg :checkpoint-marker
+     :initform nil
+     :accessor checkpoint-marker))
+  (:documentation "Represents the struct [VkCheckpointData2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCheckpointData2NV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - STAGE: a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
+ - CHECKPOINT-MARKER: a foreign pointer.
+
+See PIPELINE-STAGE-FLAGS-2-KHR
+"))
+
+(defclass physical-device-synchronization-2-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (synchronization-2
+     :initarg :synchronization-2
+     :initform nil
+     :accessor synchronization-2))
+  (:documentation "Represents the struct [VkPhysicalDeviceSynchronization2FeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSynchronization2FeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SYNCHRONIZATION-2: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
 "))

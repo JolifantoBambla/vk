@@ -9142,3 +9142,181 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :mutable-descriptor-type-lists (loop for i from 0 below %vk:mutable-descriptor-type-list-count collect (cffi:mem-aref %vk:p-mutable-descriptor-type-lists '(:struct %vk:mutable-descriptor-type-list-valve) i)))))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-memory-barrier-2-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-stage-mask
+        %vk:src-access-mask
+        %vk:dst-stage-mask
+        %vk:dst-access-mask)
+       ,ptr
+       (:struct %vk:memory-barrier-2-khr))
+    (make-instance 'vk:memory-barrier-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-stage-mask %vk:src-stage-mask
+                   :src-access-mask %vk:src-access-mask
+                   :dst-stage-mask %vk:dst-stage-mask
+                   :dst-access-mask %vk:dst-access-mask)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-image-memory-barrier-2-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-stage-mask
+        %vk:src-access-mask
+        %vk:dst-stage-mask
+        %vk:dst-access-mask
+        %vk:old-layout
+        %vk:new-layout
+        %vk:src-queue-family-index
+        %vk:dst-queue-family-index
+        %vk:image
+        %vk:subresource-range)
+       ,ptr
+       (:struct %vk:image-memory-barrier-2-khr))
+    (make-instance 'vk:image-memory-barrier-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-stage-mask %vk:src-stage-mask
+                   :src-access-mask %vk:src-access-mask
+                   :dst-stage-mask %vk:dst-stage-mask
+                   :dst-access-mask %vk:dst-access-mask
+                   :old-layout %vk:old-layout
+                   :new-layout %vk:new-layout
+                   :src-queue-family-index %vk:src-queue-family-index
+                   :dst-queue-family-index %vk:dst-queue-family-index
+                   :image %vk:image
+                   :subresource-range %vk:subresource-range)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-buffer-memory-barrier-2-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:src-stage-mask
+        %vk:src-access-mask
+        %vk:dst-stage-mask
+        %vk:dst-access-mask
+        %vk:src-queue-family-index
+        %vk:dst-queue-family-index
+        %vk:buffer
+        %vk:offset
+        %vk:size)
+       ,ptr
+       (:struct %vk:buffer-memory-barrier-2-khr))
+    (make-instance 'vk:buffer-memory-barrier-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :src-stage-mask %vk:src-stage-mask
+                   :src-access-mask %vk:src-access-mask
+                   :dst-stage-mask %vk:dst-stage-mask
+                   :dst-access-mask %vk:dst-access-mask
+                   :src-queue-family-index %vk:src-queue-family-index
+                   :dst-queue-family-index %vk:dst-queue-family-index
+                   :buffer %vk:buffer
+                   :offset %vk:offset
+                   :size %vk:size)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-dependency-info-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:dependency-flags
+        %vk:memory-barrier-count
+        %vk:p-memory-barriers
+        %vk:buffer-memory-barrier-count
+        %vk:p-buffer-memory-barriers
+        %vk:image-memory-barrier-count
+        %vk:p-image-memory-barriers)
+       ,ptr
+       (:struct %vk:dependency-info-khr))
+    (make-instance 'vk:dependency-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :dependency-flags %vk:dependency-flags
+                   :memory-barriers (loop for i from 0 below %vk:memory-barrier-count collect (cffi:mem-aref %vk:p-memory-barriers '(:struct %vk:memory-barrier-2-khr) i))
+                   :buffer-memory-barriers (loop for i from 0 below %vk:buffer-memory-barrier-count collect (cffi:mem-aref %vk:p-buffer-memory-barriers '(:struct %vk:buffer-memory-barrier-2-khr) i))
+                   :image-memory-barriers (loop for i from 0 below %vk:image-memory-barrier-count collect (cffi:mem-aref %vk:p-image-memory-barriers '(:struct %vk:image-memory-barrier-2-khr) i)))))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-semaphore-submit-info-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:semaphore
+        %vk:value
+        %vk:stage-mask
+        %vk:device-index)
+       ,ptr
+       (:struct %vk:semaphore-submit-info-khr))
+    (make-instance 'vk:semaphore-submit-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :semaphore %vk:semaphore
+                   :value %vk:value
+                   :stage-mask %vk:stage-mask
+                   :device-index %vk:device-index)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-command-buffer-submit-info-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:command-buffer
+        %vk:device-mask)
+       ,ptr
+       (:struct %vk:command-buffer-submit-info-khr))
+    (make-instance 'vk:command-buffer-submit-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :command-buffer %vk:command-buffer
+                   :device-mask %vk:device-mask)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-submit-info-2-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:wait-semaphore-info-count
+        %vk:p-wait-semaphore-infos
+        %vk:command-buffer-info-count
+        %vk:p-command-buffer-infos
+        %vk:signal-semaphore-info-count
+        %vk:p-signal-semaphore-infos)
+       ,ptr
+       (:struct %vk:submit-info-2-khr))
+    (make-instance 'vk:submit-info-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :wait-semaphore-infos (loop for i from 0 below %vk:wait-semaphore-info-count collect (cffi:mem-aref %vk:p-wait-semaphore-infos '(:struct %vk:semaphore-submit-info-khr) i))
+                   :command-buffer-infos (loop for i from 0 below %vk:command-buffer-info-count collect (cffi:mem-aref %vk:p-command-buffer-infos '(:struct %vk:command-buffer-submit-info-khr) i))
+                   :signal-semaphore-infos (loop for i from 0 below %vk:signal-semaphore-info-count collect (cffi:mem-aref %vk:p-signal-semaphore-infos '(:struct %vk:semaphore-submit-info-khr) i)))))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-queue-family-checkpoint-properties-2-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:checkpoint-execution-stage-mask)
+       ,ptr
+       (:struct %vk:queue-family-checkpoint-properties-2-nv))
+    (make-instance 'vk:queue-family-checkpoint-properties-2-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :checkpoint-execution-stage-mask %vk:checkpoint-execution-stage-mask)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-checkpoint-data-2-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:stage
+        %vk:p-checkpoint-marker)
+       ,ptr
+       (:struct %vk:checkpoint-data-2-nv))
+    (make-instance 'vk:checkpoint-data-2-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :stage %vk:stage
+                   :checkpoint-marker %vk:p-checkpoint-marker)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-synchronization-2-features-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:synchronization-2)
+       ,ptr
+       (:struct %vk:physical-device-synchronization-2-features-khr))
+    (make-instance 'vk:physical-device-synchronization-2-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :synchronization-2 %vk:synchronization-2)))
+

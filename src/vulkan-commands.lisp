@@ -2493,3 +2493,47 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-max-primitive-counts (:pointer :uint32))
   (p-size-info (:pointer (:struct acceleration-structure-build-sizes-info-khr))))
 
+(defvkfun ("vkCmdSetEvent2KHR" cmd-set-event-2-khr) :void
+  (command-buffer command-buffer)
+  (event event)
+  (p-dependency-info (:pointer (:struct dependency-info-khr))))
+
+(defvkfun ("vkCmdResetEvent2KHR" cmd-reset-event-2-khr) :void
+  (command-buffer command-buffer)
+  (event event)
+  (stage-mask pipeline-stage-flags-2-khr))
+
+(defvkfun ("vkCmdWaitEvents2KHR" cmd-wait-events-2-khr) :void
+  (command-buffer command-buffer)
+  (event-count :uint32)
+  (p-events (:pointer event))
+  (p-dependency-infos (:pointer (:struct dependency-info-khr))))
+
+(defvkfun ("vkCmdPipelineBarrier2KHR" cmd-pipeline-barrier-2-khr) :void
+  (command-buffer command-buffer)
+  (p-dependency-info (:pointer (:struct dependency-info-khr))))
+
+(defvkfun ("vkQueueSubmit2KHR" queue-submit-2-khr) checked-result
+  (queue queue)
+  (submit-count :uint32)
+  (p-submits (:pointer (:struct submit-info-2-khr)))
+  (fence fence))
+
+(defvkfun ("vkCmdWriteTimestamp2KHR" cmd-write-timestamp-2-khr) :void
+  (command-buffer command-buffer)
+  (stage pipeline-stage-flags-2-khr)
+  (query-pool query-pool)
+  (query :uint32))
+
+(defvkextfun ("vkCmdWriteBufferMarker2AMD" cmd-write-buffer-marker-2-amd) :void
+  (command-buffer command-buffer)
+  (stage pipeline-stage-flags-2-khr)
+  (dst-buffer buffer)
+  (dst-offset device-size)
+  (marker :uint32))
+
+(defvkextfun ("vkGetQueueCheckpointData2NV" get-queue-checkpoint-data-2-nv) :void
+  (queue queue)
+  (p-checkpoint-data-count (:pointer :uint32))
+  (p-checkpoint-data (:pointer (:struct checkpoint-data-2-nv))))
+
