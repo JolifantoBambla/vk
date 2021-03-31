@@ -2456,3 +2456,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer command-buffer)
   (p-resolve-image-info (:pointer (:struct resolve-image-info-2-khr))))
 
+(defvkfun ("vkCmdSetFragmentShadingRateKHR" cmd-set-fragment-shading-rate-khr) :void
+  (command-buffer command-buffer)
+  (p-fragment-size (:pointer (:struct extent-2d)))
+  (combiner-ops fragment-shading-rate-combiner-op-khr))
+
+(defvkfun ("vkGetPhysicalDeviceFragmentShadingRatesKHR" get-physical-device-fragment-shading-rates-khr) checked-result
+  (physical-device physical-device)
+  (p-fragment-shading-rate-count (:pointer :uint32))
+  (p-fragment-shading-rates (:pointer (:struct physical-device-fragment-shading-rate-khr))))
+

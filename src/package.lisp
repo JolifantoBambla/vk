@@ -163,6 +163,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-external-semaphore-extension-name+
     #:+khr-external-semaphore-fd-extension-name+
     #:+khr-external-semaphore-win32-extension-name+
+    #:+khr-fragment-shading-rate-extension-name+
     #:+khr-get-display-properties-2-extension-name+
     #:+khr-get-memory-requirements-2-extension-name+
     #:+khr-get-physical-device-properties-2-extension-name+
@@ -191,6 +192,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-shader-float-controls-extension-name+
     #:+khr-shader-non-semantic-info-extension-name+
     #:+khr-shader-subgroup-extended-types-extension-name+
+    #:+khr-shader-terminate-invocation-extension-name+
     #:+khr-shared-presentable-image-extension-name+
     #:+khr-spirv-1-4-extension-name+
     #:+khr-storage-buffer-storage-class-extension-name+
@@ -872,6 +874,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-format-properties-2
     #:format-properties-2-khr ;; :struct
     #:c-format-properties-2-khr
+    #:fragment-shading-rate-attachment-info-khr ;; :struct
+    #:c-fragment-shading-rate-attachment-info-khr
+    #:fragment-shading-rate-combiner-op-khr ;; :enum
     #:framebuffer ;; :handle
     #:framebuffer-attachment-image-info ;; :struct
     #:c-framebuffer-attachment-image-info
@@ -1285,6 +1290,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-fragment-shader-barycentric-features-nv
     #:physical-device-fragment-shader-interlock-features-ext ;; :struct
     #:c-physical-device-fragment-shader-interlock-features-ext
+    #:physical-device-fragment-shading-rate-features-khr ;; :struct
+    #:c-physical-device-fragment-shading-rate-features-khr
+    #:physical-device-fragment-shading-rate-khr ;; :struct
+    #:c-physical-device-fragment-shading-rate-khr
+    #:physical-device-fragment-shading-rate-properties-khr ;; :struct
+    #:c-physical-device-fragment-shading-rate-properties-khr
     #:physical-device-group-properties ;; :struct
     #:c-physical-device-group-properties
     #:physical-device-group-properties-khr ;; :struct
@@ -1451,6 +1462,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-shader-subgroup-extended-types-features
     #:physical-device-shader-subgroup-extended-types-features-khr ;; :struct
     #:c-physical-device-shader-subgroup-extended-types-features-khr
+    #:physical-device-shader-terminate-invocation-features-khr ;; :struct
+    #:c-physical-device-shader-terminate-invocation-features-khr
     #:physical-device-shading-rate-image-features-nv ;; :struct
     #:c-physical-device-shading-rate-image-features-nv
     #:physical-device-shading-rate-image-properties-nv ;; :struct
@@ -1575,6 +1588,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-executable-statistic-khr ;; :struct
     #:c-pipeline-executable-statistic-khr
     #:pipeline-executable-statistic-value-khr ;; :union
+    #:pipeline-fragment-shading-rate-state-create-info-khr ;; :struct
+    #:c-pipeline-fragment-shading-rate-state-create-info-khr
     #:pipeline-info-khr ;; :struct
     #:c-pipeline-info-khr
     #:pipeline-input-assembly-state-create-flags ;; :bitmask
@@ -2156,6 +2171,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-discard-rectangle-ext
     #:cmd-set-event
     #:cmd-set-exclusive-scissor-nv
+    #:cmd-set-fragment-shading-rate-khr
     #:cmd-set-front-face-ext
     #:cmd-set-line-stipple-ext
     #:cmd-set-line-width
@@ -2376,6 +2392,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-physical-device-format-properties
     #:get-physical-device-format-properties-2
     #:get-physical-device-format-properties-2-khr
+    #:get-physical-device-fragment-shading-rates-khr
     #:get-physical-device-image-format-properties
     #:get-physical-device-image-format-properties-2
     #:get-physical-device-image-format-properties-2-khr
@@ -2529,6 +2546,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:aspect-reference-count ;; :accessor
     #:attachment ;; :accessor
     #:attachment-count ;; :accessor
+    #:attachment-fragment-shading-rate ;; :accessor
     #:attachment-image-info-count ;; :accessor
     #:attachment-index ;; :accessor
     #:attachment-initial-sample-locations-count ;; :accessor
@@ -2577,6 +2595,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:color-space ;; :accessor
     #:color-write-mask ;; :accessor
     #:combined-image-sampler-descriptor-count ;; :accessor
+    #:combiner-ops ;; :accessor
     #:command-buffer-count ;; :accessor
     #:command-pool ;; :accessor
     #:compacted-size ;; :accessor
@@ -2799,6 +2818,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:fragment-shader-pixel-interlock ;; :accessor
     #:fragment-shader-sample-interlock ;; :accessor
     #:fragment-shader-shading-rate-interlock ;; :accessor
+    #:fragment-shading-rate-non-trivial-combiner-ops ;; :accessor
+    #:fragment-shading-rate-strict-multiply-combiner ;; :accessor
+    #:fragment-shading-rate-with-conservative-rasterization ;; :accessor
+    #:fragment-shading-rate-with-custom-sample-locations ;; :accessor
+    #:fragment-shading-rate-with-fragment-shader-interlock ;; :accessor
+    #:fragment-shading-rate-with-sample-mask ;; :accessor
+    #:fragment-shading-rate-with-shader-depth-stencil-writes ;; :accessor
+    #:fragment-shading-rate-with-shader-sample-mask ;; :accessor
+    #:fragment-size ;; :accessor
     #:fragment-stores-and-atomics ;; :accessor
     #:frame-token ;; :accessor
     #:framebuffer ;; :accessor
@@ -2901,6 +2929,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:layer ;; :accessor
     #:layer-count ;; :accessor
     #:layer-name ;; :accessor
+    #:layered-shading-rate-attachments ;; :accessor
     #:layers ;; :accessor
     #:layout ;; :accessor
     #:lds-size-per-local-work-group ;; :accessor
@@ -2981,6 +3010,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-fragment-dual-src-attachments ;; :accessor
     #:max-fragment-input-components ;; :accessor
     #:max-fragment-output-attachments ;; :accessor
+    #:max-fragment-shading-rate-attachment-texel-size ;; :accessor
+    #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio ;; :accessor
+    #:max-fragment-shading-rate-coverage-samples ;; :accessor
+    #:max-fragment-shading-rate-rasterization-samples ;; :accessor
+    #:max-fragment-size ;; :accessor
+    #:max-fragment-size-aspect-ratio ;; :accessor
     #:max-frame-average-light-level ;; :accessor
     #:max-framebuffer-height ;; :accessor
     #:max-framebuffer-layers ;; :accessor
@@ -3122,6 +3157,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:min-dst-position ;; :accessor
     #:min-filter ;; :accessor
     #:min-fragment-density-texel-size ;; :accessor
+    #:min-fragment-shading-rate-attachment-texel-size ;; :accessor
     #:min-image-count ;; :accessor
     #:min-image-extent ;; :accessor
     #:min-image-transfer-granularity ;; :accessor
@@ -3241,6 +3277,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-enabled-validation-features ;; :accessor
     #:p-engine-name ;; :accessor
     #:p-exclusive-scissors ;; :accessor
+    #:p-fragment-shading-rate-attachment ;; :accessor
     #:p-geometries ;; :accessor
     #:p-geometry-infos ;; :accessor
     #:p-groups ;; :accessor
@@ -3362,6 +3399,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-count ;; :accessor
     #:pipeline-creation-cache-control ;; :accessor
     #:pipeline-executable-info ;; :accessor
+    #:pipeline-fragment-shading-rate ;; :accessor
     #:pipeline-layout ;; :accessor
     #:pipeline-stage-creation-feedback-count ;; :accessor
     #:pipeline-statistics ;; :accessor
@@ -3394,6 +3432,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:present-mode ;; :accessor
     #:preserve-attachment-count ;; :accessor
     #:primitive-count ;; :accessor
+    #:primitive-fragment-shading-rate ;; :accessor
+    #:primitive-fragment-shading-rate-with-multiple-viewports ;; :accessor
     #:primitive-offset ;; :accessor
     #:primitive-overestimation-size ;; :accessor
     #:primitive-restart-enable ;; :accessor
@@ -3595,6 +3635,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-storage-texel-buffer-array-non-uniform-indexing ;; :accessor
     #:shader-subgroup-clock ;; :accessor
     #:shader-subgroup-extended-types ;; :accessor
+    #:shader-terminate-invocation ;; :accessor
     #:shader-tessellation-and-geometry-point-size ;; :accessor
     #:shader-uniform-buffer-array-dynamic-indexing ;; :accessor
     #:shader-uniform-buffer-array-non-uniform-indexing ;; :accessor
@@ -3603,6 +3644,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-uniform-texel-buffer-array-non-uniform-indexing ;; :accessor
     #:shader-warps-per-s-m ;; :accessor
     #:shading-rate ;; :accessor
+    #:shading-rate-attachment-texel-size ;; :accessor
     #:shading-rate-coarse-sample-order ;; :accessor
     #:shading-rate-image ;; :accessor
     #:shading-rate-image-enable ;; :accessor
@@ -3981,6 +4023,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-external-semaphore-extension-name+
     #:+khr-external-semaphore-fd-extension-name+
     #:+khr-external-semaphore-win32-extension-name+
+    #:+khr-fragment-shading-rate-extension-name+
     #:+khr-get-display-properties-2-extension-name+
     #:+khr-get-memory-requirements-2-extension-name+
     #:+khr-get-physical-device-properties-2-extension-name+
@@ -4009,6 +4052,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-shader-float-controls-extension-name+
     #:+khr-shader-non-semantic-info-extension-name+
     #:+khr-shader-subgroup-extended-types-extension-name+
+    #:+khr-shader-terminate-invocation-extension-name+
     #:+khr-shared-presentable-image-extension-name+
     #:+khr-spirv-1-4-extension-name+
     #:+khr-storage-buffer-storage-class-extension-name+
@@ -4204,6 +4248,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-external-semaphore-extension-name+
     #:+khr-external-semaphore-fd-extension-name+
     #:+khr-external-semaphore-win32-extension-name+
+    #:+khr-fragment-shading-rate-extension-name+
     #:+khr-get-display-properties-2-extension-name+
     #:+khr-get-memory-requirements-2-extension-name+
     #:+khr-get-physical-device-properties-2-extension-name+
@@ -4232,6 +4277,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-shader-float-controls-extension-name+
     #:+khr-shader-non-semantic-info-extension-name+
     #:+khr-shader-subgroup-extended-types-extension-name+
+    #:+khr-shader-terminate-invocation-extension-name+
     #:+khr-shared-presentable-image-extension-name+
     #:+khr-spirv-1-4-extension-name+
     #:+khr-storage-buffer-storage-class-extension-name+
@@ -4473,6 +4519,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:filter-cubic-image-view-image-format-properties-ext ;; :class
     #:format-properties ;; :class
     #:format-properties-2 ;; :class
+    #:fragment-shading-rate-attachment-info-khr ;; :class
     #:framebuffer-attachment-image-info ;; :class
     #:framebuffer-attachments-create-info ;; :class
     #:framebuffer-create-info ;; :class
@@ -4612,6 +4659,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-fragment-density-map-properties-ext ;; :class
     #:physical-device-fragment-shader-barycentric-features-nv ;; :class
     #:physical-device-fragment-shader-interlock-features-ext ;; :class
+    #:physical-device-fragment-shading-rate-features-khr ;; :class
+    #:physical-device-fragment-shading-rate-khr ;; :class
+    #:physical-device-fragment-shading-rate-properties-khr ;; :class
     #:physical-device-group-properties ;; :class
     #:physical-device-host-query-reset-features ;; :class
     #:physical-device-id-properties ;; :class
@@ -4675,6 +4725,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-shader-s-m-builtins-features-nv ;; :class
     #:physical-device-shader-s-m-builtins-properties-nv ;; :class
     #:physical-device-shader-subgroup-extended-types-features ;; :class
+    #:physical-device-shader-terminate-invocation-features-khr ;; :class
     #:physical-device-shading-rate-image-features-nv ;; :class
     #:physical-device-shading-rate-image-properties-nv ;; :class
     #:physical-device-sparse-image-format-info-2 ;; :class
@@ -4719,6 +4770,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-executable-properties-khr ;; :class
     #:pipeline-executable-statistic-khr ;; :class
     #:pipeline-executable-statistic-value-khr ;; :class
+    #:pipeline-fragment-shading-rate-state-create-info-khr ;; :class
     #:pipeline-info-khr ;; :class
     #:pipeline-input-assembly-state-create-info ;; :class
     #:pipeline-layout-create-info ;; :class
@@ -4907,6 +4959,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:aspect-reference-count ;; :accessor
     #:attachment ;; :accessor
     #:attachment-count ;; :accessor
+    #:attachment-fragment-shading-rate ;; :accessor
     #:attachment-image-info-count ;; :accessor
     #:attachment-index ;; :accessor
     #:attachment-initial-sample-locations-count ;; :accessor
@@ -4955,6 +5008,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:color-space ;; :accessor
     #:color-write-mask ;; :accessor
     #:combined-image-sampler-descriptor-count ;; :accessor
+    #:combiner-ops ;; :accessor
     #:command-buffer-count ;; :accessor
     #:command-pool ;; :accessor
     #:compacted-size ;; :accessor
@@ -5176,6 +5230,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:fragment-shader-pixel-interlock ;; :accessor
     #:fragment-shader-sample-interlock ;; :accessor
     #:fragment-shader-shading-rate-interlock ;; :accessor
+    #:fragment-shading-rate-non-trivial-combiner-ops ;; :accessor
+    #:fragment-shading-rate-strict-multiply-combiner ;; :accessor
+    #:fragment-shading-rate-with-conservative-rasterization ;; :accessor
+    #:fragment-shading-rate-with-custom-sample-locations ;; :accessor
+    #:fragment-shading-rate-with-fragment-shader-interlock ;; :accessor
+    #:fragment-shading-rate-with-sample-mask ;; :accessor
+    #:fragment-shading-rate-with-shader-depth-stencil-writes ;; :accessor
+    #:fragment-shading-rate-with-shader-sample-mask ;; :accessor
+    #:fragment-size ;; :accessor
     #:fragment-stores-and-atomics ;; :accessor
     #:frame-token ;; :accessor
     #:framebuffer ;; :accessor
@@ -5277,6 +5340,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:large-points ;; :accessor
     #:layer-count ;; :accessor
     #:layer-name ;; :accessor
+    #:layered-shading-rate-attachments ;; :accessor
     #:layers ;; :accessor
     #:layout ;; :accessor
     #:lds-size-per-local-work-group ;; :accessor
@@ -5356,6 +5420,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-fragment-dual-src-attachments ;; :accessor
     #:max-fragment-input-components ;; :accessor
     #:max-fragment-output-attachments ;; :accessor
+    #:max-fragment-shading-rate-attachment-texel-size ;; :accessor
+    #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio ;; :accessor
+    #:max-fragment-shading-rate-coverage-samples ;; :accessor
+    #:max-fragment-shading-rate-rasterization-samples ;; :accessor
+    #:max-fragment-size ;; :accessor
+    #:max-fragment-size-aspect-ratio ;; :accessor
     #:max-frame-average-light-level ;; :accessor
     #:max-framebuffer-height ;; :accessor
     #:max-framebuffer-layers ;; :accessor
@@ -5497,6 +5567,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:min-dst-position ;; :accessor
     #:min-filter ;; :accessor
     #:min-fragment-density-texel-size ;; :accessor
+    #:min-fragment-shading-rate-attachment-texel-size ;; :accessor
     #:min-image-count ;; :accessor
     #:min-image-extent ;; :accessor
     #:min-image-transfer-granularity ;; :accessor
@@ -5615,6 +5686,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:enabled-validation-features ;; :accessor
     #:engine-name ;; :accessor
     #:exclusive-scissors ;; :accessor
+    #:fragment-shading-rate-attachment ;; :accessor
     #:geometries ;; :accessor
     #:geometry-infos ;; :accessor
     #:groups ;; :accessor
@@ -5734,6 +5806,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-count ;; :accessor
     #:pipeline-creation-cache-control ;; :accessor
     #:pipeline-executable-info ;; :accessor
+    #:pipeline-fragment-shading-rate ;; :accessor
     #:pipeline-layout ;; :accessor
     #:pipeline-stage-creation-feedback-count ;; :accessor
     #:pipeline-statistics ;; :accessor
@@ -5766,6 +5839,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:present-mode ;; :accessor
     #:preserve-attachment-count ;; :accessor
     #:primitive-count ;; :accessor
+    #:primitive-fragment-shading-rate ;; :accessor
+    #:primitive-fragment-shading-rate-with-multiple-viewports ;; :accessor
     #:primitive-offset ;; :accessor
     #:primitive-overestimation-size ;; :accessor
     #:primitive-restart-enable ;; :accessor
@@ -5967,6 +6042,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-storage-texel-buffer-array-non-uniform-indexing ;; :accessor
     #:shader-subgroup-clock ;; :accessor
     #:shader-subgroup-extended-types ;; :accessor
+    #:shader-terminate-invocation ;; :accessor
     #:shader-tessellation-and-geometry-point-size ;; :accessor
     #:shader-uniform-buffer-array-dynamic-indexing ;; :accessor
     #:shader-uniform-buffer-array-non-uniform-indexing ;; :accessor
@@ -5975,6 +6051,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-uniform-texel-buffer-array-non-uniform-indexing ;; :accessor
     #:shader-warps-per-s-m ;; :accessor
     #:shading-rate ;; :accessor
+    #:shading-rate-attachment-texel-size ;; :accessor
     #:shading-rate-coarse-sample-order ;; :accessor
     #:shading-rate-image ;; :accessor
     #:shading-rate-image-enable ;; :accessor
@@ -6325,6 +6402,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-discard-rectangle-ext
     #:cmd-set-event
     #:cmd-set-exclusive-scissor-nv
+    #:cmd-set-fragment-shading-rate-khr
     #:cmd-set-front-face-ext
     #:cmd-set-line-stipple-ext
     #:cmd-set-line-width
@@ -6545,6 +6623,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-physical-device-format-properties
     #:get-physical-device-format-properties-2
     #:get-physical-device-format-properties-2-khr
+    #:get-physical-device-fragment-shading-rates-khr
     #:get-physical-device-image-format-properties
     #:get-physical-device-image-format-properties-2
     #:get-physical-device-image-format-properties-2-khr

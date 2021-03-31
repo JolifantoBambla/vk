@@ -4807,3 +4807,25 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (resolve-image-info '(:struct %vk:resolve-image-info-2-khr) resolve-image-info :in))
 
+(defvk-simple-fun (cmd-set-fragment-shading-rate-khr
+                   %vk:cmd-set-fragment-shading-rate-khr
+                   "Represents <vkCmdSetFragmentShadingRateKHR>"
+                   ((command-buffer cffi:foreign-pointer) (fragment-size (or vk:extent-2d cffi:foreign-pointer)) (combiner-ops keyword))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (fragment-size '(:struct %vk:extent-2d) fragment-size :in)
+  (combiner-ops '%vk:fragment-shading-rate-combiner-op-khr combiner-ops :in :raw))
+
+(defvk-enumerate-fun (get-physical-device-fragment-shading-rates-khr
+                      %vk:get-physical-device-fragment-shading-rates-khr
+                      "Represents <vkGetPhysicalDeviceFragmentShadingRatesKHR>"
+                      ((physical-device cffi:foreign-pointer))
+                      ()
+                      fragment-shading-rate-count
+                      fragment-shading-rates
+                      nil)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (fragment-shading-rate-count :uint32 fragment-shading-rate-count :out)
+  (fragment-shading-rates '(:struct %vk:physical-device-fragment-shading-rate-khr) fragment-shading-rates :out :list))
+

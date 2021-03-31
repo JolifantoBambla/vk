@@ -9084,3 +9084,111 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:shader-image-int-64-atomics (vk:shader-image-int-64-atomics value)
           %vk:sparse-image-int-64-atomics (vk:sparse-image-int-64-atomics value))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-fragment-shading-rate-attachment-info-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-fragment-shading-rate-attachment
+        %vk:shading-rate-attachment-texel-size)
+       ptr
+       (:struct %vk:fragment-shading-rate-attachment-info-khr))
+    (setf %vk:s-type :fragment-shading-rate-attachment-info-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:p-fragment-shading-rate-attachment (vk-alloc:foreign-allocate-and-fill '(:struct %vk:attachment-reference-2) (vk:fragment-shading-rate-attachment value) ptr)
+          %vk:shading-rate-attachment-texel-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:shading-rate-attachment-texel-size value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-fragment-shading-rate-state-create-info-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:fragment-size
+        %vk:combiner-ops)
+       ptr
+       (:struct %vk:pipeline-fragment-shading-rate-state-create-info-khr))
+    (setf %vk:s-type :pipeline-fragment-shading-rate-state-create-info-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:fragment-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:fragment-size value) ptr)
+          %vk:combiner-ops (vk:combiner-ops value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-fragment-shading-rate-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:pipeline-fragment-shading-rate
+        %vk:primitive-fragment-shading-rate
+        %vk:attachment-fragment-shading-rate)
+       ptr
+       (:struct %vk:physical-device-fragment-shading-rate-features-khr))
+    (setf %vk:s-type :physical-device-fragment-shading-rate-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:pipeline-fragment-shading-rate (vk:pipeline-fragment-shading-rate value)
+          %vk:primitive-fragment-shading-rate (vk:primitive-fragment-shading-rate value)
+          %vk:attachment-fragment-shading-rate (vk:attachment-fragment-shading-rate value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-fragment-shading-rate-properties-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:min-fragment-shading-rate-attachment-texel-size
+        %vk:max-fragment-shading-rate-attachment-texel-size
+        %vk:max-fragment-shading-rate-attachment-texel-size-aspect-ratio
+        %vk:primitive-fragment-shading-rate-with-multiple-viewports
+        %vk:layered-shading-rate-attachments
+        %vk:fragment-shading-rate-non-trivial-combiner-ops
+        %vk:max-fragment-size
+        %vk:max-fragment-size-aspect-ratio
+        %vk:max-fragment-shading-rate-coverage-samples
+        %vk:max-fragment-shading-rate-rasterization-samples
+        %vk:fragment-shading-rate-with-shader-depth-stencil-writes
+        %vk:fragment-shading-rate-with-sample-mask
+        %vk:fragment-shading-rate-with-shader-sample-mask
+        %vk:fragment-shading-rate-with-conservative-rasterization
+        %vk:fragment-shading-rate-with-fragment-shader-interlock
+        %vk:fragment-shading-rate-with-custom-sample-locations
+        %vk:fragment-shading-rate-strict-multiply-combiner)
+       ptr
+       (:struct %vk:physical-device-fragment-shading-rate-properties-khr))
+    (setf %vk:s-type :physical-device-fragment-shading-rate-properties-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:min-fragment-shading-rate-attachment-texel-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:min-fragment-shading-rate-attachment-texel-size value) ptr)
+          %vk:max-fragment-shading-rate-attachment-texel-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-fragment-shading-rate-attachment-texel-size value) ptr)
+          %vk:max-fragment-shading-rate-attachment-texel-size-aspect-ratio (vk:max-fragment-shading-rate-attachment-texel-size-aspect-ratio value)
+          %vk:primitive-fragment-shading-rate-with-multiple-viewports (vk:primitive-fragment-shading-rate-with-multiple-viewports value)
+          %vk:layered-shading-rate-attachments (vk:layered-shading-rate-attachments value)
+          %vk:fragment-shading-rate-non-trivial-combiner-ops (vk:fragment-shading-rate-non-trivial-combiner-ops value)
+          %vk:max-fragment-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-fragment-size value) ptr)
+          %vk:max-fragment-size-aspect-ratio (vk:max-fragment-size-aspect-ratio value)
+          %vk:max-fragment-shading-rate-coverage-samples (vk:max-fragment-shading-rate-coverage-samples value)
+          %vk:max-fragment-shading-rate-rasterization-samples (vk:max-fragment-shading-rate-rasterization-samples value)
+          %vk:fragment-shading-rate-with-shader-depth-stencil-writes (vk:fragment-shading-rate-with-shader-depth-stencil-writes value)
+          %vk:fragment-shading-rate-with-sample-mask (vk:fragment-shading-rate-with-sample-mask value)
+          %vk:fragment-shading-rate-with-shader-sample-mask (vk:fragment-shading-rate-with-shader-sample-mask value)
+          %vk:fragment-shading-rate-with-conservative-rasterization (vk:fragment-shading-rate-with-conservative-rasterization value)
+          %vk:fragment-shading-rate-with-fragment-shader-interlock (vk:fragment-shading-rate-with-fragment-shader-interlock value)
+          %vk:fragment-shading-rate-with-custom-sample-locations (vk:fragment-shading-rate-with-custom-sample-locations value)
+          %vk:fragment-shading-rate-strict-multiply-combiner (vk:fragment-shading-rate-strict-multiply-combiner value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-fragment-shading-rate-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sample-counts
+        %vk:fragment-size)
+       ptr
+       (:struct %vk:physical-device-fragment-shading-rate-khr))
+    (setf %vk:s-type :physical-device-fragment-shading-rate-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:sample-counts (vk:sample-counts value)
+          %vk:fragment-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:fragment-size value) ptr))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-shader-terminate-invocation-features-khr) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-terminate-invocation)
+       ptr
+       (:struct %vk:physical-device-shader-terminate-invocation-features-khr))
+    (setf %vk:s-type :physical-device-shader-terminate-invocation-features-khr
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:shader-terminate-invocation (vk:shader-terminate-invocation value))))
+

@@ -140,6 +140,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-external-semaphore-extension-name+ "VK_KHR_external_semaphore" :test #'string=)
 (alexandria:define-constant +khr-external-semaphore-fd-extension-name+ "VK_KHR_external_semaphore_fd" :test #'string=)
 (alexandria:define-constant +khr-external-semaphore-win32-extension-name+ "VK_KHR_external_semaphore_win32" :test #'string=)
+(alexandria:define-constant +khr-fragment-shading-rate-extension-name+ "VK_KHR_fragment_shading_rate" :test #'string=)
 (alexandria:define-constant +khr-get-display-properties-2-extension-name+ "VK_KHR_get_display_properties2" :test #'string=)
 (alexandria:define-constant +khr-get-memory-requirements-2-extension-name+ "VK_KHR_get_memory_requirements2" :test #'string=)
 (alexandria:define-constant +khr-get-physical-device-properties-2-extension-name+ "VK_KHR_get_physical_device_properties2" :test #'string=)
@@ -168,6 +169,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-shader-float-controls-extension-name+ "VK_KHR_shader_float_controls" :test #'string=)
 (alexandria:define-constant +khr-shader-non-semantic-info-extension-name+ "VK_KHR_shader_non_semantic_info" :test #'string=)
 (alexandria:define-constant +khr-shader-subgroup-extended-types-extension-name+ "VK_KHR_shader_subgroup_extended_types" :test #'string=)
+(alexandria:define-constant +khr-shader-terminate-invocation-extension-name+ "VK_KHR_shader_terminate_invocation" :test #'string=)
 (alexandria:define-constant +khr-shared-presentable-image-extension-name+ "VK_KHR_shared_presentable_image" :test #'string=)
 (alexandria:define-constant +khr-spirv-1-4-extension-name+ "VK_KHR_spirv_1_4" :test #'string=)
 (alexandria:define-constant +khr-storage-buffer-storage-class-extension-name+ "VK_KHR_storage_buffer_storage_class" :test #'string=)
@@ -609,7 +611,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:disjoint #x400000) ;; 
   (:cosited-chroma-samples #x800000) ;; 
   (:fragment-density-map #x1000000) ;; 
-  (:acceleration-structure-vertex-buffer #x20000000)) ;; 
+  (:acceleration-structure-vertex-buffer #x20000000) ;; 
+  (:fragment-shading-rate-attachment #x40000000)) ;; 
 
 (defbitfield (query-control-flags flags)
   (:precise #x1)) ;; Require precise results to be collected by the query
@@ -1335,6 +1338,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:viewport-shading-rate-palette-nv #x3B9D4AA4) ;; 
   (:viewport-coarse-sample-order-nv #x3B9D4AA6) ;; 
   (:exclusive-scissor-nv #x3B9DEAC9) ;; 
+  (:fragment-shading-rate-khr #x3B9E3CD0) ;; 
   (:line-stipple-ext #x3B9EBDB8) ;; 
   (:cull-mode-ext #x3B9EDCF8) ;; 
   (:front-face-ext #x3B9EDCF9) ;; 
@@ -1629,7 +1633,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:disjoint #x400000) ;; 
   (:cosited-chroma-samples #x800000) ;; 
   (:fragment-density-map #x1000000) ;; 
-  (:acceleration-structure-vertex-buffer #x20000000)) ;; 
+  (:acceleration-structure-vertex-buffer #x20000000) ;; 
+  (:fragment-shading-rate-attachment #x40000000)) ;; 
 
 (defcenum (front-face)
   (:counter-clockwise #x0)
@@ -2360,6 +2365,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:display-native-hdr-surface-capabilities-amd #x3B9E0A08) ;; 
   (:swapchain-display-native-hdr-create-info-amd #x3B9E0A09) ;; 
   (:imagepipe-surface-create-info-fuchsia #x3B9E0DF0) ;; 
+  (:physical-device-shader-terminate-invocation-features-khr #x3B9E11D8) ;; 
   (:metal-surface-create-info-ext #x3B9E19A8) ;; 
   (:physical-device-fragment-density-map-features-ext #x3B9E1D90) ;; 
   (:physical-device-fragment-density-map-properties-ext #x3B9E1D91) ;; 
@@ -2368,6 +2374,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-subgroup-size-control-properties-ext #x3B9E38E8) ;; 
   (:pipeline-shader-stage-required-subgroup-size-create-info-ext #x3B9E38E9) ;; 
   (:physical-device-subgroup-size-control-features-ext #x3B9E38EA) ;; 
+  (:fragment-shading-rate-attachment-info-khr #x3B9E3CD0) ;; 
+  (:pipeline-fragment-shading-rate-state-create-info-khr #x3B9E3CD1) ;; 
+  (:physical-device-fragment-shading-rate-properties-khr #x3B9E3CD2) ;; 
+  (:physical-device-fragment-shading-rate-features-khr #x3B9E3CD3) ;; 
+  (:physical-device-fragment-shading-rate-khr #x3B9E3CD4) ;; 
   (:physical-device-shader-core-properties-2-amd #x3B9E40B8) ;; 
   (:physical-device-coherent-memory-features-amd #x3B9E4888) ;; 
   (:physical-device-shader-image-atomic-int64-features-ext #x3B9E5C10) ;; 
@@ -3280,6 +3291,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:32-bit-only #x0)
   (:all #x1)
   (:none #x2))
+
+(defcenum (fragment-shading-rate-combiner-op-khr)
+  (:keep-khr #x0)
+  (:replace-khr #x1)
+  (:min-khr #x2)
+  (:max-khr #x3)
+  (:mul-khr #x4))
 
 (defcenum (vendor-id)
   (:viv #x10001) ;; Vivante vendor ID
@@ -8426,4 +8444,56 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (shader-image-int-64-atomics bool32)
   (sparse-image-int-64-atomics bool32))
+
+(defcstruct (fragment-shading-rate-attachment-info-khr :class c-fragment-shading-rate-attachment-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-fragment-shading-rate-attachment (:pointer
+                                       (:struct attachment-reference-2)))
+  (shading-rate-attachment-texel-size extent-2d))
+
+(defcstruct (pipeline-fragment-shading-rate-state-create-info-khr :class c-pipeline-fragment-shading-rate-state-create-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (fragment-size extent-2d)
+  (combiner-ops fragment-shading-rate-combiner-op-khr :count 2))
+
+(defcstruct (physical-device-fragment-shading-rate-features-khr :class c-physical-device-fragment-shading-rate-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (pipeline-fragment-shading-rate bool32)
+  (primitive-fragment-shading-rate bool32)
+  (attachment-fragment-shading-rate bool32))
+
+(defcstruct (physical-device-fragment-shading-rate-properties-khr :class c-physical-device-fragment-shading-rate-properties-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (min-fragment-shading-rate-attachment-texel-size extent-2d)
+  (max-fragment-shading-rate-attachment-texel-size extent-2d)
+  (max-fragment-shading-rate-attachment-texel-size-aspect-ratio :uint32)
+  (primitive-fragment-shading-rate-with-multiple-viewports bool32)
+  (layered-shading-rate-attachments bool32)
+  (fragment-shading-rate-non-trivial-combiner-ops bool32)
+  (max-fragment-size extent-2d)
+  (max-fragment-size-aspect-ratio :uint32)
+  (max-fragment-shading-rate-coverage-samples :uint32)
+  (max-fragment-shading-rate-rasterization-samples sample-count-flag-bits)
+  (fragment-shading-rate-with-shader-depth-stencil-writes bool32)
+  (fragment-shading-rate-with-sample-mask bool32)
+  (fragment-shading-rate-with-shader-sample-mask bool32)
+  (fragment-shading-rate-with-conservative-rasterization bool32)
+  (fragment-shading-rate-with-fragment-shader-interlock bool32)
+  (fragment-shading-rate-with-custom-sample-locations bool32)
+  (fragment-shading-rate-strict-multiply-combiner bool32))
+
+(defcstruct (physical-device-fragment-shading-rate-khr :class c-physical-device-fragment-shading-rate-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (sample-counts sample-count-flags)
+  (fragment-size extent-2d))
+
+(defcstruct (physical-device-shader-terminate-invocation-features-khr :class c-physical-device-shader-terminate-invocation-features-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (shader-terminate-invocation bool32))
 

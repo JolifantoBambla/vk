@@ -18134,3 +18134,238 @@ Instances of this class can be used to extend the following classes (using their
 See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
+
+(defclass fragment-shading-rate-attachment-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (fragment-shading-rate-attachment
+     :initarg :fragment-shading-rate-attachment
+     :initform nil
+     :accessor fragment-shading-rate-attachment)
+   (shading-rate-attachment-texel-size
+     :initarg :shading-rate-attachment-texel-size
+     :initform nil
+     :accessor shading-rate-attachment-texel-size))
+  (:documentation "Represents the struct [VkFragmentShadingRateAttachmentInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateAttachmentInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FRAGMENT-SHADING-RATE-ATTACHMENT: an ATTACHMENT-REFERENCE-2.
+ - SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
+
+See ATTACHMENT-REFERENCE-2
+See EXTENT-2D
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See SUBPASS-DESCRIPTION-2
+"))
+
+(defclass pipeline-fragment-shading-rate-state-create-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (fragment-size
+     :initarg :fragment-size
+     :initform nil
+     :accessor fragment-size)
+   (combiner-ops
+     :initarg :combiner-ops
+     :initform nil
+     :accessor combiner-ops))
+  (:documentation "Represents the struct [VkPipelineFragmentShadingRateStateCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineFragmentShadingRateStateCreateInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - FRAGMENT-SIZE: an EXTENT-2D.
+ - COMBINER-OPS: an enum value of FRAGMENT-SHADING-RATE-COMBINER-OP-KHR.
+
+See EXTENT-2D
+See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See GRAPHICS-PIPELINE-CREATE-INFO
+"))
+
+(defclass physical-device-fragment-shading-rate-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (pipeline-fragment-shading-rate
+     :initarg :pipeline-fragment-shading-rate
+     :initform nil
+     :accessor pipeline-fragment-shading-rate)
+   (primitive-fragment-shading-rate
+     :initarg :primitive-fragment-shading-rate
+     :initform nil
+     :accessor primitive-fragment-shading-rate)
+   (attachment-fragment-shading-rate
+     :initarg :attachment-fragment-shading-rate
+     :initform nil
+     :accessor attachment-fragment-shading-rate))
+  (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - PIPELINE-FRAGMENT-SHADING-RATE: a BOOL32.
+ - PRIMITIVE-FRAGMENT-SHADING-RATE: a BOOL32.
+ - ATTACHMENT-FRAGMENT-SHADING-RATE: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-fragment-shading-rate-properties-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (min-fragment-shading-rate-attachment-texel-size
+     :initarg :min-fragment-shading-rate-attachment-texel-size
+     :initform nil
+     :accessor min-fragment-shading-rate-attachment-texel-size)
+   (max-fragment-shading-rate-attachment-texel-size
+     :initarg :max-fragment-shading-rate-attachment-texel-size
+     :initform nil
+     :accessor max-fragment-shading-rate-attachment-texel-size)
+   (max-fragment-shading-rate-attachment-texel-size-aspect-ratio
+     :initarg :max-fragment-shading-rate-attachment-texel-size-aspect-ratio
+     :initform 0
+     :accessor max-fragment-shading-rate-attachment-texel-size-aspect-ratio)
+   (primitive-fragment-shading-rate-with-multiple-viewports
+     :initarg :primitive-fragment-shading-rate-with-multiple-viewports
+     :initform nil
+     :accessor primitive-fragment-shading-rate-with-multiple-viewports)
+   (layered-shading-rate-attachments
+     :initarg :layered-shading-rate-attachments
+     :initform nil
+     :accessor layered-shading-rate-attachments)
+   (fragment-shading-rate-non-trivial-combiner-ops
+     :initarg :fragment-shading-rate-non-trivial-combiner-ops
+     :initform nil
+     :accessor fragment-shading-rate-non-trivial-combiner-ops)
+   (max-fragment-size
+     :initarg :max-fragment-size
+     :initform nil
+     :accessor max-fragment-size)
+   (max-fragment-size-aspect-ratio
+     :initarg :max-fragment-size-aspect-ratio
+     :initform 0
+     :accessor max-fragment-size-aspect-ratio)
+   (max-fragment-shading-rate-coverage-samples
+     :initarg :max-fragment-shading-rate-coverage-samples
+     :initform 0
+     :accessor max-fragment-shading-rate-coverage-samples)
+   (max-fragment-shading-rate-rasterization-samples
+     :initarg :max-fragment-shading-rate-rasterization-samples
+     :initform nil
+     :accessor max-fragment-shading-rate-rasterization-samples)
+   (fragment-shading-rate-with-shader-depth-stencil-writes
+     :initarg :fragment-shading-rate-with-shader-depth-stencil-writes
+     :initform nil
+     :accessor fragment-shading-rate-with-shader-depth-stencil-writes)
+   (fragment-shading-rate-with-sample-mask
+     :initarg :fragment-shading-rate-with-sample-mask
+     :initform nil
+     :accessor fragment-shading-rate-with-sample-mask)
+   (fragment-shading-rate-with-shader-sample-mask
+     :initarg :fragment-shading-rate-with-shader-sample-mask
+     :initform nil
+     :accessor fragment-shading-rate-with-shader-sample-mask)
+   (fragment-shading-rate-with-conservative-rasterization
+     :initarg :fragment-shading-rate-with-conservative-rasterization
+     :initform nil
+     :accessor fragment-shading-rate-with-conservative-rasterization)
+   (fragment-shading-rate-with-fragment-shader-interlock
+     :initarg :fragment-shading-rate-with-fragment-shader-interlock
+     :initform nil
+     :accessor fragment-shading-rate-with-fragment-shader-interlock)
+   (fragment-shading-rate-with-custom-sample-locations
+     :initarg :fragment-shading-rate-with-custom-sample-locations
+     :initform nil
+     :accessor fragment-shading-rate-with-custom-sample-locations)
+   (fragment-shading-rate-strict-multiply-combiner
+     :initarg :fragment-shading-rate-strict-multiply-combiner
+     :initform nil
+     :accessor fragment-shading-rate-strict-multiply-combiner))
+  (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRatePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRatePropertiesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MIN-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
+ - MAX-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
+ - MAX-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE-ASPECT-RATIO: a positive (32-bit) integer.
+ - PRIMITIVE-FRAGMENT-SHADING-RATE-WITH-MULTIPLE-VIEWPORTS: a BOOL32.
+ - LAYERED-SHADING-RATE-ATTACHMENTS: a BOOL32.
+ - FRAGMENT-SHADING-RATE-NON-TRIVIAL-COMBINER-OPS: a BOOL32.
+ - MAX-FRAGMENT-SIZE: an EXTENT-2D.
+ - MAX-FRAGMENT-SIZE-ASPECT-RATIO: a positive (32-bit) integer.
+ - MAX-FRAGMENT-SHADING-RATE-COVERAGE-SAMPLES: a positive (32-bit) integer.
+ - MAX-FRAGMENT-SHADING-RATE-RASTERIZATION-SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
+ - FRAGMENT-SHADING-RATE-WITH-SHADER-DEPTH-STENCIL-WRITES: a BOOL32.
+ - FRAGMENT-SHADING-RATE-WITH-SAMPLE-MASK: a BOOL32.
+ - FRAGMENT-SHADING-RATE-WITH-SHADER-SAMPLE-MASK: a BOOL32.
+ - FRAGMENT-SHADING-RATE-WITH-CONSERVATIVE-RASTERIZATION: a BOOL32.
+ - FRAGMENT-SHADING-RATE-WITH-FRAGMENT-SHADER-INTERLOCK: a BOOL32.
+ - FRAGMENT-SHADING-RATE-WITH-CUSTOM-SAMPLE-LOCATIONS: a BOOL32.
+ - FRAGMENT-SHADING-RATE-STRICT-MULTIPLY-COMBINER: a BOOL32.
+
+See EXTENT-2D
+See SAMPLE-COUNT-FLAG-BITS
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-PROPERTIES-2
+"))
+
+(defclass physical-device-fragment-shading-rate-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (sample-counts
+     :initarg :sample-counts
+     :initform nil
+     :accessor sample-counts)
+   (fragment-size
+     :initarg :fragment-size
+     :initform nil
+     :accessor fragment-size))
+  (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SAMPLE-COUNTS: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
+ - FRAGMENT-SIZE: an EXTENT-2D.
+
+See SAMPLE-COUNT-FLAGS
+See EXTENT-2D
+"))
+
+(defclass physical-device-shader-terminate-invocation-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (shader-terminate-invocation
+     :initarg :shader-terminate-invocation
+     :initform nil
+     :accessor shader-terminate-invocation))
+  (:documentation "Represents the struct [VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - SHADER-TERMINATE-INVOCATION: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
