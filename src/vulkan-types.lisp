@@ -2278,7 +2278,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:bind-buffer-memory-info #x3B9D2F48) ;; 
   (:bind-image-memory-info #x3B9D2F49) ;; 
   (:drm-format-modifier-properties-list-ext #x3B9D3330) ;; 
-  (:drm-format-modifier-properties-ext #x3B9D3331) ;; 
   (:physical-device-image-drm-format-modifier-info-ext #x3B9D3332) ;; 
   (:image-drm-format-modifier-list-create-info-ext #x3B9D3333) ;; 
   (:image-drm-format-modifier-explicit-create-info-ext #x3B9D3334) ;; 
