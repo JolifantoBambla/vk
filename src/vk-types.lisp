@@ -1873,10 +1873,6 @@ See DESCRIPTOR-POOL-SIZE
      :initarg :descriptor-pool
      :initform nil
      :accessor descriptor-pool)
-   (descriptor-set-count
-     :initarg :descriptor-set-count
-     :initform 0
-     :accessor descriptor-set-count)
    (set-layouts
      :initarg :set-layouts
      :initform nil
@@ -1886,8 +1882,7 @@ See DESCRIPTOR-POOL-SIZE
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DESCRIPTOR-POOL: a DESCRIPTOR-POOL.
- - DESCRIPTOR-SET-COUNT: a positive (32-bit) integer.
- - SET-LAYOUTS: a DESCRIPTOR-SET-LAYOUT.
+ - SET-LAYOUTS: a list of foreign pointer to a buffer of size DESCRIPTOR-SET-COUNTs.
 
 See DESCRIPTOR-POOL
 See DESCRIPTOR-SET-LAYOUT
@@ -17048,7 +17043,7 @@ Slots:
  - MODE: an enum value of BUILD-ACCELERATION-STRUCTURE-MODE-KHR.
  - SRC-ACCELERATION-STRUCTURE (optional): an ACCELERATION-STRUCTURE-KHR.
  - DST-ACCELERATION-STRUCTURE (optional): an ACCELERATION-STRUCTURE-KHR.
- - GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
+ - GEOMETRIES (optional): a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
  - P-GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
  - SCRATCH-DATA: a DEVICE-OR-HOST-ADDRESS-KHR.
 

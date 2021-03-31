@@ -923,8 +923,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :descriptor-set-allocate-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:descriptor-pool (if (vk:descriptor-pool ,value) (vk:descriptor-pool ,value) (cffi:null-pointer))
-          %vk:descriptor-set-count (vk:descriptor-set-count ,value)
-          %vk:p-set-layouts (if (vk:set-layouts ,value) (vk:set-layouts ,value) (cffi:null-pointer)))))
+          %vk:descriptor-set-count (length (vk:set-layouts ,value))
+          %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill '%vk:descriptor-set-layout (vk:set-layouts ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-specialization-map-entry) ptr)
   `(cffi:with-foreign-slots

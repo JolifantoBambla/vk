@@ -855,7 +855,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            "Represents <vkAllocateDescriptorSets>"
                            ((device cffi:foreign-pointer) (allocate-info (or vk:descriptor-set-allocate-info cffi:foreign-pointer)))
                            ()
-                           (vk:descriptor-set-count allocate-info))
+                           (length (vk:set-layouts allocate-info)))
   (device '%vk:device device :in :handle)
   (allocate-info '(:struct %vk:descriptor-set-allocate-info) allocate-info :in)
   (descriptor-sets '%vk:descriptor-set descriptor-sets :out :handle :list))

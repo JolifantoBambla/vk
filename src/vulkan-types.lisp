@@ -2587,31 +2587,31 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcenum (object-type)
   (:unknown #x0)
-  (:instance #x1) ;; VkInstance
-  (:physical-device #x2) ;; VkPhysicalDevice
-  (:device #x3) ;; VkDevice
-  (:queue #x4) ;; VkQueue
-  (:semaphore #x5) ;; VkSemaphore
-  (:command-buffer #x6) ;; VkCommandBuffer
-  (:fence #x7) ;; VkFence
-  (:device-memory #x8) ;; VkDeviceMemory
-  (:buffer #x9) ;; VkBuffer
-  (:image #xA) ;; VkImage
-  (:event #xB) ;; VkEvent
-  (:query-pool #xC) ;; VkQueryPool
-  (:buffer-view #xD) ;; VkBufferView
-  (:image-view #xE) ;; VkImageView
-  (:shader-module #xF) ;; VkShaderModule
-  (:pipeline-cache #x10) ;; VkPipelineCache
-  (:pipeline-layout #x11) ;; VkPipelineLayout
-  (:render-pass #x12) ;; VkRenderPass
-  (:pipeline #x13) ;; VkPipeline
-  (:descriptor-set-layout #x14) ;; VkDescriptorSetLayout
-  (:sampler #x15) ;; VkSampler
-  (:descriptor-pool #x16) ;; VkDescriptorPool
-  (:descriptor-set #x17) ;; VkDescriptorSet
-  (:framebuffer #x18) ;; VkFramebuffer
-  (:command-pool #x19) ;; VkCommandPool
+  (:instance #x1)
+  (:physical-device #x2)
+  (:device #x3)
+  (:queue #x4)
+  (:semaphore #x5)
+  (:command-buffer #x6)
+  (:fence #x7)
+  (:device-memory #x8)
+  (:buffer #x9)
+  (:image #xA)
+  (:event #xB)
+  (:query-pool #xC)
+  (:buffer-view #xD)
+  (:image-view #xE)
+  (:shader-module #xF)
+  (:pipeline-cache #x10)
+  (:pipeline-layout #x11)
+  (:render-pass #x12)
+  (:pipeline #x13)
+  (:descriptor-set-layout #x14)
+  (:sampler #x15)
+  (:descriptor-pool #x16)
+  (:descriptor-set #x17)
+  (:framebuffer #x18)
+  (:command-pool #x19)
   (:surface-khr #x3B9ACA00) ;; 
   (:swapchain-khr #x3B9ACDE8) ;; 
   (:display-khr #x3B9AD1D0) ;; 

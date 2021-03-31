@@ -944,8 +944,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:descriptor-set-allocate-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :descriptor-pool %vk:descriptor-pool
-                   :descriptor-set-count %vk:descriptor-set-count
-                   :set-layouts %vk:p-set-layouts)))
+                   :set-layouts (loop for i from 0 below %vk:descriptor-set-count collect (cffi:mem-aref %vk:p-set-layouts '%vk:descriptor-set-layout i)))))
 
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-specialization-map-entry))
   `(cffi:with-foreign-slots
