@@ -855,7 +855,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                            "Represents <vkAllocateDescriptorSets>"
                            ((device cffi:foreign-pointer) (allocate-info (or vk:descriptor-set-allocate-info cffi:foreign-pointer)))
                            ()
-                           (length (vk:set-layouts allocate-info)))
+                           (vk:descriptor-set-count allocate-info))
   (device '%vk:device device :in :handle)
   (allocate-info '(:struct %vk:descriptor-set-allocate-info) allocate-info :in)
   (descriptor-sets '%vk:descriptor-set descriptor-sets :out :handle :list))
@@ -2453,6 +2453,27 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (physical-device '%vk:physical-device physical-device :in :handle)
   (dpy '(:pointer :void) dpy :in :handle)
   (rr-output '(:pointer :void) rr-output :in :handle)
+  (display '%vk:display-khr display :out :handle))
+
+(defvk-simple-fun (acquire-winrt-display-nv
+                   %vk:acquire-winrt-display-nv
+                   "Represents <vkAcquireWinrtDisplayNV>"
+                   ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
+                   ()
+                  nil
+                  t)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (display '%vk:display-khr display :in :handle))
+
+(defvk-create-handle-fun (get-winrt-display-nv
+                          %vk:get-winrt-display-nv
+                          "Represents <vkGetWinrtDisplayNV>"
+                          ((physical-device cffi:foreign-pointer) (device-relative-id unsigned-byte))
+                          ()
+                          nil
+                          t)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (device-relative-id :uint32 device-relative-id :in :raw)
   (display '%vk:display-khr display :out :handle))
 
 (defvk-simple-fun (display-power-control-ext

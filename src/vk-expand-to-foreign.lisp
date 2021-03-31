@@ -923,8 +923,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :descriptor-set-allocate-info
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:descriptor-pool (if (vk:descriptor-pool ,value) (vk:descriptor-pool ,value) (cffi:null-pointer))
-          %vk:descriptor-set-count (length (vk:set-layouts ,value))
-          %vk:p-set-layouts (vk-alloc:foreign-allocate-and-fill '%vk:descriptor-set-layout (vk:set-layouts ,value) ,ptr))))
+          %vk:descriptor-set-count (vk:descriptor-set-count ,value)
+          %vk:p-set-layouts (if (vk:set-layouts ,value) (vk:set-layouts ,value) (cffi:null-pointer)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-specialization-map-entry) ptr)
   `(cffi:with-foreign-slots
@@ -9269,4 +9269,37 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:acceleration-structure-size (vk:acceleration-structure-size ,value)
           %vk:update-scratch-size (vk:update-scratch-size ,value)
           %vk:build-scratch-size (vk:build-scratch-size ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-mutable-descriptor-type-features-valve) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:mutable-descriptor-type)
+       ,ptr
+       (:struct %vk:physical-device-mutable-descriptor-type-features-valve))
+    (setf %vk:s-type :physical-device-mutable-descriptor-type-features-valve
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:mutable-descriptor-type (vk:mutable-descriptor-type ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-mutable-descriptor-type-list-valve) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:descriptor-type-count
+        %vk:p-descriptor-types)
+       ,ptr
+       (:struct %vk:mutable-descriptor-type-list-valve))
+    (setf %vk:descriptor-type-count (length (vk:descriptor-types ,value))
+          %vk:p-descriptor-types (vk-alloc:foreign-allocate-and-fill '%vk:descriptor-type (vk:descriptor-types ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-mutable-descriptor-type-create-info-valve) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:mutable-descriptor-type-list-count
+        %vk:p-mutable-descriptor-type-lists)
+       ,ptr
+       (:struct %vk:mutable-descriptor-type-create-info-valve))
+    (setf %vk:s-type :mutable-descriptor-type-create-info-valve
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:mutable-descriptor-type-list-count (length (vk:mutable-descriptor-type-lists ,value))
+          %vk:p-mutable-descriptor-type-lists (vk-alloc:foreign-allocate-and-fill '(:struct %vk:mutable-descriptor-type-list-valve) (vk:mutable-descriptor-type-lists ,value) ,ptr))))
 

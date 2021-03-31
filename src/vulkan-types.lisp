@@ -193,6 +193,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +nn-vi-surface-extension-name+ "VK_NN_vi_surface" :test #'string=)
 (alexandria:define-constant +nvx-image-view-handle-extension-name+ "VK_NVX_image_view_handle" :test #'string=)
 (alexandria:define-constant +nvx-multiview-per-view-attributes-extension-name+ "VK_NVX_multiview_per_view_attributes" :test #'string=)
+(alexandria:define-constant +nv-acquire-winrt-display-extension-name+ "VK_NV_acquire_winrt_display" :test #'string=)
 (alexandria:define-constant +nv-clip-space-w-scaling-extension-name+ "VK_NV_clip_space_w_scaling" :test #'string=)
 (alexandria:define-constant +nv-compute-shader-derivatives-extension-name+ "VK_NV_compute_shader_derivatives" :test #'string=)
 (alexandria:define-constant +nv-cooperative-matrix-extension-name+ "VK_NV_cooperative_matrix" :test #'string=)
@@ -229,6 +230,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +qcom-render-pass-transform-extension-name+ "VK_QCOM_render_pass_transform" :test #'string=)
 (alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops" :test #'string=)
 (alexandria:define-constant +qcom-rotated-copy-commands-extension-name+ "VK_QCOM_rotated_copy_commands" :test #'string=)
+(alexandria:define-constant +valve-mutable-descriptor-type-extension-name+ "VK_VALVE_mutable_descriptor_type" :test #'string=)
 
 (defctype sample-mask :uint32)
 
@@ -422,7 +424,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defbitfield (descriptor-set-layout-create-flags flags)
   (:push-descriptor #x1) ;; 
-  (:update-after-bind-pool #x2)) ;; 
+  (:update-after-bind-pool #x2) ;; 
+  (:host-only-pool #x4)) ;; 
 
 (defbitfield (buffer-view-create-flags flags))
 
@@ -745,7 +748,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defbitfield (descriptor-pool-create-flags flags)
   (:free-descriptor-set #x1) ;; Descriptor sets may be freed individually
-  (:update-after-bind #x2)) ;; 
+  (:update-after-bind #x2) ;; 
+  (:host-only #x4)) ;; 
 
 (defbitfield (descriptor-pool-reset-flags flags))
 
@@ -1234,7 +1238,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcenum (descriptor-set-layout-create-flag-bits)
   (:push-descriptor #x1) ;; 
-  (:update-after-bind-pool #x2)) ;; 
+  (:update-after-bind-pool #x2) ;; 
+  (:host-only-pool #x4)) ;; 
 
 (defcenum (instance-create-flag-bits))
 
@@ -1331,7 +1336,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:input-attachment #xA)
   (:inline-uniform-block-ext #x3B9CE510) ;; 
   (:acceleration-structure-khr #x3B9D13F0) ;; 
-  (:acceleration-structure-nv #x3B9D4E88)) ;; 
+  (:acceleration-structure-nv #x3B9D4E88) ;; 
+  (:mutable-valve #x3BA02518)) ;; 
 
 (defcenum (device-create-flag-bits))
 
@@ -2490,7 +2496,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:directfb-surface-create-info-ext #x3BA01190) ;; 
   (:physical-device-ray-tracing-pipeline-features-khr #x3BA01578) ;; 
   (:physical-device-ray-tracing-pipeline-properties-khr #x3BA01579) ;; 
-  (:physical-device-ray-query-features-khr #x3BA0196D)) ;; 
+  (:physical-device-ray-query-features-khr #x3BA0196D) ;; 
+  (:physical-device-mutable-descriptor-type-features-valve #x3BA02518) ;; 
+  (:mutable-descriptor-type-create-info-valve #x3BA0251A)) ;; 
 
 (defcenum (system-allocation-scope)
   (:command #x0)
@@ -2569,7 +2577,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcenum (descriptor-pool-create-flag-bits)
   (:free-descriptor-set #x1) ;; Descriptor sets may be freed individually
-  (:update-after-bind #x2)) ;; 
+  (:update-after-bind #x2) ;; 
+  (:host-only #x4)) ;; 
 
 (defcenum (dependency-flag-bits)
   (:by-region #x1) ;; Dependency is per pixel region
@@ -3358,7 +3367,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:vsi #x10002) ;; VeriSilicon vendor ID
   (:kazan #x10003) ;; Kazan Software Renderer
   (:codeplay #x10004) ;; Codeplay Software Ltd. vendor ID
-  (:mesa #x10005)) ;; Mesa vendor ID
+  (:mesa #x10005) ;; Mesa vendor ID
+  (:pocl #x10006)) ;; PoCL vendor ID
 
 (defcenum (driver-id)
   (:amd-proprietary #x1) ;; Advanced Micro Devices, Inc.
@@ -8567,4 +8577,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (acceleration-structure-size device-size)
   (update-scratch-size device-size)
   (build-scratch-size device-size))
+
+(defcstruct (physical-device-mutable-descriptor-type-features-valve :class c-physical-device-mutable-descriptor-type-features-valve)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (mutable-descriptor-type bool32))
+
+(defcstruct (mutable-descriptor-type-list-valve :class c-mutable-descriptor-type-list-valve)
+  (descriptor-type-count :uint32)
+  (p-descriptor-types (:pointer descriptor-type)))
+
+(defcstruct (mutable-descriptor-type-create-info-valve :class c-mutable-descriptor-type-create-info-valve)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (mutable-descriptor-type-list-count :uint32)
+  (p-mutable-descriptor-type-lists (:pointer
+                                    (:struct
+                                     mutable-descriptor-type-list-valve))))
 

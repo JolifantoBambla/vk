@@ -1285,6 +1285,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (rr-output rr-output)
   (p-display (:pointer display-khr)))
 
+(defvkextfun ("vkAcquireWinrtDisplayNV" acquire-winrt-display-nv) checked-result
+  (physical-device physical-device)
+  (display display-khr))
+
+(defvkextfun ("vkGetWinrtDisplayNV" get-winrt-display-nv) checked-result
+  (physical-device physical-device)
+  (device-relative-id :uint32)
+  (p-display (:pointer display-khr)))
+
 (defvkextfun ("vkDisplayPowerControlEXT" display-power-control-ext) checked-result
   (device device)
   (display display-khr)

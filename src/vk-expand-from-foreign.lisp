@@ -944,7 +944,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:descriptor-set-allocate-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :descriptor-pool %vk:descriptor-pool
-                   :set-layouts (loop for i from 0 below %vk:descriptor-set-count collect (cffi:mem-aref %vk:p-set-layouts '%vk:descriptor-set-layout i)))))
+                   :descriptor-set-count %vk:descriptor-set-count
+                   :set-layouts %vk:p-set-layouts)))
 
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-specialization-map-entry))
   `(cffi:with-foreign-slots
@@ -9081,4 +9082,36 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :acceleration-structure-size %vk:acceleration-structure-size
                    :update-scratch-size %vk:update-scratch-size
                    :build-scratch-size %vk:build-scratch-size)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-mutable-descriptor-type-features-valve))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:mutable-descriptor-type)
+       ,ptr
+       (:struct %vk:physical-device-mutable-descriptor-type-features-valve))
+    (make-instance 'vk:physical-device-mutable-descriptor-type-features-valve
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :mutable-descriptor-type %vk:mutable-descriptor-type)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-mutable-descriptor-type-list-valve))
+  `(cffi:with-foreign-slots
+      ((%vk:descriptor-type-count
+        %vk:p-descriptor-types)
+       ,ptr
+       (:struct %vk:mutable-descriptor-type-list-valve))
+    (make-instance 'vk:mutable-descriptor-type-list-valve
+                   :descriptor-types (loop for i from 0 below %vk:descriptor-type-count collect (cffi:mem-aref %vk:p-descriptor-types '%vk:descriptor-type i)))))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-mutable-descriptor-type-create-info-valve))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:mutable-descriptor-type-list-count
+        %vk:p-mutable-descriptor-type-lists)
+       ,ptr
+       (:struct %vk:mutable-descriptor-type-create-info-valve))
+    (make-instance 'vk:mutable-descriptor-type-create-info-valve
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :mutable-descriptor-type-lists (loop for i from 0 below %vk:mutable-descriptor-type-list-count collect (cffi:mem-aref %vk:p-mutable-descriptor-type-lists '(:struct %vk:mutable-descriptor-type-list-valve) i)))))
 

@@ -1873,6 +1873,10 @@ See DESCRIPTOR-POOL-SIZE
      :initarg :descriptor-pool
      :initform nil
      :accessor descriptor-pool)
+   (descriptor-set-count
+     :initarg :descriptor-set-count
+     :initform 0
+     :accessor descriptor-set-count)
    (set-layouts
      :initarg :set-layouts
      :initform nil
@@ -1882,7 +1886,8 @@ See DESCRIPTOR-POOL-SIZE
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DESCRIPTOR-POOL: a DESCRIPTOR-POOL.
- - SET-LAYOUTS: a list of foreign pointer to a buffer of size DESCRIPTOR-SET-COUNTs.
+ - DESCRIPTOR-SET-COUNT: a positive (32-bit) integer.
+ - SET-LAYOUTS: a DESCRIPTOR-SET-LAYOUT.
 
 See DESCRIPTOR-POOL
 See DESCRIPTOR-SET-LAYOUT
@@ -18518,4 +18523,61 @@ Slots:
  - BUILD-SCRATCH-SIZE: a DEVICE-SIZE.
 
 See DEVICE-SIZE
+"))
+
+(defclass physical-device-mutable-descriptor-type-features-valve ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (mutable-descriptor-type
+     :initarg :mutable-descriptor-type
+     :initform nil
+     :accessor mutable-descriptor-type))
+  (:documentation "Represents the struct [VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MUTABLE-DESCRIPTOR-TYPE: a BOOL32.
+
+See BOOL32
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass mutable-descriptor-type-list-valve ()
+  ((descriptor-types
+     :initarg :descriptor-types
+     :initform nil
+     :accessor descriptor-types))
+  (:documentation "Represents the struct [VkMutableDescriptorTypeListVALVE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMutableDescriptorTypeListVALVE.html).
+
+Slots:
+ - DESCRIPTOR-TYPES: a list of foreign pointer to a buffer of size DESCRIPTOR-TYPE-COUNTs.
+
+See DESCRIPTOR-TYPE
+"))
+
+(defclass mutable-descriptor-type-create-info-valve ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (mutable-descriptor-type-lists
+     :initarg :mutable-descriptor-type-lists
+     :initform nil
+     :accessor mutable-descriptor-type-lists))
+  (:documentation "Represents the struct [VkMutableDescriptorTypeCreateInfoVALVE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMutableDescriptorTypeCreateInfoVALVE.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class.
+ - MUTABLE-DESCRIPTOR-TYPE-LISTS: a list of foreign pointer to a buffer of size MUTABLE-DESCRIPTOR-TYPE-LIST-COUNTs.
+
+See MUTABLE-DESCRIPTOR-TYPE-LIST-VALVE
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+See DESCRIPTOR-POOL-CREATE-INFO
 "))

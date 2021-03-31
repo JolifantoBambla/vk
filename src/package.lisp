@@ -216,6 +216,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nn-vi-surface-extension-name+
     #:+nvx-image-view-handle-extension-name+
     #:+nvx-multiview-per-view-attributes-extension-name+
+    #:+nv-acquire-winrt-display-extension-name+
     #:+nv-clip-space-w-scaling-extension-name+
     #:+nv-compute-shader-derivatives-extension-name+
     #:+nv-cooperative-matrix-extension-name+
@@ -252,6 +253,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
+    #:+valve-mutable-descriptor-type-extension-name+
 
     #:a-hardware-buffer ;; :basetype
     #:a-native-window ;; :basetype
@@ -1131,6 +1133,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-metal-surface-create-info-ext
     #:multisample-properties-ext ;; :struct
     #:c-multisample-properties-ext
+    #:mutable-descriptor-type-create-info-valve ;; :struct
+    #:c-mutable-descriptor-type-create-info-valve
+    #:mutable-descriptor-type-list-valve ;; :struct
+    #:c-mutable-descriptor-type-list-valve
     #:native-buffer-android ;; :struct
     #:c-native-buffer-android
     #:native-buffer-usage-2-android ;; :struct
@@ -1375,6 +1381,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-multiview-properties
     #:physical-device-multiview-properties-khr ;; :struct
     #:c-physical-device-multiview-properties-khr
+    #:physical-device-mutable-descriptor-type-features-valve ;; :struct
+    #:c-physical-device-mutable-descriptor-type-features-valve
     #:physical-device-p-c-i-bus-info-properties-ext ;; :struct
     #:c-physical-device-p-c-i-bus-info-properties-ext
     #:physical-device-performance-query-features-khr ;; :struct
@@ -2077,6 +2085,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acquire-next-image-khr
     #:acquire-performance-configuration-intel
     #:acquire-profiling-lock-khr
+    #:acquire-winrt-display-nv
     #:acquire-xlib-display-ext
     #:allocate-command-buffers
     #:allocate-descriptor-sets
@@ -2466,6 +2475,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-swapchain-images-khr
     #:get-swapchain-status-khr
     #:get-validation-cache-data-ext
+    #:get-winrt-display-nv
     #:import-fence-fd-khr
     #:import-fence-win32-handle-khr
     #:import-semaphore-fd-khr
@@ -2715,6 +2725,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:descriptor-set-count ;; :accessor
     #:descriptor-set-layout ;; :accessor
     #:descriptor-type ;; :accessor
+    #:descriptor-type-count ;; :accessor
     #:descriptor-update-entry-count ;; :accessor
     #:desired-present-time ;; :accessor
     #:device-address ;; :accessor
@@ -3231,6 +3242,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:multiview-geometry-shader ;; :accessor
     #:multiview-tessellation-shader ;; :accessor
     #:mutable-comparison-samplers ;; :accessor
+    #:mutable-descriptor-type ;; :accessor
+    #:mutable-descriptor-type-list-count ;; :accessor
     #:name ;; :accessor
     #:new-layout ;; :accessor
     #:no-invocation-fragment-shading-rates ;; :accessor
@@ -3293,6 +3306,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-depth-stencil-resolve-attachment ;; :accessor
     #:p-depth-stencil-state ;; :accessor
     #:p-descriptor-counts ;; :accessor
+    #:p-descriptor-types ;; :accessor
     #:p-descriptor-update-entries ;; :accessor
     #:p-device-indices ;; :accessor
     #:p-device-masks ;; :accessor
@@ -3333,6 +3347,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-message ;; :accessor
     #:p-message-id-name ;; :accessor
     #:p-multisample-state ;; :accessor
+    #:p-mutable-descriptor-type-lists ;; :accessor
     #:p-name ;; :accessor
     #:p-next ;; :accessor
     #:p-object-name ;; :accessor
@@ -4107,6 +4122,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nn-vi-surface-extension-name+
     #:+nvx-image-view-handle-extension-name+
     #:+nvx-multiview-per-view-attributes-extension-name+
+    #:+nv-acquire-winrt-display-extension-name+
     #:+nv-clip-space-w-scaling-extension-name+
     #:+nv-compute-shader-derivatives-extension-name+
     #:+nv-cooperative-matrix-extension-name+
@@ -4142,7 +4158,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-shader-resolve-extension-name+
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
-    #:+qcom-rotated-copy-commands-extension-name+)
+    #:+qcom-rotated-copy-commands-extension-name+
+    #:+valve-mutable-descriptor-type-extension-name+)
   (:export
     #:make-extension-loader
     #:*default-allocator*
@@ -4336,6 +4353,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nn-vi-surface-extension-name+
     #:+nvx-image-view-handle-extension-name+
     #:+nvx-multiview-per-view-attributes-extension-name+
+    #:+nv-acquire-winrt-display-extension-name+
     #:+nv-clip-space-w-scaling-extension-name+
     #:+nv-compute-shader-derivatives-extension-name+
     #:+nv-cooperative-matrix-extension-name+
@@ -4372,6 +4390,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-render-pass-store-ops-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
+    #:+valve-mutable-descriptor-type-extension-name+
 
     #:aabb-positions-khr ;; :class
     #:acceleration-structure-build-geometry-info-khr ;; :class
@@ -4639,6 +4658,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-win32-handle-properties-khr ;; :class
     #:metal-surface-create-info-ext ;; :class
     #:multisample-properties-ext ;; :class
+    #:mutable-descriptor-type-create-info-valve ;; :class
+    #:mutable-descriptor-type-list-valve ;; :class
     #:offset-2d ;; :class
     #:offset-3d ;; :class
     #:past-presentation-timing-google ;; :class
@@ -4728,6 +4749,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-multiview-features ;; :class
     #:physical-device-multiview-per-view-attributes-properties-nv-x ;; :class
     #:physical-device-multiview-properties ;; :class
+    #:physical-device-mutable-descriptor-type-features-valve ;; :class
     #:physical-device-p-c-i-bus-info-properties-ext ;; :class
     #:physical-device-performance-query-features-khr ;; :class
     #:physical-device-performance-query-properties-khr ;; :class
@@ -5153,6 +5175,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:descriptor-set-count ;; :accessor
     #:descriptor-set-layout ;; :accessor
     #:descriptor-type ;; :accessor
+    #:descriptor-type-count ;; :accessor
     #:descriptor-update-entry-count ;; :accessor
     #:desired-present-time ;; :accessor
     #:device-address ;; :accessor
@@ -5668,6 +5691,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:multiview-geometry-shader ;; :accessor
     #:multiview-tessellation-shader ;; :accessor
     #:mutable-comparison-samplers ;; :accessor
+    #:mutable-descriptor-type ;; :accessor
+    #:mutable-descriptor-type-list-count ;; :accessor
     #:new-layout ;; :accessor
     #:no-invocation-fragment-shading-rates ;; :accessor
     #:non-coherent-atom-size ;; :accessor
@@ -5729,6 +5754,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:depth-stencil-resolve-attachment ;; :accessor
     #:depth-stencil-state ;; :accessor
     #:descriptor-counts ;; :accessor
+    #:descriptor-types ;; :accessor
     #:descriptor-update-entries ;; :accessor
     #:device-indices ;; :accessor
     #:device-masks ;; :accessor
@@ -5769,6 +5795,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:message ;; :accessor
     #:message-id-name ;; :accessor
     #:multisample-state ;; :accessor
+    #:mutable-descriptor-type-lists ;; :accessor
     #:name ;; :accessor
     #:next ;; :accessor
     #:object-name ;; :accessor
@@ -6349,6 +6376,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acquire-next-image-khr
     #:acquire-performance-configuration-intel
     #:acquire-profiling-lock-khr
+    #:acquire-winrt-display-nv
     #:acquire-xlib-display-ext
     #:allocate-command-buffers
     #:allocate-descriptor-sets
@@ -6738,6 +6766,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-swapchain-images-khr
     #:get-swapchain-status-khr
     #:get-validation-cache-data-ext
+    #:get-winrt-display-nv
     #:import-fence-fd-khr
     #:import-fence-win32-handle-khr
     #:import-semaphore-fd-khr
