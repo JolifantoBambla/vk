@@ -5,6 +5,9 @@
 
 ## Requirements
 
+### Supported CL implementations
+`vk` has currently only been tested on `SBCL 2.0.0`, though other implementations might work as well.
+
 ### Versioning
 **There are no releases yet!**
 
