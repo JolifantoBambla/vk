@@ -15,7 +15,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:base-out-structure))
     (make-instance 'vk:base-out-structure
                    :s-type %vk:s-type
-                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk))))))))
+                   :next %vk:p-next)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-base-in-structure))
   (cffi:with-foreign-slots

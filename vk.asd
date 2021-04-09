@@ -23,6 +23,7 @@
                  (:file "vk-translate-to-foreign")
                  (:file "vk-expand-to-foreign")
                  (:file "vk-translate-from-foreign")
+                 (:file "vk-expand-from-foreign")
                  (:file "vulkan-commands")
                  (:file "vk-base")
                  (:file "vk-bindings")
