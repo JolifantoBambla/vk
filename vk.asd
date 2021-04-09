@@ -21,6 +21,7 @@
                  (:file "vulkan-errors")
                  (:file "vulkan-extra-types")
                  (:file "vk-translate-to-foreign")
+                 (:file "vk-expand-to-foreign")
                  (:file "vk-translate-from-foreign")
                  (:file "vulkan-commands")
                  (:file "vk-base")
