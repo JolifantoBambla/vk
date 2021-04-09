@@ -60,7 +60,6 @@ jobs:
       - name: Build docs
         run: |
           sbcl \
-            --dynamic-space-size 6000 \
             --non-interactive \
             --eval '(ql:quickload :staple)' \
             --eval '(ql:quickload :staple-markdown)' \
