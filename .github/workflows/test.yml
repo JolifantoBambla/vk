@@ -22,6 +22,7 @@ jobs:
       matrix:
         lisp: [sbcl-bin, clisp, abcl, ecl, allegro, cmu-bin, ccl]
         os: [ubuntu-latest]
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v2
