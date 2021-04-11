@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        lisp: [sbcl-bin]
+        lisp: [sbcl-bin, clisp, abcl, ecl, allegro, cmu-bin, ccl]
         os: [ubuntu-latest]
 
     steps:
