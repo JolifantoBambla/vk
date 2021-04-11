@@ -27,4 +27,13 @@
                  (:file "vulkan-commands")
                  (:file "vk-base")
                  (:file "vk-bindings")
-                 (:file "vk-commands")))))
+                 (:file "vk-commands"))))
+  :in-order-to ((test-op (test-op vk/tests))))
+
+(defsystem vk/tests
+  :depends-on (:vk
+               :parachute)
+  :defsystem-depends-on (:parachute)
+  :components ((:module "test"
+                :components ((:file "translators"))))
+  :perform (test-op :after (op c) (uiop:symbol-call :parachute :test :translators)))

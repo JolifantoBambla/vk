@@ -26,11 +26,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install Vulkan
+        run: |
+          # Add lunarg apt sources
+          wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
+          sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-focal.list https://packages.lunarg.com/vulkan/lunarg-vulkan-focal.list
+          
+          # Update package lists
+          sudo apt-get update -qq
+          
+          # Install dependencies
+          sudo apt-get install -y \
+            vulkan-sdk
+
       - name: Install Roswell
         env:
           LISP: ${{ matrix.lisp }}
-        run: curl -L https://raw.githubusercontent.com/roswell/roswell/v20.06.14.107/scripts/install-for-ci.sh | sh
+        run: |
+          curl -L https://raw.githubusercontent.com/roswell/roswell/v20.06.14.107/scripts/install-for-ci.sh | sh
 
       - name: Run tests
         run: |
           PATH="~/.roswell/bin:$PATH"
+          ros -e "(ql:quickload :vk) (asdf:test-system :vk)"
