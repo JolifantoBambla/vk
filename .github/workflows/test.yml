@@ -20,7 +20,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        lisp: [sbcl-bin, clisp, abcl, ecl, allegro, cmu-bin, ccl]
+        # clisp can't be installed via roswell...
+        lisp: [sbcl-bin, abcl, ecl, allegro, cmu-bin, ccl]
         os: [ubuntu-latest]
       fail-fast: false
 
@@ -50,3 +51,4 @@ jobs:
         run: |
           PATH="~/.roswell/bin:$PATH"
           ros -e "(ql:quickload :vk) (asdf:test-system :vk)"
+          run-parachute -l vk/tests translators
