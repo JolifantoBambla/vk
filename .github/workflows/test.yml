@@ -29,12 +29,7 @@ jobs:
       - name: Install Roswell
         env:
           LISP: ${{ matrix.lisp }}
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y \
-            libcurl3
-
-          curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh
+        run: curl -L https://raw.githubusercontent.com/roswell/roswell/v20.06.14.107/scripts/install-for-ci.sh | sh
 
       - name: Run tests
         run: |
