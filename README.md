@@ -53,6 +53,11 @@ For some of the mentioned exceptions making assumptions based on the XML API reg
 * `values`
 
 #### Naming conventions
+All names in the Vulkan API have been stripped of their prefixes (i.e. `Vk` for types and `vk` for commands) and lispified (e.g. `VkInstanceCreateInfo` is `vk:instance-create-info`).
+
+Struct and union member names as well as command arguments designating pointers in the C API by being prefixes with either `p` or `pp` have also been stripped of those.
+
+Enum and bitmask value names have been stripped of any redundant prefixes denoting the enum or bitmask they belong to and are represented as keywords in `vk` (e.g. `VK_FORMAT_R4G4_UNORM_PACK8` is just `:r4g4-unorm`).
 
 ##### Exceptions
 There are a few name clashes in the C API which break the naming conventions.
@@ -65,11 +70,14 @@ Slots and their `:initarg`s still have the same name, but the accessors use the 
 ### vulkan (Nickname: %vk)
 Contains the actual `cffi` bindings for the Vulkan API.
 
+The naming conventions are the same as in `vk` except for struct/union member names and command arguments.
+
 ### vk-alloc
 Contains utilities for allocating resources and translating classes/structs to/from foreign memory.
 
 #### Multithreading
-*TODO: describe vk-alloc stuff, special care when multithreading (e.g. bordeaux-threads:default-special-bindings)*
+When translating class instances the pointers to all translated struct members which are non-primitive types (e.g of `vk:instance-create-info` if it is bound to an instance of `vk:debug-utils-messenger-create-info-ext`) are stored in the hash table `vk-alloc:*allocated-foreign-objects*` and are freed before the pointer to the translated class instance is freed.
+Since hash tables are not thread-safe and there should be no case where type translation needs to span multiple threads, each thread can and should have its own `vk-alloc:*allocated-foreign-objects*` that is independent of those of other threads.
 
 ### vk-utils
 *Not yet generated*
