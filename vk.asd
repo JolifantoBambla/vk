@@ -32,8 +32,8 @@
 
 (defsystem vk/tests
   :depends-on (:vk
-               :parachute)
-  :defsystem-depends-on (:parachute)
+               :rove)
+  :defsystem-depends-on (:rove)
   :components ((:module "test"
                 :components ((:file "translators"))))
-  :perform (test-op :after (op c) (uiop:symbol-call :parachute :test :translators)))
+  :perform (test-op :after (op c) (uiop:symbol-call :rove :run c)))

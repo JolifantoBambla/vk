@@ -3775,7 +3775,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:physical-device-group-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :physical-device-count %vk:physical-device-count
-                   :physical-devices (loop for i from 0 below 32 collect (cffi:mem-aref %vk:physical-devices '(:struct %vk:physical-device) i))
+                   :physical-devices (loop for i from 0 below 32 collect (cffi:mem-aref %vk:physical-devices '%vk:physical-device i))
                    :subset-allocation %vk:subset-allocation)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-allocate-flags-info))

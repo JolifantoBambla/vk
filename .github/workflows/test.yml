@@ -50,5 +50,4 @@ jobs:
       - name: Run tests
         run: |
           PATH="~/.roswell/bin:$PATH"
-          ros -e "(ql:quickload :vk) (asdf:test-system :vk)"
-          run-parachute -l vk/tests translators
+          rove vk.asd
