@@ -45,6 +45,7 @@ For some of the mentioned exceptions making assumptions based on the XML API reg
 `vk` is not meant do be `:use`d by packages directly, since it shadows symbols from `cl` that clash with function and/or slot names from the Vulkan API.
 
 `vk` shadows the following symbols:
+
 * `format`
 * `set`
 * `stream`
@@ -59,10 +60,10 @@ Currently, they all are between functions and slot accessors of the same name.
 As a general rule, function names take precedence over slot accessors.
 Slots and their `:initarg`s still have the same name, but the accessors use the lispified names of their corresponding struct members in the C API.
 
-- The accessors to all slots named `wait-semaphores` are named `p-wait-semaphores` because it clashes with the name of the function `vk:wait-semaphores`.
+* The accessors to all slots named `wait-semaphores` are named `p-wait-semaphores` because it clashes with the name of the function `vk:wait-semaphores`.
 
 ### vulkan (Nickname: %vk)
-Contains the actual `cffi` bindings for the Vulkan API. 
+Contains the actual `cffi` bindings for the Vulkan API.
 
 ### vk-alloc
 Contains utilities for allocating resources and translating classes/structs to/from foreign memory.
