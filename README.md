@@ -6,20 +6,27 @@
 ## Requirements
 
 ### Supported CL implementations
-`vk` has currently only been tested on `SBCL 2.0.0`, though other implementations might work as well.
+`vk` has been mostly tested on SBCL.
 
-*Clozure CL seems to work*
+Minimal tests (loading the system and running a dummy test) suggest that `vk` works on:
 
-*ECL seems to work*
+* ABCL
+* Clozure CL
+* ECL
+* SBCL
 
-*ABCL seems to work, but throws 2942 style warnings & 301 warnings like `Unable to compile function <function name>. Using interpreted form instead.`*
+Check out the results of the latest [test actions](https://github.com/JolifantoBambla/vk/actions).
 
-*CMUCL fails on loading `cffi`?*
+Unfortunately CLISP fails to install using Roswell (at least via GitHub Actions), so it remains untested.
 
-*Allegro might work in a 64 bit version, but roswell installs 32 bit version*
+Allegro is installed in a 32 bit version by Roswell (at least via GitHub Actions) which does not support `:long-long`. 64 bit versions are untested.
+
+CMCUL fails to load `cffi` in the test action.
 
 ### Supported operating systems
-`vk` has currently only been tested on linux (Ubuntu 20.04), but Windows should work as well and MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
+`vk` has currently only been tested on linux (Ubuntu 20.04) and Windows (SBCL).
+
+MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
 
 ### Supported Vulkan API versions
 * The current version of `vk` is based on version `v1.2.174` of the [XML registry](https://github.com/KhronosGroup/Vulkan-Docs).
@@ -37,7 +44,7 @@ The `main` branch of this repository will always contain the most recent version
 * `cffi`
 
 ### Other dependencies
-*  [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)
+* [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)
 
 #### MacOS only
 * [MoltenVK](https://github.com/KhronosGroup/MoltenVK)
