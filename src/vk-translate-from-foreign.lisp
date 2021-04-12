@@ -7062,8 +7062,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-memory-budget-properties-ext))
     (make-instance 'vk:physical-device-memory-budget-properties-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :heap-budget (loop for i from 0 below 16 collect (cffi:mem-aref %vk:heap-budget '(:struct %vk:device-size) i))
-                   :heap-usage (loop for i from 0 below 16 collect (cffi:mem-aref %vk:heap-usage '(:struct %vk:device-size) i)))))
+                   :heap-budget (loop for i from 0 below 16 collect (cffi:mem-aref %vk:heap-budget '%vk:device-size i))
+                   :heap-usage (loop for i from 0 below 16 collect (cffi:mem-aref %vk:heap-usage '%vk:device-size i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-memory-priority-features-ext))
   (cffi:with-foreign-slots
@@ -9052,7 +9052,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:pipeline-fragment-shading-rate-state-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :fragment-size %vk:fragment-size
-                   :combiner-ops (loop for i from 0 below 2 collect (cffi:mem-aref %vk:combiner-ops '(:struct %vk:fragment-shading-rate-combiner-op-khr) i)))))
+                   :combiner-ops (loop for i from 0 below 2 collect (cffi:mem-aref %vk:combiner-ops '%vk:fragment-shading-rate-combiner-op-khr i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-fragment-shading-rate-features-khr))
   (cffi:with-foreign-slots
@@ -9175,7 +9175,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :shading-rate-type %vk:shading-rate-type
                    :shading-rate %vk:shading-rate
-                   :combiner-ops (loop for i from 0 below 2 collect (cffi:mem-aref %vk:combiner-ops '(:struct %vk:fragment-shading-rate-combiner-op-khr) i)))))
+                   :combiner-ops (loop for i from 0 below 2 collect (cffi:mem-aref %vk:combiner-ops '%vk:fragment-shading-rate-combiner-op-khr i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-build-sizes-info-khr))
   (cffi:with-foreign-slots
