@@ -7,8 +7,13 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+      - 'vk.asd'
+      - 'README.md'
+      - 'src/**'
+      - 'test/**'
+  schedule:
+    - cron: '0 0 1 * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,7 +28,7 @@ jobs:
         # allegro: roswell installs 32bit version
         # clisp: can't be installed via roswell
         # cmucl: can't load cffi (which is strange because that wasn't a problem before)
-        lisp: [sbcl-bin] # disabled until windows works: , abcl, ecl, ccl]
+        lisp: [abcl, ccl, cmu-bin, ecl, sbcl-bin]
         os: [ubuntu-latest]
       fail-fast: false
 
@@ -61,8 +66,6 @@ jobs:
   test-windows:
     name: ${{ matrix.lisp }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    env:
-      vulkan_sdk: "$GITHUB_WORKSPACE/vulkan_sdk/"
     strategy:
       matrix:
         # Roswell can only install SBCL on windows, it seems
@@ -85,7 +88,6 @@ jobs:
           ROSWELL_INSTALL_DIR: /c/roswell
         shell: bash
         run: |
-          ### Install Roswell
           PATH="/c/roswell/bin:$PATH"
           curl -L https://raw.githubusercontent.com/fukamachi/roswell/windows-source-registry-settings/scripts/install-for-ci.sh | sh
           
@@ -96,9 +98,6 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
-          # Add Vulkan SDK to path
-          #PATH="${{ env.vulkan_sdk }}:${{ env.vulkan_sdk }}Bin/:${{ env.vulkan_sdk }}Lib/:$PATH"
-          
           # Add Roswel to path
           PATH="~/.roswell/bin:/c/roswell/bin:$PATH"
           
