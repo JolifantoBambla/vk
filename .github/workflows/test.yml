@@ -22,16 +22,20 @@ jobs:
       matrix:
         # allegro: roswell installs 32bit version
         # clisp: can't be installed via roswell
-        # cmucl: can't load cffi
+        # cmucl: can't load cffi (which is strange because that wasn't a problem before)
         lisp: [sbcl-bin, abcl, ecl, ccl]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
       fail-fast: false
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Vulkan
+      - name: Setup (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          LISP: ${{ matrix.lisp }}
         run: |
+          ### Install Vulkan SDK
           # Add lunarg apt sources
           wget -qO - https://packages.lunarg.com/lunarg-signing-key-pub.asc | sudo apt-key add -
           sudo wget -qO /etc/apt/sources.list.d/lunarg-vulkan-focal.list https://packages.lunarg.com/vulkan/lunarg-vulkan-focal.list
@@ -42,17 +46,36 @@ jobs:
           # Install dependencies
           sudo apt-get install -y \
             vulkan-sdk
-
-      - name: Install Roswell
-        env:
-          LISP: ${{ matrix.lisp }}
-        run: |
+          
+          ### Install Roswell
           curl -L https://raw.githubusercontent.com/roswell/roswell/v20.06.14.107/scripts/install-for-ci.sh | sh
           
-      - name: Install Rove
-        run: ros install rove
+          ### Install Rove
+          ros install rove
 
-      - name: Run tests
+      - name: Setup (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          ### Install Vulkan SDK
+          curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
+          7z x vulkan-sdk.exe -o"${{ env.vulkan_sdk }}"
+          
+          ### Install Roswell
+          PATH="/c/roswell/bin:$PATH"
+          curl -L https://raw.githubusercontent.com/fukamachi/roswell/windows-source-registry-settings/scripts/install-for-ci.sh | sh
+          
+          ### Install Rove
+          /c/roswell/bin/ros install fukamachi/rove
+
+      - name: Run tests (Linux)
+        if: matrix.os == 'ubuntu-latest'
         run: |
           PATH="~/.roswell/bin:$PATH"
+          rove vk.asd
+
+      - name: Run tests (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          PATH="~/.roswell/bin:/c/roswell/bin:$PATH"
           rove vk.asd
