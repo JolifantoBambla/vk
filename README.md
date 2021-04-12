@@ -21,7 +21,7 @@ Unfortunately CLISP fails to install using Roswell (at least via GitHub Actions)
 
 Allegro is installed in a 32 bit version by Roswell (at least via GitHub Actions) which does not support `:long-long`. 64 bit versions are untested.
 
-CMCUL fails to load `cffi` in the test action.
+CMCUL fails to find `libvulkan.so` in the test action.
 
 ### Supported operating systems
 `vk` has currently only been tested on linux (Ubuntu 20.04) and Windows (SBCL).
