@@ -29,7 +29,7 @@
 
 (define-foreign-library vulkan
   (:darwin (:or "libvulkan.1.dylib"))
-  (:unix (:or "libvulkan.so"))
+  (:unix (:or "libvulkan.so" "libvulkan.so.1"))
   (:windows "vulkan-1.dll"))
 
 (use-foreign-library vulkan)

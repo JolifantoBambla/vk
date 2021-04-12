@@ -8,6 +8,16 @@
 ### Supported CL implementations
 `vk` has currently only been tested on `SBCL 2.0.0`, though other implementations might work as well.
 
+*Clozure CL seems to work*
+
+*ECL seems to work*
+
+*ABCL seems to work, but throws 2942 style warnings & 301 warnings like `Unable to compile function <function name>. Using interpreted form instead.`*
+
+*CMUCL fails on loading `cffi`?*
+
+*Allegro might work in a 64 bit version, but roswell installs 32 bit version*
+
 ### Supported operating systems
 `vk` has currently only been tested on linux (Ubuntu 20.04), but Windows should work as well and MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
 
@@ -27,7 +37,7 @@ The `main` branch of this repository will always contain the most recent version
 * `cffi`
 
 ### Other dependencies
-* [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)
+*  [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)
 
 #### MacOS only
 * [MoltenVK](https://github.com/KhronosGroup/MoltenVK)

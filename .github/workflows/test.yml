@@ -20,8 +20,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # clisp can't be installed via roswell...
-        lisp: [sbcl-bin, abcl, ecl, allegro, cmu-bin, ccl]
+        # allegro: roswell installs 32bit version
+        # clisp: can't be installed via roswell
+        # cmucl: can't load cffi
+        lisp: [sbcl-bin, abcl, ecl, ccl]
         os: [ubuntu-latest]
       fail-fast: false
 
