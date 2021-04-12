@@ -99,7 +99,12 @@ jobs:
         shell: bash
         run: |
           # Add Vulkan SDK to path
-          PATH="${{ env.vulkan_sdk }}/:${{ env.vulkan_sdk }}/Bin/:$PATH"
+          PATH="${{ env.vulkan_sdk }}:${{ env.vulkan_sdk }}Bin/:$PATH"
+          
+          echo $PATH
+          
+          ls ${{ env.vulkan_sdk }}
+          ls ${{ env.vulkan_sdk }}Bin
           
           # Add Roswel to path
           PATH="~/.roswell/bin:/c/roswell/bin:$PATH"
