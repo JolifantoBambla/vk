@@ -74,12 +74,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Vulkan
-        working-directory: ${{ runner.workspace }}/${{ github.event.repository.name }}
         shell: pwsh
         run: |
           ### Install Vulkan SDK
           curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
           7z x vulkan-sdk.exe -o"${{ env.vulkan_sdk }}"
+          ls ${{ env.vulkan_sdk }}
+          ls ${{ env.vulkan_sdk }}Bin
 
       - name: Install Roswell
         env:
