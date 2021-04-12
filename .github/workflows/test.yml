@@ -23,7 +23,7 @@ jobs:
         # allegro: roswell installs 32bit version
         # clisp: can't be installed via roswell
         # cmucl: can't load cffi (which is strange because that wasn't a problem before)
-        lisp: [sbcl-bin, abcl, ecl, ccl]
+        lisp: [sbcl-bin] # disabled until windows works: , abcl, ecl, ccl]
         os: [ubuntu-latest]
       fail-fast: false
 
@@ -82,6 +82,7 @@ jobs:
           ls ${{ env.vulkan_sdk }}
           ls ${{ env.vulkan_sdk }}Bin
           ls ${{ env.vulkan_sdk }}Lib
+          ls c/Windows/System32
 
       - name: Install Roswell
         env:
