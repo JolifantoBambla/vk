@@ -74,15 +74,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Vulkan
-        shell: bash
         run: |
-          ### Install Vulkan SDK
-          curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
-          7z x vulkan-sdk.exe -o"${{ env.vulkan_sdk }}"
-          ls ${{ env.vulkan_sdk }}
-          ls ${{ env.vulkan_sdk }}Bin
-          ls ${{ env.vulkan_sdk }}Lib
-          ls /c/windows/system32
+          Invoke-WebRequest -Uri "https://sdk.lunarg.com/sdk/download/1.1.126.0/windows/VulkanSDK-1.1.126.0-Installer.exe" -OutFile VulkanSDK.exe
+          $installer = Start-Process -FilePath VulkanSDK.exe -Wait -PassThru -ArgumentList @("/S");
+          $installer.WaitForExit();
 
       - name: Install Roswell
         env:
@@ -102,13 +97,7 @@ jobs:
         shell: bash
         run: |
           # Add Vulkan SDK to path
-          PATH="${{ env.vulkan_sdk }}:${{ env.vulkan_sdk }}Bin/:${{ env.vulkan_sdk }}Lib/:$PATH"
-          
-          echo $PATH
-          
-          ls ${{ env.vulkan_sdk }}
-          ls ${{ env.vulkan_sdk }}Bin
-          ls ${{ env.vulkan_sdk }}Lib
+          #PATH="${{ env.vulkan_sdk }}:${{ env.vulkan_sdk }}Bin/:${{ env.vulkan_sdk }}Lib/:$PATH"
           
           # Add Roswel to path
           PATH="~/.roswell/bin:/c/roswell/bin:$PATH"
