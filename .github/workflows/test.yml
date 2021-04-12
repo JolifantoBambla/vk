@@ -82,7 +82,7 @@ jobs:
           ls ${{ env.vulkan_sdk }}
           ls ${{ env.vulkan_sdk }}Bin
           ls ${{ env.vulkan_sdk }}Lib
-          ls c/Windows/System32
+          ls /c/windows/system32
 
       - name: Install Roswell
         env:
