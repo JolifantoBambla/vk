@@ -55,15 +55,19 @@ jobs:
 
       - name: Setup (Windows) - Install Vulkan
         if: matrix.os == 'windows-latest'
-        env:
-          LISP: ${{ matrix.lisp }}
-          ROSWELL_INSTALL_DIR: /c/roswell
         shell: pwsh
         run: |
           ### Install Vulkan SDK
           curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
           7z x vulkan-sdk.exe -o"$GITHUB_WORKSPACE/vulkan_sdk/"
 
+      - name: Setup (Windows) - Install Roswell
+        if: matrix.os == 'windows-latest'
+        env:
+          LISP: ${{ matrix.lisp }}
+          ROSWELL_INSTALL_DIR: /c/roswell
+        shell: bash
+        run: |
           ### Install Roswell
           PATH="/c/roswell/bin:$PATH"
           curl -L https://raw.githubusercontent.com/fukamachi/roswell/windows-source-registry-settings/scripts/install-for-ci.sh | sh
