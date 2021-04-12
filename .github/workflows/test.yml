@@ -24,7 +24,7 @@ jobs:
         # clisp: can't be installed via roswell
         # cmucl: can't load cffi (which is strange because that wasn't a problem before)
         lisp: [sbcl-bin, abcl, ecl, ccl]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
       fail-fast: false
 
     steps:
