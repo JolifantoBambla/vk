@@ -55,7 +55,7 @@ jobs:
 
       - name: Setup (Windows)
         if: matrix.os == 'windows-latest'
-        shell: pwsh
+        shell: bash
         run: |
           ### Install Vulkan SDK
           curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
@@ -76,6 +76,7 @@ jobs:
 
       - name: Run tests (Windows)
         if: matrix.os == 'windows-latest'
+        shell: bash
         run: |
           PATH="~/.roswell/bin:/c/roswell/bin:$PATH"
           rove vk.asd
