@@ -53,14 +53,25 @@ jobs:
           ### Install Rove
           ros install rove
 
-      - name: Setup (Windows)
+      - name: Setup (Windows): Install Vulkan
         if: matrix.os == 'windows-latest'
-        shell: bash
+        shell: pwsh
         run: |
           ### Install Vulkan SDK
           curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
           7z x vulkan-sdk.exe -o"${{ env.vulkan_sdk }}"
           
+          ### Install Roswell
+          PATH="/c/roswell/bin:$PATH"
+          curl -L https://raw.githubusercontent.com/fukamachi/roswell/windows-source-registry-settings/scripts/install-for-ci.sh | sh
+          
+          ### Install Rove
+          /c/roswell/bin/ros install fukamachi/rove
+
+      - name: Setup (Windows): Install Vulkan
+        if: matrix.os == 'windows-latest'
+        shell: bash
+        run: |
           ### Install Roswell
           PATH="/c/roswell/bin:$PATH"
           curl -L https://raw.githubusercontent.com/fukamachi/roswell/windows-source-registry-settings/scripts/install-for-ci.sh | sh
