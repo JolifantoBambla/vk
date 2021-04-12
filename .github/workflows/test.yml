@@ -53,7 +53,7 @@ jobs:
           ### Install Rove
           ros install rove
 
-      - name: Setup (Windows): Install Vulkan
+      - name: Setup (Windows) - Install Vulkan
         if: matrix.os == 'windows-latest'
         shell: pwsh
         run: |
@@ -68,7 +68,7 @@ jobs:
           ### Install Rove
           /c/roswell/bin/ros install fukamachi/rove
 
-      - name: Setup (Windows): Install Vulkan
+      - name: Setup (Windows) - Install Roswell
         if: matrix.os == 'windows-latest'
         shell: bash
         run: |
