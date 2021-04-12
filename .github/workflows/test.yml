@@ -57,11 +57,12 @@ jobs:
       - name: Install Rove
         run: ros install rove
 
-      - name: Register vk
+      - name: Setup CMUCL
         if: matrix.lisp == 'cmu-bin'
         run: |
           ln -s $GITHUB_WORKSPACE/vk ~/.roswell/lisp/quicklisp/local-projects/vk
           ros -e "(ql:register-local-projects)"
+          ros -e "(ql:quickload :cffi)"
 
       - name: Run tests
         run: |
