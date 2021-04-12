@@ -30,10 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup (Linux)
+      - name: Install Vulkan (Linux)
         if: matrix.os == 'ubuntu-latest'
-        env:
-          LISP: ${{ matrix.lisp }}
         run: |
           ### Install Vulkan SDK
           # Add lunarg apt sources
@@ -46,23 +44,43 @@ jobs:
           # Install dependencies
           sudo apt-get install -y \
             vulkan-sdk
-          
-          ### Install Roswell
-          curl -L https://raw.githubusercontent.com/roswell/roswell/v20.06.14.107/scripts/install-for-ci.sh | sh
-          
-          ### Install Rove
-          ros install rove
 
-      - name: Setup (Windows) - Install Vulkan
-        if: matrix.os == 'windows-latest'
+      - name: Install Roswell
+        env:
+          LISP: ${{ matrix.lisp }}
+        run: curl -L https://raw.githubusercontent.com/roswell/roswell/v20.06.14.107/scripts/install-for-ci.sh | sh
+
+      - name: Install Rove
+        run: ros install rove
+
+      - name: Run tests
+        run: |
+          PATH="~/.roswell/bin:$PATH"
+          rove vk.asd
+  
+  test-windows:
+    name: ${{ matrix.lisp }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    env:
+      vulkan_sdk: "$GITHUB_WORKSPACE/vulkan_sdk/"
+    strategy:
+      matrix:
+        # Roswell can only install SBCL on windows, it seems
+        lisp: [sbcl-bin]
+        os: [windows-latest]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Vulkan
         shell: pwsh
         run: |
           ### Install Vulkan SDK
           curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/VulkanSDK-Installer.exe
-          7z x vulkan-sdk.exe -o"$GITHUB_WORKSPACE/vulkan_sdk/"
+          7z x vulkan-sdk.exe -o"${{ env.vulkan_sdk }}"
 
-      - name: Setup (Windows) - Install Roswell
-        if: matrix.os == 'windows-latest'
+      - name: Install Roswell
         env:
           LISP: ${{ matrix.lisp }}
           ROSWELL_INSTALL_DIR: /c/roswell
@@ -72,18 +90,18 @@ jobs:
           PATH="/c/roswell/bin:$PATH"
           curl -L https://raw.githubusercontent.com/fukamachi/roswell/windows-source-registry-settings/scripts/install-for-ci.sh | sh
           
-          ### Install Rove
-          /c/roswell/bin/ros install rove
+      - name: Install Rove
+        shell: bash
+        run: /c/roswell/bin/ros install rove
 
-      - name: Run tests (Linux)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          PATH="~/.roswell/bin:$PATH"
-          rove vk.asd
-
-      - name: Run tests (Windows)
-        if: matrix.os == 'windows-latest'
+      - name: Run tests
         shell: bash
         run: |
+          # Add Vulkan SDK to path
+          PATH="${{ env.vulkan_sdk }}/:${{ env.vulkan_sdk }}/Bin/:$PATH"
+          
+          # Add Roswel to path
           PATH="~/.roswell/bin:/c/roswell/bin:$PATH"
+          
+          # Run tests
           rove vk.asd
