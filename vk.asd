@@ -27,7 +27,8 @@
                  (:file "vulkan-commands")
                  (:file "vk-base")
                  (:file "vk-bindings")
-                 (:file "vk-commands"))))
+                 (:file "vk-commands")
+                 (:file "vk-utils-common"))))
   :in-order-to ((test-op (test-op vk/tests))))
 
 (defsystem vk/tests

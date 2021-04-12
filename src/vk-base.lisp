@@ -20,21 +20,3 @@ See INSTANCE-CREATE-INFO"
   (logior (ash major 22)
           (ash minor 12)
           patch))
-
-;; todo: move this to vk-utils
-(defun split-api-version (version)
-  "Splits a packed version number as returned by MAKE-API-NUMBER into a list of integers in the form of (major minor patch).
-
-See MAKE-API-VERSION")
-
-;; todo: move this to vk-utils
-(defun format-api-version (version)
-  "Formats a packed version number as returned by MAKE-API-NUMBER into a human readable string.
-
-See MAKE-API-VERSION"
-  (let ((split-version (split-api-version version)))
-    (format nil "~a.~a.~a"         
-                 (first (split-version))
-                 (second (split-version))
-                 (third (split-version)))))
-

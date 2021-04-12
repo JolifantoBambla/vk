@@ -4259,8 +4259,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:*default-allocator*
     #:*default-extension-loader*
     #:make-api-version
-    #:split-api-version
-    #:format-api-version
 
     #:+amd-buffer-marker-extension-name+
     #:+amd-device-coherent-memory-extension-name+
@@ -6973,3 +6971,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wait-semaphores-khr
     #:write-acceleration-structures-properties-khr
 ))
+(defpackage :vk-utils
+  (:use #:cl)
+  (:export
+    #:memcpy
+    #:split-api-version
+    #:format-api-version))
