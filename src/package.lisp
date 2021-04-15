@@ -6,6 +6,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 ||#
 
 (defpackage :vk-alloc
+  (:documentation "Contains utilities for allocating foreign memory and translating CL types to foreign memory.")
   (:use #:cl)
   (:export
     #:*allocated-foreign-objects*
@@ -18,18 +19,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:free-allocated-children
     #:foreign-allocate-and-fill
     #:with-foreign-allocated-object
-    #:with-foreign-allocated-objects
-))
+    #:with-foreign-allocated-objects))
 
 (defpackage :vulkan
-  (:use #:cl #:cffi)
   (:nicknames #:%vk)
+  (:documentation "Contains the low-level CFFI-bindings for the Vulkan API.")
+  (:use #:cl #:cffi)
   (:export
     #:size-t
     #:extension-loader
     #:make-extension-loader
     #:*default-extension-loader*
-    #:size-t
 
     #:+amd-buffer-marker-extension-name+
     #:+amd-device-coherent-memory-extension-name+
@@ -261,1874 +261,1874 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+
 
-    #:a-hardware-buffer ;; :basetype
-    #:a-native-window ;; :basetype
-    #:ca-metal-layer ;; :basetype
-    #:pfn-allocation-function ;; :funcpointer
-    #:pfn-debug-report-callback-ext ;; :funcpointer
-    #:pfn-debug-utils-messenger-callback-ext ;; :funcpointer
-    #:pfn-device-memory-report-callback-ext ;; :funcpointer
-    #:pfn-free-function ;; :funcpointer
-    #:pfn-internal-allocation-notification ;; :funcpointer
-    #:pfn-internal-free-notification ;; :funcpointer
-    #:pfn-reallocation-function ;; :funcpointer
-    #:pfn-void-function ;; :funcpointer
-    #:aabb-positions-khr ;; :struct
+    #:a-hardware-buffer
+    #:a-native-window
+    #:ca-metal-layer
+    #:pfn-allocation-function
+    #:pfn-debug-report-callback-ext
+    #:pfn-debug-utils-messenger-callback-ext
+    #:pfn-device-memory-report-callback-ext
+    #:pfn-free-function
+    #:pfn-internal-allocation-notification
+    #:pfn-internal-free-notification
+    #:pfn-reallocation-function
+    #:pfn-void-function
+    #:aabb-positions-khr
     #:c-aabb-positions-khr
-    #:aabb-positions-nv ;; :struct
+    #:aabb-positions-nv
     #:c-aabb-positions-nv
-    #:acceleration-structure-build-geometry-info-khr ;; :struct
+    #:acceleration-structure-build-geometry-info-khr
     #:c-acceleration-structure-build-geometry-info-khr
-    #:acceleration-structure-build-range-info-khr ;; :struct
+    #:acceleration-structure-build-range-info-khr
     #:c-acceleration-structure-build-range-info-khr
-    #:acceleration-structure-build-sizes-info-khr ;; :struct
+    #:acceleration-structure-build-sizes-info-khr
     #:c-acceleration-structure-build-sizes-info-khr
-    #:acceleration-structure-build-type-khr ;; :enum
-    #:acceleration-structure-compatibility-khr ;; :enum
-    #:acceleration-structure-create-flag-bits-khr ;; :enum
-    #:acceleration-structure-create-flags-khr ;; :bitmask
-    #:acceleration-structure-create-info-khr ;; :struct
+    #:acceleration-structure-build-type-khr
+    #:acceleration-structure-compatibility-khr
+    #:acceleration-structure-create-flag-bits-khr
+    #:acceleration-structure-create-flags-khr
+    #:acceleration-structure-create-info-khr
     #:c-acceleration-structure-create-info-khr
-    #:acceleration-structure-create-info-nv ;; :struct
+    #:acceleration-structure-create-info-nv
     #:c-acceleration-structure-create-info-nv
-    #:acceleration-structure-device-address-info-khr ;; :struct
+    #:acceleration-structure-device-address-info-khr
     #:c-acceleration-structure-device-address-info-khr
-    #:acceleration-structure-geometry-aabbs-data-khr ;; :struct
+    #:acceleration-structure-geometry-aabbs-data-khr
     #:c-acceleration-structure-geometry-aabbs-data-khr
-    #:acceleration-structure-geometry-data-khr ;; :union
-    #:acceleration-structure-geometry-instances-data-khr ;; :struct
+    #:acceleration-structure-geometry-data-khr
+    #:acceleration-structure-geometry-instances-data-khr
     #:c-acceleration-structure-geometry-instances-data-khr
-    #:acceleration-structure-geometry-khr ;; :struct
+    #:acceleration-structure-geometry-khr
     #:c-acceleration-structure-geometry-khr
-    #:acceleration-structure-geometry-triangles-data-khr ;; :struct
+    #:acceleration-structure-geometry-triangles-data-khr
     #:c-acceleration-structure-geometry-triangles-data-khr
-    #:acceleration-structure-info-nv ;; :struct
+    #:acceleration-structure-info-nv
     #:c-acceleration-structure-info-nv
-    #:acceleration-structure-instance-khr ;; :struct
+    #:acceleration-structure-instance-khr
     #:c-acceleration-structure-instance-khr
-    #:acceleration-structure-instance-nv ;; :struct
+    #:acceleration-structure-instance-nv
     #:c-acceleration-structure-instance-nv
-    #:acceleration-structure-khr ;; :handle
-    #:acceleration-structure-memory-requirements-info-nv ;; :struct
+    #:acceleration-structure-khr
+    #:acceleration-structure-memory-requirements-info-nv
     #:c-acceleration-structure-memory-requirements-info-nv
-    #:acceleration-structure-memory-requirements-type-nv ;; :enum
-    #:acceleration-structure-nv ;; :handle
-    #:acceleration-structure-type-khr ;; :enum
-    #:acceleration-structure-type-nv ;; :enum
-    #:acceleration-structure-version-info-khr ;; :struct
+    #:acceleration-structure-memory-requirements-type-nv
+    #:acceleration-structure-nv
+    #:acceleration-structure-type-khr
+    #:acceleration-structure-type-nv
+    #:acceleration-structure-version-info-khr
     #:c-acceleration-structure-version-info-khr
-    #:access-flag-bits ;; :enum
-    #:access-flag-bits-2-khr ;; :enum
-    #:access-flags ;; :bitmask
-    #:access-flags-2-khr ;; :bitmask
-    #:acquire-next-image-info-khr ;; :struct
+    #:access-flag-bits
+    #:access-flag-bits-2-khr
+    #:access-flags
+    #:access-flags-2-khr
+    #:acquire-next-image-info-khr
     #:c-acquire-next-image-info-khr
-    #:acquire-profiling-lock-flag-bits-khr ;; :enum
-    #:acquire-profiling-lock-flags-khr ;; :bitmask
-    #:acquire-profiling-lock-info-khr ;; :struct
+    #:acquire-profiling-lock-flag-bits-khr
+    #:acquire-profiling-lock-flags-khr
+    #:acquire-profiling-lock-info-khr
     #:c-acquire-profiling-lock-info-khr
-    #:allocation-callbacks ;; :struct
+    #:allocation-callbacks
     #:c-allocation-callbacks
-    #:android-hardware-buffer-format-properties-android ;; :struct
+    #:android-hardware-buffer-format-properties-android
     #:c-android-hardware-buffer-format-properties-android
-    #:android-hardware-buffer-properties-android ;; :struct
+    #:android-hardware-buffer-properties-android
     #:c-android-hardware-buffer-properties-android
-    #:android-hardware-buffer-usage-android ;; :struct
+    #:android-hardware-buffer-usage-android
     #:c-android-hardware-buffer-usage-android
-    #:android-surface-create-flags-khr ;; :bitmask
-    #:android-surface-create-info-khr ;; :struct
+    #:android-surface-create-flags-khr
+    #:android-surface-create-info-khr
     #:c-android-surface-create-info-khr
-    #:application-info ;; :struct
+    #:application-info
     #:c-application-info
-    #:attachment-description ;; :struct
+    #:attachment-description
     #:c-attachment-description
-    #:attachment-description-2 ;; :struct
+    #:attachment-description-2
     #:c-attachment-description-2
-    #:attachment-description-2-khr ;; :struct
+    #:attachment-description-2-khr
     #:c-attachment-description-2-khr
-    #:attachment-description-flag-bits ;; :enum
-    #:attachment-description-flags ;; :bitmask
-    #:attachment-description-stencil-layout ;; :struct
+    #:attachment-description-flag-bits
+    #:attachment-description-flags
+    #:attachment-description-stencil-layout
     #:c-attachment-description-stencil-layout
-    #:attachment-description-stencil-layout-khr ;; :struct
+    #:attachment-description-stencil-layout-khr
     #:c-attachment-description-stencil-layout-khr
-    #:attachment-load-op ;; :enum
-    #:attachment-reference ;; :struct
+    #:attachment-load-op
+    #:attachment-reference
     #:c-attachment-reference
-    #:attachment-reference-2 ;; :struct
+    #:attachment-reference-2
     #:c-attachment-reference-2
-    #:attachment-reference-2-khr ;; :struct
+    #:attachment-reference-2-khr
     #:c-attachment-reference-2-khr
-    #:attachment-reference-stencil-layout ;; :struct
+    #:attachment-reference-stencil-layout
     #:c-attachment-reference-stencil-layout
-    #:attachment-reference-stencil-layout-khr ;; :struct
+    #:attachment-reference-stencil-layout-khr
     #:c-attachment-reference-stencil-layout-khr
-    #:attachment-sample-locations-ext ;; :struct
+    #:attachment-sample-locations-ext
     #:c-attachment-sample-locations-ext
-    #:attachment-store-op ;; :enum
-    #:base-in-structure ;; :struct
+    #:attachment-store-op
+    #:base-in-structure
     #:c-base-in-structure
-    #:base-out-structure ;; :struct
+    #:base-out-structure
     #:c-base-out-structure
-    #:bind-acceleration-structure-memory-info-nv ;; :struct
+    #:bind-acceleration-structure-memory-info-nv
     #:c-bind-acceleration-structure-memory-info-nv
-    #:bind-buffer-memory-device-group-info ;; :struct
+    #:bind-buffer-memory-device-group-info
     #:c-bind-buffer-memory-device-group-info
-    #:bind-buffer-memory-device-group-info-khr ;; :struct
+    #:bind-buffer-memory-device-group-info-khr
     #:c-bind-buffer-memory-device-group-info-khr
-    #:bind-buffer-memory-info ;; :struct
+    #:bind-buffer-memory-info
     #:c-bind-buffer-memory-info
-    #:bind-buffer-memory-info-khr ;; :struct
+    #:bind-buffer-memory-info-khr
     #:c-bind-buffer-memory-info-khr
-    #:bind-image-memory-device-group-info ;; :struct
+    #:bind-image-memory-device-group-info
     #:c-bind-image-memory-device-group-info
-    #:bind-image-memory-device-group-info-khr ;; :struct
+    #:bind-image-memory-device-group-info-khr
     #:c-bind-image-memory-device-group-info-khr
-    #:bind-image-memory-info ;; :struct
+    #:bind-image-memory-info
     #:c-bind-image-memory-info
-    #:bind-image-memory-info-khr ;; :struct
+    #:bind-image-memory-info-khr
     #:c-bind-image-memory-info-khr
-    #:bind-image-memory-swapchain-info-khr ;; :struct
+    #:bind-image-memory-swapchain-info-khr
     #:c-bind-image-memory-swapchain-info-khr
-    #:bind-image-plane-memory-info ;; :struct
+    #:bind-image-plane-memory-info
     #:c-bind-image-plane-memory-info
-    #:bind-image-plane-memory-info-khr ;; :struct
+    #:bind-image-plane-memory-info-khr
     #:c-bind-image-plane-memory-info-khr
-    #:bind-index-buffer-indirect-command-nv ;; :struct
+    #:bind-index-buffer-indirect-command-nv
     #:c-bind-index-buffer-indirect-command-nv
-    #:bind-shader-group-indirect-command-nv ;; :struct
+    #:bind-shader-group-indirect-command-nv
     #:c-bind-shader-group-indirect-command-nv
-    #:bind-sparse-info ;; :struct
+    #:bind-sparse-info
     #:c-bind-sparse-info
-    #:bind-vertex-buffer-indirect-command-nv ;; :struct
+    #:bind-vertex-buffer-indirect-command-nv
     #:c-bind-vertex-buffer-indirect-command-nv
-    #:blend-factor ;; :enum
-    #:blend-op ;; :enum
-    #:blend-overlap-ext ;; :enum
-    #:blit-image-info-2-khr ;; :struct
+    #:blend-factor
+    #:blend-op
+    #:blend-overlap-ext
+    #:blit-image-info-2-khr
     #:c-blit-image-info-2-khr
-    #:bool32 ;; :basetype
-    #:border-color ;; :enum
-    #:buffer ;; :handle
-    #:buffer-copy ;; :struct
+    #:bool32
+    #:border-color
+    #:buffer
+    #:buffer-copy
     #:c-buffer-copy
-    #:buffer-copy-2-khr ;; :struct
+    #:buffer-copy-2-khr
     #:c-buffer-copy-2-khr
-    #:buffer-create-flag-bits ;; :enum
-    #:buffer-create-flags ;; :bitmask
-    #:buffer-create-info ;; :struct
+    #:buffer-create-flag-bits
+    #:buffer-create-flags
+    #:buffer-create-info
     #:c-buffer-create-info
-    #:buffer-device-address-create-info-ext ;; :struct
+    #:buffer-device-address-create-info-ext
     #:c-buffer-device-address-create-info-ext
-    #:buffer-device-address-info ;; :struct
+    #:buffer-device-address-info
     #:c-buffer-device-address-info
-    #:buffer-device-address-info-ext ;; :struct
+    #:buffer-device-address-info-ext
     #:c-buffer-device-address-info-ext
-    #:buffer-device-address-info-khr ;; :struct
+    #:buffer-device-address-info-khr
     #:c-buffer-device-address-info-khr
-    #:buffer-image-copy ;; :struct
+    #:buffer-image-copy
     #:c-buffer-image-copy
-    #:buffer-image-copy-2-khr ;; :struct
+    #:buffer-image-copy-2-khr
     #:c-buffer-image-copy-2-khr
-    #:buffer-memory-barrier ;; :struct
+    #:buffer-memory-barrier
     #:c-buffer-memory-barrier
-    #:buffer-memory-barrier-2-khr ;; :struct
+    #:buffer-memory-barrier-2-khr
     #:c-buffer-memory-barrier-2-khr
-    #:buffer-memory-requirements-info-2 ;; :struct
+    #:buffer-memory-requirements-info-2
     #:c-buffer-memory-requirements-info-2
-    #:buffer-memory-requirements-info-2-khr ;; :struct
+    #:buffer-memory-requirements-info-2-khr
     #:c-buffer-memory-requirements-info-2-khr
-    #:buffer-opaque-capture-address-create-info ;; :struct
+    #:buffer-opaque-capture-address-create-info
     #:c-buffer-opaque-capture-address-create-info
-    #:buffer-opaque-capture-address-create-info-khr ;; :struct
+    #:buffer-opaque-capture-address-create-info-khr
     #:c-buffer-opaque-capture-address-create-info-khr
-    #:buffer-usage-flag-bits ;; :enum
-    #:buffer-usage-flags ;; :bitmask
-    #:buffer-view ;; :handle
-    #:buffer-view-create-flags ;; :bitmask
-    #:buffer-view-create-info ;; :struct
+    #:buffer-usage-flag-bits
+    #:buffer-usage-flags
+    #:buffer-view
+    #:buffer-view-create-flags
+    #:buffer-view-create-info
     #:c-buffer-view-create-info
-    #:build-acceleration-structure-flag-bits-khr ;; :enum
-    #:build-acceleration-structure-flag-bits-nv ;; :enum
-    #:build-acceleration-structure-flags-khr ;; :bitmask
-    #:build-acceleration-structure-flags-nv ;; :bitmask
-    #:build-acceleration-structure-mode-khr ;; :enum
-    #:calibrated-timestamp-info-ext ;; :struct
+    #:build-acceleration-structure-flag-bits-khr
+    #:build-acceleration-structure-flag-bits-nv
+    #:build-acceleration-structure-flags-khr
+    #:build-acceleration-structure-flags-nv
+    #:build-acceleration-structure-mode-khr
+    #:calibrated-timestamp-info-ext
     #:c-calibrated-timestamp-info-ext
-    #:checkpoint-data-2-nv ;; :struct
+    #:checkpoint-data-2-nv
     #:c-checkpoint-data-2-nv
-    #:checkpoint-data-nv ;; :struct
+    #:checkpoint-data-nv
     #:c-checkpoint-data-nv
-    #:chroma-location ;; :enum
-    #:chroma-location-khr ;; :enum
-    #:clear-attachment ;; :struct
+    #:chroma-location
+    #:chroma-location-khr
+    #:clear-attachment
     #:c-clear-attachment
-    #:clear-color-value ;; :union
-    #:clear-depth-stencil-value ;; :struct
+    #:clear-color-value
+    #:clear-depth-stencil-value
     #:c-clear-depth-stencil-value
-    #:clear-rect ;; :struct
+    #:clear-rect
     #:c-clear-rect
-    #:clear-value ;; :union
-    #:coarse-sample-location-nv ;; :struct
+    #:clear-value
+    #:coarse-sample-location-nv
     #:c-coarse-sample-location-nv
-    #:coarse-sample-order-custom-nv ;; :struct
+    #:coarse-sample-order-custom-nv
     #:c-coarse-sample-order-custom-nv
-    #:coarse-sample-order-type-nv ;; :enum
-    #:color-component-flag-bits ;; :enum
-    #:color-component-flags ;; :bitmask
-    #:color-space-khr ;; :enum
-    #:command-buffer ;; :handle
-    #:command-buffer-allocate-info ;; :struct
+    #:coarse-sample-order-type-nv
+    #:color-component-flag-bits
+    #:color-component-flags
+    #:color-space-khr
+    #:command-buffer
+    #:command-buffer-allocate-info
     #:c-command-buffer-allocate-info
-    #:command-buffer-begin-info ;; :struct
+    #:command-buffer-begin-info
     #:c-command-buffer-begin-info
-    #:command-buffer-inheritance-conditional-rendering-info-ext ;; :struct
+    #:command-buffer-inheritance-conditional-rendering-info-ext
     #:c-command-buffer-inheritance-conditional-rendering-info-ext
-    #:command-buffer-inheritance-info ;; :struct
+    #:command-buffer-inheritance-info
     #:c-command-buffer-inheritance-info
-    #:command-buffer-inheritance-render-pass-transform-info-qcom ;; :struct
+    #:command-buffer-inheritance-render-pass-transform-info-qcom
     #:c-command-buffer-inheritance-render-pass-transform-info-qcom
-    #:command-buffer-level ;; :enum
-    #:command-buffer-reset-flag-bits ;; :enum
-    #:command-buffer-reset-flags ;; :bitmask
-    #:command-buffer-submit-info-khr ;; :struct
+    #:command-buffer-level
+    #:command-buffer-reset-flag-bits
+    #:command-buffer-reset-flags
+    #:command-buffer-submit-info-khr
     #:c-command-buffer-submit-info-khr
-    #:command-buffer-usage-flag-bits ;; :enum
-    #:command-buffer-usage-flags ;; :bitmask
-    #:command-pool ;; :handle
-    #:command-pool-create-flag-bits ;; :enum
-    #:command-pool-create-flags ;; :bitmask
-    #:command-pool-create-info ;; :struct
+    #:command-buffer-usage-flag-bits
+    #:command-buffer-usage-flags
+    #:command-pool
+    #:command-pool-create-flag-bits
+    #:command-pool-create-flags
+    #:command-pool-create-info
     #:c-command-pool-create-info
-    #:command-pool-reset-flag-bits ;; :enum
-    #:command-pool-reset-flags ;; :bitmask
-    #:command-pool-trim-flags ;; :bitmask
-    #:command-pool-trim-flags-khr ;; :bitmask
-    #:compare-op ;; :enum
-    #:component-mapping ;; :struct
+    #:command-pool-reset-flag-bits
+    #:command-pool-reset-flags
+    #:command-pool-trim-flags
+    #:command-pool-trim-flags-khr
+    #:compare-op
+    #:component-mapping
     #:c-component-mapping
-    #:component-swizzle ;; :enum
-    #:component-type-nv ;; :enum
-    #:composite-alpha-flag-bits-khr ;; :enum
-    #:composite-alpha-flags-khr ;; :bitmask
-    #:compute-pipeline-create-info ;; :struct
+    #:component-swizzle
+    #:component-type-nv
+    #:composite-alpha-flag-bits-khr
+    #:composite-alpha-flags-khr
+    #:compute-pipeline-create-info
     #:c-compute-pipeline-create-info
-    #:conditional-rendering-begin-info-ext ;; :struct
+    #:conditional-rendering-begin-info-ext
     #:c-conditional-rendering-begin-info-ext
-    #:conditional-rendering-flag-bits-ext ;; :enum
-    #:conditional-rendering-flags-ext ;; :bitmask
-    #:conformance-version ;; :struct
+    #:conditional-rendering-flag-bits-ext
+    #:conditional-rendering-flags-ext
+    #:conformance-version
     #:c-conformance-version
-    #:conformance-version-khr ;; :struct
+    #:conformance-version-khr
     #:c-conformance-version-khr
-    #:conservative-rasterization-mode-ext ;; :enum
-    #:cooperative-matrix-properties-nv ;; :struct
+    #:conservative-rasterization-mode-ext
+    #:cooperative-matrix-properties-nv
     #:c-cooperative-matrix-properties-nv
-    #:copy-acceleration-structure-info-khr ;; :struct
+    #:copy-acceleration-structure-info-khr
     #:c-copy-acceleration-structure-info-khr
-    #:copy-acceleration-structure-mode-khr ;; :enum
-    #:copy-acceleration-structure-mode-nv ;; :enum
-    #:copy-acceleration-structure-to-memory-info-khr ;; :struct
+    #:copy-acceleration-structure-mode-khr
+    #:copy-acceleration-structure-mode-nv
+    #:copy-acceleration-structure-to-memory-info-khr
     #:c-copy-acceleration-structure-to-memory-info-khr
-    #:copy-buffer-info-2-khr ;; :struct
+    #:copy-buffer-info-2-khr
     #:c-copy-buffer-info-2-khr
-    #:copy-buffer-to-image-info-2-khr ;; :struct
+    #:copy-buffer-to-image-info-2-khr
     #:c-copy-buffer-to-image-info-2-khr
-    #:copy-command-transform-info-qcom ;; :struct
+    #:copy-command-transform-info-qcom
     #:c-copy-command-transform-info-qcom
-    #:copy-descriptor-set ;; :struct
+    #:copy-descriptor-set
     #:c-copy-descriptor-set
-    #:copy-image-info-2-khr ;; :struct
+    #:copy-image-info-2-khr
     #:c-copy-image-info-2-khr
-    #:copy-image-to-buffer-info-2-khr ;; :struct
+    #:copy-image-to-buffer-info-2-khr
     #:c-copy-image-to-buffer-info-2-khr
-    #:copy-memory-to-acceleration-structure-info-khr ;; :struct
+    #:copy-memory-to-acceleration-structure-info-khr
     #:c-copy-memory-to-acceleration-structure-info-khr
-    #:coverage-modulation-mode-nv ;; :enum
-    #:coverage-reduction-mode-nv ;; :enum
-    #:cull-mode-flag-bits ;; :enum
-    #:cull-mode-flags ;; :bitmask
-    #:d-3d-1-2-fence-submit-info-khr ;; :struct
+    #:coverage-modulation-mode-nv
+    #:coverage-reduction-mode-nv
+    #:cull-mode-flag-bits
+    #:cull-mode-flags
+    #:d-3d-1-2-fence-submit-info-khr
     #:c-d-3d-1-2-fence-submit-info-khr
-    #:debug-marker-marker-info-ext ;; :struct
+    #:debug-marker-marker-info-ext
     #:c-debug-marker-marker-info-ext
-    #:debug-marker-object-name-info-ext ;; :struct
+    #:debug-marker-object-name-info-ext
     #:c-debug-marker-object-name-info-ext
-    #:debug-marker-object-tag-info-ext ;; :struct
+    #:debug-marker-object-tag-info-ext
     #:c-debug-marker-object-tag-info-ext
-    #:debug-report-callback-create-info-ext ;; :struct
+    #:debug-report-callback-create-info-ext
     #:c-debug-report-callback-create-info-ext
-    #:debug-report-callback-ext ;; :handle
-    #:debug-report-flag-bits-ext ;; :enum
-    #:debug-report-flags-ext ;; :bitmask
-    #:debug-report-object-type-ext ;; :enum
-    #:debug-utils-label-ext ;; :struct
+    #:debug-report-callback-ext
+    #:debug-report-flag-bits-ext
+    #:debug-report-flags-ext
+    #:debug-report-object-type-ext
+    #:debug-utils-label-ext
     #:c-debug-utils-label-ext
-    #:debug-utils-message-severity-flag-bits-ext ;; :enum
-    #:debug-utils-message-severity-flags-ext ;; :bitmask
-    #:debug-utils-message-type-flag-bits-ext ;; :enum
-    #:debug-utils-message-type-flags-ext ;; :bitmask
-    #:debug-utils-messenger-callback-data-ext ;; :struct
+    #:debug-utils-message-severity-flag-bits-ext
+    #:debug-utils-message-severity-flags-ext
+    #:debug-utils-message-type-flag-bits-ext
+    #:debug-utils-message-type-flags-ext
+    #:debug-utils-messenger-callback-data-ext
     #:c-debug-utils-messenger-callback-data-ext
-    #:debug-utils-messenger-callback-data-flags-ext ;; :bitmask
-    #:debug-utils-messenger-create-flags-ext ;; :bitmask
-    #:debug-utils-messenger-create-info-ext ;; :struct
+    #:debug-utils-messenger-callback-data-flags-ext
+    #:debug-utils-messenger-create-flags-ext
+    #:debug-utils-messenger-create-info-ext
     #:c-debug-utils-messenger-create-info-ext
-    #:debug-utils-messenger-ext ;; :handle
-    #:debug-utils-object-name-info-ext ;; :struct
+    #:debug-utils-messenger-ext
+    #:debug-utils-object-name-info-ext
     #:c-debug-utils-object-name-info-ext
-    #:debug-utils-object-tag-info-ext ;; :struct
+    #:debug-utils-object-tag-info-ext
     #:c-debug-utils-object-tag-info-ext
-    #:dedicated-allocation-buffer-create-info-nv ;; :struct
+    #:dedicated-allocation-buffer-create-info-nv
     #:c-dedicated-allocation-buffer-create-info-nv
-    #:dedicated-allocation-image-create-info-nv ;; :struct
+    #:dedicated-allocation-image-create-info-nv
     #:c-dedicated-allocation-image-create-info-nv
-    #:dedicated-allocation-memory-allocate-info-nv ;; :struct
+    #:dedicated-allocation-memory-allocate-info-nv
     #:c-dedicated-allocation-memory-allocate-info-nv
-    #:deferred-operation-khr ;; :handle
-    #:dependency-flag-bits ;; :enum
-    #:dependency-flags ;; :bitmask
-    #:dependency-info-khr ;; :struct
+    #:deferred-operation-khr
+    #:dependency-flag-bits
+    #:dependency-flags
+    #:dependency-info-khr
     #:c-dependency-info-khr
-    #:descriptor-binding-flag-bits ;; :enum
-    #:descriptor-binding-flag-bits-ext ;; :enum
-    #:descriptor-binding-flags ;; :bitmask
-    #:descriptor-binding-flags-ext ;; :bitmask
-    #:descriptor-buffer-info ;; :struct
+    #:descriptor-binding-flag-bits
+    #:descriptor-binding-flag-bits-ext
+    #:descriptor-binding-flags
+    #:descriptor-binding-flags-ext
+    #:descriptor-buffer-info
     #:c-descriptor-buffer-info
-    #:descriptor-image-info ;; :struct
+    #:descriptor-image-info
     #:c-descriptor-image-info
-    #:descriptor-pool ;; :handle
-    #:descriptor-pool-create-flag-bits ;; :enum
-    #:descriptor-pool-create-flags ;; :bitmask
-    #:descriptor-pool-create-info ;; :struct
+    #:descriptor-pool
+    #:descriptor-pool-create-flag-bits
+    #:descriptor-pool-create-flags
+    #:descriptor-pool-create-info
     #:c-descriptor-pool-create-info
-    #:descriptor-pool-inline-uniform-block-create-info-ext ;; :struct
+    #:descriptor-pool-inline-uniform-block-create-info-ext
     #:c-descriptor-pool-inline-uniform-block-create-info-ext
-    #:descriptor-pool-reset-flags ;; :bitmask
-    #:descriptor-pool-size ;; :struct
+    #:descriptor-pool-reset-flags
+    #:descriptor-pool-size
     #:c-descriptor-pool-size
-    #:descriptor-set ;; :handle
-    #:descriptor-set-allocate-info ;; :struct
+    #:descriptor-set
+    #:descriptor-set-allocate-info
     #:c-descriptor-set-allocate-info
-    #:descriptor-set-layout ;; :handle
-    #:descriptor-set-layout-binding ;; :struct
+    #:descriptor-set-layout
+    #:descriptor-set-layout-binding
     #:c-descriptor-set-layout-binding
-    #:descriptor-set-layout-binding-flags-create-info ;; :struct
+    #:descriptor-set-layout-binding-flags-create-info
     #:c-descriptor-set-layout-binding-flags-create-info
-    #:descriptor-set-layout-binding-flags-create-info-ext ;; :struct
+    #:descriptor-set-layout-binding-flags-create-info-ext
     #:c-descriptor-set-layout-binding-flags-create-info-ext
-    #:descriptor-set-layout-create-flag-bits ;; :enum
-    #:descriptor-set-layout-create-flags ;; :bitmask
-    #:descriptor-set-layout-create-info ;; :struct
+    #:descriptor-set-layout-create-flag-bits
+    #:descriptor-set-layout-create-flags
+    #:descriptor-set-layout-create-info
     #:c-descriptor-set-layout-create-info
-    #:descriptor-set-layout-support ;; :struct
+    #:descriptor-set-layout-support
     #:c-descriptor-set-layout-support
-    #:descriptor-set-layout-support-khr ;; :struct
+    #:descriptor-set-layout-support-khr
     #:c-descriptor-set-layout-support-khr
-    #:descriptor-set-variable-descriptor-count-allocate-info ;; :struct
+    #:descriptor-set-variable-descriptor-count-allocate-info
     #:c-descriptor-set-variable-descriptor-count-allocate-info
-    #:descriptor-set-variable-descriptor-count-allocate-info-ext ;; :struct
+    #:descriptor-set-variable-descriptor-count-allocate-info-ext
     #:c-descriptor-set-variable-descriptor-count-allocate-info-ext
-    #:descriptor-set-variable-descriptor-count-layout-support ;; :struct
+    #:descriptor-set-variable-descriptor-count-layout-support
     #:c-descriptor-set-variable-descriptor-count-layout-support
-    #:descriptor-set-variable-descriptor-count-layout-support-ext ;; :struct
+    #:descriptor-set-variable-descriptor-count-layout-support-ext
     #:c-descriptor-set-variable-descriptor-count-layout-support-ext
-    #:descriptor-type ;; :enum
-    #:descriptor-update-template ;; :handle
-    #:descriptor-update-template-create-flags ;; :bitmask
-    #:descriptor-update-template-create-flags-khr ;; :bitmask
-    #:descriptor-update-template-create-info ;; :struct
+    #:descriptor-type
+    #:descriptor-update-template
+    #:descriptor-update-template-create-flags
+    #:descriptor-update-template-create-flags-khr
+    #:descriptor-update-template-create-info
     #:c-descriptor-update-template-create-info
-    #:descriptor-update-template-create-info-khr ;; :struct
+    #:descriptor-update-template-create-info-khr
     #:c-descriptor-update-template-create-info-khr
-    #:descriptor-update-template-entry ;; :struct
+    #:descriptor-update-template-entry
     #:c-descriptor-update-template-entry
-    #:descriptor-update-template-entry-khr ;; :struct
+    #:descriptor-update-template-entry-khr
     #:c-descriptor-update-template-entry-khr
-    #:descriptor-update-template-khr ;; :handle
-    #:descriptor-update-template-type ;; :enum
-    #:descriptor-update-template-type-khr ;; :enum
-    #:device ;; :handle
-    #:device-address ;; :basetype
-    #:device-create-flag-bits ;; :enum
-    #:device-create-flags ;; :bitmask
-    #:device-create-info ;; :struct
+    #:descriptor-update-template-khr
+    #:descriptor-update-template-type
+    #:descriptor-update-template-type-khr
+    #:device
+    #:device-address
+    #:device-create-flag-bits
+    #:device-create-flags
+    #:device-create-info
     #:c-device-create-info
-    #:device-device-memory-report-create-info-ext ;; :struct
+    #:device-device-memory-report-create-info-ext
     #:c-device-device-memory-report-create-info-ext
-    #:device-diagnostics-config-create-info-nv ;; :struct
+    #:device-diagnostics-config-create-info-nv
     #:c-device-diagnostics-config-create-info-nv
-    #:device-diagnostics-config-flag-bits-nv ;; :enum
-    #:device-diagnostics-config-flags-nv ;; :bitmask
-    #:device-event-info-ext ;; :struct
+    #:device-diagnostics-config-flag-bits-nv
+    #:device-diagnostics-config-flags-nv
+    #:device-event-info-ext
     #:c-device-event-info-ext
-    #:device-event-type-ext ;; :enum
-    #:device-group-bind-sparse-info ;; :struct
+    #:device-event-type-ext
+    #:device-group-bind-sparse-info
     #:c-device-group-bind-sparse-info
-    #:device-group-bind-sparse-info-khr ;; :struct
+    #:device-group-bind-sparse-info-khr
     #:c-device-group-bind-sparse-info-khr
-    #:device-group-command-buffer-begin-info ;; :struct
+    #:device-group-command-buffer-begin-info
     #:c-device-group-command-buffer-begin-info
-    #:device-group-command-buffer-begin-info-khr ;; :struct
+    #:device-group-command-buffer-begin-info-khr
     #:c-device-group-command-buffer-begin-info-khr
-    #:device-group-device-create-info ;; :struct
+    #:device-group-device-create-info
     #:c-device-group-device-create-info
-    #:device-group-device-create-info-khr ;; :struct
+    #:device-group-device-create-info-khr
     #:c-device-group-device-create-info-khr
-    #:device-group-present-capabilities-khr ;; :struct
+    #:device-group-present-capabilities-khr
     #:c-device-group-present-capabilities-khr
-    #:device-group-present-info-khr ;; :struct
+    #:device-group-present-info-khr
     #:c-device-group-present-info-khr
-    #:device-group-present-mode-flag-bits-khr ;; :enum
-    #:device-group-present-mode-flags-khr ;; :bitmask
-    #:device-group-render-pass-begin-info ;; :struct
+    #:device-group-present-mode-flag-bits-khr
+    #:device-group-present-mode-flags-khr
+    #:device-group-render-pass-begin-info
     #:c-device-group-render-pass-begin-info
-    #:device-group-render-pass-begin-info-khr ;; :struct
+    #:device-group-render-pass-begin-info-khr
     #:c-device-group-render-pass-begin-info-khr
-    #:device-group-submit-info ;; :struct
+    #:device-group-submit-info
     #:c-device-group-submit-info
-    #:device-group-submit-info-khr ;; :struct
+    #:device-group-submit-info-khr
     #:c-device-group-submit-info-khr
-    #:device-group-swapchain-create-info-khr ;; :struct
+    #:device-group-swapchain-create-info-khr
     #:c-device-group-swapchain-create-info-khr
-    #:device-memory ;; :handle
-    #:device-memory-opaque-capture-address-info ;; :struct
+    #:device-memory
+    #:device-memory-opaque-capture-address-info
     #:c-device-memory-opaque-capture-address-info
-    #:device-memory-opaque-capture-address-info-khr ;; :struct
+    #:device-memory-opaque-capture-address-info-khr
     #:c-device-memory-opaque-capture-address-info-khr
-    #:device-memory-overallocation-create-info-amd ;; :struct
+    #:device-memory-overallocation-create-info-amd
     #:c-device-memory-overallocation-create-info-amd
-    #:device-memory-report-callback-data-ext ;; :struct
+    #:device-memory-report-callback-data-ext
     #:c-device-memory-report-callback-data-ext
-    #:device-memory-report-event-type-ext ;; :enum
-    #:device-memory-report-flags-ext ;; :bitmask
-    #:device-or-host-address-const-khr ;; :union
-    #:device-or-host-address-khr ;; :union
-    #:device-private-data-create-info-ext ;; :struct
+    #:device-memory-report-event-type-ext
+    #:device-memory-report-flags-ext
+    #:device-or-host-address-const-khr
+    #:device-or-host-address-khr
+    #:device-private-data-create-info-ext
     #:c-device-private-data-create-info-ext
-    #:device-queue-create-flag-bits ;; :enum
-    #:device-queue-create-flags ;; :bitmask
-    #:device-queue-create-info ;; :struct
+    #:device-queue-create-flag-bits
+    #:device-queue-create-flags
+    #:device-queue-create-info
     #:c-device-queue-create-info
-    #:device-queue-global-priority-create-info-ext ;; :struct
+    #:device-queue-global-priority-create-info-ext
     #:c-device-queue-global-priority-create-info-ext
-    #:device-queue-info-2 ;; :struct
+    #:device-queue-info-2
     #:c-device-queue-info-2
-    #:device-size ;; :basetype
-    #:direct-fb-surface-create-flags-ext ;; :bitmask
-    #:direct-fb-surface-create-info-ext ;; :struct
+    #:device-size
+    #:direct-fb-surface-create-flags-ext
+    #:direct-fb-surface-create-info-ext
     #:c-direct-fb-surface-create-info-ext
-    #:discard-rectangle-mode-ext ;; :enum
-    #:dispatch-indirect-command ;; :struct
+    #:discard-rectangle-mode-ext
+    #:dispatch-indirect-command
     #:c-dispatch-indirect-command
-    #:display-event-info-ext ;; :struct
+    #:display-event-info-ext
     #:c-display-event-info-ext
-    #:display-event-type-ext ;; :enum
-    #:display-khr ;; :handle
-    #:display-mode-create-flags-khr ;; :bitmask
-    #:display-mode-create-info-khr ;; :struct
+    #:display-event-type-ext
+    #:display-khr
+    #:display-mode-create-flags-khr
+    #:display-mode-create-info-khr
     #:c-display-mode-create-info-khr
-    #:display-mode-khr ;; :handle
-    #:display-mode-parameters-khr ;; :struct
+    #:display-mode-khr
+    #:display-mode-parameters-khr
     #:c-display-mode-parameters-khr
-    #:display-mode-properties-2-khr ;; :struct
+    #:display-mode-properties-2-khr
     #:c-display-mode-properties-2-khr
-    #:display-mode-properties-khr ;; :struct
+    #:display-mode-properties-khr
     #:c-display-mode-properties-khr
-    #:display-native-hdr-surface-capabilities-amd ;; :struct
+    #:display-native-hdr-surface-capabilities-amd
     #:c-display-native-hdr-surface-capabilities-amd
-    #:display-plane-alpha-flag-bits-khr ;; :enum
-    #:display-plane-alpha-flags-khr ;; :bitmask
-    #:display-plane-capabilities-2-khr ;; :struct
+    #:display-plane-alpha-flag-bits-khr
+    #:display-plane-alpha-flags-khr
+    #:display-plane-capabilities-2-khr
     #:c-display-plane-capabilities-2-khr
-    #:display-plane-capabilities-khr ;; :struct
+    #:display-plane-capabilities-khr
     #:c-display-plane-capabilities-khr
-    #:display-plane-info-2-khr ;; :struct
+    #:display-plane-info-2-khr
     #:c-display-plane-info-2-khr
-    #:display-plane-properties-2-khr ;; :struct
+    #:display-plane-properties-2-khr
     #:c-display-plane-properties-2-khr
-    #:display-plane-properties-khr ;; :struct
+    #:display-plane-properties-khr
     #:c-display-plane-properties-khr
-    #:display-power-info-ext ;; :struct
+    #:display-power-info-ext
     #:c-display-power-info-ext
-    #:display-power-state-ext ;; :enum
-    #:display-present-info-khr ;; :struct
+    #:display-power-state-ext
+    #:display-present-info-khr
     #:c-display-present-info-khr
-    #:display-properties-2-khr ;; :struct
+    #:display-properties-2-khr
     #:c-display-properties-2-khr
-    #:display-properties-khr ;; :struct
+    #:display-properties-khr
     #:c-display-properties-khr
-    #:display-surface-create-flags-khr ;; :bitmask
-    #:display-surface-create-info-khr ;; :struct
+    #:display-surface-create-flags-khr
+    #:display-surface-create-info-khr
     #:c-display-surface-create-info-khr
-    #:draw-indexed-indirect-command ;; :struct
+    #:draw-indexed-indirect-command
     #:c-draw-indexed-indirect-command
-    #:draw-indirect-command ;; :struct
+    #:draw-indirect-command
     #:c-draw-indirect-command
-    #:draw-mesh-tasks-indirect-command-nv ;; :struct
+    #:draw-mesh-tasks-indirect-command-nv
     #:c-draw-mesh-tasks-indirect-command-nv
-    #:driver-id ;; :enum
-    #:driver-id-khr ;; :enum
-    #:drm-format-modifier-properties-ext ;; :struct
+    #:driver-id
+    #:driver-id-khr
+    #:drm-format-modifier-properties-ext
     #:c-drm-format-modifier-properties-ext
-    #:drm-format-modifier-properties-list-ext ;; :struct
+    #:drm-format-modifier-properties-list-ext
     #:c-drm-format-modifier-properties-list-ext
-    #:dynamic-state ;; :enum
-    #:event ;; :handle
-    #:event-create-flag-bits ;; :enum
-    #:event-create-flags ;; :bitmask
-    #:event-create-info ;; :struct
+    #:dynamic-state
+    #:event
+    #:event-create-flag-bits
+    #:event-create-flags
+    #:event-create-info
     #:c-event-create-info
-    #:export-fence-create-info ;; :struct
+    #:export-fence-create-info
     #:c-export-fence-create-info
-    #:export-fence-create-info-khr ;; :struct
+    #:export-fence-create-info-khr
     #:c-export-fence-create-info-khr
-    #:export-fence-win32-handle-info-khr ;; :struct
+    #:export-fence-win32-handle-info-khr
     #:c-export-fence-win32-handle-info-khr
-    #:export-memory-allocate-info ;; :struct
+    #:export-memory-allocate-info
     #:c-export-memory-allocate-info
-    #:export-memory-allocate-info-khr ;; :struct
+    #:export-memory-allocate-info-khr
     #:c-export-memory-allocate-info-khr
-    #:export-memory-allocate-info-nv ;; :struct
+    #:export-memory-allocate-info-nv
     #:c-export-memory-allocate-info-nv
-    #:export-memory-win32-handle-info-khr ;; :struct
+    #:export-memory-win32-handle-info-khr
     #:c-export-memory-win32-handle-info-khr
-    #:export-memory-win32-handle-info-nv ;; :struct
+    #:export-memory-win32-handle-info-nv
     #:c-export-memory-win32-handle-info-nv
-    #:export-semaphore-create-info ;; :struct
+    #:export-semaphore-create-info
     #:c-export-semaphore-create-info
-    #:export-semaphore-create-info-khr ;; :struct
+    #:export-semaphore-create-info-khr
     #:c-export-semaphore-create-info-khr
-    #:export-semaphore-win32-handle-info-khr ;; :struct
+    #:export-semaphore-win32-handle-info-khr
     #:c-export-semaphore-win32-handle-info-khr
-    #:extension-properties ;; :struct
+    #:extension-properties
     #:c-extension-properties
-    #:extent-2d ;; :struct
+    #:extent-2d
     #:c-extent-2d
-    #:extent-3d ;; :struct
+    #:extent-3d
     #:c-extent-3d
-    #:external-buffer-properties ;; :struct
+    #:external-buffer-properties
     #:c-external-buffer-properties
-    #:external-buffer-properties-khr ;; :struct
+    #:external-buffer-properties-khr
     #:c-external-buffer-properties-khr
-    #:external-fence-feature-flag-bits ;; :enum
-    #:external-fence-feature-flag-bits-khr ;; :enum
-    #:external-fence-feature-flags ;; :bitmask
-    #:external-fence-feature-flags-khr ;; :bitmask
-    #:external-fence-handle-type-flag-bits ;; :enum
-    #:external-fence-handle-type-flag-bits-khr ;; :enum
-    #:external-fence-handle-type-flags ;; :bitmask
-    #:external-fence-handle-type-flags-khr ;; :bitmask
-    #:external-fence-properties ;; :struct
+    #:external-fence-feature-flag-bits
+    #:external-fence-feature-flag-bits-khr
+    #:external-fence-feature-flags
+    #:external-fence-feature-flags-khr
+    #:external-fence-handle-type-flag-bits
+    #:external-fence-handle-type-flag-bits-khr
+    #:external-fence-handle-type-flags
+    #:external-fence-handle-type-flags-khr
+    #:external-fence-properties
     #:c-external-fence-properties
-    #:external-fence-properties-khr ;; :struct
+    #:external-fence-properties-khr
     #:c-external-fence-properties-khr
-    #:external-format-android ;; :struct
+    #:external-format-android
     #:c-external-format-android
-    #:external-image-format-properties ;; :struct
+    #:external-image-format-properties
     #:c-external-image-format-properties
-    #:external-image-format-properties-khr ;; :struct
+    #:external-image-format-properties-khr
     #:c-external-image-format-properties-khr
-    #:external-image-format-properties-nv ;; :struct
+    #:external-image-format-properties-nv
     #:c-external-image-format-properties-nv
-    #:external-memory-buffer-create-info ;; :struct
+    #:external-memory-buffer-create-info
     #:c-external-memory-buffer-create-info
-    #:external-memory-buffer-create-info-khr ;; :struct
+    #:external-memory-buffer-create-info-khr
     #:c-external-memory-buffer-create-info-khr
-    #:external-memory-feature-flag-bits ;; :enum
-    #:external-memory-feature-flag-bits-khr ;; :enum
-    #:external-memory-feature-flag-bits-nv ;; :enum
-    #:external-memory-feature-flags ;; :bitmask
-    #:external-memory-feature-flags-khr ;; :bitmask
-    #:external-memory-feature-flags-nv ;; :bitmask
-    #:external-memory-handle-type-flag-bits ;; :enum
-    #:external-memory-handle-type-flag-bits-khr ;; :enum
-    #:external-memory-handle-type-flag-bits-nv ;; :enum
-    #:external-memory-handle-type-flags ;; :bitmask
-    #:external-memory-handle-type-flags-khr ;; :bitmask
-    #:external-memory-handle-type-flags-nv ;; :bitmask
-    #:external-memory-image-create-info ;; :struct
+    #:external-memory-feature-flag-bits
+    #:external-memory-feature-flag-bits-khr
+    #:external-memory-feature-flag-bits-nv
+    #:external-memory-feature-flags
+    #:external-memory-feature-flags-khr
+    #:external-memory-feature-flags-nv
+    #:external-memory-handle-type-flag-bits
+    #:external-memory-handle-type-flag-bits-khr
+    #:external-memory-handle-type-flag-bits-nv
+    #:external-memory-handle-type-flags
+    #:external-memory-handle-type-flags-khr
+    #:external-memory-handle-type-flags-nv
+    #:external-memory-image-create-info
     #:c-external-memory-image-create-info
-    #:external-memory-image-create-info-khr ;; :struct
+    #:external-memory-image-create-info-khr
     #:c-external-memory-image-create-info-khr
-    #:external-memory-image-create-info-nv ;; :struct
+    #:external-memory-image-create-info-nv
     #:c-external-memory-image-create-info-nv
-    #:external-memory-properties ;; :struct
+    #:external-memory-properties
     #:c-external-memory-properties
-    #:external-memory-properties-khr ;; :struct
+    #:external-memory-properties-khr
     #:c-external-memory-properties-khr
-    #:external-semaphore-feature-flag-bits ;; :enum
-    #:external-semaphore-feature-flag-bits-khr ;; :enum
-    #:external-semaphore-feature-flags ;; :bitmask
-    #:external-semaphore-feature-flags-khr ;; :bitmask
-    #:external-semaphore-handle-type-flag-bits ;; :enum
-    #:external-semaphore-handle-type-flag-bits-khr ;; :enum
-    #:external-semaphore-handle-type-flags ;; :bitmask
-    #:external-semaphore-handle-type-flags-khr ;; :bitmask
-    #:external-semaphore-properties ;; :struct
+    #:external-semaphore-feature-flag-bits
+    #:external-semaphore-feature-flag-bits-khr
+    #:external-semaphore-feature-flags
+    #:external-semaphore-feature-flags-khr
+    #:external-semaphore-handle-type-flag-bits
+    #:external-semaphore-handle-type-flag-bits-khr
+    #:external-semaphore-handle-type-flags
+    #:external-semaphore-handle-type-flags-khr
+    #:external-semaphore-properties
     #:c-external-semaphore-properties
-    #:external-semaphore-properties-khr ;; :struct
+    #:external-semaphore-properties-khr
     #:c-external-semaphore-properties-khr
-    #:fence ;; :handle
-    #:fence-create-flag-bits ;; :enum
-    #:fence-create-flags ;; :bitmask
-    #:fence-create-info ;; :struct
+    #:fence
+    #:fence-create-flag-bits
+    #:fence-create-flags
+    #:fence-create-info
     #:c-fence-create-info
-    #:fence-get-fd-info-khr ;; :struct
+    #:fence-get-fd-info-khr
     #:c-fence-get-fd-info-khr
-    #:fence-get-win32-handle-info-khr ;; :struct
+    #:fence-get-win32-handle-info-khr
     #:c-fence-get-win32-handle-info-khr
-    #:fence-import-flag-bits ;; :enum
-    #:fence-import-flag-bits-khr ;; :enum
-    #:fence-import-flags ;; :bitmask
-    #:fence-import-flags-khr ;; :bitmask
-    #:filter ;; :enum
-    #:filter-cubic-image-view-image-format-properties-ext ;; :struct
+    #:fence-import-flag-bits
+    #:fence-import-flag-bits-khr
+    #:fence-import-flags
+    #:fence-import-flags-khr
+    #:filter
+    #:filter-cubic-image-view-image-format-properties-ext
     #:c-filter-cubic-image-view-image-format-properties-ext
-    #:flags ;; :basetype
-    #:flags-64 ;; :basetype
-    #:format ;; :enum
-    #:format-feature-flag-bits ;; :enum
-    #:format-feature-flags ;; :bitmask
-    #:format-properties ;; :struct
+    #:flags
+    #:flags-64
+    #:format
+    #:format-feature-flag-bits
+    #:format-feature-flags
+    #:format-properties
     #:c-format-properties
-    #:format-properties-2 ;; :struct
+    #:format-properties-2
     #:c-format-properties-2
-    #:format-properties-2-khr ;; :struct
+    #:format-properties-2-khr
     #:c-format-properties-2-khr
-    #:fragment-shading-rate-attachment-info-khr ;; :struct
+    #:fragment-shading-rate-attachment-info-khr
     #:c-fragment-shading-rate-attachment-info-khr
-    #:fragment-shading-rate-combiner-op-khr ;; :enum
-    #:fragment-shading-rate-nv ;; :enum
-    #:fragment-shading-rate-type-nv ;; :enum
-    #:framebuffer ;; :handle
-    #:framebuffer-attachment-image-info ;; :struct
+    #:fragment-shading-rate-combiner-op-khr
+    #:fragment-shading-rate-nv
+    #:fragment-shading-rate-type-nv
+    #:framebuffer
+    #:framebuffer-attachment-image-info
     #:c-framebuffer-attachment-image-info
-    #:framebuffer-attachment-image-info-khr ;; :struct
+    #:framebuffer-attachment-image-info-khr
     #:c-framebuffer-attachment-image-info-khr
-    #:framebuffer-attachments-create-info ;; :struct
+    #:framebuffer-attachments-create-info
     #:c-framebuffer-attachments-create-info
-    #:framebuffer-attachments-create-info-khr ;; :struct
+    #:framebuffer-attachments-create-info-khr
     #:c-framebuffer-attachments-create-info-khr
-    #:framebuffer-create-flag-bits ;; :enum
-    #:framebuffer-create-flags ;; :bitmask
-    #:framebuffer-create-info ;; :struct
+    #:framebuffer-create-flag-bits
+    #:framebuffer-create-flags
+    #:framebuffer-create-info
     #:c-framebuffer-create-info
-    #:framebuffer-mixed-samples-combination-nv ;; :struct
+    #:framebuffer-mixed-samples-combination-nv
     #:c-framebuffer-mixed-samples-combination-nv
-    #:front-face ;; :enum
-    #:full-screen-exclusive-ext ;; :enum
-    #:generated-commands-info-nv ;; :struct
+    #:front-face
+    #:full-screen-exclusive-ext
+    #:generated-commands-info-nv
     #:c-generated-commands-info-nv
-    #:generated-commands-memory-requirements-info-nv ;; :struct
+    #:generated-commands-memory-requirements-info-nv
     #:c-generated-commands-memory-requirements-info-nv
-    #:geometry-aabb-nv ;; :struct
+    #:geometry-aabb-nv
     #:c-geometry-aabb-nv
-    #:geometry-data-nv ;; :struct
+    #:geometry-data-nv
     #:c-geometry-data-nv
-    #:geometry-flag-bits-khr ;; :enum
-    #:geometry-flag-bits-nv ;; :enum
-    #:geometry-flags-khr ;; :bitmask
-    #:geometry-flags-nv ;; :bitmask
-    #:geometry-instance-flag-bits-khr ;; :enum
-    #:geometry-instance-flag-bits-nv ;; :enum
-    #:geometry-instance-flags-khr ;; :bitmask
-    #:geometry-instance-flags-nv ;; :bitmask
-    #:geometry-nv ;; :struct
+    #:geometry-flag-bits-khr
+    #:geometry-flag-bits-nv
+    #:geometry-flags-khr
+    #:geometry-flags-nv
+    #:geometry-instance-flag-bits-khr
+    #:geometry-instance-flag-bits-nv
+    #:geometry-instance-flags-khr
+    #:geometry-instance-flags-nv
+    #:geometry-nv
     #:c-geometry-nv
-    #:geometry-triangles-nv ;; :struct
+    #:geometry-triangles-nv
     #:c-geometry-triangles-nv
-    #:geometry-type-khr ;; :enum
-    #:geometry-type-nv ;; :enum
-    #:graphics-pipeline-create-info ;; :struct
+    #:geometry-type-khr
+    #:geometry-type-nv
+    #:graphics-pipeline-create-info
     #:c-graphics-pipeline-create-info
-    #:graphics-pipeline-shader-groups-create-info-nv ;; :struct
+    #:graphics-pipeline-shader-groups-create-info-nv
     #:c-graphics-pipeline-shader-groups-create-info-nv
-    #:graphics-shader-group-create-info-nv ;; :struct
+    #:graphics-shader-group-create-info-nv
     #:c-graphics-shader-group-create-info-nv
-    #:hdr-metadata-ext ;; :struct
+    #:hdr-metadata-ext
     #:c-hdr-metadata-ext
-    #:headless-surface-create-flags-ext ;; :bitmask
-    #:headless-surface-create-info-ext ;; :struct
+    #:headless-surface-create-flags-ext
+    #:headless-surface-create-info-ext
     #:c-headless-surface-create-info-ext
-    #:i-os-surface-create-flags-mvk ;; :bitmask
-    #:i-os-surface-create-info-mvk ;; :struct
+    #:i-os-surface-create-flags-mvk
+    #:i-os-surface-create-info-mvk
     #:c-i-os-surface-create-info-mvk
-    #:image ;; :handle
-    #:image-aspect-flag-bits ;; :enum
-    #:image-aspect-flags ;; :bitmask
-    #:image-blit ;; :struct
+    #:image
+    #:image-aspect-flag-bits
+    #:image-aspect-flags
+    #:image-blit
     #:c-image-blit
-    #:image-blit-2-khr ;; :struct
+    #:image-blit-2-khr
     #:c-image-blit-2-khr
-    #:image-copy ;; :struct
+    #:image-copy
     #:c-image-copy
-    #:image-copy-2-khr ;; :struct
+    #:image-copy-2-khr
     #:c-image-copy-2-khr
-    #:image-create-flag-bits ;; :enum
-    #:image-create-flags ;; :bitmask
-    #:image-create-info ;; :struct
+    #:image-create-flag-bits
+    #:image-create-flags
+    #:image-create-info
     #:c-image-create-info
-    #:image-drm-format-modifier-explicit-create-info-ext ;; :struct
+    #:image-drm-format-modifier-explicit-create-info-ext
     #:c-image-drm-format-modifier-explicit-create-info-ext
-    #:image-drm-format-modifier-list-create-info-ext ;; :struct
+    #:image-drm-format-modifier-list-create-info-ext
     #:c-image-drm-format-modifier-list-create-info-ext
-    #:image-drm-format-modifier-properties-ext ;; :struct
+    #:image-drm-format-modifier-properties-ext
     #:c-image-drm-format-modifier-properties-ext
-    #:image-format-list-create-info ;; :struct
+    #:image-format-list-create-info
     #:c-image-format-list-create-info
-    #:image-format-list-create-info-khr ;; :struct
+    #:image-format-list-create-info-khr
     #:c-image-format-list-create-info-khr
-    #:image-format-properties ;; :struct
+    #:image-format-properties
     #:c-image-format-properties
-    #:image-format-properties-2 ;; :struct
+    #:image-format-properties-2
     #:c-image-format-properties-2
-    #:image-format-properties-2-khr ;; :struct
+    #:image-format-properties-2-khr
     #:c-image-format-properties-2-khr
-    #:image-layout ;; :enum
-    #:image-memory-barrier ;; :struct
+    #:image-layout
+    #:image-memory-barrier
     #:c-image-memory-barrier
-    #:image-memory-barrier-2-khr ;; :struct
+    #:image-memory-barrier-2-khr
     #:c-image-memory-barrier-2-khr
-    #:image-memory-requirements-info-2 ;; :struct
+    #:image-memory-requirements-info-2
     #:c-image-memory-requirements-info-2
-    #:image-memory-requirements-info-2-khr ;; :struct
+    #:image-memory-requirements-info-2-khr
     #:c-image-memory-requirements-info-2-khr
-    #:image-pipe-surface-create-flags-fuchsia ;; :bitmask
-    #:image-pipe-surface-create-info-fuchsia ;; :struct
+    #:image-pipe-surface-create-flags-fuchsia
+    #:image-pipe-surface-create-info-fuchsia
     #:c-image-pipe-surface-create-info-fuchsia
-    #:image-plane-memory-requirements-info ;; :struct
+    #:image-plane-memory-requirements-info
     #:c-image-plane-memory-requirements-info
-    #:image-plane-memory-requirements-info-khr ;; :struct
+    #:image-plane-memory-requirements-info-khr
     #:c-image-plane-memory-requirements-info-khr
-    #:image-resolve ;; :struct
+    #:image-resolve
     #:c-image-resolve
-    #:image-resolve-2-khr ;; :struct
+    #:image-resolve-2-khr
     #:c-image-resolve-2-khr
-    #:image-sparse-memory-requirements-info-2 ;; :struct
+    #:image-sparse-memory-requirements-info-2
     #:c-image-sparse-memory-requirements-info-2
-    #:image-sparse-memory-requirements-info-2-khr ;; :struct
+    #:image-sparse-memory-requirements-info-2-khr
     #:c-image-sparse-memory-requirements-info-2-khr
-    #:image-stencil-usage-create-info ;; :struct
+    #:image-stencil-usage-create-info
     #:c-image-stencil-usage-create-info
-    #:image-stencil-usage-create-info-ext ;; :struct
+    #:image-stencil-usage-create-info-ext
     #:c-image-stencil-usage-create-info-ext
-    #:image-subresource ;; :struct
+    #:image-subresource
     #:c-image-subresource
-    #:image-subresource-layers ;; :struct
+    #:image-subresource-layers
     #:c-image-subresource-layers
-    #:image-subresource-range ;; :struct
+    #:image-subresource-range
     #:c-image-subresource-range
-    #:image-swapchain-create-info-khr ;; :struct
+    #:image-swapchain-create-info-khr
     #:c-image-swapchain-create-info-khr
-    #:image-tiling ;; :enum
-    #:image-type ;; :enum
-    #:image-usage-flag-bits ;; :enum
-    #:image-usage-flags ;; :bitmask
-    #:image-view ;; :handle
-    #:image-view-astc-decode-mode-ext ;; :struct
+    #:image-tiling
+    #:image-type
+    #:image-usage-flag-bits
+    #:image-usage-flags
+    #:image-view
+    #:image-view-astc-decode-mode-ext
     #:c-image-view-astc-decode-mode-ext
-    #:image-view-address-properties-nv-x ;; :struct
+    #:image-view-address-properties-nv-x
     #:c-image-view-address-properties-nv-x
-    #:image-view-create-flag-bits ;; :enum
-    #:image-view-create-flags ;; :bitmask
-    #:image-view-create-info ;; :struct
+    #:image-view-create-flag-bits
+    #:image-view-create-flags
+    #:image-view-create-info
     #:c-image-view-create-info
-    #:image-view-handle-info-nv-x ;; :struct
+    #:image-view-handle-info-nv-x
     #:c-image-view-handle-info-nv-x
-    #:image-view-type ;; :enum
-    #:image-view-usage-create-info ;; :struct
+    #:image-view-type
+    #:image-view-usage-create-info
     #:c-image-view-usage-create-info
-    #:image-view-usage-create-info-khr ;; :struct
+    #:image-view-usage-create-info-khr
     #:c-image-view-usage-create-info-khr
-    #:import-android-hardware-buffer-info-android ;; :struct
+    #:import-android-hardware-buffer-info-android
     #:c-import-android-hardware-buffer-info-android
-    #:import-fence-fd-info-khr ;; :struct
+    #:import-fence-fd-info-khr
     #:c-import-fence-fd-info-khr
-    #:import-fence-win32-handle-info-khr ;; :struct
+    #:import-fence-win32-handle-info-khr
     #:c-import-fence-win32-handle-info-khr
-    #:import-memory-fd-info-khr ;; :struct
+    #:import-memory-fd-info-khr
     #:c-import-memory-fd-info-khr
-    #:import-memory-host-pointer-info-ext ;; :struct
+    #:import-memory-host-pointer-info-ext
     #:c-import-memory-host-pointer-info-ext
-    #:import-memory-win32-handle-info-khr ;; :struct
+    #:import-memory-win32-handle-info-khr
     #:c-import-memory-win32-handle-info-khr
-    #:import-memory-win32-handle-info-nv ;; :struct
+    #:import-memory-win32-handle-info-nv
     #:c-import-memory-win32-handle-info-nv
-    #:import-memory-zircon-handle-info-fuchsia ;; :struct
+    #:import-memory-zircon-handle-info-fuchsia
     #:c-import-memory-zircon-handle-info-fuchsia
-    #:import-semaphore-fd-info-khr ;; :struct
+    #:import-semaphore-fd-info-khr
     #:c-import-semaphore-fd-info-khr
-    #:import-semaphore-win32-handle-info-khr ;; :struct
+    #:import-semaphore-win32-handle-info-khr
     #:c-import-semaphore-win32-handle-info-khr
-    #:import-semaphore-zircon-handle-info-fuchsia ;; :struct
+    #:import-semaphore-zircon-handle-info-fuchsia
     #:c-import-semaphore-zircon-handle-info-fuchsia
-    #:index-type ;; :enum
-    #:indirect-commands-layout-create-info-nv ;; :struct
+    #:index-type
+    #:indirect-commands-layout-create-info-nv
     #:c-indirect-commands-layout-create-info-nv
-    #:indirect-commands-layout-nv ;; :handle
-    #:indirect-commands-layout-token-nv ;; :struct
+    #:indirect-commands-layout-nv
+    #:indirect-commands-layout-token-nv
     #:c-indirect-commands-layout-token-nv
-    #:indirect-commands-layout-usage-flag-bits-nv ;; :enum
-    #:indirect-commands-layout-usage-flags-nv ;; :bitmask
-    #:indirect-commands-stream-nv ;; :struct
+    #:indirect-commands-layout-usage-flag-bits-nv
+    #:indirect-commands-layout-usage-flags-nv
+    #:indirect-commands-stream-nv
     #:c-indirect-commands-stream-nv
-    #:indirect-commands-token-type-nv ;; :enum
-    #:indirect-state-flag-bits-nv ;; :enum
-    #:indirect-state-flags-nv ;; :bitmask
-    #:initialize-performance-api-info-intel ;; :struct
+    #:indirect-commands-token-type-nv
+    #:indirect-state-flag-bits-nv
+    #:indirect-state-flags-nv
+    #:initialize-performance-api-info-intel
     #:c-initialize-performance-api-info-intel
-    #:input-attachment-aspect-reference ;; :struct
+    #:input-attachment-aspect-reference
     #:c-input-attachment-aspect-reference
-    #:input-attachment-aspect-reference-khr ;; :struct
+    #:input-attachment-aspect-reference-khr
     #:c-input-attachment-aspect-reference-khr
-    #:instance ;; :handle
-    #:instance-create-flag-bits ;; :enum
-    #:instance-create-flags ;; :bitmask
-    #:instance-create-info ;; :struct
+    #:instance
+    #:instance-create-flag-bits
+    #:instance-create-flags
+    #:instance-create-info
     #:c-instance-create-info
-    #:internal-allocation-type ;; :enum
-    #:layer-properties ;; :struct
+    #:internal-allocation-type
+    #:layer-properties
     #:c-layer-properties
-    #:line-rasterization-mode-ext ;; :enum
-    #:logic-op ;; :enum
-    #:mac-os-surface-create-flags-mvk ;; :bitmask
-    #:mac-os-surface-create-info-mvk ;; :struct
+    #:line-rasterization-mode-ext
+    #:logic-op
+    #:mac-os-surface-create-flags-mvk
+    #:mac-os-surface-create-info-mvk
     #:c-mac-os-surface-create-info-mvk
-    #:mapped-memory-range ;; :struct
+    #:mapped-memory-range
     #:c-mapped-memory-range
-    #:memory-allocate-flag-bits ;; :enum
-    #:memory-allocate-flag-bits-khr ;; :enum
-    #:memory-allocate-flags ;; :bitmask
-    #:memory-allocate-flags-info ;; :struct
+    #:memory-allocate-flag-bits
+    #:memory-allocate-flag-bits-khr
+    #:memory-allocate-flags
+    #:memory-allocate-flags-info
     #:c-memory-allocate-flags-info
-    #:memory-allocate-flags-info-khr ;; :struct
+    #:memory-allocate-flags-info-khr
     #:c-memory-allocate-flags-info-khr
-    #:memory-allocate-flags-khr ;; :bitmask
-    #:memory-allocate-info ;; :struct
+    #:memory-allocate-flags-khr
+    #:memory-allocate-info
     #:c-memory-allocate-info
-    #:memory-barrier ;; :struct
+    #:memory-barrier
     #:c-memory-barrier
-    #:memory-barrier-2-khr ;; :struct
+    #:memory-barrier-2-khr
     #:c-memory-barrier-2-khr
-    #:memory-dedicated-allocate-info ;; :struct
+    #:memory-dedicated-allocate-info
     #:c-memory-dedicated-allocate-info
-    #:memory-dedicated-allocate-info-khr ;; :struct
+    #:memory-dedicated-allocate-info-khr
     #:c-memory-dedicated-allocate-info-khr
-    #:memory-dedicated-requirements ;; :struct
+    #:memory-dedicated-requirements
     #:c-memory-dedicated-requirements
-    #:memory-dedicated-requirements-khr ;; :struct
+    #:memory-dedicated-requirements-khr
     #:c-memory-dedicated-requirements-khr
-    #:memory-fd-properties-khr ;; :struct
+    #:memory-fd-properties-khr
     #:c-memory-fd-properties-khr
-    #:memory-get-android-hardware-buffer-info-android ;; :struct
+    #:memory-get-android-hardware-buffer-info-android
     #:c-memory-get-android-hardware-buffer-info-android
-    #:memory-get-fd-info-khr ;; :struct
+    #:memory-get-fd-info-khr
     #:c-memory-get-fd-info-khr
-    #:memory-get-win32-handle-info-khr ;; :struct
+    #:memory-get-win32-handle-info-khr
     #:c-memory-get-win32-handle-info-khr
-    #:memory-get-zircon-handle-info-fuchsia ;; :struct
+    #:memory-get-zircon-handle-info-fuchsia
     #:c-memory-get-zircon-handle-info-fuchsia
-    #:memory-heap ;; :struct
+    #:memory-heap
     #:c-memory-heap
-    #:memory-heap-flag-bits ;; :enum
-    #:memory-heap-flags ;; :bitmask
-    #:memory-host-pointer-properties-ext ;; :struct
+    #:memory-heap-flag-bits
+    #:memory-heap-flags
+    #:memory-host-pointer-properties-ext
     #:c-memory-host-pointer-properties-ext
-    #:memory-map-flags ;; :bitmask
-    #:memory-opaque-capture-address-allocate-info ;; :struct
+    #:memory-map-flags
+    #:memory-opaque-capture-address-allocate-info
     #:c-memory-opaque-capture-address-allocate-info
-    #:memory-opaque-capture-address-allocate-info-khr ;; :struct
+    #:memory-opaque-capture-address-allocate-info-khr
     #:c-memory-opaque-capture-address-allocate-info-khr
-    #:memory-overallocation-behavior-amd ;; :enum
-    #:memory-priority-allocate-info-ext ;; :struct
+    #:memory-overallocation-behavior-amd
+    #:memory-priority-allocate-info-ext
     #:c-memory-priority-allocate-info-ext
-    #:memory-property-flag-bits ;; :enum
-    #:memory-property-flags ;; :bitmask
-    #:memory-requirements ;; :struct
+    #:memory-property-flag-bits
+    #:memory-property-flags
+    #:memory-requirements
     #:c-memory-requirements
-    #:memory-requirements-2 ;; :struct
+    #:memory-requirements-2
     #:c-memory-requirements-2
-    #:memory-requirements-2-khr ;; :struct
+    #:memory-requirements-2-khr
     #:c-memory-requirements-2-khr
-    #:memory-type ;; :struct
+    #:memory-type
     #:c-memory-type
-    #:memory-win32-handle-properties-khr ;; :struct
+    #:memory-win32-handle-properties-khr
     #:c-memory-win32-handle-properties-khr
-    #:memory-zircon-handle-properties-fuchsia ;; :struct
+    #:memory-zircon-handle-properties-fuchsia
     #:c-memory-zircon-handle-properties-fuchsia
-    #:metal-surface-create-flags-ext ;; :bitmask
-    #:metal-surface-create-info-ext ;; :struct
+    #:metal-surface-create-flags-ext
+    #:metal-surface-create-info-ext
     #:c-metal-surface-create-info-ext
-    #:multisample-properties-ext ;; :struct
+    #:multisample-properties-ext
     #:c-multisample-properties-ext
-    #:mutable-descriptor-type-create-info-valve ;; :struct
+    #:mutable-descriptor-type-create-info-valve
     #:c-mutable-descriptor-type-create-info-valve
-    #:mutable-descriptor-type-list-valve ;; :struct
+    #:mutable-descriptor-type-list-valve
     #:c-mutable-descriptor-type-list-valve
-    #:native-buffer-android ;; :struct
+    #:native-buffer-android
     #:c-native-buffer-android
-    #:native-buffer-usage-2-android ;; :struct
+    #:native-buffer-usage-2-android
     #:c-native-buffer-usage-2-android
-    #:object-type ;; :enum
-    #:offset-2d ;; :struct
+    #:object-type
+    #:offset-2d
     #:c-offset-2d
-    #:offset-3d ;; :struct
+    #:offset-3d
     #:c-offset-3d
-    #:past-presentation-timing-google ;; :struct
+    #:past-presentation-timing-google
     #:c-past-presentation-timing-google
-    #:peer-memory-feature-flag-bits ;; :enum
-    #:peer-memory-feature-flag-bits-khr ;; :enum
-    #:peer-memory-feature-flags ;; :bitmask
-    #:peer-memory-feature-flags-khr ;; :bitmask
-    #:performance-configuration-acquire-info-intel ;; :struct
+    #:peer-memory-feature-flag-bits
+    #:peer-memory-feature-flag-bits-khr
+    #:peer-memory-feature-flags
+    #:peer-memory-feature-flags-khr
+    #:performance-configuration-acquire-info-intel
     #:c-performance-configuration-acquire-info-intel
-    #:performance-configuration-intel ;; :handle
-    #:performance-configuration-type-intel ;; :enum
-    #:performance-counter-description-flag-bits-khr ;; :enum
-    #:performance-counter-description-flags-khr ;; :bitmask
-    #:performance-counter-description-khr ;; :struct
+    #:performance-configuration-intel
+    #:performance-configuration-type-intel
+    #:performance-counter-description-flag-bits-khr
+    #:performance-counter-description-flags-khr
+    #:performance-counter-description-khr
     #:c-performance-counter-description-khr
-    #:performance-counter-khr ;; :struct
+    #:performance-counter-khr
     #:c-performance-counter-khr
-    #:performance-counter-result-khr ;; :union
-    #:performance-counter-scope-khr ;; :enum
-    #:performance-counter-storage-khr ;; :enum
-    #:performance-counter-unit-khr ;; :enum
-    #:performance-marker-info-intel ;; :struct
+    #:performance-counter-result-khr
+    #:performance-counter-scope-khr
+    #:performance-counter-storage-khr
+    #:performance-counter-unit-khr
+    #:performance-marker-info-intel
     #:c-performance-marker-info-intel
-    #:performance-override-info-intel ;; :struct
+    #:performance-override-info-intel
     #:c-performance-override-info-intel
-    #:performance-override-type-intel ;; :enum
-    #:performance-parameter-type-intel ;; :enum
-    #:performance-query-submit-info-khr ;; :struct
+    #:performance-override-type-intel
+    #:performance-parameter-type-intel
+    #:performance-query-submit-info-khr
     #:c-performance-query-submit-info-khr
-    #:performance-stream-marker-info-intel ;; :struct
+    #:performance-stream-marker-info-intel
     #:c-performance-stream-marker-info-intel
-    #:performance-value-data-intel ;; :union
-    #:performance-value-intel ;; :struct
+    #:performance-value-data-intel
+    #:performance-value-intel
     #:c-performance-value-intel
-    #:performance-value-type-intel ;; :enum
-    #:physical-device ;; :handle
-    #:physical-device-16-bit-storage-features ;; :struct
+    #:performance-value-type-intel
+    #:physical-device
+    #:physical-device-16-bit-storage-features
     #:c-physical-device-16-bit-storage-features
-    #:physical-device-16-bit-storage-features-khr ;; :struct
+    #:physical-device-16-bit-storage-features-khr
     #:c-physical-device-16-bit-storage-features-khr
-    #:physical-device-4444-formats-features-ext ;; :struct
+    #:physical-device-4444-formats-features-ext
     #:c-physical-device-4444-formats-features-ext
-    #:physical-device-8-bit-storage-features ;; :struct
+    #:physical-device-8-bit-storage-features
     #:c-physical-device-8-bit-storage-features
-    #:physical-device-8-bit-storage-features-khr ;; :struct
+    #:physical-device-8-bit-storage-features-khr
     #:c-physical-device-8-bit-storage-features-khr
-    #:physical-device-astc-decode-features-ext ;; :struct
+    #:physical-device-astc-decode-features-ext
     #:c-physical-device-astc-decode-features-ext
-    #:physical-device-acceleration-structure-features-khr ;; :struct
+    #:physical-device-acceleration-structure-features-khr
     #:c-physical-device-acceleration-structure-features-khr
-    #:physical-device-acceleration-structure-properties-khr ;; :struct
+    #:physical-device-acceleration-structure-properties-khr
     #:c-physical-device-acceleration-structure-properties-khr
-    #:physical-device-blend-operation-advanced-features-ext ;; :struct
+    #:physical-device-blend-operation-advanced-features-ext
     #:c-physical-device-blend-operation-advanced-features-ext
-    #:physical-device-blend-operation-advanced-properties-ext ;; :struct
+    #:physical-device-blend-operation-advanced-properties-ext
     #:c-physical-device-blend-operation-advanced-properties-ext
-    #:physical-device-buffer-address-features-ext ;; :struct
+    #:physical-device-buffer-address-features-ext
     #:c-physical-device-buffer-address-features-ext
-    #:physical-device-buffer-device-address-features ;; :struct
+    #:physical-device-buffer-device-address-features
     #:c-physical-device-buffer-device-address-features
-    #:physical-device-buffer-device-address-features-ext ;; :struct
+    #:physical-device-buffer-device-address-features-ext
     #:c-physical-device-buffer-device-address-features-ext
-    #:physical-device-buffer-device-address-features-khr ;; :struct
+    #:physical-device-buffer-device-address-features-khr
     #:c-physical-device-buffer-device-address-features-khr
-    #:physical-device-coherent-memory-features-amd ;; :struct
+    #:physical-device-coherent-memory-features-amd
     #:c-physical-device-coherent-memory-features-amd
-    #:physical-device-compute-shader-derivatives-features-nv ;; :struct
+    #:physical-device-compute-shader-derivatives-features-nv
     #:c-physical-device-compute-shader-derivatives-features-nv
-    #:physical-device-conditional-rendering-features-ext ;; :struct
+    #:physical-device-conditional-rendering-features-ext
     #:c-physical-device-conditional-rendering-features-ext
-    #:physical-device-conservative-rasterization-properties-ext ;; :struct
+    #:physical-device-conservative-rasterization-properties-ext
     #:c-physical-device-conservative-rasterization-properties-ext
-    #:physical-device-cooperative-matrix-features-nv ;; :struct
+    #:physical-device-cooperative-matrix-features-nv
     #:c-physical-device-cooperative-matrix-features-nv
-    #:physical-device-cooperative-matrix-properties-nv ;; :struct
+    #:physical-device-cooperative-matrix-properties-nv
     #:c-physical-device-cooperative-matrix-properties-nv
-    #:physical-device-corner-sampled-image-features-nv ;; :struct
+    #:physical-device-corner-sampled-image-features-nv
     #:c-physical-device-corner-sampled-image-features-nv
-    #:physical-device-coverage-reduction-mode-features-nv ;; :struct
+    #:physical-device-coverage-reduction-mode-features-nv
     #:c-physical-device-coverage-reduction-mode-features-nv
-    #:physical-device-custom-border-color-features-ext ;; :struct
+    #:physical-device-custom-border-color-features-ext
     #:c-physical-device-custom-border-color-features-ext
-    #:physical-device-custom-border-color-properties-ext ;; :struct
+    #:physical-device-custom-border-color-properties-ext
     #:c-physical-device-custom-border-color-properties-ext
-    #:physical-device-dedicated-allocation-image-aliasing-features-nv ;; :struct
+    #:physical-device-dedicated-allocation-image-aliasing-features-nv
     #:c-physical-device-dedicated-allocation-image-aliasing-features-nv
-    #:physical-device-depth-clip-enable-features-ext ;; :struct
+    #:physical-device-depth-clip-enable-features-ext
     #:c-physical-device-depth-clip-enable-features-ext
-    #:physical-device-depth-stencil-resolve-properties ;; :struct
+    #:physical-device-depth-stencil-resolve-properties
     #:c-physical-device-depth-stencil-resolve-properties
-    #:physical-device-depth-stencil-resolve-properties-khr ;; :struct
+    #:physical-device-depth-stencil-resolve-properties-khr
     #:c-physical-device-depth-stencil-resolve-properties-khr
-    #:physical-device-descriptor-indexing-features ;; :struct
+    #:physical-device-descriptor-indexing-features
     #:c-physical-device-descriptor-indexing-features
-    #:physical-device-descriptor-indexing-features-ext ;; :struct
+    #:physical-device-descriptor-indexing-features-ext
     #:c-physical-device-descriptor-indexing-features-ext
-    #:physical-device-descriptor-indexing-properties ;; :struct
+    #:physical-device-descriptor-indexing-properties
     #:c-physical-device-descriptor-indexing-properties
-    #:physical-device-descriptor-indexing-properties-ext ;; :struct
+    #:physical-device-descriptor-indexing-properties-ext
     #:c-physical-device-descriptor-indexing-properties-ext
-    #:physical-device-device-generated-commands-features-nv ;; :struct
+    #:physical-device-device-generated-commands-features-nv
     #:c-physical-device-device-generated-commands-features-nv
-    #:physical-device-device-generated-commands-properties-nv ;; :struct
+    #:physical-device-device-generated-commands-properties-nv
     #:c-physical-device-device-generated-commands-properties-nv
-    #:physical-device-device-memory-report-features-ext ;; :struct
+    #:physical-device-device-memory-report-features-ext
     #:c-physical-device-device-memory-report-features-ext
-    #:physical-device-diagnostics-config-features-nv ;; :struct
+    #:physical-device-diagnostics-config-features-nv
     #:c-physical-device-diagnostics-config-features-nv
-    #:physical-device-discard-rectangle-properties-ext ;; :struct
+    #:physical-device-discard-rectangle-properties-ext
     #:c-physical-device-discard-rectangle-properties-ext
-    #:physical-device-driver-properties ;; :struct
+    #:physical-device-driver-properties
     #:c-physical-device-driver-properties
-    #:physical-device-driver-properties-khr ;; :struct
+    #:physical-device-driver-properties-khr
     #:c-physical-device-driver-properties-khr
-    #:physical-device-exclusive-scissor-features-nv ;; :struct
+    #:physical-device-exclusive-scissor-features-nv
     #:c-physical-device-exclusive-scissor-features-nv
-    #:physical-device-extended-dynamic-state-features-ext ;; :struct
+    #:physical-device-extended-dynamic-state-features-ext
     #:c-physical-device-extended-dynamic-state-features-ext
-    #:physical-device-external-buffer-info ;; :struct
+    #:physical-device-external-buffer-info
     #:c-physical-device-external-buffer-info
-    #:physical-device-external-buffer-info-khr ;; :struct
+    #:physical-device-external-buffer-info-khr
     #:c-physical-device-external-buffer-info-khr
-    #:physical-device-external-fence-info ;; :struct
+    #:physical-device-external-fence-info
     #:c-physical-device-external-fence-info
-    #:physical-device-external-fence-info-khr ;; :struct
+    #:physical-device-external-fence-info-khr
     #:c-physical-device-external-fence-info-khr
-    #:physical-device-external-image-format-info ;; :struct
+    #:physical-device-external-image-format-info
     #:c-physical-device-external-image-format-info
-    #:physical-device-external-image-format-info-khr ;; :struct
+    #:physical-device-external-image-format-info-khr
     #:c-physical-device-external-image-format-info-khr
-    #:physical-device-external-memory-host-properties-ext ;; :struct
+    #:physical-device-external-memory-host-properties-ext
     #:c-physical-device-external-memory-host-properties-ext
-    #:physical-device-external-semaphore-info ;; :struct
+    #:physical-device-external-semaphore-info
     #:c-physical-device-external-semaphore-info
-    #:physical-device-external-semaphore-info-khr ;; :struct
+    #:physical-device-external-semaphore-info-khr
     #:c-physical-device-external-semaphore-info-khr
-    #:physical-device-features ;; :struct
+    #:physical-device-features
     #:c-physical-device-features
-    #:physical-device-features-2 ;; :struct
+    #:physical-device-features-2
     #:c-physical-device-features-2
-    #:physical-device-features-2-khr ;; :struct
+    #:physical-device-features-2-khr
     #:c-physical-device-features-2-khr
-    #:physical-device-float-16-int-8-features-khr ;; :struct
+    #:physical-device-float-16-int-8-features-khr
     #:c-physical-device-float-16-int-8-features-khr
-    #:physical-device-float-controls-properties ;; :struct
+    #:physical-device-float-controls-properties
     #:c-physical-device-float-controls-properties
-    #:physical-device-float-controls-properties-khr ;; :struct
+    #:physical-device-float-controls-properties-khr
     #:c-physical-device-float-controls-properties-khr
-    #:physical-device-fragment-density-map-2-features-ext ;; :struct
+    #:physical-device-fragment-density-map-2-features-ext
     #:c-physical-device-fragment-density-map-2-features-ext
-    #:physical-device-fragment-density-map-2-properties-ext ;; :struct
+    #:physical-device-fragment-density-map-2-properties-ext
     #:c-physical-device-fragment-density-map-2-properties-ext
-    #:physical-device-fragment-density-map-features-ext ;; :struct
+    #:physical-device-fragment-density-map-features-ext
     #:c-physical-device-fragment-density-map-features-ext
-    #:physical-device-fragment-density-map-properties-ext ;; :struct
+    #:physical-device-fragment-density-map-properties-ext
     #:c-physical-device-fragment-density-map-properties-ext
-    #:physical-device-fragment-shader-barycentric-features-nv ;; :struct
+    #:physical-device-fragment-shader-barycentric-features-nv
     #:c-physical-device-fragment-shader-barycentric-features-nv
-    #:physical-device-fragment-shader-interlock-features-ext ;; :struct
+    #:physical-device-fragment-shader-interlock-features-ext
     #:c-physical-device-fragment-shader-interlock-features-ext
-    #:physical-device-fragment-shading-rate-enums-features-nv ;; :struct
+    #:physical-device-fragment-shading-rate-enums-features-nv
     #:c-physical-device-fragment-shading-rate-enums-features-nv
-    #:physical-device-fragment-shading-rate-enums-properties-nv ;; :struct
+    #:physical-device-fragment-shading-rate-enums-properties-nv
     #:c-physical-device-fragment-shading-rate-enums-properties-nv
-    #:physical-device-fragment-shading-rate-features-khr ;; :struct
+    #:physical-device-fragment-shading-rate-features-khr
     #:c-physical-device-fragment-shading-rate-features-khr
-    #:physical-device-fragment-shading-rate-khr ;; :struct
+    #:physical-device-fragment-shading-rate-khr
     #:c-physical-device-fragment-shading-rate-khr
-    #:physical-device-fragment-shading-rate-properties-khr ;; :struct
+    #:physical-device-fragment-shading-rate-properties-khr
     #:c-physical-device-fragment-shading-rate-properties-khr
-    #:physical-device-group-properties ;; :struct
+    #:physical-device-group-properties
     #:c-physical-device-group-properties
-    #:physical-device-group-properties-khr ;; :struct
+    #:physical-device-group-properties-khr
     #:c-physical-device-group-properties-khr
-    #:physical-device-host-query-reset-features ;; :struct
+    #:physical-device-host-query-reset-features
     #:c-physical-device-host-query-reset-features
-    #:physical-device-host-query-reset-features-ext ;; :struct
+    #:physical-device-host-query-reset-features-ext
     #:c-physical-device-host-query-reset-features-ext
-    #:physical-device-id-properties ;; :struct
+    #:physical-device-id-properties
     #:c-physical-device-id-properties
-    #:physical-device-id-properties-khr ;; :struct
+    #:physical-device-id-properties-khr
     #:c-physical-device-id-properties-khr
-    #:physical-device-image-drm-format-modifier-info-ext ;; :struct
+    #:physical-device-image-drm-format-modifier-info-ext
     #:c-physical-device-image-drm-format-modifier-info-ext
-    #:physical-device-image-format-info-2 ;; :struct
+    #:physical-device-image-format-info-2
     #:c-physical-device-image-format-info-2
-    #:physical-device-image-format-info-2-khr ;; :struct
+    #:physical-device-image-format-info-2-khr
     #:c-physical-device-image-format-info-2-khr
-    #:physical-device-image-robustness-features-ext ;; :struct
+    #:physical-device-image-robustness-features-ext
     #:c-physical-device-image-robustness-features-ext
-    #:physical-device-image-view-image-format-info-ext ;; :struct
+    #:physical-device-image-view-image-format-info-ext
     #:c-physical-device-image-view-image-format-info-ext
-    #:physical-device-imageless-framebuffer-features ;; :struct
+    #:physical-device-imageless-framebuffer-features
     #:c-physical-device-imageless-framebuffer-features
-    #:physical-device-imageless-framebuffer-features-khr ;; :struct
+    #:physical-device-imageless-framebuffer-features-khr
     #:c-physical-device-imageless-framebuffer-features-khr
-    #:physical-device-index-type-uint-8-features-ext ;; :struct
+    #:physical-device-index-type-uint-8-features-ext
     #:c-physical-device-index-type-uint-8-features-ext
-    #:physical-device-inline-uniform-block-features-ext ;; :struct
+    #:physical-device-inline-uniform-block-features-ext
     #:c-physical-device-inline-uniform-block-features-ext
-    #:physical-device-inline-uniform-block-properties-ext ;; :struct
+    #:physical-device-inline-uniform-block-properties-ext
     #:c-physical-device-inline-uniform-block-properties-ext
-    #:physical-device-limits ;; :struct
+    #:physical-device-limits
     #:c-physical-device-limits
-    #:physical-device-line-rasterization-features-ext ;; :struct
+    #:physical-device-line-rasterization-features-ext
     #:c-physical-device-line-rasterization-features-ext
-    #:physical-device-line-rasterization-properties-ext ;; :struct
+    #:physical-device-line-rasterization-properties-ext
     #:c-physical-device-line-rasterization-properties-ext
-    #:physical-device-maintenance-3-properties ;; :struct
+    #:physical-device-maintenance-3-properties
     #:c-physical-device-maintenance-3-properties
-    #:physical-device-maintenance-3-properties-khr ;; :struct
+    #:physical-device-maintenance-3-properties-khr
     #:c-physical-device-maintenance-3-properties-khr
-    #:physical-device-memory-budget-properties-ext ;; :struct
+    #:physical-device-memory-budget-properties-ext
     #:c-physical-device-memory-budget-properties-ext
-    #:physical-device-memory-priority-features-ext ;; :struct
+    #:physical-device-memory-priority-features-ext
     #:c-physical-device-memory-priority-features-ext
-    #:physical-device-memory-properties ;; :struct
+    #:physical-device-memory-properties
     #:c-physical-device-memory-properties
-    #:physical-device-memory-properties-2 ;; :struct
+    #:physical-device-memory-properties-2
     #:c-physical-device-memory-properties-2
-    #:physical-device-memory-properties-2-khr ;; :struct
+    #:physical-device-memory-properties-2-khr
     #:c-physical-device-memory-properties-2-khr
-    #:physical-device-mesh-shader-features-nv ;; :struct
+    #:physical-device-mesh-shader-features-nv
     #:c-physical-device-mesh-shader-features-nv
-    #:physical-device-mesh-shader-properties-nv ;; :struct
+    #:physical-device-mesh-shader-properties-nv
     #:c-physical-device-mesh-shader-properties-nv
-    #:physical-device-multiview-features ;; :struct
+    #:physical-device-multiview-features
     #:c-physical-device-multiview-features
-    #:physical-device-multiview-features-khr ;; :struct
+    #:physical-device-multiview-features-khr
     #:c-physical-device-multiview-features-khr
-    #:physical-device-multiview-per-view-attributes-properties-nv-x ;; :struct
+    #:physical-device-multiview-per-view-attributes-properties-nv-x
     #:c-physical-device-multiview-per-view-attributes-properties-nv-x
-    #:physical-device-multiview-properties ;; :struct
+    #:physical-device-multiview-properties
     #:c-physical-device-multiview-properties
-    #:physical-device-multiview-properties-khr ;; :struct
+    #:physical-device-multiview-properties-khr
     #:c-physical-device-multiview-properties-khr
-    #:physical-device-mutable-descriptor-type-features-valve ;; :struct
+    #:physical-device-mutable-descriptor-type-features-valve
     #:c-physical-device-mutable-descriptor-type-features-valve
-    #:physical-device-p-c-i-bus-info-properties-ext ;; :struct
+    #:physical-device-p-c-i-bus-info-properties-ext
     #:c-physical-device-p-c-i-bus-info-properties-ext
-    #:physical-device-performance-query-features-khr ;; :struct
+    #:physical-device-performance-query-features-khr
     #:c-physical-device-performance-query-features-khr
-    #:physical-device-performance-query-properties-khr ;; :struct
+    #:physical-device-performance-query-properties-khr
     #:c-physical-device-performance-query-properties-khr
-    #:physical-device-pipeline-creation-cache-control-features-ext ;; :struct
+    #:physical-device-pipeline-creation-cache-control-features-ext
     #:c-physical-device-pipeline-creation-cache-control-features-ext
-    #:physical-device-pipeline-executable-properties-features-khr ;; :struct
+    #:physical-device-pipeline-executable-properties-features-khr
     #:c-physical-device-pipeline-executable-properties-features-khr
-    #:physical-device-point-clipping-properties ;; :struct
+    #:physical-device-point-clipping-properties
     #:c-physical-device-point-clipping-properties
-    #:physical-device-point-clipping-properties-khr ;; :struct
+    #:physical-device-point-clipping-properties-khr
     #:c-physical-device-point-clipping-properties-khr
-    #:physical-device-portability-subset-features-khr ;; :struct
+    #:physical-device-portability-subset-features-khr
     #:c-physical-device-portability-subset-features-khr
-    #:physical-device-portability-subset-properties-khr ;; :struct
+    #:physical-device-portability-subset-properties-khr
     #:c-physical-device-portability-subset-properties-khr
-    #:physical-device-presentation-properties-android ;; :struct
+    #:physical-device-presentation-properties-android
     #:c-physical-device-presentation-properties-android
-    #:physical-device-private-data-features-ext ;; :struct
+    #:physical-device-private-data-features-ext
     #:c-physical-device-private-data-features-ext
-    #:physical-device-properties ;; :struct
+    #:physical-device-properties
     #:c-physical-device-properties
-    #:physical-device-properties-2 ;; :struct
+    #:physical-device-properties-2
     #:c-physical-device-properties-2
-    #:physical-device-properties-2-khr ;; :struct
+    #:physical-device-properties-2-khr
     #:c-physical-device-properties-2-khr
-    #:physical-device-protected-memory-features ;; :struct
+    #:physical-device-protected-memory-features
     #:c-physical-device-protected-memory-features
-    #:physical-device-protected-memory-properties ;; :struct
+    #:physical-device-protected-memory-properties
     #:c-physical-device-protected-memory-properties
-    #:physical-device-push-descriptor-properties-khr ;; :struct
+    #:physical-device-push-descriptor-properties-khr
     #:c-physical-device-push-descriptor-properties-khr
-    #:physical-device-ray-query-features-khr ;; :struct
+    #:physical-device-ray-query-features-khr
     #:c-physical-device-ray-query-features-khr
-    #:physical-device-ray-tracing-pipeline-features-khr ;; :struct
+    #:physical-device-ray-tracing-pipeline-features-khr
     #:c-physical-device-ray-tracing-pipeline-features-khr
-    #:physical-device-ray-tracing-pipeline-properties-khr ;; :struct
+    #:physical-device-ray-tracing-pipeline-properties-khr
     #:c-physical-device-ray-tracing-pipeline-properties-khr
-    #:physical-device-ray-tracing-properties-nv ;; :struct
+    #:physical-device-ray-tracing-properties-nv
     #:c-physical-device-ray-tracing-properties-nv
-    #:physical-device-representative-fragment-test-features-nv ;; :struct
+    #:physical-device-representative-fragment-test-features-nv
     #:c-physical-device-representative-fragment-test-features-nv
-    #:physical-device-robustness-2-features-ext ;; :struct
+    #:physical-device-robustness-2-features-ext
     #:c-physical-device-robustness-2-features-ext
-    #:physical-device-robustness-2-properties-ext ;; :struct
+    #:physical-device-robustness-2-properties-ext
     #:c-physical-device-robustness-2-properties-ext
-    #:physical-device-sample-locations-properties-ext ;; :struct
+    #:physical-device-sample-locations-properties-ext
     #:c-physical-device-sample-locations-properties-ext
-    #:physical-device-sampler-filter-minmax-properties ;; :struct
+    #:physical-device-sampler-filter-minmax-properties
     #:c-physical-device-sampler-filter-minmax-properties
-    #:physical-device-sampler-filter-minmax-properties-ext ;; :struct
+    #:physical-device-sampler-filter-minmax-properties-ext
     #:c-physical-device-sampler-filter-minmax-properties-ext
-    #:physical-device-sampler-ycbcr-conversion-features ;; :struct
+    #:physical-device-sampler-ycbcr-conversion-features
     #:c-physical-device-sampler-ycbcr-conversion-features
-    #:physical-device-sampler-ycbcr-conversion-features-khr ;; :struct
+    #:physical-device-sampler-ycbcr-conversion-features-khr
     #:c-physical-device-sampler-ycbcr-conversion-features-khr
-    #:physical-device-scalar-block-layout-features ;; :struct
+    #:physical-device-scalar-block-layout-features
     #:c-physical-device-scalar-block-layout-features
-    #:physical-device-scalar-block-layout-features-ext ;; :struct
+    #:physical-device-scalar-block-layout-features-ext
     #:c-physical-device-scalar-block-layout-features-ext
-    #:physical-device-separate-depth-stencil-layouts-features ;; :struct
+    #:physical-device-separate-depth-stencil-layouts-features
     #:c-physical-device-separate-depth-stencil-layouts-features
-    #:physical-device-separate-depth-stencil-layouts-features-khr ;; :struct
+    #:physical-device-separate-depth-stencil-layouts-features-khr
     #:c-physical-device-separate-depth-stencil-layouts-features-khr
-    #:physical-device-shader-atomic-float-features-ext ;; :struct
+    #:physical-device-shader-atomic-float-features-ext
     #:c-physical-device-shader-atomic-float-features-ext
-    #:physical-device-shader-atomic-int-64-features ;; :struct
+    #:physical-device-shader-atomic-int-64-features
     #:c-physical-device-shader-atomic-int-64-features
-    #:physical-device-shader-atomic-int-64-features-khr ;; :struct
+    #:physical-device-shader-atomic-int-64-features-khr
     #:c-physical-device-shader-atomic-int-64-features-khr
-    #:physical-device-shader-clock-features-khr ;; :struct
+    #:physical-device-shader-clock-features-khr
     #:c-physical-device-shader-clock-features-khr
-    #:physical-device-shader-core-properties-2-amd ;; :struct
+    #:physical-device-shader-core-properties-2-amd
     #:c-physical-device-shader-core-properties-2-amd
-    #:physical-device-shader-core-properties-amd ;; :struct
+    #:physical-device-shader-core-properties-amd
     #:c-physical-device-shader-core-properties-amd
-    #:physical-device-shader-demote-to-helper-invocation-features-ext ;; :struct
+    #:physical-device-shader-demote-to-helper-invocation-features-ext
     #:c-physical-device-shader-demote-to-helper-invocation-features-ext
-    #:physical-device-shader-draw-parameter-features ;; :struct
+    #:physical-device-shader-draw-parameter-features
     #:c-physical-device-shader-draw-parameter-features
-    #:physical-device-shader-draw-parameters-features ;; :struct
+    #:physical-device-shader-draw-parameters-features
     #:c-physical-device-shader-draw-parameters-features
-    #:physical-device-shader-float-16-int-8-features ;; :struct
+    #:physical-device-shader-float-16-int-8-features
     #:c-physical-device-shader-float-16-int-8-features
-    #:physical-device-shader-float-16-int-8-features-khr ;; :struct
+    #:physical-device-shader-float-16-int-8-features-khr
     #:c-physical-device-shader-float-16-int-8-features-khr
-    #:physical-device-shader-image-atomic-int-64-features-ext ;; :struct
+    #:physical-device-shader-image-atomic-int-64-features-ext
     #:c-physical-device-shader-image-atomic-int-64-features-ext
-    #:physical-device-shader-image-footprint-features-nv ;; :struct
+    #:physical-device-shader-image-footprint-features-nv
     #:c-physical-device-shader-image-footprint-features-nv
-    #:physical-device-shader-integer-functions-2-features-intel ;; :struct
+    #:physical-device-shader-integer-functions-2-features-intel
     #:c-physical-device-shader-integer-functions-2-features-intel
-    #:physical-device-shader-s-m-builtins-features-nv ;; :struct
+    #:physical-device-shader-s-m-builtins-features-nv
     #:c-physical-device-shader-s-m-builtins-features-nv
-    #:physical-device-shader-s-m-builtins-properties-nv ;; :struct
+    #:physical-device-shader-s-m-builtins-properties-nv
     #:c-physical-device-shader-s-m-builtins-properties-nv
-    #:physical-device-shader-subgroup-extended-types-features ;; :struct
+    #:physical-device-shader-subgroup-extended-types-features
     #:c-physical-device-shader-subgroup-extended-types-features
-    #:physical-device-shader-subgroup-extended-types-features-khr ;; :struct
+    #:physical-device-shader-subgroup-extended-types-features-khr
     #:c-physical-device-shader-subgroup-extended-types-features-khr
-    #:physical-device-shader-terminate-invocation-features-khr ;; :struct
+    #:physical-device-shader-terminate-invocation-features-khr
     #:c-physical-device-shader-terminate-invocation-features-khr
-    #:physical-device-shading-rate-image-features-nv ;; :struct
+    #:physical-device-shading-rate-image-features-nv
     #:c-physical-device-shading-rate-image-features-nv
-    #:physical-device-shading-rate-image-properties-nv ;; :struct
+    #:physical-device-shading-rate-image-properties-nv
     #:c-physical-device-shading-rate-image-properties-nv
-    #:physical-device-sparse-image-format-info-2 ;; :struct
+    #:physical-device-sparse-image-format-info-2
     #:c-physical-device-sparse-image-format-info-2
-    #:physical-device-sparse-image-format-info-2-khr ;; :struct
+    #:physical-device-sparse-image-format-info-2-khr
     #:c-physical-device-sparse-image-format-info-2-khr
-    #:physical-device-sparse-properties ;; :struct
+    #:physical-device-sparse-properties
     #:c-physical-device-sparse-properties
-    #:physical-device-subgroup-properties ;; :struct
+    #:physical-device-subgroup-properties
     #:c-physical-device-subgroup-properties
-    #:physical-device-subgroup-size-control-features-ext ;; :struct
+    #:physical-device-subgroup-size-control-features-ext
     #:c-physical-device-subgroup-size-control-features-ext
-    #:physical-device-subgroup-size-control-properties-ext ;; :struct
+    #:physical-device-subgroup-size-control-properties-ext
     #:c-physical-device-subgroup-size-control-properties-ext
-    #:physical-device-surface-info-2-khr ;; :struct
+    #:physical-device-surface-info-2-khr
     #:c-physical-device-surface-info-2-khr
-    #:physical-device-synchronization-2-features-khr ;; :struct
+    #:physical-device-synchronization-2-features-khr
     #:c-physical-device-synchronization-2-features-khr
-    #:physical-device-texel-buffer-alignment-features-ext ;; :struct
+    #:physical-device-texel-buffer-alignment-features-ext
     #:c-physical-device-texel-buffer-alignment-features-ext
-    #:physical-device-texel-buffer-alignment-properties-ext ;; :struct
+    #:physical-device-texel-buffer-alignment-properties-ext
     #:c-physical-device-texel-buffer-alignment-properties-ext
-    #:physical-device-texture-compression-astc-h-d-r-features-ext ;; :struct
+    #:physical-device-texture-compression-astc-h-d-r-features-ext
     #:c-physical-device-texture-compression-astc-h-d-r-features-ext
-    #:physical-device-timeline-semaphore-features ;; :struct
+    #:physical-device-timeline-semaphore-features
     #:c-physical-device-timeline-semaphore-features
-    #:physical-device-timeline-semaphore-features-khr ;; :struct
+    #:physical-device-timeline-semaphore-features-khr
     #:c-physical-device-timeline-semaphore-features-khr
-    #:physical-device-timeline-semaphore-properties ;; :struct
+    #:physical-device-timeline-semaphore-properties
     #:c-physical-device-timeline-semaphore-properties
-    #:physical-device-timeline-semaphore-properties-khr ;; :struct
+    #:physical-device-timeline-semaphore-properties-khr
     #:c-physical-device-timeline-semaphore-properties-khr
-    #:physical-device-tool-properties-ext ;; :struct
+    #:physical-device-tool-properties-ext
     #:c-physical-device-tool-properties-ext
-    #:physical-device-transform-feedback-features-ext ;; :struct
+    #:physical-device-transform-feedback-features-ext
     #:c-physical-device-transform-feedback-features-ext
-    #:physical-device-transform-feedback-properties-ext ;; :struct
+    #:physical-device-transform-feedback-properties-ext
     #:c-physical-device-transform-feedback-properties-ext
-    #:physical-device-type ;; :enum
-    #:physical-device-uniform-buffer-standard-layout-features ;; :struct
+    #:physical-device-type
+    #:physical-device-uniform-buffer-standard-layout-features
     #:c-physical-device-uniform-buffer-standard-layout-features
-    #:physical-device-uniform-buffer-standard-layout-features-khr ;; :struct
+    #:physical-device-uniform-buffer-standard-layout-features-khr
     #:c-physical-device-uniform-buffer-standard-layout-features-khr
-    #:physical-device-variable-pointer-features ;; :struct
+    #:physical-device-variable-pointer-features
     #:c-physical-device-variable-pointer-features
-    #:physical-device-variable-pointer-features-khr ;; :struct
+    #:physical-device-variable-pointer-features-khr
     #:c-physical-device-variable-pointer-features-khr
-    #:physical-device-variable-pointers-features ;; :struct
+    #:physical-device-variable-pointers-features
     #:c-physical-device-variable-pointers-features
-    #:physical-device-variable-pointers-features-khr ;; :struct
+    #:physical-device-variable-pointers-features-khr
     #:c-physical-device-variable-pointers-features-khr
-    #:physical-device-vertex-attribute-divisor-features-ext ;; :struct
+    #:physical-device-vertex-attribute-divisor-features-ext
     #:c-physical-device-vertex-attribute-divisor-features-ext
-    #:physical-device-vertex-attribute-divisor-properties-ext ;; :struct
+    #:physical-device-vertex-attribute-divisor-properties-ext
     #:c-physical-device-vertex-attribute-divisor-properties-ext
-    #:physical-device-vulkan-1-1-features ;; :struct
+    #:physical-device-vulkan-1-1-features
     #:c-physical-device-vulkan-1-1-features
-    #:physical-device-vulkan-1-1-properties ;; :struct
+    #:physical-device-vulkan-1-1-properties
     #:c-physical-device-vulkan-1-1-properties
-    #:physical-device-vulkan-1-2-features ;; :struct
+    #:physical-device-vulkan-1-2-features
     #:c-physical-device-vulkan-1-2-features
-    #:physical-device-vulkan-1-2-properties ;; :struct
+    #:physical-device-vulkan-1-2-properties
     #:c-physical-device-vulkan-1-2-properties
-    #:physical-device-vulkan-memory-model-features ;; :struct
+    #:physical-device-vulkan-memory-model-features
     #:c-physical-device-vulkan-memory-model-features
-    #:physical-device-vulkan-memory-model-features-khr ;; :struct
+    #:physical-device-vulkan-memory-model-features-khr
     #:c-physical-device-vulkan-memory-model-features-khr
-    #:physical-device-workgroup-memory-explicit-layout-features-khr ;; :struct
+    #:physical-device-workgroup-memory-explicit-layout-features-khr
     #:c-physical-device-workgroup-memory-explicit-layout-features-khr
-    #:physical-device-ycbcr-image-arrays-features-ext ;; :struct
+    #:physical-device-ycbcr-image-arrays-features-ext
     #:c-physical-device-ycbcr-image-arrays-features-ext
-    #:physical-device-zero-initialize-workgroup-memory-features-khr ;; :struct
+    #:physical-device-zero-initialize-workgroup-memory-features-khr
     #:c-physical-device-zero-initialize-workgroup-memory-features-khr
-    #:pipeline ;; :handle
-    #:pipeline-bind-point ;; :enum
-    #:pipeline-cache ;; :handle
-    #:pipeline-cache-create-flag-bits ;; :enum
-    #:pipeline-cache-create-flags ;; :bitmask
-    #:pipeline-cache-create-info ;; :struct
+    #:pipeline
+    #:pipeline-bind-point
+    #:pipeline-cache
+    #:pipeline-cache-create-flag-bits
+    #:pipeline-cache-create-flags
+    #:pipeline-cache-create-info
     #:c-pipeline-cache-create-info
-    #:pipeline-cache-header-version ;; :enum
-    #:pipeline-color-blend-advanced-state-create-info-ext ;; :struct
+    #:pipeline-cache-header-version
+    #:pipeline-color-blend-advanced-state-create-info-ext
     #:c-pipeline-color-blend-advanced-state-create-info-ext
-    #:pipeline-color-blend-attachment-state ;; :struct
+    #:pipeline-color-blend-attachment-state
     #:c-pipeline-color-blend-attachment-state
-    #:pipeline-color-blend-state-create-flags ;; :bitmask
-    #:pipeline-color-blend-state-create-info ;; :struct
+    #:pipeline-color-blend-state-create-flags
+    #:pipeline-color-blend-state-create-info
     #:c-pipeline-color-blend-state-create-info
-    #:pipeline-compiler-control-create-info-amd ;; :struct
+    #:pipeline-compiler-control-create-info-amd
     #:c-pipeline-compiler-control-create-info-amd
-    #:pipeline-compiler-control-flag-bits-amd ;; :enum
-    #:pipeline-compiler-control-flags-amd ;; :bitmask
-    #:pipeline-coverage-modulation-state-create-flags-nv ;; :bitmask
-    #:pipeline-coverage-modulation-state-create-info-nv ;; :struct
+    #:pipeline-compiler-control-flag-bits-amd
+    #:pipeline-compiler-control-flags-amd
+    #:pipeline-coverage-modulation-state-create-flags-nv
+    #:pipeline-coverage-modulation-state-create-info-nv
     #:c-pipeline-coverage-modulation-state-create-info-nv
-    #:pipeline-coverage-reduction-state-create-flags-nv ;; :bitmask
-    #:pipeline-coverage-reduction-state-create-info-nv ;; :struct
+    #:pipeline-coverage-reduction-state-create-flags-nv
+    #:pipeline-coverage-reduction-state-create-info-nv
     #:c-pipeline-coverage-reduction-state-create-info-nv
-    #:pipeline-coverage-to-color-state-create-flags-nv ;; :bitmask
-    #:pipeline-coverage-to-color-state-create-info-nv ;; :struct
+    #:pipeline-coverage-to-color-state-create-flags-nv
+    #:pipeline-coverage-to-color-state-create-info-nv
     #:c-pipeline-coverage-to-color-state-create-info-nv
-    #:pipeline-create-flag-bits ;; :enum
-    #:pipeline-create-flags ;; :bitmask
-    #:pipeline-creation-feedback-create-info-ext ;; :struct
+    #:pipeline-create-flag-bits
+    #:pipeline-create-flags
+    #:pipeline-creation-feedback-create-info-ext
     #:c-pipeline-creation-feedback-create-info-ext
-    #:pipeline-creation-feedback-ext ;; :struct
+    #:pipeline-creation-feedback-ext
     #:c-pipeline-creation-feedback-ext
-    #:pipeline-creation-feedback-flag-bits-ext ;; :enum
-    #:pipeline-creation-feedback-flags-ext ;; :bitmask
-    #:pipeline-depth-stencil-state-create-flags ;; :bitmask
-    #:pipeline-depth-stencil-state-create-info ;; :struct
+    #:pipeline-creation-feedback-flag-bits-ext
+    #:pipeline-creation-feedback-flags-ext
+    #:pipeline-depth-stencil-state-create-flags
+    #:pipeline-depth-stencil-state-create-info
     #:c-pipeline-depth-stencil-state-create-info
-    #:pipeline-discard-rectangle-state-create-flags-ext ;; :bitmask
-    #:pipeline-discard-rectangle-state-create-info-ext ;; :struct
+    #:pipeline-discard-rectangle-state-create-flags-ext
+    #:pipeline-discard-rectangle-state-create-info-ext
     #:c-pipeline-discard-rectangle-state-create-info-ext
-    #:pipeline-dynamic-state-create-flags ;; :bitmask
-    #:pipeline-dynamic-state-create-info ;; :struct
+    #:pipeline-dynamic-state-create-flags
+    #:pipeline-dynamic-state-create-info
     #:c-pipeline-dynamic-state-create-info
-    #:pipeline-executable-info-khr ;; :struct
+    #:pipeline-executable-info-khr
     #:c-pipeline-executable-info-khr
-    #:pipeline-executable-internal-representation-khr ;; :struct
+    #:pipeline-executable-internal-representation-khr
     #:c-pipeline-executable-internal-representation-khr
-    #:pipeline-executable-properties-khr ;; :struct
+    #:pipeline-executable-properties-khr
     #:c-pipeline-executable-properties-khr
-    #:pipeline-executable-statistic-format-khr ;; :enum
-    #:pipeline-executable-statistic-khr ;; :struct
+    #:pipeline-executable-statistic-format-khr
+    #:pipeline-executable-statistic-khr
     #:c-pipeline-executable-statistic-khr
-    #:pipeline-executable-statistic-value-khr ;; :union
-    #:pipeline-fragment-shading-rate-enum-state-create-info-nv ;; :struct
+    #:pipeline-executable-statistic-value-khr
+    #:pipeline-fragment-shading-rate-enum-state-create-info-nv
     #:c-pipeline-fragment-shading-rate-enum-state-create-info-nv
-    #:pipeline-fragment-shading-rate-state-create-info-khr ;; :struct
+    #:pipeline-fragment-shading-rate-state-create-info-khr
     #:c-pipeline-fragment-shading-rate-state-create-info-khr
-    #:pipeline-info-khr ;; :struct
+    #:pipeline-info-khr
     #:c-pipeline-info-khr
-    #:pipeline-input-assembly-state-create-flags ;; :bitmask
-    #:pipeline-input-assembly-state-create-info ;; :struct
+    #:pipeline-input-assembly-state-create-flags
+    #:pipeline-input-assembly-state-create-info
     #:c-pipeline-input-assembly-state-create-info
-    #:pipeline-layout ;; :handle
-    #:pipeline-layout-create-flags ;; :bitmask
-    #:pipeline-layout-create-info ;; :struct
+    #:pipeline-layout
+    #:pipeline-layout-create-flags
+    #:pipeline-layout-create-info
     #:c-pipeline-layout-create-info
-    #:pipeline-library-create-info-khr ;; :struct
+    #:pipeline-library-create-info-khr
     #:c-pipeline-library-create-info-khr
-    #:pipeline-multisample-state-create-flags ;; :bitmask
-    #:pipeline-multisample-state-create-info ;; :struct
+    #:pipeline-multisample-state-create-flags
+    #:pipeline-multisample-state-create-info
     #:c-pipeline-multisample-state-create-info
-    #:pipeline-rasterization-conservative-state-create-flags-ext ;; :bitmask
-    #:pipeline-rasterization-conservative-state-create-info-ext ;; :struct
+    #:pipeline-rasterization-conservative-state-create-flags-ext
+    #:pipeline-rasterization-conservative-state-create-info-ext
     #:c-pipeline-rasterization-conservative-state-create-info-ext
-    #:pipeline-rasterization-depth-clip-state-create-flags-ext ;; :bitmask
-    #:pipeline-rasterization-depth-clip-state-create-info-ext ;; :struct
+    #:pipeline-rasterization-depth-clip-state-create-flags-ext
+    #:pipeline-rasterization-depth-clip-state-create-info-ext
     #:c-pipeline-rasterization-depth-clip-state-create-info-ext
-    #:pipeline-rasterization-line-state-create-info-ext ;; :struct
+    #:pipeline-rasterization-line-state-create-info-ext
     #:c-pipeline-rasterization-line-state-create-info-ext
-    #:pipeline-rasterization-state-create-flags ;; :bitmask
-    #:pipeline-rasterization-state-create-info ;; :struct
+    #:pipeline-rasterization-state-create-flags
+    #:pipeline-rasterization-state-create-info
     #:c-pipeline-rasterization-state-create-info
-    #:pipeline-rasterization-state-rasterization-order-amd ;; :struct
+    #:pipeline-rasterization-state-rasterization-order-amd
     #:c-pipeline-rasterization-state-rasterization-order-amd
-    #:pipeline-rasterization-state-stream-create-flags-ext ;; :bitmask
-    #:pipeline-rasterization-state-stream-create-info-ext ;; :struct
+    #:pipeline-rasterization-state-stream-create-flags-ext
+    #:pipeline-rasterization-state-stream-create-info-ext
     #:c-pipeline-rasterization-state-stream-create-info-ext
-    #:pipeline-representative-fragment-test-state-create-info-nv ;; :struct
+    #:pipeline-representative-fragment-test-state-create-info-nv
     #:c-pipeline-representative-fragment-test-state-create-info-nv
-    #:pipeline-sample-locations-state-create-info-ext ;; :struct
+    #:pipeline-sample-locations-state-create-info-ext
     #:c-pipeline-sample-locations-state-create-info-ext
-    #:pipeline-shader-stage-create-flag-bits ;; :enum
-    #:pipeline-shader-stage-create-flags ;; :bitmask
-    #:pipeline-shader-stage-create-info ;; :struct
+    #:pipeline-shader-stage-create-flag-bits
+    #:pipeline-shader-stage-create-flags
+    #:pipeline-shader-stage-create-info
     #:c-pipeline-shader-stage-create-info
-    #:pipeline-shader-stage-required-subgroup-size-create-info-ext ;; :struct
+    #:pipeline-shader-stage-required-subgroup-size-create-info-ext
     #:c-pipeline-shader-stage-required-subgroup-size-create-info-ext
-    #:pipeline-stage-flag-bits ;; :enum
-    #:pipeline-stage-flag-bits-2-khr ;; :enum
-    #:pipeline-stage-flags ;; :bitmask
-    #:pipeline-stage-flags-2-khr ;; :bitmask
-    #:pipeline-tessellation-domain-origin-state-create-info ;; :struct
+    #:pipeline-stage-flag-bits
+    #:pipeline-stage-flag-bits-2-khr
+    #:pipeline-stage-flags
+    #:pipeline-stage-flags-2-khr
+    #:pipeline-tessellation-domain-origin-state-create-info
     #:c-pipeline-tessellation-domain-origin-state-create-info
-    #:pipeline-tessellation-domain-origin-state-create-info-khr ;; :struct
+    #:pipeline-tessellation-domain-origin-state-create-info-khr
     #:c-pipeline-tessellation-domain-origin-state-create-info-khr
-    #:pipeline-tessellation-state-create-flags ;; :bitmask
-    #:pipeline-tessellation-state-create-info ;; :struct
+    #:pipeline-tessellation-state-create-flags
+    #:pipeline-tessellation-state-create-info
     #:c-pipeline-tessellation-state-create-info
-    #:pipeline-vertex-input-divisor-state-create-info-ext ;; :struct
+    #:pipeline-vertex-input-divisor-state-create-info-ext
     #:c-pipeline-vertex-input-divisor-state-create-info-ext
-    #:pipeline-vertex-input-state-create-flags ;; :bitmask
-    #:pipeline-vertex-input-state-create-info ;; :struct
+    #:pipeline-vertex-input-state-create-flags
+    #:pipeline-vertex-input-state-create-info
     #:c-pipeline-vertex-input-state-create-info
-    #:pipeline-viewport-coarse-sample-order-state-create-info-nv ;; :struct
+    #:pipeline-viewport-coarse-sample-order-state-create-info-nv
     #:c-pipeline-viewport-coarse-sample-order-state-create-info-nv
-    #:pipeline-viewport-exclusive-scissor-state-create-info-nv ;; :struct
+    #:pipeline-viewport-exclusive-scissor-state-create-info-nv
     #:c-pipeline-viewport-exclusive-scissor-state-create-info-nv
-    #:pipeline-viewport-shading-rate-image-state-create-info-nv ;; :struct
+    #:pipeline-viewport-shading-rate-image-state-create-info-nv
     #:c-pipeline-viewport-shading-rate-image-state-create-info-nv
-    #:pipeline-viewport-state-create-flags ;; :bitmask
-    #:pipeline-viewport-state-create-info ;; :struct
+    #:pipeline-viewport-state-create-flags
+    #:pipeline-viewport-state-create-info
     #:c-pipeline-viewport-state-create-info
-    #:pipeline-viewport-swizzle-state-create-flags-nv ;; :bitmask
-    #:pipeline-viewport-swizzle-state-create-info-nv ;; :struct
+    #:pipeline-viewport-swizzle-state-create-flags-nv
+    #:pipeline-viewport-swizzle-state-create-info-nv
     #:c-pipeline-viewport-swizzle-state-create-info-nv
-    #:pipeline-viewport-w-scaling-state-create-info-nv ;; :struct
+    #:pipeline-viewport-w-scaling-state-create-info-nv
     #:c-pipeline-viewport-w-scaling-state-create-info-nv
-    #:point-clipping-behavior ;; :enum
-    #:point-clipping-behavior-khr ;; :enum
-    #:polygon-mode ;; :enum
-    #:present-frame-token-ggp ;; :struct
+    #:point-clipping-behavior
+    #:point-clipping-behavior-khr
+    #:polygon-mode
+    #:present-frame-token-ggp
     #:c-present-frame-token-ggp
-    #:present-info-khr ;; :struct
+    #:present-info-khr
     #:c-present-info-khr
-    #:present-mode-khr ;; :enum
-    #:present-region-khr ;; :struct
+    #:present-mode-khr
+    #:present-region-khr
     #:c-present-region-khr
-    #:present-regions-khr ;; :struct
+    #:present-regions-khr
     #:c-present-regions-khr
-    #:present-time-google ;; :struct
+    #:present-time-google
     #:c-present-time-google
-    #:present-times-info-google ;; :struct
+    #:present-times-info-google
     #:c-present-times-info-google
-    #:primitive-topology ;; :enum
-    #:private-data-slot-create-flag-bits-ext ;; :enum
-    #:private-data-slot-create-flags-ext ;; :bitmask
-    #:private-data-slot-create-info-ext ;; :struct
+    #:primitive-topology
+    #:private-data-slot-create-flag-bits-ext
+    #:private-data-slot-create-flags-ext
+    #:private-data-slot-create-info-ext
     #:c-private-data-slot-create-info-ext
-    #:private-data-slot-ext ;; :handle
-    #:protected-submit-info ;; :struct
+    #:private-data-slot-ext
+    #:protected-submit-info
     #:c-protected-submit-info
-    #:push-constant-range ;; :struct
+    #:push-constant-range
     #:c-push-constant-range
-    #:query-control-flag-bits ;; :enum
-    #:query-control-flags ;; :bitmask
-    #:query-pipeline-statistic-flag-bits ;; :enum
-    #:query-pipeline-statistic-flags ;; :bitmask
-    #:query-pool ;; :handle
-    #:query-pool-create-flag-bits ;; :enum
-    #:query-pool-create-flags ;; :bitmask
-    #:query-pool-create-info ;; :struct
+    #:query-control-flag-bits
+    #:query-control-flags
+    #:query-pipeline-statistic-flag-bits
+    #:query-pipeline-statistic-flags
+    #:query-pool
+    #:query-pool-create-flag-bits
+    #:query-pool-create-flags
+    #:query-pool-create-info
     #:c-query-pool-create-info
-    #:query-pool-create-info-intel ;; :struct
+    #:query-pool-create-info-intel
     #:c-query-pool-create-info-intel
-    #:query-pool-performance-create-info-khr ;; :struct
+    #:query-pool-performance-create-info-khr
     #:c-query-pool-performance-create-info-khr
-    #:query-pool-performance-query-create-info-intel ;; :struct
+    #:query-pool-performance-query-create-info-intel
     #:c-query-pool-performance-query-create-info-intel
-    #:query-pool-sampling-mode-intel ;; :enum
-    #:query-result-flag-bits ;; :enum
-    #:query-result-flags ;; :bitmask
-    #:query-type ;; :enum
-    #:queue ;; :handle
-    #:queue-family-checkpoint-properties-2-nv ;; :struct
+    #:query-pool-sampling-mode-intel
+    #:query-result-flag-bits
+    #:query-result-flags
+    #:query-type
+    #:queue
+    #:queue-family-checkpoint-properties-2-nv
     #:c-queue-family-checkpoint-properties-2-nv
-    #:queue-family-checkpoint-properties-nv ;; :struct
+    #:queue-family-checkpoint-properties-nv
     #:c-queue-family-checkpoint-properties-nv
-    #:queue-family-properties ;; :struct
+    #:queue-family-properties
     #:c-queue-family-properties
-    #:queue-family-properties-2 ;; :struct
+    #:queue-family-properties-2
     #:c-queue-family-properties-2
-    #:queue-family-properties-2-khr ;; :struct
+    #:queue-family-properties-2-khr
     #:c-queue-family-properties-2-khr
-    #:queue-flag-bits ;; :enum
-    #:queue-flags ;; :bitmask
-    #:queue-global-priority-ext ;; :enum
-    #:rasterization-order-amd ;; :enum
-    #:ray-tracing-pipeline-create-info-khr ;; :struct
+    #:queue-flag-bits
+    #:queue-flags
+    #:queue-global-priority-ext
+    #:rasterization-order-amd
+    #:ray-tracing-pipeline-create-info-khr
     #:c-ray-tracing-pipeline-create-info-khr
-    #:ray-tracing-pipeline-create-info-nv ;; :struct
+    #:ray-tracing-pipeline-create-info-nv
     #:c-ray-tracing-pipeline-create-info-nv
-    #:ray-tracing-pipeline-interface-create-info-khr ;; :struct
+    #:ray-tracing-pipeline-interface-create-info-khr
     #:c-ray-tracing-pipeline-interface-create-info-khr
-    #:ray-tracing-shader-group-create-info-khr ;; :struct
+    #:ray-tracing-shader-group-create-info-khr
     #:c-ray-tracing-shader-group-create-info-khr
-    #:ray-tracing-shader-group-create-info-nv ;; :struct
+    #:ray-tracing-shader-group-create-info-nv
     #:c-ray-tracing-shader-group-create-info-nv
-    #:ray-tracing-shader-group-type-khr ;; :enum
-    #:ray-tracing-shader-group-type-nv ;; :enum
-    #:rect-2d ;; :struct
+    #:ray-tracing-shader-group-type-khr
+    #:ray-tracing-shader-group-type-nv
+    #:rect-2d
     #:c-rect-2d
-    #:rect-layer-khr ;; :struct
+    #:rect-layer-khr
     #:c-rect-layer-khr
-    #:refresh-cycle-duration-google ;; :struct
+    #:refresh-cycle-duration-google
     #:c-refresh-cycle-duration-google
-    #:render-pass ;; :handle
-    #:render-pass-attachment-begin-info ;; :struct
+    #:render-pass
+    #:render-pass-attachment-begin-info
     #:c-render-pass-attachment-begin-info
-    #:render-pass-attachment-begin-info-khr ;; :struct
+    #:render-pass-attachment-begin-info-khr
     #:c-render-pass-attachment-begin-info-khr
-    #:render-pass-begin-info ;; :struct
+    #:render-pass-begin-info
     #:c-render-pass-begin-info
-    #:render-pass-create-flag-bits ;; :enum
-    #:render-pass-create-flags ;; :bitmask
-    #:render-pass-create-info ;; :struct
+    #:render-pass-create-flag-bits
+    #:render-pass-create-flags
+    #:render-pass-create-info
     #:c-render-pass-create-info
-    #:render-pass-create-info-2 ;; :struct
+    #:render-pass-create-info-2
     #:c-render-pass-create-info-2
-    #:render-pass-create-info-2-khr ;; :struct
+    #:render-pass-create-info-2-khr
     #:c-render-pass-create-info-2-khr
-    #:render-pass-fragment-density-map-create-info-ext ;; :struct
+    #:render-pass-fragment-density-map-create-info-ext
     #:c-render-pass-fragment-density-map-create-info-ext
-    #:render-pass-input-attachment-aspect-create-info ;; :struct
+    #:render-pass-input-attachment-aspect-create-info
     #:c-render-pass-input-attachment-aspect-create-info
-    #:render-pass-input-attachment-aspect-create-info-khr ;; :struct
+    #:render-pass-input-attachment-aspect-create-info-khr
     #:c-render-pass-input-attachment-aspect-create-info-khr
-    #:render-pass-multiview-create-info ;; :struct
+    #:render-pass-multiview-create-info
     #:c-render-pass-multiview-create-info
-    #:render-pass-multiview-create-info-khr ;; :struct
+    #:render-pass-multiview-create-info-khr
     #:c-render-pass-multiview-create-info-khr
-    #:render-pass-sample-locations-begin-info-ext ;; :struct
+    #:render-pass-sample-locations-begin-info-ext
     #:c-render-pass-sample-locations-begin-info-ext
-    #:render-pass-transform-begin-info-qcom ;; :struct
+    #:render-pass-transform-begin-info-qcom
     #:c-render-pass-transform-begin-info-qcom
-    #:resolve-image-info-2-khr ;; :struct
+    #:resolve-image-info-2-khr
     #:c-resolve-image-info-2-khr
-    #:resolve-mode-flag-bits ;; :enum
-    #:resolve-mode-flag-bits-khr ;; :enum
-    #:resolve-mode-flags ;; :bitmask
-    #:resolve-mode-flags-khr ;; :bitmask
-    #:result ;; :enum
-    #:sample-count-flag-bits ;; :enum
-    #:sample-count-flags ;; :bitmask
-    #:sample-location-ext ;; :struct
+    #:resolve-mode-flag-bits
+    #:resolve-mode-flag-bits-khr
+    #:resolve-mode-flags
+    #:resolve-mode-flags-khr
+    #:result
+    #:sample-count-flag-bits
+    #:sample-count-flags
+    #:sample-location-ext
     #:c-sample-location-ext
-    #:sample-locations-info-ext ;; :struct
+    #:sample-locations-info-ext
     #:c-sample-locations-info-ext
-    #:sample-mask ;; :basetype
-    #:sampler ;; :handle
-    #:sampler-address-mode ;; :enum
-    #:sampler-create-flag-bits ;; :enum
-    #:sampler-create-flags ;; :bitmask
-    #:sampler-create-info ;; :struct
+    #:sample-mask
+    #:sampler
+    #:sampler-address-mode
+    #:sampler-create-flag-bits
+    #:sampler-create-flags
+    #:sampler-create-info
     #:c-sampler-create-info
-    #:sampler-custom-border-color-create-info-ext ;; :struct
+    #:sampler-custom-border-color-create-info-ext
     #:c-sampler-custom-border-color-create-info-ext
-    #:sampler-mipmap-mode ;; :enum
-    #:sampler-reduction-mode ;; :enum
-    #:sampler-reduction-mode-create-info ;; :struct
+    #:sampler-mipmap-mode
+    #:sampler-reduction-mode
+    #:sampler-reduction-mode-create-info
     #:c-sampler-reduction-mode-create-info
-    #:sampler-reduction-mode-create-info-ext ;; :struct
+    #:sampler-reduction-mode-create-info-ext
     #:c-sampler-reduction-mode-create-info-ext
-    #:sampler-reduction-mode-ext ;; :enum
-    #:sampler-ycbcr-conversion ;; :handle
-    #:sampler-ycbcr-conversion-create-info ;; :struct
+    #:sampler-reduction-mode-ext
+    #:sampler-ycbcr-conversion
+    #:sampler-ycbcr-conversion-create-info
     #:c-sampler-ycbcr-conversion-create-info
-    #:sampler-ycbcr-conversion-create-info-khr ;; :struct
+    #:sampler-ycbcr-conversion-create-info-khr
     #:c-sampler-ycbcr-conversion-create-info-khr
-    #:sampler-ycbcr-conversion-image-format-properties ;; :struct
+    #:sampler-ycbcr-conversion-image-format-properties
     #:c-sampler-ycbcr-conversion-image-format-properties
-    #:sampler-ycbcr-conversion-image-format-properties-khr ;; :struct
+    #:sampler-ycbcr-conversion-image-format-properties-khr
     #:c-sampler-ycbcr-conversion-image-format-properties-khr
-    #:sampler-ycbcr-conversion-info ;; :struct
+    #:sampler-ycbcr-conversion-info
     #:c-sampler-ycbcr-conversion-info
-    #:sampler-ycbcr-conversion-info-khr ;; :struct
+    #:sampler-ycbcr-conversion-info-khr
     #:c-sampler-ycbcr-conversion-info-khr
-    #:sampler-ycbcr-conversion-khr ;; :handle
-    #:sampler-ycbcr-model-conversion ;; :enum
-    #:sampler-ycbcr-model-conversion-khr ;; :enum
-    #:sampler-ycbcr-range ;; :enum
-    #:sampler-ycbcr-range-khr ;; :enum
-    #:scope-nv ;; :enum
-    #:screen-surface-create-flags-qnx ;; :bitmask
-    #:screen-surface-create-info-qnx ;; :struct
+    #:sampler-ycbcr-conversion-khr
+    #:sampler-ycbcr-model-conversion
+    #:sampler-ycbcr-model-conversion-khr
+    #:sampler-ycbcr-range
+    #:sampler-ycbcr-range-khr
+    #:scope-nv
+    #:screen-surface-create-flags-qnx
+    #:screen-surface-create-info-qnx
     #:c-screen-surface-create-info-qnx
-    #:semaphore ;; :handle
-    #:semaphore-create-flags ;; :bitmask
-    #:semaphore-create-info ;; :struct
+    #:semaphore
+    #:semaphore-create-flags
+    #:semaphore-create-info
     #:c-semaphore-create-info
-    #:semaphore-get-fd-info-khr ;; :struct
+    #:semaphore-get-fd-info-khr
     #:c-semaphore-get-fd-info-khr
-    #:semaphore-get-win32-handle-info-khr ;; :struct
+    #:semaphore-get-win32-handle-info-khr
     #:c-semaphore-get-win32-handle-info-khr
-    #:semaphore-get-zircon-handle-info-fuchsia ;; :struct
+    #:semaphore-get-zircon-handle-info-fuchsia
     #:c-semaphore-get-zircon-handle-info-fuchsia
-    #:semaphore-import-flag-bits ;; :enum
-    #:semaphore-import-flag-bits-khr ;; :enum
-    #:semaphore-import-flags ;; :bitmask
-    #:semaphore-import-flags-khr ;; :bitmask
-    #:semaphore-signal-info ;; :struct
+    #:semaphore-import-flag-bits
+    #:semaphore-import-flag-bits-khr
+    #:semaphore-import-flags
+    #:semaphore-import-flags-khr
+    #:semaphore-signal-info
     #:c-semaphore-signal-info
-    #:semaphore-signal-info-khr ;; :struct
+    #:semaphore-signal-info-khr
     #:c-semaphore-signal-info-khr
-    #:semaphore-submit-info-khr ;; :struct
+    #:semaphore-submit-info-khr
     #:c-semaphore-submit-info-khr
-    #:semaphore-type ;; :enum
-    #:semaphore-type-create-info ;; :struct
+    #:semaphore-type
+    #:semaphore-type-create-info
     #:c-semaphore-type-create-info
-    #:semaphore-type-create-info-khr ;; :struct
+    #:semaphore-type-create-info-khr
     #:c-semaphore-type-create-info-khr
-    #:semaphore-type-khr ;; :enum
-    #:semaphore-wait-flag-bits ;; :enum
-    #:semaphore-wait-flag-bits-khr ;; :enum
-    #:semaphore-wait-flags ;; :bitmask
-    #:semaphore-wait-flags-khr ;; :bitmask
-    #:semaphore-wait-info ;; :struct
+    #:semaphore-type-khr
+    #:semaphore-wait-flag-bits
+    #:semaphore-wait-flag-bits-khr
+    #:semaphore-wait-flags
+    #:semaphore-wait-flags-khr
+    #:semaphore-wait-info
     #:c-semaphore-wait-info
-    #:semaphore-wait-info-khr ;; :struct
+    #:semaphore-wait-info-khr
     #:c-semaphore-wait-info-khr
-    #:set-state-flags-indirect-command-nv ;; :struct
+    #:set-state-flags-indirect-command-nv
     #:c-set-state-flags-indirect-command-nv
-    #:shader-core-properties-flag-bits-amd ;; :enum
-    #:shader-core-properties-flags-amd ;; :bitmask
-    #:shader-float-controls-independence ;; :enum
-    #:shader-float-controls-independence-khr ;; :enum
-    #:shader-group-shader-khr ;; :enum
-    #:shader-info-type-amd ;; :enum
-    #:shader-module ;; :handle
-    #:shader-module-create-flag-bits ;; :enum
-    #:shader-module-create-flags ;; :bitmask
-    #:shader-module-create-info ;; :struct
+    #:shader-core-properties-flag-bits-amd
+    #:shader-core-properties-flags-amd
+    #:shader-float-controls-independence
+    #:shader-float-controls-independence-khr
+    #:shader-group-shader-khr
+    #:shader-info-type-amd
+    #:shader-module
+    #:shader-module-create-flag-bits
+    #:shader-module-create-flags
+    #:shader-module-create-info
     #:c-shader-module-create-info
-    #:shader-module-validation-cache-create-info-ext ;; :struct
+    #:shader-module-validation-cache-create-info-ext
     #:c-shader-module-validation-cache-create-info-ext
-    #:shader-resource-usage-amd ;; :struct
+    #:shader-resource-usage-amd
     #:c-shader-resource-usage-amd
-    #:shader-stage-flag-bits ;; :enum
-    #:shader-stage-flags ;; :bitmask
-    #:shader-statistics-info-amd ;; :struct
+    #:shader-stage-flag-bits
+    #:shader-stage-flags
+    #:shader-statistics-info-amd
     #:c-shader-statistics-info-amd
-    #:shading-rate-palette-entry-nv ;; :enum
-    #:shading-rate-palette-nv ;; :struct
+    #:shading-rate-palette-entry-nv
+    #:shading-rate-palette-nv
     #:c-shading-rate-palette-nv
-    #:shared-present-surface-capabilities-khr ;; :struct
+    #:shared-present-surface-capabilities-khr
     #:c-shared-present-surface-capabilities-khr
-    #:sharing-mode ;; :enum
-    #:sparse-buffer-memory-bind-info ;; :struct
+    #:sharing-mode
+    #:sparse-buffer-memory-bind-info
     #:c-sparse-buffer-memory-bind-info
-    #:sparse-image-format-flag-bits ;; :enum
-    #:sparse-image-format-flags ;; :bitmask
-    #:sparse-image-format-properties ;; :struct
+    #:sparse-image-format-flag-bits
+    #:sparse-image-format-flags
+    #:sparse-image-format-properties
     #:c-sparse-image-format-properties
-    #:sparse-image-format-properties-2 ;; :struct
+    #:sparse-image-format-properties-2
     #:c-sparse-image-format-properties-2
-    #:sparse-image-format-properties-2-khr ;; :struct
+    #:sparse-image-format-properties-2-khr
     #:c-sparse-image-format-properties-2-khr
-    #:sparse-image-memory-bind ;; :struct
+    #:sparse-image-memory-bind
     #:c-sparse-image-memory-bind
-    #:sparse-image-memory-bind-info ;; :struct
+    #:sparse-image-memory-bind-info
     #:c-sparse-image-memory-bind-info
-    #:sparse-image-memory-requirements ;; :struct
+    #:sparse-image-memory-requirements
     #:c-sparse-image-memory-requirements
-    #:sparse-image-memory-requirements-2 ;; :struct
+    #:sparse-image-memory-requirements-2
     #:c-sparse-image-memory-requirements-2
-    #:sparse-image-memory-requirements-2-khr ;; :struct
+    #:sparse-image-memory-requirements-2-khr
     #:c-sparse-image-memory-requirements-2-khr
-    #:sparse-image-opaque-memory-bind-info ;; :struct
+    #:sparse-image-opaque-memory-bind-info
     #:c-sparse-image-opaque-memory-bind-info
-    #:sparse-memory-bind ;; :struct
+    #:sparse-memory-bind
     #:c-sparse-memory-bind
-    #:sparse-memory-bind-flag-bits ;; :enum
-    #:sparse-memory-bind-flags ;; :bitmask
-    #:specialization-info ;; :struct
+    #:sparse-memory-bind-flag-bits
+    #:sparse-memory-bind-flags
+    #:specialization-info
     #:c-specialization-info
-    #:specialization-map-entry ;; :struct
+    #:specialization-map-entry
     #:c-specialization-map-entry
-    #:stencil-face-flag-bits ;; :enum
-    #:stencil-face-flags ;; :bitmask
-    #:stencil-op ;; :enum
-    #:stencil-op-state ;; :struct
+    #:stencil-face-flag-bits
+    #:stencil-face-flags
+    #:stencil-op
+    #:stencil-op-state
     #:c-stencil-op-state
-    #:stream-descriptor-surface-create-flags-ggp ;; :bitmask
-    #:stream-descriptor-surface-create-info-ggp ;; :struct
+    #:stream-descriptor-surface-create-flags-ggp
+    #:stream-descriptor-surface-create-info-ggp
     #:c-stream-descriptor-surface-create-info-ggp
-    #:strided-device-address-region-khr ;; :struct
+    #:strided-device-address-region-khr
     #:c-strided-device-address-region-khr
-    #:structure-type ;; :enum
-    #:subgroup-feature-flag-bits ;; :enum
-    #:subgroup-feature-flags ;; :bitmask
-    #:submit-flag-bits-khr ;; :enum
-    #:submit-flags-khr ;; :bitmask
-    #:submit-info ;; :struct
+    #:structure-type
+    #:subgroup-feature-flag-bits
+    #:subgroup-feature-flags
+    #:submit-flag-bits-khr
+    #:submit-flags-khr
+    #:submit-info
     #:c-submit-info
-    #:submit-info-2-khr ;; :struct
+    #:submit-info-2-khr
     #:c-submit-info-2-khr
-    #:subpass-begin-info ;; :struct
+    #:subpass-begin-info
     #:c-subpass-begin-info
-    #:subpass-begin-info-khr ;; :struct
+    #:subpass-begin-info-khr
     #:c-subpass-begin-info-khr
-    #:subpass-contents ;; :enum
-    #:subpass-dependency ;; :struct
+    #:subpass-contents
+    #:subpass-dependency
     #:c-subpass-dependency
-    #:subpass-dependency-2 ;; :struct
+    #:subpass-dependency-2
     #:c-subpass-dependency-2
-    #:subpass-dependency-2-khr ;; :struct
+    #:subpass-dependency-2-khr
     #:c-subpass-dependency-2-khr
-    #:subpass-description ;; :struct
+    #:subpass-description
     #:c-subpass-description
-    #:subpass-description-2 ;; :struct
+    #:subpass-description-2
     #:c-subpass-description-2
-    #:subpass-description-2-khr ;; :struct
+    #:subpass-description-2-khr
     #:c-subpass-description-2-khr
-    #:subpass-description-depth-stencil-resolve ;; :struct
+    #:subpass-description-depth-stencil-resolve
     #:c-subpass-description-depth-stencil-resolve
-    #:subpass-description-depth-stencil-resolve-khr ;; :struct
+    #:subpass-description-depth-stencil-resolve-khr
     #:c-subpass-description-depth-stencil-resolve-khr
-    #:subpass-description-flag-bits ;; :enum
-    #:subpass-description-flags ;; :bitmask
-    #:subpass-end-info ;; :struct
+    #:subpass-description-flag-bits
+    #:subpass-description-flags
+    #:subpass-end-info
     #:c-subpass-end-info
-    #:subpass-end-info-khr ;; :struct
+    #:subpass-end-info-khr
     #:c-subpass-end-info-khr
-    #:subpass-sample-locations-ext ;; :struct
+    #:subpass-sample-locations-ext
     #:c-subpass-sample-locations-ext
-    #:subresource-layout ;; :struct
+    #:subresource-layout
     #:c-subresource-layout
-    #:surface-capabilities-2-ext ;; :struct
+    #:surface-capabilities-2-ext
     #:c-surface-capabilities-2-ext
-    #:surface-capabilities-2-khr ;; :struct
+    #:surface-capabilities-2-khr
     #:c-surface-capabilities-2-khr
-    #:surface-capabilities-full-screen-exclusive-ext ;; :struct
+    #:surface-capabilities-full-screen-exclusive-ext
     #:c-surface-capabilities-full-screen-exclusive-ext
-    #:surface-capabilities-khr ;; :struct
+    #:surface-capabilities-khr
     #:c-surface-capabilities-khr
-    #:surface-counter-flag-bits-ext ;; :enum
-    #:surface-counter-flags-ext ;; :bitmask
-    #:surface-format-2-khr ;; :struct
+    #:surface-counter-flag-bits-ext
+    #:surface-counter-flags-ext
+    #:surface-format-2-khr
     #:c-surface-format-2-khr
-    #:surface-format-khr ;; :struct
+    #:surface-format-khr
     #:c-surface-format-khr
-    #:surface-full-screen-exclusive-info-ext ;; :struct
+    #:surface-full-screen-exclusive-info-ext
     #:c-surface-full-screen-exclusive-info-ext
-    #:surface-full-screen-exclusive-win32-info-ext ;; :struct
+    #:surface-full-screen-exclusive-win32-info-ext
     #:c-surface-full-screen-exclusive-win32-info-ext
-    #:surface-khr ;; :handle
-    #:surface-protected-capabilities-khr ;; :struct
+    #:surface-khr
+    #:surface-protected-capabilities-khr
     #:c-surface-protected-capabilities-khr
-    #:surface-transform-flag-bits-khr ;; :enum
-    #:surface-transform-flags-khr ;; :bitmask
-    #:swapchain-counter-create-info-ext ;; :struct
+    #:surface-transform-flag-bits-khr
+    #:surface-transform-flags-khr
+    #:swapchain-counter-create-info-ext
     #:c-swapchain-counter-create-info-ext
-    #:swapchain-create-flag-bits-khr ;; :enum
-    #:swapchain-create-flags-khr ;; :bitmask
-    #:swapchain-create-info-khr ;; :struct
+    #:swapchain-create-flag-bits-khr
+    #:swapchain-create-flags-khr
+    #:swapchain-create-info-khr
     #:c-swapchain-create-info-khr
-    #:swapchain-display-native-hdr-create-info-amd ;; :struct
+    #:swapchain-display-native-hdr-create-info-amd
     #:c-swapchain-display-native-hdr-create-info-amd
-    #:swapchain-image-create-info-android ;; :struct
+    #:swapchain-image-create-info-android
     #:c-swapchain-image-create-info-android
-    #:swapchain-image-usage-flag-bits-android ;; :enum
-    #:swapchain-image-usage-flags-android ;; :bitmask
-    #:swapchain-khr ;; :handle
-    #:system-allocation-scope ;; :enum
-    #:tessellation-domain-origin ;; :enum
-    #:tessellation-domain-origin-khr ;; :enum
-    #:texture-l-o-d-gather-format-properties-amd ;; :struct
+    #:swapchain-image-usage-flag-bits-android
+    #:swapchain-image-usage-flags-android
+    #:swapchain-khr
+    #:system-allocation-scope
+    #:tessellation-domain-origin
+    #:tessellation-domain-origin-khr
+    #:texture-l-o-d-gather-format-properties-amd
     #:c-texture-l-o-d-gather-format-properties-amd
-    #:time-domain-ext ;; :enum
-    #:timeline-semaphore-submit-info ;; :struct
+    #:time-domain-ext
+    #:timeline-semaphore-submit-info
     #:c-timeline-semaphore-submit-info
-    #:timeline-semaphore-submit-info-khr ;; :struct
+    #:timeline-semaphore-submit-info-khr
     #:c-timeline-semaphore-submit-info-khr
-    #:tool-purpose-flag-bits-ext ;; :enum
-    #:tool-purpose-flags-ext ;; :bitmask
-    #:trace-rays-indirect-command-khr ;; :struct
+    #:tool-purpose-flag-bits-ext
+    #:tool-purpose-flags-ext
+    #:trace-rays-indirect-command-khr
     #:c-trace-rays-indirect-command-khr
-    #:transform-matrix-khr ;; :struct
+    #:transform-matrix-khr
     #:c-transform-matrix-khr
-    #:transform-matrix-nv ;; :struct
+    #:transform-matrix-nv
     #:c-transform-matrix-nv
-    #:validation-cache-create-flags-ext ;; :bitmask
-    #:validation-cache-create-info-ext ;; :struct
+    #:validation-cache-create-flags-ext
+    #:validation-cache-create-info-ext
     #:c-validation-cache-create-info-ext
-    #:validation-cache-ext ;; :handle
-    #:validation-cache-header-version-ext ;; :enum
-    #:validation-check-ext ;; :enum
-    #:validation-feature-disable-ext ;; :enum
-    #:validation-feature-enable-ext ;; :enum
-    #:validation-features-ext ;; :struct
+    #:validation-cache-ext
+    #:validation-cache-header-version-ext
+    #:validation-check-ext
+    #:validation-feature-disable-ext
+    #:validation-feature-enable-ext
+    #:validation-features-ext
     #:c-validation-features-ext
-    #:validation-flags-ext ;; :struct
+    #:validation-flags-ext
     #:c-validation-flags-ext
-    #:vendor-id ;; :enum
-    #:vertex-input-attribute-description ;; :struct
+    #:vendor-id
+    #:vertex-input-attribute-description
     #:c-vertex-input-attribute-description
-    #:vertex-input-binding-description ;; :struct
+    #:vertex-input-binding-description
     #:c-vertex-input-binding-description
-    #:vertex-input-binding-divisor-description-ext ;; :struct
+    #:vertex-input-binding-divisor-description-ext
     #:c-vertex-input-binding-divisor-description-ext
-    #:vertex-input-rate ;; :enum
-    #:vi-surface-create-flags-nn ;; :bitmask
-    #:vi-surface-create-info-nn ;; :struct
+    #:vertex-input-rate
+    #:vi-surface-create-flags-nn
+    #:vi-surface-create-info-nn
     #:c-vi-surface-create-info-nn
-    #:viewport ;; :struct
+    #:viewport
     #:c-viewport
-    #:viewport-coordinate-swizzle-nv ;; :enum
-    #:viewport-swizzle-nv ;; :struct
+    #:viewport-coordinate-swizzle-nv
+    #:viewport-swizzle-nv
     #:c-viewport-swizzle-nv
-    #:viewport-w-scaling-nv ;; :struct
+    #:viewport-w-scaling-nv
     #:c-viewport-w-scaling-nv
-    #:wayland-surface-create-flags-khr ;; :bitmask
-    #:wayland-surface-create-info-khr ;; :struct
+    #:wayland-surface-create-flags-khr
+    #:wayland-surface-create-info-khr
     #:c-wayland-surface-create-info-khr
-    #:win32-keyed-mutex-acquire-release-info-khr ;; :struct
+    #:win32-keyed-mutex-acquire-release-info-khr
     #:c-win32-keyed-mutex-acquire-release-info-khr
-    #:win32-keyed-mutex-acquire-release-info-nv ;; :struct
+    #:win32-keyed-mutex-acquire-release-info-nv
     #:c-win32-keyed-mutex-acquire-release-info-nv
-    #:win32-surface-create-flags-khr ;; :bitmask
-    #:win32-surface-create-info-khr ;; :struct
+    #:win32-surface-create-flags-khr
+    #:win32-surface-create-info-khr
     #:c-win32-surface-create-info-khr
-    #:write-descriptor-set ;; :struct
+    #:write-descriptor-set
     #:c-write-descriptor-set
-    #:write-descriptor-set-acceleration-structure-khr ;; :struct
+    #:write-descriptor-set-acceleration-structure-khr
     #:c-write-descriptor-set-acceleration-structure-khr
-    #:write-descriptor-set-acceleration-structure-nv ;; :struct
+    #:write-descriptor-set-acceleration-structure-nv
     #:c-write-descriptor-set-acceleration-structure-nv
-    #:write-descriptor-set-inline-uniform-block-ext ;; :struct
+    #:write-descriptor-set-inline-uniform-block-ext
     #:c-write-descriptor-set-inline-uniform-block-ext
-    #:x-y-color-ext ;; :struct
+    #:x-y-color-ext
     #:c-x-y-color-ext
-    #:xcb-surface-create-flags-khr ;; :bitmask
-    #:xcb-surface-create-info-khr ;; :struct
+    #:xcb-surface-create-flags-khr
+    #:xcb-surface-create-info-khr
     #:c-xcb-surface-create-info-khr
-    #:xlib-surface-create-flags-khr ;; :bitmask
-    #:xlib-surface-create-info-khr ;; :struct
+    #:xlib-surface-create-flags-khr
+    #:xlib-surface-create-info-khr
     #:c-xlib-surface-create-info-khr
 
     #:acquire-full-screen-exclusive-mode-ext
@@ -2592,1429 +2592,1429 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wait-semaphores-khr
     #:write-acceleration-structures-properties-khr
 
-    #:a-type ;; :accessor
-    #:b-type ;; :accessor
-    #:c-type ;; :accessor
-    #:d-type ;; :accessor
-    #:k-size ;; :accessor
-    #:m-size ;; :accessor
-    #:n-size ;; :accessor
-    #:a ;; :accessor
-    #:aabb-data ;; :accessor
-    #:aabbs ;; :accessor
-    #:acceleration-structure ;; :accessor
-    #:acceleration-structure-capture-replay ;; :accessor
-    #:acceleration-structure-count ;; :accessor
-    #:acceleration-structure-host-commands ;; :accessor
-    #:acceleration-structure-indirect-build ;; :accessor
-    #:acceleration-structure-reference ;; :accessor
-    #:acceleration-structure-size ;; :accessor
-    #:acquire-count ;; :accessor
-    #:active-compute-unit-count ;; :accessor
-    #:actual-present-time ;; :accessor
-    #:address-mode-u ;; :accessor
-    #:address-mode-v ;; :accessor
-    #:address-mode-w ;; :accessor
-    #:advanced-blend-all-operations ;; :accessor
-    #:advanced-blend-coherent-operations ;; :accessor
-    #:advanced-blend-correlated-overlap ;; :accessor
-    #:advanced-blend-independent-blend ;; :accessor
-    #:advanced-blend-max-color-attachments ;; :accessor
-    #:advanced-blend-non-premultiplied-dst-color ;; :accessor
-    #:advanced-blend-non-premultiplied-src-color ;; :accessor
-    #:alignment ;; :accessor
-    #:allocation-size ;; :accessor
-    #:allow-command-buffer-query-copies ;; :accessor
-    #:alpha-blend-op ;; :accessor
-    #:alpha-mode ;; :accessor
-    #:alpha-to-coverage-enable ;; :accessor
-    #:alpha-to-one ;; :accessor
-    #:alpha-to-one-enable ;; :accessor
-    #:android-hardware-buffer-usage ;; :accessor
-    #:anisotropy-enable ;; :accessor
-    #:any-hit-shader ;; :accessor
-    #:api-version ;; :accessor
-    #:application-version ;; :accessor
-    #:array-layer ;; :accessor
-    #:array-layers ;; :accessor
-    #:array-of-pointers ;; :accessor
-    #:array-pitch ;; :accessor
-    #:aspect-mask ;; :accessor
-    #:aspect-reference-count ;; :accessor
-    #:attachment ;; :accessor
-    #:attachment-count ;; :accessor
-    #:attachment-fragment-shading-rate ;; :accessor
-    #:attachment-image-info-count ;; :accessor
-    #:attachment-index ;; :accessor
-    #:attachment-initial-sample-locations-count ;; :accessor
-    #:b ;; :accessor
-    #:b32 ;; :accessor
-    #:back ;; :accessor
-    #:base-array-layer ;; :accessor
-    #:base-mip-level ;; :accessor
-    #:base-pipeline-handle ;; :accessor
-    #:base-pipeline-index ;; :accessor
-    #:bind-count ;; :accessor
-    #:binding ;; :accessor
-    #:binding-count ;; :accessor
-    #:blend-constants ;; :accessor
-    #:blend-enable ;; :accessor
-    #:blend-overlap ;; :accessor
-    #:border-color ;; :accessor
-    #:bresenham-lines ;; :accessor
-    #:buffer ;; :accessor
-    #:buffer-address ;; :accessor
-    #:buffer-bind-count ;; :accessor
-    #:buffer-device-address ;; :accessor
-    #:buffer-device-address-capture-replay ;; :accessor
-    #:buffer-device-address-multi-device ;; :accessor
-    #:buffer-features ;; :accessor
-    #:buffer-image-granularity ;; :accessor
-    #:buffer-image-height ;; :accessor
-    #:buffer-memory-barrier-count ;; :accessor
-    #:buffer-offset ;; :accessor
-    #:buffer-row-length ;; :accessor
-    #:build-scratch-size ;; :accessor
-    #:capabilities ;; :accessor
-    #:category ;; :accessor
-    #:checkpoint-execution-stage-mask ;; :accessor
-    #:chroma-filter ;; :accessor
-    #:clear-value ;; :accessor
-    #:clear-value-count ;; :accessor
-    #:clipped ;; :accessor
-    #:closest-hit-shader ;; :accessor
-    #:cmd-buf-label-count ;; :accessor
-    #:code-size ;; :accessor
-    #:color ;; :accessor
-    #:color-attachment ;; :accessor
-    #:color-attachment-count ;; :accessor
-    #:color-blend-op ;; :accessor
-    #:color-samples ;; :accessor
-    #:color-space ;; :accessor
-    #:color-write-mask ;; :accessor
-    #:combined-image-sampler-descriptor-count ;; :accessor
-    #:combiner-ops ;; :accessor
-    #:command-buffer ;; :accessor
-    #:command-buffer-count ;; :accessor
-    #:command-buffer-info-count ;; :accessor
-    #:command-pool ;; :accessor
-    #:compacted-size ;; :accessor
-    #:compare-enable ;; :accessor
-    #:compare-mask ;; :accessor
-    #:compare-op ;; :accessor
-    #:compatible-handle-types ;; :accessor
-    #:compiler-control-flags ;; :accessor
-    #:components ;; :accessor
-    #:composite-alpha ;; :accessor
-    #:compute-derivative-group-linear ;; :accessor
-    #:compute-derivative-group-quads ;; :accessor
-    #:compute-full-subgroups ;; :accessor
-    #:compute-units-per-shader-array ;; :accessor
-    #:compute-work-group-size ;; :accessor
-    #:conditional-rendering ;; :accessor
-    #:conditional-rendering-enable ;; :accessor
-    #:conformance-version ;; :accessor
-    #:connection ;; :accessor
-    #:conservative-point-and-line-rasterization ;; :accessor
-    #:conservative-rasterization-mode ;; :accessor
-    #:conservative-rasterization-post-depth-coverage ;; :accessor
-    #:constant-alpha-color-blend-factors ;; :accessor
-    #:constant-id ;; :accessor
-    #:contents ;; :accessor
-    #:context ;; :accessor
-    #:conversion ;; :accessor
-    #:cooperative-matrix ;; :accessor
-    #:cooperative-matrix-robust-buffer-access ;; :accessor
-    #:cooperative-matrix-supported-stages ;; :accessor
-    #:corner-sampled-image ;; :accessor
-    #:correlated-view-mask-count ;; :accessor
-    #:correlation-mask-count ;; :accessor
-    #:counter-index-count ;; :accessor
-    #:counter-pass-index ;; :accessor
-    #:coverage-modulation-mode ;; :accessor
-    #:coverage-modulation-table-count ;; :accessor
-    #:coverage-modulation-table-enable ;; :accessor
-    #:coverage-reduction-mode ;; :accessor
-    #:coverage-to-color-enable ;; :accessor
-    #:coverage-to-color-location ;; :accessor
-    #:create-flags ;; :accessor
-    #:cull-mode ;; :accessor
-    #:current-display ;; :accessor
-    #:current-extent ;; :accessor
-    #:current-stack-index ;; :accessor
-    #:current-transform ;; :accessor
-    #:custom-border-color ;; :accessor
-    #:custom-border-color-without-format ;; :accessor
-    #:custom-border-colors ;; :accessor
-    #:custom-sample-order-count ;; :accessor
-    #:data ;; :accessor
-    #:data-size ;; :accessor
-    #:decode-mode ;; :accessor
-    #:decode-mode-shared-exponent ;; :accessor
-    #:dedicated-allocation ;; :accessor
-    #:dedicated-allocation-image-aliasing ;; :accessor
-    #:degenerate-lines-rasterized ;; :accessor
-    #:degenerate-triangles-rasterized ;; :accessor
-    #:denorm-behavior-independence ;; :accessor
-    #:dependency-count ;; :accessor
-    #:dependency-flags ;; :accessor
-    #:depth ;; :accessor
-    #:depth-bias-clamp ;; :accessor
-    #:depth-bias-constant-factor ;; :accessor
-    #:depth-bias-enable ;; :accessor
-    #:depth-bias-slope-factor ;; :accessor
-    #:depth-bounds ;; :accessor
-    #:depth-bounds-test-enable ;; :accessor
-    #:depth-clamp ;; :accessor
-    #:depth-clamp-enable ;; :accessor
-    #:depth-clip-enable ;; :accessor
-    #:depth-compare-op ;; :accessor
-    #:depth-fail-op ;; :accessor
-    #:depth-pitch ;; :accessor
-    #:depth-resolve-mode ;; :accessor
-    #:depth-stencil ;; :accessor
-    #:depth-stencil-samples ;; :accessor
-    #:depth-test-enable ;; :accessor
-    #:depth-write-enable ;; :accessor
-    #:description ;; :accessor
-    #:descriptor-binding-acceleration-structure-update-after-bind ;; :accessor
-    #:descriptor-binding-inline-uniform-block-update-after-bind ;; :accessor
-    #:descriptor-binding-partially-bound ;; :accessor
-    #:descriptor-binding-sampled-image-update-after-bind ;; :accessor
-    #:descriptor-binding-storage-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-storage-image-update-after-bind ;; :accessor
-    #:descriptor-binding-storage-texel-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-uniform-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-uniform-texel-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-update-unused-while-pending ;; :accessor
-    #:descriptor-binding-variable-descriptor-count ;; :accessor
-    #:descriptor-count ;; :accessor
-    #:descriptor-indexing ;; :accessor
-    #:descriptor-pool ;; :accessor
-    #:descriptor-set-count ;; :accessor
-    #:descriptor-set-layout ;; :accessor
-    #:descriptor-type ;; :accessor
-    #:descriptor-type-count ;; :accessor
-    #:descriptor-update-entry-count ;; :accessor
-    #:desired-present-time ;; :accessor
-    #:device-address ;; :accessor
-    #:device-coherent-memory ;; :accessor
-    #:device-event ;; :accessor
-    #:device-generated-commands ;; :accessor
-    #:device-id ;; :accessor
-    #:device-index ;; :accessor
-    #:device-index-count ;; :accessor
-    #:device-luid ;; :accessor
-    #:device-luid-valid ;; :accessor
-    #:device-mask ;; :accessor
-    #:device-memory-report ;; :accessor
-    #:device-name ;; :accessor
-    #:device-node-mask ;; :accessor
-    #:device-render-area-count ;; :accessor
-    #:device-type ;; :accessor
-    #:device-uuid ;; :accessor
-    #:dfb ;; :accessor
-    #:diagnostics-config ;; :accessor
-    #:disabled-validation-check-count ;; :accessor
-    #:disabled-validation-feature-count ;; :accessor
-    #:discard-rectangle-count ;; :accessor
-    #:discard-rectangle-mode ;; :accessor
-    #:discrete-queue-priorities ;; :accessor
-    #:display ;; :accessor
-    #:display-event ;; :accessor
-    #:display-mode ;; :accessor
-    #:display-mode-properties ;; :accessor
-    #:display-name ;; :accessor
-    #:display-plane-properties ;; :accessor
-    #:display-primary-blue ;; :accessor
-    #:display-primary-green ;; :accessor
-    #:display-primary-red ;; :accessor
-    #:display-properties ;; :accessor
-    #:divisor ;; :accessor
-    #:domain-origin ;; :accessor
-    #:dpy ;; :accessor
-    #:draw-indirect-count ;; :accessor
-    #:draw-indirect-first-instance ;; :accessor
-    #:driver-id ;; :accessor
-    #:driver-info ;; :accessor
-    #:driver-name ;; :accessor
-    #:driver-uuid ;; :accessor
-    #:driver-version ;; :accessor
-    #:drm-format-modifier ;; :accessor
-    #:drm-format-modifier-count ;; :accessor
-    #:drm-format-modifier-plane-count ;; :accessor
-    #:drm-format-modifier-tiling-features ;; :accessor
-    #:dst ;; :accessor
-    #:dst-acceleration-structure ;; :accessor
-    #:dst-access-mask ;; :accessor
-    #:dst-alpha-blend-factor ;; :accessor
-    #:dst-array-element ;; :accessor
-    #:dst-binding ;; :accessor
-    #:dst-buffer ;; :accessor
-    #:dst-color-blend-factor ;; :accessor
-    #:dst-image ;; :accessor
-    #:dst-image-layout ;; :accessor
-    #:dst-offset ;; :accessor
-    #:dst-offsets ;; :accessor
-    #:dst-premultiplied ;; :accessor
-    #:dst-queue-family-index ;; :accessor
-    #:dst-rect ;; :accessor
-    #:dst-set ;; :accessor
-    #:dst-stage-mask ;; :accessor
-    #:dst-subpass ;; :accessor
-    #:dst-subresource ;; :accessor
-    #:dual-src-blend ;; :accessor
-    #:duration ;; :accessor
-    #:dw-access ;; :accessor
-    #:dynamic-state-count ;; :accessor
-    #:earliest-present-time ;; :accessor
-    #:enable ;; :accessor
-    #:enabled-extension-count ;; :accessor
-    #:enabled-layer-count ;; :accessor
-    #:enabled-validation-feature-count ;; :accessor
-    #:engine-version ;; :accessor
-    #:events ;; :accessor
-    #:exclusive-scissor ;; :accessor
-    #:exclusive-scissor-count ;; :accessor
-    #:executable-index ;; :accessor
-    #:export-from-imported-handle-types ;; :accessor
-    #:extended-dynamic-state ;; :accessor
-    #:extension-name ;; :accessor
-    #:extent ;; :accessor
-    #:external-fence-features ;; :accessor
-    #:external-format ;; :accessor
-    #:external-memory-features ;; :accessor
-    #:external-memory-properties ;; :accessor
-    #:external-semaphore-features ;; :accessor
-    #:extra-primitive-overestimation-size ;; :accessor
-    #:extra-primitive-overestimation-size-granularity ;; :accessor
-    #:f64 ;; :accessor
-    #:fail-op ;; :accessor
-    #:fd ;; :accessor
-    #:features ;; :accessor
-    #:fence ;; :accessor
-    #:fill-mode-non-solid ;; :accessor
-    #:filter ;; :accessor
-    #:filter-cubic ;; :accessor
-    #:filter-cubic-minmax ;; :accessor
-    #:filter-minmax-image-component-mapping ;; :accessor
-    #:filter-minmax-single-component-formats ;; :accessor
-    #:final-layout ;; :accessor
-    #:first-index ;; :accessor
-    #:first-instance ;; :accessor
-    #:first-task ;; :accessor
-    #:first-vertex ;; :accessor
-    #:flags ;; :accessor
-    #:float-32 ;; :accessor
-    #:float-64 ;; :accessor
-    #:force-explicit-reconstruction ;; :accessor
-    #:format ;; :accessor
-    #:format-a4b4g4r4 ;; :accessor
-    #:format-a4r4g4b4 ;; :accessor
-    #:format-features ;; :accessor
-    #:format-properties ;; :accessor
-    #:fragment-density-invocations ;; :accessor
-    #:fragment-density-map ;; :accessor
-    #:fragment-density-map-attachment ;; :accessor
-    #:fragment-density-map-deferred ;; :accessor
-    #:fragment-density-map-dynamic ;; :accessor
-    #:fragment-density-map-non-subsampled-images ;; :accessor
-    #:fragment-shader-barycentric ;; :accessor
-    #:fragment-shader-pixel-interlock ;; :accessor
-    #:fragment-shader-sample-interlock ;; :accessor
-    #:fragment-shader-shading-rate-interlock ;; :accessor
-    #:fragment-shading-rate-enums ;; :accessor
-    #:fragment-shading-rate-non-trivial-combiner-ops ;; :accessor
-    #:fragment-shading-rate-strict-multiply-combiner ;; :accessor
-    #:fragment-shading-rate-with-conservative-rasterization ;; :accessor
-    #:fragment-shading-rate-with-custom-sample-locations ;; :accessor
-    #:fragment-shading-rate-with-fragment-shader-interlock ;; :accessor
-    #:fragment-shading-rate-with-sample-mask ;; :accessor
-    #:fragment-shading-rate-with-shader-depth-stencil-writes ;; :accessor
-    #:fragment-shading-rate-with-shader-sample-mask ;; :accessor
-    #:fragment-size ;; :accessor
-    #:fragment-stores-and-atomics ;; :accessor
-    #:frame-token ;; :accessor
-    #:framebuffer ;; :accessor
-    #:framebuffer-color-sample-counts ;; :accessor
-    #:framebuffer-depth-sample-counts ;; :accessor
-    #:framebuffer-integer-color-sample-counts ;; :accessor
-    #:framebuffer-no-attachments-sample-counts ;; :accessor
-    #:framebuffer-stencil-sample-counts ;; :accessor
-    #:front ;; :accessor
-    #:front-face ;; :accessor
-    #:full-draw-index-uint-32 ;; :accessor
-    #:full-screen-exclusive ;; :accessor
-    #:full-screen-exclusive-supported ;; :accessor
-    #:fully-covered-fragment-shader-input-variable ;; :accessor
-    #:g ;; :accessor
-    #:general-shader ;; :accessor
-    #:geometry ;; :accessor
-    #:geometry-count ;; :accessor
-    #:geometry-shader ;; :accessor
-    #:geometry-streams ;; :accessor
-    #:geometry-type ;; :accessor
-    #:global-alpha ;; :accessor
-    #:global-priority ;; :accessor
-    #:group-count ;; :accessor
-    #:group-index ;; :accessor
-    #:handle ;; :accessor
-    #:handle-type ;; :accessor
-    #:handle-types ;; :accessor
-    #:heap-budget ;; :accessor
-    #:heap-index ;; :accessor
-    #:heap-usage ;; :accessor
-    #:height ;; :accessor
-    #:hinstance ;; :accessor
-    #:hmonitor ;; :accessor
-    #:host-address ;; :accessor
-    #:host-query-reset ;; :accessor
-    #:hwnd ;; :accessor
-    #:i64 ;; :accessor
-    #:image ;; :accessor
-    #:image-array-layers ;; :accessor
-    #:image-bind-count ;; :accessor
-    #:image-color-space ;; :accessor
-    #:image-cube-array ;; :accessor
-    #:image-extent ;; :accessor
-    #:image-footprint ;; :accessor
-    #:image-format ;; :accessor
-    #:image-format-properties ;; :accessor
-    #:image-granularity ;; :accessor
-    #:image-index ;; :accessor
-    #:image-layout ;; :accessor
-    #:image-memory-barrier-count ;; :accessor
-    #:image-mip-tail-first-lod ;; :accessor
-    #:image-mip-tail-offset ;; :accessor
-    #:image-mip-tail-size ;; :accessor
-    #:image-mip-tail-stride ;; :accessor
-    #:image-offset ;; :accessor
-    #:image-opaque-bind-count ;; :accessor
-    #:image-pipe-handle ;; :accessor
-    #:image-sharing-mode ;; :accessor
-    #:image-subresource ;; :accessor
-    #:image-type ;; :accessor
-    #:image-usage ;; :accessor
-    #:image-view ;; :accessor
-    #:image-view-2d-on-3d-image ;; :accessor
-    #:image-view-format-reinterpretation ;; :accessor
-    #:image-view-format-swizzle ;; :accessor
-    #:image-view-type ;; :accessor
-    #:imageless-framebuffer ;; :accessor
-    #:implementation-version ;; :accessor
-    #:independent-blend ;; :accessor
-    #:independent-resolve ;; :accessor
-    #:independent-resolve-none ;; :accessor
-    #:index-count ;; :accessor
-    #:index-data ;; :accessor
-    #:index-offset ;; :accessor
-    #:index-type ;; :accessor
-    #:index-type-count ;; :accessor
-    #:index-type-uint-8 ;; :accessor
-    #:indirect-commands-layout ;; :accessor
-    #:indirect-state-flags ;; :accessor
-    #:info ;; :accessor
-    #:inherited-conditional-rendering ;; :accessor
-    #:inherited-queries ;; :accessor
-    #:initial-data-size ;; :accessor
-    #:initial-layout ;; :accessor
-    #:initial-value ;; :accessor
-    #:inline-uniform-block ;; :accessor
-    #:input-attachment-count ;; :accessor
-    #:input-attachment-index ;; :accessor
-    #:input-rate ;; :accessor
-    #:instance-count ;; :accessor
-    #:instance-custom-index ;; :accessor
-    #:instance-shader-binding-table-record-offset ;; :accessor
-    #:instances ;; :accessor
-    #:int-32 ;; :accessor
-    #:int-64 ;; :accessor
-    #:intersection-shader ;; :accessor
-    #:is-text ;; :accessor
-    #:large-points ;; :accessor
-    #:layer ;; :accessor
-    #:layer-count ;; :accessor
-    #:layer-name ;; :accessor
-    #:layered-shading-rate-attachments ;; :accessor
-    #:layers ;; :accessor
-    #:layout ;; :accessor
-    #:lds-size-per-local-work-group ;; :accessor
-    #:lds-usage-size-in-bytes ;; :accessor
-    #:level ;; :accessor
-    #:level-count ;; :accessor
-    #:library-count ;; :accessor
-    #:limits ;; :accessor
-    #:line-rasterization-mode ;; :accessor
-    #:line-stipple-factor ;; :accessor
-    #:line-stipple-pattern ;; :accessor
-    #:line-sub-pixel-precision-bits ;; :accessor
-    #:line-width ;; :accessor
-    #:line-width-granularity ;; :accessor
-    #:line-width-range ;; :accessor
-    #:linear-tiling-features ;; :accessor
-    #:load-op ;; :accessor
-    #:local-dimming-enable ;; :accessor
-    #:local-dimming-support ;; :accessor
-    #:location ;; :accessor
-    #:logic-op ;; :accessor
-    #:logic-op-enable ;; :accessor
-    #:mag-filter ;; :accessor
-    #:major ;; :accessor
-    #:map-entry-count ;; :accessor
-    #:marker ;; :accessor
-    #:mask ;; :accessor
-    #:matrix ;; :accessor
-    #:max-anisotropy ;; :accessor
-    #:max-array-layers ;; :accessor
-    #:max-bound-descriptor-sets ;; :accessor
-    #:max-clip-distances ;; :accessor
-    #:max-color-attachments ;; :accessor
-    #:max-combined-clip-and-cull-distances ;; :accessor
-    #:max-compute-shared-memory-size ;; :accessor
-    #:max-compute-work-group-count ;; :accessor
-    #:max-compute-work-group-invocations ;; :accessor
-    #:max-compute-work-group-size ;; :accessor
-    #:max-compute-workgroup-subgroups ;; :accessor
-    #:max-content-light-level ;; :accessor
-    #:max-cull-distances ;; :accessor
-    #:max-custom-border-color-samplers ;; :accessor
-    #:max-depth ;; :accessor
-    #:max-depth-bounds ;; :accessor
-    #:max-descriptor-set-acceleration-structures ;; :accessor
-    #:max-descriptor-set-inline-uniform-blocks ;; :accessor
-    #:max-descriptor-set-input-attachments ;; :accessor
-    #:max-descriptor-set-sampled-images ;; :accessor
-    #:max-descriptor-set-samplers ;; :accessor
-    #:max-descriptor-set-storage-buffers ;; :accessor
-    #:max-descriptor-set-storage-buffers-dynamic ;; :accessor
-    #:max-descriptor-set-storage-images ;; :accessor
-    #:max-descriptor-set-subsampled-samplers ;; :accessor
-    #:max-descriptor-set-uniform-buffers ;; :accessor
-    #:max-descriptor-set-uniform-buffers-dynamic ;; :accessor
-    #:max-descriptor-set-update-after-bind-acceleration-structures ;; :accessor
-    #:max-descriptor-set-update-after-bind-inline-uniform-blocks ;; :accessor
-    #:max-descriptor-set-update-after-bind-input-attachments ;; :accessor
-    #:max-descriptor-set-update-after-bind-sampled-images ;; :accessor
-    #:max-descriptor-set-update-after-bind-samplers ;; :accessor
-    #:max-descriptor-set-update-after-bind-storage-buffers ;; :accessor
-    #:max-descriptor-set-update-after-bind-storage-buffers-dynamic ;; :accessor
-    #:max-descriptor-set-update-after-bind-storage-images ;; :accessor
-    #:max-descriptor-set-update-after-bind-uniform-buffers ;; :accessor
-    #:max-descriptor-set-update-after-bind-uniform-buffers-dynamic ;; :accessor
-    #:max-discard-rectangles ;; :accessor
-    #:max-draw-indexed-index-value ;; :accessor
-    #:max-draw-indirect-count ;; :accessor
-    #:max-draw-mesh-tasks-count ;; :accessor
-    #:max-dst-extent ;; :accessor
-    #:max-dst-position ;; :accessor
-    #:max-extent ;; :accessor
-    #:max-extra-primitive-overestimation-size ;; :accessor
-    #:max-fragment-combined-output-resources ;; :accessor
-    #:max-fragment-density-texel-size ;; :accessor
-    #:max-fragment-dual-src-attachments ;; :accessor
-    #:max-fragment-input-components ;; :accessor
-    #:max-fragment-output-attachments ;; :accessor
-    #:max-fragment-shading-rate-attachment-texel-size ;; :accessor
-    #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio ;; :accessor
-    #:max-fragment-shading-rate-coverage-samples ;; :accessor
-    #:max-fragment-shading-rate-invocation-count ;; :accessor
-    #:max-fragment-shading-rate-rasterization-samples ;; :accessor
-    #:max-fragment-size ;; :accessor
-    #:max-fragment-size-aspect-ratio ;; :accessor
-    #:max-frame-average-light-level ;; :accessor
-    #:max-framebuffer-height ;; :accessor
-    #:max-framebuffer-layers ;; :accessor
-    #:max-framebuffer-width ;; :accessor
-    #:max-geometry-count ;; :accessor
-    #:max-geometry-input-components ;; :accessor
-    #:max-geometry-output-components ;; :accessor
-    #:max-geometry-output-vertices ;; :accessor
-    #:max-geometry-shader-invocations ;; :accessor
-    #:max-geometry-total-output-components ;; :accessor
-    #:max-graphics-shader-group-count ;; :accessor
-    #:max-image-array-layers ;; :accessor
-    #:max-image-count ;; :accessor
-    #:max-image-dimension-1d ;; :accessor
-    #:max-image-dimension-2d ;; :accessor
-    #:max-image-dimension-3d ;; :accessor
-    #:max-image-dimension-cube ;; :accessor
-    #:max-image-extent ;; :accessor
-    #:max-indirect-commands-stream-count ;; :accessor
-    #:max-indirect-commands-stream-stride ;; :accessor
-    #:max-indirect-commands-token-count ;; :accessor
-    #:max-indirect-commands-token-offset ;; :accessor
-    #:max-indirect-sequence-count ;; :accessor
-    #:max-inline-uniform-block-bindings ;; :accessor
-    #:max-inline-uniform-block-size ;; :accessor
-    #:max-instance-count ;; :accessor
-    #:max-interpolation-offset ;; :accessor
-    #:max-lod ;; :accessor
-    #:max-luminance ;; :accessor
-    #:max-memory-allocation-count ;; :accessor
-    #:max-memory-allocation-size ;; :accessor
-    #:max-mesh-multiview-view-count ;; :accessor
-    #:max-mesh-output-primitives ;; :accessor
-    #:max-mesh-output-vertices ;; :accessor
-    #:max-mesh-total-memory-size ;; :accessor
-    #:max-mesh-work-group-invocations ;; :accessor
-    #:max-mesh-work-group-size ;; :accessor
-    #:max-mip-levels ;; :accessor
-    #:max-multiview-instance-index ;; :accessor
-    #:max-multiview-view-count ;; :accessor
-    #:max-per-set-descriptors ;; :accessor
-    #:max-per-stage-descriptor-acceleration-structures ;; :accessor
-    #:max-per-stage-descriptor-inline-uniform-blocks ;; :accessor
-    #:max-per-stage-descriptor-input-attachments ;; :accessor
-    #:max-per-stage-descriptor-sampled-images ;; :accessor
-    #:max-per-stage-descriptor-samplers ;; :accessor
-    #:max-per-stage-descriptor-storage-buffers ;; :accessor
-    #:max-per-stage-descriptor-storage-images ;; :accessor
-    #:max-per-stage-descriptor-uniform-buffers ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-acceleration-structures ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-inline-uniform-blocks ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-input-attachments ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-sampled-images ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-samplers ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-storage-buffers ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-storage-images ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-uniform-buffers ;; :accessor
-    #:max-per-stage-resources ;; :accessor
-    #:max-per-stage-update-after-bind-resources ;; :accessor
-    #:max-pipeline-ray-hit-attribute-size ;; :accessor
-    #:max-pipeline-ray-payload-size ;; :accessor
-    #:max-pipeline-ray-recursion-depth ;; :accessor
-    #:max-primitive-count ;; :accessor
-    #:max-push-constants-size ;; :accessor
-    #:max-push-descriptors ;; :accessor
-    #:max-ray-dispatch-invocation-count ;; :accessor
-    #:max-ray-hit-attribute-size ;; :accessor
-    #:max-ray-recursion-depth ;; :accessor
-    #:max-recursion-depth ;; :accessor
-    #:max-resource-size ;; :accessor
-    #:max-sample-location-grid-size ;; :accessor
-    #:max-sample-mask-words ;; :accessor
-    #:max-sampler-allocation-count ;; :accessor
-    #:max-sampler-anisotropy ;; :accessor
-    #:max-sampler-lod-bias ;; :accessor
-    #:max-sequences-count ;; :accessor
-    #:max-sets ;; :accessor
-    #:max-sgpr-allocation ;; :accessor
-    #:max-shader-group-stride ;; :accessor
-    #:max-src-extent ;; :accessor
-    #:max-src-position ;; :accessor
-    #:max-storage-buffer-range ;; :accessor
-    #:max-subgroup-size ;; :accessor
-    #:max-subsampled-array-layers ;; :accessor
-    #:max-task-output-count ;; :accessor
-    #:max-task-total-memory-size ;; :accessor
-    #:max-task-work-group-invocations ;; :accessor
-    #:max-task-work-group-size ;; :accessor
-    #:max-tessellation-control-per-patch-output-components ;; :accessor
-    #:max-tessellation-control-per-vertex-input-components ;; :accessor
-    #:max-tessellation-control-per-vertex-output-components ;; :accessor
-    #:max-tessellation-control-total-output-components ;; :accessor
-    #:max-tessellation-evaluation-input-components ;; :accessor
-    #:max-tessellation-evaluation-output-components ;; :accessor
-    #:max-tessellation-generation-level ;; :accessor
-    #:max-tessellation-patch-size ;; :accessor
-    #:max-texel-buffer-elements ;; :accessor
-    #:max-texel-gather-offset ;; :accessor
-    #:max-texel-offset ;; :accessor
-    #:max-timeline-semaphore-value-difference ;; :accessor
-    #:max-transform-feedback-buffer-data-size ;; :accessor
-    #:max-transform-feedback-buffer-data-stride ;; :accessor
-    #:max-transform-feedback-buffer-size ;; :accessor
-    #:max-transform-feedback-buffers ;; :accessor
-    #:max-transform-feedback-stream-data-size ;; :accessor
-    #:max-transform-feedback-streams ;; :accessor
-    #:max-triangle-count ;; :accessor
-    #:max-uniform-buffer-range ;; :accessor
-    #:max-update-after-bind-descriptors-in-all-pools ;; :accessor
-    #:max-variable-descriptor-count ;; :accessor
-    #:max-vertex ;; :accessor
-    #:max-vertex-attrib-divisor ;; :accessor
-    #:max-vertex-input-attribute-offset ;; :accessor
-    #:max-vertex-input-attributes ;; :accessor
-    #:max-vertex-input-binding-stride ;; :accessor
-    #:max-vertex-input-bindings ;; :accessor
-    #:max-vertex-output-components ;; :accessor
-    #:max-vgpr-allocation ;; :accessor
-    #:max-viewport-dimensions ;; :accessor
-    #:max-viewports ;; :accessor
-    #:max-x ;; :accessor
-    #:max-y ;; :accessor
-    #:max-z ;; :accessor
-    #:memory ;; :accessor
-    #:memory-barrier-count ;; :accessor
-    #:memory-device-index ;; :accessor
-    #:memory-heap-count ;; :accessor
-    #:memory-heaps ;; :accessor
-    #:memory-object-id ;; :accessor
-    #:memory-offset ;; :accessor
-    #:memory-priority ;; :accessor
-    #:memory-properties ;; :accessor
-    #:memory-requirements ;; :accessor
-    #:memory-type-bits ;; :accessor
-    #:memory-type-count ;; :accessor
-    #:memory-type-index ;; :accessor
-    #:memory-types ;; :accessor
-    #:mesh-output-per-primitive-granularity ;; :accessor
-    #:mesh-output-per-vertex-granularity ;; :accessor
-    #:mesh-shader ;; :accessor
-    #:message-id-number ;; :accessor
-    #:message-severity ;; :accessor
-    #:message-type ;; :accessor
-    #:min-acceleration-structure-scratch-offset-alignment ;; :accessor
-    #:min-depth ;; :accessor
-    #:min-depth-bounds ;; :accessor
-    #:min-dst-extent ;; :accessor
-    #:min-dst-position ;; :accessor
-    #:min-filter ;; :accessor
-    #:min-fragment-density-texel-size ;; :accessor
-    #:min-fragment-shading-rate-attachment-texel-size ;; :accessor
-    #:min-image-count ;; :accessor
-    #:min-image-extent ;; :accessor
-    #:min-image-transfer-granularity ;; :accessor
-    #:min-imported-host-pointer-alignment ;; :accessor
-    #:min-indirect-commands-buffer-offset-alignment ;; :accessor
-    #:min-interpolation-offset ;; :accessor
-    #:min-lod ;; :accessor
-    #:min-luminance ;; :accessor
-    #:min-memory-map-alignment ;; :accessor
-    #:min-sample-shading ;; :accessor
-    #:min-sequences-count-buffer-offset-alignment ;; :accessor
-    #:min-sequences-index-buffer-offset-alignment ;; :accessor
-    #:min-sgpr-allocation ;; :accessor
-    #:min-src-extent ;; :accessor
-    #:min-src-position ;; :accessor
-    #:min-storage-buffer-offset-alignment ;; :accessor
-    #:min-subgroup-size ;; :accessor
-    #:min-texel-buffer-offset-alignment ;; :accessor
-    #:min-texel-gather-offset ;; :accessor
-    #:min-texel-offset ;; :accessor
-    #:min-uniform-buffer-offset-alignment ;; :accessor
-    #:min-vertex-input-binding-stride-alignment ;; :accessor
-    #:min-vgpr-allocation ;; :accessor
-    #:min-x ;; :accessor
-    #:min-y ;; :accessor
-    #:min-z ;; :accessor
-    #:minor ;; :accessor
-    #:mip-level ;; :accessor
-    #:mip-levels ;; :accessor
-    #:mip-lod-bias ;; :accessor
-    #:mipmap-mode ;; :accessor
-    #:mipmap-precision-bits ;; :accessor
-    #:mode ;; :accessor
-    #:modes ;; :accessor
-    #:module ;; :accessor
-    #:multi-draw-indirect ;; :accessor
-    #:multi-viewport ;; :accessor
-    #:multisample-array-image ;; :accessor
-    #:multiview ;; :accessor
-    #:multiview-geometry-shader ;; :accessor
-    #:multiview-tessellation-shader ;; :accessor
-    #:mutable-comparison-samplers ;; :accessor
-    #:mutable-descriptor-type ;; :accessor
-    #:mutable-descriptor-type-list-count ;; :accessor
-    #:name ;; :accessor
-    #:new-layout ;; :accessor
-    #:no-invocation-fragment-shading-rates ;; :accessor
-    #:non-coherent-atom-size ;; :accessor
-    #:null-descriptor ;; :accessor
-    #:num-aabbs ;; :accessor
-    #:num-available-sgprs ;; :accessor
-    #:num-available-vgprs ;; :accessor
-    #:num-physical-sgprs ;; :accessor
-    #:num-physical-vgprs ;; :accessor
-    #:num-used-sgprs ;; :accessor
-    #:num-used-vgprs ;; :accessor
-    #:object ;; :accessor
-    #:object-count ;; :accessor
-    #:object-handle ;; :accessor
-    #:object-type ;; :accessor
-    #:occlusion-query-enable ;; :accessor
-    #:occlusion-query-precise ;; :accessor
-    #:offset ;; :accessor
-    #:old-layout ;; :accessor
-    #:old-swapchain ;; :accessor
-    #:opaque-capture-address ;; :accessor
-    #:optimal-buffer-copy-offset-alignment ;; :accessor
-    #:optimal-buffer-copy-row-pitch-alignment ;; :accessor
-    #:optimal-tiling-features ;; :accessor
-    #:overallocation-behavior ;; :accessor
-    #:p-acceleration-structures ;; :accessor
-    #:p-acquire-keys ;; :accessor
-    #:p-acquire-syncs ;; :accessor
-    #:p-acquire-timeout-milliseconds ;; :accessor
-    #:p-acquire-timeouts ;; :accessor
-    #:p-application-info ;; :accessor
-    #:p-application-name ;; :accessor
-    #:p-aspect-references ;; :accessor
-    #:p-attachment-image-infos ;; :accessor
-    #:p-attachment-initial-sample-locations ;; :accessor
-    #:p-attachments ;; :accessor
-    #:p-attributes ;; :accessor
-    #:p-binding-flags ;; :accessor
-    #:p-bindings ;; :accessor
-    #:p-binds ;; :accessor
-    #:p-buffer-binds ;; :accessor
-    #:p-buffer-info ;; :accessor
-    #:p-buffer-memory-barriers ;; :accessor
-    #:p-checkpoint-marker ;; :accessor
-    #:p-clear-values ;; :accessor
-    #:p-cmd-buf-labels ;; :accessor
-    #:p-code ;; :accessor
-    #:p-color-attachments ;; :accessor
-    #:p-color-blend-state ;; :accessor
-    #:p-command-buffer-device-masks ;; :accessor
-    #:p-command-buffer-infos ;; :accessor
-    #:p-command-buffers ;; :accessor
-    #:p-correlated-view-masks ;; :accessor
-    #:p-correlation-masks ;; :accessor
-    #:p-counter-indices ;; :accessor
-    #:p-coverage-modulation-table ;; :accessor
-    #:p-custom-sample-orders ;; :accessor
-    #:p-data ;; :accessor
-    #:p-dependencies ;; :accessor
-    #:p-depth-stencil-attachment ;; :accessor
-    #:p-depth-stencil-resolve-attachment ;; :accessor
-    #:p-depth-stencil-state ;; :accessor
-    #:p-descriptor-counts ;; :accessor
-    #:p-descriptor-types ;; :accessor
-    #:p-descriptor-update-entries ;; :accessor
-    #:p-device-indices ;; :accessor
-    #:p-device-masks ;; :accessor
-    #:p-device-render-areas ;; :accessor
-    #:p-disabled-validation-checks ;; :accessor
-    #:p-disabled-validation-features ;; :accessor
-    #:p-discard-rectangles ;; :accessor
-    #:p-drm-format-modifier-properties ;; :accessor
-    #:p-drm-format-modifiers ;; :accessor
-    #:p-dynamic-state ;; :accessor
-    #:p-dynamic-states ;; :accessor
-    #:p-enabled-features ;; :accessor
-    #:p-enabled-validation-features ;; :accessor
-    #:p-engine-name ;; :accessor
-    #:p-exclusive-scissors ;; :accessor
-    #:p-fragment-shading-rate-attachment ;; :accessor
-    #:p-geometries ;; :accessor
-    #:p-groups ;; :accessor
-    #:p-host-pointer ;; :accessor
-    #:p-image-binds ;; :accessor
-    #:p-image-indices ;; :accessor
-    #:p-image-info ;; :accessor
-    #:p-image-memory-barriers ;; :accessor
-    #:p-image-opaque-binds ;; :accessor
-    #:p-immutable-samplers ;; :accessor
-    #:p-index-type-values ;; :accessor
-    #:p-index-types ;; :accessor
-    #:p-inheritance-info ;; :accessor
-    #:p-initial-data ;; :accessor
-    #:p-input-assembly-state ;; :accessor
-    #:p-input-attachments ;; :accessor
-    #:p-label-name ;; :accessor
-    #:p-layer ;; :accessor
-    #:p-libraries ;; :accessor
-    #:p-library-info ;; :accessor
-    #:p-library-interface ;; :accessor
-    #:p-map-entries ;; :accessor
-    #:p-marker-name ;; :accessor
-    #:p-memory-barriers ;; :accessor
-    #:p-message ;; :accessor
-    #:p-message-id-name ;; :accessor
-    #:p-multisample-state ;; :accessor
-    #:p-mutable-descriptor-type-lists ;; :accessor
-    #:p-name ;; :accessor
-    #:p-next ;; :accessor
-    #:p-object-name ;; :accessor
-    #:p-objects ;; :accessor
-    #:p-physical-devices ;; :accessor
-    #:p-pipeline-creation-feedback ;; :accessor
-    #:p-pipeline-stage-creation-feedbacks ;; :accessor
-    #:p-pipelines ;; :accessor
-    #:p-plane-layouts ;; :accessor
-    #:p-pool-sizes ;; :accessor
-    #:p-post-subpass-sample-locations ;; :accessor
-    #:p-preserve-attachments ;; :accessor
-    #:p-push-constant-ranges ;; :accessor
-    #:p-queue-create-infos ;; :accessor
-    #:p-queue-family-indices ;; :accessor
-    #:p-queue-labels ;; :accessor
-    #:p-queue-priorities ;; :accessor
-    #:p-rasterization-state ;; :accessor
-    #:p-rectangles ;; :accessor
-    #:p-regions ;; :accessor
-    #:p-release-keys ;; :accessor
-    #:p-release-syncs ;; :accessor
-    #:p-resolve-attachments ;; :accessor
-    #:p-results ;; :accessor
-    #:p-sample-locations ;; :accessor
-    #:p-sample-mask ;; :accessor
-    #:p-scissors ;; :accessor
-    #:p-semaphores ;; :accessor
-    #:p-set-layouts ;; :accessor
-    #:p-shader-group-capture-replay-handle ;; :accessor
-    #:p-shading-rate-palette-entries ;; :accessor
-    #:p-shading-rate-palettes ;; :accessor
-    #:p-signal-semaphore-device-indices ;; :accessor
-    #:p-signal-semaphore-infos ;; :accessor
-    #:p-signal-semaphore-values ;; :accessor
-    #:p-signal-semaphores ;; :accessor
-    #:p-specialization-info ;; :accessor
-    #:p-split-instance-bind-regions ;; :accessor
-    #:p-stages ;; :accessor
-    #:p-stream-strides ;; :accessor
-    #:p-streams ;; :accessor
-    #:p-subpasses ;; :accessor
-    #:p-swapchains ;; :accessor
-    #:p-tag ;; :accessor
-    #:p-tessellation-state ;; :accessor
-    #:p-texel-buffer-view ;; :accessor
-    #:p-times ;; :accessor
-    #:p-tokens ;; :accessor
-    #:p-user-data ;; :accessor
-    #:p-values ;; :accessor
-    #:p-version-data ;; :accessor
-    #:p-vertex-attribute-descriptions ;; :accessor
-    #:p-vertex-binding-descriptions ;; :accessor
-    #:p-vertex-binding-divisors ;; :accessor
-    #:p-vertex-input-state ;; :accessor
-    #:p-view ;; :accessor
-    #:p-view-formats ;; :accessor
-    #:p-view-masks ;; :accessor
-    #:p-view-offsets ;; :accessor
-    #:p-viewport-state ;; :accessor
-    #:p-viewport-swizzles ;; :accessor
-    #:p-viewport-w-scalings ;; :accessor
-    #:p-viewports ;; :accessor
-    #:p-wait-dst-stage-mask ;; :accessor
-    #:p-wait-semaphore-device-indices ;; :accessor
-    #:p-wait-semaphore-infos ;; :accessor
-    #:p-wait-semaphore-values ;; :accessor
-    #:p-wait-semaphores ;; :accessor
-    #:parameter ;; :accessor
-    #:parameters ;; :accessor
-    #:pass-op ;; :accessor
-    #:patch ;; :accessor
-    #:patch-control-points ;; :accessor
-    #:pci-bus ;; :accessor
-    #:pci-device ;; :accessor
-    #:pci-domain ;; :accessor
-    #:pci-function ;; :accessor
-    #:per-view-position-all-components ;; :accessor
-    #:performance-counter-multiple-query-pools ;; :accessor
-    #:performance-counter-query-pools ;; :accessor
-    #:performance-counters-sampling ;; :accessor
-    #:persistent ;; :accessor
-    #:persistent-content ;; :accessor
-    #:pfn-allocation ;; :accessor
-    #:pfn-callback ;; :accessor
-    #:pfn-free ;; :accessor
-    #:pfn-internal-allocation ;; :accessor
-    #:pfn-internal-free ;; :accessor
-    #:pfn-reallocation ;; :accessor
-    #:pfn-user-callback ;; :accessor
-    #:physical-device-count ;; :accessor
-    #:physical-devices ;; :accessor
-    #:physical-dimensions ;; :accessor
-    #:physical-resolution ;; :accessor
-    #:pipeline ;; :accessor
-    #:pipeline-bind-point ;; :accessor
-    #:pipeline-cache-uuid ;; :accessor
-    #:pipeline-count ;; :accessor
-    #:pipeline-creation-cache-control ;; :accessor
-    #:pipeline-executable-info ;; :accessor
-    #:pipeline-fragment-shading-rate ;; :accessor
-    #:pipeline-layout ;; :accessor
-    #:pipeline-stage-creation-feedback-count ;; :accessor
-    #:pipeline-statistics ;; :accessor
-    #:pipeline-statistics-query ;; :accessor
-    #:pixel-x ;; :accessor
-    #:pixel-y ;; :accessor
-    #:plane-aspect ;; :accessor
-    #:plane-index ;; :accessor
-    #:plane-reorder-possible ;; :accessor
-    #:plane-stack-index ;; :accessor
-    #:point-clipping-behavior ;; :accessor
-    #:point-polygons ;; :accessor
-    #:point-size-granularity ;; :accessor
-    #:point-size-range ;; :accessor
-    #:polygon-mode ;; :accessor
-    #:pool-size-count ;; :accessor
-    #:post-subpass-sample-locations-count ;; :accessor
-    #:power-state ;; :accessor
-    #:pp-enabled-extension-names ;; :accessor
-    #:pp-enabled-layer-names ;; :accessor
-    #:pp-geometries ;; :accessor
-    #:pre-transform ;; :accessor
-    #:prefers-dedicated-allocation ;; :accessor
-    #:preprocess-buffer ;; :accessor
-    #:preprocess-offset ;; :accessor
-    #:preprocess-size ;; :accessor
-    #:present-id ;; :accessor
-    #:present-margin ;; :accessor
-    #:present-mask ;; :accessor
-    #:present-mode ;; :accessor
-    #:preserve-attachment-count ;; :accessor
-    #:primitive-count ;; :accessor
-    #:primitive-fragment-shading-rate ;; :accessor
-    #:primitive-fragment-shading-rate-with-multiple-viewports ;; :accessor
-    #:primitive-offset ;; :accessor
-    #:primitive-overestimation-size ;; :accessor
-    #:primitive-restart-enable ;; :accessor
-    #:primitive-underestimation ;; :accessor
-    #:priority ;; :accessor
-    #:private-data ;; :accessor
-    #:private-data-slot-request-count ;; :accessor
-    #:properties ;; :accessor
-    #:property-flags ;; :accessor
-    #:protected-memory ;; :accessor
-    #:protected-no-fault ;; :accessor
-    #:protected-submit ;; :accessor
-    #:purposes ;; :accessor
-    #:push-constant-range-count ;; :accessor
-    #:pushconstant-offset ;; :accessor
-    #:pushconstant-pipeline-layout ;; :accessor
-    #:pushconstant-shader-stage-flags ;; :accessor
-    #:pushconstant-size ;; :accessor
-    #:quad-divergent-implicit-lod ;; :accessor
-    #:quad-operations-in-all-stages ;; :accessor
-    #:query-count ;; :accessor
-    #:query-flags ;; :accessor
-    #:query-type ;; :accessor
-    #:queue-count ;; :accessor
-    #:queue-create-info-count ;; :accessor
-    #:queue-family-index ;; :accessor
-    #:queue-family-index-count ;; :accessor
-    #:queue-family-properties ;; :accessor
-    #:queue-flags ;; :accessor
-    #:queue-index ;; :accessor
-    #:queue-label-count ;; :accessor
-    #:r ;; :accessor
-    #:range ;; :accessor
-    #:rasterization-order ;; :accessor
-    #:rasterization-samples ;; :accessor
-    #:rasterization-stream ;; :accessor
-    #:rasterizer-discard-enable ;; :accessor
-    #:ray-query ;; :accessor
-    #:ray-tracing-pipeline ;; :accessor
-    #:ray-tracing-pipeline-shader-group-handle-capture-replay ;; :accessor
-    #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed ;; :accessor
-    #:ray-tracing-pipeline-trace-rays-indirect ;; :accessor
-    #:ray-traversal-primitive-culling ;; :accessor
-    #:rect ;; :accessor
-    #:rectangle-count ;; :accessor
-    #:rectangular-lines ;; :accessor
-    #:reduction-mode ;; :accessor
-    #:reference ;; :accessor
-    #:refresh-duration ;; :accessor
-    #:refresh-rate ;; :accessor
-    #:region-count ;; :accessor
-    #:release-count ;; :accessor
-    #:render-area ;; :accessor
-    #:render-pass ;; :accessor
-    #:representative-fragment-test ;; :accessor
-    #:representative-fragment-test-enable ;; :accessor
-    #:required-subgroup-size ;; :accessor
-    #:required-subgroup-size-stages ;; :accessor
-    #:requires-dedicated-allocation ;; :accessor
-    #:residency-aligned-mip-size ;; :accessor
-    #:residency-non-resident-strict ;; :accessor
-    #:residency-standard-2d-block-shape ;; :accessor
-    #:residency-standard-2d-multisample-block-shape ;; :accessor
-    #:residency-standard-3d-block-shape ;; :accessor
-    #:resource-device-index ;; :accessor
-    #:resource-offset ;; :accessor
-    #:resource-usage ;; :accessor
-    #:robust-buffer-access ;; :accessor
-    #:robust-buffer-access-2 ;; :accessor
-    #:robust-buffer-access-update-after-bind ;; :accessor
-    #:robust-image-access ;; :accessor
-    #:robust-image-access-2 ;; :accessor
-    #:robust-storage-buffer-access-size-alignment ;; :accessor
-    #:robust-uniform-buffer-access-size-alignment ;; :accessor
-    #:rounding-mode-independence ;; :accessor
-    #:row-pitch ;; :accessor
-    #:runtime-descriptor-array ;; :accessor
-    #:s-type ;; :accessor
-    #:sample ;; :accessor
-    #:sample-count ;; :accessor
-    #:sample-counts ;; :accessor
-    #:sample-location-coordinate-range ;; :accessor
-    #:sample-location-count ;; :accessor
-    #:sample-location-grid-size ;; :accessor
-    #:sample-location-sample-counts ;; :accessor
-    #:sample-location-sub-pixel-bits ;; :accessor
-    #:sample-locations-count ;; :accessor
-    #:sample-locations-enable ;; :accessor
-    #:sample-locations-info ;; :accessor
-    #:sample-locations-per-pixel ;; :accessor
-    #:sample-order-type ;; :accessor
-    #:sample-rate-shading ;; :accessor
-    #:sample-shading-enable ;; :accessor
-    #:sampled-image-color-sample-counts ;; :accessor
-    #:sampled-image-depth-sample-counts ;; :accessor
-    #:sampled-image-integer-sample-counts ;; :accessor
-    #:sampled-image-stencil-sample-counts ;; :accessor
-    #:sampler ;; :accessor
-    #:sampler-anisotropy ;; :accessor
-    #:sampler-filter-minmax ;; :accessor
-    #:sampler-mip-lod-bias ;; :accessor
-    #:sampler-mirror-clamp-to-edge ;; :accessor
-    #:sampler-ycbcr-conversion ;; :accessor
-    #:sampler-ycbcr-conversion-components ;; :accessor
-    #:samples ;; :accessor
-    #:scalar-block-layout ;; :accessor
-    #:scissor-count ;; :accessor
-    #:scope ;; :accessor
-    #:scratch-data ;; :accessor
-    #:scratch-mem-usage-in-bytes ;; :accessor
-    #:semaphore ;; :accessor
-    #:semaphore-count ;; :accessor
-    #:semaphore-type ;; :accessor
-    #:separate-depth-stencil-layouts ;; :accessor
-    #:separate-stencil-mask-ref ;; :accessor
-    #:sequences-count ;; :accessor
-    #:sequences-count-buffer ;; :accessor
-    #:sequences-count-offset ;; :accessor
-    #:sequences-index-buffer ;; :accessor
-    #:sequences-index-offset ;; :accessor
-    #:set ;; :accessor
-    #:set-layout-count ;; :accessor
-    #:sgpr-allocation-granularity ;; :accessor
-    #:sgprs-per-simd ;; :accessor
-    #:shader-arrays-per-engine-count ;; :accessor
-    #:shader-buffer-float-32-atomic-add ;; :accessor
-    #:shader-buffer-float-32-atomics ;; :accessor
-    #:shader-buffer-float-64-atomic-add ;; :accessor
-    #:shader-buffer-float-64-atomics ;; :accessor
-    #:shader-buffer-int-64-atomics ;; :accessor
-    #:shader-clip-distance ;; :accessor
-    #:shader-core-features ;; :accessor
-    #:shader-cull-distance ;; :accessor
-    #:shader-demote-to-helper-invocation ;; :accessor
-    #:shader-denorm-flush-to-zero-float-16 ;; :accessor
-    #:shader-denorm-flush-to-zero-float-32 ;; :accessor
-    #:shader-denorm-flush-to-zero-float-64 ;; :accessor
-    #:shader-denorm-preserve-float-16 ;; :accessor
-    #:shader-denorm-preserve-float-32 ;; :accessor
-    #:shader-denorm-preserve-float-64 ;; :accessor
-    #:shader-device-clock ;; :accessor
-    #:shader-draw-parameters ;; :accessor
-    #:shader-engine-count ;; :accessor
-    #:shader-float-16 ;; :accessor
-    #:shader-float-64 ;; :accessor
-    #:shader-group-base-alignment ;; :accessor
-    #:shader-group-handle-alignment ;; :accessor
-    #:shader-group-handle-capture-replay-size ;; :accessor
-    #:shader-group-handle-size ;; :accessor
-    #:shader-image-float-32-atomic-add ;; :accessor
-    #:shader-image-float-32-atomics ;; :accessor
-    #:shader-image-gather-extended ;; :accessor
-    #:shader-image-int-64-atomics ;; :accessor
-    #:shader-input-attachment-array-dynamic-indexing ;; :accessor
-    #:shader-input-attachment-array-non-uniform-indexing ;; :accessor
-    #:shader-input-attachment-array-non-uniform-indexing-native ;; :accessor
-    #:shader-int-16 ;; :accessor
-    #:shader-int-64 ;; :accessor
-    #:shader-int-8 ;; :accessor
-    #:shader-integer-functions-2 ;; :accessor
-    #:shader-output-layer ;; :accessor
-    #:shader-output-viewport-index ;; :accessor
-    #:shader-resource-min-lod ;; :accessor
-    #:shader-resource-residency ;; :accessor
-    #:shader-rounding-mode-rte-float-16 ;; :accessor
-    #:shader-rounding-mode-rte-float-32 ;; :accessor
-    #:shader-rounding-mode-rte-float-64 ;; :accessor
-    #:shader-rounding-mode-rtz-float-16 ;; :accessor
-    #:shader-rounding-mode-rtz-float-32 ;; :accessor
-    #:shader-rounding-mode-rtz-float-64 ;; :accessor
-    #:shader-s-m-builtins ;; :accessor
-    #:shader-s-m-count ;; :accessor
-    #:shader-sample-rate-interpolation-functions ;; :accessor
-    #:shader-sampled-image-array-dynamic-indexing ;; :accessor
-    #:shader-sampled-image-array-non-uniform-indexing ;; :accessor
-    #:shader-sampled-image-array-non-uniform-indexing-native ;; :accessor
-    #:shader-shared-float-32-atomic-add ;; :accessor
-    #:shader-shared-float-32-atomics ;; :accessor
-    #:shader-shared-float-64-atomic-add ;; :accessor
-    #:shader-shared-float-64-atomics ;; :accessor
-    #:shader-shared-int-64-atomics ;; :accessor
-    #:shader-signed-zero-inf-nan-preserve-float-16 ;; :accessor
-    #:shader-signed-zero-inf-nan-preserve-float-32 ;; :accessor
-    #:shader-signed-zero-inf-nan-preserve-float-64 ;; :accessor
-    #:shader-stage-mask ;; :accessor
-    #:shader-storage-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-storage-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-storage-buffer-array-non-uniform-indexing-native ;; :accessor
-    #:shader-storage-image-array-dynamic-indexing ;; :accessor
-    #:shader-storage-image-array-non-uniform-indexing ;; :accessor
-    #:shader-storage-image-array-non-uniform-indexing-native ;; :accessor
-    #:shader-storage-image-extended-formats ;; :accessor
-    #:shader-storage-image-multisample ;; :accessor
-    #:shader-storage-image-read-without-format ;; :accessor
-    #:shader-storage-image-write-without-format ;; :accessor
-    #:shader-storage-texel-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-storage-texel-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-subgroup-clock ;; :accessor
-    #:shader-subgroup-extended-types ;; :accessor
-    #:shader-terminate-invocation ;; :accessor
-    #:shader-tessellation-and-geometry-point-size ;; :accessor
-    #:shader-uniform-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-uniform-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-uniform-buffer-array-non-uniform-indexing-native ;; :accessor
-    #:shader-uniform-texel-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-uniform-texel-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-warps-per-s-m ;; :accessor
-    #:shader-zero-initialize-workgroup-memory ;; :accessor
-    #:shading-rate ;; :accessor
-    #:shading-rate-attachment-texel-size ;; :accessor
-    #:shading-rate-coarse-sample-order ;; :accessor
-    #:shading-rate-image ;; :accessor
-    #:shading-rate-image-enable ;; :accessor
-    #:shading-rate-max-coarse-samples ;; :accessor
-    #:shading-rate-palette-entry-count ;; :accessor
-    #:shading-rate-palette-size ;; :accessor
-    #:shading-rate-texel-size ;; :accessor
-    #:shading-rate-type ;; :accessor
-    #:shared-present-supported-usage-flags ;; :accessor
-    #:sharing-mode ;; :accessor
-    #:signal-semaphore-count ;; :accessor
-    #:signal-semaphore-info-count ;; :accessor
-    #:signal-semaphore-value-count ;; :accessor
-    #:signal-semaphore-values-count ;; :accessor
-    #:simd-per-compute-unit ;; :accessor
-    #:size ;; :accessor
-    #:smooth-lines ;; :accessor
-    #:sparse-address-space-size ;; :accessor
-    #:sparse-binding ;; :accessor
-    #:sparse-image-float-32-atomic-add ;; :accessor
-    #:sparse-image-float-32-atomics ;; :accessor
-    #:sparse-image-int-64-atomics ;; :accessor
-    #:sparse-properties ;; :accessor
-    #:sparse-residency-16-samples ;; :accessor
-    #:sparse-residency-2-samples ;; :accessor
-    #:sparse-residency-4-samples ;; :accessor
-    #:sparse-residency-8-samples ;; :accessor
-    #:sparse-residency-aliased ;; :accessor
-    #:sparse-residency-buffer ;; :accessor
-    #:sparse-residency-image-2d ;; :accessor
-    #:sparse-residency-image-3d ;; :accessor
-    #:spec-version ;; :accessor
-    #:split-instance-bind-region-count ;; :accessor
-    #:src ;; :accessor
-    #:src-acceleration-structure ;; :accessor
-    #:src-access-mask ;; :accessor
-    #:src-alpha-blend-factor ;; :accessor
-    #:src-array-element ;; :accessor
-    #:src-binding ;; :accessor
-    #:src-buffer ;; :accessor
-    #:src-color-blend-factor ;; :accessor
-    #:src-image ;; :accessor
-    #:src-image-layout ;; :accessor
-    #:src-offset ;; :accessor
-    #:src-offsets ;; :accessor
-    #:src-premultiplied ;; :accessor
-    #:src-queue-family-index ;; :accessor
-    #:src-rect ;; :accessor
-    #:src-set ;; :accessor
-    #:src-stage-mask ;; :accessor
-    #:src-subpass ;; :accessor
-    #:src-subresource ;; :accessor
-    #:stage ;; :accessor
-    #:stage-count ;; :accessor
-    #:stage-flags ;; :accessor
-    #:stage-mask ;; :accessor
-    #:stages ;; :accessor
-    #:standard-sample-locations ;; :accessor
-    #:stencil ;; :accessor
-    #:stencil-final-layout ;; :accessor
-    #:stencil-initial-layout ;; :accessor
-    #:stencil-layout ;; :accessor
-    #:stencil-load-op ;; :accessor
-    #:stencil-resolve-mode ;; :accessor
-    #:stencil-store-op ;; :accessor
-    #:stencil-test-enable ;; :accessor
-    #:stencil-usage ;; :accessor
-    #:stippled-bresenham-lines ;; :accessor
-    #:stippled-line-enable ;; :accessor
-    #:stippled-rectangular-lines ;; :accessor
-    #:stippled-smooth-lines ;; :accessor
-    #:storage ;; :accessor
-    #:storage-buffer-16-bit-access ;; :accessor
-    #:storage-buffer-8-bit-access ;; :accessor
-    #:storage-image-sample-counts ;; :accessor
-    #:storage-input-output-16 ;; :accessor
-    #:storage-push-constant-16 ;; :accessor
-    #:storage-push-constant-8 ;; :accessor
-    #:storage-texel-buffer-offset-alignment-bytes ;; :accessor
-    #:storage-texel-buffer-offset-single-texel-alignment ;; :accessor
-    #:store-op ;; :accessor
-    #:stream ;; :accessor
-    #:stream-count ;; :accessor
-    #:stream-descriptor ;; :accessor
-    #:strict-lines ;; :accessor
-    #:stride ;; :accessor
-    #:sub-pixel-interpolation-offset-bits ;; :accessor
-    #:sub-pixel-precision-bits ;; :accessor
-    #:sub-texel-precision-bits ;; :accessor
-    #:subgroup-broadcast-dynamic-id ;; :accessor
-    #:subgroup-quad-operations-in-all-stages ;; :accessor
-    #:subgroup-size ;; :accessor
-    #:subgroup-size-control ;; :accessor
-    #:subgroup-supported-operations ;; :accessor
-    #:subgroup-supported-stages ;; :accessor
-    #:subminor ;; :accessor
-    #:subpass ;; :accessor
-    #:subpass-count ;; :accessor
-    #:subpass-index ;; :accessor
-    #:subresource ;; :accessor
-    #:subresource-range ;; :accessor
-    #:subsampled-coarse-reconstruction-early-access ;; :accessor
-    #:subsampled-loads ;; :accessor
-    #:subset-allocation ;; :accessor
-    #:suggested-x-chroma-offset ;; :accessor
-    #:suggested-y-chroma-offset ;; :accessor
-    #:suggested-ycbcr-model ;; :accessor
-    #:suggested-ycbcr-range ;; :accessor
-    #:supersample-fragment-shading-rates ;; :accessor
-    #:supported ;; :accessor
-    #:supported-alpha ;; :accessor
-    #:supported-composite-alpha ;; :accessor
-    #:supported-depth-resolve-modes ;; :accessor
-    #:supported-operations ;; :accessor
-    #:supported-stages ;; :accessor
-    #:supported-stencil-resolve-modes ;; :accessor
-    #:supported-surface-counters ;; :accessor
-    #:supported-transforms ;; :accessor
-    #:supported-usage-flags ;; :accessor
-    #:supports-protected ;; :accessor
-    #:supports-texture-gather-l-o-d-bias-amd ;; :accessor
-    #:surface ;; :accessor
-    #:surface-capabilities ;; :accessor
-    #:surface-counters ;; :accessor
-    #:surface-format ;; :accessor
-    #:swapchain ;; :accessor
-    #:swapchain-count ;; :accessor
-    #:synchronization-2 ;; :accessor
-    #:tag-name ;; :accessor
-    #:tag-size ;; :accessor
-    #:task-count ;; :accessor
-    #:task-shader ;; :accessor
-    #:template-type ;; :accessor
-    #:tessellation-isolines ;; :accessor
-    #:tessellation-point-mode ;; :accessor
-    #:tessellation-shader ;; :accessor
-    #:texel-buffer-alignment ;; :accessor
-    #:texture-compression-astc_-h-d-r ;; :accessor
-    #:texture-compression-astc_-ldr ;; :accessor
-    #:texture-compression-bc ;; :accessor
-    #:texture-compression-etc2 ;; :accessor
-    #:tiling ;; :accessor
-    #:time-domain ;; :accessor
-    #:timeline-semaphore ;; :accessor
-    #:timeout ;; :accessor
-    #:timestamp-compute-and-graphics ;; :accessor
-    #:timestamp-period ;; :accessor
-    #:timestamp-valid-bits ;; :accessor
-    #:token-count ;; :accessor
-    #:token-type ;; :accessor
-    #:topology ;; :accessor
-    #:transform ;; :accessor
-    #:transform-data ;; :accessor
-    #:transform-feedback ;; :accessor
-    #:transform-feedback-draw ;; :accessor
-    #:transform-feedback-queries ;; :accessor
-    #:transform-feedback-rasterization-stream-select ;; :accessor
-    #:transform-feedback-streams-lines-triangles ;; :accessor
-    #:transform-offset ;; :accessor
-    #:triangle-fans ;; :accessor
-    #:triangles ;; :accessor
-    #:type ;; :accessor
-    #:u64 ;; :accessor
-    #:uint-32 ;; :accessor
-    #:uint-64 ;; :accessor
-    #:uniform-and-storage-buffer-16-bit-access ;; :accessor
-    #:uniform-and-storage-buffer-8-bit-access ;; :accessor
-    #:uniform-buffer-standard-layout ;; :accessor
-    #:uniform-texel-buffer-offset-alignment-bytes ;; :accessor
-    #:uniform-texel-buffer-offset-single-texel-alignment ;; :accessor
-    #:unit ;; :accessor
-    #:unnormalized-coordinates ;; :accessor
-    #:update-scratch-size ;; :accessor
-    #:usage ;; :accessor
-    #:uuid ;; :accessor
-    #:validation-cache ;; :accessor
-    #:value ;; :accessor
-    #:value-32 ;; :accessor
-    #:value-64 ;; :accessor
-    #:value-bool ;; :accessor
-    #:value-float ;; :accessor
-    #:value-string ;; :accessor
-    #:variable-multisample-rate ;; :accessor
-    #:variable-pointers ;; :accessor
-    #:variable-pointers-storage-buffer ;; :accessor
-    #:variable-sample-locations ;; :accessor
-    #:vendor-id ;; :accessor
-    #:version ;; :accessor
-    #:vertex-attribute-access-beyond-stride ;; :accessor
-    #:vertex-attribute-description-count ;; :accessor
-    #:vertex-attribute-instance-rate-divisor ;; :accessor
-    #:vertex-attribute-instance-rate-zero-divisor ;; :accessor
-    #:vertex-binding-description-count ;; :accessor
-    #:vertex-binding-divisor-count ;; :accessor
-    #:vertex-binding-unit ;; :accessor
-    #:vertex-count ;; :accessor
-    #:vertex-data ;; :accessor
-    #:vertex-dynamic-stride ;; :accessor
-    #:vertex-format ;; :accessor
-    #:vertex-offset ;; :accessor
-    #:vertex-pipeline-stores-and-atomics ;; :accessor
-    #:vertex-stride ;; :accessor
-    #:vgpr-allocation-granularity ;; :accessor
-    #:vgprs-per-simd ;; :accessor
-    #:view-format-count ;; :accessor
-    #:view-mask ;; :accessor
-    #:view-offset ;; :accessor
-    #:view-type ;; :accessor
-    #:viewport-bounds-range ;; :accessor
-    #:viewport-count ;; :accessor
-    #:viewport-sub-pixel-bits ;; :accessor
-    #:viewport-w-scaling-enable ;; :accessor
-    #:visible-region ;; :accessor
-    #:vulkan-memory-model ;; :accessor
-    #:vulkan-memory-model-availability-visibility-chains ;; :accessor
-    #:vulkan-memory-model-device-scope ;; :accessor
-    #:w ;; :accessor
-    #:wait-semaphore-count ;; :accessor
-    #:wait-semaphore-info-count ;; :accessor
-    #:wait-semaphore-value-count ;; :accessor
-    #:wait-semaphore-values-count ;; :accessor
-    #:wavefront-size ;; :accessor
-    #:wavefronts-per-simd ;; :accessor
-    #:white-point ;; :accessor
-    #:wide-lines ;; :accessor
-    #:width ;; :accessor
-    #:window ;; :accessor
-    #:workgroup-memory-explicit-layout ;; :accessor
-    #:workgroup-memory-explicit-layout-16-bit-access ;; :accessor
-    #:workgroup-memory-explicit-layout-8-bit-access ;; :accessor
-    #:workgroup-memory-explicit-layout-scalar-block-layout ;; :accessor
-    #:write-mask ;; :accessor
-    #:x ;; :accessor
-    #:x-chroma-offset ;; :accessor
-    #:xcoeff ;; :accessor
-    #:y ;; :accessor
-    #:y-chroma-offset ;; :accessor
-    #:ycbcr-image-arrays ;; :accessor
-    #:ycbcr-model ;; :accessor
-    #:ycbcr-range ;; :accessor
-    #:ycoeff ;; :accessor
-    #:z ;; :accessor
-    #:zircon-handle ;; :accessor
-))
+    #:a-type
+    #:b-type
+    #:c-type
+    #:d-type
+    #:k-size
+    #:m-size
+    #:n-size
+    #:a
+    #:aabb-data
+    #:aabbs
+    #:acceleration-structure
+    #:acceleration-structure-capture-replay
+    #:acceleration-structure-count
+    #:acceleration-structure-host-commands
+    #:acceleration-structure-indirect-build
+    #:acceleration-structure-reference
+    #:acceleration-structure-size
+    #:acquire-count
+    #:active-compute-unit-count
+    #:actual-present-time
+    #:address-mode-u
+    #:address-mode-v
+    #:address-mode-w
+    #:advanced-blend-all-operations
+    #:advanced-blend-coherent-operations
+    #:advanced-blend-correlated-overlap
+    #:advanced-blend-independent-blend
+    #:advanced-blend-max-color-attachments
+    #:advanced-blend-non-premultiplied-dst-color
+    #:advanced-blend-non-premultiplied-src-color
+    #:alignment
+    #:allocation-size
+    #:allow-command-buffer-query-copies
+    #:alpha-blend-op
+    #:alpha-mode
+    #:alpha-to-coverage-enable
+    #:alpha-to-one
+    #:alpha-to-one-enable
+    #:android-hardware-buffer-usage
+    #:anisotropy-enable
+    #:any-hit-shader
+    #:api-version
+    #:application-version
+    #:array-layer
+    #:array-layers
+    #:array-of-pointers
+    #:array-pitch
+    #:aspect-mask
+    #:aspect-reference-count
+    #:attachment
+    #:attachment-count
+    #:attachment-fragment-shading-rate
+    #:attachment-image-info-count
+    #:attachment-index
+    #:attachment-initial-sample-locations-count
+    #:b
+    #:b32
+    #:back
+    #:base-array-layer
+    #:base-mip-level
+    #:base-pipeline-handle
+    #:base-pipeline-index
+    #:bind-count
+    #:binding
+    #:binding-count
+    #:blend-constants
+    #:blend-enable
+    #:blend-overlap
+    #:border-color
+    #:bresenham-lines
+    #:buffer
+    #:buffer-address
+    #:buffer-bind-count
+    #:buffer-device-address
+    #:buffer-device-address-capture-replay
+    #:buffer-device-address-multi-device
+    #:buffer-features
+    #:buffer-image-granularity
+    #:buffer-image-height
+    #:buffer-memory-barrier-count
+    #:buffer-offset
+    #:buffer-row-length
+    #:build-scratch-size
+    #:capabilities
+    #:category
+    #:checkpoint-execution-stage-mask
+    #:chroma-filter
+    #:clear-value
+    #:clear-value-count
+    #:clipped
+    #:closest-hit-shader
+    #:cmd-buf-label-count
+    #:code-size
+    #:color
+    #:color-attachment
+    #:color-attachment-count
+    #:color-blend-op
+    #:color-samples
+    #:color-space
+    #:color-write-mask
+    #:combined-image-sampler-descriptor-count
+    #:combiner-ops
+    #:command-buffer
+    #:command-buffer-count
+    #:command-buffer-info-count
+    #:command-pool
+    #:compacted-size
+    #:compare-enable
+    #:compare-mask
+    #:compare-op
+    #:compatible-handle-types
+    #:compiler-control-flags
+    #:components
+    #:composite-alpha
+    #:compute-derivative-group-linear
+    #:compute-derivative-group-quads
+    #:compute-full-subgroups
+    #:compute-units-per-shader-array
+    #:compute-work-group-size
+    #:conditional-rendering
+    #:conditional-rendering-enable
+    #:conformance-version
+    #:connection
+    #:conservative-point-and-line-rasterization
+    #:conservative-rasterization-mode
+    #:conservative-rasterization-post-depth-coverage
+    #:constant-alpha-color-blend-factors
+    #:constant-id
+    #:contents
+    #:context
+    #:conversion
+    #:cooperative-matrix
+    #:cooperative-matrix-robust-buffer-access
+    #:cooperative-matrix-supported-stages
+    #:corner-sampled-image
+    #:correlated-view-mask-count
+    #:correlation-mask-count
+    #:counter-index-count
+    #:counter-pass-index
+    #:coverage-modulation-mode
+    #:coverage-modulation-table-count
+    #:coverage-modulation-table-enable
+    #:coverage-reduction-mode
+    #:coverage-to-color-enable
+    #:coverage-to-color-location
+    #:create-flags
+    #:cull-mode
+    #:current-display
+    #:current-extent
+    #:current-stack-index
+    #:current-transform
+    #:custom-border-color
+    #:custom-border-color-without-format
+    #:custom-border-colors
+    #:custom-sample-order-count
+    #:data
+    #:data-size
+    #:decode-mode
+    #:decode-mode-shared-exponent
+    #:dedicated-allocation
+    #:dedicated-allocation-image-aliasing
+    #:degenerate-lines-rasterized
+    #:degenerate-triangles-rasterized
+    #:denorm-behavior-independence
+    #:dependency-count
+    #:dependency-flags
+    #:depth
+    #:depth-bias-clamp
+    #:depth-bias-constant-factor
+    #:depth-bias-enable
+    #:depth-bias-slope-factor
+    #:depth-bounds
+    #:depth-bounds-test-enable
+    #:depth-clamp
+    #:depth-clamp-enable
+    #:depth-clip-enable
+    #:depth-compare-op
+    #:depth-fail-op
+    #:depth-pitch
+    #:depth-resolve-mode
+    #:depth-stencil
+    #:depth-stencil-samples
+    #:depth-test-enable
+    #:depth-write-enable
+    #:description
+    #:descriptor-binding-acceleration-structure-update-after-bind
+    #:descriptor-binding-inline-uniform-block-update-after-bind
+    #:descriptor-binding-partially-bound
+    #:descriptor-binding-sampled-image-update-after-bind
+    #:descriptor-binding-storage-buffer-update-after-bind
+    #:descriptor-binding-storage-image-update-after-bind
+    #:descriptor-binding-storage-texel-buffer-update-after-bind
+    #:descriptor-binding-uniform-buffer-update-after-bind
+    #:descriptor-binding-uniform-texel-buffer-update-after-bind
+    #:descriptor-binding-update-unused-while-pending
+    #:descriptor-binding-variable-descriptor-count
+    #:descriptor-count
+    #:descriptor-indexing
+    #:descriptor-pool
+    #:descriptor-set-count
+    #:descriptor-set-layout
+    #:descriptor-type
+    #:descriptor-type-count
+    #:descriptor-update-entry-count
+    #:desired-present-time
+    #:device-address
+    #:device-coherent-memory
+    #:device-event
+    #:device-generated-commands
+    #:device-id
+    #:device-index
+    #:device-index-count
+    #:device-luid
+    #:device-luid-valid
+    #:device-mask
+    #:device-memory-report
+    #:device-name
+    #:device-node-mask
+    #:device-render-area-count
+    #:device-type
+    #:device-uuid
+    #:dfb
+    #:diagnostics-config
+    #:disabled-validation-check-count
+    #:disabled-validation-feature-count
+    #:discard-rectangle-count
+    #:discard-rectangle-mode
+    #:discrete-queue-priorities
+    #:display
+    #:display-event
+    #:display-mode
+    #:display-mode-properties
+    #:display-name
+    #:display-plane-properties
+    #:display-primary-blue
+    #:display-primary-green
+    #:display-primary-red
+    #:display-properties
+    #:divisor
+    #:domain-origin
+    #:dpy
+    #:draw-indirect-count
+    #:draw-indirect-first-instance
+    #:driver-id
+    #:driver-info
+    #:driver-name
+    #:driver-uuid
+    #:driver-version
+    #:drm-format-modifier
+    #:drm-format-modifier-count
+    #:drm-format-modifier-plane-count
+    #:drm-format-modifier-tiling-features
+    #:dst
+    #:dst-acceleration-structure
+    #:dst-access-mask
+    #:dst-alpha-blend-factor
+    #:dst-array-element
+    #:dst-binding
+    #:dst-buffer
+    #:dst-color-blend-factor
+    #:dst-image
+    #:dst-image-layout
+    #:dst-offset
+    #:dst-offsets
+    #:dst-premultiplied
+    #:dst-queue-family-index
+    #:dst-rect
+    #:dst-set
+    #:dst-stage-mask
+    #:dst-subpass
+    #:dst-subresource
+    #:dual-src-blend
+    #:duration
+    #:dw-access
+    #:dynamic-state-count
+    #:earliest-present-time
+    #:enable
+    #:enabled-extension-count
+    #:enabled-layer-count
+    #:enabled-validation-feature-count
+    #:engine-version
+    #:events
+    #:exclusive-scissor
+    #:exclusive-scissor-count
+    #:executable-index
+    #:export-from-imported-handle-types
+    #:extended-dynamic-state
+    #:extension-name
+    #:extent
+    #:external-fence-features
+    #:external-format
+    #:external-memory-features
+    #:external-memory-properties
+    #:external-semaphore-features
+    #:extra-primitive-overestimation-size
+    #:extra-primitive-overestimation-size-granularity
+    #:f64
+    #:fail-op
+    #:fd
+    #:features
+    #:fence
+    #:fill-mode-non-solid
+    #:filter
+    #:filter-cubic
+    #:filter-cubic-minmax
+    #:filter-minmax-image-component-mapping
+    #:filter-minmax-single-component-formats
+    #:final-layout
+    #:first-index
+    #:first-instance
+    #:first-task
+    #:first-vertex
+    #:flags
+    #:float-32
+    #:float-64
+    #:force-explicit-reconstruction
+    #:format
+    #:format-a4b4g4r4
+    #:format-a4r4g4b4
+    #:format-features
+    #:format-properties
+    #:fragment-density-invocations
+    #:fragment-density-map
+    #:fragment-density-map-attachment
+    #:fragment-density-map-deferred
+    #:fragment-density-map-dynamic
+    #:fragment-density-map-non-subsampled-images
+    #:fragment-shader-barycentric
+    #:fragment-shader-pixel-interlock
+    #:fragment-shader-sample-interlock
+    #:fragment-shader-shading-rate-interlock
+    #:fragment-shading-rate-enums
+    #:fragment-shading-rate-non-trivial-combiner-ops
+    #:fragment-shading-rate-strict-multiply-combiner
+    #:fragment-shading-rate-with-conservative-rasterization
+    #:fragment-shading-rate-with-custom-sample-locations
+    #:fragment-shading-rate-with-fragment-shader-interlock
+    #:fragment-shading-rate-with-sample-mask
+    #:fragment-shading-rate-with-shader-depth-stencil-writes
+    #:fragment-shading-rate-with-shader-sample-mask
+    #:fragment-size
+    #:fragment-stores-and-atomics
+    #:frame-token
+    #:framebuffer
+    #:framebuffer-color-sample-counts
+    #:framebuffer-depth-sample-counts
+    #:framebuffer-integer-color-sample-counts
+    #:framebuffer-no-attachments-sample-counts
+    #:framebuffer-stencil-sample-counts
+    #:front
+    #:front-face
+    #:full-draw-index-uint-32
+    #:full-screen-exclusive
+    #:full-screen-exclusive-supported
+    #:fully-covered-fragment-shader-input-variable
+    #:g
+    #:general-shader
+    #:geometry
+    #:geometry-count
+    #:geometry-shader
+    #:geometry-streams
+    #:geometry-type
+    #:global-alpha
+    #:global-priority
+    #:group-count
+    #:group-index
+    #:handle
+    #:handle-type
+    #:handle-types
+    #:heap-budget
+    #:heap-index
+    #:heap-usage
+    #:height
+    #:hinstance
+    #:hmonitor
+    #:host-address
+    #:host-query-reset
+    #:hwnd
+    #:i64
+    #:image
+    #:image-array-layers
+    #:image-bind-count
+    #:image-color-space
+    #:image-cube-array
+    #:image-extent
+    #:image-footprint
+    #:image-format
+    #:image-format-properties
+    #:image-granularity
+    #:image-index
+    #:image-layout
+    #:image-memory-barrier-count
+    #:image-mip-tail-first-lod
+    #:image-mip-tail-offset
+    #:image-mip-tail-size
+    #:image-mip-tail-stride
+    #:image-offset
+    #:image-opaque-bind-count
+    #:image-pipe-handle
+    #:image-sharing-mode
+    #:image-subresource
+    #:image-type
+    #:image-usage
+    #:image-view
+    #:image-view-2d-on-3d-image
+    #:image-view-format-reinterpretation
+    #:image-view-format-swizzle
+    #:image-view-type
+    #:imageless-framebuffer
+    #:implementation-version
+    #:independent-blend
+    #:independent-resolve
+    #:independent-resolve-none
+    #:index-count
+    #:index-data
+    #:index-offset
+    #:index-type
+    #:index-type-count
+    #:index-type-uint-8
+    #:indirect-commands-layout
+    #:indirect-state-flags
+    #:info
+    #:inherited-conditional-rendering
+    #:inherited-queries
+    #:initial-data-size
+    #:initial-layout
+    #:initial-value
+    #:inline-uniform-block
+    #:input-attachment-count
+    #:input-attachment-index
+    #:input-rate
+    #:instance-count
+    #:instance-custom-index
+    #:instance-shader-binding-table-record-offset
+    #:instances
+    #:int-32
+    #:int-64
+    #:intersection-shader
+    #:is-text
+    #:large-points
+    #:layer
+    #:layer-count
+    #:layer-name
+    #:layered-shading-rate-attachments
+    #:layers
+    #:layout
+    #:lds-size-per-local-work-group
+    #:lds-usage-size-in-bytes
+    #:level
+    #:level-count
+    #:library-count
+    #:limits
+    #:line-rasterization-mode
+    #:line-stipple-factor
+    #:line-stipple-pattern
+    #:line-sub-pixel-precision-bits
+    #:line-width
+    #:line-width-granularity
+    #:line-width-range
+    #:linear-tiling-features
+    #:load-op
+    #:local-dimming-enable
+    #:local-dimming-support
+    #:location
+    #:logic-op
+    #:logic-op-enable
+    #:mag-filter
+    #:major
+    #:map-entry-count
+    #:marker
+    #:mask
+    #:matrix
+    #:max-anisotropy
+    #:max-array-layers
+    #:max-bound-descriptor-sets
+    #:max-clip-distances
+    #:max-color-attachments
+    #:max-combined-clip-and-cull-distances
+    #:max-compute-shared-memory-size
+    #:max-compute-work-group-count
+    #:max-compute-work-group-invocations
+    #:max-compute-work-group-size
+    #:max-compute-workgroup-subgroups
+    #:max-content-light-level
+    #:max-cull-distances
+    #:max-custom-border-color-samplers
+    #:max-depth
+    #:max-depth-bounds
+    #:max-descriptor-set-acceleration-structures
+    #:max-descriptor-set-inline-uniform-blocks
+    #:max-descriptor-set-input-attachments
+    #:max-descriptor-set-sampled-images
+    #:max-descriptor-set-samplers
+    #:max-descriptor-set-storage-buffers
+    #:max-descriptor-set-storage-buffers-dynamic
+    #:max-descriptor-set-storage-images
+    #:max-descriptor-set-subsampled-samplers
+    #:max-descriptor-set-uniform-buffers
+    #:max-descriptor-set-uniform-buffers-dynamic
+    #:max-descriptor-set-update-after-bind-acceleration-structures
+    #:max-descriptor-set-update-after-bind-inline-uniform-blocks
+    #:max-descriptor-set-update-after-bind-input-attachments
+    #:max-descriptor-set-update-after-bind-sampled-images
+    #:max-descriptor-set-update-after-bind-samplers
+    #:max-descriptor-set-update-after-bind-storage-buffers
+    #:max-descriptor-set-update-after-bind-storage-buffers-dynamic
+    #:max-descriptor-set-update-after-bind-storage-images
+    #:max-descriptor-set-update-after-bind-uniform-buffers
+    #:max-descriptor-set-update-after-bind-uniform-buffers-dynamic
+    #:max-discard-rectangles
+    #:max-draw-indexed-index-value
+    #:max-draw-indirect-count
+    #:max-draw-mesh-tasks-count
+    #:max-dst-extent
+    #:max-dst-position
+    #:max-extent
+    #:max-extra-primitive-overestimation-size
+    #:max-fragment-combined-output-resources
+    #:max-fragment-density-texel-size
+    #:max-fragment-dual-src-attachments
+    #:max-fragment-input-components
+    #:max-fragment-output-attachments
+    #:max-fragment-shading-rate-attachment-texel-size
+    #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio
+    #:max-fragment-shading-rate-coverage-samples
+    #:max-fragment-shading-rate-invocation-count
+    #:max-fragment-shading-rate-rasterization-samples
+    #:max-fragment-size
+    #:max-fragment-size-aspect-ratio
+    #:max-frame-average-light-level
+    #:max-framebuffer-height
+    #:max-framebuffer-layers
+    #:max-framebuffer-width
+    #:max-geometry-count
+    #:max-geometry-input-components
+    #:max-geometry-output-components
+    #:max-geometry-output-vertices
+    #:max-geometry-shader-invocations
+    #:max-geometry-total-output-components
+    #:max-graphics-shader-group-count
+    #:max-image-array-layers
+    #:max-image-count
+    #:max-image-dimension-1d
+    #:max-image-dimension-2d
+    #:max-image-dimension-3d
+    #:max-image-dimension-cube
+    #:max-image-extent
+    #:max-indirect-commands-stream-count
+    #:max-indirect-commands-stream-stride
+    #:max-indirect-commands-token-count
+    #:max-indirect-commands-token-offset
+    #:max-indirect-sequence-count
+    #:max-inline-uniform-block-bindings
+    #:max-inline-uniform-block-size
+    #:max-instance-count
+    #:max-interpolation-offset
+    #:max-lod
+    #:max-luminance
+    #:max-memory-allocation-count
+    #:max-memory-allocation-size
+    #:max-mesh-multiview-view-count
+    #:max-mesh-output-primitives
+    #:max-mesh-output-vertices
+    #:max-mesh-total-memory-size
+    #:max-mesh-work-group-invocations
+    #:max-mesh-work-group-size
+    #:max-mip-levels
+    #:max-multiview-instance-index
+    #:max-multiview-view-count
+    #:max-per-set-descriptors
+    #:max-per-stage-descriptor-acceleration-structures
+    #:max-per-stage-descriptor-inline-uniform-blocks
+    #:max-per-stage-descriptor-input-attachments
+    #:max-per-stage-descriptor-sampled-images
+    #:max-per-stage-descriptor-samplers
+    #:max-per-stage-descriptor-storage-buffers
+    #:max-per-stage-descriptor-storage-images
+    #:max-per-stage-descriptor-uniform-buffers
+    #:max-per-stage-descriptor-update-after-bind-acceleration-structures
+    #:max-per-stage-descriptor-update-after-bind-inline-uniform-blocks
+    #:max-per-stage-descriptor-update-after-bind-input-attachments
+    #:max-per-stage-descriptor-update-after-bind-sampled-images
+    #:max-per-stage-descriptor-update-after-bind-samplers
+    #:max-per-stage-descriptor-update-after-bind-storage-buffers
+    #:max-per-stage-descriptor-update-after-bind-storage-images
+    #:max-per-stage-descriptor-update-after-bind-uniform-buffers
+    #:max-per-stage-resources
+    #:max-per-stage-update-after-bind-resources
+    #:max-pipeline-ray-hit-attribute-size
+    #:max-pipeline-ray-payload-size
+    #:max-pipeline-ray-recursion-depth
+    #:max-primitive-count
+    #:max-push-constants-size
+    #:max-push-descriptors
+    #:max-ray-dispatch-invocation-count
+    #:max-ray-hit-attribute-size
+    #:max-ray-recursion-depth
+    #:max-recursion-depth
+    #:max-resource-size
+    #:max-sample-location-grid-size
+    #:max-sample-mask-words
+    #:max-sampler-allocation-count
+    #:max-sampler-anisotropy
+    #:max-sampler-lod-bias
+    #:max-sequences-count
+    #:max-sets
+    #:max-sgpr-allocation
+    #:max-shader-group-stride
+    #:max-src-extent
+    #:max-src-position
+    #:max-storage-buffer-range
+    #:max-subgroup-size
+    #:max-subsampled-array-layers
+    #:max-task-output-count
+    #:max-task-total-memory-size
+    #:max-task-work-group-invocations
+    #:max-task-work-group-size
+    #:max-tessellation-control-per-patch-output-components
+    #:max-tessellation-control-per-vertex-input-components
+    #:max-tessellation-control-per-vertex-output-components
+    #:max-tessellation-control-total-output-components
+    #:max-tessellation-evaluation-input-components
+    #:max-tessellation-evaluation-output-components
+    #:max-tessellation-generation-level
+    #:max-tessellation-patch-size
+    #:max-texel-buffer-elements
+    #:max-texel-gather-offset
+    #:max-texel-offset
+    #:max-timeline-semaphore-value-difference
+    #:max-transform-feedback-buffer-data-size
+    #:max-transform-feedback-buffer-data-stride
+    #:max-transform-feedback-buffer-size
+    #:max-transform-feedback-buffers
+    #:max-transform-feedback-stream-data-size
+    #:max-transform-feedback-streams
+    #:max-triangle-count
+    #:max-uniform-buffer-range
+    #:max-update-after-bind-descriptors-in-all-pools
+    #:max-variable-descriptor-count
+    #:max-vertex
+    #:max-vertex-attrib-divisor
+    #:max-vertex-input-attribute-offset
+    #:max-vertex-input-attributes
+    #:max-vertex-input-binding-stride
+    #:max-vertex-input-bindings
+    #:max-vertex-output-components
+    #:max-vgpr-allocation
+    #:max-viewport-dimensions
+    #:max-viewports
+    #:max-x
+    #:max-y
+    #:max-z
+    #:memory
+    #:memory-barrier-count
+    #:memory-device-index
+    #:memory-heap-count
+    #:memory-heaps
+    #:memory-object-id
+    #:memory-offset
+    #:memory-priority
+    #:memory-properties
+    #:memory-requirements
+    #:memory-type-bits
+    #:memory-type-count
+    #:memory-type-index
+    #:memory-types
+    #:mesh-output-per-primitive-granularity
+    #:mesh-output-per-vertex-granularity
+    #:mesh-shader
+    #:message-id-number
+    #:message-severity
+    #:message-type
+    #:min-acceleration-structure-scratch-offset-alignment
+    #:min-depth
+    #:min-depth-bounds
+    #:min-dst-extent
+    #:min-dst-position
+    #:min-filter
+    #:min-fragment-density-texel-size
+    #:min-fragment-shading-rate-attachment-texel-size
+    #:min-image-count
+    #:min-image-extent
+    #:min-image-transfer-granularity
+    #:min-imported-host-pointer-alignment
+    #:min-indirect-commands-buffer-offset-alignment
+    #:min-interpolation-offset
+    #:min-lod
+    #:min-luminance
+    #:min-memory-map-alignment
+    #:min-sample-shading
+    #:min-sequences-count-buffer-offset-alignment
+    #:min-sequences-index-buffer-offset-alignment
+    #:min-sgpr-allocation
+    #:min-src-extent
+    #:min-src-position
+    #:min-storage-buffer-offset-alignment
+    #:min-subgroup-size
+    #:min-texel-buffer-offset-alignment
+    #:min-texel-gather-offset
+    #:min-texel-offset
+    #:min-uniform-buffer-offset-alignment
+    #:min-vertex-input-binding-stride-alignment
+    #:min-vgpr-allocation
+    #:min-x
+    #:min-y
+    #:min-z
+    #:minor
+    #:mip-level
+    #:mip-levels
+    #:mip-lod-bias
+    #:mipmap-mode
+    #:mipmap-precision-bits
+    #:mode
+    #:modes
+    #:module
+    #:multi-draw-indirect
+    #:multi-viewport
+    #:multisample-array-image
+    #:multiview
+    #:multiview-geometry-shader
+    #:multiview-tessellation-shader
+    #:mutable-comparison-samplers
+    #:mutable-descriptor-type
+    #:mutable-descriptor-type-list-count
+    #:name
+    #:new-layout
+    #:no-invocation-fragment-shading-rates
+    #:non-coherent-atom-size
+    #:null-descriptor
+    #:num-aabbs
+    #:num-available-sgprs
+    #:num-available-vgprs
+    #:num-physical-sgprs
+    #:num-physical-vgprs
+    #:num-used-sgprs
+    #:num-used-vgprs
+    #:object
+    #:object-count
+    #:object-handle
+    #:object-type
+    #:occlusion-query-enable
+    #:occlusion-query-precise
+    #:offset
+    #:old-layout
+    #:old-swapchain
+    #:opaque-capture-address
+    #:optimal-buffer-copy-offset-alignment
+    #:optimal-buffer-copy-row-pitch-alignment
+    #:optimal-tiling-features
+    #:overallocation-behavior
+    #:p-acceleration-structures
+    #:p-acquire-keys
+    #:p-acquire-syncs
+    #:p-acquire-timeout-milliseconds
+    #:p-acquire-timeouts
+    #:p-application-info
+    #:p-application-name
+    #:p-aspect-references
+    #:p-attachment-image-infos
+    #:p-attachment-initial-sample-locations
+    #:p-attachments
+    #:p-attributes
+    #:p-binding-flags
+    #:p-bindings
+    #:p-binds
+    #:p-buffer-binds
+    #:p-buffer-info
+    #:p-buffer-memory-barriers
+    #:p-checkpoint-marker
+    #:p-clear-values
+    #:p-cmd-buf-labels
+    #:p-code
+    #:p-color-attachments
+    #:p-color-blend-state
+    #:p-command-buffer-device-masks
+    #:p-command-buffer-infos
+    #:p-command-buffers
+    #:p-correlated-view-masks
+    #:p-correlation-masks
+    #:p-counter-indices
+    #:p-coverage-modulation-table
+    #:p-custom-sample-orders
+    #:p-data
+    #:p-dependencies
+    #:p-depth-stencil-attachment
+    #:p-depth-stencil-resolve-attachment
+    #:p-depth-stencil-state
+    #:p-descriptor-counts
+    #:p-descriptor-types
+    #:p-descriptor-update-entries
+    #:p-device-indices
+    #:p-device-masks
+    #:p-device-render-areas
+    #:p-disabled-validation-checks
+    #:p-disabled-validation-features
+    #:p-discard-rectangles
+    #:p-drm-format-modifier-properties
+    #:p-drm-format-modifiers
+    #:p-dynamic-state
+    #:p-dynamic-states
+    #:p-enabled-features
+    #:p-enabled-validation-features
+    #:p-engine-name
+    #:p-exclusive-scissors
+    #:p-fragment-shading-rate-attachment
+    #:p-geometries
+    #:p-groups
+    #:p-host-pointer
+    #:p-image-binds
+    #:p-image-indices
+    #:p-image-info
+    #:p-image-memory-barriers
+    #:p-image-opaque-binds
+    #:p-immutable-samplers
+    #:p-index-type-values
+    #:p-index-types
+    #:p-inheritance-info
+    #:p-initial-data
+    #:p-input-assembly-state
+    #:p-input-attachments
+    #:p-label-name
+    #:p-layer
+    #:p-libraries
+    #:p-library-info
+    #:p-library-interface
+    #:p-map-entries
+    #:p-marker-name
+    #:p-memory-barriers
+    #:p-message
+    #:p-message-id-name
+    #:p-multisample-state
+    #:p-mutable-descriptor-type-lists
+    #:p-name
+    #:p-next
+    #:p-object-name
+    #:p-objects
+    #:p-physical-devices
+    #:p-pipeline-creation-feedback
+    #:p-pipeline-stage-creation-feedbacks
+    #:p-pipelines
+    #:p-plane-layouts
+    #:p-pool-sizes
+    #:p-post-subpass-sample-locations
+    #:p-preserve-attachments
+    #:p-push-constant-ranges
+    #:p-queue-create-infos
+    #:p-queue-family-indices
+    #:p-queue-labels
+    #:p-queue-priorities
+    #:p-rasterization-state
+    #:p-rectangles
+    #:p-regions
+    #:p-release-keys
+    #:p-release-syncs
+    #:p-resolve-attachments
+    #:p-results
+    #:p-sample-locations
+    #:p-sample-mask
+    #:p-scissors
+    #:p-semaphores
+    #:p-set-layouts
+    #:p-shader-group-capture-replay-handle
+    #:p-shading-rate-palette-entries
+    #:p-shading-rate-palettes
+    #:p-signal-semaphore-device-indices
+    #:p-signal-semaphore-infos
+    #:p-signal-semaphore-values
+    #:p-signal-semaphores
+    #:p-specialization-info
+    #:p-split-instance-bind-regions
+    #:p-stages
+    #:p-stream-strides
+    #:p-streams
+    #:p-subpasses
+    #:p-swapchains
+    #:p-tag
+    #:p-tessellation-state
+    #:p-texel-buffer-view
+    #:p-times
+    #:p-tokens
+    #:p-user-data
+    #:p-values
+    #:p-version-data
+    #:p-vertex-attribute-descriptions
+    #:p-vertex-binding-descriptions
+    #:p-vertex-binding-divisors
+    #:p-vertex-input-state
+    #:p-view
+    #:p-view-formats
+    #:p-view-masks
+    #:p-view-offsets
+    #:p-viewport-state
+    #:p-viewport-swizzles
+    #:p-viewport-w-scalings
+    #:p-viewports
+    #:p-wait-dst-stage-mask
+    #:p-wait-semaphore-device-indices
+    #:p-wait-semaphore-infos
+    #:p-wait-semaphore-values
+    #:p-wait-semaphores
+    #:parameter
+    #:parameters
+    #:pass-op
+    #:patch
+    #:patch-control-points
+    #:pci-bus
+    #:pci-device
+    #:pci-domain
+    #:pci-function
+    #:per-view-position-all-components
+    #:performance-counter-multiple-query-pools
+    #:performance-counter-query-pools
+    #:performance-counters-sampling
+    #:persistent
+    #:persistent-content
+    #:pfn-allocation
+    #:pfn-callback
+    #:pfn-free
+    #:pfn-internal-allocation
+    #:pfn-internal-free
+    #:pfn-reallocation
+    #:pfn-user-callback
+    #:physical-device-count
+    #:physical-devices
+    #:physical-dimensions
+    #:physical-resolution
+    #:pipeline
+    #:pipeline-bind-point
+    #:pipeline-cache-uuid
+    #:pipeline-count
+    #:pipeline-creation-cache-control
+    #:pipeline-executable-info
+    #:pipeline-fragment-shading-rate
+    #:pipeline-layout
+    #:pipeline-stage-creation-feedback-count
+    #:pipeline-statistics
+    #:pipeline-statistics-query
+    #:pixel-x
+    #:pixel-y
+    #:plane-aspect
+    #:plane-index
+    #:plane-reorder-possible
+    #:plane-stack-index
+    #:point-clipping-behavior
+    #:point-polygons
+    #:point-size-granularity
+    #:point-size-range
+    #:polygon-mode
+    #:pool-size-count
+    #:post-subpass-sample-locations-count
+    #:power-state
+    #:pp-enabled-extension-names
+    #:pp-enabled-layer-names
+    #:pp-geometries
+    #:pre-transform
+    #:prefers-dedicated-allocation
+    #:preprocess-buffer
+    #:preprocess-offset
+    #:preprocess-size
+    #:present-id
+    #:present-margin
+    #:present-mask
+    #:present-mode
+    #:preserve-attachment-count
+    #:primitive-count
+    #:primitive-fragment-shading-rate
+    #:primitive-fragment-shading-rate-with-multiple-viewports
+    #:primitive-offset
+    #:primitive-overestimation-size
+    #:primitive-restart-enable
+    #:primitive-underestimation
+    #:priority
+    #:private-data
+    #:private-data-slot-request-count
+    #:properties
+    #:property-flags
+    #:protected-memory
+    #:protected-no-fault
+    #:protected-submit
+    #:purposes
+    #:push-constant-range-count
+    #:pushconstant-offset
+    #:pushconstant-pipeline-layout
+    #:pushconstant-shader-stage-flags
+    #:pushconstant-size
+    #:quad-divergent-implicit-lod
+    #:quad-operations-in-all-stages
+    #:query-count
+    #:query-flags
+    #:query-type
+    #:queue-count
+    #:queue-create-info-count
+    #:queue-family-index
+    #:queue-family-index-count
+    #:queue-family-properties
+    #:queue-flags
+    #:queue-index
+    #:queue-label-count
+    #:r
+    #:range
+    #:rasterization-order
+    #:rasterization-samples
+    #:rasterization-stream
+    #:rasterizer-discard-enable
+    #:ray-query
+    #:ray-tracing-pipeline
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
+    #:ray-tracing-pipeline-trace-rays-indirect
+    #:ray-traversal-primitive-culling
+    #:rect
+    #:rectangle-count
+    #:rectangular-lines
+    #:reduction-mode
+    #:reference
+    #:refresh-duration
+    #:refresh-rate
+    #:region-count
+    #:release-count
+    #:render-area
+    #:render-pass
+    #:representative-fragment-test
+    #:representative-fragment-test-enable
+    #:required-subgroup-size
+    #:required-subgroup-size-stages
+    #:requires-dedicated-allocation
+    #:residency-aligned-mip-size
+    #:residency-non-resident-strict
+    #:residency-standard-2d-block-shape
+    #:residency-standard-2d-multisample-block-shape
+    #:residency-standard-3d-block-shape
+    #:resource-device-index
+    #:resource-offset
+    #:resource-usage
+    #:robust-buffer-access
+    #:robust-buffer-access-2
+    #:robust-buffer-access-update-after-bind
+    #:robust-image-access
+    #:robust-image-access-2
+    #:robust-storage-buffer-access-size-alignment
+    #:robust-uniform-buffer-access-size-alignment
+    #:rounding-mode-independence
+    #:row-pitch
+    #:runtime-descriptor-array
+    #:s-type
+    #:sample
+    #:sample-count
+    #:sample-counts
+    #:sample-location-coordinate-range
+    #:sample-location-count
+    #:sample-location-grid-size
+    #:sample-location-sample-counts
+    #:sample-location-sub-pixel-bits
+    #:sample-locations-count
+    #:sample-locations-enable
+    #:sample-locations-info
+    #:sample-locations-per-pixel
+    #:sample-order-type
+    #:sample-rate-shading
+    #:sample-shading-enable
+    #:sampled-image-color-sample-counts
+    #:sampled-image-depth-sample-counts
+    #:sampled-image-integer-sample-counts
+    #:sampled-image-stencil-sample-counts
+    #:sampler
+    #:sampler-anisotropy
+    #:sampler-filter-minmax
+    #:sampler-mip-lod-bias
+    #:sampler-mirror-clamp-to-edge
+    #:sampler-ycbcr-conversion
+    #:sampler-ycbcr-conversion-components
+    #:samples
+    #:scalar-block-layout
+    #:scissor-count
+    #:scope
+    #:scratch-data
+    #:scratch-mem-usage-in-bytes
+    #:semaphore
+    #:semaphore-count
+    #:semaphore-type
+    #:separate-depth-stencil-layouts
+    #:separate-stencil-mask-ref
+    #:sequences-count
+    #:sequences-count-buffer
+    #:sequences-count-offset
+    #:sequences-index-buffer
+    #:sequences-index-offset
+    #:set
+    #:set-layout-count
+    #:sgpr-allocation-granularity
+    #:sgprs-per-simd
+    #:shader-arrays-per-engine-count
+    #:shader-buffer-float-32-atomic-add
+    #:shader-buffer-float-32-atomics
+    #:shader-buffer-float-64-atomic-add
+    #:shader-buffer-float-64-atomics
+    #:shader-buffer-int-64-atomics
+    #:shader-clip-distance
+    #:shader-core-features
+    #:shader-cull-distance
+    #:shader-demote-to-helper-invocation
+    #:shader-denorm-flush-to-zero-float-16
+    #:shader-denorm-flush-to-zero-float-32
+    #:shader-denorm-flush-to-zero-float-64
+    #:shader-denorm-preserve-float-16
+    #:shader-denorm-preserve-float-32
+    #:shader-denorm-preserve-float-64
+    #:shader-device-clock
+    #:shader-draw-parameters
+    #:shader-engine-count
+    #:shader-float-16
+    #:shader-float-64
+    #:shader-group-base-alignment
+    #:shader-group-handle-alignment
+    #:shader-group-handle-capture-replay-size
+    #:shader-group-handle-size
+    #:shader-image-float-32-atomic-add
+    #:shader-image-float-32-atomics
+    #:shader-image-gather-extended
+    #:shader-image-int-64-atomics
+    #:shader-input-attachment-array-dynamic-indexing
+    #:shader-input-attachment-array-non-uniform-indexing
+    #:shader-input-attachment-array-non-uniform-indexing-native
+    #:shader-int-16
+    #:shader-int-64
+    #:shader-int-8
+    #:shader-integer-functions-2
+    #:shader-output-layer
+    #:shader-output-viewport-index
+    #:shader-resource-min-lod
+    #:shader-resource-residency
+    #:shader-rounding-mode-rte-float-16
+    #:shader-rounding-mode-rte-float-32
+    #:shader-rounding-mode-rte-float-64
+    #:shader-rounding-mode-rtz-float-16
+    #:shader-rounding-mode-rtz-float-32
+    #:shader-rounding-mode-rtz-float-64
+    #:shader-s-m-builtins
+    #:shader-s-m-count
+    #:shader-sample-rate-interpolation-functions
+    #:shader-sampled-image-array-dynamic-indexing
+    #:shader-sampled-image-array-non-uniform-indexing
+    #:shader-sampled-image-array-non-uniform-indexing-native
+    #:shader-shared-float-32-atomic-add
+    #:shader-shared-float-32-atomics
+    #:shader-shared-float-64-atomic-add
+    #:shader-shared-float-64-atomics
+    #:shader-shared-int-64-atomics
+    #:shader-signed-zero-inf-nan-preserve-float-16
+    #:shader-signed-zero-inf-nan-preserve-float-32
+    #:shader-signed-zero-inf-nan-preserve-float-64
+    #:shader-stage-mask
+    #:shader-storage-buffer-array-dynamic-indexing
+    #:shader-storage-buffer-array-non-uniform-indexing
+    #:shader-storage-buffer-array-non-uniform-indexing-native
+    #:shader-storage-image-array-dynamic-indexing
+    #:shader-storage-image-array-non-uniform-indexing
+    #:shader-storage-image-array-non-uniform-indexing-native
+    #:shader-storage-image-extended-formats
+    #:shader-storage-image-multisample
+    #:shader-storage-image-read-without-format
+    #:shader-storage-image-write-without-format
+    #:shader-storage-texel-buffer-array-dynamic-indexing
+    #:shader-storage-texel-buffer-array-non-uniform-indexing
+    #:shader-subgroup-clock
+    #:shader-subgroup-extended-types
+    #:shader-terminate-invocation
+    #:shader-tessellation-and-geometry-point-size
+    #:shader-uniform-buffer-array-dynamic-indexing
+    #:shader-uniform-buffer-array-non-uniform-indexing
+    #:shader-uniform-buffer-array-non-uniform-indexing-native
+    #:shader-uniform-texel-buffer-array-dynamic-indexing
+    #:shader-uniform-texel-buffer-array-non-uniform-indexing
+    #:shader-warps-per-s-m
+    #:shader-zero-initialize-workgroup-memory
+    #:shading-rate
+    #:shading-rate-attachment-texel-size
+    #:shading-rate-coarse-sample-order
+    #:shading-rate-image
+    #:shading-rate-image-enable
+    #:shading-rate-max-coarse-samples
+    #:shading-rate-palette-entry-count
+    #:shading-rate-palette-size
+    #:shading-rate-texel-size
+    #:shading-rate-type
+    #:shared-present-supported-usage-flags
+    #:sharing-mode
+    #:signal-semaphore-count
+    #:signal-semaphore-info-count
+    #:signal-semaphore-value-count
+    #:signal-semaphore-values-count
+    #:simd-per-compute-unit
+    #:size
+    #:smooth-lines
+    #:sparse-address-space-size
+    #:sparse-binding
+    #:sparse-image-float-32-atomic-add
+    #:sparse-image-float-32-atomics
+    #:sparse-image-int-64-atomics
+    #:sparse-properties
+    #:sparse-residency-16-samples
+    #:sparse-residency-2-samples
+    #:sparse-residency-4-samples
+    #:sparse-residency-8-samples
+    #:sparse-residency-aliased
+    #:sparse-residency-buffer
+    #:sparse-residency-image-2d
+    #:sparse-residency-image-3d
+    #:spec-version
+    #:split-instance-bind-region-count
+    #:src
+    #:src-acceleration-structure
+    #:src-access-mask
+    #:src-alpha-blend-factor
+    #:src-array-element
+    #:src-binding
+    #:src-buffer
+    #:src-color-blend-factor
+    #:src-image
+    #:src-image-layout
+    #:src-offset
+    #:src-offsets
+    #:src-premultiplied
+    #:src-queue-family-index
+    #:src-rect
+    #:src-set
+    #:src-stage-mask
+    #:src-subpass
+    #:src-subresource
+    #:stage
+    #:stage-count
+    #:stage-flags
+    #:stage-mask
+    #:stages
+    #:standard-sample-locations
+    #:stencil
+    #:stencil-final-layout
+    #:stencil-initial-layout
+    #:stencil-layout
+    #:stencil-load-op
+    #:stencil-resolve-mode
+    #:stencil-store-op
+    #:stencil-test-enable
+    #:stencil-usage
+    #:stippled-bresenham-lines
+    #:stippled-line-enable
+    #:stippled-rectangular-lines
+    #:stippled-smooth-lines
+    #:storage
+    #:storage-buffer-16-bit-access
+    #:storage-buffer-8-bit-access
+    #:storage-image-sample-counts
+    #:storage-input-output-16
+    #:storage-push-constant-16
+    #:storage-push-constant-8
+    #:storage-texel-buffer-offset-alignment-bytes
+    #:storage-texel-buffer-offset-single-texel-alignment
+    #:store-op
+    #:stream
+    #:stream-count
+    #:stream-descriptor
+    #:strict-lines
+    #:stride
+    #:sub-pixel-interpolation-offset-bits
+    #:sub-pixel-precision-bits
+    #:sub-texel-precision-bits
+    #:subgroup-broadcast-dynamic-id
+    #:subgroup-quad-operations-in-all-stages
+    #:subgroup-size
+    #:subgroup-size-control
+    #:subgroup-supported-operations
+    #:subgroup-supported-stages
+    #:subminor
+    #:subpass
+    #:subpass-count
+    #:subpass-index
+    #:subresource
+    #:subresource-range
+    #:subsampled-coarse-reconstruction-early-access
+    #:subsampled-loads
+    #:subset-allocation
+    #:suggested-x-chroma-offset
+    #:suggested-y-chroma-offset
+    #:suggested-ycbcr-model
+    #:suggested-ycbcr-range
+    #:supersample-fragment-shading-rates
+    #:supported
+    #:supported-alpha
+    #:supported-composite-alpha
+    #:supported-depth-resolve-modes
+    #:supported-operations
+    #:supported-stages
+    #:supported-stencil-resolve-modes
+    #:supported-surface-counters
+    #:supported-transforms
+    #:supported-usage-flags
+    #:supports-protected
+    #:supports-texture-gather-l-o-d-bias-amd
+    #:surface
+    #:surface-capabilities
+    #:surface-counters
+    #:surface-format
+    #:swapchain
+    #:swapchain-count
+    #:synchronization-2
+    #:tag-name
+    #:tag-size
+    #:task-count
+    #:task-shader
+    #:template-type
+    #:tessellation-isolines
+    #:tessellation-point-mode
+    #:tessellation-shader
+    #:texel-buffer-alignment
+    #:texture-compression-astc_-h-d-r
+    #:texture-compression-astc_-ldr
+    #:texture-compression-bc
+    #:texture-compression-etc2
+    #:tiling
+    #:time-domain
+    #:timeline-semaphore
+    #:timeout
+    #:timestamp-compute-and-graphics
+    #:timestamp-period
+    #:timestamp-valid-bits
+    #:token-count
+    #:token-type
+    #:topology
+    #:transform
+    #:transform-data
+    #:transform-feedback
+    #:transform-feedback-draw
+    #:transform-feedback-queries
+    #:transform-feedback-rasterization-stream-select
+    #:transform-feedback-streams-lines-triangles
+    #:transform-offset
+    #:triangle-fans
+    #:triangles
+    #:type
+    #:u64
+    #:uint-32
+    #:uint-64
+    #:uniform-and-storage-buffer-16-bit-access
+    #:uniform-and-storage-buffer-8-bit-access
+    #:uniform-buffer-standard-layout
+    #:uniform-texel-buffer-offset-alignment-bytes
+    #:uniform-texel-buffer-offset-single-texel-alignment
+    #:unit
+    #:unnormalized-coordinates
+    #:update-scratch-size
+    #:usage
+    #:uuid
+    #:validation-cache
+    #:value
+    #:value-32
+    #:value-64
+    #:value-bool
+    #:value-float
+    #:value-string
+    #:variable-multisample-rate
+    #:variable-pointers
+    #:variable-pointers-storage-buffer
+    #:variable-sample-locations
+    #:vendor-id
+    #:version
+    #:vertex-attribute-access-beyond-stride
+    #:vertex-attribute-description-count
+    #:vertex-attribute-instance-rate-divisor
+    #:vertex-attribute-instance-rate-zero-divisor
+    #:vertex-binding-description-count
+    #:vertex-binding-divisor-count
+    #:vertex-binding-unit
+    #:vertex-count
+    #:vertex-data
+    #:vertex-dynamic-stride
+    #:vertex-format
+    #:vertex-offset
+    #:vertex-pipeline-stores-and-atomics
+    #:vertex-stride
+    #:vgpr-allocation-granularity
+    #:vgprs-per-simd
+    #:view-format-count
+    #:view-mask
+    #:view-offset
+    #:view-type
+    #:viewport-bounds-range
+    #:viewport-count
+    #:viewport-sub-pixel-bits
+    #:viewport-w-scaling-enable
+    #:visible-region
+    #:vulkan-memory-model
+    #:vulkan-memory-model-availability-visibility-chains
+    #:vulkan-memory-model-device-scope
+    #:w
+    #:wait-semaphore-count
+    #:wait-semaphore-info-count
+    #:wait-semaphore-value-count
+    #:wait-semaphore-values-count
+    #:wavefront-size
+    #:wavefronts-per-simd
+    #:white-point
+    #:wide-lines
+    #:width
+    #:window
+    #:workgroup-memory-explicit-layout
+    #:workgroup-memory-explicit-layout-16-bit-access
+    #:workgroup-memory-explicit-layout-8-bit-access
+    #:workgroup-memory-explicit-layout-scalar-block-layout
+    #:write-mask
+    #:x
+    #:x-chroma-offset
+    #:xcoeff
+    #:y
+    #:y-chroma-offset
+    #:ycbcr-image-arrays
+    #:ycbcr-model
+    #:ycbcr-range
+    #:ycoeff
+    #:z
+    #:zircon-handle))
 
 (defpackage :vk
+  (:documentation "Provides CLOS wrappers for all struct/unions and wrappers around all functions defined in the Vulkan API.")
   (:use #:cl)
   (:shadow
     #:format
@@ -4023,8 +4023,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:type
     #:values)
   (:import-from #:%vk
-   #:make-extension-loader
-   #:*default-extension-loader*
+    #:make-extension-loader
+    #:*default-extension-loader*
     #:+amd-buffer-marker-extension-name+
     #:+amd-device-coherent-memory-extension-name+
     #:+amd-display-native-hdr-extension-name+
@@ -4490,2025 +4490,2025 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+
 
-    #:aabb-positions-khr ;; :class
-    #:acceleration-structure-build-geometry-info-khr ;; :class
-    #:acceleration-structure-build-range-info-khr ;; :class
-    #:acceleration-structure-build-sizes-info-khr ;; :class
-    #:acceleration-structure-create-info-khr ;; :class
-    #:acceleration-structure-create-info-nv ;; :class
-    #:acceleration-structure-device-address-info-khr ;; :class
-    #:acceleration-structure-geometry-aabbs-data-khr ;; :class
-    #:acceleration-structure-geometry-data-khr ;; :class
-    #:acceleration-structure-geometry-instances-data-khr ;; :class
-    #:acceleration-structure-geometry-khr ;; :class
-    #:acceleration-structure-geometry-triangles-data-khr ;; :class
-    #:acceleration-structure-info-nv ;; :class
-    #:acceleration-structure-instance-khr ;; :class
-    #:acceleration-structure-memory-requirements-info-nv ;; :class
-    #:acceleration-structure-version-info-khr ;; :class
-    #:acquire-next-image-info-khr ;; :class
-    #:acquire-profiling-lock-info-khr ;; :class
-    #:allocation-callbacks ;; :class
-    #:android-hardware-buffer-format-properties-android ;; :class
-    #:android-hardware-buffer-properties-android ;; :class
-    #:android-hardware-buffer-usage-android ;; :class
-    #:android-surface-create-info-khr ;; :class
-    #:application-info ;; :class
-    #:attachment-description ;; :class
-    #:attachment-description-2 ;; :class
-    #:attachment-description-stencil-layout ;; :class
-    #:attachment-reference ;; :class
-    #:attachment-reference-2 ;; :class
-    #:attachment-reference-stencil-layout ;; :class
-    #:attachment-sample-locations-ext ;; :class
-    #:base-in-structure ;; :class
-    #:base-out-structure ;; :class
-    #:bind-acceleration-structure-memory-info-nv ;; :class
-    #:bind-buffer-memory-device-group-info ;; :class
-    #:bind-buffer-memory-info ;; :class
-    #:bind-image-memory-device-group-info ;; :class
-    #:bind-image-memory-info ;; :class
-    #:bind-image-memory-swapchain-info-khr ;; :class
-    #:bind-image-plane-memory-info ;; :class
-    #:bind-index-buffer-indirect-command-nv ;; :class
-    #:bind-shader-group-indirect-command-nv ;; :class
-    #:bind-sparse-info ;; :class
-    #:bind-vertex-buffer-indirect-command-nv ;; :class
-    #:blit-image-info-2-khr ;; :class
-    #:buffer-copy ;; :class
-    #:buffer-copy-2-khr ;; :class
-    #:buffer-create-info ;; :class
-    #:buffer-device-address-create-info-ext ;; :class
-    #:buffer-device-address-info ;; :class
-    #:buffer-image-copy ;; :class
-    #:buffer-image-copy-2-khr ;; :class
-    #:buffer-memory-barrier ;; :class
-    #:buffer-memory-barrier-2-khr ;; :class
-    #:buffer-memory-requirements-info-2 ;; :class
-    #:buffer-opaque-capture-address-create-info ;; :class
-    #:buffer-view-create-info ;; :class
-    #:calibrated-timestamp-info-ext ;; :class
-    #:checkpoint-data-2-nv ;; :class
-    #:checkpoint-data-nv ;; :class
-    #:clear-attachment ;; :class
-    #:clear-color-value ;; :class
-    #:clear-depth-stencil-value ;; :class
-    #:clear-rect ;; :class
-    #:clear-value ;; :class
-    #:coarse-sample-location-nv ;; :class
-    #:coarse-sample-order-custom-nv ;; :class
-    #:command-buffer-allocate-info ;; :class
-    #:command-buffer-begin-info ;; :class
-    #:command-buffer-inheritance-conditional-rendering-info-ext ;; :class
-    #:command-buffer-inheritance-info ;; :class
-    #:command-buffer-inheritance-render-pass-transform-info-qcom ;; :class
-    #:command-buffer-submit-info-khr ;; :class
-    #:command-pool-create-info ;; :class
-    #:component-mapping ;; :class
-    #:compute-pipeline-create-info ;; :class
-    #:conditional-rendering-begin-info-ext ;; :class
-    #:conformance-version ;; :class
-    #:cooperative-matrix-properties-nv ;; :class
-    #:copy-acceleration-structure-info-khr ;; :class
-    #:copy-acceleration-structure-to-memory-info-khr ;; :class
-    #:copy-buffer-info-2-khr ;; :class
-    #:copy-buffer-to-image-info-2-khr ;; :class
-    #:copy-command-transform-info-qcom ;; :class
-    #:copy-descriptor-set ;; :class
-    #:copy-image-info-2-khr ;; :class
-    #:copy-image-to-buffer-info-2-khr ;; :class
-    #:copy-memory-to-acceleration-structure-info-khr ;; :class
-    #:d-3d-1-2-fence-submit-info-khr ;; :class
-    #:debug-marker-marker-info-ext ;; :class
-    #:debug-marker-object-name-info-ext ;; :class
-    #:debug-marker-object-tag-info-ext ;; :class
-    #:debug-report-callback-create-info-ext ;; :class
-    #:debug-utils-label-ext ;; :class
-    #:debug-utils-messenger-callback-data-ext ;; :class
-    #:debug-utils-messenger-create-info-ext ;; :class
-    #:debug-utils-object-name-info-ext ;; :class
-    #:debug-utils-object-tag-info-ext ;; :class
-    #:dedicated-allocation-buffer-create-info-nv ;; :class
-    #:dedicated-allocation-image-create-info-nv ;; :class
-    #:dedicated-allocation-memory-allocate-info-nv ;; :class
-    #:dependency-info-khr ;; :class
-    #:descriptor-buffer-info ;; :class
-    #:descriptor-image-info ;; :class
-    #:descriptor-pool-create-info ;; :class
-    #:descriptor-pool-inline-uniform-block-create-info-ext ;; :class
-    #:descriptor-pool-size ;; :class
-    #:descriptor-set-allocate-info ;; :class
-    #:descriptor-set-layout-binding ;; :class
-    #:descriptor-set-layout-binding-flags-create-info ;; :class
-    #:descriptor-set-layout-create-info ;; :class
-    #:descriptor-set-layout-support ;; :class
-    #:descriptor-set-variable-descriptor-count-allocate-info ;; :class
-    #:descriptor-set-variable-descriptor-count-layout-support ;; :class
-    #:descriptor-update-template-create-info ;; :class
-    #:descriptor-update-template-entry ;; :class
-    #:device-create-info ;; :class
-    #:device-device-memory-report-create-info-ext ;; :class
-    #:device-diagnostics-config-create-info-nv ;; :class
-    #:device-event-info-ext ;; :class
-    #:device-group-bind-sparse-info ;; :class
-    #:device-group-command-buffer-begin-info ;; :class
-    #:device-group-device-create-info ;; :class
-    #:device-group-present-capabilities-khr ;; :class
-    #:device-group-present-info-khr ;; :class
-    #:device-group-render-pass-begin-info ;; :class
-    #:device-group-submit-info ;; :class
-    #:device-group-swapchain-create-info-khr ;; :class
-    #:device-memory-opaque-capture-address-info ;; :class
-    #:device-memory-overallocation-create-info-amd ;; :class
-    #:device-memory-report-callback-data-ext ;; :class
-    #:device-or-host-address-const-khr ;; :class
-    #:device-or-host-address-khr ;; :class
-    #:device-private-data-create-info-ext ;; :class
-    #:device-queue-create-info ;; :class
-    #:device-queue-global-priority-create-info-ext ;; :class
-    #:device-queue-info-2 ;; :class
-    #:direct-fb-surface-create-info-ext ;; :class
-    #:dispatch-indirect-command ;; :class
-    #:display-event-info-ext ;; :class
-    #:display-mode-create-info-khr ;; :class
-    #:display-mode-parameters-khr ;; :class
-    #:display-mode-properties-2-khr ;; :class
-    #:display-mode-properties-khr ;; :class
-    #:display-native-hdr-surface-capabilities-amd ;; :class
-    #:display-plane-capabilities-2-khr ;; :class
-    #:display-plane-capabilities-khr ;; :class
-    #:display-plane-info-2-khr ;; :class
-    #:display-plane-properties-2-khr ;; :class
-    #:display-plane-properties-khr ;; :class
-    #:display-power-info-ext ;; :class
-    #:display-present-info-khr ;; :class
-    #:display-properties-2-khr ;; :class
-    #:display-properties-khr ;; :class
-    #:display-surface-create-info-khr ;; :class
-    #:draw-indexed-indirect-command ;; :class
-    #:draw-indirect-command ;; :class
-    #:draw-mesh-tasks-indirect-command-nv ;; :class
-    #:drm-format-modifier-properties-ext ;; :class
-    #:drm-format-modifier-properties-list-ext ;; :class
-    #:event-create-info ;; :class
-    #:export-fence-create-info ;; :class
-    #:export-fence-win32-handle-info-khr ;; :class
-    #:export-memory-allocate-info ;; :class
-    #:export-memory-allocate-info-nv ;; :class
-    #:export-memory-win32-handle-info-khr ;; :class
-    #:export-memory-win32-handle-info-nv ;; :class
-    #:export-semaphore-create-info ;; :class
-    #:export-semaphore-win32-handle-info-khr ;; :class
-    #:extension-properties ;; :class
-    #:extent-2d ;; :class
-    #:extent-3d ;; :class
-    #:external-buffer-properties ;; :class
-    #:external-fence-properties ;; :class
-    #:external-format-android ;; :class
-    #:external-image-format-properties ;; :class
-    #:external-image-format-properties-nv ;; :class
-    #:external-memory-buffer-create-info ;; :class
-    #:external-memory-image-create-info ;; :class
-    #:external-memory-image-create-info-nv ;; :class
-    #:external-memory-properties ;; :class
-    #:external-semaphore-properties ;; :class
-    #:fence-create-info ;; :class
-    #:fence-get-fd-info-khr ;; :class
-    #:fence-get-win32-handle-info-khr ;; :class
-    #:filter-cubic-image-view-image-format-properties-ext ;; :class
-    #:format-properties ;; :class
-    #:format-properties-2 ;; :class
-    #:fragment-shading-rate-attachment-info-khr ;; :class
-    #:framebuffer-attachment-image-info ;; :class
-    #:framebuffer-attachments-create-info ;; :class
-    #:framebuffer-create-info ;; :class
-    #:framebuffer-mixed-samples-combination-nv ;; :class
-    #:generated-commands-info-nv ;; :class
-    #:generated-commands-memory-requirements-info-nv ;; :class
-    #:geometry-aabb-nv ;; :class
-    #:geometry-data-nv ;; :class
-    #:geometry-nv ;; :class
-    #:geometry-triangles-nv ;; :class
-    #:graphics-pipeline-create-info ;; :class
-    #:graphics-pipeline-shader-groups-create-info-nv ;; :class
-    #:graphics-shader-group-create-info-nv ;; :class
-    #:hdr-metadata-ext ;; :class
-    #:headless-surface-create-info-ext ;; :class
-    #:i-os-surface-create-info-mvk ;; :class
-    #:image-blit ;; :class
-    #:image-blit-2-khr ;; :class
-    #:image-copy ;; :class
-    #:image-copy-2-khr ;; :class
-    #:image-create-info ;; :class
-    #:image-drm-format-modifier-explicit-create-info-ext ;; :class
-    #:image-drm-format-modifier-list-create-info-ext ;; :class
-    #:image-drm-format-modifier-properties-ext ;; :class
-    #:image-format-list-create-info ;; :class
-    #:image-format-properties ;; :class
-    #:image-format-properties-2 ;; :class
-    #:image-memory-barrier ;; :class
-    #:image-memory-barrier-2-khr ;; :class
-    #:image-memory-requirements-info-2 ;; :class
-    #:image-pipe-surface-create-info-fuchsia ;; :class
-    #:image-plane-memory-requirements-info ;; :class
-    #:image-resolve ;; :class
-    #:image-resolve-2-khr ;; :class
-    #:image-sparse-memory-requirements-info-2 ;; :class
-    #:image-stencil-usage-create-info ;; :class
-    #:image-subresource ;; :class
-    #:image-subresource-layers ;; :class
-    #:image-subresource-range ;; :class
-    #:image-swapchain-create-info-khr ;; :class
-    #:image-view-astc-decode-mode-ext ;; :class
-    #:image-view-address-properties-nv-x ;; :class
-    #:image-view-create-info ;; :class
-    #:image-view-handle-info-nv-x ;; :class
-    #:image-view-usage-create-info ;; :class
-    #:import-android-hardware-buffer-info-android ;; :class
-    #:import-fence-fd-info-khr ;; :class
-    #:import-fence-win32-handle-info-khr ;; :class
-    #:import-memory-fd-info-khr ;; :class
-    #:import-memory-host-pointer-info-ext ;; :class
-    #:import-memory-win32-handle-info-khr ;; :class
-    #:import-memory-win32-handle-info-nv ;; :class
-    #:import-memory-zircon-handle-info-fuchsia ;; :class
-    #:import-semaphore-fd-info-khr ;; :class
-    #:import-semaphore-win32-handle-info-khr ;; :class
-    #:import-semaphore-zircon-handle-info-fuchsia ;; :class
-    #:indirect-commands-layout-create-info-nv ;; :class
-    #:indirect-commands-layout-token-nv ;; :class
-    #:indirect-commands-stream-nv ;; :class
-    #:initialize-performance-api-info-intel ;; :class
-    #:input-attachment-aspect-reference ;; :class
-    #:instance-create-info ;; :class
-    #:layer-properties ;; :class
-    #:mac-os-surface-create-info-mvk ;; :class
-    #:mapped-memory-range ;; :class
-    #:memory-allocate-flags-info ;; :class
-    #:memory-allocate-info ;; :class
-    #:memory-barrier ;; :class
-    #:memory-barrier-2-khr ;; :class
-    #:memory-dedicated-allocate-info ;; :class
-    #:memory-dedicated-requirements ;; :class
-    #:memory-fd-properties-khr ;; :class
-    #:memory-get-android-hardware-buffer-info-android ;; :class
-    #:memory-get-fd-info-khr ;; :class
-    #:memory-get-win32-handle-info-khr ;; :class
-    #:memory-get-zircon-handle-info-fuchsia ;; :class
-    #:memory-heap ;; :class
-    #:memory-host-pointer-properties-ext ;; :class
-    #:memory-opaque-capture-address-allocate-info ;; :class
-    #:memory-priority-allocate-info-ext ;; :class
-    #:memory-requirements ;; :class
-    #:memory-requirements-2 ;; :class
-    #:memory-type ;; :class
-    #:memory-win32-handle-properties-khr ;; :class
-    #:memory-zircon-handle-properties-fuchsia ;; :class
-    #:metal-surface-create-info-ext ;; :class
-    #:multisample-properties-ext ;; :class
-    #:mutable-descriptor-type-create-info-valve ;; :class
-    #:mutable-descriptor-type-list-valve ;; :class
-    #:offset-2d ;; :class
-    #:offset-3d ;; :class
-    #:past-presentation-timing-google ;; :class
-    #:performance-configuration-acquire-info-intel ;; :class
-    #:performance-counter-description-khr ;; :class
-    #:performance-counter-khr ;; :class
-    #:performance-counter-result-khr ;; :class
-    #:performance-marker-info-intel ;; :class
-    #:performance-override-info-intel ;; :class
-    #:performance-query-submit-info-khr ;; :class
-    #:performance-stream-marker-info-intel ;; :class
-    #:performance-value-data-intel ;; :class
-    #:performance-value-intel ;; :class
-    #:physical-device-16-bit-storage-features ;; :class
-    #:physical-device-4444-formats-features-ext ;; :class
-    #:physical-device-8-bit-storage-features ;; :class
-    #:physical-device-astc-decode-features-ext ;; :class
-    #:physical-device-acceleration-structure-features-khr ;; :class
-    #:physical-device-acceleration-structure-properties-khr ;; :class
-    #:physical-device-blend-operation-advanced-features-ext ;; :class
-    #:physical-device-blend-operation-advanced-properties-ext ;; :class
-    #:physical-device-buffer-device-address-features ;; :class
-    #:physical-device-buffer-device-address-features-ext ;; :class
-    #:physical-device-coherent-memory-features-amd ;; :class
-    #:physical-device-compute-shader-derivatives-features-nv ;; :class
-    #:physical-device-conditional-rendering-features-ext ;; :class
-    #:physical-device-conservative-rasterization-properties-ext ;; :class
-    #:physical-device-cooperative-matrix-features-nv ;; :class
-    #:physical-device-cooperative-matrix-properties-nv ;; :class
-    #:physical-device-corner-sampled-image-features-nv ;; :class
-    #:physical-device-coverage-reduction-mode-features-nv ;; :class
-    #:physical-device-custom-border-color-features-ext ;; :class
-    #:physical-device-custom-border-color-properties-ext ;; :class
-    #:physical-device-dedicated-allocation-image-aliasing-features-nv ;; :class
-    #:physical-device-depth-clip-enable-features-ext ;; :class
-    #:physical-device-depth-stencil-resolve-properties ;; :class
-    #:physical-device-descriptor-indexing-features ;; :class
-    #:physical-device-descriptor-indexing-properties ;; :class
-    #:physical-device-device-generated-commands-features-nv ;; :class
-    #:physical-device-device-generated-commands-properties-nv ;; :class
-    #:physical-device-device-memory-report-features-ext ;; :class
-    #:physical-device-diagnostics-config-features-nv ;; :class
-    #:physical-device-discard-rectangle-properties-ext ;; :class
-    #:physical-device-driver-properties ;; :class
-    #:physical-device-exclusive-scissor-features-nv ;; :class
-    #:physical-device-extended-dynamic-state-features-ext ;; :class
-    #:physical-device-external-buffer-info ;; :class
-    #:physical-device-external-fence-info ;; :class
-    #:physical-device-external-image-format-info ;; :class
-    #:physical-device-external-memory-host-properties-ext ;; :class
-    #:physical-device-external-semaphore-info ;; :class
-    #:physical-device-features ;; :class
-    #:physical-device-features-2 ;; :class
-    #:physical-device-float-controls-properties ;; :class
-    #:physical-device-fragment-density-map-2-features-ext ;; :class
-    #:physical-device-fragment-density-map-2-properties-ext ;; :class
-    #:physical-device-fragment-density-map-features-ext ;; :class
-    #:physical-device-fragment-density-map-properties-ext ;; :class
-    #:physical-device-fragment-shader-barycentric-features-nv ;; :class
-    #:physical-device-fragment-shader-interlock-features-ext ;; :class
-    #:physical-device-fragment-shading-rate-enums-features-nv ;; :class
-    #:physical-device-fragment-shading-rate-enums-properties-nv ;; :class
-    #:physical-device-fragment-shading-rate-features-khr ;; :class
-    #:physical-device-fragment-shading-rate-khr ;; :class
-    #:physical-device-fragment-shading-rate-properties-khr ;; :class
-    #:physical-device-group-properties ;; :class
-    #:physical-device-host-query-reset-features ;; :class
-    #:physical-device-id-properties ;; :class
-    #:physical-device-image-drm-format-modifier-info-ext ;; :class
-    #:physical-device-image-format-info-2 ;; :class
-    #:physical-device-image-robustness-features-ext ;; :class
-    #:physical-device-image-view-image-format-info-ext ;; :class
-    #:physical-device-imageless-framebuffer-features ;; :class
-    #:physical-device-index-type-uint-8-features-ext ;; :class
-    #:physical-device-inline-uniform-block-features-ext ;; :class
-    #:physical-device-inline-uniform-block-properties-ext ;; :class
-    #:physical-device-limits ;; :class
-    #:physical-device-line-rasterization-features-ext ;; :class
-    #:physical-device-line-rasterization-properties-ext ;; :class
-    #:physical-device-maintenance-3-properties ;; :class
-    #:physical-device-memory-budget-properties-ext ;; :class
-    #:physical-device-memory-priority-features-ext ;; :class
-    #:physical-device-memory-properties ;; :class
-    #:physical-device-memory-properties-2 ;; :class
-    #:physical-device-mesh-shader-features-nv ;; :class
-    #:physical-device-mesh-shader-properties-nv ;; :class
-    #:physical-device-multiview-features ;; :class
-    #:physical-device-multiview-per-view-attributes-properties-nv-x ;; :class
-    #:physical-device-multiview-properties ;; :class
-    #:physical-device-mutable-descriptor-type-features-valve ;; :class
-    #:physical-device-p-c-i-bus-info-properties-ext ;; :class
-    #:physical-device-performance-query-features-khr ;; :class
-    #:physical-device-performance-query-properties-khr ;; :class
-    #:physical-device-pipeline-creation-cache-control-features-ext ;; :class
-    #:physical-device-pipeline-executable-properties-features-khr ;; :class
-    #:physical-device-point-clipping-properties ;; :class
-    #:physical-device-portability-subset-features-khr ;; :class
-    #:physical-device-portability-subset-properties-khr ;; :class
-    #:physical-device-private-data-features-ext ;; :class
-    #:physical-device-properties ;; :class
-    #:physical-device-properties-2 ;; :class
-    #:physical-device-protected-memory-features ;; :class
-    #:physical-device-protected-memory-properties ;; :class
-    #:physical-device-push-descriptor-properties-khr ;; :class
-    #:physical-device-ray-query-features-khr ;; :class
-    #:physical-device-ray-tracing-pipeline-features-khr ;; :class
-    #:physical-device-ray-tracing-pipeline-properties-khr ;; :class
-    #:physical-device-ray-tracing-properties-nv ;; :class
-    #:physical-device-representative-fragment-test-features-nv ;; :class
-    #:physical-device-robustness-2-features-ext ;; :class
-    #:physical-device-robustness-2-properties-ext ;; :class
-    #:physical-device-sample-locations-properties-ext ;; :class
-    #:physical-device-sampler-filter-minmax-properties ;; :class
-    #:physical-device-sampler-ycbcr-conversion-features ;; :class
-    #:physical-device-scalar-block-layout-features ;; :class
-    #:physical-device-separate-depth-stencil-layouts-features ;; :class
-    #:physical-device-shader-atomic-float-features-ext ;; :class
-    #:physical-device-shader-atomic-int-64-features ;; :class
-    #:physical-device-shader-clock-features-khr ;; :class
-    #:physical-device-shader-core-properties-2-amd ;; :class
-    #:physical-device-shader-core-properties-amd ;; :class
-    #:physical-device-shader-demote-to-helper-invocation-features-ext ;; :class
-    #:physical-device-shader-draw-parameters-features ;; :class
-    #:physical-device-shader-float-16-int-8-features ;; :class
-    #:physical-device-shader-image-atomic-int-64-features-ext ;; :class
-    #:physical-device-shader-image-footprint-features-nv ;; :class
-    #:physical-device-shader-integer-functions-2-features-intel ;; :class
-    #:physical-device-shader-s-m-builtins-features-nv ;; :class
-    #:physical-device-shader-s-m-builtins-properties-nv ;; :class
-    #:physical-device-shader-subgroup-extended-types-features ;; :class
-    #:physical-device-shader-terminate-invocation-features-khr ;; :class
-    #:physical-device-shading-rate-image-features-nv ;; :class
-    #:physical-device-shading-rate-image-properties-nv ;; :class
-    #:physical-device-sparse-image-format-info-2 ;; :class
-    #:physical-device-sparse-properties ;; :class
-    #:physical-device-subgroup-properties ;; :class
-    #:physical-device-subgroup-size-control-features-ext ;; :class
-    #:physical-device-subgroup-size-control-properties-ext ;; :class
-    #:physical-device-surface-info-2-khr ;; :class
-    #:physical-device-synchronization-2-features-khr ;; :class
-    #:physical-device-texel-buffer-alignment-features-ext ;; :class
-    #:physical-device-texel-buffer-alignment-properties-ext ;; :class
-    #:physical-device-texture-compression-astc-h-d-r-features-ext ;; :class
-    #:physical-device-timeline-semaphore-features ;; :class
-    #:physical-device-timeline-semaphore-properties ;; :class
-    #:physical-device-tool-properties-ext ;; :class
-    #:physical-device-transform-feedback-features-ext ;; :class
-    #:physical-device-transform-feedback-properties-ext ;; :class
-    #:physical-device-uniform-buffer-standard-layout-features ;; :class
-    #:physical-device-variable-pointers-features ;; :class
-    #:physical-device-vertex-attribute-divisor-features-ext ;; :class
-    #:physical-device-vertex-attribute-divisor-properties-ext ;; :class
-    #:physical-device-vulkan-1-1-features ;; :class
-    #:physical-device-vulkan-1-1-properties ;; :class
-    #:physical-device-vulkan-1-2-features ;; :class
-    #:physical-device-vulkan-1-2-properties ;; :class
-    #:physical-device-vulkan-memory-model-features ;; :class
-    #:physical-device-workgroup-memory-explicit-layout-features-khr ;; :class
-    #:physical-device-ycbcr-image-arrays-features-ext ;; :class
-    #:physical-device-zero-initialize-workgroup-memory-features-khr ;; :class
-    #:pipeline-cache-create-info ;; :class
-    #:pipeline-color-blend-advanced-state-create-info-ext ;; :class
-    #:pipeline-color-blend-attachment-state ;; :class
-    #:pipeline-color-blend-state-create-info ;; :class
-    #:pipeline-compiler-control-create-info-amd ;; :class
-    #:pipeline-coverage-modulation-state-create-info-nv ;; :class
-    #:pipeline-coverage-reduction-state-create-info-nv ;; :class
-    #:pipeline-coverage-to-color-state-create-info-nv ;; :class
-    #:pipeline-creation-feedback-create-info-ext ;; :class
-    #:pipeline-creation-feedback-ext ;; :class
-    #:pipeline-depth-stencil-state-create-info ;; :class
-    #:pipeline-discard-rectangle-state-create-info-ext ;; :class
-    #:pipeline-dynamic-state-create-info ;; :class
-    #:pipeline-executable-info-khr ;; :class
-    #:pipeline-executable-internal-representation-khr ;; :class
-    #:pipeline-executable-properties-khr ;; :class
-    #:pipeline-executable-statistic-khr ;; :class
-    #:pipeline-executable-statistic-value-khr ;; :class
-    #:pipeline-fragment-shading-rate-enum-state-create-info-nv ;; :class
-    #:pipeline-fragment-shading-rate-state-create-info-khr ;; :class
-    #:pipeline-info-khr ;; :class
-    #:pipeline-input-assembly-state-create-info ;; :class
-    #:pipeline-layout-create-info ;; :class
-    #:pipeline-library-create-info-khr ;; :class
-    #:pipeline-multisample-state-create-info ;; :class
-    #:pipeline-rasterization-conservative-state-create-info-ext ;; :class
-    #:pipeline-rasterization-depth-clip-state-create-info-ext ;; :class
-    #:pipeline-rasterization-line-state-create-info-ext ;; :class
-    #:pipeline-rasterization-state-create-info ;; :class
-    #:pipeline-rasterization-state-rasterization-order-amd ;; :class
-    #:pipeline-rasterization-state-stream-create-info-ext ;; :class
-    #:pipeline-representative-fragment-test-state-create-info-nv ;; :class
-    #:pipeline-sample-locations-state-create-info-ext ;; :class
-    #:pipeline-shader-stage-create-info ;; :class
-    #:pipeline-shader-stage-required-subgroup-size-create-info-ext ;; :class
-    #:pipeline-tessellation-domain-origin-state-create-info ;; :class
-    #:pipeline-tessellation-state-create-info ;; :class
-    #:pipeline-vertex-input-divisor-state-create-info-ext ;; :class
-    #:pipeline-vertex-input-state-create-info ;; :class
-    #:pipeline-viewport-coarse-sample-order-state-create-info-nv ;; :class
-    #:pipeline-viewport-exclusive-scissor-state-create-info-nv ;; :class
-    #:pipeline-viewport-shading-rate-image-state-create-info-nv ;; :class
-    #:pipeline-viewport-state-create-info ;; :class
-    #:pipeline-viewport-swizzle-state-create-info-nv ;; :class
-    #:pipeline-viewport-w-scaling-state-create-info-nv ;; :class
-    #:present-frame-token-ggp ;; :class
-    #:present-info-khr ;; :class
-    #:present-region-khr ;; :class
-    #:present-regions-khr ;; :class
-    #:present-time-google ;; :class
-    #:present-times-info-google ;; :class
-    #:private-data-slot-create-info-ext ;; :class
-    #:protected-submit-info ;; :class
-    #:push-constant-range ;; :class
-    #:query-pool-create-info ;; :class
-    #:query-pool-performance-create-info-khr ;; :class
-    #:query-pool-performance-query-create-info-intel ;; :class
-    #:queue-family-checkpoint-properties-2-nv ;; :class
-    #:queue-family-checkpoint-properties-nv ;; :class
-    #:queue-family-properties ;; :class
-    #:queue-family-properties-2 ;; :class
-    #:ray-tracing-pipeline-create-info-khr ;; :class
-    #:ray-tracing-pipeline-create-info-nv ;; :class
-    #:ray-tracing-pipeline-interface-create-info-khr ;; :class
-    #:ray-tracing-shader-group-create-info-khr ;; :class
-    #:ray-tracing-shader-group-create-info-nv ;; :class
-    #:rect-2d ;; :class
-    #:rect-layer-khr ;; :class
-    #:refresh-cycle-duration-google ;; :class
-    #:render-pass-attachment-begin-info ;; :class
-    #:render-pass-begin-info ;; :class
-    #:render-pass-create-info ;; :class
-    #:render-pass-create-info-2 ;; :class
-    #:render-pass-fragment-density-map-create-info-ext ;; :class
-    #:render-pass-input-attachment-aspect-create-info ;; :class
-    #:render-pass-multiview-create-info ;; :class
-    #:render-pass-sample-locations-begin-info-ext ;; :class
-    #:render-pass-transform-begin-info-qcom ;; :class
-    #:resolve-image-info-2-khr ;; :class
-    #:sample-location-ext ;; :class
-    #:sample-locations-info-ext ;; :class
-    #:sampler-create-info ;; :class
-    #:sampler-custom-border-color-create-info-ext ;; :class
-    #:sampler-reduction-mode-create-info ;; :class
-    #:sampler-ycbcr-conversion-create-info ;; :class
-    #:sampler-ycbcr-conversion-image-format-properties ;; :class
-    #:sampler-ycbcr-conversion-info ;; :class
-    #:screen-surface-create-info-qnx ;; :class
-    #:semaphore-create-info ;; :class
-    #:semaphore-get-fd-info-khr ;; :class
-    #:semaphore-get-win32-handle-info-khr ;; :class
-    #:semaphore-get-zircon-handle-info-fuchsia ;; :class
-    #:semaphore-signal-info ;; :class
-    #:semaphore-submit-info-khr ;; :class
-    #:semaphore-type-create-info ;; :class
-    #:semaphore-wait-info ;; :class
-    #:set-state-flags-indirect-command-nv ;; :class
-    #:shader-module-create-info ;; :class
-    #:shader-module-validation-cache-create-info-ext ;; :class
-    #:shader-resource-usage-amd ;; :class
-    #:shader-statistics-info-amd ;; :class
-    #:shading-rate-palette-nv ;; :class
-    #:shared-present-surface-capabilities-khr ;; :class
-    #:sparse-buffer-memory-bind-info ;; :class
-    #:sparse-image-format-properties ;; :class
-    #:sparse-image-format-properties-2 ;; :class
-    #:sparse-image-memory-bind ;; :class
-    #:sparse-image-memory-bind-info ;; :class
-    #:sparse-image-memory-requirements ;; :class
-    #:sparse-image-memory-requirements-2 ;; :class
-    #:sparse-image-opaque-memory-bind-info ;; :class
-    #:sparse-memory-bind ;; :class
-    #:specialization-info ;; :class
-    #:specialization-map-entry ;; :class
-    #:stencil-op-state ;; :class
-    #:stream-descriptor-surface-create-info-ggp ;; :class
-    #:strided-device-address-region-khr ;; :class
-    #:submit-info ;; :class
-    #:submit-info-2-khr ;; :class
-    #:subpass-begin-info ;; :class
-    #:subpass-dependency ;; :class
-    #:subpass-dependency-2 ;; :class
-    #:subpass-description ;; :class
-    #:subpass-description-2 ;; :class
-    #:subpass-description-depth-stencil-resolve ;; :class
-    #:subpass-end-info ;; :class
-    #:subpass-sample-locations-ext ;; :class
-    #:subresource-layout ;; :class
-    #:surface-capabilities-2-ext ;; :class
-    #:surface-capabilities-2-khr ;; :class
-    #:surface-capabilities-full-screen-exclusive-ext ;; :class
-    #:surface-capabilities-khr ;; :class
-    #:surface-format-2-khr ;; :class
-    #:surface-format-khr ;; :class
-    #:surface-full-screen-exclusive-info-ext ;; :class
-    #:surface-full-screen-exclusive-win32-info-ext ;; :class
-    #:surface-protected-capabilities-khr ;; :class
-    #:swapchain-counter-create-info-ext ;; :class
-    #:swapchain-create-info-khr ;; :class
-    #:swapchain-display-native-hdr-create-info-amd ;; :class
-    #:texture-l-o-d-gather-format-properties-amd ;; :class
-    #:timeline-semaphore-submit-info ;; :class
-    #:trace-rays-indirect-command-khr ;; :class
-    #:transform-matrix-khr ;; :class
-    #:validation-cache-create-info-ext ;; :class
-    #:validation-features-ext ;; :class
-    #:validation-flags-ext ;; :class
-    #:vertex-input-attribute-description ;; :class
-    #:vertex-input-binding-description ;; :class
-    #:vertex-input-binding-divisor-description-ext ;; :class
-    #:vi-surface-create-info-nn ;; :class
-    #:viewport ;; :class
-    #:viewport-swizzle-nv ;; :class
-    #:viewport-w-scaling-nv ;; :class
-    #:wayland-surface-create-info-khr ;; :class
-    #:win32-keyed-mutex-acquire-release-info-khr ;; :class
-    #:win32-keyed-mutex-acquire-release-info-nv ;; :class
-    #:win32-surface-create-info-khr ;; :class
-    #:write-descriptor-set ;; :class
-    #:write-descriptor-set-acceleration-structure-khr ;; :class
-    #:write-descriptor-set-acceleration-structure-nv ;; :class
-    #:write-descriptor-set-inline-uniform-block-ext ;; :class
-    #:x-y-color-ext ;; :class
-    #:xcb-surface-create-info-khr ;; :class
-    #:xlib-surface-create-info-khr ;; :class
+    #:aabb-positions-khr
+    #:acceleration-structure-build-geometry-info-khr
+    #:acceleration-structure-build-range-info-khr
+    #:acceleration-structure-build-sizes-info-khr
+    #:acceleration-structure-create-info-khr
+    #:acceleration-structure-create-info-nv
+    #:acceleration-structure-device-address-info-khr
+    #:acceleration-structure-geometry-aabbs-data-khr
+    #:acceleration-structure-geometry-data-khr
+    #:acceleration-structure-geometry-instances-data-khr
+    #:acceleration-structure-geometry-khr
+    #:acceleration-structure-geometry-triangles-data-khr
+    #:acceleration-structure-info-nv
+    #:acceleration-structure-instance-khr
+    #:acceleration-structure-memory-requirements-info-nv
+    #:acceleration-structure-version-info-khr
+    #:acquire-next-image-info-khr
+    #:acquire-profiling-lock-info-khr
+    #:allocation-callbacks
+    #:android-hardware-buffer-format-properties-android
+    #:android-hardware-buffer-properties-android
+    #:android-hardware-buffer-usage-android
+    #:android-surface-create-info-khr
+    #:application-info
+    #:attachment-description
+    #:attachment-description-2
+    #:attachment-description-stencil-layout
+    #:attachment-reference
+    #:attachment-reference-2
+    #:attachment-reference-stencil-layout
+    #:attachment-sample-locations-ext
+    #:base-in-structure
+    #:base-out-structure
+    #:bind-acceleration-structure-memory-info-nv
+    #:bind-buffer-memory-device-group-info
+    #:bind-buffer-memory-info
+    #:bind-image-memory-device-group-info
+    #:bind-image-memory-info
+    #:bind-image-memory-swapchain-info-khr
+    #:bind-image-plane-memory-info
+    #:bind-index-buffer-indirect-command-nv
+    #:bind-shader-group-indirect-command-nv
+    #:bind-sparse-info
+    #:bind-vertex-buffer-indirect-command-nv
+    #:blit-image-info-2-khr
+    #:buffer-copy
+    #:buffer-copy-2-khr
+    #:buffer-create-info
+    #:buffer-device-address-create-info-ext
+    #:buffer-device-address-info
+    #:buffer-image-copy
+    #:buffer-image-copy-2-khr
+    #:buffer-memory-barrier
+    #:buffer-memory-barrier-2-khr
+    #:buffer-memory-requirements-info-2
+    #:buffer-opaque-capture-address-create-info
+    #:buffer-view-create-info
+    #:calibrated-timestamp-info-ext
+    #:checkpoint-data-2-nv
+    #:checkpoint-data-nv
+    #:clear-attachment
+    #:clear-color-value
+    #:clear-depth-stencil-value
+    #:clear-rect
+    #:clear-value
+    #:coarse-sample-location-nv
+    #:coarse-sample-order-custom-nv
+    #:command-buffer-allocate-info
+    #:command-buffer-begin-info
+    #:command-buffer-inheritance-conditional-rendering-info-ext
+    #:command-buffer-inheritance-info
+    #:command-buffer-inheritance-render-pass-transform-info-qcom
+    #:command-buffer-submit-info-khr
+    #:command-pool-create-info
+    #:component-mapping
+    #:compute-pipeline-create-info
+    #:conditional-rendering-begin-info-ext
+    #:conformance-version
+    #:cooperative-matrix-properties-nv
+    #:copy-acceleration-structure-info-khr
+    #:copy-acceleration-structure-to-memory-info-khr
+    #:copy-buffer-info-2-khr
+    #:copy-buffer-to-image-info-2-khr
+    #:copy-command-transform-info-qcom
+    #:copy-descriptor-set
+    #:copy-image-info-2-khr
+    #:copy-image-to-buffer-info-2-khr
+    #:copy-memory-to-acceleration-structure-info-khr
+    #:d-3d-1-2-fence-submit-info-khr
+    #:debug-marker-marker-info-ext
+    #:debug-marker-object-name-info-ext
+    #:debug-marker-object-tag-info-ext
+    #:debug-report-callback-create-info-ext
+    #:debug-utils-label-ext
+    #:debug-utils-messenger-callback-data-ext
+    #:debug-utils-messenger-create-info-ext
+    #:debug-utils-object-name-info-ext
+    #:debug-utils-object-tag-info-ext
+    #:dedicated-allocation-buffer-create-info-nv
+    #:dedicated-allocation-image-create-info-nv
+    #:dedicated-allocation-memory-allocate-info-nv
+    #:dependency-info-khr
+    #:descriptor-buffer-info
+    #:descriptor-image-info
+    #:descriptor-pool-create-info
+    #:descriptor-pool-inline-uniform-block-create-info-ext
+    #:descriptor-pool-size
+    #:descriptor-set-allocate-info
+    #:descriptor-set-layout-binding
+    #:descriptor-set-layout-binding-flags-create-info
+    #:descriptor-set-layout-create-info
+    #:descriptor-set-layout-support
+    #:descriptor-set-variable-descriptor-count-allocate-info
+    #:descriptor-set-variable-descriptor-count-layout-support
+    #:descriptor-update-template-create-info
+    #:descriptor-update-template-entry
+    #:device-create-info
+    #:device-device-memory-report-create-info-ext
+    #:device-diagnostics-config-create-info-nv
+    #:device-event-info-ext
+    #:device-group-bind-sparse-info
+    #:device-group-command-buffer-begin-info
+    #:device-group-device-create-info
+    #:device-group-present-capabilities-khr
+    #:device-group-present-info-khr
+    #:device-group-render-pass-begin-info
+    #:device-group-submit-info
+    #:device-group-swapchain-create-info-khr
+    #:device-memory-opaque-capture-address-info
+    #:device-memory-overallocation-create-info-amd
+    #:device-memory-report-callback-data-ext
+    #:device-or-host-address-const-khr
+    #:device-or-host-address-khr
+    #:device-private-data-create-info-ext
+    #:device-queue-create-info
+    #:device-queue-global-priority-create-info-ext
+    #:device-queue-info-2
+    #:direct-fb-surface-create-info-ext
+    #:dispatch-indirect-command
+    #:display-event-info-ext
+    #:display-mode-create-info-khr
+    #:display-mode-parameters-khr
+    #:display-mode-properties-2-khr
+    #:display-mode-properties-khr
+    #:display-native-hdr-surface-capabilities-amd
+    #:display-plane-capabilities-2-khr
+    #:display-plane-capabilities-khr
+    #:display-plane-info-2-khr
+    #:display-plane-properties-2-khr
+    #:display-plane-properties-khr
+    #:display-power-info-ext
+    #:display-present-info-khr
+    #:display-properties-2-khr
+    #:display-properties-khr
+    #:display-surface-create-info-khr
+    #:draw-indexed-indirect-command
+    #:draw-indirect-command
+    #:draw-mesh-tasks-indirect-command-nv
+    #:drm-format-modifier-properties-ext
+    #:drm-format-modifier-properties-list-ext
+    #:event-create-info
+    #:export-fence-create-info
+    #:export-fence-win32-handle-info-khr
+    #:export-memory-allocate-info
+    #:export-memory-allocate-info-nv
+    #:export-memory-win32-handle-info-khr
+    #:export-memory-win32-handle-info-nv
+    #:export-semaphore-create-info
+    #:export-semaphore-win32-handle-info-khr
+    #:extension-properties
+    #:extent-2d
+    #:extent-3d
+    #:external-buffer-properties
+    #:external-fence-properties
+    #:external-format-android
+    #:external-image-format-properties
+    #:external-image-format-properties-nv
+    #:external-memory-buffer-create-info
+    #:external-memory-image-create-info
+    #:external-memory-image-create-info-nv
+    #:external-memory-properties
+    #:external-semaphore-properties
+    #:fence-create-info
+    #:fence-get-fd-info-khr
+    #:fence-get-win32-handle-info-khr
+    #:filter-cubic-image-view-image-format-properties-ext
+    #:format-properties
+    #:format-properties-2
+    #:fragment-shading-rate-attachment-info-khr
+    #:framebuffer-attachment-image-info
+    #:framebuffer-attachments-create-info
+    #:framebuffer-create-info
+    #:framebuffer-mixed-samples-combination-nv
+    #:generated-commands-info-nv
+    #:generated-commands-memory-requirements-info-nv
+    #:geometry-aabb-nv
+    #:geometry-data-nv
+    #:geometry-nv
+    #:geometry-triangles-nv
+    #:graphics-pipeline-create-info
+    #:graphics-pipeline-shader-groups-create-info-nv
+    #:graphics-shader-group-create-info-nv
+    #:hdr-metadata-ext
+    #:headless-surface-create-info-ext
+    #:i-os-surface-create-info-mvk
+    #:image-blit
+    #:image-blit-2-khr
+    #:image-copy
+    #:image-copy-2-khr
+    #:image-create-info
+    #:image-drm-format-modifier-explicit-create-info-ext
+    #:image-drm-format-modifier-list-create-info-ext
+    #:image-drm-format-modifier-properties-ext
+    #:image-format-list-create-info
+    #:image-format-properties
+    #:image-format-properties-2
+    #:image-memory-barrier
+    #:image-memory-barrier-2-khr
+    #:image-memory-requirements-info-2
+    #:image-pipe-surface-create-info-fuchsia
+    #:image-plane-memory-requirements-info
+    #:image-resolve
+    #:image-resolve-2-khr
+    #:image-sparse-memory-requirements-info-2
+    #:image-stencil-usage-create-info
+    #:image-subresource
+    #:image-subresource-layers
+    #:image-subresource-range
+    #:image-swapchain-create-info-khr
+    #:image-view-astc-decode-mode-ext
+    #:image-view-address-properties-nv-x
+    #:image-view-create-info
+    #:image-view-handle-info-nv-x
+    #:image-view-usage-create-info
+    #:import-android-hardware-buffer-info-android
+    #:import-fence-fd-info-khr
+    #:import-fence-win32-handle-info-khr
+    #:import-memory-fd-info-khr
+    #:import-memory-host-pointer-info-ext
+    #:import-memory-win32-handle-info-khr
+    #:import-memory-win32-handle-info-nv
+    #:import-memory-zircon-handle-info-fuchsia
+    #:import-semaphore-fd-info-khr
+    #:import-semaphore-win32-handle-info-khr
+    #:import-semaphore-zircon-handle-info-fuchsia
+    #:indirect-commands-layout-create-info-nv
+    #:indirect-commands-layout-token-nv
+    #:indirect-commands-stream-nv
+    #:initialize-performance-api-info-intel
+    #:input-attachment-aspect-reference
+    #:instance-create-info
+    #:layer-properties
+    #:mac-os-surface-create-info-mvk
+    #:mapped-memory-range
+    #:memory-allocate-flags-info
+    #:memory-allocate-info
+    #:memory-barrier
+    #:memory-barrier-2-khr
+    #:memory-dedicated-allocate-info
+    #:memory-dedicated-requirements
+    #:memory-fd-properties-khr
+    #:memory-get-android-hardware-buffer-info-android
+    #:memory-get-fd-info-khr
+    #:memory-get-win32-handle-info-khr
+    #:memory-get-zircon-handle-info-fuchsia
+    #:memory-heap
+    #:memory-host-pointer-properties-ext
+    #:memory-opaque-capture-address-allocate-info
+    #:memory-priority-allocate-info-ext
+    #:memory-requirements
+    #:memory-requirements-2
+    #:memory-type
+    #:memory-win32-handle-properties-khr
+    #:memory-zircon-handle-properties-fuchsia
+    #:metal-surface-create-info-ext
+    #:multisample-properties-ext
+    #:mutable-descriptor-type-create-info-valve
+    #:mutable-descriptor-type-list-valve
+    #:offset-2d
+    #:offset-3d
+    #:past-presentation-timing-google
+    #:performance-configuration-acquire-info-intel
+    #:performance-counter-description-khr
+    #:performance-counter-khr
+    #:performance-counter-result-khr
+    #:performance-marker-info-intel
+    #:performance-override-info-intel
+    #:performance-query-submit-info-khr
+    #:performance-stream-marker-info-intel
+    #:performance-value-data-intel
+    #:performance-value-intel
+    #:physical-device-16-bit-storage-features
+    #:physical-device-4444-formats-features-ext
+    #:physical-device-8-bit-storage-features
+    #:physical-device-astc-decode-features-ext
+    #:physical-device-acceleration-structure-features-khr
+    #:physical-device-acceleration-structure-properties-khr
+    #:physical-device-blend-operation-advanced-features-ext
+    #:physical-device-blend-operation-advanced-properties-ext
+    #:physical-device-buffer-device-address-features
+    #:physical-device-buffer-device-address-features-ext
+    #:physical-device-coherent-memory-features-amd
+    #:physical-device-compute-shader-derivatives-features-nv
+    #:physical-device-conditional-rendering-features-ext
+    #:physical-device-conservative-rasterization-properties-ext
+    #:physical-device-cooperative-matrix-features-nv
+    #:physical-device-cooperative-matrix-properties-nv
+    #:physical-device-corner-sampled-image-features-nv
+    #:physical-device-coverage-reduction-mode-features-nv
+    #:physical-device-custom-border-color-features-ext
+    #:physical-device-custom-border-color-properties-ext
+    #:physical-device-dedicated-allocation-image-aliasing-features-nv
+    #:physical-device-depth-clip-enable-features-ext
+    #:physical-device-depth-stencil-resolve-properties
+    #:physical-device-descriptor-indexing-features
+    #:physical-device-descriptor-indexing-properties
+    #:physical-device-device-generated-commands-features-nv
+    #:physical-device-device-generated-commands-properties-nv
+    #:physical-device-device-memory-report-features-ext
+    #:physical-device-diagnostics-config-features-nv
+    #:physical-device-discard-rectangle-properties-ext
+    #:physical-device-driver-properties
+    #:physical-device-exclusive-scissor-features-nv
+    #:physical-device-extended-dynamic-state-features-ext
+    #:physical-device-external-buffer-info
+    #:physical-device-external-fence-info
+    #:physical-device-external-image-format-info
+    #:physical-device-external-memory-host-properties-ext
+    #:physical-device-external-semaphore-info
+    #:physical-device-features
+    #:physical-device-features-2
+    #:physical-device-float-controls-properties
+    #:physical-device-fragment-density-map-2-features-ext
+    #:physical-device-fragment-density-map-2-properties-ext
+    #:physical-device-fragment-density-map-features-ext
+    #:physical-device-fragment-density-map-properties-ext
+    #:physical-device-fragment-shader-barycentric-features-nv
+    #:physical-device-fragment-shader-interlock-features-ext
+    #:physical-device-fragment-shading-rate-enums-features-nv
+    #:physical-device-fragment-shading-rate-enums-properties-nv
+    #:physical-device-fragment-shading-rate-features-khr
+    #:physical-device-fragment-shading-rate-khr
+    #:physical-device-fragment-shading-rate-properties-khr
+    #:physical-device-group-properties
+    #:physical-device-host-query-reset-features
+    #:physical-device-id-properties
+    #:physical-device-image-drm-format-modifier-info-ext
+    #:physical-device-image-format-info-2
+    #:physical-device-image-robustness-features-ext
+    #:physical-device-image-view-image-format-info-ext
+    #:physical-device-imageless-framebuffer-features
+    #:physical-device-index-type-uint-8-features-ext
+    #:physical-device-inline-uniform-block-features-ext
+    #:physical-device-inline-uniform-block-properties-ext
+    #:physical-device-limits
+    #:physical-device-line-rasterization-features-ext
+    #:physical-device-line-rasterization-properties-ext
+    #:physical-device-maintenance-3-properties
+    #:physical-device-memory-budget-properties-ext
+    #:physical-device-memory-priority-features-ext
+    #:physical-device-memory-properties
+    #:physical-device-memory-properties-2
+    #:physical-device-mesh-shader-features-nv
+    #:physical-device-mesh-shader-properties-nv
+    #:physical-device-multiview-features
+    #:physical-device-multiview-per-view-attributes-properties-nv-x
+    #:physical-device-multiview-properties
+    #:physical-device-mutable-descriptor-type-features-valve
+    #:physical-device-p-c-i-bus-info-properties-ext
+    #:physical-device-performance-query-features-khr
+    #:physical-device-performance-query-properties-khr
+    #:physical-device-pipeline-creation-cache-control-features-ext
+    #:physical-device-pipeline-executable-properties-features-khr
+    #:physical-device-point-clipping-properties
+    #:physical-device-portability-subset-features-khr
+    #:physical-device-portability-subset-properties-khr
+    #:physical-device-private-data-features-ext
+    #:physical-device-properties
+    #:physical-device-properties-2
+    #:physical-device-protected-memory-features
+    #:physical-device-protected-memory-properties
+    #:physical-device-push-descriptor-properties-khr
+    #:physical-device-ray-query-features-khr
+    #:physical-device-ray-tracing-pipeline-features-khr
+    #:physical-device-ray-tracing-pipeline-properties-khr
+    #:physical-device-ray-tracing-properties-nv
+    #:physical-device-representative-fragment-test-features-nv
+    #:physical-device-robustness-2-features-ext
+    #:physical-device-robustness-2-properties-ext
+    #:physical-device-sample-locations-properties-ext
+    #:physical-device-sampler-filter-minmax-properties
+    #:physical-device-sampler-ycbcr-conversion-features
+    #:physical-device-scalar-block-layout-features
+    #:physical-device-separate-depth-stencil-layouts-features
+    #:physical-device-shader-atomic-float-features-ext
+    #:physical-device-shader-atomic-int-64-features
+    #:physical-device-shader-clock-features-khr
+    #:physical-device-shader-core-properties-2-amd
+    #:physical-device-shader-core-properties-amd
+    #:physical-device-shader-demote-to-helper-invocation-features-ext
+    #:physical-device-shader-draw-parameters-features
+    #:physical-device-shader-float-16-int-8-features
+    #:physical-device-shader-image-atomic-int-64-features-ext
+    #:physical-device-shader-image-footprint-features-nv
+    #:physical-device-shader-integer-functions-2-features-intel
+    #:physical-device-shader-s-m-builtins-features-nv
+    #:physical-device-shader-s-m-builtins-properties-nv
+    #:physical-device-shader-subgroup-extended-types-features
+    #:physical-device-shader-terminate-invocation-features-khr
+    #:physical-device-shading-rate-image-features-nv
+    #:physical-device-shading-rate-image-properties-nv
+    #:physical-device-sparse-image-format-info-2
+    #:physical-device-sparse-properties
+    #:physical-device-subgroup-properties
+    #:physical-device-subgroup-size-control-features-ext
+    #:physical-device-subgroup-size-control-properties-ext
+    #:physical-device-surface-info-2-khr
+    #:physical-device-synchronization-2-features-khr
+    #:physical-device-texel-buffer-alignment-features-ext
+    #:physical-device-texel-buffer-alignment-properties-ext
+    #:physical-device-texture-compression-astc-h-d-r-features-ext
+    #:physical-device-timeline-semaphore-features
+    #:physical-device-timeline-semaphore-properties
+    #:physical-device-tool-properties-ext
+    #:physical-device-transform-feedback-features-ext
+    #:physical-device-transform-feedback-properties-ext
+    #:physical-device-uniform-buffer-standard-layout-features
+    #:physical-device-variable-pointers-features
+    #:physical-device-vertex-attribute-divisor-features-ext
+    #:physical-device-vertex-attribute-divisor-properties-ext
+    #:physical-device-vulkan-1-1-features
+    #:physical-device-vulkan-1-1-properties
+    #:physical-device-vulkan-1-2-features
+    #:physical-device-vulkan-1-2-properties
+    #:physical-device-vulkan-memory-model-features
+    #:physical-device-workgroup-memory-explicit-layout-features-khr
+    #:physical-device-ycbcr-image-arrays-features-ext
+    #:physical-device-zero-initialize-workgroup-memory-features-khr
+    #:pipeline-cache-create-info
+    #:pipeline-color-blend-advanced-state-create-info-ext
+    #:pipeline-color-blend-attachment-state
+    #:pipeline-color-blend-state-create-info
+    #:pipeline-compiler-control-create-info-amd
+    #:pipeline-coverage-modulation-state-create-info-nv
+    #:pipeline-coverage-reduction-state-create-info-nv
+    #:pipeline-coverage-to-color-state-create-info-nv
+    #:pipeline-creation-feedback-create-info-ext
+    #:pipeline-creation-feedback-ext
+    #:pipeline-depth-stencil-state-create-info
+    #:pipeline-discard-rectangle-state-create-info-ext
+    #:pipeline-dynamic-state-create-info
+    #:pipeline-executable-info-khr
+    #:pipeline-executable-internal-representation-khr
+    #:pipeline-executable-properties-khr
+    #:pipeline-executable-statistic-khr
+    #:pipeline-executable-statistic-value-khr
+    #:pipeline-fragment-shading-rate-enum-state-create-info-nv
+    #:pipeline-fragment-shading-rate-state-create-info-khr
+    #:pipeline-info-khr
+    #:pipeline-input-assembly-state-create-info
+    #:pipeline-layout-create-info
+    #:pipeline-library-create-info-khr
+    #:pipeline-multisample-state-create-info
+    #:pipeline-rasterization-conservative-state-create-info-ext
+    #:pipeline-rasterization-depth-clip-state-create-info-ext
+    #:pipeline-rasterization-line-state-create-info-ext
+    #:pipeline-rasterization-state-create-info
+    #:pipeline-rasterization-state-rasterization-order-amd
+    #:pipeline-rasterization-state-stream-create-info-ext
+    #:pipeline-representative-fragment-test-state-create-info-nv
+    #:pipeline-sample-locations-state-create-info-ext
+    #:pipeline-shader-stage-create-info
+    #:pipeline-shader-stage-required-subgroup-size-create-info-ext
+    #:pipeline-tessellation-domain-origin-state-create-info
+    #:pipeline-tessellation-state-create-info
+    #:pipeline-vertex-input-divisor-state-create-info-ext
+    #:pipeline-vertex-input-state-create-info
+    #:pipeline-viewport-coarse-sample-order-state-create-info-nv
+    #:pipeline-viewport-exclusive-scissor-state-create-info-nv
+    #:pipeline-viewport-shading-rate-image-state-create-info-nv
+    #:pipeline-viewport-state-create-info
+    #:pipeline-viewport-swizzle-state-create-info-nv
+    #:pipeline-viewport-w-scaling-state-create-info-nv
+    #:present-frame-token-ggp
+    #:present-info-khr
+    #:present-region-khr
+    #:present-regions-khr
+    #:present-time-google
+    #:present-times-info-google
+    #:private-data-slot-create-info-ext
+    #:protected-submit-info
+    #:push-constant-range
+    #:query-pool-create-info
+    #:query-pool-performance-create-info-khr
+    #:query-pool-performance-query-create-info-intel
+    #:queue-family-checkpoint-properties-2-nv
+    #:queue-family-checkpoint-properties-nv
+    #:queue-family-properties
+    #:queue-family-properties-2
+    #:ray-tracing-pipeline-create-info-khr
+    #:ray-tracing-pipeline-create-info-nv
+    #:ray-tracing-pipeline-interface-create-info-khr
+    #:ray-tracing-shader-group-create-info-khr
+    #:ray-tracing-shader-group-create-info-nv
+    #:rect-2d
+    #:rect-layer-khr
+    #:refresh-cycle-duration-google
+    #:render-pass-attachment-begin-info
+    #:render-pass-begin-info
+    #:render-pass-create-info
+    #:render-pass-create-info-2
+    #:render-pass-fragment-density-map-create-info-ext
+    #:render-pass-input-attachment-aspect-create-info
+    #:render-pass-multiview-create-info
+    #:render-pass-sample-locations-begin-info-ext
+    #:render-pass-transform-begin-info-qcom
+    #:resolve-image-info-2-khr
+    #:sample-location-ext
+    #:sample-locations-info-ext
+    #:sampler-create-info
+    #:sampler-custom-border-color-create-info-ext
+    #:sampler-reduction-mode-create-info
+    #:sampler-ycbcr-conversion-create-info
+    #:sampler-ycbcr-conversion-image-format-properties
+    #:sampler-ycbcr-conversion-info
+    #:screen-surface-create-info-qnx
+    #:semaphore-create-info
+    #:semaphore-get-fd-info-khr
+    #:semaphore-get-win32-handle-info-khr
+    #:semaphore-get-zircon-handle-info-fuchsia
+    #:semaphore-signal-info
+    #:semaphore-submit-info-khr
+    #:semaphore-type-create-info
+    #:semaphore-wait-info
+    #:set-state-flags-indirect-command-nv
+    #:shader-module-create-info
+    #:shader-module-validation-cache-create-info-ext
+    #:shader-resource-usage-amd
+    #:shader-statistics-info-amd
+    #:shading-rate-palette-nv
+    #:shared-present-surface-capabilities-khr
+    #:sparse-buffer-memory-bind-info
+    #:sparse-image-format-properties
+    #:sparse-image-format-properties-2
+    #:sparse-image-memory-bind
+    #:sparse-image-memory-bind-info
+    #:sparse-image-memory-requirements
+    #:sparse-image-memory-requirements-2
+    #:sparse-image-opaque-memory-bind-info
+    #:sparse-memory-bind
+    #:specialization-info
+    #:specialization-map-entry
+    #:stencil-op-state
+    #:stream-descriptor-surface-create-info-ggp
+    #:strided-device-address-region-khr
+    #:submit-info
+    #:submit-info-2-khr
+    #:subpass-begin-info
+    #:subpass-dependency
+    #:subpass-dependency-2
+    #:subpass-description
+    #:subpass-description-2
+    #:subpass-description-depth-stencil-resolve
+    #:subpass-end-info
+    #:subpass-sample-locations-ext
+    #:subresource-layout
+    #:surface-capabilities-2-ext
+    #:surface-capabilities-2-khr
+    #:surface-capabilities-full-screen-exclusive-ext
+    #:surface-capabilities-khr
+    #:surface-format-2-khr
+    #:surface-format-khr
+    #:surface-full-screen-exclusive-info-ext
+    #:surface-full-screen-exclusive-win32-info-ext
+    #:surface-protected-capabilities-khr
+    #:swapchain-counter-create-info-ext
+    #:swapchain-create-info-khr
+    #:swapchain-display-native-hdr-create-info-amd
+    #:texture-l-o-d-gather-format-properties-amd
+    #:timeline-semaphore-submit-info
+    #:trace-rays-indirect-command-khr
+    #:transform-matrix-khr
+    #:validation-cache-create-info-ext
+    #:validation-features-ext
+    #:validation-flags-ext
+    #:vertex-input-attribute-description
+    #:vertex-input-binding-description
+    #:vertex-input-binding-divisor-description-ext
+    #:vi-surface-create-info-nn
+    #:viewport
+    #:viewport-swizzle-nv
+    #:viewport-w-scaling-nv
+    #:wayland-surface-create-info-khr
+    #:win32-keyed-mutex-acquire-release-info-khr
+    #:win32-keyed-mutex-acquire-release-info-nv
+    #:win32-surface-create-info-khr
+    #:write-descriptor-set
+    #:write-descriptor-set-acceleration-structure-khr
+    #:write-descriptor-set-acceleration-structure-nv
+    #:write-descriptor-set-inline-uniform-block-ext
+    #:x-y-color-ext
+    #:xcb-surface-create-info-khr
+    #:xlib-surface-create-info-khr
 
-    #:a-type ;; :accessor
-    #:b-type ;; :accessor
-    #:c-type ;; :accessor
-    #:d-type ;; :accessor
-    #:k-size ;; :accessor
-    #:m-size ;; :accessor
-    #:n-size ;; :accessor
-    #:a ;; :accessor
-    #:aabb-data ;; :accessor
-    #:aabbs ;; :accessor
-    #:acceleration-structure ;; :accessor
-    #:acceleration-structure-capture-replay ;; :accessor
-    #:acceleration-structure-count ;; :accessor
-    #:acceleration-structure-host-commands ;; :accessor
-    #:acceleration-structure-indirect-build ;; :accessor
-    #:acceleration-structure-reference ;; :accessor
-    #:acceleration-structure-size ;; :accessor
-    #:acquire-count ;; :accessor
-    #:active-compute-unit-count ;; :accessor
-    #:actual-present-time ;; :accessor
-    #:address-mode-u ;; :accessor
-    #:address-mode-v ;; :accessor
-    #:address-mode-w ;; :accessor
-    #:advanced-blend-all-operations ;; :accessor
-    #:advanced-blend-coherent-operations ;; :accessor
-    #:advanced-blend-correlated-overlap ;; :accessor
-    #:advanced-blend-independent-blend ;; :accessor
-    #:advanced-blend-max-color-attachments ;; :accessor
-    #:advanced-blend-non-premultiplied-dst-color ;; :accessor
-    #:advanced-blend-non-premultiplied-src-color ;; :accessor
-    #:alignment ;; :accessor
-    #:allocation-size ;; :accessor
-    #:allow-command-buffer-query-copies ;; :accessor
-    #:alpha-blend-op ;; :accessor
-    #:alpha-mode ;; :accessor
-    #:alpha-to-coverage-enable ;; :accessor
-    #:alpha-to-one ;; :accessor
-    #:alpha-to-one-enable ;; :accessor
-    #:android-hardware-buffer-usage ;; :accessor
-    #:anisotropy-enable ;; :accessor
-    #:any-hit-shader ;; :accessor
-    #:api-version ;; :accessor
-    #:application-version ;; :accessor
-    #:array-layer ;; :accessor
-    #:array-layers ;; :accessor
-    #:array-of-pointers ;; :accessor
-    #:array-pitch ;; :accessor
-    #:aspect-mask ;; :accessor
-    #:aspect-reference-count ;; :accessor
-    #:attachment ;; :accessor
-    #:attachment-count ;; :accessor
-    #:attachment-fragment-shading-rate ;; :accessor
-    #:attachment-image-info-count ;; :accessor
-    #:attachment-index ;; :accessor
-    #:attachment-initial-sample-locations-count ;; :accessor
-    #:b ;; :accessor
-    #:b32 ;; :accessor
-    #:back ;; :accessor
-    #:base-array-layer ;; :accessor
-    #:base-mip-level ;; :accessor
-    #:base-pipeline-handle ;; :accessor
-    #:base-pipeline-index ;; :accessor
-    #:bind-count ;; :accessor
-    #:binding ;; :accessor
-    #:binding-count ;; :accessor
-    #:blend-constants ;; :accessor
-    #:blend-enable ;; :accessor
-    #:blend-overlap ;; :accessor
-    #:border-color ;; :accessor
-    #:bresenham-lines ;; :accessor
-    #:buffer ;; :accessor
-    #:buffer-address ;; :accessor
-    #:buffer-bind-count ;; :accessor
-    #:buffer-device-address ;; :accessor
-    #:buffer-device-address-capture-replay ;; :accessor
-    #:buffer-device-address-multi-device ;; :accessor
-    #:buffer-features ;; :accessor
-    #:buffer-image-granularity ;; :accessor
-    #:buffer-image-height ;; :accessor
-    #:buffer-memory-barrier-count ;; :accessor
-    #:buffer-offset ;; :accessor
-    #:buffer-row-length ;; :accessor
-    #:build-scratch-size ;; :accessor
-    #:capabilities ;; :accessor
-    #:category ;; :accessor
-    #:checkpoint-execution-stage-mask ;; :accessor
-    #:chroma-filter ;; :accessor
-    #:clear-value ;; :accessor
-    #:clear-value-count ;; :accessor
-    #:clipped ;; :accessor
-    #:closest-hit-shader ;; :accessor
-    #:cmd-buf-label-count ;; :accessor
-    #:code-size ;; :accessor
-    #:color ;; :accessor
-    #:color-attachment ;; :accessor
-    #:color-attachment-count ;; :accessor
-    #:color-blend-op ;; :accessor
-    #:color-samples ;; :accessor
-    #:color-space ;; :accessor
-    #:color-write-mask ;; :accessor
-    #:combined-image-sampler-descriptor-count ;; :accessor
-    #:combiner-ops ;; :accessor
-    #:command-buffer ;; :accessor
-    #:command-buffer-count ;; :accessor
-    #:command-buffer-info-count ;; :accessor
-    #:command-pool ;; :accessor
-    #:compacted-size ;; :accessor
-    #:compare-enable ;; :accessor
-    #:compare-mask ;; :accessor
-    #:compare-op ;; :accessor
-    #:compatible-handle-types ;; :accessor
-    #:compiler-control-flags ;; :accessor
-    #:components ;; :accessor
-    #:composite-alpha ;; :accessor
-    #:compute-derivative-group-linear ;; :accessor
-    #:compute-derivative-group-quads ;; :accessor
-    #:compute-full-subgroups ;; :accessor
-    #:compute-units-per-shader-array ;; :accessor
-    #:compute-work-group-size ;; :accessor
-    #:conditional-rendering ;; :accessor
-    #:conditional-rendering-enable ;; :accessor
-    #:conformance-version ;; :accessor
-    #:connection ;; :accessor
-    #:conservative-point-and-line-rasterization ;; :accessor
-    #:conservative-rasterization-mode ;; :accessor
-    #:conservative-rasterization-post-depth-coverage ;; :accessor
-    #:constant-alpha-color-blend-factors ;; :accessor
-    #:constant-id ;; :accessor
-    #:contents ;; :accessor
-    #:context ;; :accessor
-    #:conversion ;; :accessor
-    #:cooperative-matrix ;; :accessor
-    #:cooperative-matrix-robust-buffer-access ;; :accessor
-    #:cooperative-matrix-supported-stages ;; :accessor
-    #:corner-sampled-image ;; :accessor
-    #:correlated-view-mask-count ;; :accessor
-    #:correlation-mask-count ;; :accessor
-    #:counter-index-count ;; :accessor
-    #:counter-pass-index ;; :accessor
-    #:coverage-modulation-mode ;; :accessor
-    #:coverage-modulation-table-count ;; :accessor
-    #:coverage-modulation-table-enable ;; :accessor
-    #:coverage-reduction-mode ;; :accessor
-    #:coverage-to-color-enable ;; :accessor
-    #:coverage-to-color-location ;; :accessor
-    #:create-flags ;; :accessor
-    #:cull-mode ;; :accessor
-    #:current-display ;; :accessor
-    #:current-extent ;; :accessor
-    #:current-stack-index ;; :accessor
-    #:current-transform ;; :accessor
-    #:custom-border-color ;; :accessor
-    #:custom-border-color-without-format ;; :accessor
-    #:custom-border-colors ;; :accessor
-    #:custom-sample-order-count ;; :accessor
-    #:data-size ;; :accessor
-    #:decode-mode ;; :accessor
-    #:decode-mode-shared-exponent ;; :accessor
-    #:dedicated-allocation ;; :accessor
-    #:dedicated-allocation-image-aliasing ;; :accessor
-    #:degenerate-lines-rasterized ;; :accessor
-    #:degenerate-triangles-rasterized ;; :accessor
-    #:denorm-behavior-independence ;; :accessor
-    #:dependency-count ;; :accessor
-    #:dependency-flags ;; :accessor
-    #:depth ;; :accessor
-    #:depth-bias-clamp ;; :accessor
-    #:depth-bias-constant-factor ;; :accessor
-    #:depth-bias-enable ;; :accessor
-    #:depth-bias-slope-factor ;; :accessor
-    #:depth-bounds ;; :accessor
-    #:depth-bounds-test-enable ;; :accessor
-    #:depth-clamp ;; :accessor
-    #:depth-clamp-enable ;; :accessor
-    #:depth-clip-enable ;; :accessor
-    #:depth-compare-op ;; :accessor
-    #:depth-fail-op ;; :accessor
-    #:depth-pitch ;; :accessor
-    #:depth-resolve-mode ;; :accessor
-    #:depth-stencil ;; :accessor
-    #:depth-stencil-samples ;; :accessor
-    #:depth-test-enable ;; :accessor
-    #:depth-write-enable ;; :accessor
-    #:description ;; :accessor
-    #:descriptor-binding-acceleration-structure-update-after-bind ;; :accessor
-    #:descriptor-binding-inline-uniform-block-update-after-bind ;; :accessor
-    #:descriptor-binding-partially-bound ;; :accessor
-    #:descriptor-binding-sampled-image-update-after-bind ;; :accessor
-    #:descriptor-binding-storage-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-storage-image-update-after-bind ;; :accessor
-    #:descriptor-binding-storage-texel-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-uniform-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-uniform-texel-buffer-update-after-bind ;; :accessor
-    #:descriptor-binding-update-unused-while-pending ;; :accessor
-    #:descriptor-binding-variable-descriptor-count ;; :accessor
-    #:descriptor-count ;; :accessor
-    #:descriptor-indexing ;; :accessor
-    #:descriptor-pool ;; :accessor
-    #:descriptor-set-count ;; :accessor
-    #:descriptor-set-layout ;; :accessor
-    #:descriptor-type ;; :accessor
-    #:descriptor-type-count ;; :accessor
-    #:descriptor-update-entry-count ;; :accessor
-    #:desired-present-time ;; :accessor
-    #:device-address ;; :accessor
-    #:device-coherent-memory ;; :accessor
-    #:device-event ;; :accessor
-    #:device-generated-commands ;; :accessor
-    #:device-id ;; :accessor
-    #:device-index ;; :accessor
-    #:device-index-count ;; :accessor
-    #:device-luid ;; :accessor
-    #:device-luid-valid ;; :accessor
-    #:device-mask ;; :accessor
-    #:device-memory-report ;; :accessor
-    #:device-name ;; :accessor
-    #:device-node-mask ;; :accessor
-    #:device-render-area-count ;; :accessor
-    #:device-type ;; :accessor
-    #:device-uuid ;; :accessor
-    #:dfb ;; :accessor
-    #:diagnostics-config ;; :accessor
-    #:disabled-validation-check-count ;; :accessor
-    #:disabled-validation-feature-count ;; :accessor
-    #:discard-rectangle-count ;; :accessor
-    #:discard-rectangle-mode ;; :accessor
-    #:discrete-queue-priorities ;; :accessor
-    #:display ;; :accessor
-    #:display-event ;; :accessor
-    #:display-mode ;; :accessor
-    #:display-mode-properties ;; :accessor
-    #:display-name ;; :accessor
-    #:display-plane-properties ;; :accessor
-    #:display-primary-blue ;; :accessor
-    #:display-primary-green ;; :accessor
-    #:display-primary-red ;; :accessor
-    #:display-properties ;; :accessor
-    #:divisor ;; :accessor
-    #:domain-origin ;; :accessor
-    #:dpy ;; :accessor
-    #:draw-indirect-count ;; :accessor
-    #:draw-indirect-first-instance ;; :accessor
-    #:driver-id ;; :accessor
-    #:driver-info ;; :accessor
-    #:driver-name ;; :accessor
-    #:driver-uuid ;; :accessor
-    #:driver-version ;; :accessor
-    #:drm-format-modifier ;; :accessor
-    #:drm-format-modifier-count ;; :accessor
-    #:drm-format-modifier-plane-count ;; :accessor
-    #:drm-format-modifier-tiling-features ;; :accessor
-    #:dst ;; :accessor
-    #:dst-acceleration-structure ;; :accessor
-    #:dst-access-mask ;; :accessor
-    #:dst-alpha-blend-factor ;; :accessor
-    #:dst-array-element ;; :accessor
-    #:dst-binding ;; :accessor
-    #:dst-buffer ;; :accessor
-    #:dst-color-blend-factor ;; :accessor
-    #:dst-image ;; :accessor
-    #:dst-image-layout ;; :accessor
-    #:dst-offset ;; :accessor
-    #:dst-offsets ;; :accessor
-    #:dst-premultiplied ;; :accessor
-    #:dst-queue-family-index ;; :accessor
-    #:dst-rect ;; :accessor
-    #:dst-set ;; :accessor
-    #:dst-stage-mask ;; :accessor
-    #:dst-subpass ;; :accessor
-    #:dst-subresource ;; :accessor
-    #:dual-src-blend ;; :accessor
-    #:duration ;; :accessor
-    #:dw-access ;; :accessor
-    #:dynamic-state-count ;; :accessor
-    #:earliest-present-time ;; :accessor
-    #:enable ;; :accessor
-    #:enabled-extension-count ;; :accessor
-    #:enabled-layer-count ;; :accessor
-    #:enabled-validation-feature-count ;; :accessor
-    #:engine-version ;; :accessor
-    #:events ;; :accessor
-    #:exclusive-scissor ;; :accessor
-    #:exclusive-scissor-count ;; :accessor
-    #:executable-index ;; :accessor
-    #:export-from-imported-handle-types ;; :accessor
-    #:extended-dynamic-state ;; :accessor
-    #:extension-name ;; :accessor
-    #:extent ;; :accessor
-    #:external-fence-features ;; :accessor
-    #:external-format ;; :accessor
-    #:external-memory-features ;; :accessor
-    #:external-memory-properties ;; :accessor
-    #:external-semaphore-features ;; :accessor
-    #:extra-primitive-overestimation-size ;; :accessor
-    #:extra-primitive-overestimation-size-granularity ;; :accessor
-    #:f64 ;; :accessor
-    #:fail-op ;; :accessor
-    #:fd ;; :accessor
-    #:features ;; :accessor
-    #:fence ;; :accessor
-    #:fill-mode-non-solid ;; :accessor
-    #:filter ;; :accessor
-    #:filter-cubic ;; :accessor
-    #:filter-cubic-minmax ;; :accessor
-    #:filter-minmax-image-component-mapping ;; :accessor
-    #:filter-minmax-single-component-formats ;; :accessor
-    #:final-layout ;; :accessor
-    #:first-index ;; :accessor
-    #:first-instance ;; :accessor
-    #:first-task ;; :accessor
-    #:first-vertex ;; :accessor
-    #:flags ;; :accessor
-    #:float-32 ;; :accessor
-    #:float-64 ;; :accessor
-    #:force-explicit-reconstruction ;; :accessor
-    #:format ;; :accessor
-    #:format-a4b4g4r4 ;; :accessor
-    #:format-a4r4g4b4 ;; :accessor
-    #:format-features ;; :accessor
-    #:format-properties ;; :accessor
-    #:fragment-density-invocations ;; :accessor
-    #:fragment-density-map ;; :accessor
-    #:fragment-density-map-attachment ;; :accessor
-    #:fragment-density-map-deferred ;; :accessor
-    #:fragment-density-map-dynamic ;; :accessor
-    #:fragment-density-map-non-subsampled-images ;; :accessor
-    #:fragment-shader-barycentric ;; :accessor
-    #:fragment-shader-pixel-interlock ;; :accessor
-    #:fragment-shader-sample-interlock ;; :accessor
-    #:fragment-shader-shading-rate-interlock ;; :accessor
-    #:fragment-shading-rate-enums ;; :accessor
-    #:fragment-shading-rate-non-trivial-combiner-ops ;; :accessor
-    #:fragment-shading-rate-strict-multiply-combiner ;; :accessor
-    #:fragment-shading-rate-with-conservative-rasterization ;; :accessor
-    #:fragment-shading-rate-with-custom-sample-locations ;; :accessor
-    #:fragment-shading-rate-with-fragment-shader-interlock ;; :accessor
-    #:fragment-shading-rate-with-sample-mask ;; :accessor
-    #:fragment-shading-rate-with-shader-depth-stencil-writes ;; :accessor
-    #:fragment-shading-rate-with-shader-sample-mask ;; :accessor
-    #:fragment-size ;; :accessor
-    #:fragment-stores-and-atomics ;; :accessor
-    #:frame-token ;; :accessor
-    #:framebuffer ;; :accessor
-    #:framebuffer-color-sample-counts ;; :accessor
-    #:framebuffer-depth-sample-counts ;; :accessor
-    #:framebuffer-integer-color-sample-counts ;; :accessor
-    #:framebuffer-no-attachments-sample-counts ;; :accessor
-    #:framebuffer-stencil-sample-counts ;; :accessor
-    #:front ;; :accessor
-    #:front-face ;; :accessor
-    #:full-draw-index-uint-32 ;; :accessor
-    #:full-screen-exclusive ;; :accessor
-    #:full-screen-exclusive-supported ;; :accessor
-    #:fully-covered-fragment-shader-input-variable ;; :accessor
-    #:g ;; :accessor
-    #:general-shader ;; :accessor
-    #:geometry ;; :accessor
-    #:geometry-count ;; :accessor
-    #:geometry-shader ;; :accessor
-    #:geometry-streams ;; :accessor
-    #:geometry-type ;; :accessor
-    #:global-alpha ;; :accessor
-    #:global-priority ;; :accessor
-    #:group-count ;; :accessor
-    #:group-index ;; :accessor
-    #:handle ;; :accessor
-    #:handle-type ;; :accessor
-    #:handle-types ;; :accessor
-    #:heap-budget ;; :accessor
-    #:heap-index ;; :accessor
-    #:heap-usage ;; :accessor
-    #:height ;; :accessor
-    #:hinstance ;; :accessor
-    #:hmonitor ;; :accessor
-    #:host-address ;; :accessor
-    #:host-query-reset ;; :accessor
-    #:hwnd ;; :accessor
-    #:i64 ;; :accessor
-    #:image ;; :accessor
-    #:image-array-layers ;; :accessor
-    #:image-bind-count ;; :accessor
-    #:image-color-space ;; :accessor
-    #:image-cube-array ;; :accessor
-    #:image-extent ;; :accessor
-    #:image-footprint ;; :accessor
-    #:image-format ;; :accessor
-    #:image-format-properties ;; :accessor
-    #:image-granularity ;; :accessor
-    #:image-index ;; :accessor
-    #:image-layout ;; :accessor
-    #:image-memory-barrier-count ;; :accessor
-    #:image-mip-tail-first-lod ;; :accessor
-    #:image-mip-tail-offset ;; :accessor
-    #:image-mip-tail-size ;; :accessor
-    #:image-mip-tail-stride ;; :accessor
-    #:image-offset ;; :accessor
-    #:image-opaque-bind-count ;; :accessor
-    #:image-pipe-handle ;; :accessor
-    #:image-sharing-mode ;; :accessor
-    #:image-subresource ;; :accessor
-    #:image-type ;; :accessor
-    #:image-usage ;; :accessor
-    #:image-view ;; :accessor
-    #:image-view-2d-on-3d-image ;; :accessor
-    #:image-view-format-reinterpretation ;; :accessor
-    #:image-view-format-swizzle ;; :accessor
-    #:image-view-type ;; :accessor
-    #:imageless-framebuffer ;; :accessor
-    #:implementation-version ;; :accessor
-    #:independent-blend ;; :accessor
-    #:independent-resolve ;; :accessor
-    #:independent-resolve-none ;; :accessor
-    #:index-count ;; :accessor
-    #:index-data ;; :accessor
-    #:index-offset ;; :accessor
-    #:index-type ;; :accessor
-    #:index-type-count ;; :accessor
-    #:index-type-uint-8 ;; :accessor
-    #:indirect-commands-layout ;; :accessor
-    #:indirect-state-flags ;; :accessor
-    #:info ;; :accessor
-    #:inherited-conditional-rendering ;; :accessor
-    #:inherited-queries ;; :accessor
-    #:initial-data-size ;; :accessor
-    #:initial-layout ;; :accessor
-    #:initial-value ;; :accessor
-    #:inline-uniform-block ;; :accessor
-    #:input-attachment-count ;; :accessor
-    #:input-attachment-index ;; :accessor
-    #:input-rate ;; :accessor
-    #:instance-count ;; :accessor
-    #:instance-custom-index ;; :accessor
-    #:instance-shader-binding-table-record-offset ;; :accessor
-    #:instances ;; :accessor
-    #:int-32 ;; :accessor
-    #:int-64 ;; :accessor
-    #:intersection-shader ;; :accessor
-    #:is-text ;; :accessor
-    #:large-points ;; :accessor
-    #:layer-count ;; :accessor
-    #:layer-name ;; :accessor
-    #:layered-shading-rate-attachments ;; :accessor
-    #:layers ;; :accessor
-    #:layout ;; :accessor
-    #:lds-size-per-local-work-group ;; :accessor
-    #:lds-usage-size-in-bytes ;; :accessor
-    #:level ;; :accessor
-    #:level-count ;; :accessor
-    #:library-count ;; :accessor
-    #:limits ;; :accessor
-    #:line-rasterization-mode ;; :accessor
-    #:line-stipple-factor ;; :accessor
-    #:line-stipple-pattern ;; :accessor
-    #:line-sub-pixel-precision-bits ;; :accessor
-    #:line-width ;; :accessor
-    #:line-width-granularity ;; :accessor
-    #:line-width-range ;; :accessor
-    #:linear-tiling-features ;; :accessor
-    #:load-op ;; :accessor
-    #:local-dimming-enable ;; :accessor
-    #:local-dimming-support ;; :accessor
-    #:location ;; :accessor
-    #:logic-op ;; :accessor
-    #:logic-op-enable ;; :accessor
-    #:mag-filter ;; :accessor
-    #:major ;; :accessor
-    #:map-entry-count ;; :accessor
-    #:marker ;; :accessor
-    #:mask ;; :accessor
-    #:matrix ;; :accessor
-    #:max-anisotropy ;; :accessor
-    #:max-array-layers ;; :accessor
-    #:max-bound-descriptor-sets ;; :accessor
-    #:max-clip-distances ;; :accessor
-    #:max-color-attachments ;; :accessor
-    #:max-combined-clip-and-cull-distances ;; :accessor
-    #:max-compute-shared-memory-size ;; :accessor
-    #:max-compute-work-group-count ;; :accessor
-    #:max-compute-work-group-invocations ;; :accessor
-    #:max-compute-work-group-size ;; :accessor
-    #:max-compute-workgroup-subgroups ;; :accessor
-    #:max-content-light-level ;; :accessor
-    #:max-cull-distances ;; :accessor
-    #:max-custom-border-color-samplers ;; :accessor
-    #:max-depth ;; :accessor
-    #:max-depth-bounds ;; :accessor
-    #:max-descriptor-set-acceleration-structures ;; :accessor
-    #:max-descriptor-set-inline-uniform-blocks ;; :accessor
-    #:max-descriptor-set-input-attachments ;; :accessor
-    #:max-descriptor-set-sampled-images ;; :accessor
-    #:max-descriptor-set-samplers ;; :accessor
-    #:max-descriptor-set-storage-buffers ;; :accessor
-    #:max-descriptor-set-storage-buffers-dynamic ;; :accessor
-    #:max-descriptor-set-storage-images ;; :accessor
-    #:max-descriptor-set-subsampled-samplers ;; :accessor
-    #:max-descriptor-set-uniform-buffers ;; :accessor
-    #:max-descriptor-set-uniform-buffers-dynamic ;; :accessor
-    #:max-descriptor-set-update-after-bind-acceleration-structures ;; :accessor
-    #:max-descriptor-set-update-after-bind-inline-uniform-blocks ;; :accessor
-    #:max-descriptor-set-update-after-bind-input-attachments ;; :accessor
-    #:max-descriptor-set-update-after-bind-sampled-images ;; :accessor
-    #:max-descriptor-set-update-after-bind-samplers ;; :accessor
-    #:max-descriptor-set-update-after-bind-storage-buffers ;; :accessor
-    #:max-descriptor-set-update-after-bind-storage-buffers-dynamic ;; :accessor
-    #:max-descriptor-set-update-after-bind-storage-images ;; :accessor
-    #:max-descriptor-set-update-after-bind-uniform-buffers ;; :accessor
-    #:max-descriptor-set-update-after-bind-uniform-buffers-dynamic ;; :accessor
-    #:max-discard-rectangles ;; :accessor
-    #:max-draw-indexed-index-value ;; :accessor
-    #:max-draw-indirect-count ;; :accessor
-    #:max-draw-mesh-tasks-count ;; :accessor
-    #:max-dst-extent ;; :accessor
-    #:max-dst-position ;; :accessor
-    #:max-extent ;; :accessor
-    #:max-extra-primitive-overestimation-size ;; :accessor
-    #:max-fragment-combined-output-resources ;; :accessor
-    #:max-fragment-density-texel-size ;; :accessor
-    #:max-fragment-dual-src-attachments ;; :accessor
-    #:max-fragment-input-components ;; :accessor
-    #:max-fragment-output-attachments ;; :accessor
-    #:max-fragment-shading-rate-attachment-texel-size ;; :accessor
-    #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio ;; :accessor
-    #:max-fragment-shading-rate-coverage-samples ;; :accessor
-    #:max-fragment-shading-rate-invocation-count ;; :accessor
-    #:max-fragment-shading-rate-rasterization-samples ;; :accessor
-    #:max-fragment-size ;; :accessor
-    #:max-fragment-size-aspect-ratio ;; :accessor
-    #:max-frame-average-light-level ;; :accessor
-    #:max-framebuffer-height ;; :accessor
-    #:max-framebuffer-layers ;; :accessor
-    #:max-framebuffer-width ;; :accessor
-    #:max-geometry-count ;; :accessor
-    #:max-geometry-input-components ;; :accessor
-    #:max-geometry-output-components ;; :accessor
-    #:max-geometry-output-vertices ;; :accessor
-    #:max-geometry-shader-invocations ;; :accessor
-    #:max-geometry-total-output-components ;; :accessor
-    #:max-graphics-shader-group-count ;; :accessor
-    #:max-image-array-layers ;; :accessor
-    #:max-image-count ;; :accessor
-    #:max-image-dimension-1d ;; :accessor
-    #:max-image-dimension-2d ;; :accessor
-    #:max-image-dimension-3d ;; :accessor
-    #:max-image-dimension-cube ;; :accessor
-    #:max-image-extent ;; :accessor
-    #:max-indirect-commands-stream-count ;; :accessor
-    #:max-indirect-commands-stream-stride ;; :accessor
-    #:max-indirect-commands-token-count ;; :accessor
-    #:max-indirect-commands-token-offset ;; :accessor
-    #:max-indirect-sequence-count ;; :accessor
-    #:max-inline-uniform-block-bindings ;; :accessor
-    #:max-inline-uniform-block-size ;; :accessor
-    #:max-instance-count ;; :accessor
-    #:max-interpolation-offset ;; :accessor
-    #:max-lod ;; :accessor
-    #:max-luminance ;; :accessor
-    #:max-memory-allocation-count ;; :accessor
-    #:max-memory-allocation-size ;; :accessor
-    #:max-mesh-multiview-view-count ;; :accessor
-    #:max-mesh-output-primitives ;; :accessor
-    #:max-mesh-output-vertices ;; :accessor
-    #:max-mesh-total-memory-size ;; :accessor
-    #:max-mesh-work-group-invocations ;; :accessor
-    #:max-mesh-work-group-size ;; :accessor
-    #:max-mip-levels ;; :accessor
-    #:max-multiview-instance-index ;; :accessor
-    #:max-multiview-view-count ;; :accessor
-    #:max-per-set-descriptors ;; :accessor
-    #:max-per-stage-descriptor-acceleration-structures ;; :accessor
-    #:max-per-stage-descriptor-inline-uniform-blocks ;; :accessor
-    #:max-per-stage-descriptor-input-attachments ;; :accessor
-    #:max-per-stage-descriptor-sampled-images ;; :accessor
-    #:max-per-stage-descriptor-samplers ;; :accessor
-    #:max-per-stage-descriptor-storage-buffers ;; :accessor
-    #:max-per-stage-descriptor-storage-images ;; :accessor
-    #:max-per-stage-descriptor-uniform-buffers ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-acceleration-structures ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-inline-uniform-blocks ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-input-attachments ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-sampled-images ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-samplers ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-storage-buffers ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-storage-images ;; :accessor
-    #:max-per-stage-descriptor-update-after-bind-uniform-buffers ;; :accessor
-    #:max-per-stage-resources ;; :accessor
-    #:max-per-stage-update-after-bind-resources ;; :accessor
-    #:max-pipeline-ray-hit-attribute-size ;; :accessor
-    #:max-pipeline-ray-payload-size ;; :accessor
-    #:max-pipeline-ray-recursion-depth ;; :accessor
-    #:max-primitive-count ;; :accessor
-    #:max-push-constants-size ;; :accessor
-    #:max-push-descriptors ;; :accessor
-    #:max-ray-dispatch-invocation-count ;; :accessor
-    #:max-ray-hit-attribute-size ;; :accessor
-    #:max-ray-recursion-depth ;; :accessor
-    #:max-recursion-depth ;; :accessor
-    #:max-resource-size ;; :accessor
-    #:max-sample-location-grid-size ;; :accessor
-    #:max-sample-mask-words ;; :accessor
-    #:max-sampler-allocation-count ;; :accessor
-    #:max-sampler-anisotropy ;; :accessor
-    #:max-sampler-lod-bias ;; :accessor
-    #:max-sequences-count ;; :accessor
-    #:max-sets ;; :accessor
-    #:max-sgpr-allocation ;; :accessor
-    #:max-shader-group-stride ;; :accessor
-    #:max-src-extent ;; :accessor
-    #:max-src-position ;; :accessor
-    #:max-storage-buffer-range ;; :accessor
-    #:max-subgroup-size ;; :accessor
-    #:max-subsampled-array-layers ;; :accessor
-    #:max-task-output-count ;; :accessor
-    #:max-task-total-memory-size ;; :accessor
-    #:max-task-work-group-invocations ;; :accessor
-    #:max-task-work-group-size ;; :accessor
-    #:max-tessellation-control-per-patch-output-components ;; :accessor
-    #:max-tessellation-control-per-vertex-input-components ;; :accessor
-    #:max-tessellation-control-per-vertex-output-components ;; :accessor
-    #:max-tessellation-control-total-output-components ;; :accessor
-    #:max-tessellation-evaluation-input-components ;; :accessor
-    #:max-tessellation-evaluation-output-components ;; :accessor
-    #:max-tessellation-generation-level ;; :accessor
-    #:max-tessellation-patch-size ;; :accessor
-    #:max-texel-buffer-elements ;; :accessor
-    #:max-texel-gather-offset ;; :accessor
-    #:max-texel-offset ;; :accessor
-    #:max-timeline-semaphore-value-difference ;; :accessor
-    #:max-transform-feedback-buffer-data-size ;; :accessor
-    #:max-transform-feedback-buffer-data-stride ;; :accessor
-    #:max-transform-feedback-buffer-size ;; :accessor
-    #:max-transform-feedback-buffers ;; :accessor
-    #:max-transform-feedback-stream-data-size ;; :accessor
-    #:max-transform-feedback-streams ;; :accessor
-    #:max-triangle-count ;; :accessor
-    #:max-uniform-buffer-range ;; :accessor
-    #:max-update-after-bind-descriptors-in-all-pools ;; :accessor
-    #:max-variable-descriptor-count ;; :accessor
-    #:max-vertex ;; :accessor
-    #:max-vertex-attrib-divisor ;; :accessor
-    #:max-vertex-input-attribute-offset ;; :accessor
-    #:max-vertex-input-attributes ;; :accessor
-    #:max-vertex-input-binding-stride ;; :accessor
-    #:max-vertex-input-bindings ;; :accessor
-    #:max-vertex-output-components ;; :accessor
-    #:max-vgpr-allocation ;; :accessor
-    #:max-viewport-dimensions ;; :accessor
-    #:max-viewports ;; :accessor
-    #:max-x ;; :accessor
-    #:max-y ;; :accessor
-    #:max-z ;; :accessor
-    #:memory ;; :accessor
-    #:memory-barrier-count ;; :accessor
-    #:memory-device-index ;; :accessor
-    #:memory-heap-count ;; :accessor
-    #:memory-heaps ;; :accessor
-    #:memory-object-id ;; :accessor
-    #:memory-offset ;; :accessor
-    #:memory-priority ;; :accessor
-    #:memory-properties ;; :accessor
-    #:memory-requirements ;; :accessor
-    #:memory-type-bits ;; :accessor
-    #:memory-type-count ;; :accessor
-    #:memory-type-index ;; :accessor
-    #:memory-types ;; :accessor
-    #:mesh-output-per-primitive-granularity ;; :accessor
-    #:mesh-output-per-vertex-granularity ;; :accessor
-    #:mesh-shader ;; :accessor
-    #:message-id-number ;; :accessor
-    #:message-severity ;; :accessor
-    #:message-type ;; :accessor
-    #:min-acceleration-structure-scratch-offset-alignment ;; :accessor
-    #:min-depth ;; :accessor
-    #:min-depth-bounds ;; :accessor
-    #:min-dst-extent ;; :accessor
-    #:min-dst-position ;; :accessor
-    #:min-filter ;; :accessor
-    #:min-fragment-density-texel-size ;; :accessor
-    #:min-fragment-shading-rate-attachment-texel-size ;; :accessor
-    #:min-image-count ;; :accessor
-    #:min-image-extent ;; :accessor
-    #:min-image-transfer-granularity ;; :accessor
-    #:min-imported-host-pointer-alignment ;; :accessor
-    #:min-indirect-commands-buffer-offset-alignment ;; :accessor
-    #:min-interpolation-offset ;; :accessor
-    #:min-lod ;; :accessor
-    #:min-luminance ;; :accessor
-    #:min-memory-map-alignment ;; :accessor
-    #:min-sample-shading ;; :accessor
-    #:min-sequences-count-buffer-offset-alignment ;; :accessor
-    #:min-sequences-index-buffer-offset-alignment ;; :accessor
-    #:min-sgpr-allocation ;; :accessor
-    #:min-src-extent ;; :accessor
-    #:min-src-position ;; :accessor
-    #:min-storage-buffer-offset-alignment ;; :accessor
-    #:min-subgroup-size ;; :accessor
-    #:min-texel-buffer-offset-alignment ;; :accessor
-    #:min-texel-gather-offset ;; :accessor
-    #:min-texel-offset ;; :accessor
-    #:min-uniform-buffer-offset-alignment ;; :accessor
-    #:min-vertex-input-binding-stride-alignment ;; :accessor
-    #:min-vgpr-allocation ;; :accessor
-    #:min-x ;; :accessor
-    #:min-y ;; :accessor
-    #:min-z ;; :accessor
-    #:minor ;; :accessor
-    #:mip-level ;; :accessor
-    #:mip-levels ;; :accessor
-    #:mip-lod-bias ;; :accessor
-    #:mipmap-mode ;; :accessor
-    #:mipmap-precision-bits ;; :accessor
-    #:mode ;; :accessor
-    #:modes ;; :accessor
-    #:module ;; :accessor
-    #:multi-draw-indirect ;; :accessor
-    #:multi-viewport ;; :accessor
-    #:multisample-array-image ;; :accessor
-    #:multiview ;; :accessor
-    #:multiview-geometry-shader ;; :accessor
-    #:multiview-tessellation-shader ;; :accessor
-    #:mutable-comparison-samplers ;; :accessor
-    #:mutable-descriptor-type ;; :accessor
-    #:mutable-descriptor-type-list-count ;; :accessor
-    #:new-layout ;; :accessor
-    #:no-invocation-fragment-shading-rates ;; :accessor
-    #:non-coherent-atom-size ;; :accessor
-    #:null-descriptor ;; :accessor
-    #:num-aabbs ;; :accessor
-    #:num-available-sgprs ;; :accessor
-    #:num-available-vgprs ;; :accessor
-    #:num-physical-sgprs ;; :accessor
-    #:num-physical-vgprs ;; :accessor
-    #:num-used-sgprs ;; :accessor
-    #:num-used-vgprs ;; :accessor
-    #:object ;; :accessor
-    #:object-count ;; :accessor
-    #:object-handle ;; :accessor
-    #:object-type ;; :accessor
-    #:occlusion-query-enable ;; :accessor
-    #:occlusion-query-precise ;; :accessor
-    #:offset ;; :accessor
-    #:old-layout ;; :accessor
-    #:old-swapchain ;; :accessor
-    #:opaque-capture-address ;; :accessor
-    #:optimal-buffer-copy-offset-alignment ;; :accessor
-    #:optimal-buffer-copy-row-pitch-alignment ;; :accessor
-    #:optimal-tiling-features ;; :accessor
-    #:overallocation-behavior ;; :accessor
-    #:acceleration-structures ;; :accessor
-    #:acquire-keys ;; :accessor
-    #:acquire-syncs ;; :accessor
-    #:acquire-timeout-milliseconds ;; :accessor
-    #:acquire-timeouts ;; :accessor
-    #:application-info ;; :accessor
-    #:application-name ;; :accessor
-    #:aspect-references ;; :accessor
-    #:attachment-image-infos ;; :accessor
-    #:attachment-initial-sample-locations ;; :accessor
-    #:attachments ;; :accessor
-    #:attributes ;; :accessor
-    #:binding-flags ;; :accessor
-    #:bindings ;; :accessor
-    #:binds ;; :accessor
-    #:buffer-binds ;; :accessor
-    #:buffer-info ;; :accessor
-    #:buffer-memory-barriers ;; :accessor
-    #:checkpoint-marker ;; :accessor
-    #:clear-values ;; :accessor
-    #:cmd-buf-labels ;; :accessor
-    #:code ;; :accessor
-    #:color-attachments ;; :accessor
-    #:color-blend-state ;; :accessor
-    #:command-buffer-device-masks ;; :accessor
-    #:command-buffer-infos ;; :accessor
-    #:command-buffers ;; :accessor
-    #:correlated-view-masks ;; :accessor
-    #:correlation-masks ;; :accessor
-    #:counter-indices ;; :accessor
-    #:coverage-modulation-table ;; :accessor
-    #:custom-sample-orders ;; :accessor
-    #:data ;; :accessor
-    #:dependencies ;; :accessor
-    #:depth-stencil-attachment ;; :accessor
-    #:depth-stencil-resolve-attachment ;; :accessor
-    #:depth-stencil-state ;; :accessor
-    #:descriptor-counts ;; :accessor
-    #:descriptor-types ;; :accessor
-    #:descriptor-update-entries ;; :accessor
-    #:device-indices ;; :accessor
-    #:device-masks ;; :accessor
-    #:device-render-areas ;; :accessor
-    #:disabled-validation-checks ;; :accessor
-    #:disabled-validation-features ;; :accessor
-    #:discard-rectangles ;; :accessor
-    #:drm-format-modifier-properties ;; :accessor
-    #:drm-format-modifiers ;; :accessor
-    #:dynamic-state ;; :accessor
-    #:dynamic-states ;; :accessor
-    #:enabled-features ;; :accessor
-    #:enabled-validation-features ;; :accessor
-    #:engine-name ;; :accessor
-    #:exclusive-scissors ;; :accessor
-    #:fragment-shading-rate-attachment ;; :accessor
-    #:geometries ;; :accessor
-    #:groups ;; :accessor
-    #:host-pointer ;; :accessor
-    #:image-binds ;; :accessor
-    #:image-indices ;; :accessor
-    #:image-info ;; :accessor
-    #:image-memory-barriers ;; :accessor
-    #:image-opaque-binds ;; :accessor
-    #:immutable-samplers ;; :accessor
-    #:index-type-values ;; :accessor
-    #:index-types ;; :accessor
-    #:inheritance-info ;; :accessor
-    #:initial-data ;; :accessor
-    #:input-assembly-state ;; :accessor
-    #:input-attachments ;; :accessor
-    #:label-name ;; :accessor
-    #:layer ;; :accessor
-    #:libraries ;; :accessor
-    #:library-info ;; :accessor
-    #:library-interface ;; :accessor
-    #:map-entries ;; :accessor
-    #:marker-name ;; :accessor
-    #:memory-barriers ;; :accessor
-    #:message ;; :accessor
-    #:message-id-name ;; :accessor
-    #:multisample-state ;; :accessor
-    #:mutable-descriptor-type-lists ;; :accessor
-    #:name ;; :accessor
-    #:next ;; :accessor
-    #:object-name ;; :accessor
-    #:objects ;; :accessor
-    #:pipeline-creation-feedback ;; :accessor
-    #:pipeline-stage-creation-feedbacks ;; :accessor
-    #:pipelines ;; :accessor
-    #:plane-layouts ;; :accessor
-    #:pool-sizes ;; :accessor
-    #:post-subpass-sample-locations ;; :accessor
-    #:preserve-attachments ;; :accessor
-    #:push-constant-ranges ;; :accessor
-    #:queue-create-infos ;; :accessor
-    #:queue-family-indices ;; :accessor
-    #:queue-labels ;; :accessor
-    #:queue-priorities ;; :accessor
-    #:rasterization-state ;; :accessor
-    #:rectangles ;; :accessor
-    #:regions ;; :accessor
-    #:release-keys ;; :accessor
-    #:release-syncs ;; :accessor
-    #:resolve-attachments ;; :accessor
-    #:results ;; :accessor
-    #:sample-locations ;; :accessor
-    #:sample-mask ;; :accessor
-    #:scissors ;; :accessor
-    #:semaphores ;; :accessor
-    #:set-layouts ;; :accessor
-    #:shader-group-capture-replay-handle ;; :accessor
-    #:shading-rate-palette-entries ;; :accessor
-    #:shading-rate-palettes ;; :accessor
-    #:signal-semaphore-device-indices ;; :accessor
-    #:signal-semaphore-infos ;; :accessor
-    #:signal-semaphore-values ;; :accessor
-    #:signal-semaphores ;; :accessor
-    #:specialization-info ;; :accessor
-    #:split-instance-bind-regions ;; :accessor
-    #:stream-strides ;; :accessor
-    #:streams ;; :accessor
-    #:subpasses ;; :accessor
-    #:swapchains ;; :accessor
-    #:tag ;; :accessor
-    #:tessellation-state ;; :accessor
-    #:texel-buffer-view ;; :accessor
-    #:times ;; :accessor
-    #:tokens ;; :accessor
-    #:user-data ;; :accessor
-    #:values ;; :accessor
-    #:version-data ;; :accessor
-    #:vertex-attribute-descriptions ;; :accessor
-    #:vertex-binding-descriptions ;; :accessor
-    #:vertex-binding-divisors ;; :accessor
-    #:vertex-input-state ;; :accessor
-    #:view ;; :accessor
-    #:view-formats ;; :accessor
-    #:view-masks ;; :accessor
-    #:view-offsets ;; :accessor
-    #:viewport-state ;; :accessor
-    #:viewport-swizzles ;; :accessor
-    #:viewport-w-scalings ;; :accessor
-    #:viewports ;; :accessor
-    #:wait-dst-stage-mask ;; :accessor
-    #:wait-semaphore-device-indices ;; :accessor
-    #:wait-semaphore-infos ;; :accessor
-    #:wait-semaphore-values ;; :accessor
-    #:p-wait-semaphores ;; :accessor
-    #:parameter ;; :accessor
-    #:parameters ;; :accessor
-    #:pass-op ;; :accessor
-    #:patch ;; :accessor
-    #:patch-control-points ;; :accessor
-    #:pci-bus ;; :accessor
-    #:pci-device ;; :accessor
-    #:pci-domain ;; :accessor
-    #:pci-function ;; :accessor
-    #:per-view-position-all-components ;; :accessor
-    #:performance-counter-multiple-query-pools ;; :accessor
-    #:performance-counter-query-pools ;; :accessor
-    #:performance-counters-sampling ;; :accessor
-    #:persistent ;; :accessor
-    #:persistent-content ;; :accessor
-    #:pfn-allocation ;; :accessor
-    #:pfn-callback ;; :accessor
-    #:pfn-free ;; :accessor
-    #:pfn-internal-allocation ;; :accessor
-    #:pfn-internal-free ;; :accessor
-    #:pfn-reallocation ;; :accessor
-    #:pfn-user-callback ;; :accessor
-    #:physical-device-count ;; :accessor
-    #:physical-devices ;; :accessor
-    #:physical-dimensions ;; :accessor
-    #:physical-resolution ;; :accessor
-    #:pipeline ;; :accessor
-    #:pipeline-bind-point ;; :accessor
-    #:pipeline-cache-uuid ;; :accessor
-    #:pipeline-count ;; :accessor
-    #:pipeline-creation-cache-control ;; :accessor
-    #:pipeline-executable-info ;; :accessor
-    #:pipeline-fragment-shading-rate ;; :accessor
-    #:pipeline-layout ;; :accessor
-    #:pipeline-stage-creation-feedback-count ;; :accessor
-    #:pipeline-statistics ;; :accessor
-    #:pipeline-statistics-query ;; :accessor
-    #:pixel-x ;; :accessor
-    #:pixel-y ;; :accessor
-    #:plane-aspect ;; :accessor
-    #:plane-index ;; :accessor
-    #:plane-reorder-possible ;; :accessor
-    #:plane-stack-index ;; :accessor
-    #:point-clipping-behavior ;; :accessor
-    #:point-polygons ;; :accessor
-    #:point-size-granularity ;; :accessor
-    #:point-size-range ;; :accessor
-    #:polygon-mode ;; :accessor
-    #:pool-size-count ;; :accessor
-    #:post-subpass-sample-locations-count ;; :accessor
-    #:power-state ;; :accessor
-    #:enabled-extension-names ;; :accessor
-    #:enabled-layer-names ;; :accessor
-    #:p-geometries ;; :accessor
-    #:pre-transform ;; :accessor
-    #:prefers-dedicated-allocation ;; :accessor
-    #:preprocess-buffer ;; :accessor
-    #:preprocess-offset ;; :accessor
-    #:preprocess-size ;; :accessor
-    #:present-id ;; :accessor
-    #:present-margin ;; :accessor
-    #:present-mask ;; :accessor
-    #:present-mode ;; :accessor
-    #:preserve-attachment-count ;; :accessor
-    #:primitive-count ;; :accessor
-    #:primitive-fragment-shading-rate ;; :accessor
-    #:primitive-fragment-shading-rate-with-multiple-viewports ;; :accessor
-    #:primitive-offset ;; :accessor
-    #:primitive-overestimation-size ;; :accessor
-    #:primitive-restart-enable ;; :accessor
-    #:primitive-underestimation ;; :accessor
-    #:priority ;; :accessor
-    #:private-data ;; :accessor
-    #:private-data-slot-request-count ;; :accessor
-    #:properties ;; :accessor
-    #:property-flags ;; :accessor
-    #:protected-memory ;; :accessor
-    #:protected-no-fault ;; :accessor
-    #:protected-submit ;; :accessor
-    #:purposes ;; :accessor
-    #:push-constant-range-count ;; :accessor
-    #:pushconstant-offset ;; :accessor
-    #:pushconstant-pipeline-layout ;; :accessor
-    #:pushconstant-shader-stage-flags ;; :accessor
-    #:pushconstant-size ;; :accessor
-    #:quad-divergent-implicit-lod ;; :accessor
-    #:quad-operations-in-all-stages ;; :accessor
-    #:query-count ;; :accessor
-    #:query-flags ;; :accessor
-    #:query-type ;; :accessor
-    #:queue-count ;; :accessor
-    #:queue-create-info-count ;; :accessor
-    #:queue-family-index ;; :accessor
-    #:queue-family-index-count ;; :accessor
-    #:queue-family-properties ;; :accessor
-    #:queue-flags ;; :accessor
-    #:queue-index ;; :accessor
-    #:queue-label-count ;; :accessor
-    #:r ;; :accessor
-    #:range ;; :accessor
-    #:rasterization-order ;; :accessor
-    #:rasterization-samples ;; :accessor
-    #:rasterization-stream ;; :accessor
-    #:rasterizer-discard-enable ;; :accessor
-    #:ray-query ;; :accessor
-    #:ray-tracing-pipeline ;; :accessor
-    #:ray-tracing-pipeline-shader-group-handle-capture-replay ;; :accessor
-    #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed ;; :accessor
-    #:ray-tracing-pipeline-trace-rays-indirect ;; :accessor
-    #:ray-traversal-primitive-culling ;; :accessor
-    #:rect ;; :accessor
-    #:rectangle-count ;; :accessor
-    #:rectangular-lines ;; :accessor
-    #:reduction-mode ;; :accessor
-    #:reference ;; :accessor
-    #:refresh-duration ;; :accessor
-    #:refresh-rate ;; :accessor
-    #:region-count ;; :accessor
-    #:release-count ;; :accessor
-    #:render-area ;; :accessor
-    #:render-pass ;; :accessor
-    #:representative-fragment-test ;; :accessor
-    #:representative-fragment-test-enable ;; :accessor
-    #:required-subgroup-size ;; :accessor
-    #:required-subgroup-size-stages ;; :accessor
-    #:requires-dedicated-allocation ;; :accessor
-    #:residency-aligned-mip-size ;; :accessor
-    #:residency-non-resident-strict ;; :accessor
-    #:residency-standard-2d-block-shape ;; :accessor
-    #:residency-standard-2d-multisample-block-shape ;; :accessor
-    #:residency-standard-3d-block-shape ;; :accessor
-    #:resource-device-index ;; :accessor
-    #:resource-offset ;; :accessor
-    #:resource-usage ;; :accessor
-    #:robust-buffer-access ;; :accessor
-    #:robust-buffer-access-2 ;; :accessor
-    #:robust-buffer-access-update-after-bind ;; :accessor
-    #:robust-image-access ;; :accessor
-    #:robust-image-access-2 ;; :accessor
-    #:robust-storage-buffer-access-size-alignment ;; :accessor
-    #:robust-uniform-buffer-access-size-alignment ;; :accessor
-    #:rounding-mode-independence ;; :accessor
-    #:row-pitch ;; :accessor
-    #:runtime-descriptor-array ;; :accessor
-    #:s-type ;; :accessor
-    #:sample ;; :accessor
-    #:sample-count ;; :accessor
-    #:sample-counts ;; :accessor
-    #:sample-location-coordinate-range ;; :accessor
-    #:sample-location-count ;; :accessor
-    #:sample-location-grid-size ;; :accessor
-    #:sample-location-sample-counts ;; :accessor
-    #:sample-location-sub-pixel-bits ;; :accessor
-    #:sample-locations-count ;; :accessor
-    #:sample-locations-enable ;; :accessor
-    #:sample-locations-info ;; :accessor
-    #:sample-locations-per-pixel ;; :accessor
-    #:sample-order-type ;; :accessor
-    #:sample-rate-shading ;; :accessor
-    #:sample-shading-enable ;; :accessor
-    #:sampled-image-color-sample-counts ;; :accessor
-    #:sampled-image-depth-sample-counts ;; :accessor
-    #:sampled-image-integer-sample-counts ;; :accessor
-    #:sampled-image-stencil-sample-counts ;; :accessor
-    #:sampler ;; :accessor
-    #:sampler-anisotropy ;; :accessor
-    #:sampler-filter-minmax ;; :accessor
-    #:sampler-mip-lod-bias ;; :accessor
-    #:sampler-mirror-clamp-to-edge ;; :accessor
-    #:sampler-ycbcr-conversion ;; :accessor
-    #:sampler-ycbcr-conversion-components ;; :accessor
-    #:samples ;; :accessor
-    #:scalar-block-layout ;; :accessor
-    #:scissor-count ;; :accessor
-    #:scope ;; :accessor
-    #:scratch-data ;; :accessor
-    #:scratch-mem-usage-in-bytes ;; :accessor
-    #:semaphore ;; :accessor
-    #:semaphore-count ;; :accessor
-    #:semaphore-type ;; :accessor
-    #:separate-depth-stencil-layouts ;; :accessor
-    #:separate-stencil-mask-ref ;; :accessor
-    #:sequences-count ;; :accessor
-    #:sequences-count-buffer ;; :accessor
-    #:sequences-count-offset ;; :accessor
-    #:sequences-index-buffer ;; :accessor
-    #:sequences-index-offset ;; :accessor
-    #:set ;; :accessor
-    #:set-layout-count ;; :accessor
-    #:sgpr-allocation-granularity ;; :accessor
-    #:sgprs-per-simd ;; :accessor
-    #:shader-arrays-per-engine-count ;; :accessor
-    #:shader-buffer-float-32-atomic-add ;; :accessor
-    #:shader-buffer-float-32-atomics ;; :accessor
-    #:shader-buffer-float-64-atomic-add ;; :accessor
-    #:shader-buffer-float-64-atomics ;; :accessor
-    #:shader-buffer-int-64-atomics ;; :accessor
-    #:shader-clip-distance ;; :accessor
-    #:shader-core-features ;; :accessor
-    #:shader-cull-distance ;; :accessor
-    #:shader-demote-to-helper-invocation ;; :accessor
-    #:shader-denorm-flush-to-zero-float-16 ;; :accessor
-    #:shader-denorm-flush-to-zero-float-32 ;; :accessor
-    #:shader-denorm-flush-to-zero-float-64 ;; :accessor
-    #:shader-denorm-preserve-float-16 ;; :accessor
-    #:shader-denorm-preserve-float-32 ;; :accessor
-    #:shader-denorm-preserve-float-64 ;; :accessor
-    #:shader-device-clock ;; :accessor
-    #:shader-draw-parameters ;; :accessor
-    #:shader-engine-count ;; :accessor
-    #:shader-float-16 ;; :accessor
-    #:shader-float-64 ;; :accessor
-    #:shader-group-base-alignment ;; :accessor
-    #:shader-group-handle-alignment ;; :accessor
-    #:shader-group-handle-capture-replay-size ;; :accessor
-    #:shader-group-handle-size ;; :accessor
-    #:shader-image-float-32-atomic-add ;; :accessor
-    #:shader-image-float-32-atomics ;; :accessor
-    #:shader-image-gather-extended ;; :accessor
-    #:shader-image-int-64-atomics ;; :accessor
-    #:shader-input-attachment-array-dynamic-indexing ;; :accessor
-    #:shader-input-attachment-array-non-uniform-indexing ;; :accessor
-    #:shader-input-attachment-array-non-uniform-indexing-native ;; :accessor
-    #:shader-int-16 ;; :accessor
-    #:shader-int-64 ;; :accessor
-    #:shader-int-8 ;; :accessor
-    #:shader-integer-functions-2 ;; :accessor
-    #:shader-output-layer ;; :accessor
-    #:shader-output-viewport-index ;; :accessor
-    #:shader-resource-min-lod ;; :accessor
-    #:shader-resource-residency ;; :accessor
-    #:shader-rounding-mode-rte-float-16 ;; :accessor
-    #:shader-rounding-mode-rte-float-32 ;; :accessor
-    #:shader-rounding-mode-rte-float-64 ;; :accessor
-    #:shader-rounding-mode-rtz-float-16 ;; :accessor
-    #:shader-rounding-mode-rtz-float-32 ;; :accessor
-    #:shader-rounding-mode-rtz-float-64 ;; :accessor
-    #:shader-s-m-builtins ;; :accessor
-    #:shader-s-m-count ;; :accessor
-    #:shader-sample-rate-interpolation-functions ;; :accessor
-    #:shader-sampled-image-array-dynamic-indexing ;; :accessor
-    #:shader-sampled-image-array-non-uniform-indexing ;; :accessor
-    #:shader-sampled-image-array-non-uniform-indexing-native ;; :accessor
-    #:shader-shared-float-32-atomic-add ;; :accessor
-    #:shader-shared-float-32-atomics ;; :accessor
-    #:shader-shared-float-64-atomic-add ;; :accessor
-    #:shader-shared-float-64-atomics ;; :accessor
-    #:shader-shared-int-64-atomics ;; :accessor
-    #:shader-signed-zero-inf-nan-preserve-float-16 ;; :accessor
-    #:shader-signed-zero-inf-nan-preserve-float-32 ;; :accessor
-    #:shader-signed-zero-inf-nan-preserve-float-64 ;; :accessor
-    #:shader-stage-mask ;; :accessor
-    #:shader-storage-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-storage-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-storage-buffer-array-non-uniform-indexing-native ;; :accessor
-    #:shader-storage-image-array-dynamic-indexing ;; :accessor
-    #:shader-storage-image-array-non-uniform-indexing ;; :accessor
-    #:shader-storage-image-array-non-uniform-indexing-native ;; :accessor
-    #:shader-storage-image-extended-formats ;; :accessor
-    #:shader-storage-image-multisample ;; :accessor
-    #:shader-storage-image-read-without-format ;; :accessor
-    #:shader-storage-image-write-without-format ;; :accessor
-    #:shader-storage-texel-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-storage-texel-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-subgroup-clock ;; :accessor
-    #:shader-subgroup-extended-types ;; :accessor
-    #:shader-terminate-invocation ;; :accessor
-    #:shader-tessellation-and-geometry-point-size ;; :accessor
-    #:shader-uniform-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-uniform-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-uniform-buffer-array-non-uniform-indexing-native ;; :accessor
-    #:shader-uniform-texel-buffer-array-dynamic-indexing ;; :accessor
-    #:shader-uniform-texel-buffer-array-non-uniform-indexing ;; :accessor
-    #:shader-warps-per-s-m ;; :accessor
-    #:shader-zero-initialize-workgroup-memory ;; :accessor
-    #:shading-rate ;; :accessor
-    #:shading-rate-attachment-texel-size ;; :accessor
-    #:shading-rate-coarse-sample-order ;; :accessor
-    #:shading-rate-image ;; :accessor
-    #:shading-rate-image-enable ;; :accessor
-    #:shading-rate-max-coarse-samples ;; :accessor
-    #:shading-rate-palette-entry-count ;; :accessor
-    #:shading-rate-palette-size ;; :accessor
-    #:shading-rate-texel-size ;; :accessor
-    #:shading-rate-type ;; :accessor
-    #:shared-present-supported-usage-flags ;; :accessor
-    #:sharing-mode ;; :accessor
-    #:signal-semaphore-count ;; :accessor
-    #:signal-semaphore-info-count ;; :accessor
-    #:signal-semaphore-value-count ;; :accessor
-    #:signal-semaphore-values-count ;; :accessor
-    #:simd-per-compute-unit ;; :accessor
-    #:size ;; :accessor
-    #:smooth-lines ;; :accessor
-    #:sparse-address-space-size ;; :accessor
-    #:sparse-binding ;; :accessor
-    #:sparse-image-float-32-atomic-add ;; :accessor
-    #:sparse-image-float-32-atomics ;; :accessor
-    #:sparse-image-int-64-atomics ;; :accessor
-    #:sparse-properties ;; :accessor
-    #:sparse-residency-16-samples ;; :accessor
-    #:sparse-residency-2-samples ;; :accessor
-    #:sparse-residency-4-samples ;; :accessor
-    #:sparse-residency-8-samples ;; :accessor
-    #:sparse-residency-aliased ;; :accessor
-    #:sparse-residency-buffer ;; :accessor
-    #:sparse-residency-image-2d ;; :accessor
-    #:sparse-residency-image-3d ;; :accessor
-    #:spec-version ;; :accessor
-    #:split-instance-bind-region-count ;; :accessor
-    #:src ;; :accessor
-    #:src-acceleration-structure ;; :accessor
-    #:src-access-mask ;; :accessor
-    #:src-alpha-blend-factor ;; :accessor
-    #:src-array-element ;; :accessor
-    #:src-binding ;; :accessor
-    #:src-buffer ;; :accessor
-    #:src-color-blend-factor ;; :accessor
-    #:src-image ;; :accessor
-    #:src-image-layout ;; :accessor
-    #:src-offset ;; :accessor
-    #:src-offsets ;; :accessor
-    #:src-premultiplied ;; :accessor
-    #:src-queue-family-index ;; :accessor
-    #:src-rect ;; :accessor
-    #:src-set ;; :accessor
-    #:src-stage-mask ;; :accessor
-    #:src-subpass ;; :accessor
-    #:src-subresource ;; :accessor
-    #:stage ;; :accessor
-    #:stage-count ;; :accessor
-    #:stage-flags ;; :accessor
-    #:stage-mask ;; :accessor
-    #:stages ;; :accessor
-    #:standard-sample-locations ;; :accessor
-    #:stencil ;; :accessor
-    #:stencil-final-layout ;; :accessor
-    #:stencil-initial-layout ;; :accessor
-    #:stencil-layout ;; :accessor
-    #:stencil-load-op ;; :accessor
-    #:stencil-resolve-mode ;; :accessor
-    #:stencil-store-op ;; :accessor
-    #:stencil-test-enable ;; :accessor
-    #:stencil-usage ;; :accessor
-    #:stippled-bresenham-lines ;; :accessor
-    #:stippled-line-enable ;; :accessor
-    #:stippled-rectangular-lines ;; :accessor
-    #:stippled-smooth-lines ;; :accessor
-    #:storage ;; :accessor
-    #:storage-buffer-16-bit-access ;; :accessor
-    #:storage-buffer-8-bit-access ;; :accessor
-    #:storage-image-sample-counts ;; :accessor
-    #:storage-input-output-16 ;; :accessor
-    #:storage-push-constant-16 ;; :accessor
-    #:storage-push-constant-8 ;; :accessor
-    #:storage-texel-buffer-offset-alignment-bytes ;; :accessor
-    #:storage-texel-buffer-offset-single-texel-alignment ;; :accessor
-    #:store-op ;; :accessor
-    #:stream ;; :accessor
-    #:stream-count ;; :accessor
-    #:stream-descriptor ;; :accessor
-    #:strict-lines ;; :accessor
-    #:stride ;; :accessor
-    #:sub-pixel-interpolation-offset-bits ;; :accessor
-    #:sub-pixel-precision-bits ;; :accessor
-    #:sub-texel-precision-bits ;; :accessor
-    #:subgroup-broadcast-dynamic-id ;; :accessor
-    #:subgroup-quad-operations-in-all-stages ;; :accessor
-    #:subgroup-size ;; :accessor
-    #:subgroup-size-control ;; :accessor
-    #:subgroup-supported-operations ;; :accessor
-    #:subgroup-supported-stages ;; :accessor
-    #:subminor ;; :accessor
-    #:subpass ;; :accessor
-    #:subpass-count ;; :accessor
-    #:subpass-index ;; :accessor
-    #:subresource ;; :accessor
-    #:subresource-range ;; :accessor
-    #:subsampled-coarse-reconstruction-early-access ;; :accessor
-    #:subsampled-loads ;; :accessor
-    #:subset-allocation ;; :accessor
-    #:suggested-x-chroma-offset ;; :accessor
-    #:suggested-y-chroma-offset ;; :accessor
-    #:suggested-ycbcr-model ;; :accessor
-    #:suggested-ycbcr-range ;; :accessor
-    #:supersample-fragment-shading-rates ;; :accessor
-    #:supported ;; :accessor
-    #:supported-alpha ;; :accessor
-    #:supported-composite-alpha ;; :accessor
-    #:supported-depth-resolve-modes ;; :accessor
-    #:supported-operations ;; :accessor
-    #:supported-stages ;; :accessor
-    #:supported-stencil-resolve-modes ;; :accessor
-    #:supported-surface-counters ;; :accessor
-    #:supported-transforms ;; :accessor
-    #:supported-usage-flags ;; :accessor
-    #:supports-protected ;; :accessor
-    #:supports-texture-gather-l-o-d-bias-amd ;; :accessor
-    #:surface ;; :accessor
-    #:surface-capabilities ;; :accessor
-    #:surface-counters ;; :accessor
-    #:surface-format ;; :accessor
-    #:swapchain ;; :accessor
-    #:swapchain-count ;; :accessor
-    #:synchronization-2 ;; :accessor
-    #:tag-name ;; :accessor
-    #:tag-size ;; :accessor
-    #:task-count ;; :accessor
-    #:task-shader ;; :accessor
-    #:template-type ;; :accessor
-    #:tessellation-isolines ;; :accessor
-    #:tessellation-point-mode ;; :accessor
-    #:tessellation-shader ;; :accessor
-    #:texel-buffer-alignment ;; :accessor
-    #:texture-compression-astc_-h-d-r ;; :accessor
-    #:texture-compression-astc_-ldr ;; :accessor
-    #:texture-compression-bc ;; :accessor
-    #:texture-compression-etc2 ;; :accessor
-    #:tiling ;; :accessor
-    #:time-domain ;; :accessor
-    #:timeline-semaphore ;; :accessor
-    #:timeout ;; :accessor
-    #:timestamp-compute-and-graphics ;; :accessor
-    #:timestamp-period ;; :accessor
-    #:timestamp-valid-bits ;; :accessor
-    #:token-count ;; :accessor
-    #:token-type ;; :accessor
-    #:topology ;; :accessor
-    #:transform ;; :accessor
-    #:transform-data ;; :accessor
-    #:transform-feedback ;; :accessor
-    #:transform-feedback-draw ;; :accessor
-    #:transform-feedback-queries ;; :accessor
-    #:transform-feedback-rasterization-stream-select ;; :accessor
-    #:transform-feedback-streams-lines-triangles ;; :accessor
-    #:transform-offset ;; :accessor
-    #:triangle-fans ;; :accessor
-    #:triangles ;; :accessor
-    #:type ;; :accessor
-    #:u64 ;; :accessor
-    #:uint-32 ;; :accessor
-    #:uint-64 ;; :accessor
-    #:uniform-and-storage-buffer-16-bit-access ;; :accessor
-    #:uniform-and-storage-buffer-8-bit-access ;; :accessor
-    #:uniform-buffer-standard-layout ;; :accessor
-    #:uniform-texel-buffer-offset-alignment-bytes ;; :accessor
-    #:uniform-texel-buffer-offset-single-texel-alignment ;; :accessor
-    #:unit ;; :accessor
-    #:unnormalized-coordinates ;; :accessor
-    #:update-scratch-size ;; :accessor
-    #:usage ;; :accessor
-    #:uuid ;; :accessor
-    #:validation-cache ;; :accessor
-    #:value ;; :accessor
-    #:value-32 ;; :accessor
-    #:value-64 ;; :accessor
-    #:value-bool ;; :accessor
-    #:value-float ;; :accessor
-    #:value-string ;; :accessor
-    #:variable-multisample-rate ;; :accessor
-    #:variable-pointers ;; :accessor
-    #:variable-pointers-storage-buffer ;; :accessor
-    #:variable-sample-locations ;; :accessor
-    #:vendor-id ;; :accessor
-    #:version ;; :accessor
-    #:vertex-attribute-access-beyond-stride ;; :accessor
-    #:vertex-attribute-description-count ;; :accessor
-    #:vertex-attribute-instance-rate-divisor ;; :accessor
-    #:vertex-attribute-instance-rate-zero-divisor ;; :accessor
-    #:vertex-binding-description-count ;; :accessor
-    #:vertex-binding-divisor-count ;; :accessor
-    #:vertex-binding-unit ;; :accessor
-    #:vertex-count ;; :accessor
-    #:vertex-data ;; :accessor
-    #:vertex-dynamic-stride ;; :accessor
-    #:vertex-format ;; :accessor
-    #:vertex-offset ;; :accessor
-    #:vertex-pipeline-stores-and-atomics ;; :accessor
-    #:vertex-stride ;; :accessor
-    #:vgpr-allocation-granularity ;; :accessor
-    #:vgprs-per-simd ;; :accessor
-    #:view-format-count ;; :accessor
-    #:view-mask ;; :accessor
-    #:view-offset ;; :accessor
-    #:view-type ;; :accessor
-    #:viewport-bounds-range ;; :accessor
-    #:viewport-count ;; :accessor
-    #:viewport-sub-pixel-bits ;; :accessor
-    #:viewport-w-scaling-enable ;; :accessor
-    #:visible-region ;; :accessor
-    #:vulkan-memory-model ;; :accessor
-    #:vulkan-memory-model-availability-visibility-chains ;; :accessor
-    #:vulkan-memory-model-device-scope ;; :accessor
-    #:w ;; :accessor
-    #:wait-semaphore-count ;; :accessor
-    #:wait-semaphore-info-count ;; :accessor
-    #:wait-semaphore-value-count ;; :accessor
-    #:wait-semaphore-values-count ;; :accessor
-    #:wavefront-size ;; :accessor
-    #:wavefronts-per-simd ;; :accessor
-    #:white-point ;; :accessor
-    #:wide-lines ;; :accessor
-    #:width ;; :accessor
-    #:window ;; :accessor
-    #:workgroup-memory-explicit-layout ;; :accessor
-    #:workgroup-memory-explicit-layout-16-bit-access ;; :accessor
-    #:workgroup-memory-explicit-layout-8-bit-access ;; :accessor
-    #:workgroup-memory-explicit-layout-scalar-block-layout ;; :accessor
-    #:write-mask ;; :accessor
-    #:x ;; :accessor
-    #:x-chroma-offset ;; :accessor
-    #:xcoeff ;; :accessor
-    #:y ;; :accessor
-    #:y-chroma-offset ;; :accessor
-    #:ycbcr-image-arrays ;; :accessor
-    #:ycbcr-model ;; :accessor
-    #:ycbcr-range ;; :accessor
-    #:ycoeff ;; :accessor
-    #:z ;; :accessor
-    #:zircon-handle ;; :accessor
+    #:a-type
+    #:b-type
+    #:c-type
+    #:d-type
+    #:k-size
+    #:m-size
+    #:n-size
+    #:a
+    #:aabb-data
+    #:aabbs
+    #:acceleration-structure
+    #:acceleration-structure-capture-replay
+    #:acceleration-structure-count
+    #:acceleration-structure-host-commands
+    #:acceleration-structure-indirect-build
+    #:acceleration-structure-reference
+    #:acceleration-structure-size
+    #:acquire-count
+    #:active-compute-unit-count
+    #:actual-present-time
+    #:address-mode-u
+    #:address-mode-v
+    #:address-mode-w
+    #:advanced-blend-all-operations
+    #:advanced-blend-coherent-operations
+    #:advanced-blend-correlated-overlap
+    #:advanced-blend-independent-blend
+    #:advanced-blend-max-color-attachments
+    #:advanced-blend-non-premultiplied-dst-color
+    #:advanced-blend-non-premultiplied-src-color
+    #:alignment
+    #:allocation-size
+    #:allow-command-buffer-query-copies
+    #:alpha-blend-op
+    #:alpha-mode
+    #:alpha-to-coverage-enable
+    #:alpha-to-one
+    #:alpha-to-one-enable
+    #:android-hardware-buffer-usage
+    #:anisotropy-enable
+    #:any-hit-shader
+    #:api-version
+    #:application-version
+    #:array-layer
+    #:array-layers
+    #:array-of-pointers
+    #:array-pitch
+    #:aspect-mask
+    #:aspect-reference-count
+    #:attachment
+    #:attachment-count
+    #:attachment-fragment-shading-rate
+    #:attachment-image-info-count
+    #:attachment-index
+    #:attachment-initial-sample-locations-count
+    #:b
+    #:b32
+    #:back
+    #:base-array-layer
+    #:base-mip-level
+    #:base-pipeline-handle
+    #:base-pipeline-index
+    #:bind-count
+    #:binding
+    #:binding-count
+    #:blend-constants
+    #:blend-enable
+    #:blend-overlap
+    #:border-color
+    #:bresenham-lines
+    #:buffer
+    #:buffer-address
+    #:buffer-bind-count
+    #:buffer-device-address
+    #:buffer-device-address-capture-replay
+    #:buffer-device-address-multi-device
+    #:buffer-features
+    #:buffer-image-granularity
+    #:buffer-image-height
+    #:buffer-memory-barrier-count
+    #:buffer-offset
+    #:buffer-row-length
+    #:build-scratch-size
+    #:capabilities
+    #:category
+    #:checkpoint-execution-stage-mask
+    #:chroma-filter
+    #:clear-value
+    #:clear-value-count
+    #:clipped
+    #:closest-hit-shader
+    #:cmd-buf-label-count
+    #:code-size
+    #:color
+    #:color-attachment
+    #:color-attachment-count
+    #:color-blend-op
+    #:color-samples
+    #:color-space
+    #:color-write-mask
+    #:combined-image-sampler-descriptor-count
+    #:combiner-ops
+    #:command-buffer
+    #:command-buffer-count
+    #:command-buffer-info-count
+    #:command-pool
+    #:compacted-size
+    #:compare-enable
+    #:compare-mask
+    #:compare-op
+    #:compatible-handle-types
+    #:compiler-control-flags
+    #:components
+    #:composite-alpha
+    #:compute-derivative-group-linear
+    #:compute-derivative-group-quads
+    #:compute-full-subgroups
+    #:compute-units-per-shader-array
+    #:compute-work-group-size
+    #:conditional-rendering
+    #:conditional-rendering-enable
+    #:conformance-version
+    #:connection
+    #:conservative-point-and-line-rasterization
+    #:conservative-rasterization-mode
+    #:conservative-rasterization-post-depth-coverage
+    #:constant-alpha-color-blend-factors
+    #:constant-id
+    #:contents
+    #:context
+    #:conversion
+    #:cooperative-matrix
+    #:cooperative-matrix-robust-buffer-access
+    #:cooperative-matrix-supported-stages
+    #:corner-sampled-image
+    #:correlated-view-mask-count
+    #:correlation-mask-count
+    #:counter-index-count
+    #:counter-pass-index
+    #:coverage-modulation-mode
+    #:coverage-modulation-table-count
+    #:coverage-modulation-table-enable
+    #:coverage-reduction-mode
+    #:coverage-to-color-enable
+    #:coverage-to-color-location
+    #:create-flags
+    #:cull-mode
+    #:current-display
+    #:current-extent
+    #:current-stack-index
+    #:current-transform
+    #:custom-border-color
+    #:custom-border-color-without-format
+    #:custom-border-colors
+    #:custom-sample-order-count
+    #:data-size
+    #:decode-mode
+    #:decode-mode-shared-exponent
+    #:dedicated-allocation
+    #:dedicated-allocation-image-aliasing
+    #:degenerate-lines-rasterized
+    #:degenerate-triangles-rasterized
+    #:denorm-behavior-independence
+    #:dependency-count
+    #:dependency-flags
+    #:depth
+    #:depth-bias-clamp
+    #:depth-bias-constant-factor
+    #:depth-bias-enable
+    #:depth-bias-slope-factor
+    #:depth-bounds
+    #:depth-bounds-test-enable
+    #:depth-clamp
+    #:depth-clamp-enable
+    #:depth-clip-enable
+    #:depth-compare-op
+    #:depth-fail-op
+    #:depth-pitch
+    #:depth-resolve-mode
+    #:depth-stencil
+    #:depth-stencil-samples
+    #:depth-test-enable
+    #:depth-write-enable
+    #:description
+    #:descriptor-binding-acceleration-structure-update-after-bind
+    #:descriptor-binding-inline-uniform-block-update-after-bind
+    #:descriptor-binding-partially-bound
+    #:descriptor-binding-sampled-image-update-after-bind
+    #:descriptor-binding-storage-buffer-update-after-bind
+    #:descriptor-binding-storage-image-update-after-bind
+    #:descriptor-binding-storage-texel-buffer-update-after-bind
+    #:descriptor-binding-uniform-buffer-update-after-bind
+    #:descriptor-binding-uniform-texel-buffer-update-after-bind
+    #:descriptor-binding-update-unused-while-pending
+    #:descriptor-binding-variable-descriptor-count
+    #:descriptor-count
+    #:descriptor-indexing
+    #:descriptor-pool
+    #:descriptor-set-count
+    #:descriptor-set-layout
+    #:descriptor-type
+    #:descriptor-type-count
+    #:descriptor-update-entry-count
+    #:desired-present-time
+    #:device-address
+    #:device-coherent-memory
+    #:device-event
+    #:device-generated-commands
+    #:device-id
+    #:device-index
+    #:device-index-count
+    #:device-luid
+    #:device-luid-valid
+    #:device-mask
+    #:device-memory-report
+    #:device-name
+    #:device-node-mask
+    #:device-render-area-count
+    #:device-type
+    #:device-uuid
+    #:dfb
+    #:diagnostics-config
+    #:disabled-validation-check-count
+    #:disabled-validation-feature-count
+    #:discard-rectangle-count
+    #:discard-rectangle-mode
+    #:discrete-queue-priorities
+    #:display
+    #:display-event
+    #:display-mode
+    #:display-mode-properties
+    #:display-name
+    #:display-plane-properties
+    #:display-primary-blue
+    #:display-primary-green
+    #:display-primary-red
+    #:display-properties
+    #:divisor
+    #:domain-origin
+    #:dpy
+    #:draw-indirect-count
+    #:draw-indirect-first-instance
+    #:driver-id
+    #:driver-info
+    #:driver-name
+    #:driver-uuid
+    #:driver-version
+    #:drm-format-modifier
+    #:drm-format-modifier-count
+    #:drm-format-modifier-plane-count
+    #:drm-format-modifier-tiling-features
+    #:dst
+    #:dst-acceleration-structure
+    #:dst-access-mask
+    #:dst-alpha-blend-factor
+    #:dst-array-element
+    #:dst-binding
+    #:dst-buffer
+    #:dst-color-blend-factor
+    #:dst-image
+    #:dst-image-layout
+    #:dst-offset
+    #:dst-offsets
+    #:dst-premultiplied
+    #:dst-queue-family-index
+    #:dst-rect
+    #:dst-set
+    #:dst-stage-mask
+    #:dst-subpass
+    #:dst-subresource
+    #:dual-src-blend
+    #:duration
+    #:dw-access
+    #:dynamic-state-count
+    #:earliest-present-time
+    #:enable
+    #:enabled-extension-count
+    #:enabled-layer-count
+    #:enabled-validation-feature-count
+    #:engine-version
+    #:events
+    #:exclusive-scissor
+    #:exclusive-scissor-count
+    #:executable-index
+    #:export-from-imported-handle-types
+    #:extended-dynamic-state
+    #:extension-name
+    #:extent
+    #:external-fence-features
+    #:external-format
+    #:external-memory-features
+    #:external-memory-properties
+    #:external-semaphore-features
+    #:extra-primitive-overestimation-size
+    #:extra-primitive-overestimation-size-granularity
+    #:f64
+    #:fail-op
+    #:fd
+    #:features
+    #:fence
+    #:fill-mode-non-solid
+    #:filter
+    #:filter-cubic
+    #:filter-cubic-minmax
+    #:filter-minmax-image-component-mapping
+    #:filter-minmax-single-component-formats
+    #:final-layout
+    #:first-index
+    #:first-instance
+    #:first-task
+    #:first-vertex
+    #:flags
+    #:float-32
+    #:float-64
+    #:force-explicit-reconstruction
+    #:format
+    #:format-a4b4g4r4
+    #:format-a4r4g4b4
+    #:format-features
+    #:format-properties
+    #:fragment-density-invocations
+    #:fragment-density-map
+    #:fragment-density-map-attachment
+    #:fragment-density-map-deferred
+    #:fragment-density-map-dynamic
+    #:fragment-density-map-non-subsampled-images
+    #:fragment-shader-barycentric
+    #:fragment-shader-pixel-interlock
+    #:fragment-shader-sample-interlock
+    #:fragment-shader-shading-rate-interlock
+    #:fragment-shading-rate-enums
+    #:fragment-shading-rate-non-trivial-combiner-ops
+    #:fragment-shading-rate-strict-multiply-combiner
+    #:fragment-shading-rate-with-conservative-rasterization
+    #:fragment-shading-rate-with-custom-sample-locations
+    #:fragment-shading-rate-with-fragment-shader-interlock
+    #:fragment-shading-rate-with-sample-mask
+    #:fragment-shading-rate-with-shader-depth-stencil-writes
+    #:fragment-shading-rate-with-shader-sample-mask
+    #:fragment-size
+    #:fragment-stores-and-atomics
+    #:frame-token
+    #:framebuffer
+    #:framebuffer-color-sample-counts
+    #:framebuffer-depth-sample-counts
+    #:framebuffer-integer-color-sample-counts
+    #:framebuffer-no-attachments-sample-counts
+    #:framebuffer-stencil-sample-counts
+    #:front
+    #:front-face
+    #:full-draw-index-uint-32
+    #:full-screen-exclusive
+    #:full-screen-exclusive-supported
+    #:fully-covered-fragment-shader-input-variable
+    #:g
+    #:general-shader
+    #:geometry
+    #:geometry-count
+    #:geometry-shader
+    #:geometry-streams
+    #:geometry-type
+    #:global-alpha
+    #:global-priority
+    #:group-count
+    #:group-index
+    #:handle
+    #:handle-type
+    #:handle-types
+    #:heap-budget
+    #:heap-index
+    #:heap-usage
+    #:height
+    #:hinstance
+    #:hmonitor
+    #:host-address
+    #:host-query-reset
+    #:hwnd
+    #:i64
+    #:image
+    #:image-array-layers
+    #:image-bind-count
+    #:image-color-space
+    #:image-cube-array
+    #:image-extent
+    #:image-footprint
+    #:image-format
+    #:image-format-properties
+    #:image-granularity
+    #:image-index
+    #:image-layout
+    #:image-memory-barrier-count
+    #:image-mip-tail-first-lod
+    #:image-mip-tail-offset
+    #:image-mip-tail-size
+    #:image-mip-tail-stride
+    #:image-offset
+    #:image-opaque-bind-count
+    #:image-pipe-handle
+    #:image-sharing-mode
+    #:image-subresource
+    #:image-type
+    #:image-usage
+    #:image-view
+    #:image-view-2d-on-3d-image
+    #:image-view-format-reinterpretation
+    #:image-view-format-swizzle
+    #:image-view-type
+    #:imageless-framebuffer
+    #:implementation-version
+    #:independent-blend
+    #:independent-resolve
+    #:independent-resolve-none
+    #:index-count
+    #:index-data
+    #:index-offset
+    #:index-type
+    #:index-type-count
+    #:index-type-uint-8
+    #:indirect-commands-layout
+    #:indirect-state-flags
+    #:info
+    #:inherited-conditional-rendering
+    #:inherited-queries
+    #:initial-data-size
+    #:initial-layout
+    #:initial-value
+    #:inline-uniform-block
+    #:input-attachment-count
+    #:input-attachment-index
+    #:input-rate
+    #:instance-count
+    #:instance-custom-index
+    #:instance-shader-binding-table-record-offset
+    #:instances
+    #:int-32
+    #:int-64
+    #:intersection-shader
+    #:is-text
+    #:large-points
+    #:layer-count
+    #:layer-name
+    #:layered-shading-rate-attachments
+    #:layers
+    #:layout
+    #:lds-size-per-local-work-group
+    #:lds-usage-size-in-bytes
+    #:level
+    #:level-count
+    #:library-count
+    #:limits
+    #:line-rasterization-mode
+    #:line-stipple-factor
+    #:line-stipple-pattern
+    #:line-sub-pixel-precision-bits
+    #:line-width
+    #:line-width-granularity
+    #:line-width-range
+    #:linear-tiling-features
+    #:load-op
+    #:local-dimming-enable
+    #:local-dimming-support
+    #:location
+    #:logic-op
+    #:logic-op-enable
+    #:mag-filter
+    #:major
+    #:map-entry-count
+    #:marker
+    #:mask
+    #:matrix
+    #:max-anisotropy
+    #:max-array-layers
+    #:max-bound-descriptor-sets
+    #:max-clip-distances
+    #:max-color-attachments
+    #:max-combined-clip-and-cull-distances
+    #:max-compute-shared-memory-size
+    #:max-compute-work-group-count
+    #:max-compute-work-group-invocations
+    #:max-compute-work-group-size
+    #:max-compute-workgroup-subgroups
+    #:max-content-light-level
+    #:max-cull-distances
+    #:max-custom-border-color-samplers
+    #:max-depth
+    #:max-depth-bounds
+    #:max-descriptor-set-acceleration-structures
+    #:max-descriptor-set-inline-uniform-blocks
+    #:max-descriptor-set-input-attachments
+    #:max-descriptor-set-sampled-images
+    #:max-descriptor-set-samplers
+    #:max-descriptor-set-storage-buffers
+    #:max-descriptor-set-storage-buffers-dynamic
+    #:max-descriptor-set-storage-images
+    #:max-descriptor-set-subsampled-samplers
+    #:max-descriptor-set-uniform-buffers
+    #:max-descriptor-set-uniform-buffers-dynamic
+    #:max-descriptor-set-update-after-bind-acceleration-structures
+    #:max-descriptor-set-update-after-bind-inline-uniform-blocks
+    #:max-descriptor-set-update-after-bind-input-attachments
+    #:max-descriptor-set-update-after-bind-sampled-images
+    #:max-descriptor-set-update-after-bind-samplers
+    #:max-descriptor-set-update-after-bind-storage-buffers
+    #:max-descriptor-set-update-after-bind-storage-buffers-dynamic
+    #:max-descriptor-set-update-after-bind-storage-images
+    #:max-descriptor-set-update-after-bind-uniform-buffers
+    #:max-descriptor-set-update-after-bind-uniform-buffers-dynamic
+    #:max-discard-rectangles
+    #:max-draw-indexed-index-value
+    #:max-draw-indirect-count
+    #:max-draw-mesh-tasks-count
+    #:max-dst-extent
+    #:max-dst-position
+    #:max-extent
+    #:max-extra-primitive-overestimation-size
+    #:max-fragment-combined-output-resources
+    #:max-fragment-density-texel-size
+    #:max-fragment-dual-src-attachments
+    #:max-fragment-input-components
+    #:max-fragment-output-attachments
+    #:max-fragment-shading-rate-attachment-texel-size
+    #:max-fragment-shading-rate-attachment-texel-size-aspect-ratio
+    #:max-fragment-shading-rate-coverage-samples
+    #:max-fragment-shading-rate-invocation-count
+    #:max-fragment-shading-rate-rasterization-samples
+    #:max-fragment-size
+    #:max-fragment-size-aspect-ratio
+    #:max-frame-average-light-level
+    #:max-framebuffer-height
+    #:max-framebuffer-layers
+    #:max-framebuffer-width
+    #:max-geometry-count
+    #:max-geometry-input-components
+    #:max-geometry-output-components
+    #:max-geometry-output-vertices
+    #:max-geometry-shader-invocations
+    #:max-geometry-total-output-components
+    #:max-graphics-shader-group-count
+    #:max-image-array-layers
+    #:max-image-count
+    #:max-image-dimension-1d
+    #:max-image-dimension-2d
+    #:max-image-dimension-3d
+    #:max-image-dimension-cube
+    #:max-image-extent
+    #:max-indirect-commands-stream-count
+    #:max-indirect-commands-stream-stride
+    #:max-indirect-commands-token-count
+    #:max-indirect-commands-token-offset
+    #:max-indirect-sequence-count
+    #:max-inline-uniform-block-bindings
+    #:max-inline-uniform-block-size
+    #:max-instance-count
+    #:max-interpolation-offset
+    #:max-lod
+    #:max-luminance
+    #:max-memory-allocation-count
+    #:max-memory-allocation-size
+    #:max-mesh-multiview-view-count
+    #:max-mesh-output-primitives
+    #:max-mesh-output-vertices
+    #:max-mesh-total-memory-size
+    #:max-mesh-work-group-invocations
+    #:max-mesh-work-group-size
+    #:max-mip-levels
+    #:max-multiview-instance-index
+    #:max-multiview-view-count
+    #:max-per-set-descriptors
+    #:max-per-stage-descriptor-acceleration-structures
+    #:max-per-stage-descriptor-inline-uniform-blocks
+    #:max-per-stage-descriptor-input-attachments
+    #:max-per-stage-descriptor-sampled-images
+    #:max-per-stage-descriptor-samplers
+    #:max-per-stage-descriptor-storage-buffers
+    #:max-per-stage-descriptor-storage-images
+    #:max-per-stage-descriptor-uniform-buffers
+    #:max-per-stage-descriptor-update-after-bind-acceleration-structures
+    #:max-per-stage-descriptor-update-after-bind-inline-uniform-blocks
+    #:max-per-stage-descriptor-update-after-bind-input-attachments
+    #:max-per-stage-descriptor-update-after-bind-sampled-images
+    #:max-per-stage-descriptor-update-after-bind-samplers
+    #:max-per-stage-descriptor-update-after-bind-storage-buffers
+    #:max-per-stage-descriptor-update-after-bind-storage-images
+    #:max-per-stage-descriptor-update-after-bind-uniform-buffers
+    #:max-per-stage-resources
+    #:max-per-stage-update-after-bind-resources
+    #:max-pipeline-ray-hit-attribute-size
+    #:max-pipeline-ray-payload-size
+    #:max-pipeline-ray-recursion-depth
+    #:max-primitive-count
+    #:max-push-constants-size
+    #:max-push-descriptors
+    #:max-ray-dispatch-invocation-count
+    #:max-ray-hit-attribute-size
+    #:max-ray-recursion-depth
+    #:max-recursion-depth
+    #:max-resource-size
+    #:max-sample-location-grid-size
+    #:max-sample-mask-words
+    #:max-sampler-allocation-count
+    #:max-sampler-anisotropy
+    #:max-sampler-lod-bias
+    #:max-sequences-count
+    #:max-sets
+    #:max-sgpr-allocation
+    #:max-shader-group-stride
+    #:max-src-extent
+    #:max-src-position
+    #:max-storage-buffer-range
+    #:max-subgroup-size
+    #:max-subsampled-array-layers
+    #:max-task-output-count
+    #:max-task-total-memory-size
+    #:max-task-work-group-invocations
+    #:max-task-work-group-size
+    #:max-tessellation-control-per-patch-output-components
+    #:max-tessellation-control-per-vertex-input-components
+    #:max-tessellation-control-per-vertex-output-components
+    #:max-tessellation-control-total-output-components
+    #:max-tessellation-evaluation-input-components
+    #:max-tessellation-evaluation-output-components
+    #:max-tessellation-generation-level
+    #:max-tessellation-patch-size
+    #:max-texel-buffer-elements
+    #:max-texel-gather-offset
+    #:max-texel-offset
+    #:max-timeline-semaphore-value-difference
+    #:max-transform-feedback-buffer-data-size
+    #:max-transform-feedback-buffer-data-stride
+    #:max-transform-feedback-buffer-size
+    #:max-transform-feedback-buffers
+    #:max-transform-feedback-stream-data-size
+    #:max-transform-feedback-streams
+    #:max-triangle-count
+    #:max-uniform-buffer-range
+    #:max-update-after-bind-descriptors-in-all-pools
+    #:max-variable-descriptor-count
+    #:max-vertex
+    #:max-vertex-attrib-divisor
+    #:max-vertex-input-attribute-offset
+    #:max-vertex-input-attributes
+    #:max-vertex-input-binding-stride
+    #:max-vertex-input-bindings
+    #:max-vertex-output-components
+    #:max-vgpr-allocation
+    #:max-viewport-dimensions
+    #:max-viewports
+    #:max-x
+    #:max-y
+    #:max-z
+    #:memory
+    #:memory-barrier-count
+    #:memory-device-index
+    #:memory-heap-count
+    #:memory-heaps
+    #:memory-object-id
+    #:memory-offset
+    #:memory-priority
+    #:memory-properties
+    #:memory-requirements
+    #:memory-type-bits
+    #:memory-type-count
+    #:memory-type-index
+    #:memory-types
+    #:mesh-output-per-primitive-granularity
+    #:mesh-output-per-vertex-granularity
+    #:mesh-shader
+    #:message-id-number
+    #:message-severity
+    #:message-type
+    #:min-acceleration-structure-scratch-offset-alignment
+    #:min-depth
+    #:min-depth-bounds
+    #:min-dst-extent
+    #:min-dst-position
+    #:min-filter
+    #:min-fragment-density-texel-size
+    #:min-fragment-shading-rate-attachment-texel-size
+    #:min-image-count
+    #:min-image-extent
+    #:min-image-transfer-granularity
+    #:min-imported-host-pointer-alignment
+    #:min-indirect-commands-buffer-offset-alignment
+    #:min-interpolation-offset
+    #:min-lod
+    #:min-luminance
+    #:min-memory-map-alignment
+    #:min-sample-shading
+    #:min-sequences-count-buffer-offset-alignment
+    #:min-sequences-index-buffer-offset-alignment
+    #:min-sgpr-allocation
+    #:min-src-extent
+    #:min-src-position
+    #:min-storage-buffer-offset-alignment
+    #:min-subgroup-size
+    #:min-texel-buffer-offset-alignment
+    #:min-texel-gather-offset
+    #:min-texel-offset
+    #:min-uniform-buffer-offset-alignment
+    #:min-vertex-input-binding-stride-alignment
+    #:min-vgpr-allocation
+    #:min-x
+    #:min-y
+    #:min-z
+    #:minor
+    #:mip-level
+    #:mip-levels
+    #:mip-lod-bias
+    #:mipmap-mode
+    #:mipmap-precision-bits
+    #:mode
+    #:modes
+    #:module
+    #:multi-draw-indirect
+    #:multi-viewport
+    #:multisample-array-image
+    #:multiview
+    #:multiview-geometry-shader
+    #:multiview-tessellation-shader
+    #:mutable-comparison-samplers
+    #:mutable-descriptor-type
+    #:mutable-descriptor-type-list-count
+    #:new-layout
+    #:no-invocation-fragment-shading-rates
+    #:non-coherent-atom-size
+    #:null-descriptor
+    #:num-aabbs
+    #:num-available-sgprs
+    #:num-available-vgprs
+    #:num-physical-sgprs
+    #:num-physical-vgprs
+    #:num-used-sgprs
+    #:num-used-vgprs
+    #:object
+    #:object-count
+    #:object-handle
+    #:object-type
+    #:occlusion-query-enable
+    #:occlusion-query-precise
+    #:offset
+    #:old-layout
+    #:old-swapchain
+    #:opaque-capture-address
+    #:optimal-buffer-copy-offset-alignment
+    #:optimal-buffer-copy-row-pitch-alignment
+    #:optimal-tiling-features
+    #:overallocation-behavior
+    #:acceleration-structures
+    #:acquire-keys
+    #:acquire-syncs
+    #:acquire-timeout-milliseconds
+    #:acquire-timeouts
+    #:application-info
+    #:application-name
+    #:aspect-references
+    #:attachment-image-infos
+    #:attachment-initial-sample-locations
+    #:attachments
+    #:attributes
+    #:binding-flags
+    #:bindings
+    #:binds
+    #:buffer-binds
+    #:buffer-info
+    #:buffer-memory-barriers
+    #:checkpoint-marker
+    #:clear-values
+    #:cmd-buf-labels
+    #:code
+    #:color-attachments
+    #:color-blend-state
+    #:command-buffer-device-masks
+    #:command-buffer-infos
+    #:command-buffers
+    #:correlated-view-masks
+    #:correlation-masks
+    #:counter-indices
+    #:coverage-modulation-table
+    #:custom-sample-orders
+    #:data
+    #:dependencies
+    #:depth-stencil-attachment
+    #:depth-stencil-resolve-attachment
+    #:depth-stencil-state
+    #:descriptor-counts
+    #:descriptor-types
+    #:descriptor-update-entries
+    #:device-indices
+    #:device-masks
+    #:device-render-areas
+    #:disabled-validation-checks
+    #:disabled-validation-features
+    #:discard-rectangles
+    #:drm-format-modifier-properties
+    #:drm-format-modifiers
+    #:dynamic-state
+    #:dynamic-states
+    #:enabled-features
+    #:enabled-validation-features
+    #:engine-name
+    #:exclusive-scissors
+    #:fragment-shading-rate-attachment
+    #:geometries
+    #:groups
+    #:host-pointer
+    #:image-binds
+    #:image-indices
+    #:image-info
+    #:image-memory-barriers
+    #:image-opaque-binds
+    #:immutable-samplers
+    #:index-type-values
+    #:index-types
+    #:inheritance-info
+    #:initial-data
+    #:input-assembly-state
+    #:input-attachments
+    #:label-name
+    #:layer
+    #:libraries
+    #:library-info
+    #:library-interface
+    #:map-entries
+    #:marker-name
+    #:memory-barriers
+    #:message
+    #:message-id-name
+    #:multisample-state
+    #:mutable-descriptor-type-lists
+    #:name
+    #:next
+    #:object-name
+    #:objects
+    #:pipeline-creation-feedback
+    #:pipeline-stage-creation-feedbacks
+    #:pipelines
+    #:plane-layouts
+    #:pool-sizes
+    #:post-subpass-sample-locations
+    #:preserve-attachments
+    #:push-constant-ranges
+    #:queue-create-infos
+    #:queue-family-indices
+    #:queue-labels
+    #:queue-priorities
+    #:rasterization-state
+    #:rectangles
+    #:regions
+    #:release-keys
+    #:release-syncs
+    #:resolve-attachments
+    #:results
+    #:sample-locations
+    #:sample-mask
+    #:scissors
+    #:semaphores
+    #:set-layouts
+    #:shader-group-capture-replay-handle
+    #:shading-rate-palette-entries
+    #:shading-rate-palettes
+    #:signal-semaphore-device-indices
+    #:signal-semaphore-infos
+    #:signal-semaphore-values
+    #:signal-semaphores
+    #:specialization-info
+    #:split-instance-bind-regions
+    #:stream-strides
+    #:streams
+    #:subpasses
+    #:swapchains
+    #:tag
+    #:tessellation-state
+    #:texel-buffer-view
+    #:times
+    #:tokens
+    #:user-data
+    #:values
+    #:version-data
+    #:vertex-attribute-descriptions
+    #:vertex-binding-descriptions
+    #:vertex-binding-divisors
+    #:vertex-input-state
+    #:view
+    #:view-formats
+    #:view-masks
+    #:view-offsets
+    #:viewport-state
+    #:viewport-swizzles
+    #:viewport-w-scalings
+    #:viewports
+    #:wait-dst-stage-mask
+    #:wait-semaphore-device-indices
+    #:wait-semaphore-infos
+    #:wait-semaphore-values
+    #:p-wait-semaphores
+    #:parameter
+    #:parameters
+    #:pass-op
+    #:patch
+    #:patch-control-points
+    #:pci-bus
+    #:pci-device
+    #:pci-domain
+    #:pci-function
+    #:per-view-position-all-components
+    #:performance-counter-multiple-query-pools
+    #:performance-counter-query-pools
+    #:performance-counters-sampling
+    #:persistent
+    #:persistent-content
+    #:pfn-allocation
+    #:pfn-callback
+    #:pfn-free
+    #:pfn-internal-allocation
+    #:pfn-internal-free
+    #:pfn-reallocation
+    #:pfn-user-callback
+    #:physical-device-count
+    #:physical-devices
+    #:physical-dimensions
+    #:physical-resolution
+    #:pipeline
+    #:pipeline-bind-point
+    #:pipeline-cache-uuid
+    #:pipeline-count
+    #:pipeline-creation-cache-control
+    #:pipeline-executable-info
+    #:pipeline-fragment-shading-rate
+    #:pipeline-layout
+    #:pipeline-stage-creation-feedback-count
+    #:pipeline-statistics
+    #:pipeline-statistics-query
+    #:pixel-x
+    #:pixel-y
+    #:plane-aspect
+    #:plane-index
+    #:plane-reorder-possible
+    #:plane-stack-index
+    #:point-clipping-behavior
+    #:point-polygons
+    #:point-size-granularity
+    #:point-size-range
+    #:polygon-mode
+    #:pool-size-count
+    #:post-subpass-sample-locations-count
+    #:power-state
+    #:enabled-extension-names
+    #:enabled-layer-names
+    #:p-geometries
+    #:pre-transform
+    #:prefers-dedicated-allocation
+    #:preprocess-buffer
+    #:preprocess-offset
+    #:preprocess-size
+    #:present-id
+    #:present-margin
+    #:present-mask
+    #:present-mode
+    #:preserve-attachment-count
+    #:primitive-count
+    #:primitive-fragment-shading-rate
+    #:primitive-fragment-shading-rate-with-multiple-viewports
+    #:primitive-offset
+    #:primitive-overestimation-size
+    #:primitive-restart-enable
+    #:primitive-underestimation
+    #:priority
+    #:private-data
+    #:private-data-slot-request-count
+    #:properties
+    #:property-flags
+    #:protected-memory
+    #:protected-no-fault
+    #:protected-submit
+    #:purposes
+    #:push-constant-range-count
+    #:pushconstant-offset
+    #:pushconstant-pipeline-layout
+    #:pushconstant-shader-stage-flags
+    #:pushconstant-size
+    #:quad-divergent-implicit-lod
+    #:quad-operations-in-all-stages
+    #:query-count
+    #:query-flags
+    #:query-type
+    #:queue-count
+    #:queue-create-info-count
+    #:queue-family-index
+    #:queue-family-index-count
+    #:queue-family-properties
+    #:queue-flags
+    #:queue-index
+    #:queue-label-count
+    #:r
+    #:range
+    #:rasterization-order
+    #:rasterization-samples
+    #:rasterization-stream
+    #:rasterizer-discard-enable
+    #:ray-query
+    #:ray-tracing-pipeline
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay
+    #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
+    #:ray-tracing-pipeline-trace-rays-indirect
+    #:ray-traversal-primitive-culling
+    #:rect
+    #:rectangle-count
+    #:rectangular-lines
+    #:reduction-mode
+    #:reference
+    #:refresh-duration
+    #:refresh-rate
+    #:region-count
+    #:release-count
+    #:render-area
+    #:render-pass
+    #:representative-fragment-test
+    #:representative-fragment-test-enable
+    #:required-subgroup-size
+    #:required-subgroup-size-stages
+    #:requires-dedicated-allocation
+    #:residency-aligned-mip-size
+    #:residency-non-resident-strict
+    #:residency-standard-2d-block-shape
+    #:residency-standard-2d-multisample-block-shape
+    #:residency-standard-3d-block-shape
+    #:resource-device-index
+    #:resource-offset
+    #:resource-usage
+    #:robust-buffer-access
+    #:robust-buffer-access-2
+    #:robust-buffer-access-update-after-bind
+    #:robust-image-access
+    #:robust-image-access-2
+    #:robust-storage-buffer-access-size-alignment
+    #:robust-uniform-buffer-access-size-alignment
+    #:rounding-mode-independence
+    #:row-pitch
+    #:runtime-descriptor-array
+    #:s-type
+    #:sample
+    #:sample-count
+    #:sample-counts
+    #:sample-location-coordinate-range
+    #:sample-location-count
+    #:sample-location-grid-size
+    #:sample-location-sample-counts
+    #:sample-location-sub-pixel-bits
+    #:sample-locations-count
+    #:sample-locations-enable
+    #:sample-locations-info
+    #:sample-locations-per-pixel
+    #:sample-order-type
+    #:sample-rate-shading
+    #:sample-shading-enable
+    #:sampled-image-color-sample-counts
+    #:sampled-image-depth-sample-counts
+    #:sampled-image-integer-sample-counts
+    #:sampled-image-stencil-sample-counts
+    #:sampler
+    #:sampler-anisotropy
+    #:sampler-filter-minmax
+    #:sampler-mip-lod-bias
+    #:sampler-mirror-clamp-to-edge
+    #:sampler-ycbcr-conversion
+    #:sampler-ycbcr-conversion-components
+    #:samples
+    #:scalar-block-layout
+    #:scissor-count
+    #:scope
+    #:scratch-data
+    #:scratch-mem-usage-in-bytes
+    #:semaphore
+    #:semaphore-count
+    #:semaphore-type
+    #:separate-depth-stencil-layouts
+    #:separate-stencil-mask-ref
+    #:sequences-count
+    #:sequences-count-buffer
+    #:sequences-count-offset
+    #:sequences-index-buffer
+    #:sequences-index-offset
+    #:set
+    #:set-layout-count
+    #:sgpr-allocation-granularity
+    #:sgprs-per-simd
+    #:shader-arrays-per-engine-count
+    #:shader-buffer-float-32-atomic-add
+    #:shader-buffer-float-32-atomics
+    #:shader-buffer-float-64-atomic-add
+    #:shader-buffer-float-64-atomics
+    #:shader-buffer-int-64-atomics
+    #:shader-clip-distance
+    #:shader-core-features
+    #:shader-cull-distance
+    #:shader-demote-to-helper-invocation
+    #:shader-denorm-flush-to-zero-float-16
+    #:shader-denorm-flush-to-zero-float-32
+    #:shader-denorm-flush-to-zero-float-64
+    #:shader-denorm-preserve-float-16
+    #:shader-denorm-preserve-float-32
+    #:shader-denorm-preserve-float-64
+    #:shader-device-clock
+    #:shader-draw-parameters
+    #:shader-engine-count
+    #:shader-float-16
+    #:shader-float-64
+    #:shader-group-base-alignment
+    #:shader-group-handle-alignment
+    #:shader-group-handle-capture-replay-size
+    #:shader-group-handle-size
+    #:shader-image-float-32-atomic-add
+    #:shader-image-float-32-atomics
+    #:shader-image-gather-extended
+    #:shader-image-int-64-atomics
+    #:shader-input-attachment-array-dynamic-indexing
+    #:shader-input-attachment-array-non-uniform-indexing
+    #:shader-input-attachment-array-non-uniform-indexing-native
+    #:shader-int-16
+    #:shader-int-64
+    #:shader-int-8
+    #:shader-integer-functions-2
+    #:shader-output-layer
+    #:shader-output-viewport-index
+    #:shader-resource-min-lod
+    #:shader-resource-residency
+    #:shader-rounding-mode-rte-float-16
+    #:shader-rounding-mode-rte-float-32
+    #:shader-rounding-mode-rte-float-64
+    #:shader-rounding-mode-rtz-float-16
+    #:shader-rounding-mode-rtz-float-32
+    #:shader-rounding-mode-rtz-float-64
+    #:shader-s-m-builtins
+    #:shader-s-m-count
+    #:shader-sample-rate-interpolation-functions
+    #:shader-sampled-image-array-dynamic-indexing
+    #:shader-sampled-image-array-non-uniform-indexing
+    #:shader-sampled-image-array-non-uniform-indexing-native
+    #:shader-shared-float-32-atomic-add
+    #:shader-shared-float-32-atomics
+    #:shader-shared-float-64-atomic-add
+    #:shader-shared-float-64-atomics
+    #:shader-shared-int-64-atomics
+    #:shader-signed-zero-inf-nan-preserve-float-16
+    #:shader-signed-zero-inf-nan-preserve-float-32
+    #:shader-signed-zero-inf-nan-preserve-float-64
+    #:shader-stage-mask
+    #:shader-storage-buffer-array-dynamic-indexing
+    #:shader-storage-buffer-array-non-uniform-indexing
+    #:shader-storage-buffer-array-non-uniform-indexing-native
+    #:shader-storage-image-array-dynamic-indexing
+    #:shader-storage-image-array-non-uniform-indexing
+    #:shader-storage-image-array-non-uniform-indexing-native
+    #:shader-storage-image-extended-formats
+    #:shader-storage-image-multisample
+    #:shader-storage-image-read-without-format
+    #:shader-storage-image-write-without-format
+    #:shader-storage-texel-buffer-array-dynamic-indexing
+    #:shader-storage-texel-buffer-array-non-uniform-indexing
+    #:shader-subgroup-clock
+    #:shader-subgroup-extended-types
+    #:shader-terminate-invocation
+    #:shader-tessellation-and-geometry-point-size
+    #:shader-uniform-buffer-array-dynamic-indexing
+    #:shader-uniform-buffer-array-non-uniform-indexing
+    #:shader-uniform-buffer-array-non-uniform-indexing-native
+    #:shader-uniform-texel-buffer-array-dynamic-indexing
+    #:shader-uniform-texel-buffer-array-non-uniform-indexing
+    #:shader-warps-per-s-m
+    #:shader-zero-initialize-workgroup-memory
+    #:shading-rate
+    #:shading-rate-attachment-texel-size
+    #:shading-rate-coarse-sample-order
+    #:shading-rate-image
+    #:shading-rate-image-enable
+    #:shading-rate-max-coarse-samples
+    #:shading-rate-palette-entry-count
+    #:shading-rate-palette-size
+    #:shading-rate-texel-size
+    #:shading-rate-type
+    #:shared-present-supported-usage-flags
+    #:sharing-mode
+    #:signal-semaphore-count
+    #:signal-semaphore-info-count
+    #:signal-semaphore-value-count
+    #:signal-semaphore-values-count
+    #:simd-per-compute-unit
+    #:size
+    #:smooth-lines
+    #:sparse-address-space-size
+    #:sparse-binding
+    #:sparse-image-float-32-atomic-add
+    #:sparse-image-float-32-atomics
+    #:sparse-image-int-64-atomics
+    #:sparse-properties
+    #:sparse-residency-16-samples
+    #:sparse-residency-2-samples
+    #:sparse-residency-4-samples
+    #:sparse-residency-8-samples
+    #:sparse-residency-aliased
+    #:sparse-residency-buffer
+    #:sparse-residency-image-2d
+    #:sparse-residency-image-3d
+    #:spec-version
+    #:split-instance-bind-region-count
+    #:src
+    #:src-acceleration-structure
+    #:src-access-mask
+    #:src-alpha-blend-factor
+    #:src-array-element
+    #:src-binding
+    #:src-buffer
+    #:src-color-blend-factor
+    #:src-image
+    #:src-image-layout
+    #:src-offset
+    #:src-offsets
+    #:src-premultiplied
+    #:src-queue-family-index
+    #:src-rect
+    #:src-set
+    #:src-stage-mask
+    #:src-subpass
+    #:src-subresource
+    #:stage
+    #:stage-count
+    #:stage-flags
+    #:stage-mask
+    #:stages
+    #:standard-sample-locations
+    #:stencil
+    #:stencil-final-layout
+    #:stencil-initial-layout
+    #:stencil-layout
+    #:stencil-load-op
+    #:stencil-resolve-mode
+    #:stencil-store-op
+    #:stencil-test-enable
+    #:stencil-usage
+    #:stippled-bresenham-lines
+    #:stippled-line-enable
+    #:stippled-rectangular-lines
+    #:stippled-smooth-lines
+    #:storage
+    #:storage-buffer-16-bit-access
+    #:storage-buffer-8-bit-access
+    #:storage-image-sample-counts
+    #:storage-input-output-16
+    #:storage-push-constant-16
+    #:storage-push-constant-8
+    #:storage-texel-buffer-offset-alignment-bytes
+    #:storage-texel-buffer-offset-single-texel-alignment
+    #:store-op
+    #:stream
+    #:stream-count
+    #:stream-descriptor
+    #:strict-lines
+    #:stride
+    #:sub-pixel-interpolation-offset-bits
+    #:sub-pixel-precision-bits
+    #:sub-texel-precision-bits
+    #:subgroup-broadcast-dynamic-id
+    #:subgroup-quad-operations-in-all-stages
+    #:subgroup-size
+    #:subgroup-size-control
+    #:subgroup-supported-operations
+    #:subgroup-supported-stages
+    #:subminor
+    #:subpass
+    #:subpass-count
+    #:subpass-index
+    #:subresource
+    #:subresource-range
+    #:subsampled-coarse-reconstruction-early-access
+    #:subsampled-loads
+    #:subset-allocation
+    #:suggested-x-chroma-offset
+    #:suggested-y-chroma-offset
+    #:suggested-ycbcr-model
+    #:suggested-ycbcr-range
+    #:supersample-fragment-shading-rates
+    #:supported
+    #:supported-alpha
+    #:supported-composite-alpha
+    #:supported-depth-resolve-modes
+    #:supported-operations
+    #:supported-stages
+    #:supported-stencil-resolve-modes
+    #:supported-surface-counters
+    #:supported-transforms
+    #:supported-usage-flags
+    #:supports-protected
+    #:supports-texture-gather-l-o-d-bias-amd
+    #:surface
+    #:surface-capabilities
+    #:surface-counters
+    #:surface-format
+    #:swapchain
+    #:swapchain-count
+    #:synchronization-2
+    #:tag-name
+    #:tag-size
+    #:task-count
+    #:task-shader
+    #:template-type
+    #:tessellation-isolines
+    #:tessellation-point-mode
+    #:tessellation-shader
+    #:texel-buffer-alignment
+    #:texture-compression-astc_-h-d-r
+    #:texture-compression-astc_-ldr
+    #:texture-compression-bc
+    #:texture-compression-etc2
+    #:tiling
+    #:time-domain
+    #:timeline-semaphore
+    #:timeout
+    #:timestamp-compute-and-graphics
+    #:timestamp-period
+    #:timestamp-valid-bits
+    #:token-count
+    #:token-type
+    #:topology
+    #:transform
+    #:transform-data
+    #:transform-feedback
+    #:transform-feedback-draw
+    #:transform-feedback-queries
+    #:transform-feedback-rasterization-stream-select
+    #:transform-feedback-streams-lines-triangles
+    #:transform-offset
+    #:triangle-fans
+    #:triangles
+    #:type
+    #:u64
+    #:uint-32
+    #:uint-64
+    #:uniform-and-storage-buffer-16-bit-access
+    #:uniform-and-storage-buffer-8-bit-access
+    #:uniform-buffer-standard-layout
+    #:uniform-texel-buffer-offset-alignment-bytes
+    #:uniform-texel-buffer-offset-single-texel-alignment
+    #:unit
+    #:unnormalized-coordinates
+    #:update-scratch-size
+    #:usage
+    #:uuid
+    #:validation-cache
+    #:value
+    #:value-32
+    #:value-64
+    #:value-bool
+    #:value-float
+    #:value-string
+    #:variable-multisample-rate
+    #:variable-pointers
+    #:variable-pointers-storage-buffer
+    #:variable-sample-locations
+    #:vendor-id
+    #:version
+    #:vertex-attribute-access-beyond-stride
+    #:vertex-attribute-description-count
+    #:vertex-attribute-instance-rate-divisor
+    #:vertex-attribute-instance-rate-zero-divisor
+    #:vertex-binding-description-count
+    #:vertex-binding-divisor-count
+    #:vertex-binding-unit
+    #:vertex-count
+    #:vertex-data
+    #:vertex-dynamic-stride
+    #:vertex-format
+    #:vertex-offset
+    #:vertex-pipeline-stores-and-atomics
+    #:vertex-stride
+    #:vgpr-allocation-granularity
+    #:vgprs-per-simd
+    #:view-format-count
+    #:view-mask
+    #:view-offset
+    #:view-type
+    #:viewport-bounds-range
+    #:viewport-count
+    #:viewport-sub-pixel-bits
+    #:viewport-w-scaling-enable
+    #:visible-region
+    #:vulkan-memory-model
+    #:vulkan-memory-model-availability-visibility-chains
+    #:vulkan-memory-model-device-scope
+    #:w
+    #:wait-semaphore-count
+    #:wait-semaphore-info-count
+    #:wait-semaphore-value-count
+    #:wait-semaphore-values-count
+    #:wavefront-size
+    #:wavefronts-per-simd
+    #:white-point
+    #:wide-lines
+    #:width
+    #:window
+    #:workgroup-memory-explicit-layout
+    #:workgroup-memory-explicit-layout-16-bit-access
+    #:workgroup-memory-explicit-layout-8-bit-access
+    #:workgroup-memory-explicit-layout-scalar-block-layout
+    #:write-mask
+    #:x
+    #:x-chroma-offset
+    #:xcoeff
+    #:y
+    #:y-chroma-offset
+    #:ycbcr-image-arrays
+    #:ycbcr-model
+    #:ycbcr-range
+    #:ycoeff
+    #:z
+    #:zircon-handle
 
     #:acquire-full-screen-exclusive-mode-ext
     #:acquire-next-image-2-khr
@@ -6970,9 +6970,239 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wait-semaphores
     #:wait-semaphores-khr
     #:write-acceleration-structures-properties-khr
-))
+
+    #:acceleration-structure-build-type-khr
+    #:acceleration-structure-compatibility-khr
+    #:acceleration-structure-create-flag-bits-khr
+    #:acceleration-structure-memory-requirements-type-nv
+    #:acceleration-structure-type-khr
+    #:access-flag-bits
+    #:access-flag-bits-2-khr
+    #:acquire-profiling-lock-flag-bits-khr
+    #:attachment-description-flag-bits
+    #:attachment-load-op
+    #:attachment-store-op
+    #:blend-factor
+    #:blend-op
+    #:blend-overlap-ext
+    #:border-color
+    #:buffer-create-flag-bits
+    #:buffer-usage-flag-bits
+    #:build-acceleration-structure-flag-bits-khr
+    #:build-acceleration-structure-mode-khr
+    #:chroma-location
+    #:coarse-sample-order-type-nv
+    #:color-component-flag-bits
+    #:color-space-khr
+    #:command-buffer-level
+    #:command-buffer-reset-flag-bits
+    #:command-buffer-usage-flag-bits
+    #:command-pool-create-flag-bits
+    #:command-pool-reset-flag-bits
+    #:compare-op
+    #:component-swizzle
+    #:component-type-nv
+    #:composite-alpha-flag-bits-khr
+    #:conditional-rendering-flag-bits-ext
+    #:conservative-rasterization-mode-ext
+    #:copy-acceleration-structure-mode-khr
+    #:coverage-modulation-mode-nv
+    #:coverage-reduction-mode-nv
+    #:cull-mode-flag-bits
+    #:debug-report-flag-bits-ext
+    #:debug-report-object-type-ext
+    #:debug-utils-message-severity-flag-bits-ext
+    #:debug-utils-message-type-flag-bits-ext
+    #:dependency-flag-bits
+    #:descriptor-binding-flag-bits
+    #:descriptor-pool-create-flag-bits
+    #:descriptor-set-layout-create-flag-bits
+    #:descriptor-type
+    #:descriptor-update-template-type
+    #:device-create-flag-bits
+    #:device-diagnostics-config-flag-bits-nv
+    #:device-event-type-ext
+    #:device-group-present-mode-flag-bits-khr
+    #:device-memory-report-event-type-ext
+    #:device-queue-create-flag-bits
+    #:discard-rectangle-mode-ext
+    #:display-event-type-ext
+    #:display-plane-alpha-flag-bits-khr
+    #:display-power-state-ext
+    #:driver-id
+    #:dynamic-state
+    #:event-create-flag-bits
+    #:external-fence-feature-flag-bits
+    #:external-fence-handle-type-flag-bits
+    #:external-memory-feature-flag-bits
+    #:external-memory-feature-flag-bits-nv
+    #:external-memory-handle-type-flag-bits
+    #:external-memory-handle-type-flag-bits-nv
+    #:external-semaphore-feature-flag-bits
+    #:external-semaphore-handle-type-flag-bits
+    #:fence-create-flag-bits
+    #:fence-import-flag-bits
+    #:filter
+    #:format
+    #:format-feature-flag-bits
+    #:fragment-shading-rate-combiner-op-khr
+    #:fragment-shading-rate-nv
+    #:fragment-shading-rate-type-nv
+    #:framebuffer-create-flag-bits
+    #:front-face
+    #:full-screen-exclusive-ext
+    #:geometry-flag-bits-khr
+    #:geometry-instance-flag-bits-khr
+    #:geometry-type-khr
+    #:image-aspect-flag-bits
+    #:image-create-flag-bits
+    #:image-layout
+    #:image-tiling
+    #:image-type
+    #:image-usage-flag-bits
+    #:image-view-create-flag-bits
+    #:image-view-type
+    #:index-type
+    #:indirect-commands-layout-usage-flag-bits-nv
+    #:indirect-commands-token-type-nv
+    #:indirect-state-flag-bits-nv
+    #:instance-create-flag-bits
+    #:internal-allocation-type
+    #:line-rasterization-mode-ext
+    #:logic-op
+    #:memory-allocate-flag-bits
+    #:memory-heap-flag-bits
+    #:memory-overallocation-behavior-amd
+    #:memory-property-flag-bits
+    #:object-type
+    #:peer-memory-feature-flag-bits
+    #:performance-configuration-type-intel
+    #:performance-counter-description-flag-bits-khr
+    #:performance-counter-scope-khr
+    #:performance-counter-storage-khr
+    #:performance-counter-unit-khr
+    #:performance-override-type-intel
+    #:performance-parameter-type-intel
+    #:performance-value-type-intel
+    #:physical-device-type
+    #:pipeline-bind-point
+    #:pipeline-cache-create-flag-bits
+    #:pipeline-cache-header-version
+    #:pipeline-compiler-control-flag-bits-amd
+    #:pipeline-create-flag-bits
+    #:pipeline-creation-feedback-flag-bits-ext
+    #:pipeline-executable-statistic-format-khr
+    #:pipeline-shader-stage-create-flag-bits
+    #:pipeline-stage-flag-bits
+    #:pipeline-stage-flag-bits-2-khr
+    #:point-clipping-behavior
+    #:polygon-mode
+    #:present-mode-khr
+    #:primitive-topology
+    #:private-data-slot-create-flag-bits-ext
+    #:query-control-flag-bits
+    #:query-pipeline-statistic-flag-bits
+    #:query-pool-create-flag-bits
+    #:query-pool-sampling-mode-intel
+    #:query-result-flag-bits
+    #:query-type
+    #:queue-flag-bits
+    #:queue-global-priority-ext
+    #:rasterization-order-amd
+    #:ray-tracing-shader-group-type-khr
+    #:render-pass-create-flag-bits
+    #:resolve-mode-flag-bits
+    #:result
+    #:sample-count-flag-bits
+    #:sampler-address-mode
+    #:sampler-create-flag-bits
+    #:sampler-mipmap-mode
+    #:sampler-reduction-mode
+    #:sampler-ycbcr-model-conversion
+    #:sampler-ycbcr-range
+    #:scope-nv
+    #:semaphore-import-flag-bits
+    #:semaphore-type
+    #:semaphore-wait-flag-bits
+    #:shader-core-properties-flag-bits-amd
+    #:shader-float-controls-independence
+    #:shader-group-shader-khr
+    #:shader-info-type-amd
+    #:shader-module-create-flag-bits
+    #:shader-stage-flag-bits
+    #:shading-rate-palette-entry-nv
+    #:sharing-mode
+    #:sparse-image-format-flag-bits
+    #:sparse-memory-bind-flag-bits
+    #:stencil-face-flag-bits
+    #:stencil-op
+    #:structure-type
+    #:subgroup-feature-flag-bits
+    #:submit-flag-bits-khr
+    #:subpass-contents
+    #:subpass-description-flag-bits
+    #:surface-counter-flag-bits-ext
+    #:surface-transform-flag-bits-khr
+    #:swapchain-create-flag-bits-khr
+    #:system-allocation-scope
+    #:tessellation-domain-origin
+    #:time-domain-ext
+    #:tool-purpose-flag-bits-ext
+    #:validation-cache-header-version-ext
+    #:validation-check-ext
+    #:validation-feature-disable-ext
+    #:validation-feature-enable-ext
+    #:vendor-id
+    #:vertex-input-rate
+    #:viewport-coordinate-swizzle-nv
+
+    acceleration-structure-khr
+    acceleration-structure-nv
+    buffer
+    buffer-view
+    command-buffer
+    command-pool
+    debug-report-callback-ext
+    debug-utils-messenger-ext
+    deferred-operation-khr
+    descriptor-pool
+    descriptor-set
+    descriptor-set-layout
+    descriptor-update-template
+    device
+    device-memory
+    display-khr
+    display-mode-khr
+    event
+    fence
+    framebuffer
+    image
+    image-view
+    indirect-commands-layout-nv
+    instance
+    performance-configuration-intel
+    physical-device
+    pipeline
+    pipeline-cache
+    pipeline-layout
+    private-data-slot-ext
+    query-pool
+    queue
+    render-pass
+    sampler
+    sampler-ycbcr-conversion
+    semaphore
+    shader-module
+    surface-khr
+    swapchain-khr
+    validation-cache-ext
+
+    #:device-size
+
+    #:device-address))
 
 (defpackage :vk-utils
+  (:documentation "Provides utilities for vk.")
   (:use #:cl)
   (:export
     #:memcpy

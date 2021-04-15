@@ -7,6 +7,2745 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (in-package :vk)
 
+(deftype device-size ()
+  "Represents the type [VkDeviceSize](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceSize.html)."
+  '(unsigned-byte 64))
+
+(deftype device-address ()
+  "Represents the type [VkDeviceAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceAddress.html)."
+  '(unsigned-byte 64))
+
+(deftype attachment-load-op ()
+  "Represents the enum [VkAttachmentLoadOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentLoadOp.html)."
+  '(member nil 
+    :load
+    :clear
+    :dont-care))
+
+(deftype attachment-store-op ()
+  "Represents the enum [VkAttachmentStoreOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentStoreOp.html)."
+  '(member nil 
+    :store
+    :dont-care
+    :none-qcom))
+
+(deftype blend-factor ()
+  "Represents the enum [VkBlendFactor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html)."
+  '(member nil 
+    :zero
+    :one
+    :src-color
+    :one-minus-src-color
+    :dst-color
+    :one-minus-dst-color
+    :src-alpha
+    :one-minus-src-alpha
+    :dst-alpha
+    :one-minus-dst-alpha
+    :constant-color
+    :one-minus-constant-color
+    :constant-alpha
+    :one-minus-constant-alpha
+    :src-alpha-saturate
+    :src1-color
+    :one-minus-src1-color
+    :src1-alpha
+    :one-minus-src1-alpha))
+
+(deftype blend-op ()
+  "Represents the enum [VkBlendOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOp.html)."
+  '(member nil 
+    :add
+    :subtract
+    :reverse-subtract
+    :min
+    :max
+    :zero-ext
+    :src-ext
+    :dst-ext
+    :src-over-ext
+    :dst-over-ext
+    :src-in-ext
+    :dst-in-ext
+    :src-out-ext
+    :dst-out-ext
+    :src-atop-ext
+    :dst-atop-ext
+    :xor-ext
+    :multiply-ext
+    :screen-ext
+    :overlay-ext
+    :darken-ext
+    :lighten-ext
+    :colordodge-ext
+    :colorburn-ext
+    :hardlight-ext
+    :softlight-ext
+    :difference-ext
+    :exclusion-ext
+    :invert-ext
+    :invert-rgb-ext
+    :lineardodge-ext
+    :linearburn-ext
+    :vividlight-ext
+    :linearlight-ext
+    :pinlight-ext
+    :hardmix-ext
+    :hsl-hue-ext
+    :hsl-saturation-ext
+    :hsl-color-ext
+    :hsl-luminosity-ext
+    :plus-ext
+    :plus-clamped-ext
+    :plus-clamped-alpha-ext
+    :plus-darker-ext
+    :minus-ext
+    :minus-clamped-ext
+    :contrast-ext
+    :invert-ovg-ext
+    :red-ext
+    :green-ext
+    :blue-ext))
+
+(deftype border-color ()
+  "Represents the enum [VkBorderColor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBorderColor.html)."
+  '(member nil 
+    :float-transparent-black
+    :int-transparent-black
+    :float-opaque-black
+    :int-opaque-black
+    :float-opaque-white
+    :int-opaque-white
+    :float-custom-ext
+    :int-custom-ext))
+
+(deftype framebuffer-create-flag-bits ()
+  "Represents the enum [VkFramebufferCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferCreateFlagBits.html)."
+  '(member nil 
+    :imageless))
+
+(deftype query-pool-create-flag-bits ()
+  "Represents the enum [VkQueryPoolCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPoolCreateFlagBits.html)."
+  '(member nil ))
+
+(deftype render-pass-create-flag-bits ()
+  "Represents the enum [VkRenderPassCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassCreateFlagBits.html)."
+  '(member nil 
+    :transform))
+
+(deftype sampler-create-flag-bits ()
+  "Represents the enum [VkSamplerCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerCreateFlagBits.html)."
+  '(member nil 
+    :subsampled
+    :subsampled-coarse-reconstruction))
+
+(deftype pipeline-cache-header-version ()
+  "Represents the enum [VkPipelineCacheHeaderVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCacheHeaderVersion.html)."
+  '(member nil 
+    :one))
+
+(deftype pipeline-cache-create-flag-bits ()
+  "Represents the enum [VkPipelineCacheCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCacheCreateFlagBits.html)."
+  '(member nil 
+    :externally-synchronized))
+
+(deftype pipeline-shader-stage-create-flag-bits ()
+  "Represents the enum [VkPipelineShaderStageCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateFlagBits.html)."
+  '(member nil 
+    :allow-varying-subgroup-size
+    :require-full-subgroups))
+
+(deftype descriptor-set-layout-create-flag-bits ()
+  "Represents the enum [VkDescriptorSetLayoutCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayoutCreateFlagBits.html)."
+  '(member nil 
+    :push-descriptor
+    :update-after-bind-pool
+    :host-only-pool))
+
+(deftype instance-create-flag-bits ()
+  "Represents the enum [VkInstanceCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstanceCreateFlagBits.html)."
+  '(member nil ))
+
+(deftype device-queue-create-flag-bits ()
+  "Represents the enum [VkDeviceQueueCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceQueueCreateFlagBits.html)."
+  '(member nil 
+    :protected))
+
+(deftype buffer-create-flag-bits ()
+  "Represents the enum [VkBufferCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferCreateFlagBits.html)."
+  '(member nil 
+    :sparse-binding
+    :sparse-residency
+    :sparse-aliased
+    :protected
+    :device-address-capture-replay))
+
+(deftype buffer-usage-flag-bits ()
+  "Represents the enum [VkBufferUsageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferUsageFlagBits.html)."
+  '(member nil 
+    :transfer-src
+    :transfer-dst
+    :uniform-texel-buffer
+    :storage-texel-buffer
+    :uniform-buffer
+    :storage-buffer
+    :index-buffer
+    :vertex-buffer
+    :indirect-buffer
+    :conditional-rendering
+    :shader-binding-table
+    :transform-feedback-buffer
+    :transform-feedback-counter-buffer
+    :shader-device-address
+    :acceleration-structure-build-input-read-only
+    :acceleration-structure-storage))
+
+(deftype color-component-flag-bits ()
+  "Represents the enum [VkColorComponentFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorComponentFlagBits.html)."
+  '(member nil 
+    :r
+    :g
+    :b
+    :a))
+
+(deftype component-swizzle ()
+  "Represents the enum [VkComponentSwizzle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComponentSwizzle.html)."
+  '(member nil 
+    :identity
+    :zero
+    :one
+    :r
+    :g
+    :b
+    :a))
+
+(deftype command-pool-create-flag-bits ()
+  "Represents the enum [VkCommandPoolCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPoolCreateFlagBits.html)."
+  '(member nil 
+    :transient
+    :reset-command-buffer
+    :protected))
+
+(deftype command-pool-reset-flag-bits ()
+  "Represents the enum [VkCommandPoolResetFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPoolResetFlagBits.html)."
+  '(member nil 
+    :release-resources))
+
+(deftype command-buffer-reset-flag-bits ()
+  "Represents the enum [VkCommandBufferResetFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferResetFlagBits.html)."
+  '(member nil 
+    :release-resources))
+
+(deftype command-buffer-level ()
+  "Represents the enum [VkCommandBufferLevel](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferLevel.html)."
+  '(member nil 
+    :primary
+    :secondary))
+
+(deftype command-buffer-usage-flag-bits ()
+  "Represents the enum [VkCommandBufferUsageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferUsageFlagBits.html)."
+  '(member nil 
+    :one-time-submit
+    :render-pass-continue
+    :simultaneous-use))
+
+(deftype compare-op ()
+  "Represents the enum [VkCompareOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCompareOp.html)."
+  '(member nil 
+    :never
+    :less
+    :equal
+    :less-or-equal
+    :greater
+    :not-equal
+    :greater-or-equal
+    :always))
+
+(deftype cull-mode-flag-bits ()
+  "Represents the enum [VkCullModeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCullModeFlagBits.html)."
+  '(member nil 
+    :none
+    :front
+    :back
+    :front-and-back))
+
+(deftype descriptor-type ()
+  "Represents the enum [VkDescriptorType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorType.html)."
+  '(member nil 
+    :sampler
+    :combined-image-sampler
+    :sampled-image
+    :storage-image
+    :uniform-texel-buffer
+    :storage-texel-buffer
+    :uniform-buffer
+    :storage-buffer
+    :uniform-buffer-dynamic
+    :storage-buffer-dynamic
+    :input-attachment
+    :inline-uniform-block-ext
+    :acceleration-structure-khr
+    :acceleration-structure-nv
+    :mutable-valve))
+
+(deftype device-create-flag-bits ()
+  "Represents the enum [VkDeviceCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceCreateFlagBits.html)."
+  '(member nil ))
+
+(deftype dynamic-state ()
+  "Represents the enum [VkDynamicState](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDynamicState.html)."
+  '(member nil 
+    :viewport
+    :scissor
+    :line-width
+    :depth-bias
+    :blend-constants
+    :depth-bounds
+    :stencil-compare-mask
+    :stencil-write-mask
+    :stencil-reference
+    :viewport-w-scaling-nv
+    :discard-rectangle-ext
+    :sample-locations-ext
+    :viewport-shading-rate-palette-nv
+    :viewport-coarse-sample-order-nv
+    :exclusive-scissor-nv
+    :fragment-shading-rate-khr
+    :line-stipple-ext
+    :cull-mode-ext
+    :front-face-ext
+    :primitive-topology-ext
+    :viewport-with-count-ext
+    :scissor-with-count-ext
+    :vertex-input-binding-stride-ext
+    :depth-test-enable-ext
+    :depth-write-enable-ext
+    :depth-compare-op-ext
+    :depth-bounds-test-enable-ext
+    :stencil-test-enable-ext
+    :stencil-op-ext
+    :ray-tracing-pipeline-stack-size-khr))
+
+(deftype fence-create-flag-bits ()
+  "Represents the enum [VkFenceCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceCreateFlagBits.html)."
+  '(member nil 
+    :signaled))
+
+(deftype polygon-mode ()
+  "Represents the enum [VkPolygonMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPolygonMode.html)."
+  '(member nil 
+    :fill
+    :line
+    :point
+    :fill-rectangle-nv))
+
+(deftype format ()
+  "Represents the enum [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFormat.html)."
+  '(member nil 
+    :undefined
+    :r4g4-unorm-pack8
+    :r4g4b4a4-unorm-pack16
+    :b4g4r4a4-unorm-pack16
+    :r5g6b5-unorm-pack16
+    :b5g6r5-unorm-pack16
+    :r5g5b5a1-unorm-pack16
+    :b5g5r5a1-unorm-pack16
+    :a1r5g5b5-unorm-pack16
+    :r8-unorm
+    :r8-snorm
+    :r8-uscaled
+    :r8-sscaled
+    :r8-uint
+    :r8-sint
+    :r8-srgb
+    :r8g8-unorm
+    :r8g8-snorm
+    :r8g8-uscaled
+    :r8g8-sscaled
+    :r8g8-uint
+    :r8g8-sint
+    :r8g8-srgb
+    :r8g8b8-unorm
+    :r8g8b8-snorm
+    :r8g8b8-uscaled
+    :r8g8b8-sscaled
+    :r8g8b8-uint
+    :r8g8b8-sint
+    :r8g8b8-srgb
+    :b8g8r8-unorm
+    :b8g8r8-snorm
+    :b8g8r8-uscaled
+    :b8g8r8-sscaled
+    :b8g8r8-uint
+    :b8g8r8-sint
+    :b8g8r8-srgb
+    :r8g8b8a8-unorm
+    :r8g8b8a8-snorm
+    :r8g8b8a8-uscaled
+    :r8g8b8a8-sscaled
+    :r8g8b8a8-uint
+    :r8g8b8a8-sint
+    :r8g8b8a8-srgb
+    :b8g8r8a8-unorm
+    :b8g8r8a8-snorm
+    :b8g8r8a8-uscaled
+    :b8g8r8a8-sscaled
+    :b8g8r8a8-uint
+    :b8g8r8a8-sint
+    :b8g8r8a8-srgb
+    :a8b8g8r8-unorm-pack32
+    :a8b8g8r8-snorm-pack32
+    :a8b8g8r8-uscaled-pack32
+    :a8b8g8r8-sscaled-pack32
+    :a8b8g8r8-uint-pack32
+    :a8b8g8r8-sint-pack32
+    :a8b8g8r8-srgb-pack32
+    :a2r10g10b10-unorm-pack32
+    :a2r10g10b10-snorm-pack32
+    :a2r10g10b10-uscaled-pack32
+    :a2r10g10b10-sscaled-pack32
+    :a2r10g10b10-uint-pack32
+    :a2r10g10b10-sint-pack32
+    :a2b10g10r10-unorm-pack32
+    :a2b10g10r10-snorm-pack32
+    :a2b10g10r10-uscaled-pack32
+    :a2b10g10r10-sscaled-pack32
+    :a2b10g10r10-uint-pack32
+    :a2b10g10r10-sint-pack32
+    :r16-unorm
+    :r16-snorm
+    :r16-uscaled
+    :r16-sscaled
+    :r16-uint
+    :r16-sint
+    :r16-sfloat
+    :r16g16-unorm
+    :r16g16-snorm
+    :r16g16-uscaled
+    :r16g16-sscaled
+    :r16g16-uint
+    :r16g16-sint
+    :r16g16-sfloat
+    :r16g16b16-unorm
+    :r16g16b16-snorm
+    :r16g16b16-uscaled
+    :r16g16b16-sscaled
+    :r16g16b16-uint
+    :r16g16b16-sint
+    :r16g16b16-sfloat
+    :r16g16b16a16-unorm
+    :r16g16b16a16-snorm
+    :r16g16b16a16-uscaled
+    :r16g16b16a16-sscaled
+    :r16g16b16a16-uint
+    :r16g16b16a16-sint
+    :r16g16b16a16-sfloat
+    :r32-uint
+    :r32-sint
+    :r32-sfloat
+    :r32g32-uint
+    :r32g32-sint
+    :r32g32-sfloat
+    :r32g32b32-uint
+    :r32g32b32-sint
+    :r32g32b32-sfloat
+    :r32g32b32a32-uint
+    :r32g32b32a32-sint
+    :r32g32b32a32-sfloat
+    :r64-uint
+    :r64-sint
+    :r64-sfloat
+    :r64g64-uint
+    :r64g64-sint
+    :r64g64-sfloat
+    :r64g64b64-uint
+    :r64g64b64-sint
+    :r64g64b64-sfloat
+    :r64g64b64a64-uint
+    :r64g64b64a64-sint
+    :r64g64b64a64-sfloat
+    :b10g11r11-ufloat-pack32
+    :e5b9g9r9-ufloat-pack32
+    :d16-unorm
+    :x8-d24-unorm-pack32
+    :d32-sfloat
+    :s8-uint
+    :d16-unorm-s8-uint
+    :d24-unorm-s8-uint
+    :d32-sfloat-s8-uint
+    :bc1-rgb-unorm-block
+    :bc1-rgb-srgb-block
+    :bc1-rgba-unorm-block
+    :bc1-rgba-srgb-block
+    :bc2-unorm-block
+    :bc2-srgb-block
+    :bc3-unorm-block
+    :bc3-srgb-block
+    :bc4-unorm-block
+    :bc4-snorm-block
+    :bc5-unorm-block
+    :bc5-snorm-block
+    :bc6h-ufloat-block
+    :bc6h-sfloat-block
+    :bc7-unorm-block
+    :bc7-srgb-block
+    :etc2-r8g8b8-unorm-block
+    :etc2-r8g8b8-srgb-block
+    :etc2-r8g8b8a1-unorm-block
+    :etc2-r8g8b8a1-srgb-block
+    :etc2-r8g8b8a8-unorm-block
+    :etc2-r8g8b8a8-srgb-block
+    :eac-r11-unorm-block
+    :eac-r11-snorm-block
+    :eac-r11g11-unorm-block
+    :eac-r11g11-snorm-block
+    :astc-4x4-unorm-block
+    :astc-4x4-srgb-block
+    :astc-5x4-unorm-block
+    :astc-5x4-srgb-block
+    :astc-5x5-unorm-block
+    :astc-5x5-srgb-block
+    :astc-6x5-unorm-block
+    :astc-6x5-srgb-block
+    :astc-6x6-unorm-block
+    :astc-6x6-srgb-block
+    :astc-8x5-unorm-block
+    :astc-8x5-srgb-block
+    :astc-8x6-unorm-block
+    :astc-8x6-srgb-block
+    :astc-8x8-unorm-block
+    :astc-8x8-srgb-block
+    :astc-10x5-unorm-block
+    :astc-10x5-srgb-block
+    :astc-10x6-unorm-block
+    :astc-10x6-srgb-block
+    :astc-10x8-unorm-block
+    :astc-10x8-srgb-block
+    :astc-10x10-unorm-block
+    :astc-10x10-srgb-block
+    :astc-12x10-unorm-block
+    :astc-12x10-srgb-block
+    :astc-12x12-unorm-block
+    :astc-12x12-srgb-block
+    :pvrtc1-2bpp-unorm-block-img
+    :pvrtc1-4bpp-unorm-block-img
+    :pvrtc2-2bpp-unorm-block-img
+    :pvrtc2-4bpp-unorm-block-img
+    :pvrtc1-2bpp-srgb-block-img
+    :pvrtc1-4bpp-srgb-block-img
+    :pvrtc2-2bpp-srgb-block-img
+    :pvrtc2-4bpp-srgb-block-img
+    :astc-4x4-sfloat-block-ext
+    :astc-5x4-sfloat-block-ext
+    :astc-5x5-sfloat-block-ext
+    :astc-6x5-sfloat-block-ext
+    :astc-6x6-sfloat-block-ext
+    :astc-8x5-sfloat-block-ext
+    :astc-8x6-sfloat-block-ext
+    :astc-8x8-sfloat-block-ext
+    :astc-10x5-sfloat-block-ext
+    :astc-10x6-sfloat-block-ext
+    :astc-10x8-sfloat-block-ext
+    :astc-10x10-sfloat-block-ext
+    :astc-12x10-sfloat-block-ext
+    :astc-12x12-sfloat-block-ext
+    :g8b8g8r8-422-unorm
+    :b8g8r8g8-422-unorm
+    :g8-b8-r8-3plane-420-unorm
+    :g8-b8r8-2plane-420-unorm
+    :g8-b8-r8-3plane-422-unorm
+    :g8-b8r8-2plane-422-unorm
+    :g8-b8-r8-3plane-444-unorm
+    :r10x6-unorm-pack16
+    :r10x6g10x6-unorm-2pack16
+    :r10x6g10x6b10x6a10x6-unorm-4pack16
+    :g10x6b10x6g10x6r10x6-422-unorm-4pack16
+    :b10x6g10x6r10x6g10x6-422-unorm-4pack16
+    :g10x6-b10x6-r10x6-3plane-420-unorm-3pack16
+    :g10x6-b10x6r10x6-2plane-420-unorm-3pack16
+    :g10x6-b10x6-r10x6-3plane-422-unorm-3pack16
+    :g10x6-b10x6r10x6-2plane-422-unorm-3pack16
+    :g10x6-b10x6-r10x6-3plane-444-unorm-3pack16
+    :r12x4-unorm-pack16
+    :r12x4g12x4-unorm-2pack16
+    :r12x4g12x4b12x4a12x4-unorm-4pack16
+    :g12x4b12x4g12x4r12x4-422-unorm-4pack16
+    :b12x4g12x4r12x4g12x4-422-unorm-4pack16
+    :g12x4-b12x4-r12x4-3plane-420-unorm-3pack16
+    :g12x4-b12x4r12x4-2plane-420-unorm-3pack16
+    :g12x4-b12x4-r12x4-3plane-422-unorm-3pack16
+    :g12x4-b12x4r12x4-2plane-422-unorm-3pack16
+    :g12x4-b12x4-r12x4-3plane-444-unorm-3pack16
+    :g16b16g16r16-422-unorm
+    :b16g16r16g16-422-unorm
+    :g16-b16-r16-3plane-420-unorm
+    :g16-b16r16-2plane-420-unorm
+    :g16-b16-r16-3plane-422-unorm
+    :g16-b16r16-2plane-422-unorm
+    :g16-b16-r16-3plane-444-unorm
+    :a4r4g4b4-unorm-pack16-ext
+    :a4b4g4r4-unorm-pack16-ext))
+
+(deftype format-feature-flag-bits ()
+  "Represents the enum [VkFormatFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFormatFeatureFlagBits.html)."
+  '(member nil 
+    :sampled-image
+    :storage-image
+    :storage-image-atomic
+    :uniform-texel-buffer
+    :storage-texel-buffer
+    :storage-texel-buffer-atomic
+    :vertex-buffer
+    :color-attachment
+    :color-attachment-blend
+    :depth-stencil-attachment
+    :blit-src
+    :blit-dst
+    :sampled-image-filter-linear
+    :sampled-image-filter-cubic
+    :transfer-src
+    :transfer-dst
+    :sampled-image-filter-minmax
+    :midpoint-chroma-samples
+    :sampled-image-ycbcr-conversion-linear-filter
+    :sampled-image-ycbcr-conversion-separate-reconstruction-filter
+    :sampled-image-ycbcr-conversion-chroma-reconstruction-explicit
+    :sampled-image-ycbcr-conversion-chroma-reconstruction-explicit-forceable
+    :disjoint
+    :cosited-chroma-samples
+    :fragment-density-map
+    :acceleration-structure-vertex-buffer
+    :fragment-shading-rate-attachment))
+
+(deftype front-face ()
+  "Represents the enum [VkFrontFace](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFrontFace.html)."
+  '(member nil 
+    :counter-clockwise
+    :clockwise))
+
+(deftype image-aspect-flag-bits ()
+  "Represents the enum [VkImageAspectFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageAspectFlagBits.html)."
+  '(member nil 
+    :color
+    :depth
+    :stencil
+    :metadata
+    :plane-0
+    :plane-1
+    :plane-2
+    :memory-plane-0
+    :memory-plane-1
+    :memory-plane-2
+    :memory-plane-3))
+
+(deftype image-create-flag-bits ()
+  "Represents the enum [VkImageCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageCreateFlagBits.html)."
+  '(member nil 
+    :sparse-binding
+    :sparse-residency
+    :sparse-aliased
+    :mutable-format
+    :cube-compatible
+    :2d-array-compatible
+    :split-instance-bind-regions
+    :block-texel-view-compatible
+    :extended-usage
+    :disjoint
+    :alias
+    :protected
+    :sample-locations-compatible-depth
+    :corner-sampled
+    :subsampled))
+
+(deftype image-layout ()
+  "Represents the enum [VkImageLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageLayout.html)."
+  '(member nil 
+    :undefined
+    :general
+    :color-attachment-optimal
+    :depth-stencil-attachment-optimal
+    :depth-stencil-read-only-optimal
+    :shader-read-only-optimal
+    :transfer-src-optimal
+    :transfer-dst-optimal
+    :preinitialized
+    :present-src-khr
+    :shared-present-khr
+    :depth-read-only-stencil-attachment-optimal
+    :depth-attachment-stencil-read-only-optimal
+    :shading-rate-optimal-nv
+    :fragment-density-map-optimal-ext
+    :depth-attachment-optimal
+    :depth-read-only-optimal
+    :stencil-attachment-optimal
+    :stencil-read-only-optimal
+    :read-only-optimal-khr
+    :attachment-optimal-khr))
+
+(deftype image-tiling ()
+  "Represents the enum [VkImageTiling](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageTiling.html)."
+  '(member nil 
+    :optimal
+    :linear
+    :drm-format-modifier-ext))
+
+(deftype image-type ()
+  "Represents the enum [VkImageType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageType.html)."
+  '(member nil 
+    :1d
+    :2d
+    :3d))
+
+(deftype image-usage-flag-bits ()
+  "Represents the enum [VkImageUsageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageUsageFlagBits.html)."
+  '(member nil 
+    :transfer-src
+    :transfer-dst
+    :sampled
+    :storage
+    :color-attachment
+    :depth-stencil-attachment
+    :transient-attachment
+    :input-attachment
+    :shading-rate-image
+    :fragment-density-map))
+
+(deftype image-view-create-flag-bits ()
+  "Represents the enum [VkImageViewCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewCreateFlagBits.html)."
+  '(member nil 
+    :ragment-density-map-dynamic
+    :ragment-density-map-deferred))
+
+(deftype image-view-type ()
+  "Represents the enum [VkImageViewType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewType.html)."
+  '(member nil 
+    :1d
+    :2d
+    :3d
+    :cube
+    :1d-array
+    :2d-array
+    :cube-array))
+
+(deftype sharing-mode ()
+  "Represents the enum [VkSharingMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSharingMode.html)."
+  '(member nil 
+    :exclusive
+    :concurrent))
+
+(deftype index-type ()
+  "Represents the enum [VkIndexType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndexType.html)."
+  '(member nil 
+    :uint16
+    :uint32
+    :none-khr
+    :uint8-ext))
+
+(deftype logic-op ()
+  "Represents the enum [VkLogicOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkLogicOp.html)."
+  '(member nil 
+    :clear
+    :and
+    :and-reverse
+    :copy
+    :and-inverted
+    :no-op
+    :xor
+    :or
+    :nor
+    :equivalent
+    :invert
+    :or-reverse
+    :copy-inverted
+    :or-inverted
+    :nand
+    :set))
+
+(deftype memory-heap-flag-bits ()
+  "Represents the enum [VkMemoryHeapFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryHeapFlagBits.html)."
+  '(member nil 
+    :device-local
+    :multi-instance))
+
+(deftype access-flag-bits ()
+  "Represents the enum [VkAccessFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccessFlagBits.html)."
+  '(member nil 
+    :none-khr
+    :indirect-command-read
+    :index-read
+    :vertex-attribute-read
+    :uniform-read
+    :input-attachment-read
+    :shader-read
+    :shader-write
+    :color-attachment-read
+    :color-attachment-write
+    :depth-stencil-attachment-read
+    :depth-stencil-attachment-write
+    :transfer-read
+    :transfer-write
+    :host-read
+    :host-write
+    :memory-read
+    :memory-write
+    :command-preprocess-read
+    :command-preprocess-write
+    :color-attachment-read-noncoherent
+    :conditional-rendering-read
+    :acceleration-structure-read
+    :acceleration-structure-write
+    :shading-rate-image-read
+    :fragment-density-map-read
+    :transform-feedback-write
+    :transform-feedback-counter-read
+    :transform-feedback-counter-write))
+
+(deftype memory-property-flag-bits ()
+  "Represents the enum [VkMemoryPropertyFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryPropertyFlagBits.html)."
+  '(member nil 
+    :device-local
+    :host-visible
+    :host-coherent
+    :host-cached
+    :lazily-allocated
+    :protected
+    :device-coherent
+    :device-uncached))
+
+(deftype physical-device-type ()
+  "Represents the enum [VkPhysicalDeviceType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceType.html)."
+  '(member nil 
+    :other
+    :integrated-gpu
+    :discrete-gpu
+    :virtual-gpu
+    :cpu))
+
+(deftype pipeline-bind-point ()
+  "Represents the enum [VkPipelineBindPoint](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineBindPoint.html)."
+  '(member nil 
+    :graphics
+    :compute
+    :ray-tracing-khr))
+
+(deftype pipeline-create-flag-bits ()
+  "Represents the enum [VkPipelineCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCreateFlagBits.html)."
+  '(member nil 
+    :disable-optimization
+    :allow-derivatives
+    :derivative
+    :view-index-from-device-index
+    :dispatch-base
+    :defer-compile
+    :capture-statistics
+    :capture-internal-representations
+    :fail-on-pipeline-compile-required
+    :early-return-on-failure
+    :library
+    :ray-tracing-skip-triangles
+    :ray-tracing-skip-aabbs
+    :ray-tracing-no-null-any-hit-shaders
+    :ray-tracing-no-null-closest-hit-shaders
+    :ray-tracing-no-null-miss-shaders
+    :ray-tracing-no-null-intersection-shaders
+    :indirect-bindable
+    :ray-tracing-shader-group-handle-capture-replay))
+
+(deftype primitive-topology ()
+  "Represents the enum [VkPrimitiveTopology](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrimitiveTopology.html)."
+  '(member nil 
+    :point-list
+    :line-list
+    :line-strip
+    :triangle-list
+    :triangle-strip
+    :triangle-fan
+    :line-list-with-adjacency
+    :line-strip-with-adjacency
+    :triangle-list-with-adjacency
+    :triangle-strip-with-adjacency
+    :patch-list))
+
+(deftype query-control-flag-bits ()
+  "Represents the enum [VkQueryControlFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryControlFlagBits.html)."
+  '(member nil 
+    :precise))
+
+(deftype query-pipeline-statistic-flag-bits ()
+  "Represents the enum [VkQueryPipelineStatisticFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPipelineStatisticFlagBits.html)."
+  '(member nil 
+    :input-assembly-vertices
+    :input-assembly-primitives
+    :vertex-shader-invocations
+    :geometry-shader-invocations
+    :geometry-shader-primitives
+    :clipping-invocations
+    :clipping-primitives
+    :fragment-shader-invocations
+    :tessellation-control-shader-patches
+    :tessellation-evaluation-shader-invocations
+    :compute-shader-invocations))
+
+(deftype query-result-flag-bits ()
+  "Represents the enum [VkQueryResultFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryResultFlagBits.html)."
+  '(member nil 
+    :64
+    :wait
+    :with-availability
+    :partial))
+
+(deftype query-type ()
+  "Represents the enum [VkQueryType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryType.html)."
+  '(member nil 
+    :occlusion
+    :pipeline-statistics
+    :timestamp
+    :transform-feedback-stream-ext
+    :performance-query-khr
+    :acceleration-structure-compacted-size-khr
+    :acceleration-structure-serialization-size-khr
+    :acceleration-structure-compacted-size-nv
+    :performance-query-intel))
+
+(deftype queue-flag-bits ()
+  "Represents the enum [VkQueueFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFlagBits.html)."
+  '(member nil 
+    :graphics
+    :compute
+    :transfer
+    :sparse-binding
+    :protected))
+
+(deftype subpass-contents ()
+  "Represents the enum [VkSubpassContents](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassContents.html)."
+  '(member nil 
+    :inline
+    :secondary-command-buffers))
+
+(deftype result ()
+  "Represents the enum [VkResult](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkResult.html)."
+  '(member nil 
+    :error-invalid-opaque-capture-address
+    :error-full-screen-exclusive-mode-lost-ext
+    :error-not-permitted-ext
+    :error-fragmentation
+    :error-invalid-drm-format-modifier-plane-layout-ext
+    :error-invalid-external-handle
+    :error-out-of-pool-memory
+    :error-invalid-shader-nv
+    :error-validation-failed-ext
+    :error-incompatible-display-khr
+    :error-out-of-date-khr
+    :error-native-window-in-use-khr
+    :error-surface-lost-khr
+    :error-unknown
+    :error-fragmented-pool
+    :error-format-not-supported
+    :error-too-many-objects
+    :error-incompatible-driver
+    :error-feature-not-present
+    :error-extension-not-present
+    :error-layer-not-present
+    :error-memory-map-failed
+    :error-device-lost
+    :error-initialization-failed
+    :error-out-of-device-memory
+    :error-out-of-host-memory
+    :success
+    :not-ready
+    :timeout
+    :event-set
+    :event-reset
+    :incomplete
+    :suboptimal-khr
+    :thread-idle-khr
+    :thread-done-khr
+    :operation-deferred-khr
+    :operation-not-deferred-khr
+    :pipeline-compile-required-ext))
+
+(deftype shader-stage-flag-bits ()
+  "Represents the enum [VkShaderStageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderStageFlagBits.html)."
+  '(member nil 
+    :vertex
+    :tessellation-control
+    :tessellation-evaluation
+    :geometry
+    :fragment
+    :all-graphics
+    :compute
+    :task
+    :mesh
+    :raygen
+    :any-hit
+    :closest-hit
+    :miss
+    :intersection
+    :callable
+    :all))
+
+(deftype sparse-memory-bind-flag-bits ()
+  "Represents the enum [VkSparseMemoryBindFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSparseMemoryBindFlagBits.html)."
+  '(member nil 
+    :metadata))
+
+(deftype stencil-face-flag-bits ()
+  "Represents the enum [VkStencilFaceFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStencilFaceFlagBits.html)."
+  '(member nil 
+    :front
+    :back
+    :front-and-back))
+
+(deftype stencil-op ()
+  "Represents the enum [VkStencilOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStencilOp.html)."
+  '(member nil 
+    :keep
+    :zero
+    :replace
+    :increment-and-clamp
+    :decrement-and-clamp
+    :invert
+    :increment-and-wrap
+    :decrement-and-wrap))
+
+(deftype structure-type ()
+  "Represents the enum [VkStructureType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStructureType.html)."
+  '(member nil 
+    :application-info
+    :instance-create-info
+    :device-queue-create-info
+    :device-create-info
+    :submit-info
+    :memory-allocate-info
+    :mapped-memory-range
+    :bind-sparse-info
+    :fence-create-info
+    :semaphore-create-info
+    :event-create-info
+    :query-pool-create-info
+    :buffer-create-info
+    :buffer-view-create-info
+    :image-create-info
+    :image-view-create-info
+    :shader-module-create-info
+    :pipeline-cache-create-info
+    :pipeline-shader-stage-create-info
+    :pipeline-vertex-input-state-create-info
+    :pipeline-input-assembly-state-create-info
+    :pipeline-tessellation-state-create-info
+    :pipeline-viewport-state-create-info
+    :pipeline-rasterization-state-create-info
+    :pipeline-multisample-state-create-info
+    :pipeline-depth-stencil-state-create-info
+    :pipeline-color-blend-state-create-info
+    :pipeline-dynamic-state-create-info
+    :graphics-pipeline-create-info
+    :compute-pipeline-create-info
+    :pipeline-layout-create-info
+    :sampler-create-info
+    :descriptor-set-layout-create-info
+    :descriptor-pool-create-info
+    :descriptor-set-allocate-info
+    :write-descriptor-set
+    :copy-descriptor-set
+    :framebuffer-create-info
+    :render-pass-create-info
+    :command-pool-create-info
+    :command-buffer-allocate-info
+    :command-buffer-inheritance-info
+    :command-buffer-begin-info
+    :render-pass-begin-info
+    :buffer-memory-barrier
+    :image-memory-barrier
+    :memory-barrier
+    :loader-instance-create-info
+    :loader-device-create-info
+    :physical-device-vulkan-1-1-features
+    :physical-device-vulkan-1-1-properties
+    :physical-device-vulkan-1-2-features
+    :physical-device-vulkan-1-2-properties
+    :swapchain-create-info-khr
+    :present-info-khr
+    :display-mode-create-info-khr
+    :display-surface-create-info-khr
+    :display-present-info-khr
+    :xlib-surface-create-info-khr
+    :xcb-surface-create-info-khr
+    :wayland-surface-create-info-khr
+    :android-surface-create-info-khr
+    :win32-surface-create-info-khr
+    :debug-report-callback-create-info-ext
+    :pipeline-rasterization-state-rasterization-order-amd
+    :debug-marker-object-name-info-ext
+    :debug-marker-object-tag-info-ext
+    :debug-marker-marker-info-ext
+    :dedicated-allocation-image-create-info-nv
+    :dedicated-allocation-buffer-create-info-nv
+    :dedicated-allocation-memory-allocate-info-nv
+    :physical-device-transform-feedback-features-ext
+    :physical-device-transform-feedback-properties-ext
+    :pipeline-rasterization-state-stream-create-info-ext
+    :image-view-handle-info-nvx
+    :image-view-address-properties-nvx
+    :texture-lod-gather-format-properties-amd
+    :stream-descriptor-surface-create-info-ggp
+    :physical-device-corner-sampled-image-features-nv
+    :render-pass-multiview-create-info
+    :physical-device-multiview-features
+    :physical-device-multiview-properties
+    :external-memory-image-create-info-nv
+    :export-memory-allocate-info-nv
+    :import-memory-win32-handle-info-nv
+    :export-memory-win32-handle-info-nv
+    :win32-keyed-mutex-acquire-release-info-nv
+    :physical-device-features-2
+    :physical-device-properties-2
+    :format-properties-2
+    :image-format-properties-2
+    :physical-device-image-format-info-2
+    :queue-family-properties-2
+    :physical-device-memory-properties-2
+    :sparse-image-format-properties-2
+    :physical-device-sparse-image-format-info-2
+    :memory-allocate-flags-info
+    :device-group-render-pass-begin-info
+    :device-group-command-buffer-begin-info
+    :device-group-submit-info
+    :device-group-bind-sparse-info
+    :device-group-present-capabilities-khr
+    :image-swapchain-create-info-khr
+    :bind-image-memory-swapchain-info-khr
+    :acquire-next-image-info-khr
+    :device-group-present-info-khr
+    :device-group-swapchain-create-info-khr
+    :bind-buffer-memory-device-group-info
+    :bind-image-memory-device-group-info
+    :validation-flags-ext
+    :vi-surface-create-info-nn
+    :physical-device-shader-draw-parameters-features
+    :physical-device-texture-compression-astc-hdr-features-ext
+    :image-view-astc-decode-mode-ext
+    :physical-device-astc-decode-features-ext
+    :physical-device-group-properties
+    :device-group-device-create-info
+    :physical-device-external-image-format-info
+    :external-image-format-properties
+    :physical-device-external-buffer-info
+    :external-buffer-properties
+    :physical-device-id-properties
+    :external-memory-buffer-create-info
+    :external-memory-image-create-info
+    :export-memory-allocate-info
+    :import-memory-win32-handle-info-khr
+    :export-memory-win32-handle-info-khr
+    :memory-win32-handle-properties-khr
+    :memory-get-win32-handle-info-khr
+    :import-memory-fd-info-khr
+    :memory-fd-properties-khr
+    :memory-get-fd-info-khr
+    :win32-keyed-mutex-acquire-release-info-khr
+    :physical-device-external-semaphore-info
+    :external-semaphore-properties
+    :export-semaphore-create-info
+    :import-semaphore-win32-handle-info-khr
+    :export-semaphore-win32-handle-info-khr
+    :d3d12-fence-submit-info-khr
+    :semaphore-get-win32-handle-info-khr
+    :import-semaphore-fd-info-khr
+    :semaphore-get-fd-info-khr
+    :physical-device-push-descriptor-properties-khr
+    :command-buffer-inheritance-conditional-rendering-info-ext
+    :physical-device-conditional-rendering-features-ext
+    :conditional-rendering-begin-info-ext
+    :physical-device-shader-float16-int8-features
+    :physical-device-16bit-storage-features
+    :present-regions-khr
+    :descriptor-update-template-create-info
+    :pipeline-viewport-w-scaling-state-create-info-nv
+    :surface-capabilities-2-ext
+    :display-power-info-ext
+    :device-event-info-ext
+    :display-event-info-ext
+    :swapchain-counter-create-info-ext
+    :present-times-info-google
+    :physical-device-subgroup-properties
+    :physical-device-multiview-per-view-attributes-properties-nvx
+    :pipeline-viewport-swizzle-state-create-info-nv
+    :physical-device-discard-rectangle-properties-ext
+    :pipeline-discard-rectangle-state-create-info-ext
+    :physical-device-conservative-rasterization-properties-ext
+    :pipeline-rasterization-conservative-state-create-info-ext
+    :physical-device-depth-clip-enable-features-ext
+    :pipeline-rasterization-depth-clip-state-create-info-ext
+    :hdr-metadata-ext
+    :physical-device-imageless-framebuffer-features
+    :framebuffer-attachments-create-info
+    :framebuffer-attachment-image-info
+    :render-pass-attachment-begin-info
+    :attachment-description-2
+    :attachment-reference-2
+    :subpass-description-2
+    :subpass-dependency-2
+    :render-pass-create-info-2
+    :subpass-begin-info
+    :subpass-end-info
+    :shared-present-surface-capabilities-khr
+    :physical-device-external-fence-info
+    :external-fence-properties
+    :export-fence-create-info
+    :import-fence-win32-handle-info-khr
+    :export-fence-win32-handle-info-khr
+    :fence-get-win32-handle-info-khr
+    :import-fence-fd-info-khr
+    :fence-get-fd-info-khr
+    :physical-device-performance-query-features-khr
+    :physical-device-performance-query-properties-khr
+    :query-pool-performance-create-info-khr
+    :performance-query-submit-info-khr
+    :acquire-profiling-lock-info-khr
+    :performance-counter-khr
+    :performance-counter-description-khr
+    :physical-device-point-clipping-properties
+    :render-pass-input-attachment-aspect-create-info
+    :image-view-usage-create-info
+    :pipeline-tessellation-domain-origin-state-create-info
+    :physical-device-surface-info-2-khr
+    :surface-capabilities-2-khr
+    :surface-format-2-khr
+    :physical-device-variable-pointers-features
+    :display-properties-2-khr
+    :display-plane-properties-2-khr
+    :display-mode-properties-2-khr
+    :display-plane-info-2-khr
+    :display-plane-capabilities-2-khr
+    :ios-surface-create-info-mvk
+    :macos-surface-create-info-mvk
+    :memory-dedicated-requirements
+    :memory-dedicated-allocate-info
+    :debug-utils-object-name-info-ext
+    :debug-utils-object-tag-info-ext
+    :debug-utils-label-ext
+    :debug-utils-messenger-callback-data-ext
+    :debug-utils-messenger-create-info-ext
+    :android-hardware-buffer-usage-android
+    :android-hardware-buffer-properties-android
+    :android-hardware-buffer-format-properties-android
+    :import-android-hardware-buffer-info-android
+    :memory-get-android-hardware-buffer-info-android
+    :external-format-android
+    :physical-device-sampler-filter-minmax-properties
+    :sampler-reduction-mode-create-info
+    :physical-device-inline-uniform-block-features-ext
+    :physical-device-inline-uniform-block-properties-ext
+    :write-descriptor-set-inline-uniform-block-ext
+    :descriptor-pool-inline-uniform-block-create-info-ext
+    :sample-locations-info-ext
+    :render-pass-sample-locations-begin-info-ext
+    :pipeline-sample-locations-state-create-info-ext
+    :physical-device-sample-locations-properties-ext
+    :multisample-properties-ext
+    :protected-submit-info
+    :physical-device-protected-memory-features
+    :physical-device-protected-memory-properties
+    :device-queue-info-2
+    :buffer-memory-requirements-info-2
+    :image-memory-requirements-info-2
+    :image-sparse-memory-requirements-info-2
+    :memory-requirements-2
+    :sparse-image-memory-requirements-2
+    :image-format-list-create-info
+    :physical-device-blend-operation-advanced-features-ext
+    :physical-device-blend-operation-advanced-properties-ext
+    :pipeline-color-blend-advanced-state-create-info-ext
+    :pipeline-coverage-to-color-state-create-info-nv
+    :acceleration-structure-build-geometry-info-khr
+    :acceleration-structure-device-address-info-khr
+    :acceleration-structure-geometry-aabbs-data-khr
+    :acceleration-structure-geometry-instances-data-khr
+    :acceleration-structure-geometry-triangles-data-khr
+    :acceleration-structure-geometry-khr
+    :write-descriptor-set-acceleration-structure-khr
+    :acceleration-structure-version-info-khr
+    :copy-acceleration-structure-info-khr
+    :copy-acceleration-structure-to-memory-info-khr
+    :copy-memory-to-acceleration-structure-info-khr
+    :physical-device-acceleration-structure-features-khr
+    :physical-device-acceleration-structure-properties-khr
+    :ray-tracing-pipeline-create-info-khr
+    :ray-tracing-shader-group-create-info-khr
+    :acceleration-structure-create-info-khr
+    :ray-tracing-pipeline-interface-create-info-khr
+    :acceleration-structure-build-sizes-info-khr
+    :pipeline-coverage-modulation-state-create-info-nv
+    :physical-device-shader-sm-builtins-features-nv
+    :physical-device-shader-sm-builtins-properties-nv
+    :sampler-ycbcr-conversion-create-info
+    :sampler-ycbcr-conversion-info
+    :bind-image-plane-memory-info
+    :image-plane-memory-requirements-info
+    :physical-device-sampler-ycbcr-conversion-features
+    :sampler-ycbcr-conversion-image-format-properties
+    :bind-buffer-memory-info
+    :bind-image-memory-info
+    :drm-format-modifier-properties-list-ext
+    :physical-device-image-drm-format-modifier-info-ext
+    :image-drm-format-modifier-list-create-info-ext
+    :image-drm-format-modifier-explicit-create-info-ext
+    :image-drm-format-modifier-properties-ext
+    :validation-cache-create-info-ext
+    :shader-module-validation-cache-create-info-ext
+    :descriptor-set-layout-binding-flags-create-info
+    :physical-device-descriptor-indexing-features
+    :physical-device-descriptor-indexing-properties
+    :descriptor-set-variable-descriptor-count-allocate-info
+    :descriptor-set-variable-descriptor-count-layout-support
+    :physical-device-portability-subset-features-khr
+    :physical-device-portability-subset-properties-khr
+    :pipeline-viewport-shading-rate-image-state-create-info-nv
+    :physical-device-shading-rate-image-features-nv
+    :physical-device-shading-rate-image-properties-nv
+    :pipeline-viewport-coarse-sample-order-state-create-info-nv
+    :ray-tracing-pipeline-create-info-nv
+    :acceleration-structure-create-info-nv
+    :geometry-nv
+    :geometry-triangles-nv
+    :geometry-aabb-nv
+    :bind-acceleration-structure-memory-info-nv
+    :write-descriptor-set-acceleration-structure-nv
+    :acceleration-structure-memory-requirements-info-nv
+    :physical-device-ray-tracing-properties-nv
+    :ray-tracing-shader-group-create-info-nv
+    :acceleration-structure-info-nv
+    :physical-device-representative-fragment-test-features-nv
+    :pipeline-representative-fragment-test-state-create-info-nv
+    :physical-device-maintenance-3-properties
+    :descriptor-set-layout-support
+    :physical-device-image-view-image-format-info-ext
+    :filter-cubic-image-view-image-format-properties-ext
+    :device-queue-global-priority-create-info-ext
+    :physical-device-shader-subgroup-extended-types-features
+    :physical-device-8bit-storage-features
+    :import-memory-host-pointer-info-ext
+    :memory-host-pointer-properties-ext
+    :physical-device-external-memory-host-properties-ext
+    :physical-device-shader-atomic-int64-features
+    :physical-device-shader-clock-features-khr
+    :pipeline-compiler-control-create-info-amd
+    :calibrated-timestamp-info-ext
+    :physical-device-shader-core-properties-amd
+    :device-memory-overallocation-create-info-amd
+    :physical-device-vertex-attribute-divisor-properties-ext
+    :pipeline-vertex-input-divisor-state-create-info-ext
+    :physical-device-vertex-attribute-divisor-features-ext
+    :present-frame-token-ggp
+    :pipeline-creation-feedback-create-info-ext
+    :physical-device-driver-properties
+    :physical-device-float-controls-properties
+    :physical-device-depth-stencil-resolve-properties
+    :subpass-description-depth-stencil-resolve
+    :physical-device-compute-shader-derivatives-features-nv
+    :physical-device-mesh-shader-features-nv
+    :physical-device-mesh-shader-properties-nv
+    :physical-device-fragment-shader-barycentric-features-nv
+    :physical-device-shader-image-footprint-features-nv
+    :pipeline-viewport-exclusive-scissor-state-create-info-nv
+    :physical-device-exclusive-scissor-features-nv
+    :checkpoint-data-nv
+    :queue-family-checkpoint-properties-nv
+    :physical-device-timeline-semaphore-features
+    :physical-device-timeline-semaphore-properties
+    :semaphore-type-create-info
+    :timeline-semaphore-submit-info
+    :semaphore-wait-info
+    :semaphore-signal-info
+    :physical-device-shader-integer-functions-2-features-intel
+    :query-pool-performance-query-create-info-intel
+    :initialize-performance-api-info-intel
+    :performance-marker-info-intel
+    :performance-stream-marker-info-intel
+    :performance-override-info-intel
+    :performance-configuration-acquire-info-intel
+    :physical-device-vulkan-memory-model-features
+    :physical-device-pci-bus-info-properties-ext
+    :display-native-hdr-surface-capabilities-amd
+    :swapchain-display-native-hdr-create-info-amd
+    :imagepipe-surface-create-info-fuchsia
+    :physical-device-shader-terminate-invocation-features-khr
+    :metal-surface-create-info-ext
+    :physical-device-fragment-density-map-features-ext
+    :physical-device-fragment-density-map-properties-ext
+    :render-pass-fragment-density-map-create-info-ext
+    :physical-device-scalar-block-layout-features
+    :physical-device-subgroup-size-control-properties-ext
+    :pipeline-shader-stage-required-subgroup-size-create-info-ext
+    :physical-device-subgroup-size-control-features-ext
+    :fragment-shading-rate-attachment-info-khr
+    :pipeline-fragment-shading-rate-state-create-info-khr
+    :physical-device-fragment-shading-rate-properties-khr
+    :physical-device-fragment-shading-rate-features-khr
+    :physical-device-fragment-shading-rate-khr
+    :physical-device-shader-core-properties-2-amd
+    :physical-device-coherent-memory-features-amd
+    :physical-device-shader-image-atomic-int64-features-ext
+    :physical-device-memory-budget-properties-ext
+    :physical-device-memory-priority-features-ext
+    :memory-priority-allocate-info-ext
+    :surface-protected-capabilities-khr
+    :physical-device-dedicated-allocation-image-aliasing-features-nv
+    :physical-device-separate-depth-stencil-layouts-features
+    :attachment-reference-stencil-layout
+    :attachment-description-stencil-layout
+    :physical-device-buffer-device-address-features-ext
+    :buffer-device-address-info
+    :buffer-device-address-create-info-ext
+    :physical-device-tool-properties-ext
+    :image-stencil-usage-create-info
+    :validation-features-ext
+    :physical-device-cooperative-matrix-features-nv
+    :cooperative-matrix-properties-nv
+    :physical-device-cooperative-matrix-properties-nv
+    :physical-device-coverage-reduction-mode-features-nv
+    :pipeline-coverage-reduction-state-create-info-nv
+    :framebuffer-mixed-samples-combination-nv
+    :physical-device-fragment-shader-interlock-features-ext
+    :physical-device-ycbcr-image-arrays-features-ext
+    :physical-device-uniform-buffer-standard-layout-features
+    :surface-full-screen-exclusive-info-ext
+    :surface-full-screen-exclusive-win32-info-ext
+    :surface-capabilities-full-screen-exclusive-ext
+    :headless-surface-create-info-ext
+    :physical-device-buffer-device-address-features
+    :buffer-opaque-capture-address-create-info
+    :memory-opaque-capture-address-allocate-info
+    :device-memory-opaque-capture-address-info
+    :physical-device-line-rasterization-features-ext
+    :pipeline-rasterization-line-state-create-info-ext
+    :physical-device-line-rasterization-properties-ext
+    :physical-device-shader-atomic-float-features-ext
+    :physical-device-host-query-reset-features
+    :physical-device-index-type-uint8-features-ext
+    :physical-device-extended-dynamic-state-features-ext
+    :physical-device-pipeline-executable-properties-features-khr
+    :pipeline-info-khr
+    :pipeline-executable-properties-khr
+    :pipeline-executable-info-khr
+    :pipeline-executable-statistic-khr
+    :pipeline-executable-internal-representation-khr
+    :physical-device-shader-demote-to-helper-invocation-features-ext
+    :physical-device-device-generated-commands-properties-nv
+    :graphics-shader-group-create-info-nv
+    :graphics-pipeline-shader-groups-create-info-nv
+    :indirect-commands-layout-token-nv
+    :indirect-commands-layout-create-info-nv
+    :generated-commands-info-nv
+    :generated-commands-memory-requirements-info-nv
+    :physical-device-device-generated-commands-features-nv
+    :physical-device-texel-buffer-alignment-features-ext
+    :physical-device-texel-buffer-alignment-properties-ext
+    :command-buffer-inheritance-render-pass-transform-info-qcom
+    :render-pass-transform-begin-info-qcom
+    :physical-device-device-memory-report-features-ext
+    :device-device-memory-report-create-info-ext
+    :device-memory-report-callback-data-ext
+    :physical-device-robustness-2-features-ext
+    :physical-device-robustness-2-properties-ext
+    :sampler-custom-border-color-create-info-ext
+    :physical-device-custom-border-color-properties-ext
+    :physical-device-custom-border-color-features-ext
+    :pipeline-library-create-info-khr
+    :physical-device-private-data-features-ext
+    :device-private-data-create-info-ext
+    :private-data-slot-create-info-ext
+    :physical-device-pipeline-creation-cache-control-features-ext
+    :physical-device-diagnostics-config-features-nv
+    :device-diagnostics-config-create-info-nv
+    :memory-barrier-2-khr
+    :buffer-memory-barrier-2-khr
+    :image-memory-barrier-2-khr
+    :dependency-info-khr
+    :submit-info-2-khr
+    :semaphore-submit-info-khr
+    :command-buffer-submit-info-khr
+    :physical-device-synchronization-2-features-khr
+    :queue-family-checkpoint-properties-2-nv
+    :checkpoint-data-2-nv
+    :physical-device-zero-initialize-workgroup-memory-features-khr
+    :physical-device-fragment-shading-rate-enums-properties-nv
+    :physical-device-fragment-shading-rate-enums-features-nv
+    :pipeline-fragment-shading-rate-enum-state-create-info-nv
+    :physical-device-fragment-density-map-2-features-ext
+    :physical-device-fragment-density-map-2-properties-ext
+    :copy-command-transform-info-qcom
+    :physical-device-image-robustness-features-ext
+    :physical-device-workgroup-memory-explicit-layout-features-khr
+    :copy-buffer-info-2-khr
+    :copy-image-info-2-khr
+    :copy-buffer-to-image-info-2-khr
+    :copy-image-to-buffer-info-2-khr
+    :blit-image-info-2-khr
+    :resolve-image-info-2-khr
+    :buffer-copy-2-khr
+    :image-copy-2-khr
+    :image-blit-2-khr
+    :buffer-image-copy-2-khr
+    :image-resolve-2-khr
+    :physical-device-4444-formats-features-ext
+    :directfb-surface-create-info-ext
+    :physical-device-ray-tracing-pipeline-features-khr
+    :physical-device-ray-tracing-pipeline-properties-khr
+    :physical-device-ray-query-features-khr
+    :physical-device-mutable-descriptor-type-features-valve
+    :mutable-descriptor-type-create-info-valve
+    :import-memory-zircon-handle-info-fuchsia
+    :memory-zircon-handle-properties-fuchsia
+    :memory-get-zircon-handle-info-fuchsia
+    :import-semaphore-zircon-handle-info-fuchsia
+    :semaphore-get-zircon-handle-info-fuchsia
+    :screen-surface-create-info-qnx))
+
+(deftype system-allocation-scope ()
+  "Represents the enum [VkSystemAllocationScope](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSystemAllocationScope.html)."
+  '(member nil 
+    :command
+    :object
+    :cache
+    :device
+    :instance))
+
+(deftype internal-allocation-type ()
+  "Represents the enum [VkInternalAllocationType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInternalAllocationType.html)."
+  '(member nil 
+    :executable))
+
+(deftype sampler-address-mode ()
+  "Represents the enum [VkSamplerAddressMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerAddressMode.html)."
+  '(member nil 
+    :repeat
+    :mirrored-repeat
+    :clamp-to-edge
+    :clamp-to-border
+    :mirror-clamp-to-edge))
+
+(deftype filter ()
+  "Represents the enum [VkFilter](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFilter.html)."
+  '(member nil 
+    :nearest
+    :linear
+    :cubic-img))
+
+(deftype sampler-mipmap-mode ()
+  "Represents the enum [VkSamplerMipmapMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerMipmapMode.html)."
+  '(member nil 
+    :nearest
+    :linear))
+
+(deftype vertex-input-rate ()
+  "Represents the enum [VkVertexInputRate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVertexInputRate.html)."
+  '(member nil 
+    :vertex
+    :instance))
+
+(deftype pipeline-stage-flag-bits ()
+  "Represents the enum [VkPipelineStageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineStageFlagBits.html)."
+  '(member nil 
+    :none-khr
+    :top-of-pipe
+    :draw-indirect
+    :vertex-input
+    :vertex-shader
+    :tessellation-control-shader
+    :tessellation-evaluation-shader
+    :geometry-shader
+    :fragment-shader
+    :early-fragment-tests
+    :late-fragment-tests
+    :color-attachment-output
+    :compute-shader
+    :transfer
+    :bottom-of-pipe
+    :host
+    :all-graphics
+    :all-commands
+    :command-preprocess
+    :conditional-rendering
+    :task-shader
+    :mesh-shader
+    :ray-tracing-shader
+    :shading-rate-image
+    :fragment-density-process
+    :transform-feedback
+    :acceleration-structure-build))
+
+(deftype sparse-image-format-flag-bits ()
+  "Represents the enum [VkSparseImageFormatFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSparseImageFormatFlagBits.html)."
+  '(member nil 
+    :single-miptail
+    :aligned-mip-size
+    :nonstandard-block-size))
+
+(deftype sample-count-flag-bits ()
+  "Represents the enum [VkSampleCountFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampleCountFlagBits.html)."
+  '(member nil 
+    :1
+    :2
+    :4
+    :8
+    :16
+    :32
+    :64))
+
+(deftype attachment-description-flag-bits ()
+  "Represents the enum [VkAttachmentDescriptionFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentDescriptionFlagBits.html)."
+  '(member nil 
+    :may-alias))
+
+(deftype descriptor-pool-create-flag-bits ()
+  "Represents the enum [VkDescriptorPoolCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPoolCreateFlagBits.html)."
+  '(member nil 
+    :free-descriptor-set
+    :update-after-bind
+    :host-only))
+
+(deftype dependency-flag-bits ()
+  "Represents the enum [VkDependencyFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDependencyFlagBits.html)."
+  '(member nil 
+    :by-region
+    :view-local
+    :device-group))
+
+(deftype object-type ()
+  "Represents the enum [VkObjectType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkObjectType.html)."
+  '(member nil 
+    :unknown
+    :instance
+    :physical-device
+    :device
+    :queue
+    :semaphore
+    :command-buffer
+    :fence
+    :device-memory
+    :buffer
+    :image
+    :event
+    :query-pool
+    :buffer-view
+    :image-view
+    :shader-module
+    :pipeline-cache
+    :pipeline-layout
+    :render-pass
+    :pipeline
+    :descriptor-set-layout
+    :sampler
+    :descriptor-pool
+    :descriptor-set
+    :framebuffer
+    :command-pool
+    :surface-khr
+    :swapchain-khr
+    :display-khr
+    :display-mode-khr
+    :debug-report-callback-ext
+    :descriptor-update-template
+    :debug-utils-messenger-ext
+    :acceleration-structure-khr
+    :sampler-ycbcr-conversion
+    :validation-cache-ext
+    :acceleration-structure-nv
+    :performance-configuration-intel
+    :deferred-operation-khr
+    :indirect-commands-layout-nv
+    :private-data-slot-ext))
+
+(deftype event-create-flag-bits ()
+  "Represents the enum [VkEventCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkEventCreateFlagBits.html)."
+  '(member nil 
+    :device-only))
+
+(deftype indirect-commands-layout-usage-flag-bits-nv ()
+  "Represents the enum [VkIndirectCommandsLayoutUsageFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html)."
+  '(member nil 
+    :explicit-preprocess
+    :indexed-sequences
+    :unordered-sequences))
+
+(deftype indirect-commands-token-type-nv ()
+  "Represents the enum [VkIndirectCommandsTokenTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsTokenTypeNV.html)."
+  '(member nil 
+    :shader-group-nv
+    :state-flags-nv
+    :index-buffer-nv
+    :vertex-buffer-nv
+    :push-constant-nv
+    :draw-indexed-nv
+    :draw-nv
+    :draw-tasks-nv))
+
+(deftype indirect-state-flag-bits-nv ()
+  "Represents the enum [VkIndirectStateFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectStateFlagBitsNV.html)."
+  '(member nil 
+    :frontface))
+
+(deftype private-data-slot-create-flag-bits-ext ()
+  "Represents the enum [VkPrivateDataSlotCreateFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrivateDataSlotCreateFlagBitsEXT.html)."
+  '(member nil ))
+
+(deftype descriptor-update-template-type ()
+  "Represents the enum [VkDescriptorUpdateTemplateType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplateType.html)."
+  '(member nil 
+    :descriptor-set
+    :push-descriptors-khr))
+
+(deftype viewport-coordinate-swizzle-nv ()
+  "Represents the enum [VkViewportCoordinateSwizzleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkViewportCoordinateSwizzleNV.html)."
+  '(member nil 
+    :positive-x-nv
+    :negative-x-nv
+    :positive-y-nv
+    :negative-y-nv
+    :positive-z-nv
+    :negative-z-nv
+    :positive-w-nv
+    :negative-w-nv))
+
+(deftype discard-rectangle-mode-ext ()
+  "Represents the enum [VkDiscardRectangleModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDiscardRectangleModeEXT.html)."
+  '(member nil 
+    :inclusive-ext
+    :exclusive-ext))
+
+(deftype subpass-description-flag-bits ()
+  "Represents the enum [VkSubpassDescriptionFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDescriptionFlagBits.html)."
+  '(member nil 
+    :per-view-attributes
+    :per-view-position-x-only
+    :fragment-region
+    :shader-resolve))
+
+(deftype point-clipping-behavior ()
+  "Represents the enum [VkPointClippingBehavior](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPointClippingBehavior.html)."
+  '(member nil 
+    :all-clip-planes
+    :user-clip-planes-only))
+
+(deftype coverage-modulation-mode-nv ()
+  "Represents the enum [VkCoverageModulationModeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoverageModulationModeNV.html)."
+  '(member nil 
+    :none-nv
+    :rgb-nv
+    :alpha-nv
+    :rgba-nv))
+
+(deftype coverage-reduction-mode-nv ()
+  "Represents the enum [VkCoverageReductionModeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoverageReductionModeNV.html)."
+  '(member nil 
+    :merge-nv
+    :truncate-nv))
+
+(deftype validation-cache-header-version-ext ()
+  "Represents the enum [VkValidationCacheHeaderVersionEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCacheHeaderVersionEXT.html)."
+  '(member nil 
+    :one-ext))
+
+(deftype shader-info-type-amd ()
+  "Represents the enum [VkShaderInfoTypeAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderInfoTypeAMD.html)."
+  '(member nil 
+    :statistics-amd
+    :binary-amd
+    :disassembly-amd))
+
+(deftype queue-global-priority-ext ()
+  "Represents the enum [VkQueueGlobalPriorityEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueGlobalPriorityEXT.html)."
+  '(member nil 
+    :low-ext
+    :medium-ext
+    :high-ext
+    :realtime-ext))
+
+(deftype time-domain-ext ()
+  "Represents the enum [VkTimeDomainEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTimeDomainEXT.html)."
+  '(member nil 
+    :device-ext
+    :clock-monotonic-ext
+    :clock-monotonic-raw-ext
+    :query-performance-counter-ext))
+
+(deftype conservative-rasterization-mode-ext ()
+  "Represents the enum [VkConservativeRasterizationModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkConservativeRasterizationModeEXT.html)."
+  '(member nil 
+    :disabled-ext
+    :overestimate-ext
+    :underestimate-ext))
+
+(deftype resolve-mode-flag-bits ()
+  "Represents the enum [VkResolveModeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkResolveModeFlagBits.html)."
+  '(member nil 
+    :none
+    :sample-zero
+    :average
+    :min
+    :max))
+
+(deftype descriptor-binding-flag-bits ()
+  "Represents the enum [VkDescriptorBindingFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorBindingFlagBits.html)."
+  '(member nil 
+    :update-after-bind
+    :update-unused-while-pending
+    :partially-bound
+    :variable-descriptor-count))
+
+(deftype conditional-rendering-flag-bits-ext ()
+  "Represents the enum [VkConditionalRenderingFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkConditionalRenderingFlagBitsEXT.html)."
+  '(member nil 
+    :inverted))
+
+(deftype semaphore-type ()
+  "Represents the enum [VkSemaphoreType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreType.html)."
+  '(member nil 
+    :binary
+    :timeline))
+
+(deftype geometry-flag-bits-khr ()
+  "Represents the enum [VkGeometryFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryFlagBitsKHR.html)."
+  '(member nil 
+    :opaque
+    :no-duplicate-any-hit-invocation))
+
+(deftype geometry-instance-flag-bits-khr ()
+  "Represents the enum [VkGeometryInstanceFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryInstanceFlagBitsKHR.html)."
+  '(member nil 
+    :triangle-facing-cull-disable
+    :triangle-front-counterclockwise
+    :force-opaque
+    :force-no-opaque))
+
+(deftype build-acceleration-structure-flag-bits-khr ()
+  "Represents the enum [VkBuildAccelerationStructureFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuildAccelerationStructureFlagBitsKHR.html)."
+  '(member nil 
+    :allow-update
+    :allow-compaction
+    :prefer-fast-trace
+    :prefer-fast-build
+    :low-memory))
+
+(deftype acceleration-structure-create-flag-bits-khr ()
+  "Represents the enum [VkAccelerationStructureCreateFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCreateFlagBitsKHR.html)."
+  '(member nil 
+    :device-address-capture-replay))
+
+(deftype build-acceleration-structure-mode-khr ()
+  "Represents the enum [VkBuildAccelerationStructureModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuildAccelerationStructureModeKHR.html)."
+  '(member nil 
+    :build-khr
+    :update-khr))
+
+(deftype copy-acceleration-structure-mode-khr ()
+  "Represents the enum [VkCopyAccelerationStructureModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyAccelerationStructureModeKHR.html)."
+  '(member nil 
+    :clone-khr
+    :compact-khr
+    :serialize-khr
+    :deserialize-khr))
+
+(deftype acceleration-structure-type-khr ()
+  "Represents the enum [VkAccelerationStructureTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureTypeKHR.html)."
+  '(member nil 
+    :top-level-khr
+    :bottom-level-khr
+    :generic-khr))
+
+(deftype geometry-type-khr ()
+  "Represents the enum [VkGeometryTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryTypeKHR.html)."
+  '(member nil 
+    :triangles-khr
+    :aabbs-khr
+    :instances-khr))
+
+(deftype ray-tracing-shader-group-type-khr ()
+  "Represents the enum [VkRayTracingShaderGroupTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingShaderGroupTypeKHR.html)."
+  '(member nil 
+    :general-khr
+    :triangles-hit-group-khr
+    :procedural-hit-group-khr))
+
+(deftype acceleration-structure-memory-requirements-type-nv ()
+  "Represents the enum [VkAccelerationStructureMemoryRequirementsTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureMemoryRequirementsTypeNV.html)."
+  '(member nil 
+    :object-nv
+    :build-scratch-nv
+    :update-scratch-nv))
+
+(deftype acceleration-structure-build-type-khr ()
+  "Represents the enum [VkAccelerationStructureBuildTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildTypeKHR.html)."
+  '(member nil 
+    :host-khr
+    :device-khr
+    :host-or-device-khr))
+
+(deftype acceleration-structure-compatibility-khr ()
+  "Represents the enum [VkAccelerationStructureCompatibilityKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCompatibilityKHR.html)."
+  '(member nil 
+    :compatible-khr
+    :incompatible-khr))
+
+(deftype shader-group-shader-khr ()
+  "Represents the enum [VkShaderGroupShaderKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderGroupShaderKHR.html)."
+  '(member nil 
+    :general-khr
+    :closest-hit-khr
+    :any-hit-khr
+    :intersection-khr))
+
+(deftype memory-overallocation-behavior-amd ()
+  "Represents the enum [VkMemoryOverallocationBehaviorAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryOverallocationBehaviorAMD.html)."
+  '(member nil 
+    :default-amd
+    :allowed-amd
+    :disallowed-amd))
+
+(deftype scope-nv ()
+  "Represents the enum [VkScopeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkScopeNV.html)."
+  '(member nil 
+    :device-nv
+    :workgroup-nv
+    :subgroup-nv
+    :queue-family-nv))
+
+(deftype component-type-nv ()
+  "Represents the enum [VkComponentTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComponentTypeNV.html)."
+  '(member nil 
+    :float16-nv
+    :float32-nv
+    :float64-nv
+    :sint8-nv
+    :sint16-nv
+    :sint32-nv
+    :sint64-nv
+    :uint8-nv
+    :uint16-nv
+    :uint32-nv
+    :uint64-nv))
+
+(deftype device-diagnostics-config-flag-bits-nv ()
+  "Represents the enum [VkDeviceDiagnosticsConfigFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceDiagnosticsConfigFlagBitsNV.html)."
+  '(member nil 
+    :enable-shader-debug-info
+    :enable-resource-tracking
+    :enable-automatic-checkpoints))
+
+(deftype pipeline-creation-feedback-flag-bits-ext ()
+  "Represents the enum [VkPipelineCreationFeedbackFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCreationFeedbackFlagBitsEXT.html)."
+  '(member nil 
+    :valid
+    :application-pipeline-cache-hit
+    :base-pipeline-acceleration))
+
+(deftype performance-counter-scope-khr ()
+  "Represents the enum [VkPerformanceCounterScopeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterScopeKHR.html)."
+  '(member nil 
+    :command-buffer-khr
+    :render-pass-khr
+    :command-khr))
+
+(deftype performance-counter-unit-khr ()
+  "Represents the enum [VkPerformanceCounterUnitKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterUnitKHR.html)."
+  '(member nil 
+    :generic-khr
+    :percentage-khr
+    :nanoseconds-khr
+    :bytes-khr
+    :bytes-per-second-khr
+    :kelvin-khr
+    :watts-khr
+    :volts-khr
+    :amps-khr
+    :hertz-khr
+    :cycles-khr))
+
+(deftype performance-counter-storage-khr ()
+  "Represents the enum [VkPerformanceCounterStorageKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterStorageKHR.html)."
+  '(member nil 
+    :int32-khr
+    :int64-khr
+    :uint32-khr
+    :uint64-khr
+    :float32-khr
+    :float64-khr))
+
+(deftype performance-counter-description-flag-bits-khr ()
+  "Represents the enum [VkPerformanceCounterDescriptionFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html)."
+  '(member nil 
+    :performance-impacting
+    :concurrently-impacted))
+
+(deftype acquire-profiling-lock-flag-bits-khr ()
+  "Represents the enum [VkAcquireProfilingLockFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAcquireProfilingLockFlagBitsKHR.html)."
+  '(member nil ))
+
+(deftype semaphore-wait-flag-bits ()
+  "Represents the enum [VkSemaphoreWaitFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreWaitFlagBits.html)."
+  '(member nil 
+    :any))
+
+(deftype performance-configuration-type-intel ()
+  "Represents the enum [VkPerformanceConfigurationTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceConfigurationTypeINTEL.html)."
+  '(member nil 
+    :command-queue-metrics-discovery-activated-intel))
+
+(deftype query-pool-sampling-mode-intel ()
+  "Represents the enum [VkQueryPoolSamplingModeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPoolSamplingModeINTEL.html)."
+  '(member nil 
+    :manual-intel))
+
+(deftype performance-override-type-intel ()
+  "Represents the enum [VkPerformanceOverrideTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceOverrideTypeINTEL.html)."
+  '(member nil 
+    :null-hardware-intel
+    :flush-gpu-caches-intel))
+
+(deftype performance-parameter-type-intel ()
+  "Represents the enum [VkPerformanceParameterTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceParameterTypeINTEL.html)."
+  '(member nil 
+    :hw-counters-supported-intel
+    :stream-marker-valid-bits-intel))
+
+(deftype performance-value-type-intel ()
+  "Represents the enum [VkPerformanceValueTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceValueTypeINTEL.html)."
+  '(member nil 
+    :uint32-intel
+    :uint64-intel
+    :float-intel
+    :bool-intel
+    :string-intel))
+
+(deftype line-rasterization-mode-ext ()
+  "Represents the enum [VkLineRasterizationModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkLineRasterizationModeEXT.html)."
+  '(member nil 
+    :default-ext
+    :rectangular-ext
+    :bresenham-ext
+    :rectangular-smooth-ext))
+
+(deftype shader-module-create-flag-bits ()
+  "Represents the enum [VkShaderModuleCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModuleCreateFlagBits.html)."
+  '(member nil ))
+
+(deftype pipeline-compiler-control-flag-bits-amd ()
+  "Represents the enum [VkPipelineCompilerControlFlagBitsAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCompilerControlFlagBitsAMD.html)."
+  '(member nil ))
+
+(deftype shader-core-properties-flag-bits-amd ()
+  "Represents the enum [VkShaderCorePropertiesFlagBitsAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderCorePropertiesFlagBitsAMD.html)."
+  '(member nil ))
+
+(deftype tool-purpose-flag-bits-ext ()
+  "Represents the enum [VkToolPurposeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkToolPurposeFlagBitsEXT.html)."
+  '(member nil 
+    :validation
+    :profiling
+    :tracing
+    :additional-features
+    :modifying-features
+    :debug-reporting
+    :debug-markers))
+
+(deftype fragment-shading-rate-nv ()
+  "Represents the enum [VkFragmentShadingRateNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateNV.html)."
+  '(member nil 
+    :1-invocation-per-pixel-nv
+    :1-invocation-per-1x2-pixels-nv
+    :1-invocation-per-2x1-pixels-nv
+    :1-invocation-per-2x2-pixels-nv
+    :1-invocation-per-2x4-pixels-nv
+    :1-invocation-per-4x2-pixels-nv
+    :1-invocation-per-4x4-pixels-nv
+    :2-invocations-per-pixel-nv
+    :4-invocations-per-pixel-nv
+    :8-invocations-per-pixel-nv
+    :16-invocations-per-pixel-nv
+    :no-invocations-nv))
+
+(deftype fragment-shading-rate-type-nv ()
+  "Represents the enum [VkFragmentShadingRateTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateTypeNV.html)."
+  '(member nil 
+    :fragment-size-nv
+    :enums-nv))
+
+(deftype access-flag-bits-2-khr ()
+  "Represents the enum [VkAccessFlagBits2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccessFlagBits2KHR.html)."
+  '(member nil 
+    :2-none-khr
+    :2-indirect-command-read
+    :2-index-read
+    :2-vertex-attribute-read
+    :2-uniform-read
+    :2-input-attachment-read
+    :2-shader-read
+    :2-shader-write
+    :2-color-attachment-read
+    :2-color-attachment-write
+    :2-depth-stencil-attachment-read
+    :2-depth-stencil-attachment-write
+    :2-transfer-read
+    :2-transfer-write
+    :2-host-read
+    :2-host-write
+    :2-memory-read
+    :2-memory-write
+    :2-command-preprocess-read
+    :2-command-preprocess-write
+    :2-color-attachment-read-noncoherent
+    :2-conditional-rendering-read
+    :2-acceleration-structure-read
+    :2-acceleration-structure-write
+    :2-fragment-shading-rate-attachment-read
+    :2-fragment-density-map-read
+    :2-transform-feedback-write
+    :2-transform-feedback-counter-read
+    :2-transform-feedback-counter-write
+    :2-shader-sampled-read
+    :2-shader-storage-read
+    :2-shader-storage-write))
+
+(deftype pipeline-stage-flag-bits-2-khr ()
+  "Represents the enum [VkPipelineStageFlagBits2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineStageFlagBits2KHR.html)."
+  '(member nil 
+    :2-none-khr
+    :2-top-of-pipe
+    :2-draw-indirect
+    :2-vertex-input
+    :2-vertex-shader
+    :2-tessellation-control-shader
+    :2-tessellation-evaluation-shader
+    :2-geometry-shader
+    :2-fragment-shader
+    :2-early-fragment-tests
+    :2-late-fragment-tests
+    :2-color-attachment-output
+    :2-compute-shader
+    :2-all-transfer
+    :2-bottom-of-pipe
+    :2-host
+    :2-all-graphics
+    :2-all-commands
+    :2-command-preprocess
+    :2-conditional-rendering
+    :2-task-shader
+    :2-mesh-shader
+    :2-ray-tracing-shader
+    :2-fragment-shading-rate-attachment
+    :2-fragment-density-process
+    :2-transform-feedback
+    :2-acceleration-structure-build
+    :2-copy
+    :2-resolve
+    :2-blit
+    :2-clear
+    :2-index-input
+    :2-vertex-attribute-input
+    :2-pre-rasterization-shaders))
+
+(deftype color-space-khr ()
+  "Represents the enum [VkColorSpaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorSpaceKHR.html)."
+  '(member nil 
+    :srgb-nonlinear-khr
+    :display-p3-nonlinear-ext
+    :extended-srgb-linear-ext
+    :display-p3-linear-ext
+    :dci-p3-nonlinear-ext
+    :bt709-linear-ext
+    :bt709-nonlinear-ext
+    :bt2020-linear-ext
+    :hdr10-st2084-ext
+    :dolbyvision-ext
+    :hdr10-hlg-ext
+    :adobergb-linear-ext
+    :adobergb-nonlinear-ext
+    :pass-through-ext
+    :extended-srgb-nonlinear-ext
+    :display-native-amd))
+
+(deftype composite-alpha-flag-bits-khr ()
+  "Represents the enum [VkCompositeAlphaFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCompositeAlphaFlagBitsKHR.html)."
+  '(member nil 
+    :opaque
+    :pre-multiplied
+    :post-multiplied
+    :inherit))
+
+(deftype display-plane-alpha-flag-bits-khr ()
+  "Represents the enum [VkDisplayPlaneAlphaFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlaneAlphaFlagBitsKHR.html)."
+  '(member nil 
+    :opaque
+    :global
+    :per-pixel
+    :per-pixel-premultiplied))
+
+(deftype present-mode-khr ()
+  "Represents the enum [VkPresentModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentModeKHR.html)."
+  '(member nil 
+    :immediate-khr
+    :mailbox-khr
+    :fifo-khr
+    :fifo-relaxed-khr
+    :shared-demand-refresh-khr
+    :shared-continuous-refresh-khr))
+
+(deftype surface-transform-flag-bits-khr ()
+  "Represents the enum [VkSurfaceTransformFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceTransformFlagBitsKHR.html)."
+  '(member nil 
+    :identity
+    :rotate-90
+    :rotate-180
+    :rotate-270
+    :horizontal-mirror
+    :horizontal-mirror-rotate-90
+    :horizontal-mirror-rotate-180
+    :horizontal-mirror-rotate-270
+    :inherit))
+
+(deftype debug-report-flag-bits-ext ()
+  "Represents the enum [VkDebugReportFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportFlagBitsEXT.html)."
+  '(member nil 
+    :information
+    :warning
+    :performance-warning
+    :error
+    :debug))
+
+(deftype debug-report-object-type-ext ()
+  "Represents the enum [VkDebugReportObjectTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportObjectTypeEXT.html)."
+  '(member nil 
+    :unknown-ext
+    :instance-ext
+    :physical-device-ext
+    :device-ext
+    :queue-ext
+    :semaphore-ext
+    :command-buffer-ext
+    :fence-ext
+    :device-memory-ext
+    :buffer-ext
+    :image-ext
+    :event-ext
+    :query-pool-ext
+    :buffer-view-ext
+    :image-view-ext
+    :shader-module-ext
+    :pipeline-cache-ext
+    :pipeline-layout-ext
+    :render-pass-ext
+    :pipeline-ext
+    :descriptor-set-layout-ext
+    :sampler-ext
+    :descriptor-pool-ext
+    :descriptor-set-ext
+    :framebuffer-ext
+    :command-pool-ext
+    :surface-khr-ext
+    :swapchain-khr-ext
+    :debug-report-callback-ext-ext
+    :display-khr-ext
+    :display-mode-khr-ext
+    :validation-cache-ext-ext
+    :descriptor-update-template-ext
+    :acceleration-structure-khr-ext
+    :sampler-ycbcr-conversion-ext
+    :acceleration-structure-nv-ext))
+
+(deftype device-memory-report-event-type-ext ()
+  "Represents the enum [VkDeviceMemoryReportEventTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemoryReportEventTypeEXT.html)."
+  '(member nil 
+    :allocate-ext
+    :free-ext
+    :import-ext
+    :unimport-ext
+    :allocation-failed-ext))
+
+(deftype rasterization-order-amd ()
+  "Represents the enum [VkRasterizationOrderAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRasterizationOrderAMD.html)."
+  '(member nil 
+    :strict-amd
+    :relaxed-amd))
+
+(deftype external-memory-handle-type-flag-bits-nv ()
+  "Represents the enum [VkExternalMemoryHandleTypeFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryHandleTypeFlagBitsNV.html)."
+  '(member nil 
+    :opaque-win32
+    :opaque-win32-kmt
+    :d3d11-image
+    :d3d11-image-kmt))
+
+(deftype external-memory-feature-flag-bits-nv ()
+  "Represents the enum [VkExternalMemoryFeatureFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryFeatureFlagBitsNV.html)."
+  '(member nil 
+    :dedicated-only
+    :exportable
+    :importable))
+
+(deftype validation-check-ext ()
+  "Represents the enum [VkValidationCheckEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCheckEXT.html)."
+  '(member nil 
+    :all-ext
+    :shaders-ext))
+
+(deftype validation-feature-enable-ext ()
+  "Represents the enum [VkValidationFeatureEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationFeatureEnableEXT.html)."
+  '(member nil 
+    :gpu-assisted-ext
+    :gpu-assisted-reserve-binding-slot-ext
+    :best-practices-ext
+    :debug-printf-ext
+    :synchronization-validation-ext))
+
+(deftype validation-feature-disable-ext ()
+  "Represents the enum [VkValidationFeatureDisableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationFeatureDisableEXT.html)."
+  '(member nil 
+    :all-ext
+    :shaders-ext
+    :thread-safety-ext
+    :api-parameters-ext
+    :object-lifetimes-ext
+    :core-checks-ext
+    :unique-handles-ext))
+
+(deftype external-memory-handle-type-flag-bits ()
+  "Represents the enum [VkExternalMemoryHandleTypeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryHandleTypeFlagBits.html)."
+  '(member nil 
+    :opaque-fd
+    :opaque-win32
+    :opaque-win32-kmt
+    :d3d11-texture
+    :d3d11-texture-kmt
+    :d3d12-heap
+    :d3d12-resource
+    :host-allocation
+    :host-mapped-foreign-memory
+    :dma-buf
+    :android-hardware-buffer
+    :zircon-vmo))
+
+(deftype external-memory-feature-flag-bits ()
+  "Represents the enum [VkExternalMemoryFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryFeatureFlagBits.html)."
+  '(member nil 
+    :dedicated-only
+    :exportable
+    :importable))
+
+(deftype external-semaphore-handle-type-flag-bits ()
+  "Represents the enum [VkExternalSemaphoreHandleTypeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalSemaphoreHandleTypeFlagBits.html)."
+  '(member nil 
+    :opaque-fd
+    :opaque-win32
+    :opaque-win32-kmt
+    :d3d12-fence
+    :sync-fd
+    :zircon-event))
+
+(deftype external-semaphore-feature-flag-bits ()
+  "Represents the enum [VkExternalSemaphoreFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalSemaphoreFeatureFlagBits.html)."
+  '(member nil 
+    :exportable
+    :importable))
+
+(deftype semaphore-import-flag-bits ()
+  "Represents the enum [VkSemaphoreImportFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreImportFlagBits.html)."
+  '(member nil 
+    :temporary))
+
+(deftype external-fence-handle-type-flag-bits ()
+  "Represents the enum [VkExternalFenceHandleTypeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFenceHandleTypeFlagBits.html)."
+  '(member nil 
+    :opaque-fd
+    :opaque-win32
+    :opaque-win32-kmt
+    :sync-fd))
+
+(deftype external-fence-feature-flag-bits ()
+  "Represents the enum [VkExternalFenceFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFenceFeatureFlagBits.html)."
+  '(member nil 
+    :exportable
+    :importable))
+
+(deftype fence-import-flag-bits ()
+  "Represents the enum [VkFenceImportFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceImportFlagBits.html)."
+  '(member nil 
+    :temporary))
+
+(deftype surface-counter-flag-bits-ext ()
+  "Represents the enum [VkSurfaceCounterFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceCounterFlagBitsEXT.html)."
+  '(member nil 
+    :vblank))
+
+(deftype display-power-state-ext ()
+  "Represents the enum [VkDisplayPowerStateEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPowerStateEXT.html)."
+  '(member nil 
+    :off-ext
+    :suspend-ext
+    :on-ext))
+
+(deftype device-event-type-ext ()
+  "Represents the enum [VkDeviceEventTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceEventTypeEXT.html)."
+  '(member nil 
+    :display-hotplug-ext))
+
+(deftype display-event-type-ext ()
+  "Represents the enum [VkDisplayEventTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayEventTypeEXT.html)."
+  '(member nil 
+    :first-pixel-out-ext))
+
+(deftype peer-memory-feature-flag-bits ()
+  "Represents the enum [VkPeerMemoryFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPeerMemoryFeatureFlagBits.html)."
+  '(member nil 
+    :copy-src
+    :copy-dst
+    :generic-src
+    :generic-dst))
+
+(deftype memory-allocate-flag-bits ()
+  "Represents the enum [VkMemoryAllocateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryAllocateFlagBits.html)."
+  '(member nil 
+    :device-mask
+    :device-address
+    :device-address-capture-replay))
+
+(deftype device-group-present-mode-flag-bits-khr ()
+  "Represents the enum [VkDeviceGroupPresentModeFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupPresentModeFlagBitsKHR.html)."
+  '(member nil 
+    :local
+    :remote
+    :sum
+    :local-multi-device))
+
+(deftype swapchain-create-flag-bits-khr ()
+  "Represents the enum [VkSwapchainCreateFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainCreateFlagBitsKHR.html)."
+  '(member nil 
+    :split-instance-bind-regions
+    :protected
+    :mutable-format))
+
+(deftype subgroup-feature-flag-bits ()
+  "Represents the enum [VkSubgroupFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubgroupFeatureFlagBits.html)."
+  '(member nil 
+    :basic
+    :vote
+    :arithmetic
+    :ballot
+    :shuffle
+    :shuffle-relative
+    :clustered
+    :quad
+    :partitioned))
+
+(deftype tessellation-domain-origin ()
+  "Represents the enum [VkTessellationDomainOrigin](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTessellationDomainOrigin.html)."
+  '(member nil 
+    :upper-left
+    :lower-left))
+
+(deftype sampler-ycbcr-model-conversion ()
+  "Represents the enum [VkSamplerYcbcrModelConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrModelConversion.html)."
+  '(member nil 
+    :rgb-identity
+    :ycbcr-identity
+    :ycbcr-709
+    :ycbcr-601
+    :ycbcr-2020))
+
+(deftype sampler-ycbcr-range ()
+  "Represents the enum [VkSamplerYcbcrRange](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrRange.html)."
+  '(member nil 
+    :itu-full
+    :itu-narrow))
+
+(deftype chroma-location ()
+  "Represents the enum [VkChromaLocation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkChromaLocation.html)."
+  '(member nil 
+    :cosited-even
+    :midpoint))
+
+(deftype sampler-reduction-mode ()
+  "Represents the enum [VkSamplerReductionMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerReductionMode.html)."
+  '(member nil 
+    :weighted-average
+    :min
+    :max))
+
+(deftype blend-overlap-ext ()
+  "Represents the enum [VkBlendOverlapEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOverlapEXT.html)."
+  '(member nil 
+    :uncorrelated-ext
+    :disjoint-ext
+    :conjoint-ext))
+
+(deftype debug-utils-message-severity-flag-bits-ext ()
+  "Represents the enum [VkDebugUtilsMessageSeverityFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessageSeverityFlagBitsEXT.html)."
+  '(member nil 
+    :verbose
+    :info
+    :warning
+    :error))
+
+(deftype debug-utils-message-type-flag-bits-ext ()
+  "Represents the enum [VkDebugUtilsMessageTypeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessageTypeFlagBitsEXT.html)."
+  '(member nil 
+    :general
+    :validation
+    :performance))
+
+(deftype full-screen-exclusive-ext ()
+  "Represents the enum [VkFullScreenExclusiveEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFullScreenExclusiveEXT.html)."
+  '(member nil 
+    :default-ext
+    :allowed-ext
+    :disallowed-ext
+    :application-controlled-ext))
+
+(deftype shader-float-controls-independence ()
+  "Represents the enum [VkShaderFloatControlsIndependence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderFloatControlsIndependence.html)."
+  '(member nil 
+    :32-bit-only
+    :all
+    :none))
+
+(deftype fragment-shading-rate-combiner-op-khr ()
+  "Represents the enum [VkFragmentShadingRateCombinerOpKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateCombinerOpKHR.html)."
+  '(member nil 
+    :keep-khr
+    :replace-khr
+    :min-khr
+    :max-khr
+    :mul-khr))
+
+(deftype submit-flag-bits-khr ()
+  "Represents the enum [VkSubmitFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubmitFlagBitsKHR.html)."
+  '(member nil 
+    :protected))
+
+(deftype vendor-id ()
+  "Represents the enum [VkVendorId](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVendorId.html)."
+  '(member nil 
+    :viv
+    :vsi
+    :kazan
+    :codeplay
+    :mesa
+    :pocl))
+
+(deftype driver-id ()
+  "Represents the enum [VkDriverId](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDriverId.html)."
+  '(member nil 
+    :amd-proprietary
+    :amd-open-source
+    :mesa-radv
+    :nvidia-proprietary
+    :intel-proprietary-windows
+    :intel-open-source-mesa
+    :imagination-proprietary
+    :qualcomm-proprietary
+    :arm-proprietary
+    :google-swiftshader
+    :ggp-proprietary
+    :broadcom-proprietary
+    :mesa-llvmpipe
+    :moltenvk))
+
+(deftype shading-rate-palette-entry-nv ()
+  "Represents the enum [VkShadingRatePaletteEntryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShadingRatePaletteEntryNV.html)."
+  '(member nil 
+    :no-invocations-nv
+    :16-invocations-per-pixel-nv
+    :8-invocations-per-pixel-nv
+    :4-invocations-per-pixel-nv
+    :2-invocations-per-pixel-nv
+    :1-invocation-per-pixel-nv
+    :1-invocation-per-2x1-pixels-nv
+    :1-invocation-per-1x2-pixels-nv
+    :1-invocation-per-2x2-pixels-nv
+    :1-invocation-per-4x2-pixels-nv
+    :1-invocation-per-2x4-pixels-nv
+    :1-invocation-per-4x4-pixels-nv))
+
+(deftype coarse-sample-order-type-nv ()
+  "Represents the enum [VkCoarseSampleOrderTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoarseSampleOrderTypeNV.html)."
+  '(member nil 
+    :default-nv
+    :custom-nv
+    :pixel-major-nv
+    :sample-major-nv))
+
+(deftype pipeline-executable-statistic-format-khr ()
+  "Represents the enum [VkPipelineExecutableStatisticFormatKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableStatisticFormatKHR.html)."
+  '(member nil 
+    :bool32-khr
+    :int64-khr
+    :uint64-khr
+    :float64-khr))
+
+
+
+(deftype instance ()
+  "Represents the handle [VkInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstance.html)."
+  'cffi:foreign-pointer)
+
+(deftype physical-device ()
+  "Represents the handle [VkPhysicalDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevice.html)."
+  'cffi:foreign-pointer)
+
+(deftype device ()
+  "Represents the handle [VkDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDevice.html)."
+  'cffi:foreign-pointer)
+
+(deftype queue ()
+  "Represents the handle [VkQueue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueue.html)."
+  'cffi:foreign-pointer)
+
+(deftype command-buffer ()
+  "Represents the handle [VkCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBuffer.html)."
+  'cffi:foreign-pointer)
+
+(deftype device-memory ()
+  "Represents the (non-dispatchable) handle [VkDeviceMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemory.html)."
+  'cffi:foreign-pointer)
+
+(deftype command-pool ()
+  "Represents the (non-dispatchable) handle [VkCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPool.html)."
+  'cffi:foreign-pointer)
+
+(deftype buffer ()
+  "Represents the (non-dispatchable) handle [VkBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuffer.html)."
+  'cffi:foreign-pointer)
+
+(deftype buffer-view ()
+  "Represents the (non-dispatchable) handle [VkBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferView.html)."
+  'cffi:foreign-pointer)
+
+(deftype image ()
+  "Represents the (non-dispatchable) handle [VkImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImage.html)."
+  'cffi:foreign-pointer)
+
+(deftype image-view ()
+  "Represents the (non-dispatchable) handle [VkImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageView.html)."
+  'cffi:foreign-pointer)
+
+(deftype shader-module ()
+  "Represents the (non-dispatchable) handle [VkShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModule.html)."
+  'cffi:foreign-pointer)
+
+(deftype pipeline ()
+  "Represents the (non-dispatchable) handle [VkPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipeline.html)."
+  'cffi:foreign-pointer)
+
+(deftype pipeline-layout ()
+  "Represents the (non-dispatchable) handle [VkPipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineLayout.html)."
+  'cffi:foreign-pointer)
+
+(deftype sampler ()
+  "Represents the (non-dispatchable) handle [VkSampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampler.html)."
+  'cffi:foreign-pointer)
+
+(deftype descriptor-set ()
+  "Represents the (non-dispatchable) handle [VkDescriptorSet](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSet.html)."
+  'cffi:foreign-pointer)
+
+(deftype descriptor-set-layout ()
+  "Represents the (non-dispatchable) handle [VkDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayout.html)."
+  'cffi:foreign-pointer)
+
+(deftype descriptor-pool ()
+  "Represents the (non-dispatchable) handle [VkDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPool.html)."
+  'cffi:foreign-pointer)
+
+(deftype fence ()
+  "Represents the (non-dispatchable) handle [VkFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFence.html)."
+  'cffi:foreign-pointer)
+
+(deftype semaphore ()
+  "Represents the (non-dispatchable) handle [VkSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphore.html)."
+  'cffi:foreign-pointer)
+
+(deftype event ()
+  "Represents the (non-dispatchable) handle [VkEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkEvent.html)."
+  'cffi:foreign-pointer)
+
+(deftype query-pool ()
+  "Represents the (non-dispatchable) handle [VkQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPool.html)."
+  'cffi:foreign-pointer)
+
+(deftype framebuffer ()
+  "Represents the (non-dispatchable) handle [VkFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebuffer.html)."
+  'cffi:foreign-pointer)
+
+(deftype render-pass ()
+  "Represents the (non-dispatchable) handle [VkRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPass.html)."
+  'cffi:foreign-pointer)
+
+(deftype pipeline-cache ()
+  "Represents the (non-dispatchable) handle [VkPipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCache.html)."
+  'cffi:foreign-pointer)
+
+(deftype indirect-commands-layout-nv ()
+  "Represents the (non-dispatchable) handle [VkIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutNV.html)."
+  'cffi:foreign-pointer)
+
+(deftype descriptor-update-template ()
+  "Represents the (non-dispatchable) handle [VkDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplate.html)."
+  'cffi:foreign-pointer)
+
+(deftype sampler-ycbcr-conversion ()
+  "Represents the (non-dispatchable) handle [VkSamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversion.html)."
+  'cffi:foreign-pointer)
+
+(deftype validation-cache-ext ()
+  "Represents the (non-dispatchable) handle [VkValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCacheEXT.html)."
+  'cffi:foreign-pointer)
+
+(deftype acceleration-structure-khr ()
+  "Represents the (non-dispatchable) handle [VkAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureKHR.html)."
+  'cffi:foreign-pointer)
+
+(deftype acceleration-structure-nv ()
+  "Represents the (non-dispatchable) handle [VkAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureNV.html)."
+  'cffi:foreign-pointer)
+
+(deftype performance-configuration-intel ()
+  "Represents the (non-dispatchable) handle [VkPerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceConfigurationINTEL.html)."
+  'cffi:foreign-pointer)
+
+(deftype deferred-operation-khr ()
+  "Represents the (non-dispatchable) handle [VkDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeferredOperationKHR.html)."
+  'cffi:foreign-pointer)
+
+(deftype private-data-slot-ext ()
+  "Represents the (non-dispatchable) handle [VkPrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrivateDataSlotEXT.html)."
+  'cffi:foreign-pointer)
+
+(deftype display-khr ()
+  "Represents the (non-dispatchable) handle [VkDisplayKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayKHR.html)."
+  'cffi:foreign-pointer)
+
+(deftype display-mode-khr ()
+  "Represents the (non-dispatchable) handle [VkDisplayModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayModeKHR.html)."
+  'cffi:foreign-pointer)
+
+(deftype surface-khr ()
+  "Represents the (non-dispatchable) handle [VkSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceKHR.html)."
+  'cffi:foreign-pointer)
+
+(deftype swapchain-khr ()
+  "Represents the (non-dispatchable) handle [VkSwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainKHR.html)."
+  'cffi:foreign-pointer)
+
+(deftype debug-report-callback-ext ()
+  "Represents the (non-dispatchable) handle [VkDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportCallbackEXT.html)."
+  'cffi:foreign-pointer)
+
+(deftype debug-utils-messenger-ext ()
+  "Represents the (non-dispatchable) handle [VkDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessengerEXT.html)."
+  'cffi:foreign-pointer)
+
+
 
 (defclass base-out-structure ()
   ((s-type
