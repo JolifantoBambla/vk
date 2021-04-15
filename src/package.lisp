@@ -6971,6 +6971,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wait-semaphores-khr
     #:write-acceleration-structures-properties-khr
 ))
+
 (defpackage :vk-utils
   (:use #:cl)
   (:export

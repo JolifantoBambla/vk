@@ -9,7 +9,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-instance
                           %vk:create-instance
-                          "Represents <vkCreateInstance>"
+                          "Represents [vkCreateInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateInstance.html).
+
+Args:
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE-CREATE-INFO
+"
                           ((create-info (or vk:instance-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -19,7 +28,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-instance
                    %vk:destroy-instance
-                   "Represents <vkDestroyInstance>"
+                   "Represents [vkDestroyInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyInstance.html).
+
+Args:
+ - INSTANCE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+"
                    ()
                    (((instance (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -28,7 +46,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-physical-devices
                       %vk:enumerate-physical-devices
-                      "Represents <vkEnumeratePhysicalDevices>"
+                      "Represents [vkEnumeratePhysicalDevices](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDevices.html).
+
+Args:
+ - INSTANCE: <a description>
+Returns: TODO
+
+See INSTANCE
+"
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-count
@@ -40,7 +65,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-device-proc-addr
                    %vk:get-device-proc-addr
-                   "Represents <vkGetDeviceProcAddr>"
+                   "Represents [vkGetDeviceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceProcAddr.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-NAME: <a description>
+Returns: TODO
+
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (name string))
                    ()
                   '%vk:pfn-void-function)
@@ -49,7 +82,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-instance-proc-addr
                    %vk:get-instance-proc-addr
-                   "Represents <vkGetInstanceProcAddr>"
+                   "Represents [vkGetInstanceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetInstanceProcAddr.html).
+
+Args:
+ - P-NAME: <a description>
+ - INSTANCE: (optional) <a description>
+Returns: TODO
+
+See INSTANCE
+"
                    ((name string))
                    (((instance (cffi:null-pointer)) cffi:foreign-pointer))
                   '%vk:pfn-void-function)
@@ -58,7 +99,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-properties
                        %vk:get-physical-device-properties
-                       "Represents <vkGetPhysicalDeviceProperties>"
+                       "Represents [vkGetPhysicalDeviceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -66,7 +114,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-physical-device-queue-family-properties
                         %vk:get-physical-device-queue-family-properties
-                        "Represents <vkGetPhysicalDeviceQueueFamilyProperties>"
+                        "Represents [vkGetPhysicalDeviceQueueFamilyProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                         ((physical-device cffi:foreign-pointer))
                         ()
                         queue-family-property-count
@@ -78,7 +133,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-memory-properties
                        %vk:get-physical-device-memory-properties
-                       "Represents <vkGetPhysicalDeviceMemoryProperties>"
+                       "Represents [vkGetPhysicalDeviceMemoryProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -86,7 +148,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-features
                        %vk:get-physical-device-features
-                       "Represents <vkGetPhysicalDeviceFeatures>"
+                       "Represents [vkGetPhysicalDeviceFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -94,7 +163,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-format-properties
                        %vk:get-physical-device-format-properties
-                       "Represents <vkGetPhysicalDeviceFormatProperties>"
+                       "Represents [vkGetPhysicalDeviceFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - FORMAT: <a description>
+Returns: TODO
+
+See FORMAT
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (format keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -103,7 +181,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-image-format-properties
                        %vk:get-physical-device-image-format-properties
-                       "Represents <vkGetPhysicalDeviceImageFormatProperties>"
+                       "Represents [vkGetPhysicalDeviceImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - FORMAT: <a description>
+ - TYPE: <a description>
+ - TILING: <a description>
+ - USAGE: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See FORMAT
+See IMAGE-CREATE-FLAGS
+See IMAGE-TILING
+See IMAGE-TYPE
+See IMAGE-USAGE-FLAGS
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list))))
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -116,7 +211,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-device
                           %vk:create-device
-                          "Represents <vkCreateDevice>"
+                          "Represents [vkCreateDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDevice.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE-CREATE-INFO
+See PHYSICAL-DEVICE
+"
                           ((physical-device cffi:foreign-pointer) (create-info (or vk:device-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -127,7 +233,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-device
                    %vk:destroy-device
-                   "Represents <vkDestroyDevice>"
+                   "Represents [vkDestroyDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDevice.html).
+
+Args:
+ - DEVICE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+"
                    ()
                    (((device (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -136,7 +251,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (enumerate-instance-version
                           %vk:enumerate-instance-version
-                          "Represents <vkEnumerateInstanceVersion>"
+                          "Represents [vkEnumerateInstanceVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceVersion.html).
+
+Args:
+Returns: TODO
+
+"
                           ()
                           ()
                           nil)
@@ -144,7 +264,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-instance-layer-properties
                       %vk:enumerate-instance-layer-properties
-                      "Represents <vkEnumerateInstanceLayerProperties>"
+                      "Represents [vkEnumerateInstanceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceLayerProperties.html).
+
+Args:
+Returns: TODO
+
+"
                       ()
                       ()
                       property-count
@@ -155,7 +280,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-instance-extension-properties
                       %vk:enumerate-instance-extension-properties
-                      "Represents <vkEnumerateInstanceExtensionProperties>"
+                      "Represents [vkEnumerateInstanceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceExtensionProperties.html).
+
+Args:
+ - P-LAYER-NAME: (optional) <a description>
+Returns: TODO
+
+"
                       ()
                       (((layer-name "") string))
                       property-count
@@ -167,7 +298,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-device-layer-properties
                       %vk:enumerate-device-layer-properties
-                      "Represents <vkEnumerateDeviceLayerProperties>"
+                      "Represents [vkEnumerateDeviceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateDeviceLayerProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
@@ -179,7 +317,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-device-extension-properties
                       %vk:enumerate-device-extension-properties
-                      "Represents <vkEnumerateDeviceExtensionProperties>"
+                      "Represents [vkEnumerateDeviceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateDeviceExtensionProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-LAYER-NAME: (optional) <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       (((layer-name "") string))
                       property-count
@@ -192,7 +338,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-device-queue
                           %vk:get-device-queue
-                          "Represents <vkGetDeviceQueue>"
+                          "Represents [vkGetDeviceQueue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceQueue.html).
+
+Args:
+ - DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+ - QUEUE-INDEX: <a description>
+Returns: TODO
+
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (queue-family-index unsigned-byte) (queue-index unsigned-byte))
                           ()
                           t)
@@ -203,7 +358,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-submit
                    %vk:queue-submit
-                   "Represents <vkQueueSubmit>"
+                   "Represents [vkQueueSubmit](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSubmit.html).
+
+Args:
+ - QUEUE: <a description>
+ - P-SUBMITS: <a description>
+ - FENCE: (optional) <a description>
+Returns: TODO
+
+See FENCE
+See QUEUE
+See SUBMIT-INFO
+"
                    ((queue cffi:foreign-pointer) (submits list))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -214,7 +380,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-wait-idle
                    %vk:queue-wait-idle
-                   "Represents <vkQueueWaitIdle>"
+                   "Represents [vkQueueWaitIdle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueWaitIdle.html).
+
+Args:
+ - QUEUE: <a description>
+Returns: TODO
+
+See QUEUE
+"
                    ((queue cffi:foreign-pointer))
                    ()
                   nil)
@@ -222,7 +395,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (device-wait-idle
                    %vk:device-wait-idle
-                   "Represents <vkDeviceWaitIdle>"
+                   "Represents [vkDeviceWaitIdle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDeviceWaitIdle.html).
+
+Args:
+ - DEVICE: <a description>
+Returns: TODO
+
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    ()
                   nil)
@@ -230,7 +410,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (allocate-memory
                           %vk:allocate-memory
-                          "Represents <vkAllocateMemory>"
+                          "Represents [vkAllocateMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateMemory.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ALLOCATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See MEMORY-ALLOCATE-INFO
+"
                           ((device cffi:foreign-pointer) (allocate-info (or vk:memory-allocate-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -241,7 +432,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (free-memory
                    %vk:free-memory
-                   "Represents <vkFreeMemory>"
+                   "Represents [vkFreeMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeMemory.html).
+
+Args:
+ - DEVICE: <a description>
+ - MEMORY: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See DEVICE-MEMORY
+"
                    ((device cffi:foreign-pointer))
                    (((memory (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -251,7 +453,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (map-memory
                    %vk:map-memory
-                   "Represents <vkMapMemory>"
+                   "Represents [vkMapMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMapMemory.html).
+
+Args:
+ - DEVICE: <a description>
+ - MEMORY: <a description>
+ - OFFSET: <a description>
+ - SIZE: <a description>
+ - PP-DATA: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY
+See DEVICE-SIZE
+See MEMORY-MAP-FLAGS
+"
                    ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (offset unsigned-byte) (size unsigned-byte) (p-data cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -264,7 +481,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (unmap-memory
                    %vk:unmap-memory
-                   "Represents <vkUnmapMemory>"
+                   "Represents [vkUnmapMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUnmapMemory.html).
+
+Args:
+ - DEVICE: <a description>
+ - MEMORY: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY
+"
                    ((device cffi:foreign-pointer) (memory cffi:foreign-pointer))
                    ()
                   nil)
@@ -273,7 +499,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (flush-mapped-memory-ranges
                    %vk:flush-mapped-memory-ranges
-                   "Represents <vkFlushMappedMemoryRanges>"
+                   "Represents [vkFlushMappedMemoryRanges](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFlushMappedMemoryRanges.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-MEMORY-RANGES: <a description>
+Returns: TODO
+
+See DEVICE
+See MAPPED-MEMORY-RANGE
+"
                    ((device cffi:foreign-pointer) (memory-ranges list))
                    ()
                   nil)
@@ -283,7 +518,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (invalidate-mapped-memory-ranges
                    %vk:invalidate-mapped-memory-ranges
-                   "Represents <vkInvalidateMappedMemoryRanges>"
+                   "Represents [vkInvalidateMappedMemoryRanges](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkInvalidateMappedMemoryRanges.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-MEMORY-RANGES: <a description>
+Returns: TODO
+
+See DEVICE
+See MAPPED-MEMORY-RANGE
+"
                    ((device cffi:foreign-pointer) (memory-ranges list))
                    ()
                   nil)
@@ -293,7 +537,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-device-memory-commitment
                           %vk:get-device-memory-commitment
-                          "Represents <vkGetDeviceMemoryCommitment>"
+                          "Represents [vkGetDeviceMemoryCommitment](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryCommitment.html).
+
+Args:
+ - DEVICE: <a description>
+ - MEMORY: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY
+"
                           ((device cffi:foreign-pointer) (memory cffi:foreign-pointer))
                           ()
                           t)
@@ -303,7 +556,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-buffer-memory-requirements
                        %vk:get-buffer-memory-requirements
-                       "Represents <vkGetBufferMemoryRequirements>"
+                       "Represents [vkGetBufferMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements.html).
+
+Args:
+ - DEVICE: <a description>
+ - BUFFER: <a description>
+Returns: TODO
+
+See BUFFER
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
@@ -312,7 +574,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-buffer-memory
                    %vk:bind-buffer-memory
-                   "Represents <vkBindBufferMemory>"
+                   "Represents [vkBindBufferMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory.html).
+
+Args:
+ - DEVICE: <a description>
+ - BUFFER: <a description>
+ - MEMORY: <a description>
+ - MEMORY-OFFSET: <a description>
+Returns: TODO
+
+See BUFFER
+See DEVICE
+See DEVICE-MEMORY
+See DEVICE-SIZE
+"
                    ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset unsigned-byte))
                    ()
                   nil)
@@ -323,7 +598,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-image-memory-requirements
                        %vk:get-image-memory-requirements
-                       "Represents <vkGetImageMemoryRequirements>"
+                       "Represents [vkGetImageMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE
+"
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
@@ -332,7 +616,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-image-memory
                    %vk:bind-image-memory
-                   "Represents <vkBindImageMemory>"
+                   "Represents [vkBindImageMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE: <a description>
+ - MEMORY: <a description>
+ - MEMORY-OFFSET: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY
+See DEVICE-SIZE
+See IMAGE
+"
                    ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset unsigned-byte))
                    ()
                   nil)
@@ -343,7 +640,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-image-sparse-memory-requirements
                         %vk:get-image-sparse-memory-requirements
-                        "Represents <vkGetImageSparseMemoryRequirements>"
+                        "Represents [vkGetImageSparseMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE
+"
                         ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                         ()
                         sparse-memory-requirement-count
@@ -356,7 +662,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-physical-device-sparse-image-format-properties
                         %vk:get-physical-device-sparse-image-format-properties
-                        "Represents <vkGetPhysicalDeviceSparseImageFormatProperties>"
+                        "Represents [vkGetPhysicalDeviceSparseImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - FORMAT: <a description>
+ - TYPE: <a description>
+ - SAMPLES: <a description>
+ - USAGE: <a description>
+ - TILING: <a description>
+Returns: TODO
+
+See FORMAT
+See IMAGE-TILING
+See IMAGE-TYPE
+See IMAGE-USAGE-FLAGS
+See PHYSICAL-DEVICE
+See SAMPLE-COUNT-FLAG-BITS
+"
                         ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (samples keyword) (usage (or unsigned-byte list)) (tiling keyword))
                         ()
                         property-count
@@ -373,7 +696,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-bind-sparse
                    %vk:queue-bind-sparse
-                   "Represents <vkQueueBindSparse>"
+                   "Represents [vkQueueBindSparse](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueBindSparse.html).
+
+Args:
+ - QUEUE: <a description>
+ - P-BIND-INFO: <a description>
+ - FENCE: (optional) <a description>
+Returns: TODO
+
+See BIND-SPARSE-INFO
+See FENCE
+See QUEUE
+"
                    ((queue cffi:foreign-pointer) (bind-info list))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -384,7 +718,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-fence
                           %vk:create-fence
-                          "Represents <vkCreateFence>"
+                          "Represents [vkCreateFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateFence.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See FENCE-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:fence-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -395,7 +740,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-fence
                    %vk:destroy-fence
-                   "Represents <vkDestroyFence>"
+                   "Represents [vkDestroyFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyFence.html).
+
+Args:
+ - DEVICE: <a description>
+ - FENCE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See FENCE
+"
                    ((device cffi:foreign-pointer))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -405,7 +761,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-fences
                    %vk:reset-fences
-                   "Represents <vkResetFences>"
+                   "Represents [vkResetFences](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetFences.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-FENCES: <a description>
+Returns: TODO
+
+See DEVICE
+See FENCE
+"
                    ((device cffi:foreign-pointer) (fences list))
                    ()
                   nil)
@@ -415,7 +780,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-fence-status
                    %vk:get-fence-status
-                   "Represents <vkGetFenceStatus>"
+                   "Represents [vkGetFenceStatus](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceStatus.html).
+
+Args:
+ - DEVICE: <a description>
+ - FENCE: <a description>
+Returns: TODO
+
+See DEVICE
+See FENCE
+"
                    ((device cffi:foreign-pointer) (fence cffi:foreign-pointer))
                    ()
                   nil)
@@ -424,7 +798,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (wait-for-fences
                    %vk:wait-for-fences
-                   "Represents <vkWaitForFences>"
+                   "Represents [vkWaitForFences](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitForFences.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-FENCES: <a description>
+ - WAIT-ALL: <a description>
+ - TIMEOUT: <a description>
+Returns: TODO
+
+See BOOL32
+See DEVICE
+See FENCE
+"
                    ((device cffi:foreign-pointer) (fences list) (wait-all boolean) (timeout unsigned-byte))
                    ()
                   nil)
@@ -436,7 +822,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-semaphore
                           %vk:create-semaphore
-                          "Represents <vkCreateSemaphore>"
+                          "Represents [vkCreateSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSemaphore.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SEMAPHORE-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:semaphore-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -447,7 +844,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-semaphore
                    %vk:destroy-semaphore
-                   "Represents <vkDestroySemaphore>"
+                   "Represents [vkDestroySemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySemaphore.html).
+
+Args:
+ - DEVICE: <a description>
+ - SEMAPHORE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SEMAPHORE
+"
                    ((device cffi:foreign-pointer))
                    (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -457,7 +865,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-event
                           %vk:create-event
-                          "Represents <vkCreateEvent>"
+                          "Represents [vkCreateEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateEvent.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See EVENT-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:event-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -468,7 +887,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-event
                    %vk:destroy-event
-                   "Represents <vkDestroyEvent>"
+                   "Represents [vkDestroyEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyEvent.html).
+
+Args:
+ - DEVICE: <a description>
+ - EVENT: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See EVENT
+"
                    ((device cffi:foreign-pointer))
                    (((event (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -478,7 +908,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-event-status
                    %vk:get-event-status
-                   "Represents <vkGetEventStatus>"
+                   "Represents [vkGetEventStatus](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetEventStatus.html).
+
+Args:
+ - DEVICE: <a description>
+ - EVENT: <a description>
+Returns: TODO
+
+See DEVICE
+See EVENT
+"
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
                    ()
                   nil)
@@ -487,7 +926,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (set-event
                    %vk:set-event
-                   "Represents <vkSetEvent>"
+                   "Represents [vkSetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetEvent.html).
+
+Args:
+ - DEVICE: <a description>
+ - EVENT: <a description>
+Returns: TODO
+
+See DEVICE
+See EVENT
+"
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
                    ()
                   nil)
@@ -496,7 +944,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-event
                    %vk:reset-event
-                   "Represents <vkResetEvent>"
+                   "Represents [vkResetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetEvent.html).
+
+Args:
+ - DEVICE: <a description>
+ - EVENT: <a description>
+Returns: TODO
+
+See DEVICE
+See EVENT
+"
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
                    ()
                   nil)
@@ -505,7 +962,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-query-pool
                           %vk:create-query-pool
-                          "Represents <vkCreateQueryPool>"
+                          "Represents [vkCreateQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateQueryPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See QUERY-POOL-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:query-pool-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -516,7 +984,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-query-pool
                    %vk:destroy-query-pool
-                   "Represents <vkDestroyQueryPool>"
+                   "Represents [vkDestroyQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyQueryPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - QUERY-POOL: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See QUERY-POOL
+"
                    ((device cffi:foreign-pointer))
                    (((query-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -526,7 +1005,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-query-pool-results
                    %vk:get-query-pool-results
-                   "Represents <vkGetQueryPoolResults>"
+                   "Represents [vkGetQueryPoolResults](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueryPoolResults.html).
+
+Args:
+ - DEVICE: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+ - QUERY-COUNT: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+ - STRIDE: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-SIZE
+See QUERY-POOL
+See QUERY-RESULT-FLAGS
+"
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -541,7 +1037,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-query-pool
                    %vk:reset-query-pool
-                   "Represents <vkResetQueryPool>"
+                   "Represents [vkResetQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetQueryPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+ - QUERY-COUNT: <a description>
+Returns: TODO
+
+See DEVICE
+See QUERY-POOL
+"
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
                    ()
                   nil)
@@ -552,7 +1059,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-query-pool-ext
                    %vk:reset-query-pool-ext
-                   "Represents <vkResetQueryPoolEXT>"
+                   "Represents [vkResetQueryPoolEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetQueryPoolEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+ - QUERY-COUNT: <a description>
+Returns: TODO
+
+See DEVICE
+See QUERY-POOL
+"
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
                    ()
                   nil
@@ -564,7 +1082,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-buffer
                           %vk:create-buffer
-                          "Represents <vkCreateBuffer>"
+                          "Represents [vkCreateBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBuffer.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See BUFFER-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -575,7 +1104,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-buffer
                    %vk:destroy-buffer
-                   "Represents <vkDestroyBuffer>"
+                   "Represents [vkDestroyBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBuffer.html).
+
+Args:
+ - DEVICE: <a description>
+ - BUFFER: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See BUFFER
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((buffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -585,7 +1125,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-buffer-view
                           %vk:create-buffer-view
-                          "Represents <vkCreateBufferView>"
+                          "Represents [vkCreateBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBufferView.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See BUFFER-VIEW-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-view-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -596,7 +1147,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-buffer-view
                    %vk:destroy-buffer-view
-                   "Represents <vkDestroyBufferView>"
+                   "Represents [vkDestroyBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBufferView.html).
+
+Args:
+ - DEVICE: <a description>
+ - BUFFER-VIEW: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See BUFFER-VIEW
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((buffer-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -606,7 +1168,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-image
                           %vk:create-image
-                          "Represents <vkCreateImage>"
+                          "Represents [vkCreateImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImage.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See IMAGE-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:image-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -617,7 +1190,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-image
                    %vk:destroy-image
-                   "Represents <vkDestroyImage>"
+                   "Represents [vkDestroyImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyImage.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See IMAGE
+"
                    ((device cffi:foreign-pointer))
                    (((image (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -627,7 +1211,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-image-subresource-layout
                        %vk:get-image-subresource-layout
-                       "Represents <vkGetImageSubresourceLayout>"
+                       "Represents [vkGetImageSubresourceLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSubresourceLayout.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE: <a description>
+ - P-SUBRESOURCE: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE
+See IMAGE-SUBRESOURCE
+"
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (subresource (or vk:image-subresource cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -637,7 +1232,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-image-view
                           %vk:create-image-view
-                          "Represents <vkCreateImageView>"
+                          "Represents [vkCreateImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImageView.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See IMAGE-VIEW-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:image-view-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -648,7 +1254,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-image-view
                    %vk:destroy-image-view
-                   "Represents <vkDestroyImageView>"
+                   "Represents [vkDestroyImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyImageView.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE-VIEW: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See IMAGE-VIEW
+"
                    ((device cffi:foreign-pointer))
                    (((image-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -658,7 +1275,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-shader-module
                           %vk:create-shader-module
-                          "Represents <vkCreateShaderModule>"
+                          "Represents [vkCreateShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateShaderModule.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SHADER-MODULE-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:shader-module-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -669,7 +1297,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-shader-module
                    %vk:destroy-shader-module
-                   "Represents <vkDestroyShaderModule>"
+                   "Represents [vkDestroyShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyShaderModule.html).
+
+Args:
+ - DEVICE: <a description>
+ - SHADER-MODULE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SHADER-MODULE
+"
                    ((device cffi:foreign-pointer))
                    (((shader-module (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -679,7 +1318,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-pipeline-cache
                           %vk:create-pipeline-cache
-                          "Represents <vkCreatePipelineCache>"
+                          "Represents [vkCreatePipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePipelineCache.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PIPELINE-CACHE-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-cache-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -690,7 +1340,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-pipeline-cache
                    %vk:destroy-pipeline-cache
-                   "Represents <vkDestroyPipelineCache>"
+                   "Represents [vkDestroyPipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipelineCache.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE-CACHE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PIPELINE-CACHE
+"
                    ((device cffi:foreign-pointer))
                    (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -700,7 +1361,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-pipeline-cache-data
                           %vk:get-pipeline-cache-data
-                          "Represents <vkGetPipelineCacheData>"
+                          "Represents [vkGetPipelineCacheData](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineCacheData.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE-CACHE: <a description>
+ - P-DATA: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE-CACHE
+"
                           ((device cffi:foreign-pointer) (pipeline-cache cffi:foreign-pointer))
                           (((data nil) cffi:foreign-pointer))
                           nil)
@@ -711,7 +1382,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (merge-pipeline-caches
                    %vk:merge-pipeline-caches
-                   "Represents <vkMergePipelineCaches>"
+                   "Represents [vkMergePipelineCaches](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMergePipelineCaches.html).
+
+Args:
+ - DEVICE: <a description>
+ - DST-CACHE: <a description>
+ - P-SRC-CACHES: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE-CACHE
+"
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches list))
                    ()
                   nil)
@@ -722,7 +1403,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (create-graphics-pipelines
                            %vk:create-graphics-pipelines
-                           "Represents <vkCreateGraphicsPipelines>"
+                           "Represents [vkCreateGraphicsPipelines](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateGraphicsPipelines.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFOS: <a description>
+ - PIPELINE-CACHE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See GRAPHICS-PIPELINE-CREATE-INFO
+See PIPELINE-CACHE
+"
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
@@ -735,7 +1429,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (create-compute-pipelines
                            %vk:create-compute-pipelines
-                           "Represents <vkCreateComputePipelines>"
+                           "Represents [vkCreateComputePipelines](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateComputePipelines.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFOS: <a description>
+ - PIPELINE-CACHE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See COMPUTE-PIPELINE-CREATE-INFO
+See DEVICE
+See PIPELINE-CACHE
+"
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
@@ -748,7 +1455,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-pipeline
                    %vk:destroy-pipeline
-                   "Represents <vkDestroyPipeline>"
+                   "Represents [vkDestroyPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipeline.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PIPELINE
+"
                    ((device cffi:foreign-pointer))
                    (((pipeline (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -758,7 +1476,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-pipeline-layout
                           %vk:create-pipeline-layout
-                          "Represents <vkCreatePipelineLayout>"
+                          "Represents [vkCreatePipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePipelineLayout.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PIPELINE-LAYOUT-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-layout-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -769,7 +1498,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-pipeline-layout
                    %vk:destroy-pipeline-layout
-                   "Represents <vkDestroyPipelineLayout>"
+                   "Represents [vkDestroyPipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipelineLayout.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE-LAYOUT: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PIPELINE-LAYOUT
+"
                    ((device cffi:foreign-pointer))
                    (((pipeline-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -779,7 +1519,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-sampler
                           %vk:create-sampler
-                          "Represents <vkCreateSampler>"
+                          "Represents [vkCreateSampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSampler.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -790,7 +1541,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-sampler
                    %vk:destroy-sampler
-                   "Represents <vkDestroySampler>"
+                   "Represents [vkDestroySampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySampler.html).
+
+Args:
+ - DEVICE: <a description>
+ - SAMPLER: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER
+"
                    ((device cffi:foreign-pointer))
                    (((sampler (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -800,7 +1562,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-descriptor-set-layout
                           %vk:create-descriptor-set-layout
-                          "Represents <vkCreateDescriptorSetLayout>"
+                          "Represents [vkCreateDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorSetLayout.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -811,7 +1584,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-descriptor-set-layout
                    %vk:destroy-descriptor-set-layout
-                   "Represents <vkDestroyDescriptorSetLayout>"
+                   "Represents [vkDestroyDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorSetLayout.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-SET-LAYOUT: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-SET-LAYOUT
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((descriptor-set-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -821,7 +1605,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-descriptor-pool
                           %vk:create-descriptor-pool
-                          "Represents <vkCreateDescriptorPool>"
+                          "Represents [vkCreateDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-POOL-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-pool-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -832,7 +1627,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-descriptor-pool
                    %vk:destroy-descriptor-pool
-                   "Represents <vkDestroyDescriptorPool>"
+                   "Represents [vkDestroyDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-POOL: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-POOL
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((descriptor-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -842,7 +1648,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-descriptor-pool
                    %vk:reset-descriptor-pool
-                   "Represents <vkResetDescriptorPool>"
+                   "Represents [vkResetDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetDescriptorPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-POOL: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See DESCRIPTOR-POOL
+See DESCRIPTOR-POOL-RESET-FLAGS
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -852,7 +1669,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (allocate-descriptor-sets
                            %vk:allocate-descriptor-sets
-                           "Represents <vkAllocateDescriptorSets>"
+                           "Represents [vkAllocateDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateDescriptorSets.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ALLOCATE-INFO: <a description>
+Returns: TODO
+
+See DESCRIPTOR-SET-ALLOCATE-INFO
+See DEVICE
+"
                            ((device cffi:foreign-pointer) (allocate-info (or vk:descriptor-set-allocate-info cffi:foreign-pointer)))
                            ()
                            (length (vk:set-layouts allocate-info)))
@@ -862,7 +1688,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (free-descriptor-sets
                    %vk:free-descriptor-sets
-                   "Represents <vkFreeDescriptorSets>"
+                   "Represents [vkFreeDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeDescriptorSets.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-POOL: <a description>
+ - P-DESCRIPTOR-SETS: <a description>
+Returns: TODO
+
+See DESCRIPTOR-POOL
+See DESCRIPTOR-SET
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer) (descriptor-sets list))
                    ()
                   nil)
@@ -873,7 +1710,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (update-descriptor-sets
                    %vk:update-descriptor-sets
-                   "Represents <vkUpdateDescriptorSets>"
+                   "Represents [vkUpdateDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSets.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-DESCRIPTOR-WRITES: <a description>
+ - P-DESCRIPTOR-COPIES: <a description>
+Returns: TODO
+
+See COPY-DESCRIPTOR-SET
+See DEVICE
+See WRITE-DESCRIPTOR-SET
+"
                    ((device cffi:foreign-pointer) (descriptor-writes list) (descriptor-copies list))
                    ()
                   nil)
@@ -885,7 +1733,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-framebuffer
                           %vk:create-framebuffer
-                          "Represents <vkCreateFramebuffer>"
+                          "Represents [vkCreateFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateFramebuffer.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See FRAMEBUFFER-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:framebuffer-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -896,7 +1755,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-framebuffer
                    %vk:destroy-framebuffer
-                   "Represents <vkDestroyFramebuffer>"
+                   "Represents [vkDestroyFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyFramebuffer.html).
+
+Args:
+ - DEVICE: <a description>
+ - FRAMEBUFFER: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See FRAMEBUFFER
+"
                    ((device cffi:foreign-pointer))
                    (((framebuffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -906,7 +1776,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-render-pass
                           %vk:create-render-pass
-                          "Represents <vkCreateRenderPass>"
+                          "Represents [vkCreateRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See RENDER-PASS-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -917,7 +1798,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-render-pass
                    %vk:destroy-render-pass
-                   "Represents <vkDestroyRenderPass>"
+                   "Represents [vkDestroyRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyRenderPass.html).
+
+Args:
+ - DEVICE: <a description>
+ - RENDER-PASS: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See RENDER-PASS
+"
                    ((device cffi:foreign-pointer))
                    (((render-pass (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -927,7 +1819,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-render-area-granularity
                        %vk:get-render-area-granularity
-                       "Represents <vkGetRenderAreaGranularity>"
+                       "Represents [vkGetRenderAreaGranularity](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRenderAreaGranularity.html).
+
+Args:
+ - DEVICE: <a description>
+ - RENDER-PASS: <a description>
+Returns: TODO
+
+See DEVICE
+See RENDER-PASS
+"
                        ((device cffi:foreign-pointer) (render-pass cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
@@ -936,7 +1837,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-command-pool
                           %vk:create-command-pool
-                          "Represents <vkCreateCommandPool>"
+                          "Represents [vkCreateCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCommandPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See COMMAND-POOL-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:command-pool-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -947,7 +1859,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-command-pool
                    %vk:destroy-command-pool
-                   "Represents <vkDestroyCommandPool>"
+                   "Represents [vkDestroyCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCommandPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - COMMAND-POOL: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See COMMAND-POOL
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((command-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -957,7 +1880,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-command-pool
                    %vk:reset-command-pool
-                   "Represents <vkResetCommandPool>"
+                   "Represents [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetCommandPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - COMMAND-POOL: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See COMMAND-POOL
+See COMMAND-POOL-RESET-FLAGS
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -967,7 +1901,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (allocate-command-buffers
                            %vk:allocate-command-buffers
-                           "Represents <vkAllocateCommandBuffers>"
+                           "Represents [vkAllocateCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateCommandBuffers.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ALLOCATE-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER-ALLOCATE-INFO
+See DEVICE
+"
                            ((device cffi:foreign-pointer) (allocate-info (or vk:command-buffer-allocate-info cffi:foreign-pointer)))
                            ()
                            (vk:command-buffer-count allocate-info))
@@ -977,7 +1920,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (free-command-buffers
                    %vk:free-command-buffers
-                   "Represents <vkFreeCommandBuffers>"
+                   "Represents [vkFreeCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeCommandBuffers.html).
+
+Args:
+ - DEVICE: <a description>
+ - COMMAND-POOL: <a description>
+ - P-COMMAND-BUFFERS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COMMAND-POOL
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer) (command-buffers list))
                    ()
                   nil)
@@ -988,7 +1942,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (begin-command-buffer
                    %vk:begin-command-buffer
-                   "Represents <vkBeginCommandBuffer>"
+                   "Represents [vkBeginCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBeginCommandBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-BEGIN-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COMMAND-BUFFER-BEGIN-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (begin-info (or vk:command-buffer-begin-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -997,7 +1960,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (end-command-buffer
                    %vk:end-command-buffer
-                   "Represents <vkEndCommandBuffer>"
+                   "Represents [vkEndCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEndCommandBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer))
                    ()
                   nil)
@@ -1005,7 +1975,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (reset-command-buffer
                    %vk:reset-command-buffer
-                   "Represents <vkResetCommandBuffer>"
+                   "Represents [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetCommandBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COMMAND-BUFFER-RESET-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -1014,7 +1993,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-pipeline
                    %vk:cmd-bind-pipeline
-                   "Represents <vkCmdBindPipeline>"
+                   "Represents [vkCmdBindPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindPipeline.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-BIND-POINT: <a description>
+ - PIPELINE: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PIPELINE
+See PIPELINE-BIND-POINT
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer))
                    ()
                   nil)
@@ -1024,7 +2014,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-viewport
                    %vk:cmd-set-viewport
-                   "Represents <vkCmdSetViewport>"
+                   "Represents [vkCmdSetViewport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewport.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-VIEWPORT: <a description>
+ - P-VIEWPORTS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See VIEWPORT
+"
                    ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (viewports list))
                    ()
                   nil)
@@ -1035,7 +2035,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-scissor
                    %vk:cmd-set-scissor
-                   "Represents <vkCmdSetScissor>"
+                   "Represents [vkCmdSetScissor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetScissor.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-SCISSOR: <a description>
+ - P-SCISSORS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RECT-2D
+"
                    ((command-buffer cffi:foreign-pointer) (first-scissor unsigned-byte) (scissors list))
                    ()
                   nil)
@@ -1046,7 +2056,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-line-width
                    %vk:cmd-set-line-width
-                   "Represents <vkCmdSetLineWidth>"
+                   "Represents [vkCmdSetLineWidth](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLineWidth.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - LINE-WIDTH: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (line-width real))
                    ()
                   nil)
@@ -1055,7 +2073,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-depth-bias
                    %vk:cmd-set-depth-bias
-                   "Represents <vkCmdSetDepthBias>"
+                   "Represents [vkCmdSetDepthBias](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBias.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEPTH-BIAS-CONSTANT-FACTOR: <a description>
+ - DEPTH-BIAS-CLAMP: <a description>
+ - DEPTH-BIAS-SLOPE-FACTOR: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (depth-bias-constant-factor real) (depth-bias-clamp real) (depth-bias-slope-factor real))
                    ()
                   nil)
@@ -1066,7 +2094,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-blend-constants
                    %vk:cmd-set-blend-constants
-                   "Represents <vkCmdSetBlendConstants>"
+                   "Represents [vkCmdSetBlendConstants](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetBlendConstants.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BLEND-CONSTANTS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (blend-constants real))
                    ()
                   nil)
@@ -1075,7 +2111,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-depth-bounds
                    %vk:cmd-set-depth-bounds
-                   "Represents <vkCmdSetDepthBounds>"
+                   "Represents [vkCmdSetDepthBounds](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBounds.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - MIN-DEPTH-BOUNDS: <a description>
+ - MAX-DEPTH-BOUNDS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (min-depth-bounds real) (max-depth-bounds real))
                    ()
                   nil)
@@ -1085,7 +2130,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-stencil-compare-mask
                    %vk:cmd-set-stencil-compare-mask
-                   "Represents <vkCmdSetStencilCompareMask>"
+                   "Represents [vkCmdSetStencilCompareMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilCompareMask.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FACE-MASK: <a description>
+ - COMPARE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See STENCIL-FACE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (compare-mask unsigned-byte))
                    ()
                   nil)
@@ -1095,7 +2150,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-stencil-write-mask
                    %vk:cmd-set-stencil-write-mask
-                   "Represents <vkCmdSetStencilWriteMask>"
+                   "Represents [vkCmdSetStencilWriteMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilWriteMask.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FACE-MASK: <a description>
+ - WRITE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See STENCIL-FACE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (write-mask unsigned-byte))
                    ()
                   nil)
@@ -1105,7 +2170,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-stencil-reference
                    %vk:cmd-set-stencil-reference
-                   "Represents <vkCmdSetStencilReference>"
+                   "Represents [vkCmdSetStencilReference](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilReference.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FACE-MASK: <a description>
+ - REFERENCE: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See STENCIL-FACE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (reference unsigned-byte))
                    ()
                   nil)
@@ -1115,7 +2190,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-descriptor-sets
                    %vk:cmd-bind-descriptor-sets
-                   "Represents <vkCmdBindDescriptorSets>"
+                   "Represents [vkCmdBindDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindDescriptorSets.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-BIND-POINT: <a description>
+ - LAYOUT: <a description>
+ - FIRST-SET: <a description>
+ - P-DESCRIPTOR-SETS: <a description>
+ - P-DYNAMIC-OFFSETS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DESCRIPTOR-SET
+See PIPELINE-BIND-POINT
+See PIPELINE-LAYOUT
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (layout cffi:foreign-pointer) (first-set unsigned-byte) (descriptor-sets list) (dynamic-offsets list))
                    ()
                   nil)
@@ -1130,7 +2220,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-index-buffer
                    %vk:cmd-bind-index-buffer
-                   "Represents <vkCmdBindIndexBuffer>"
+                   "Represents [vkCmdBindIndexBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindIndexBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - INDEX-TYPE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+See INDEX-TYPE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (index-type keyword))
                    ()
                   nil)
@@ -1141,7 +2244,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-vertex-buffers
                    %vk:cmd-bind-vertex-buffers
-                   "Represents <vkCmdBindVertexBuffers>"
+                   "Represents [vkCmdBindVertexBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindVertexBuffers.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-BINDING: <a description>
+ - P-BUFFERS: <a description>
+ - P-OFFSETS: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers list) (offsets list))
                    ()
                   nil)
@@ -1153,7 +2268,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw
                    %vk:cmd-draw
-                   "Represents <vkCmdDraw>"
+                   "Represents [vkCmdDraw](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDraw.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - VERTEX-COUNT: <a description>
+ - INSTANCE-COUNT: <a description>
+ - FIRST-VERTEX: <a description>
+ - FIRST-INSTANCE: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (vertex-count unsigned-byte) (instance-count unsigned-byte) (first-vertex unsigned-byte) (first-instance unsigned-byte))
                    ()
                   nil)
@@ -1165,7 +2291,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indexed
                    %vk:cmd-draw-indexed
-                   "Represents <vkCmdDrawIndexed>"
+                   "Represents [vkCmdDrawIndexed](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexed.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - INDEX-COUNT: <a description>
+ - INSTANCE-COUNT: <a description>
+ - FIRST-INDEX: <a description>
+ - VERTEX-OFFSET: <a description>
+ - FIRST-INSTANCE: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (index-count unsigned-byte) (instance-count unsigned-byte) (first-index unsigned-byte) (vertex-offset integer) (first-instance unsigned-byte))
                    ()
                   nil)
@@ -1178,7 +2316,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indirect
                    %vk:cmd-draw-indirect
-                   "Represents <vkCmdDrawIndirect>"
+                   "Represents [vkCmdDrawIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirect.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
@@ -1190,7 +2341,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indexed-indirect
                    %vk:cmd-draw-indexed-indirect
-                   "Represents <vkCmdDrawIndexedIndirect>"
+                   "Represents [vkCmdDrawIndexedIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirect.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
@@ -1202,7 +2366,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-dispatch
                    %vk:cmd-dispatch
-                   "Represents <vkCmdDispatch>"
+                   "Represents [vkCmdDispatch](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatch.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - GROUP-COUNT-X: <a description>
+ - GROUP-COUNT-Y: <a description>
+ - GROUP-COUNT-Z: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
                    ()
                   nil)
@@ -1213,7 +2387,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-dispatch-indirect
                    %vk:cmd-dispatch-indirect
-                   "Represents <vkCmdDispatchIndirect>"
+                   "Represents [vkCmdDispatchIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchIndirect.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte))
                    ()
                   nil)
@@ -1223,7 +2408,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-buffer
                    %vk:cmd-copy-buffer
-                   "Represents <vkCmdCopyBuffer>"
+                   "Represents [vkCmdCopyBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-BUFFER: <a description>
+ - DST-BUFFER: <a description>
+ - P-REGIONS: <a description>
+Returns: TODO
+
+See BUFFER
+See BUFFER-COPY
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (src-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (regions list))
                    ()
                   nil)
@@ -1235,7 +2432,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-image
                    %vk:cmd-copy-image
-                   "Represents <vkCmdCopyImage>"
+                   "Represents [vkCmdCopyImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImage.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-IMAGE: <a description>
+ - SRC-IMAGE-LAYOUT: <a description>
+ - DST-IMAGE: <a description>
+ - DST-IMAGE-LAYOUT: <a description>
+ - P-REGIONS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See IMAGE
+See IMAGE-COPY
+See IMAGE-LAYOUT
+"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list))
                    ()
                   nil)
@@ -1249,7 +2461,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-blit-image
                    %vk:cmd-blit-image
-                   "Represents <vkCmdBlitImage>"
+                   "Represents [vkCmdBlitImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBlitImage.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-IMAGE: <a description>
+ - SRC-IMAGE-LAYOUT: <a description>
+ - DST-IMAGE: <a description>
+ - DST-IMAGE-LAYOUT: <a description>
+ - P-REGIONS: <a description>
+ - FILTER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See FILTER
+See IMAGE
+See IMAGE-BLIT
+See IMAGE-LAYOUT
+"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list) (filter keyword))
                    ()
                   nil)
@@ -1264,7 +2493,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-buffer-to-image
                    %vk:cmd-copy-buffer-to-image
-                   "Represents <vkCmdCopyBufferToImage>"
+                   "Represents [vkCmdCopyBufferToImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBufferToImage.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-BUFFER: <a description>
+ - DST-IMAGE: <a description>
+ - DST-IMAGE-LAYOUT: <a description>
+ - P-REGIONS: <a description>
+Returns: TODO
+
+See BUFFER
+See BUFFER-IMAGE-COPY
+See COMMAND-BUFFER
+See IMAGE
+See IMAGE-LAYOUT
+"
                    ((command-buffer cffi:foreign-pointer) (src-buffer cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list))
                    ()
                   nil)
@@ -1277,7 +2521,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-image-to-buffer
                    %vk:cmd-copy-image-to-buffer
-                   "Represents <vkCmdCopyImageToBuffer>"
+                   "Represents [vkCmdCopyImageToBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImageToBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-IMAGE: <a description>
+ - SRC-IMAGE-LAYOUT: <a description>
+ - DST-BUFFER: <a description>
+ - P-REGIONS: <a description>
+Returns: TODO
+
+See BUFFER
+See BUFFER-IMAGE-COPY
+See COMMAND-BUFFER
+See IMAGE
+See IMAGE-LAYOUT
+"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-buffer cffi:foreign-pointer) (regions list))
                    ()
                   nil)
@@ -1290,7 +2549,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-update-buffer
                    %vk:cmd-update-buffer
-                   "Represents <vkCmdUpdateBuffer>"
+                   "Represents [vkCmdUpdateBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdUpdateBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DST-BUFFER: <a description>
+ - DST-OFFSET: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
                   nil)
@@ -1302,7 +2574,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-fill-buffer
                    %vk:cmd-fill-buffer
-                   "Represents <vkCmdFillBuffer>"
+                   "Represents [vkCmdFillBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdFillBuffer.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DST-BUFFER: <a description>
+ - DST-OFFSET: <a description>
+ - SIZE: <a description>
+ - DATA: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (size unsigned-byte) (data unsigned-byte))
                    ()
                   nil)
@@ -1314,7 +2599,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-clear-color-image
                    %vk:cmd-clear-color-image
-                   "Represents <vkCmdClearColorImage>"
+                   "Represents [vkCmdClearColorImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearColorImage.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - IMAGE: <a description>
+ - IMAGE-LAYOUT: <a description>
+ - P-COLOR: <a description>
+ - P-RANGES: <a description>
+Returns: TODO
+
+See CLEAR-COLOR-VALUE
+See COMMAND-BUFFER
+See IMAGE
+See IMAGE-LAYOUT
+See IMAGE-SUBRESOURCE-RANGE
+"
                    ((command-buffer cffi:foreign-pointer) (image cffi:foreign-pointer) (image-layout keyword) (color (or vk:clear-color-value cffi:foreign-pointer)) (ranges list))
                    ()
                   nil)
@@ -1327,7 +2627,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-clear-depth-stencil-image
                    %vk:cmd-clear-depth-stencil-image
-                   "Represents <vkCmdClearDepthStencilImage>"
+                   "Represents [vkCmdClearDepthStencilImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearDepthStencilImage.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - IMAGE: <a description>
+ - IMAGE-LAYOUT: <a description>
+ - P-DEPTH-STENCIL: <a description>
+ - P-RANGES: <a description>
+Returns: TODO
+
+See CLEAR-DEPTH-STENCIL-VALUE
+See COMMAND-BUFFER
+See IMAGE
+See IMAGE-LAYOUT
+See IMAGE-SUBRESOURCE-RANGE
+"
                    ((command-buffer cffi:foreign-pointer) (image cffi:foreign-pointer) (image-layout keyword) (depth-stencil (or vk:clear-depth-stencil-value cffi:foreign-pointer)) (ranges list))
                    ()
                   nil)
@@ -1340,7 +2655,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-clear-attachments
                    %vk:cmd-clear-attachments
-                   "Represents <vkCmdClearAttachments>"
+                   "Represents [vkCmdClearAttachments](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearAttachments.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-ATTACHMENTS: <a description>
+ - P-RECTS: <a description>
+Returns: TODO
+
+See CLEAR-ATTACHMENT
+See CLEAR-RECT
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (attachments list) (rects list))
                    ()
                   nil)
@@ -1352,7 +2678,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-resolve-image
                    %vk:cmd-resolve-image
-                   "Represents <vkCmdResolveImage>"
+                   "Represents [vkCmdResolveImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResolveImage.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-IMAGE: <a description>
+ - SRC-IMAGE-LAYOUT: <a description>
+ - DST-IMAGE: <a description>
+ - DST-IMAGE-LAYOUT: <a description>
+ - P-REGIONS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See IMAGE
+See IMAGE-LAYOUT
+See IMAGE-RESOLVE
+"
                    ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions list))
                    ()
                   nil)
@@ -1366,7 +2707,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-event
                    %vk:cmd-set-event
-                   "Represents <vkCmdSetEvent>"
+                   "Represents [vkCmdSetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - EVENT: <a description>
+ - STAGE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See EVENT
+See PIPELINE-STAGE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
                    ()
                   nil)
@@ -1376,7 +2728,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-reset-event
                    %vk:cmd-reset-event
-                   "Represents <vkCmdResetEvent>"
+                   "Represents [vkCmdResetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetEvent.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - EVENT: <a description>
+ - STAGE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See EVENT
+See PIPELINE-STAGE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
                    ()
                   nil)
@@ -1386,7 +2749,25 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-wait-events
                    %vk:cmd-wait-events
-                   "Represents <vkCmdWaitEvents>"
+                   "Represents [vkCmdWaitEvents](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWaitEvents.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-EVENTS: <a description>
+ - P-MEMORY-BARRIERS: <a description>
+ - P-BUFFER-MEMORY-BARRIERS: <a description>
+ - P-IMAGE-MEMORY-BARRIERS: <a description>
+ - SRC-STAGE-MASK: (optional) <a description>
+ - DST-STAGE-MASK: (optional) <a description>
+Returns: TODO
+
+See BUFFER-MEMORY-BARRIER
+See COMMAND-BUFFER
+See EVENT
+See IMAGE-MEMORY-BARRIER
+See MEMORY-BARRIER
+See PIPELINE-STAGE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (events list) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
                    (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)))
                   nil)
@@ -1404,7 +2785,25 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-pipeline-barrier
                    %vk:cmd-pipeline-barrier
-                   "Represents <vkCmdPipelineBarrier>"
+                   "Represents [vkCmdPipelineBarrier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPipelineBarrier.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SRC-STAGE-MASK: <a description>
+ - DST-STAGE-MASK: <a description>
+ - P-MEMORY-BARRIERS: <a description>
+ - P-BUFFER-MEMORY-BARRIERS: <a description>
+ - P-IMAGE-MEMORY-BARRIERS: <a description>
+ - DEPENDENCY-FLAGS: (optional) <a description>
+Returns: TODO
+
+See BUFFER-MEMORY-BARRIER
+See COMMAND-BUFFER
+See DEPENDENCY-FLAGS
+See IMAGE-MEMORY-BARRIER
+See MEMORY-BARRIER
+See PIPELINE-STAGE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (src-stage-mask (or unsigned-byte list)) (dst-stage-mask (or unsigned-byte list)) (memory-barriers list) (buffer-memory-barriers list) (image-memory-barriers list))
                    (((dependency-flags nil) (or unsigned-byte list)))
                   nil)
@@ -1421,7 +2820,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-query
                    %vk:cmd-begin-query
-                   "Represents <vkCmdBeginQuery>"
+                   "Represents [vkCmdBeginQuery](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginQuery.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - QUERY-POOL: <a description>
+ - QUERY: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See QUERY-CONTROL-FLAGS
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -1432,7 +2843,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-query
                    %vk:cmd-end-query
-                   "Represents <vkCmdEndQuery>"
+                   "Represents [vkCmdEndQuery](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndQuery.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - QUERY-POOL: <a description>
+ - QUERY: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte))
                    ()
                   nil)
@@ -1442,7 +2863,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-conditional-rendering-ext
                    %vk:cmd-begin-conditional-rendering-ext
-                   "Represents <vkCmdBeginConditionalRenderingEXT>"
+                   "Represents [vkCmdBeginConditionalRenderingEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-CONDITIONAL-RENDERING-BEGIN: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See CONDITIONAL-RENDERING-BEGIN-INFO-EXT
+"
                    ((command-buffer cffi:foreign-pointer) (conditional-rendering-begin (or vk:conditional-rendering-begin-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -1452,7 +2882,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-conditional-rendering-ext
                    %vk:cmd-end-conditional-rendering-ext
-                   "Represents <vkCmdEndConditionalRenderingEXT>"
+                   "Represents [vkCmdEndConditionalRenderingEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndConditionalRenderingEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer))
                    ()
                   nil
@@ -1461,7 +2898,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-reset-query-pool
                    %vk:cmd-reset-query-pool
-                   "Represents <vkCmdResetQueryPool>"
+                   "Represents [vkCmdResetQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetQueryPool.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+ - QUERY-COUNT: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
                    ()
                   nil)
@@ -1472,7 +2920,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-write-timestamp
                    %vk:cmd-write-timestamp
-                   "Represents <vkCmdWriteTimestamp>"
+                   "Represents [vkCmdWriteTimestamp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-STAGE: <a description>
+ - QUERY-POOL: <a description>
+ - QUERY: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PIPELINE-STAGE-FLAG-BITS
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (query-pool cffi:foreign-pointer) (query unsigned-byte))
                    ()
                   nil)
@@ -1483,7 +2943,25 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-query-pool-results
                    %vk:cmd-copy-query-pool-results
-                   "Represents <vkCmdCopyQueryPoolResults>"
+                   "Represents [vkCmdCopyQueryPoolResults](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyQueryPoolResults.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+ - QUERY-COUNT: <a description>
+ - DST-BUFFER: <a description>
+ - DST-OFFSET: <a description>
+ - STRIDE: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+See QUERY-POOL
+See QUERY-RESULT-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (stride unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -1498,7 +2976,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-push-constants
                    %vk:cmd-push-constants
-                   "Represents <vkCmdPushConstants>"
+                   "Represents [vkCmdPushConstants](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushConstants.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - LAYOUT: <a description>
+ - STAGE-FLAGS: <a description>
+ - OFFSET: <a description>
+ - SIZE: <a description>
+ - P-VALUES: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PIPELINE-LAYOUT
+See SHADER-STAGE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (stage-flags (or unsigned-byte list)) (offset unsigned-byte) (size unsigned-byte) (values cffi:foreign-pointer))
                    ()
                   nil)
@@ -1511,7 +3003,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-render-pass
                    %vk:cmd-begin-render-pass
-                   "Represents <vkCmdBeginRenderPass>"
+                   "Represents [vkCmdBeginRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-RENDER-PASS-BEGIN: <a description>
+ - CONTENTS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RENDER-PASS-BEGIN-INFO
+See SUBPASS-CONTENTS
+"
                    ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (contents keyword))
                    ()
                   nil)
@@ -1521,7 +3024,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-next-subpass
                    %vk:cmd-next-subpass
-                   "Represents <vkCmdNextSubpass>"
+                   "Represents [vkCmdNextSubpass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - CONTENTS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SUBPASS-CONTENTS
+"
                    ((command-buffer cffi:foreign-pointer) (contents keyword))
                    ()
                   nil)
@@ -1530,7 +3042,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-render-pass
                    %vk:cmd-end-render-pass
-                   "Represents <vkCmdEndRenderPass>"
+                   "Represents [vkCmdEndRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer))
                    ()
                   nil)
@@ -1538,7 +3057,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-execute-commands
                    %vk:cmd-execute-commands
-                   "Represents <vkCmdExecuteCommands>"
+                   "Represents [vkCmdExecuteCommands](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdExecuteCommands.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-COMMAND-BUFFERS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (command-buffers list))
                    ()
                   nil)
@@ -1548,7 +3075,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-android-surface-khr
                           %vk:create-android-surface-khr
-                          "Represents <vkCreateAndroidSurfaceKHR>"
+                          "Represents [vkCreateAndroidSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAndroidSurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See ANDROID-SURFACE-CREATE-INFO-KHR
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:android-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1559,7 +3097,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-display-properties-khr
                       %vk:get-physical-device-display-properties-khr
-                      "Represents <vkGetPhysicalDeviceDisplayPropertiesKHR>"
+                      "Represents [vkGetPhysicalDeviceDisplayPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
@@ -1571,7 +3116,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-display-plane-properties-khr
                       %vk:get-physical-device-display-plane-properties-khr
-                      "Represents <vkGetPhysicalDeviceDisplayPlanePropertiesKHR>"
+                      "Represents [vkGetPhysicalDeviceDisplayPlanePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
@@ -1583,7 +3135,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-display-plane-supported-displays-khr
                       %vk:get-display-plane-supported-displays-khr
-                      "Represents <vkGetDisplayPlaneSupportedDisplaysKHR>"
+                      "Represents [vkGetDisplayPlaneSupportedDisplaysKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - PLANE-INDEX: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer) (plane-index unsigned-byte))
                       ()
                       display-count
@@ -1596,7 +3156,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-display-mode-properties-khr
                       %vk:get-display-mode-properties-khr
-                      "Represents <vkGetDisplayModePropertiesKHR>"
+                      "Represents [vkGetDisplayModePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayModePropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DISPLAY: <a description>
+Returns: TODO
+
+See DISPLAY-KHR
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
                       property-count
@@ -1609,7 +3178,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-display-mode-khr
                           %vk:create-display-mode-khr
-                          "Represents <vkCreateDisplayModeKHR>"
+                          "Represents [vkCreateDisplayModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDisplayModeKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DISPLAY: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DISPLAY-KHR
+See DISPLAY-MODE-CREATE-INFO-KHR
+See PHYSICAL-DEVICE
+"
                           ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (create-info (or vk:display-mode-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1621,7 +3203,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-display-plane-capabilities-khr
                        %vk:get-display-plane-capabilities-khr
-                       "Represents <vkGetDisplayPlaneCapabilitiesKHR>"
+                       "Represents [vkGetDisplayPlaneCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - MODE: <a description>
+ - PLANE-INDEX: <a description>
+Returns: TODO
+
+See DISPLAY-MODE-KHR
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (mode cffi:foreign-pointer) (plane-index unsigned-byte))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -1631,7 +3223,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-display-plane-surface-khr
                           %vk:create-display-plane-surface-khr
-                          "Represents <vkCreateDisplayPlaneSurfaceKHR>"
+                          "Represents [vkCreateDisplayPlaneSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DISPLAY-SURFACE-CREATE-INFO-KHR
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:display-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1642,7 +3245,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (create-shared-swapchains-khr
                            %vk:create-shared-swapchains-khr
-                           "Represents <vkCreateSharedSwapchainsKHR>"
+                           "Represents [vkCreateSharedSwapchainsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSharedSwapchainsKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFOS: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SWAPCHAIN-CREATE-INFO-KHR
+"
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
@@ -1654,7 +3268,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-surface-khr
                    %vk:destroy-surface-khr
-                   "Represents <vkDestroySurfaceKHR>"
+                   "Represents [vkDestroySurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - SURFACE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See SURFACE-KHR
+"
                    ((instance cffi:foreign-pointer))
                    (((surface (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -1664,7 +3289,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-physical-device-surface-support-khr
                           %vk:get-physical-device-surface-support-khr
-                          "Represents <vkGetPhysicalDeviceSurfaceSupportKHR>"
+                          "Represents [vkGetPhysicalDeviceSurfaceSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SURFACE-KHR
+"
                           ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (surface cffi:foreign-pointer))
                           ()
                           nil)
@@ -1675,7 +3310,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-surface-capabilities-khr
                        %vk:get-physical-device-surface-capabilities-khr
-                       "Represents <vkGetPhysicalDeviceSurfaceCapabilitiesKHR>"
+                       "Represents [vkGetPhysicalDeviceSurfaceCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SURFACE-KHR
+"
                        ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -1684,7 +3328,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-surface-formats-khr
                       %vk:get-physical-device-surface-formats-khr
-                      "Represents <vkGetPhysicalDeviceSurfaceFormatsKHR>"
+                      "Represents [vkGetPhysicalDeviceSurfaceFormatsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SURFACE-KHR
+"
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       surface-format-count
@@ -1697,7 +3350,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-surface-present-modes-khr
                       %vk:get-physical-device-surface-present-modes-khr
-                      "Represents <vkGetPhysicalDeviceSurfacePresentModesKHR>"
+                      "Represents [vkGetPhysicalDeviceSurfacePresentModesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SURFACE-KHR
+"
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       present-mode-count
@@ -1710,7 +3372,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-swapchain-khr
                           %vk:create-swapchain-khr
-                          "Represents <vkCreateSwapchainKHR>"
+                          "Represents [vkCreateSwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSwapchainKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SWAPCHAIN-CREATE-INFO-KHR
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:swapchain-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1721,7 +3394,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-swapchain-khr
                    %vk:destroy-swapchain-khr
-                   "Represents <vkDestroySwapchainKHR>"
+                   "Represents [vkDestroySwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySwapchainKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SWAPCHAIN-KHR
+"
                    ((device cffi:foreign-pointer))
                    (((swapchain (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -1731,7 +3415,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-swapchain-images-khr
                       %vk:get-swapchain-images-khr
-                      "Represents <vkGetSwapchainImagesKHR>"
+                      "Represents [vkGetSwapchainImagesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainImagesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+Returns: TODO
+
+See DEVICE
+See SWAPCHAIN-KHR
+"
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                       ()
                       swapchain-image-count
@@ -1744,7 +3437,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (acquire-next-image-khr
                           %vk:acquire-next-image-khr
-                          "Represents <vkAcquireNextImageKHR>"
+                          "Represents [vkAcquireNextImageKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireNextImageKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+ - TIMEOUT: <a description>
+ - SEMAPHORE: (optional) <a description>
+ - FENCE: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See FENCE
+See SEMAPHORE
+See SWAPCHAIN-KHR
+"
                           ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (timeout unsigned-byte))
                           (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((fence (cffi:null-pointer)) cffi:foreign-pointer))
                           nil)
@@ -1757,7 +3464,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-present-khr
                    %vk:queue-present-khr
-                   "Represents <vkQueuePresentKHR>"
+                   "Represents [vkQueuePresentKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueuePresentKHR.html).
+
+Args:
+ - QUEUE: <a description>
+ - P-PRESENT-INFO: <a description>
+Returns: TODO
+
+See PRESENT-INFO-KHR
+See QUEUE
+"
                    ((queue cffi:foreign-pointer) (present-info (or vk:present-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -1766,7 +3482,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-vi-surface-nn
                           %vk:create-vi-surface-nn
-                          "Represents <vkCreateViSurfaceNN>"
+                          "Represents [vkCreateViSurfaceNN](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateViSurfaceNN.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See VI-SURFACE-CREATE-INFO-NN
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -1778,7 +3505,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-wayland-surface-khr
                           %vk:create-wayland-surface-khr
-                          "Represents <vkCreateWaylandSurfaceKHR>"
+                          "Represents [vkCreateWaylandSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateWaylandSurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See WAYLAND-SURFACE-CREATE-INFO-KHR
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:wayland-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1789,7 +3527,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-physical-device-wayland-presentation-support-khr
                    %vk:get-physical-device-wayland-presentation-support-khr
-                   "Represents <vkGetPhysicalDeviceWaylandPresentationSupportKHR>"
+                   "Represents [vkGetPhysicalDeviceWaylandPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+ - DISPLAY: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See WL_DISPLAY
+"
                    ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (display cffi:foreign-pointer))
                    ()
                   nil)
@@ -1799,7 +3547,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-win32-surface-khr
                           %vk:create-win32-surface-khr
-                          "Represents <vkCreateWin32SurfaceKHR>"
+                          "Represents [vkCreateWin32SurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateWin32SurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See WIN32-SURFACE-CREATE-INFO-KHR
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:win32-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1810,7 +3569,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-physical-device-win32-presentation-support-khr
                    %vk:get-physical-device-win32-presentation-support-khr
-                   "Represents <vkGetPhysicalDeviceWin32PresentationSupportKHR>"
+                   "Represents [vkGetPhysicalDeviceWin32PresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                    ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                    ()
                   nil)
@@ -1819,7 +3586,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-xlib-surface-khr
                           %vk:create-xlib-surface-khr
-                          "Represents <vkCreateXlibSurfaceKHR>"
+                          "Represents [vkCreateXlibSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateXlibSurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See XLIB-SURFACE-CREATE-INFO-KHR
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:xlib-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1830,7 +3608,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-physical-device-xlib-presentation-support-khr
                    %vk:get-physical-device-xlib-presentation-support-khr
-                   "Represents <vkGetPhysicalDeviceXlibPresentationSupportKHR>"
+                   "Represents [vkGetPhysicalDeviceXlibPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+ - DPY: <a description>
+ - VISUAL-ID: <a description>
+Returns: TODO
+
+See DISPLAY
+See PHYSICAL-DEVICE
+See VISUAL-ID
+"
                    ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (dpy cffi:foreign-pointer) (visual-id cffi:foreign-pointer))
                    ()
                   nil)
@@ -1841,7 +3631,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-xcb-surface-khr
                           %vk:create-xcb-surface-khr
-                          "Represents <vkCreateXcbSurfaceKHR>"
+                          "Represents [vkCreateXcbSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateXcbSurfaceKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See XCB-SURFACE-CREATE-INFO-KHR
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:xcb-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -1852,7 +3653,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-physical-device-xcb-presentation-support-khr
                    %vk:get-physical-device-xcb-presentation-support-khr
-                   "Represents <vkGetPhysicalDeviceXcbPresentationSupportKHR>"
+                   "Represents [vkGetPhysicalDeviceXcbPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+ - CONNECTION: <a description>
+ - VISUAL_ID: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See XCB_CONNECTION_T
+See XCB_VISUALID_T
+"
                    ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (connection cffi:foreign-pointer) (visual_id cffi:foreign-pointer))
                    ()
                   nil)
@@ -1863,7 +3676,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-direct-fb-surface-ext
                           %vk:create-direct-fb-surface-ext
-                          "Represents <vkCreateDirectFBSurfaceEXT>"
+                          "Represents [vkCreateDirectFBSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDirectFBSurfaceEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DIRECT-FB-SURFACE-CREATE-INFO-EXT
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -1875,7 +3699,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-physical-device-direct-fb-presentation-support-ext
                    %vk:get-physical-device-direct-fb-presentation-support-ext
-                   "Represents <vkGetPhysicalDeviceDirectFBPresentationSupportEXT>"
+                   "Represents [vkGetPhysicalDeviceDirectFBPresentationSupportEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+ - DFB: <a description>
+Returns: TODO
+
+See I-DIRECT-FB
+See PHYSICAL-DEVICE
+"
                    ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (dfb cffi:foreign-pointer))
                    ()
                   nil
@@ -1886,7 +3720,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-image-pipe-surface-fuchsia
                           %vk:create-image-pipe-surface-fuchsia
-                          "Represents <vkCreateImagePipeSurfaceFUCHSIA>"
+                          "Represents [vkCreateImagePipeSurfaceFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See IMAGE-PIPE-SURFACE-CREATE-INFO-FUCHSIA
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -1898,7 +3743,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-stream-descriptor-surface-ggp
                           %vk:create-stream-descriptor-surface-ggp
-                          "Represents <vkCreateStreamDescriptorSurfaceGGP>"
+                          "Represents [vkCreateStreamDescriptorSurfaceGGP](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateStreamDescriptorSurfaceGGP.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -1910,7 +3766,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-screen-surface-qnx
                           %vk:create-screen-surface-qnx
-                          "Represents <vkCreateScreenSurfaceQNX>"
+                          "Represents [vkCreateScreenSurfaceQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateScreenSurfaceQNX.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See SCREEN-SURFACE-CREATE-INFO-QNX
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -1922,7 +3789,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-screen-presentation-support-qnx
                        %vk:get-physical-device-screen-presentation-support-qnx
-                       "Represents <vkGetPhysicalDeviceScreenPresentationSupportQNX>"
+                       "Represents [vkGetPhysicalDeviceScreenPresentationSupportQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                        ()
                        t)
@@ -1932,7 +3807,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-debug-report-callback-ext
                           %vk:create-debug-report-callback-ext
-                          "Represents <vkCreateDebugReportCallbackEXT>"
+                          "Represents [vkCreateDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDebugReportCallbackEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEBUG-REPORT-CALLBACK-CREATE-INFO-EXT
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -1944,7 +3830,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-debug-report-callback-ext
                    %vk:destroy-debug-report-callback-ext
-                   "Represents <vkDestroyDebugReportCallbackEXT>"
+                   "Represents [vkDestroyDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDebugReportCallbackEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - CALLBACK: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEBUG-REPORT-CALLBACK-EXT
+See INSTANCE
+"
                    ((instance cffi:foreign-pointer))
                    (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
@@ -1955,7 +3852,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (debug-report-message-ext
                    %vk:debug-report-message-ext
-                   "Represents <vkDebugReportMessageEXT>"
+                   "Represents [vkDebugReportMessageEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugReportMessageEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - FLAGS: <a description>
+ - OBJECT-TYPE: <a description>
+ - OBJECT: <a description>
+ - LOCATION: <a description>
+ - MESSAGE-CODE: <a description>
+ - P-LAYER-PREFIX: <a description>
+ - P-MESSAGE: <a description>
+Returns: TODO
+
+See DEBUG-REPORT-FLAGS-EXT
+See DEBUG-REPORT-OBJECT-TYPE-EXT
+See INSTANCE
+"
                    ((instance cffi:foreign-pointer) (flags (or unsigned-byte list)) (object-type keyword) (object unsigned-byte) (location unsigned-byte) (message-code integer) (layer-prefix string) (message string))
                    ()
                   nil
@@ -1971,7 +3884,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (debug-marker-set-object-name-ext
                    %vk:debug-marker-set-object-name-ext
-                   "Represents <vkDebugMarkerSetObjectNameEXT>"
+                   "Represents [vkDebugMarkerSetObjectNameEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-NAME-INFO: <a description>
+Returns: TODO
+
+See DEBUG-MARKER-OBJECT-NAME-INFO-EXT
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-marker-object-name-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -1981,7 +3903,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (debug-marker-set-object-tag-ext
                    %vk:debug-marker-set-object-tag-ext
-                   "Represents <vkDebugMarkerSetObjectTagEXT>"
+                   "Represents [vkDebugMarkerSetObjectTagEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-TAG-INFO: <a description>
+Returns: TODO
+
+See DEBUG-MARKER-OBJECT-TAG-INFO-EXT
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-marker-object-tag-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -1991,7 +3922,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-debug-marker-begin-ext
                    %vk:cmd-debug-marker-begin-ext
-                   "Represents <vkCmdDebugMarkerBeginEXT>"
+                   "Represents [vkCmdDebugMarkerBeginEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerBeginEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-MARKER-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEBUG-MARKER-MARKER-INFO-EXT
+"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -2001,7 +3941,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-debug-marker-end-ext
                    %vk:cmd-debug-marker-end-ext
-                   "Represents <vkCmdDebugMarkerEndEXT>"
+                   "Represents [vkCmdDebugMarkerEndEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerEndEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer))
                    ()
                   nil
@@ -2010,7 +3957,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-debug-marker-insert-ext
                    %vk:cmd-debug-marker-insert-ext
-                   "Represents <vkCmdDebugMarkerInsertEXT>"
+                   "Represents [vkCmdDebugMarkerInsertEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerInsertEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-MARKER-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEBUG-MARKER-MARKER-INFO-EXT
+"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -2020,7 +3976,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-image-format-properties-nv
                        %vk:get-physical-device-external-image-format-properties-nv
-                       "Represents <vkGetPhysicalDeviceExternalImageFormatPropertiesNV>"
+                       "Represents [vkGetPhysicalDeviceExternalImageFormatPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - FORMAT: <a description>
+ - TYPE: <a description>
+ - TILING: <a description>
+ - USAGE: <a description>
+ - FLAGS: (optional) <a description>
+ - EXTERNAL-HANDLE-TYPE: (optional) <a description>
+Returns: TODO
+
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
+See FORMAT
+See IMAGE-CREATE-FLAGS
+See IMAGE-TILING
+See IMAGE-TYPE
+See IMAGE-USAGE-FLAGS
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list)) ((external-handle-type nil) (or unsigned-byte list)))
                        t)
@@ -2035,7 +4010,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-win32-handle-nv
                        %vk:get-memory-win32-handle-nv
-                       "Represents <vkGetMemoryWin32HandleNV>"
+                       "Represents [vkGetMemoryWin32HandleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandleNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - MEMORY: <a description>
+ - HANDLE-TYPE: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
+"
                        ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (handle-type (or unsigned-byte list)))
                        ()
                        t)
@@ -2046,7 +4032,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-execute-generated-commands-nv
                    %vk:cmd-execute-generated-commands-nv
-                   "Represents <vkCmdExecuteGeneratedCommandsNV>"
+                   "Represents [vkCmdExecuteGeneratedCommandsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - IS-PREPROCESSED: <a description>
+ - P-GENERATED-COMMANDS-INFO: <a description>
+Returns: TODO
+
+See BOOL32
+See COMMAND-BUFFER
+See GENERATED-COMMANDS-INFO-NV
+"
                    ((command-buffer cffi:foreign-pointer) (is-preprocessed boolean) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
                    ()
                   nil
@@ -2057,7 +4054,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-preprocess-generated-commands-nv
                    %vk:cmd-preprocess-generated-commands-nv
-                   "Represents <vkCmdPreprocessGeneratedCommandsNV>"
+                   "Represents [vkCmdPreprocessGeneratedCommandsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-GENERATED-COMMANDS-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See GENERATED-COMMANDS-INFO-NV
+"
                    ((command-buffer cffi:foreign-pointer) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
                    ()
                   nil
@@ -2067,7 +4073,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-pipeline-shader-group-nv
                    %vk:cmd-bind-pipeline-shader-group-nv
-                   "Represents <vkCmdBindPipelineShaderGroupNV>"
+                   "Represents [vkCmdBindPipelineShaderGroupNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-BIND-POINT: <a description>
+ - PIPELINE: <a description>
+ - GROUP-INDEX: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PIPELINE
+See PIPELINE-BIND-POINT
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer) (group-index unsigned-byte))
                    ()
                   nil
@@ -2079,7 +4097,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-generated-commands-memory-requirements-nv
                        %vk:get-generated-commands-memory-requirements-nv
-                       "Represents <vkGetGeneratedCommandsMemoryRequirementsNV>"
+                       "Represents [vkGetGeneratedCommandsMemoryRequirementsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
+"
                        ((device cffi:foreign-pointer) (info (or vk:generated-commands-memory-requirements-info-nv cffi:foreign-pointer)))
                        ()
                        t)
@@ -2089,7 +4116,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-indirect-commands-layout-nv
                           %vk:create-indirect-commands-layout-nv
-                          "Represents <vkCreateIndirectCommandsLayoutNV>"
+                          "Represents [vkCreateIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -2101,7 +4139,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-indirect-commands-layout-nv
                    %vk:destroy-indirect-commands-layout-nv
-                   "Represents <vkDestroyIndirectCommandsLayoutNV>"
+                   "Represents [vkDestroyIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - INDIRECT-COMMANDS-LAYOUT: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See INDIRECT-COMMANDS-LAYOUT-NV
+"
                    ((device cffi:foreign-pointer))
                    (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
@@ -2112,7 +4161,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-features-2
                        %vk:get-physical-device-features-2
-                       "Represents <vkGetPhysicalDeviceFeatures2>"
+                       "Represents [vkGetPhysicalDeviceFeatures2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2120,7 +4176,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-features-2-khr
                        %vk:get-physical-device-features-2-khr
-                       "Represents <vkGetPhysicalDeviceFeatures2KHR>"
+                       "Represents [vkGetPhysicalDeviceFeatures2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2128,7 +4191,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-properties-2
                        %vk:get-physical-device-properties-2
-                       "Represents <vkGetPhysicalDeviceProperties2>"
+                       "Represents [vkGetPhysicalDeviceProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2136,7 +4206,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-properties-2-khr
                        %vk:get-physical-device-properties-2-khr
-                       "Represents <vkGetPhysicalDeviceProperties2KHR>"
+                       "Represents [vkGetPhysicalDeviceProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2144,7 +4221,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-format-properties-2
                        %vk:get-physical-device-format-properties-2
-                       "Represents <vkGetPhysicalDeviceFormatProperties2>"
+                       "Represents [vkGetPhysicalDeviceFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - FORMAT: <a description>
+Returns: TODO
+
+See FORMAT
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (format keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2153,7 +4239,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-format-properties-2-khr
                        %vk:get-physical-device-format-properties-2-khr
-                       "Represents <vkGetPhysicalDeviceFormatProperties2KHR>"
+                       "Represents [vkGetPhysicalDeviceFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - FORMAT: <a description>
+Returns: TODO
+
+See FORMAT
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (format keyword))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2162,7 +4257,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-image-format-properties-2
                        %vk:get-physical-device-image-format-properties-2
-                       "Represents <vkGetPhysicalDeviceImageFormatProperties2>"
+                       "Represents [vkGetPhysicalDeviceImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-IMAGE-FORMAT-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
+"
                        ((physical-device cffi:foreign-pointer) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2171,7 +4275,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-image-format-properties-2-khr
                        %vk:get-physical-device-image-format-properties-2-khr
-                       "Represents <vkGetPhysicalDeviceImageFormatProperties2KHR>"
+                       "Represents [vkGetPhysicalDeviceImageFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-IMAGE-FORMAT-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
+"
                        ((physical-device cffi:foreign-pointer) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2180,7 +4293,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-physical-device-queue-family-properties-2
                         %vk:get-physical-device-queue-family-properties-2
-                        "Represents <vkGetPhysicalDeviceQueueFamilyProperties2>"
+                        "Represents [vkGetPhysicalDeviceQueueFamilyProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                         ((physical-device cffi:foreign-pointer))
                         ()
                         queue-family-property-count
@@ -2192,7 +4312,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-physical-device-queue-family-properties-2-khr
                         %vk:get-physical-device-queue-family-properties-2-khr
-                        "Represents <vkGetPhysicalDeviceQueueFamilyProperties2KHR>"
+                        "Represents [vkGetPhysicalDeviceQueueFamilyProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                         ((physical-device cffi:foreign-pointer))
                         ()
                         queue-family-property-count
@@ -2204,7 +4331,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-memory-properties-2
                        %vk:get-physical-device-memory-properties-2
-                       "Represents <vkGetPhysicalDeviceMemoryProperties2>"
+                       "Represents [vkGetPhysicalDeviceMemoryProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2212,7 +4346,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-memory-properties-2-khr
                        %vk:get-physical-device-memory-properties-2-khr
-                       "Represents <vkGetPhysicalDeviceMemoryProperties2KHR>"
+                       "Represents [vkGetPhysicalDeviceMemoryProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2220,7 +4361,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-physical-device-sparse-image-format-properties-2
                         %vk:get-physical-device-sparse-image-format-properties-2
-                        "Represents <vkGetPhysicalDeviceSparseImageFormatProperties2>"
+                        "Represents [vkGetPhysicalDeviceSparseImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-FORMAT-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
+"
                         ((physical-device cffi:foreign-pointer) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
                         ()
                         property-count
@@ -2233,7 +4383,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-physical-device-sparse-image-format-properties-2-khr
                         %vk:get-physical-device-sparse-image-format-properties-2-khr
-                        "Represents <vkGetPhysicalDeviceSparseImageFormatProperties2KHR>"
+                        "Represents [vkGetPhysicalDeviceSparseImageFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-FORMAT-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
+"
                         ((physical-device cffi:foreign-pointer) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
                         ()
                         property-count
@@ -2246,7 +4405,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-push-descriptor-set-khr
                    %vk:cmd-push-descriptor-set-khr
-                   "Represents <vkCmdPushDescriptorSetKHR>"
+                   "Represents [vkCmdPushDescriptorSetKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushDescriptorSetKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-BIND-POINT: <a description>
+ - LAYOUT: <a description>
+ - SET: <a description>
+ - P-DESCRIPTOR-WRITES: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PIPELINE-BIND-POINT
+See PIPELINE-LAYOUT
+See WRITE-DESCRIPTOR-SET
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (layout cffi:foreign-pointer) (set unsigned-byte) (descriptor-writes list))
                    ()
                   nil)
@@ -2259,7 +4432,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (trim-command-pool
                    %vk:trim-command-pool
-                   "Represents <vkTrimCommandPool>"
+                   "Represents [vkTrimCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkTrimCommandPool.html).
+
+Args:
+ - DEVICE: <a description>
+ - COMMAND-POOL: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See COMMAND-POOL
+See COMMAND-POOL-TRIM-FLAGS
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -2269,7 +4453,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (trim-command-pool-khr
                    %vk:trim-command-pool-khr
-                   "Represents <vkTrimCommandPoolKHR>"
+                   "Represents [vkTrimCommandPoolKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkTrimCommandPoolKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - COMMAND-POOL: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See COMMAND-POOL
+See COMMAND-POOL-TRIM-FLAGS
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
                   nil)
@@ -2279,7 +4474,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-buffer-properties
                        %vk:get-physical-device-external-buffer-properties
-                       "Represents <vkGetPhysicalDeviceExternalBufferProperties>"
+                       "Represents [vkGetPhysicalDeviceExternalBufferProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-EXTERNAL-BUFFER-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
+"
                        ((physical-device cffi:foreign-pointer) (external-buffer-info (or vk:physical-device-external-buffer-info cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2288,7 +4492,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-buffer-properties-khr
                        %vk:get-physical-device-external-buffer-properties-khr
-                       "Represents <vkGetPhysicalDeviceExternalBufferPropertiesKHR>"
+                       "Represents [vkGetPhysicalDeviceExternalBufferPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-EXTERNAL-BUFFER-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
+"
                        ((physical-device cffi:foreign-pointer) (external-buffer-info (or vk:physical-device-external-buffer-info cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2297,7 +4510,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-win32-handle-khr
                        %vk:get-memory-win32-handle-khr
-                       "Represents <vkGetMemoryWin32HandleKHR>"
+                       "Represents [vkGetMemoryWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandleKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-WIN32-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See MEMORY-GET-WIN32-HANDLE-INFO-KHR
+"
                        ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:memory-get-win32-handle-info-khr cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -2306,7 +4528,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-win32-handle-properties-khr
                        %vk:get-memory-win32-handle-properties-khr
-                       "Represents <vkGetMemoryWin32HandlePropertiesKHR>"
+                       "Represents [vkGetMemoryWin32HandlePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - HANDLE-TYPE: <a description>
+ - HANDLE: <a description>
+Returns: TODO
+
+See DEVICE
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+See HANDLE
+"
                        ((device cffi:foreign-pointer) (handle-type keyword) (handle cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
@@ -2316,7 +4549,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-memory-fd-khr
                           %vk:get-memory-fd-khr
-                          "Represents <vkGetMemoryFdKHR>"
+                          "Represents [vkGetMemoryFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryFdKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-FD-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See MEMORY-GET-FD-INFO-KHR
+"
                           ((device cffi:foreign-pointer) (get-fd-info (or vk:memory-get-fd-info-khr cffi:foreign-pointer)))
                           ()
                           nil)
@@ -2326,7 +4568,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-fd-properties-khr
                        %vk:get-memory-fd-properties-khr
-                       "Represents <vkGetMemoryFdPropertiesKHR>"
+                       "Represents [vkGetMemoryFdPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryFdPropertiesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - HANDLE-TYPE: <a description>
+ - FD: <a description>
+Returns: TODO
+
+See DEVICE
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+"
                        ((device cffi:foreign-pointer) (handle-type keyword) (fd integer))
                        ())
   (device '%vk:device device :in :handle)
@@ -2336,7 +4588,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-zircon-handle-fuchsia
                        %vk:get-memory-zircon-handle-fuchsia
-                       "Represents <vkGetMemoryZirconHandleFUCHSIA>"
+                       "Represents [vkGetMemoryZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-ZIRCON-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+"
                        ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:memory-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                        ()
                        t)
@@ -2346,7 +4607,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-zircon-handle-properties-fuchsia
                        %vk:get-memory-zircon-handle-properties-fuchsia
-                       "Represents <vkGetMemoryZirconHandlePropertiesFUCHSIA>"
+                       "Represents [vkGetMemoryZirconHandlePropertiesFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html).
+
+Args:
+ - DEVICE: <a description>
+ - HANDLE-TYPE: <a description>
+ - ZIRCON-HANDLE: <a description>
+Returns: TODO
+
+See DEVICE
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+See ZX_HANDLE_T
+"
                        ((device cffi:foreign-pointer) (handle-type keyword) (zircon-handle cffi:foreign-pointer))
                        ()
                        t)
@@ -2357,7 +4629,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-semaphore-properties
                        %vk:get-physical-device-external-semaphore-properties
-                       "Represents <vkGetPhysicalDeviceExternalSemaphoreProperties>"
+                       "Represents [vkGetPhysicalDeviceExternalSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-EXTERNAL-SEMAPHORE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
+"
                        ((physical-device cffi:foreign-pointer) (external-semaphore-info (or vk:physical-device-external-semaphore-info cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2366,7 +4647,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-semaphore-properties-khr
                        %vk:get-physical-device-external-semaphore-properties-khr
-                       "Represents <vkGetPhysicalDeviceExternalSemaphorePropertiesKHR>"
+                       "Represents [vkGetPhysicalDeviceExternalSemaphorePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-EXTERNAL-SEMAPHORE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
+"
                        ((physical-device cffi:foreign-pointer) (external-semaphore-info (or vk:physical-device-external-semaphore-info cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2375,7 +4665,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-semaphore-win32-handle-khr
                        %vk:get-semaphore-win32-handle-khr
-                       "Represents <vkGetSemaphoreWin32HandleKHR>"
+                       "Represents [vkGetSemaphoreWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-WIN32-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR
+"
                        ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:semaphore-get-win32-handle-info-khr cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -2384,7 +4683,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (import-semaphore-win32-handle-khr
                    %vk:import-semaphore-win32-handle-khr
-                   "Represents <vkImportSemaphoreWin32HandleKHR>"
+                   "Represents [vkImportSemaphoreWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-IMPORT-SEMAPHORE-WIN32-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
+"
                    ((device cffi:foreign-pointer) (import-semaphore-win32-handle-info (or vk:import-semaphore-win32-handle-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -2393,7 +4701,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-semaphore-fd-khr
                           %vk:get-semaphore-fd-khr
-                          "Represents <vkGetSemaphoreFdKHR>"
+                          "Represents [vkGetSemaphoreFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreFdKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-FD-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-GET-FD-INFO-KHR
+"
                           ((device cffi:foreign-pointer) (get-fd-info (or vk:semaphore-get-fd-info-khr cffi:foreign-pointer)))
                           ()
                           nil)
@@ -2403,7 +4720,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (import-semaphore-fd-khr
                    %vk:import-semaphore-fd-khr
-                   "Represents <vkImportSemaphoreFdKHR>"
+                   "Represents [vkImportSemaphoreFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreFdKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-IMPORT-SEMAPHORE-FD-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMPORT-SEMAPHORE-FD-INFO-KHR
+"
                    ((device cffi:foreign-pointer) (import-semaphore-fd-info (or vk:import-semaphore-fd-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -2412,7 +4738,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-semaphore-zircon-handle-fuchsia
                        %vk:get-semaphore-zircon-handle-fuchsia
-                       "Represents <vkGetSemaphoreZirconHandleFUCHSIA>"
+                       "Represents [vkGetSemaphoreZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-ZIRCON-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+"
                        ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:semaphore-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                        ()
                        t)
@@ -2422,7 +4757,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (import-semaphore-zircon-handle-fuchsia
                    %vk:import-semaphore-zircon-handle-fuchsia
-                   "Represents <vkImportSemaphoreZirconHandleFUCHSIA>"
+                   "Represents [vkImportSemaphoreZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
+"
                    ((device cffi:foreign-pointer) (import-semaphore-zircon-handle-info (or vk:import-semaphore-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                    ()
                   nil
@@ -2432,7 +4776,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-fence-properties
                        %vk:get-physical-device-external-fence-properties
-                       "Represents <vkGetPhysicalDeviceExternalFenceProperties>"
+                       "Represents [vkGetPhysicalDeviceExternalFenceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-EXTERNAL-FENCE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
+"
                        ((physical-device cffi:foreign-pointer) (external-fence-info (or vk:physical-device-external-fence-info cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2441,7 +4794,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-external-fence-properties-khr
                        %vk:get-physical-device-external-fence-properties-khr
-                       "Represents <vkGetPhysicalDeviceExternalFencePropertiesKHR>"
+                       "Represents [vkGetPhysicalDeviceExternalFencePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-EXTERNAL-FENCE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
+"
                        ((physical-device cffi:foreign-pointer) (external-fence-info (or vk:physical-device-external-fence-info cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2450,7 +4812,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-fence-win32-handle-khr
                        %vk:get-fence-win32-handle-khr
-                       "Represents <vkGetFenceWin32HandleKHR>"
+                       "Represents [vkGetFenceWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceWin32HandleKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-WIN32-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See FENCE-GET-WIN32-HANDLE-INFO-KHR
+"
                        ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:fence-get-win32-handle-info-khr cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -2459,7 +4830,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (import-fence-win32-handle-khr
                    %vk:import-fence-win32-handle-khr
-                   "Represents <vkImportFenceWin32HandleKHR>"
+                   "Represents [vkImportFenceWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportFenceWin32HandleKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-IMPORT-FENCE-WIN32-HANDLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMPORT-FENCE-WIN32-HANDLE-INFO-KHR
+"
                    ((device cffi:foreign-pointer) (import-fence-win32-handle-info (or vk:import-fence-win32-handle-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -2468,7 +4848,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-fence-fd-khr
                           %vk:get-fence-fd-khr
-                          "Represents <vkGetFenceFdKHR>"
+                          "Represents [vkGetFenceFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceFdKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-GET-FD-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See FENCE-GET-FD-INFO-KHR
+"
                           ((device cffi:foreign-pointer) (get-fd-info (or vk:fence-get-fd-info-khr cffi:foreign-pointer)))
                           ()
                           nil)
@@ -2478,7 +4867,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (import-fence-fd-khr
                    %vk:import-fence-fd-khr
-                   "Represents <vkImportFenceFdKHR>"
+                   "Represents [vkImportFenceFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportFenceFdKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-IMPORT-FENCE-FD-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMPORT-FENCE-FD-INFO-KHR
+"
                    ((device cffi:foreign-pointer) (import-fence-fd-info (or vk:import-fence-fd-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -2487,7 +4885,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (release-display-ext
                    %vk:release-display-ext
-                   "Represents <vkReleaseDisplayEXT>"
+                   "Represents [vkReleaseDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseDisplayEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DISPLAY: <a description>
+Returns: TODO
+
+See DISPLAY-KHR
+See PHYSICAL-DEVICE
+"
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
                   nil
@@ -2497,7 +4904,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (acquire-xlib-display-ext
                    %vk:acquire-xlib-display-ext
-                   "Represents <vkAcquireXlibDisplayEXT>"
+                   "Represents [vkAcquireXlibDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireXlibDisplayEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DPY: <a description>
+ - DISPLAY: <a description>
+Returns: TODO
+
+See DISPLAY
+See DISPLAY-KHR
+See PHYSICAL-DEVICE
+"
                    ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
                   nil
@@ -2508,7 +4926,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-rand-r-output-display-ext
                           %vk:get-rand-r-output-display-ext
-                          "Represents <vkGetRandROutputDisplayEXT>"
+                          "Represents [vkGetRandROutputDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRandROutputDisplayEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DPY: <a description>
+ - RR-OUTPUT: <a description>
+Returns: TODO
+
+See DISPLAY
+See PHYSICAL-DEVICE
+See RR-OUTPUT
+"
                           ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (rr-output cffi:foreign-pointer))
                           ()
                           nil
@@ -2520,7 +4949,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (acquire-winrt-display-nv
                    %vk:acquire-winrt-display-nv
-                   "Represents <vkAcquireWinrtDisplayNV>"
+                   "Represents [vkAcquireWinrtDisplayNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireWinrtDisplayNV.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DISPLAY: <a description>
+Returns: TODO
+
+See DISPLAY-KHR
+See PHYSICAL-DEVICE
+"
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
                   nil
@@ -2530,7 +4968,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-winrt-display-nv
                           %vk:get-winrt-display-nv
-                          "Represents <vkGetWinrtDisplayNV>"
+                          "Represents [vkGetWinrtDisplayNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetWinrtDisplayNV.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DEVICE-RELATIVE-ID: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                           ((physical-device cffi:foreign-pointer) (device-relative-id unsigned-byte))
                           ()
                           nil
@@ -2541,7 +4987,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (display-power-control-ext
                    %vk:display-power-control-ext
-                   "Represents <vkDisplayPowerControlEXT>"
+                   "Represents [vkDisplayPowerControlEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDisplayPowerControlEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - DISPLAY: <a description>
+ - P-DISPLAY-POWER-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See DISPLAY-KHR
+See DISPLAY-POWER-INFO-EXT
+"
                    ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-power-info (or vk:display-power-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -2552,7 +5009,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (register-device-event-ext
                           %vk:register-device-event-ext
-                          "Represents <vkRegisterDeviceEventEXT>"
+                          "Represents [vkRegisterDeviceEventEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkRegisterDeviceEventEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-DEVICE-EVENT-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See DEVICE-EVENT-INFO-EXT
+"
                           ((device cffi:foreign-pointer) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -2564,7 +5032,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (register-display-event-ext
                           %vk:register-display-event-ext
-                          "Represents <vkRegisterDisplayEventEXT>"
+                          "Represents [vkRegisterDisplayEventEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkRegisterDisplayEventEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - DISPLAY: <a description>
+ - P-DISPLAY-EVENT-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See DISPLAY-EVENT-INFO-EXT
+See DISPLAY-KHR
+"
                           ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -2577,7 +5058,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-swapchain-counter-ext
                           %vk:get-swapchain-counter-ext
-                          "Represents <vkGetSwapchainCounterEXT>"
+                          "Represents [vkGetSwapchainCounterEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainCounterEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+ - COUNTER: <a description>
+Returns: TODO
+
+See DEVICE
+See SURFACE-COUNTER-FLAG-BITS-EXT
+See SWAPCHAIN-KHR
+"
                           ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (counter keyword))
                           ()
                           nil
@@ -2589,7 +5081,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-surface-capabilities-2-ext
                        %vk:get-physical-device-surface-capabilities-2-ext
-                       "Represents <vkGetPhysicalDeviceSurfaceCapabilities2EXT>"
+                       "Represents [vkGetPhysicalDeviceSurfaceCapabilities2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SURFACE-KHR
+"
                        ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                        ()
                        t)
@@ -2599,7 +5100,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-physical-device-groups
                       %vk:enumerate-physical-device-groups
-                      "Represents <vkEnumeratePhysicalDeviceGroups>"
+                      "Represents [vkEnumeratePhysicalDeviceGroups](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html).
+
+Args:
+ - INSTANCE: <a description>
+Returns: TODO
+
+See INSTANCE
+"
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-group-count
@@ -2611,7 +5119,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (enumerate-physical-device-groups-khr
                       %vk:enumerate-physical-device-groups-khr
-                      "Represents <vkEnumeratePhysicalDeviceGroupsKHR>"
+                      "Represents [vkEnumeratePhysicalDeviceGroupsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceGroupsKHR.html).
+
+Args:
+ - INSTANCE: <a description>
+Returns: TODO
+
+See INSTANCE
+"
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-group-count
@@ -2623,7 +5138,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-device-group-peer-memory-features
                        %vk:get-device-group-peer-memory-features
-                       "Represents <vkGetDeviceGroupPeerMemoryFeatures>"
+                       "Represents [vkGetDeviceGroupPeerMemoryFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html).
+
+Args:
+ - DEVICE: <a description>
+ - HEAP-INDEX: <a description>
+ - LOCAL-DEVICE-INDEX: <a description>
+ - REMOTE-DEVICE-INDEX: <a description>
+Returns: TODO
+
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
                        ())
   (device '%vk:device device :in :handle)
@@ -2634,7 +5159,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-device-group-peer-memory-features-khr
                        %vk:get-device-group-peer-memory-features-khr
-                       "Represents <vkGetDeviceGroupPeerMemoryFeaturesKHR>"
+                       "Represents [vkGetDeviceGroupPeerMemoryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - HEAP-INDEX: <a description>
+ - LOCAL-DEVICE-INDEX: <a description>
+ - REMOTE-DEVICE-INDEX: <a description>
+Returns: TODO
+
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
                        ())
   (device '%vk:device device :in :handle)
@@ -2645,7 +5180,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-buffer-memory-2
                    %vk:bind-buffer-memory-2
-                   "Represents <vkBindBufferMemory2>"
+                   "Represents [vkBindBufferMemory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-BIND-INFOS: <a description>
+Returns: TODO
+
+See BIND-BUFFER-MEMORY-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
                   nil)
@@ -2655,7 +5199,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-buffer-memory-2-khr
                    %vk:bind-buffer-memory-2-khr
-                   "Represents <vkBindBufferMemory2KHR>"
+                   "Represents [vkBindBufferMemory2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-BIND-INFOS: <a description>
+Returns: TODO
+
+See BIND-BUFFER-MEMORY-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
                   nil)
@@ -2665,7 +5218,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-image-memory-2
                    %vk:bind-image-memory-2
-                   "Represents <vkBindImageMemory2>"
+                   "Represents [vkBindImageMemory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-BIND-INFOS: <a description>
+Returns: TODO
+
+See BIND-IMAGE-MEMORY-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
                   nil)
@@ -2675,7 +5237,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-image-memory-2-khr
                    %vk:bind-image-memory-2-khr
-                   "Represents <vkBindImageMemory2KHR>"
+                   "Represents [vkBindImageMemory2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-BIND-INFOS: <a description>
+Returns: TODO
+
+See BIND-IMAGE-MEMORY-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
                   nil)
@@ -2685,7 +5256,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-device-mask
                    %vk:cmd-set-device-mask
-                   "Represents <vkCmdSetDeviceMask>"
+                   "Represents [vkCmdSetDeviceMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDeviceMask.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEVICE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (device-mask unsigned-byte))
                    ()
                   nil)
@@ -2694,7 +5273,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-device-mask-khr
                    %vk:cmd-set-device-mask-khr
-                   "Represents <vkCmdSetDeviceMaskKHR>"
+                   "Represents [vkCmdSetDeviceMaskKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDeviceMaskKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEVICE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (device-mask unsigned-byte))
                    ()
                   nil)
@@ -2703,7 +5290,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-device-group-present-capabilities-khr
                        %vk:get-device-group-present-capabilities-khr
-                       "Represents <vkGetDeviceGroupPresentCapabilitiesKHR>"
+                       "Represents [vkGetDeviceGroupPresentCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+Returns: TODO
+
+See DEVICE
+"
                        ((device cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
@@ -2711,7 +5305,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-device-group-surface-present-modes-khr
                        %vk:get-device-group-surface-present-modes-khr
-                       "Represents <vkGetDeviceGroupSurfacePresentModesKHR>"
+                       "Represents [vkGetDeviceGroupSurfacePresentModesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See DEVICE
+See SURFACE-KHR
+"
                        ((device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                        ())
   (device '%vk:device device :in :handle)
@@ -2720,7 +5323,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (acquire-next-image-2-khr
                           %vk:acquire-next-image-2-khr
-                          "Represents <vkAcquireNextImage2KHR>"
+                          "Represents [vkAcquireNextImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireNextImage2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ACQUIRE-INFO: <a description>
+Returns: TODO
+
+See ACQUIRE-NEXT-IMAGE-INFO-KHR
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (acquire-info (or vk:acquire-next-image-info-khr cffi:foreign-pointer)))
                           ()
                           nil)
@@ -2730,7 +5342,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-dispatch-base
                    %vk:cmd-dispatch-base
-                   "Represents <vkCmdDispatchBase>"
+                   "Represents [vkCmdDispatchBase](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchBase.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BASE-GROUP-X: <a description>
+ - BASE-GROUP-Y: <a description>
+ - BASE-GROUP-Z: <a description>
+ - GROUP-COUNT-X: <a description>
+ - GROUP-COUNT-Y: <a description>
+ - GROUP-COUNT-Z: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (base-group-x unsigned-byte) (base-group-y unsigned-byte) (base-group-z unsigned-byte) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
                    ()
                   nil)
@@ -2744,7 +5369,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-dispatch-base-khr
                    %vk:cmd-dispatch-base-khr
-                   "Represents <vkCmdDispatchBaseKHR>"
+                   "Represents [vkCmdDispatchBaseKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchBaseKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BASE-GROUP-X: <a description>
+ - BASE-GROUP-Y: <a description>
+ - BASE-GROUP-Z: <a description>
+ - GROUP-COUNT-X: <a description>
+ - GROUP-COUNT-Y: <a description>
+ - GROUP-COUNT-Z: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (base-group-x unsigned-byte) (base-group-y unsigned-byte) (base-group-z unsigned-byte) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
                    ()
                   nil)
@@ -2758,7 +5396,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-present-rectangles-khr
                       %vk:get-physical-device-present-rectangles-khr
-                      "Represents <vkGetPhysicalDevicePresentRectanglesKHR>"
+                      "Represents [vkGetPhysicalDevicePresentRectanglesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - SURFACE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SURFACE-KHR
+"
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       rect-count
@@ -2771,7 +5418,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-descriptor-update-template
                           %vk:create-descriptor-update-template
-                          "Represents <vkCreateDescriptorUpdateTemplate>"
+                          "Represents [vkCreateDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorUpdateTemplate.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -2782,7 +5440,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-descriptor-update-template-khr
                           %vk:create-descriptor-update-template-khr
-                          "Represents <vkCreateDescriptorUpdateTemplateKHR>"
+                          "Represents [vkCreateDescriptorUpdateTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorUpdateTemplateKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE-CREATE-INFO
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -2793,7 +5462,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-descriptor-update-template
                    %vk:destroy-descriptor-update-template
-                   "Represents <vkDestroyDescriptorUpdateTemplate>"
+                   "Represents [vkDestroyDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-UPDATE-TEMPLATE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -2803,7 +5483,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-descriptor-update-template-khr
                    %vk:destroy-descriptor-update-template-khr
-                   "Represents <vkDestroyDescriptorUpdateTemplateKHR>"
+                   "Represents [vkDestroyDescriptorUpdateTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorUpdateTemplateKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-UPDATE-TEMPLATE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -2813,7 +5504,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (update-descriptor-set-with-template
                    %vk:update-descriptor-set-with-template
-                   "Represents <vkUpdateDescriptorSetWithTemplate>"
+                   "Represents [vkUpdateDescriptorSetWithTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-SET: <a description>
+ - DESCRIPTOR-UPDATE-TEMPLATE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See DESCRIPTOR-SET
+See DESCRIPTOR-UPDATE-TEMPLATE
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (descriptor-set cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (data cffi:foreign-pointer))
                    ()
                   nil)
@@ -2824,7 +5527,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (update-descriptor-set-with-template-khr
                    %vk:update-descriptor-set-with-template-khr
-                   "Represents <vkUpdateDescriptorSetWithTemplateKHR>"
+                   "Represents [vkUpdateDescriptorSetWithTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSetWithTemplateKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - DESCRIPTOR-SET: <a description>
+ - DESCRIPTOR-UPDATE-TEMPLATE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See DESCRIPTOR-SET
+See DESCRIPTOR-UPDATE-TEMPLATE
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (descriptor-set cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (data cffi:foreign-pointer))
                    ()
                   nil)
@@ -2835,7 +5550,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-push-descriptor-set-with-template-khr
                    %vk:cmd-push-descriptor-set-with-template-khr
-                   "Represents <vkCmdPushDescriptorSetWithTemplateKHR>"
+                   "Represents [vkCmdPushDescriptorSetWithTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DESCRIPTOR-UPDATE-TEMPLATE: <a description>
+ - LAYOUT: <a description>
+ - SET: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DESCRIPTOR-UPDATE-TEMPLATE
+See PIPELINE-LAYOUT
+"
                    ((command-buffer cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (layout cffi:foreign-pointer) (set unsigned-byte) (data cffi:foreign-pointer))
                    ()
                   nil)
@@ -2847,7 +5575,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (set-hdr-metadata-ext
                    %vk:set-hdr-metadata-ext
-                   "Represents <vkSetHdrMetadataEXT>"
+                   "Represents [vkSetHdrMetadataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetHdrMetadataEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-SWAPCHAINS: <a description>
+ - P-METADATA: <a description>
+Returns: TODO
+
+See DEVICE
+See HDR-METADATA-EXT
+See SWAPCHAIN-KHR
+"
                    ((device cffi:foreign-pointer) (swapchains list) (metadata list))
                    ()
                   nil
@@ -2859,7 +5598,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-swapchain-status-khr
                    %vk:get-swapchain-status-khr
-                   "Represents <vkGetSwapchainStatusKHR>"
+                   "Represents [vkGetSwapchainStatusKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainStatusKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+Returns: TODO
+
+See DEVICE
+See SWAPCHAIN-KHR
+"
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                    ()
                   nil)
@@ -2868,7 +5616,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-refresh-cycle-duration-google
                        %vk:get-refresh-cycle-duration-google
-                       "Represents <vkGetRefreshCycleDurationGOOGLE>"
+                       "Represents [vkGetRefreshCycleDurationGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+Returns: TODO
+
+See DEVICE
+See SWAPCHAIN-KHR
+"
                        ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                        ()
                        t)
@@ -2878,7 +5635,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-past-presentation-timing-google
                       %vk:get-past-presentation-timing-google
-                      "Represents <vkGetPastPresentationTimingGOOGLE>"
+                      "Represents [vkGetPastPresentationTimingGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+Returns: TODO
+
+See DEVICE
+See SWAPCHAIN-KHR
+"
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                       ()
                       presentation-timing-count
@@ -2892,7 +5658,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-i-os-surface-mvk
                           %vk:create-i-os-surface-mvk
-                          "Represents <vkCreateIOSSurfaceMVK>"
+                          "Represents [vkCreateIOSSurfaceMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateIOSSurfaceMVK.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See I-OS-SURFACE-CREATE-INFO-MVK
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:i-os-surface-create-info-mvk cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -2904,7 +5681,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-mac-os-surface-mvk
                           %vk:create-mac-os-surface-mvk
-                          "Represents <vkCreateMacOSSurfaceMVK>"
+                          "Represents [vkCreateMacOSSurfaceMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateMacOSSurfaceMVK.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See MAC-OS-SURFACE-CREATE-INFO-MVK
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -2916,7 +5704,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-metal-surface-ext
                           %vk:create-metal-surface-ext
-                          "Represents <vkCreateMetalSurfaceEXT>"
+                          "Represents [vkCreateMetalSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateMetalSurfaceEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See INSTANCE
+See METAL-SURFACE-CREATE-INFO-EXT
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -2928,7 +5727,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-viewport-w-scaling-nv
                    %vk:cmd-set-viewport-w-scaling-nv
-                   "Represents <vkCmdSetViewportWScalingNV>"
+                   "Represents [vkCmdSetViewportWScalingNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportWScalingNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-VIEWPORT: <a description>
+ - P-VIEWPORT-W-SCALINGS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See VIEWPORT-W-SCALING-NV
+"
                    ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (viewport-w-scalings list))
                    ()
                   nil
@@ -2940,7 +5749,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-discard-rectangle-ext
                    %vk:cmd-set-discard-rectangle-ext
-                   "Represents <vkCmdSetDiscardRectangleEXT>"
+                   "Represents [vkCmdSetDiscardRectangleEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDiscardRectangleEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-DISCARD-RECTANGLE: <a description>
+ - P-DISCARD-RECTANGLES: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RECT-2D
+"
                    ((command-buffer cffi:foreign-pointer) (first-discard-rectangle unsigned-byte) (discard-rectangles list))
                    ()
                   nil
@@ -2952,7 +5771,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-sample-locations-ext
                    %vk:cmd-set-sample-locations-ext
-                   "Represents <vkCmdSetSampleLocationsEXT>"
+                   "Represents [vkCmdSetSampleLocationsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetSampleLocationsEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-SAMPLE-LOCATIONS-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SAMPLE-LOCATIONS-INFO-EXT
+"
                    ((command-buffer cffi:foreign-pointer) (sample-locations-info (or vk:sample-locations-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -2962,7 +5790,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-multisample-properties-ext
                        %vk:get-physical-device-multisample-properties-ext
-                       "Represents <vkGetPhysicalDeviceMultisamplePropertiesEXT>"
+                       "Represents [vkGetPhysicalDeviceMultisamplePropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - SAMPLES: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See SAMPLE-COUNT-FLAG-BITS
+"
                        ((physical-device cffi:foreign-pointer) (samples keyword))
                        ()
                        t)
@@ -2972,7 +5809,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-physical-device-surface-capabilities-2-khr
                        %vk:get-physical-device-surface-capabilities-2-khr
-                       "Represents <vkGetPhysicalDeviceSurfaceCapabilities2KHR>"
+                       "Represents [vkGetPhysicalDeviceSurfaceCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-SURFACE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+"
                        ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -2981,7 +5827,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-surface-formats-2-khr
                       %vk:get-physical-device-surface-formats-2-khr
-                      "Represents <vkGetPhysicalDeviceSurfaceFormats2KHR>"
+                      "Represents [vkGetPhysicalDeviceSurfaceFormats2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-SURFACE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+"
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
                       surface-format-count
@@ -2994,7 +5849,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-display-properties-2-khr
                       %vk:get-physical-device-display-properties-2-khr
-                      "Represents <vkGetPhysicalDeviceDisplayProperties2KHR>"
+                      "Represents [vkGetPhysicalDeviceDisplayProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
@@ -3006,7 +5868,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-display-plane-properties-2-khr
                       %vk:get-physical-device-display-plane-properties-2-khr
-                      "Represents <vkGetPhysicalDeviceDisplayPlaneProperties2KHR>"
+                      "Represents [vkGetPhysicalDeviceDisplayPlaneProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
@@ -3018,7 +5887,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-display-mode-properties-2-khr
                       %vk:get-display-mode-properties-2-khr
-                      "Represents <vkGetDisplayModeProperties2KHR>"
+                      "Represents [vkGetDisplayModeProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayModeProperties2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - DISPLAY: <a description>
+Returns: TODO
+
+See DISPLAY-KHR
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
                       property-count
@@ -3031,7 +5909,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-display-plane-capabilities-2-khr
                        %vk:get-display-plane-capabilities-2-khr
-                       "Represents <vkGetDisplayPlaneCapabilities2KHR>"
+                       "Represents [vkGetDisplayPlaneCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-DISPLAY-PLANE-INFO: <a description>
+Returns: TODO
+
+See DISPLAY-PLANE-INFO-2-KHR
+See PHYSICAL-DEVICE
+"
                        ((physical-device cffi:foreign-pointer) (display-plane-info (or vk:display-plane-info-2-khr cffi:foreign-pointer)))
                        ())
   (physical-device '%vk:physical-device physical-device :in :handle)
@@ -3040,7 +5927,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-buffer-memory-requirements-2
                        %vk:get-buffer-memory-requirements-2
-                       "Represents <vkGetBufferMemoryRequirements2>"
+                       "Represents [vkGetBufferMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-MEMORY-REQUIREMENTS-INFO-2
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -3049,7 +5945,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-buffer-memory-requirements-2-khr
                        %vk:get-buffer-memory-requirements-2-khr
-                       "Represents <vkGetBufferMemoryRequirements2KHR>"
+                       "Represents [vkGetBufferMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-MEMORY-REQUIREMENTS-INFO-2
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -3058,7 +5963,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-image-memory-requirements-2
                        %vk:get-image-memory-requirements-2
-                       "Represents <vkGetImageMemoryRequirements2>"
+                       "Represents [vkGetImageMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE-MEMORY-REQUIREMENTS-INFO-2
+"
                        ((device cffi:foreign-pointer) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -3067,7 +5981,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-image-memory-requirements-2-khr
                        %vk:get-image-memory-requirements-2-khr
-                       "Represents <vkGetImageMemoryRequirements2KHR>"
+                       "Represents [vkGetImageMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE-MEMORY-REQUIREMENTS-INFO-2
+"
                        ((device cffi:foreign-pointer) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -3076,7 +5999,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-image-sparse-memory-requirements-2
                         %vk:get-image-sparse-memory-requirements-2
-                        "Represents <vkGetImageSparseMemoryRequirements2>"
+                        "Represents [vkGetImageSparseMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
+"
                         ((device cffi:foreign-pointer) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
                         ()
                         sparse-memory-requirement-count
@@ -3089,7 +6021,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-image-sparse-memory-requirements-2-khr
                         %vk:get-image-sparse-memory-requirements-2-khr
-                        "Represents <vkGetImageSparseMemoryRequirements2KHR>"
+                        "Represents [vkGetImageSparseMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
+"
                         ((device cffi:foreign-pointer) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
                         ()
                         sparse-memory-requirement-count
@@ -3102,7 +6043,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-sampler-ycbcr-conversion
                           %vk:create-sampler-ycbcr-conversion
-                          "Represents <vkCreateSamplerYcbcrConversion>"
+                          "Represents [vkCreateSamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSamplerYcbcrConversion.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -3113,7 +6065,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-sampler-ycbcr-conversion-khr
                           %vk:create-sampler-ycbcr-conversion-khr
-                          "Represents <vkCreateSamplerYcbcrConversionKHR>"
+                          "Represents [vkCreateSamplerYcbcrConversionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSamplerYcbcrConversionKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -3124,7 +6087,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-sampler-ycbcr-conversion
                    %vk:destroy-sampler-ycbcr-conversion
-                   "Represents <vkDestroySamplerYcbcrConversion>"
+                   "Represents [vkDestroySamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySamplerYcbcrConversion.html).
+
+Args:
+ - DEVICE: <a description>
+ - YCBCR-CONVERSION: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER-YCBCR-CONVERSION
+"
                    ((device cffi:foreign-pointer))
                    (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -3134,7 +6108,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-sampler-ycbcr-conversion-khr
                    %vk:destroy-sampler-ycbcr-conversion-khr
-                   "Represents <vkDestroySamplerYcbcrConversionKHR>"
+                   "Represents [vkDestroySamplerYcbcrConversionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySamplerYcbcrConversionKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - YCBCR-CONVERSION: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER-YCBCR-CONVERSION
+"
                    ((device cffi:foreign-pointer))
                    (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -3144,7 +6129,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-device-queue-2
                           %vk:get-device-queue-2
-                          "Represents <vkGetDeviceQueue2>"
+                          "Represents [vkGetDeviceQueue2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceQueue2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-QUEUE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-QUEUE-INFO-2
+"
                           ((device cffi:foreign-pointer) (queue-info (or vk:device-queue-info-2 cffi:foreign-pointer)))
                           ()
                           t)
@@ -3154,7 +6148,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-validation-cache-ext
                           %vk:create-validation-cache-ext
-                          "Represents <vkCreateValidationCacheEXT>"
+                          "Represents [vkCreateValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateValidationCacheEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See VALIDATION-CACHE-CREATE-INFO-EXT
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -3166,7 +6171,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-validation-cache-ext
                    %vk:destroy-validation-cache-ext
-                   "Represents <vkDestroyValidationCacheEXT>"
+                   "Represents [vkDestroyValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyValidationCacheEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - VALIDATION-CACHE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See VALIDATION-CACHE-EXT
+"
                    ((device cffi:foreign-pointer))
                    (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
@@ -3177,7 +6193,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-validation-cache-data-ext
                           %vk:get-validation-cache-data-ext
-                          "Represents <vkGetValidationCacheDataEXT>"
+                          "Represents [vkGetValidationCacheDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetValidationCacheDataEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - VALIDATION-CACHE: <a description>
+ - P-DATA: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See VALIDATION-CACHE-EXT
+"
                           ((device cffi:foreign-pointer) (validation-cache cffi:foreign-pointer))
                           (((data nil) cffi:foreign-pointer))
                           nil
@@ -3189,7 +6215,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (merge-validation-caches-ext
                    %vk:merge-validation-caches-ext
-                   "Represents <vkMergeValidationCachesEXT>"
+                   "Represents [vkMergeValidationCachesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMergeValidationCachesEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - DST-CACHE: <a description>
+ - P-SRC-CACHES: <a description>
+Returns: TODO
+
+See DEVICE
+See VALIDATION-CACHE-EXT
+"
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches list))
                    ()
                   nil
@@ -3201,7 +6237,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-descriptor-set-layout-support
                        %vk:get-descriptor-set-layout-support
-                       "Represents <vkGetDescriptorSetLayoutSupport>"
+                       "Represents [vkGetDescriptorSetLayoutSupport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDescriptorSetLayoutSupport.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+Returns: TODO
+
+See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -3210,7 +6255,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-descriptor-set-layout-support-khr
                        %vk:get-descriptor-set-layout-support-khr
-                       "Represents <vkGetDescriptorSetLayoutSupportKHR>"
+                       "Represents [vkGetDescriptorSetLayoutSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDescriptorSetLayoutSupportKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+Returns: TODO
+
+See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -3219,7 +6273,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-shader-info-amd
                           %vk:get-shader-info-amd
-                          "Represents <vkGetShaderInfoAMD>"
+                          "Represents [vkGetShaderInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetShaderInfoAMD.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: <a description>
+ - SHADER-STAGE: <a description>
+ - INFO-TYPE: <a description>
+ - P-INFO: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE
+See SHADER-INFO-TYPE-AMD
+See SHADER-STAGE-FLAG-BITS
+"
                           ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader-stage keyword) (info-type keyword))
                           (((info nil) cffi:foreign-pointer))
                           nil
@@ -3233,7 +6301,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (set-local-dimming-amd
                    %vk:set-local-dimming-amd
-                   "Represents <vkSetLocalDimmingAMD>"
+                   "Represents [vkSetLocalDimmingAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetLocalDimmingAMD.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAP-CHAIN: <a description>
+ - LOCAL-DIMMING-ENABLE: <a description>
+Returns: TODO
+
+See BOOL32
+See DEVICE
+See SWAPCHAIN-KHR
+"
                    ((device cffi:foreign-pointer) (swap-chain cffi:foreign-pointer) (local-dimming-enable boolean))
                    ()
                   nil
@@ -3244,7 +6323,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-calibrateable-time-domains-ext
                       %vk:get-physical-device-calibrateable-time-domains-ext
-                      "Represents <vkGetPhysicalDeviceCalibrateableTimeDomainsEXT>"
+                      "Represents [vkGetPhysicalDeviceCalibrateableTimeDomainsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       time-domain-count
@@ -3257,7 +6343,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-array-and-singular-fun (get-calibrated-timestamps-ext
                                    %vk:get-calibrated-timestamps-ext
-                                   "Represents <vkGetCalibratedTimestampsEXT>"
+                                   "Represents [vkGetCalibratedTimestampsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetCalibratedTimestampsEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-TIMESTAMP-INFOS: <a description>
+Returns: TODO
+
+See CALIBRATED-TIMESTAMP-INFO-EXT
+See DEVICE
+"
                                    ((device cffi:foreign-pointer) (timestamp-infos list))
                                    ()
                                    (length timestamp-infos)
@@ -3271,7 +6366,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (set-debug-utils-object-name-ext
                    %vk:set-debug-utils-object-name-ext
-                   "Represents <vkSetDebugUtilsObjectNameEXT>"
+                   "Represents [vkSetDebugUtilsObjectNameEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-NAME-INFO: <a description>
+Returns: TODO
+
+See DEBUG-UTILS-OBJECT-NAME-INFO-EXT
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-utils-object-name-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3281,7 +6385,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (set-debug-utils-object-tag-ext
                    %vk:set-debug-utils-object-tag-ext
-                   "Represents <vkSetDebugUtilsObjectTagEXT>"
+                   "Represents [vkSetDebugUtilsObjectTagEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-TAG-INFO: <a description>
+Returns: TODO
+
+See DEBUG-UTILS-OBJECT-TAG-INFO-EXT
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-utils-object-tag-info-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3291,7 +6404,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-begin-debug-utils-label-ext
                    %vk:queue-begin-debug-utils-label-ext
-                   "Represents <vkQueueBeginDebugUtilsLabelEXT>"
+                   "Represents [vkQueueBeginDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html).
+
+Args:
+ - QUEUE: <a description>
+ - P-LABEL-INFO: <a description>
+Returns: TODO
+
+See DEBUG-UTILS-LABEL-EXT
+See QUEUE
+"
                    ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3301,7 +6423,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-end-debug-utils-label-ext
                    %vk:queue-end-debug-utils-label-ext
-                   "Represents <vkQueueEndDebugUtilsLabelEXT>"
+                   "Represents [vkQueueEndDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html).
+
+Args:
+ - QUEUE: <a description>
+Returns: TODO
+
+See QUEUE
+"
                    ((queue cffi:foreign-pointer))
                    ()
                   nil
@@ -3310,7 +6439,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-insert-debug-utils-label-ext
                    %vk:queue-insert-debug-utils-label-ext
-                   "Represents <vkQueueInsertDebugUtilsLabelEXT>"
+                   "Represents [vkQueueInsertDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html).
+
+Args:
+ - QUEUE: <a description>
+ - P-LABEL-INFO: <a description>
+Returns: TODO
+
+See DEBUG-UTILS-LABEL-EXT
+See QUEUE
+"
                    ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3320,7 +6458,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-debug-utils-label-ext
                    %vk:cmd-begin-debug-utils-label-ext
-                   "Represents <vkCmdBeginDebugUtilsLabelEXT>"
+                   "Represents [vkCmdBeginDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-LABEL-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEBUG-UTILS-LABEL-EXT
+"
                    ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3330,7 +6477,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-debug-utils-label-ext
                    %vk:cmd-end-debug-utils-label-ext
-                   "Represents <vkCmdEndDebugUtilsLabelEXT>"
+                   "Represents [vkCmdEndDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer))
                    ()
                   nil
@@ -3339,7 +6493,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-insert-debug-utils-label-ext
                    %vk:cmd-insert-debug-utils-label-ext
-                   "Represents <vkCmdInsertDebugUtilsLabelEXT>"
+                   "Represents [vkCmdInsertDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-LABEL-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEBUG-UTILS-LABEL-EXT
+"
                    ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3349,7 +6512,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-debug-utils-messenger-ext
                           %vk:create-debug-utils-messenger-ext
-                          "Represents <vkCreateDebugUtilsMessengerEXT>"
+                          "Represents [vkCreateDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEBUG-UTILS-MESSENGER-CREATE-INFO-EXT
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -3361,7 +6535,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-debug-utils-messenger-ext
                    %vk:destroy-debug-utils-messenger-ext
-                   "Represents <vkDestroyDebugUtilsMessengerEXT>"
+                   "Represents [vkDestroyDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - MESSENGER: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEBUG-UTILS-MESSENGER-EXT
+See INSTANCE
+"
                    ((instance cffi:foreign-pointer))
                    (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
@@ -3372,7 +6557,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (submit-debug-utils-message-ext
                    %vk:submit-debug-utils-message-ext
-                   "Represents <vkSubmitDebugUtilsMessageEXT>"
+                   "Represents [vkSubmitDebugUtilsMessageEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - MESSAGE-SEVERITY: <a description>
+ - MESSAGE-TYPES: <a description>
+ - P-CALLBACK-DATA: <a description>
+Returns: TODO
+
+See DEBUG-UTILS-MESSAGE-SEVERITY-FLAG-BITS-EXT
+See DEBUG-UTILS-MESSAGE-TYPE-FLAGS-EXT
+See DEBUG-UTILS-MESSENGER-CALLBACK-DATA-EXT
+See INSTANCE
+"
                    ((instance cffi:foreign-pointer) (message-severity keyword) (message-types (or unsigned-byte list)) (callback-data (or vk:debug-utils-messenger-callback-data-ext cffi:foreign-pointer)))
                    ()
                   nil
@@ -3384,7 +6582,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-host-pointer-properties-ext
                        %vk:get-memory-host-pointer-properties-ext
-                       "Represents <vkGetMemoryHostPointerPropertiesEXT>"
+                       "Represents [vkGetMemoryHostPointerPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - HANDLE-TYPE: <a description>
+ - P-HOST-POINTER: <a description>
+Returns: TODO
+
+See DEVICE
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+"
                        ((device cffi:foreign-pointer) (handle-type keyword) (host-pointer cffi:foreign-pointer))
                        ()
                        t)
@@ -3395,7 +6603,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-write-buffer-marker-amd
                    %vk:cmd-write-buffer-marker-amd
-                   "Represents <vkCmdWriteBufferMarkerAMD>"
+                   "Represents [vkCmdWriteBufferMarkerAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteBufferMarkerAMD.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-STAGE: <a description>
+ - DST-BUFFER: <a description>
+ - DST-OFFSET: <a description>
+ - MARKER: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+See PIPELINE-STAGE-FLAG-BITS
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
                    ()
                   nil
@@ -3408,7 +6630,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-render-pass-2
                           %vk:create-render-pass-2
-                          "Represents <vkCreateRenderPass2>"
+                          "Represents [vkCreateRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass2.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See RENDER-PASS-CREATE-INFO-2
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -3419,7 +6652,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-render-pass-2-khr
                           %vk:create-render-pass-2-khr
-                          "Represents <vkCreateRenderPass2KHR>"
+                          "Represents [vkCreateRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass2KHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See RENDER-PASS-CREATE-INFO-2
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -3430,7 +6674,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-render-pass-2
                    %vk:cmd-begin-render-pass-2
-                   "Represents <vkCmdBeginRenderPass2>"
+                   "Represents [vkCmdBeginRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass2.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-RENDER-PASS-BEGIN: <a description>
+ - P-SUBPASS-BEGIN-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RENDER-PASS-BEGIN-INFO
+See SUBPASS-BEGIN-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3440,7 +6695,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-render-pass-2-khr
                    %vk:cmd-begin-render-pass-2-khr
-                   "Represents <vkCmdBeginRenderPass2KHR>"
+                   "Represents [vkCmdBeginRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-RENDER-PASS-BEGIN: <a description>
+ - P-SUBPASS-BEGIN-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RENDER-PASS-BEGIN-INFO
+See SUBPASS-BEGIN-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3450,7 +6716,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-next-subpass-2
                    %vk:cmd-next-subpass-2
-                   "Represents <vkCmdNextSubpass2>"
+                   "Represents [vkCmdNextSubpass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass2.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-SUBPASS-BEGIN-INFO: <a description>
+ - P-SUBPASS-END-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SUBPASS-BEGIN-INFO
+See SUBPASS-END-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3460,7 +6737,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-next-subpass-2-khr
                    %vk:cmd-next-subpass-2-khr
-                   "Represents <vkCmdNextSubpass2KHR>"
+                   "Represents [vkCmdNextSubpass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-SUBPASS-BEGIN-INFO: <a description>
+ - P-SUBPASS-END-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SUBPASS-BEGIN-INFO
+See SUBPASS-END-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3470,7 +6758,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-render-pass-2
                    %vk:cmd-end-render-pass-2
-                   "Represents <vkCmdEndRenderPass2>"
+                   "Represents [vkCmdEndRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass2.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-SUBPASS-END-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SUBPASS-END-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3479,7 +6776,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-render-pass-2-khr
                    %vk:cmd-end-render-pass-2-khr
-                   "Represents <vkCmdEndRenderPass2KHR>"
+                   "Represents [vkCmdEndRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-SUBPASS-END-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SUBPASS-END-INFO
+"
                    ((command-buffer cffi:foreign-pointer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3488,7 +6794,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-semaphore-counter-value
                           %vk:get-semaphore-counter-value
-                          "Represents <vkGetSemaphoreCounterValue>"
+                          "Represents [vkGetSemaphoreCounterValue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreCounterValue.html).
+
+Args:
+ - DEVICE: <a description>
+ - SEMAPHORE: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE
+"
                           ((device cffi:foreign-pointer) (semaphore cffi:foreign-pointer))
                           ()
                           nil)
@@ -3498,7 +6813,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-semaphore-counter-value-khr
                           %vk:get-semaphore-counter-value-khr
-                          "Represents <vkGetSemaphoreCounterValueKHR>"
+                          "Represents [vkGetSemaphoreCounterValueKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreCounterValueKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - SEMAPHORE: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE
+"
                           ((device cffi:foreign-pointer) (semaphore cffi:foreign-pointer))
                           ()
                           nil)
@@ -3508,7 +6832,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (wait-semaphores
                    %vk:wait-semaphores
-                   "Represents <vkWaitSemaphores>"
+                   "Represents [vkWaitSemaphores](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitSemaphores.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-WAIT-INFO: <a description>
+ - TIMEOUT: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-WAIT-INFO
+"
                    ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
                    ()
                   nil)
@@ -3518,7 +6852,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (wait-semaphores-khr
                    %vk:wait-semaphores-khr
-                   "Represents <vkWaitSemaphoresKHR>"
+                   "Represents [vkWaitSemaphoresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitSemaphoresKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-WAIT-INFO: <a description>
+ - TIMEOUT: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-WAIT-INFO
+"
                    ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
                    ()
                   nil)
@@ -3528,7 +6872,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (signal-semaphore
                    %vk:signal-semaphore
-                   "Represents <vkSignalSemaphore>"
+                   "Represents [vkSignalSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSignalSemaphore.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-SIGNAL-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-SIGNAL-INFO
+"
                    ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3537,7 +6890,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (signal-semaphore-khr
                    %vk:signal-semaphore-khr
-                   "Represents <vkSignalSemaphoreKHR>"
+                   "Represents [vkSignalSemaphoreKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSignalSemaphoreKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-SIGNAL-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See SEMAPHORE-SIGNAL-INFO
+"
                    ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3546,7 +6908,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-android-hardware-buffer-properties-android
                        %vk:get-android-hardware-buffer-properties-android
-                       "Represents <vkGetAndroidHardwareBufferPropertiesANDROID>"
+                       "Represents [vkGetAndroidHardwareBufferPropertiesANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html).
+
+Args:
+ - DEVICE: <a description>
+ - BUFFER: <a description>
+Returns: TODO
+
+See A-HARDWARE-BUFFER
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
                        ()
                        t)
@@ -3556,7 +6927,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-memory-android-hardware-buffer-android
                        %vk:get-memory-android-hardware-buffer-android
-                       "Represents <vkGetMemoryAndroidHardwareBufferANDROID>"
+                       "Represents [vkGetMemoryAndroidHardwareBufferANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
+"
                        ((device cffi:foreign-pointer) (info (or vk:memory-get-android-hardware-buffer-info-android cffi:foreign-pointer)))
                        ()
                        t)
@@ -3566,7 +6946,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indirect-count
                    %vk:cmd-draw-indirect-count
-                   "Represents <vkCmdDrawIndirectCount>"
+                   "Represents [vkCmdDrawIndirectCount](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCount.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
@@ -3580,7 +6975,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indirect-count-amd
                    %vk:cmd-draw-indirect-count-amd
-                   "Represents <vkCmdDrawIndirectCountAMD>"
+                   "Represents [vkCmdDrawIndirectCountAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCountAMD.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
@@ -3595,7 +7005,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indirect-count-khr
                    %vk:cmd-draw-indirect-count-khr
-                   "Represents <vkCmdDrawIndirectCountKHR>"
+                   "Represents [vkCmdDrawIndirectCountKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCountKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
@@ -3609,7 +7034,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indexed-indirect-count
                    %vk:cmd-draw-indexed-indirect-count
-                   "Represents <vkCmdDrawIndexedIndirectCount>"
+                   "Represents [vkCmdDrawIndexedIndirectCount](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCount.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
@@ -3623,7 +7063,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indexed-indirect-count-amd
                    %vk:cmd-draw-indexed-indirect-count-amd
-                   "Represents <vkCmdDrawIndexedIndirectCountAMD>"
+                   "Represents [vkCmdDrawIndexedIndirectCountAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCountAMD.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
@@ -3638,7 +7093,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indexed-indirect-count-khr
                    %vk:cmd-draw-indexed-indirect-count-khr
-                   "Represents <vkCmdDrawIndexedIndirectCountKHR>"
+                   "Represents [vkCmdDrawIndexedIndirectCountKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCountKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil)
@@ -3652,7 +7122,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-checkpoint-nv
                    %vk:cmd-set-checkpoint-nv
-                   "Represents <vkCmdSetCheckpointNV>"
+                   "Represents [vkCmdSetCheckpointNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCheckpointNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-CHECKPOINT-MARKER: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (checkpoint-marker cffi:foreign-pointer))
                    ()
                   nil
@@ -3662,7 +7140,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-queue-checkpoint-data-nv
                         %vk:get-queue-checkpoint-data-nv
-                        "Represents <vkGetQueueCheckpointDataNV>"
+                        "Represents [vkGetQueueCheckpointDataNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueueCheckpointDataNV.html).
+
+Args:
+ - QUEUE: <a description>
+Returns: TODO
+
+See QUEUE
+"
                         ((queue cffi:foreign-pointer))
                         ()
                         checkpoint-data-count
@@ -3675,7 +7160,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-transform-feedback-buffers-ext
                    %vk:cmd-bind-transform-feedback-buffers-ext
-                   "Represents <vkCmdBindTransformFeedbackBuffersEXT>"
+                   "Represents [vkCmdBindTransformFeedbackBuffersEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-BINDING: <a description>
+ - P-BUFFERS: <a description>
+ - P-OFFSETS: <a description>
+ - P-SIZES: (optional) <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers list) (offsets list))
                    (((sizes nil) list))
                   nil
@@ -3689,7 +7187,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-transform-feedback-ext
                    %vk:cmd-begin-transform-feedback-ext
-                   "Represents <vkCmdBeginTransformFeedbackEXT>"
+                   "Represents [vkCmdBeginTransformFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-COUNTER-BUFFER: <a description>
+ - P-COUNTER-BUFFERS: <a description>
+ - P-COUNTER-BUFFER-OFFSETS: (optional) <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers list))
                    (((counter-buffer-offsets nil) list))
                   nil
@@ -3702,7 +7212,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-transform-feedback-ext
                    %vk:cmd-end-transform-feedback-ext
-                   "Represents <vkCmdEndTransformFeedbackEXT>"
+                   "Represents [vkCmdEndTransformFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndTransformFeedbackEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-COUNTER-BUFFER: <a description>
+ - P-COUNTER-BUFFERS: <a description>
+ - P-COUNTER-BUFFER-OFFSETS: (optional) <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers list))
                    (((counter-buffer-offsets nil) list))
                   nil
@@ -3715,7 +7237,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-begin-query-indexed-ext
                    %vk:cmd-begin-query-indexed-ext
-                   "Represents <vkCmdBeginQueryIndexedEXT>"
+                   "Represents [vkCmdBeginQueryIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginQueryIndexedEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - QUERY-POOL: <a description>
+ - QUERY: <a description>
+ - INDEX: <a description>
+ - FLAGS: (optional) <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See QUERY-CONTROL-FLAGS
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte) (index unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
                   nil
@@ -3728,7 +7263,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-end-query-indexed-ext
                    %vk:cmd-end-query-indexed-ext
-                   "Represents <vkCmdEndQueryIndexedEXT>"
+                   "Represents [vkCmdEndQueryIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndQueryIndexedEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - QUERY-POOL: <a description>
+ - QUERY: <a description>
+ - INDEX: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte) (index unsigned-byte))
                    ()
                   nil
@@ -3740,7 +7286,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-indirect-byte-count-ext
                    %vk:cmd-draw-indirect-byte-count-ext
-                   "Represents <vkCmdDrawIndirectByteCountEXT>"
+                   "Represents [vkCmdDrawIndirectByteCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - INSTANCE-COUNT: <a description>
+ - FIRST-INSTANCE: <a description>
+ - COUNTER-BUFFER: <a description>
+ - COUNTER-BUFFER-OFFSET: <a description>
+ - COUNTER-OFFSET: <a description>
+ - VERTEX-STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (instance-count unsigned-byte) (first-instance unsigned-byte) (counter-buffer cffi:foreign-pointer) (counter-buffer-offset unsigned-byte) (counter-offset unsigned-byte) (vertex-stride unsigned-byte))
                    ()
                   nil
@@ -3755,7 +7316,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-exclusive-scissor-nv
                    %vk:cmd-set-exclusive-scissor-nv
-                   "Represents <vkCmdSetExclusiveScissorNV>"
+                   "Represents [vkCmdSetExclusiveScissorNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetExclusiveScissorNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-EXCLUSIVE-SCISSOR: <a description>
+ - P-EXCLUSIVE-SCISSORS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RECT-2D
+"
                    ((command-buffer cffi:foreign-pointer) (first-exclusive-scissor unsigned-byte) (exclusive-scissors list))
                    ()
                   nil
@@ -3767,7 +7338,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-shading-rate-image-nv
                    %vk:cmd-bind-shading-rate-image-nv
-                   "Represents <vkCmdBindShadingRateImageNV>"
+                   "Represents [vkCmdBindShadingRateImageNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindShadingRateImageNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - IMAGE-LAYOUT: <a description>
+ - IMAGE-VIEW: (optional) <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See IMAGE-LAYOUT
+See IMAGE-VIEW
+"
                    ((command-buffer cffi:foreign-pointer) (image-layout keyword))
                    (((image-view (cffi:null-pointer)) cffi:foreign-pointer))
                   nil
@@ -3778,7 +7360,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-viewport-shading-rate-palette-nv
                    %vk:cmd-set-viewport-shading-rate-palette-nv
-                   "Represents <vkCmdSetViewportShadingRatePaletteNV>"
+                   "Represents [vkCmdSetViewportShadingRatePaletteNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-VIEWPORT: <a description>
+ - P-SHADING-RATE-PALETTES: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See SHADING-RATE-PALETTE-NV
+"
                    ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (shading-rate-palettes list))
                    ()
                   nil
@@ -3790,7 +7382,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-coarse-sample-order-nv
                    %vk:cmd-set-coarse-sample-order-nv
-                   "Represents <vkCmdSetCoarseSampleOrderNV>"
+                   "Represents [vkCmdSetCoarseSampleOrderNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SAMPLE-ORDER-TYPE: <a description>
+ - P-CUSTOM-SAMPLE-ORDERS: <a description>
+Returns: TODO
+
+See COARSE-SAMPLE-ORDER-CUSTOM-NV
+See COARSE-SAMPLE-ORDER-TYPE-NV
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (sample-order-type keyword) (custom-sample-orders list))
                    ()
                   nil
@@ -3802,7 +7405,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-mesh-tasks-nv
                    %vk:cmd-draw-mesh-tasks-nv
-                   "Represents <vkCmdDrawMeshTasksNV>"
+                   "Represents [vkCmdDrawMeshTasksNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - TASK-COUNT: <a description>
+ - FIRST-TASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (task-count unsigned-byte) (first-task unsigned-byte))
                    ()
                   nil
@@ -3813,7 +7425,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-mesh-tasks-indirect-nv
                    %vk:cmd-draw-mesh-tasks-indirect-nv
-                   "Represents <vkCmdDrawMeshTasksIndirectNV>"
+                   "Represents [vkCmdDrawMeshTasksIndirectNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
@@ -3826,7 +7451,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-draw-mesh-tasks-indirect-count-nv
                    %vk:cmd-draw-mesh-tasks-indirect-count-nv
-                   "Represents <vkCmdDrawMeshTasksIndirectCountNV>"
+                   "Represents [vkCmdDrawMeshTasksIndirectCountNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - BUFFER: <a description>
+ - OFFSET: <a description>
+ - COUNT-BUFFER: <a description>
+ - COUNT-BUFFER-OFFSET: <a description>
+ - MAX-DRAW-COUNT: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
                   nil
@@ -3841,7 +7481,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (compile-deferred-nv
                    %vk:compile-deferred-nv
-                   "Represents <vkCompileDeferredNV>"
+                   "Represents [vkCompileDeferredNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCompileDeferredNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: <a description>
+ - SHADER: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE
+"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader unsigned-byte))
                    ()
                   nil
@@ -3852,7 +7502,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-acceleration-structure-nv
                           %vk:create-acceleration-structure-nv
-                          "Represents <vkCreateAccelerationStructureNV>"
+                          "Represents [vkCreateAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAccelerationStructureNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-CREATE-INFO-NV
+See ALLOCATION-CALLBACKS
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -3864,7 +7525,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-acceleration-structure-khr
                    %vk:destroy-acceleration-structure-khr
-                   "Represents <vkDestroyAccelerationStructureKHR>"
+                   "Represents [vkDestroyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyAccelerationStructureKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - ACCELERATION-STRUCTURE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-KHR
+See ALLOCATION-CALLBACKS
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -3874,7 +7546,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-acceleration-structure-nv
                    %vk:destroy-acceleration-structure-nv
-                   "Represents <vkDestroyAccelerationStructureNV>"
+                   "Represents [vkDestroyAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyAccelerationStructureNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - ACCELERATION-STRUCTURE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-NV
+See ALLOCATION-CALLBACKS
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
@@ -3885,7 +7568,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-acceleration-structure-memory-requirements-nv
                        %vk:get-acceleration-structure-memory-requirements-nv
-                       "Represents <vkGetAccelerationStructureMemoryRequirementsNV>"
+                       "Represents [vkGetAccelerationStructureMemoryRequirementsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-INFO-NV
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-memory-requirements-info-nv cffi:foreign-pointer)))
                        ()
                        t)
@@ -3895,7 +7587,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (bind-acceleration-structure-memory-nv
                    %vk:bind-acceleration-structure-memory-nv
-                   "Represents <vkBindAccelerationStructureMemoryNV>"
+                   "Represents [vkBindAccelerationStructureMemoryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindAccelerationStructureMemoryNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-BIND-INFOS: <a description>
+Returns: TODO
+
+See BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
                   nil
@@ -3906,7 +7607,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-nv
                    %vk:cmd-copy-acceleration-structure-nv
-                   "Represents <vkCmdCopyAccelerationStructureNV>"
+                   "Represents [vkCmdCopyAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DST: <a description>
+ - SRC: <a description>
+ - MODE: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-NV
+See COMMAND-BUFFER
+See COPY-ACCELERATION-STRUCTURE-MODE-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (src cffi:foreign-pointer) (mode keyword))
                    ()
                   nil
@@ -3918,7 +7631,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-khr
                    %vk:cmd-copy-acceleration-structure-khr
-                   "Represents <vkCmdCopyAccelerationStructureKHR>"
+                   "Represents [vkCmdCopyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-ACCELERATION-STRUCTURE-INFO-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3927,7 +7649,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (copy-acceleration-structure-khr
                    %vk:copy-acceleration-structure-khr
-                   "Represents <vkCopyAccelerationStructureKHR>"
+                   "Represents [vkCopyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyAccelerationStructureKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+ - DEFERRED-OPERATION: (optional) <a description>
+Returns: TODO
+
+See COPY-ACCELERATION-STRUCTURE-INFO-KHR
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -3937,7 +7670,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-acceleration-structure-to-memory-khr
                    %vk:cmd-copy-acceleration-structure-to-memory-khr
-                   "Represents <vkCmdCopyAccelerationStructureToMemoryKHR>"
+                   "Represents [vkCmdCopyAccelerationStructureToMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3946,7 +7688,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (copy-acceleration-structure-to-memory-khr
                    %vk:copy-acceleration-structure-to-memory-khr
-                   "Represents <vkCopyAccelerationStructureToMemoryKHR>"
+                   "Represents [vkCopyAccelerationStructureToMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyAccelerationStructureToMemoryKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+ - DEFERRED-OPERATION: (optional) <a description>
+Returns: TODO
+
+See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -3956,7 +7709,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-memory-to-acceleration-structure-khr
                    %vk:cmd-copy-memory-to-acceleration-structure-khr
-                   "Represents <vkCmdCopyMemoryToAccelerationStructureKHR>"
+                   "Represents [vkCmdCopyMemoryToAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -3965,7 +7727,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (copy-memory-to-acceleration-structure-khr
                    %vk:copy-memory-to-acceleration-structure-khr
-                   "Represents <vkCopyMemoryToAccelerationStructureKHR>"
+                   "Represents [vkCopyMemoryToAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyMemoryToAccelerationStructureKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+ - DEFERRED-OPERATION: (optional) <a description>
+Returns: TODO
+
+See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -3975,7 +7748,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-write-acceleration-structures-properties-khr
                    %vk:cmd-write-acceleration-structures-properties-khr
-                   "Represents <vkCmdWriteAccelerationStructuresPropertiesKHR>"
+                   "Represents [vkCmdWriteAccelerationStructuresPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-ACCELERATION-STRUCTURES: <a description>
+ - QUERY-TYPE: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-KHR
+See COMMAND-BUFFER
+See QUERY-POOL
+See QUERY-TYPE
+"
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
                    ()
                   nil)
@@ -3988,7 +7775,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-write-acceleration-structures-properties-nv
                    %vk:cmd-write-acceleration-structures-properties-nv
-                   "Represents <vkCmdWriteAccelerationStructuresPropertiesNV>"
+                   "Represents [vkCmdWriteAccelerationStructuresPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-ACCELERATION-STRUCTURES: <a description>
+ - QUERY-TYPE: <a description>
+ - QUERY-POOL: <a description>
+ - FIRST-QUERY: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-NV
+See COMMAND-BUFFER
+See QUERY-POOL
+See QUERY-TYPE
+"
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
                    ()
                   nil
@@ -4002,7 +7803,27 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-build-acceleration-structure-nv
                    %vk:cmd-build-acceleration-structure-nv
-                   "Represents <vkCmdBuildAccelerationStructureNV>"
+                   "Represents [vkCmdBuildAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructureNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-INFO: <a description>
+ - INSTANCE-OFFSET: <a description>
+ - UPDATE: <a description>
+ - DST: <a description>
+ - SCRATCH: <a description>
+ - SCRATCH-OFFSET: <a description>
+ - INSTANCE-DATA: (optional) <a description>
+ - SRC: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-INFO-NV
+See ACCELERATION-STRUCTURE-NV
+See BOOL32
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)) (instance-offset unsigned-byte) (update boolean) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (scratch-offset unsigned-byte))
                    (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer))
                   nil
@@ -4019,7 +7840,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (write-acceleration-structures-properties-khr
                    %vk:write-acceleration-structures-properties-khr
-                   "Represents <vkWriteAccelerationStructuresPropertiesKHR>"
+                   "Represents [vkWriteAccelerationStructuresPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ACCELERATION-STRUCTURES: <a description>
+ - QUERY-TYPE: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+ - STRIDE: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-KHR
+See DEVICE
+See QUERY-TYPE
+"
                    ((device cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
                    ()
                   nil)
@@ -4033,7 +7868,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-trace-rays-khr
                    %vk:cmd-trace-rays-khr
-                   "Represents <vkCmdTraceRaysKHR>"
+                   "Represents [vkCmdTraceRaysKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-RAYGEN-SHADER-BINDING-TABLE: <a description>
+ - P-MISS-SHADER-BINDING-TABLE: <a description>
+ - P-HIT-SHADER-BINDING-TABLE: <a description>
+ - P-CALLABLE-SHADER-BINDING-TABLE: <a description>
+ - WIDTH: <a description>
+ - HEIGHT: <a description>
+ - DEPTH: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See STRIDED-DEVICE-ADDRESS-REGION-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
                    ()
                   nil)
@@ -4048,7 +7898,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-trace-rays-nv
                    %vk:cmd-trace-rays-nv
-                   "Represents <vkCmdTraceRaysNV>"
+                   "Represents [vkCmdTraceRaysNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - RAYGEN-SHADER-BINDING-TABLE-BUFFER: <a description>
+ - RAYGEN-SHADER-BINDING-OFFSET: <a description>
+ - MISS-SHADER-BINDING-OFFSET: <a description>
+ - MISS-SHADER-BINDING-STRIDE: <a description>
+ - HIT-SHADER-BINDING-OFFSET: <a description>
+ - HIT-SHADER-BINDING-STRIDE: <a description>
+ - CALLABLE-SHADER-BINDING-OFFSET: <a description>
+ - CALLABLE-SHADER-BINDING-STRIDE: <a description>
+ - WIDTH: <a description>
+ - HEIGHT: <a description>
+ - DEPTH: <a description>
+ - MISS-SHADER-BINDING-TABLE-BUFFER: (optional) <a description>
+ - HIT-SHADER-BINDING-TABLE-BUFFER: (optional) <a description>
+ - CALLABLE-SHADER-BINDING-TABLE-BUFFER: (optional) <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table-buffer cffi:foreign-pointer) (raygen-shader-binding-offset unsigned-byte) (miss-shader-binding-offset unsigned-byte) (miss-shader-binding-stride unsigned-byte) (hit-shader-binding-offset unsigned-byte) (hit-shader-binding-stride unsigned-byte) (callable-shader-binding-offset unsigned-byte) (callable-shader-binding-stride unsigned-byte) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
                    (((miss-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((hit-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((callable-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer))
                   nil
@@ -4071,7 +7944,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-ray-tracing-shader-group-handles-khr
                    %vk:get-ray-tracing-shader-group-handles-khr
-                   "Represents <vkGetRayTracingShaderGroupHandlesKHR>"
+                   "Represents [vkGetRayTracingShaderGroupHandlesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: <a description>
+ - FIRST-GROUP: <a description>
+ - GROUP-COUNT: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE
+"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
                   nil)
@@ -4084,7 +7970,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-ray-tracing-shader-group-handles-nv
                    %vk:get-ray-tracing-shader-group-handles-nv
-                   "Represents <vkGetRayTracingShaderGroupHandlesNV>"
+                   "Represents [vkGetRayTracingShaderGroupHandlesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupHandlesNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: <a description>
+ - FIRST-GROUP: <a description>
+ - GROUP-COUNT: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE
+"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
                   nil
@@ -4098,7 +7997,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-ray-tracing-capture-replay-shader-group-handles-khr
                    %vk:get-ray-tracing-capture-replay-shader-group-handles-khr
-                   "Represents <vkGetRayTracingCaptureReplayShaderGroupHandlesKHR>"
+                   "Represents [vkGetRayTracingCaptureReplayShaderGroupHandlesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: <a description>
+ - FIRST-GROUP: <a description>
+ - GROUP-COUNT: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE
+"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
                   nil)
@@ -4111,7 +8023,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-acceleration-structure-handle-nv
                    %vk:get-acceleration-structure-handle-nv
-                   "Represents <vkGetAccelerationStructureHandleNV>"
+                   "Represents [vkGetAccelerationStructureHandleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureHandleNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - ACCELERATION-STRUCTURE: <a description>
+ - DATA-SIZE: <a description>
+ - P-DATA: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-NV
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (acceleration-structure cffi:foreign-pointer) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
                   nil
@@ -4123,7 +8046,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (create-ray-tracing-pipelines-nv
                            %vk:create-ray-tracing-pipelines-nv
-                           "Represents <vkCreateRayTracingPipelinesNV>"
+                           "Represents [vkCreateRayTracingPipelinesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRayTracingPipelinesNV.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFOS: <a description>
+ - PIPELINE-CACHE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PIPELINE-CACHE
+See RAY-TRACING-PIPELINE-CREATE-INFO-NV
+"
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos)
@@ -4137,7 +8073,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handles-fun (create-ray-tracing-pipelines-khr
                            %vk:create-ray-tracing-pipelines-khr
-                           "Represents <vkCreateRayTracingPipelinesKHR>"
+                           "Represents [vkCreateRayTracingPipelinesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRayTracingPipelinesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFOS: <a description>
+ - DEFERRED-OPERATION: (optional) <a description>
+ - PIPELINE-CACHE: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEFERRED-OPERATION-KHR
+See DEVICE
+See PIPELINE-CACHE
+See RAY-TRACING-PIPELINE-CREATE-INFO-KHR
+"
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer) ((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
@@ -4151,7 +8102,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-cooperative-matrix-properties-nv
                       %vk:get-physical-device-cooperative-matrix-properties-nv
-                      "Represents <vkGetPhysicalDeviceCooperativeMatrixPropertiesNV>"
+                      "Represents [vkGetPhysicalDeviceCooperativeMatrixPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
@@ -4164,7 +8122,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-trace-rays-indirect-khr
                    %vk:cmd-trace-rays-indirect-khr
-                   "Represents <vkCmdTraceRaysIndirectKHR>"
+                   "Represents [vkCmdTraceRaysIndirectKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysIndirectKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-RAYGEN-SHADER-BINDING-TABLE: <a description>
+ - P-MISS-SHADER-BINDING-TABLE: <a description>
+ - P-HIT-SHADER-BINDING-TABLE: <a description>
+ - P-CALLABLE-SHADER-BINDING-TABLE: <a description>
+ - INDIRECT-DEVICE-ADDRESS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEVICE-ADDRESS
+See STRIDED-DEVICE-ADDRESS-REGION-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (indirect-device-address unsigned-byte))
                    ()
                   nil)
@@ -4177,7 +8149,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-device-acceleration-structure-compatibility-khr
                        %vk:get-device-acceleration-structure-compatibility-khr
-                       "Represents <vkGetDeviceAccelerationStructureCompatibilityKHR>"
+                       "Represents [vkGetDeviceAccelerationStructureCompatibilityKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-VERSION-INFO: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-VERSION-INFO-KHR
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (version-info (or vk:acceleration-structure-version-info-khr cffi:foreign-pointer)))
                        ())
   (device '%vk:device device :in :handle)
@@ -4186,7 +8167,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-ray-tracing-shader-group-stack-size-khr
                    %vk:get-ray-tracing-shader-group-stack-size-khr
-                   "Represents <vkGetRayTracingShaderGroupStackSizeKHR>"
+                   "Represents [vkGetRayTracingShaderGroupStackSizeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - PIPELINE: <a description>
+ - GROUP: <a description>
+ - GROUP-SHADER: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE
+See SHADER-GROUP-SHADER-KHR
+"
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (group unsigned-byte) (group-shader keyword))
                    ()
                   '%vk:device-size)
@@ -4197,7 +8190,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-ray-tracing-pipeline-stack-size-khr
                    %vk:cmd-set-ray-tracing-pipeline-stack-size-khr
-                   "Represents <vkCmdSetRayTracingPipelineStackSizeKHR>"
+                   "Represents [vkCmdSetRayTracingPipelineStackSizeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PIPELINE-STACK-SIZE: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (pipeline-stack-size unsigned-byte))
                    ()
                   nil)
@@ -4206,7 +8207,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-image-view-handle-nv-x
                    %vk:get-image-view-handle-nv-x
-                   "Represents <vkGetImageViewHandleNVX>"
+                   "Represents [vkGetImageViewHandleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewHandleNVX.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE-VIEW-HANDLE-INFO-NV-X
+"
                    ((device cffi:foreign-pointer) (info (or vk:image-view-handle-info-nv-x cffi:foreign-pointer)))
                    ()
                   :uint32
@@ -4216,7 +8226,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-image-view-address-nv-x
                        %vk:get-image-view-address-nv-x
-                       "Represents <vkGetImageViewAddressNVX>"
+                       "Represents [vkGetImageViewAddressNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewAddressNVX.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE-VIEW: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE-VIEW
+"
                        ((device cffi:foreign-pointer) (image-view cffi:foreign-pointer))
                        ()
                        t)
@@ -4226,7 +8245,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-surface-present-modes-2-ext
                       %vk:get-physical-device-surface-present-modes-2-ext
-                      "Represents <vkGetPhysicalDeviceSurfacePresentModes2EXT>"
+                      "Represents [vkGetPhysicalDeviceSurfacePresentModes2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-SURFACE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+"
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
                       present-mode-count
@@ -4240,7 +8268,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-device-group-surface-present-modes-2-ext
                        %vk:get-device-group-surface-present-modes-2-ext
-                       "Represents <vkGetDeviceGroupSurfacePresentModes2EXT>"
+                       "Represents [vkGetDeviceGroupSurfacePresentModes2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-SURFACE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+"
                        ((device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                        ()
                        t)
@@ -4250,7 +8287,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (acquire-full-screen-exclusive-mode-ext
                    %vk:acquire-full-screen-exclusive-mode-ext
-                   "Represents <vkAcquireFullScreenExclusiveModeEXT>"
+                   "Represents [vkAcquireFullScreenExclusiveModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+Returns: TODO
+
+See DEVICE
+See SWAPCHAIN-KHR
+"
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                    ()
                   nil
@@ -4260,7 +8306,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (release-full-screen-exclusive-mode-ext
                    %vk:release-full-screen-exclusive-mode-ext
-                   "Represents <vkReleaseFullScreenExclusiveModeEXT>"
+                   "Represents [vkReleaseFullScreenExclusiveModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - SWAPCHAIN: <a description>
+Returns: TODO
+
+See DEVICE
+See SWAPCHAIN-KHR
+"
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                    ()
                   nil
@@ -4270,7 +8325,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-two-arrays-fun (enumerate-physical-device-queue-family-performance-query-counters-khr
                                  %vk:enumerate-physical-device-queue-family-performance-query-counters-khr
-                                 "Represents <vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR>"
+                                 "Represents [vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - QUEUE-FAMILY-INDEX: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                                  ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                                  ()
                                  counter-count
@@ -4284,7 +8347,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-physical-device-queue-family-performance-query-passes-khr
                           %vk:get-physical-device-queue-family-performance-query-passes-khr
-                          "Represents <vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR>"
+                          "Represents [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+ - P-PERFORMANCE-QUERY-CREATE-INFO: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+See QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
+"
                           ((physical-device cffi:foreign-pointer) (performance-query-create-info (or vk:query-pool-performance-create-info-khr cffi:foreign-pointer)))
                           ()
                           t)
@@ -4294,7 +8366,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (acquire-profiling-lock-khr
                    %vk:acquire-profiling-lock-khr
-                   "Represents <vkAcquireProfilingLockKHR>"
+                   "Represents [vkAcquireProfilingLockKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireProfilingLockKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See ACQUIRE-PROFILING-LOCK-INFO-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:acquire-profiling-lock-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4303,7 +8384,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (release-profiling-lock-khr
                    %vk:release-profiling-lock-khr
-                   "Represents <vkReleaseProfilingLockKHR>"
+                   "Represents [vkReleaseProfilingLockKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseProfilingLockKHR.html).
+
+Args:
+ - DEVICE: <a description>
+Returns: TODO
+
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    ()
                   nil)
@@ -4311,7 +8399,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-image-drm-format-modifier-properties-ext
                        %vk:get-image-drm-format-modifier-properties-ext
-                       "Represents <vkGetImageDrmFormatModifierPropertiesEXT>"
+                       "Represents [vkGetImageDrmFormatModifierPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - IMAGE: <a description>
+Returns: TODO
+
+See DEVICE
+See IMAGE
+"
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                        ()
                        t)
@@ -4321,7 +8418,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-buffer-opaque-capture-address
                    %vk:get-buffer-opaque-capture-address
-                   "Represents <vkGetBufferOpaqueCaptureAddress>"
+                   "Represents [vkGetBufferOpaqueCaptureAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-DEVICE-ADDRESS-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
                   :uint64)
@@ -4330,7 +8436,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-buffer-opaque-capture-address-khr
                    %vk:get-buffer-opaque-capture-address-khr
-                   "Represents <vkGetBufferOpaqueCaptureAddressKHR>"
+                   "Represents [vkGetBufferOpaqueCaptureAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferOpaqueCaptureAddressKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-DEVICE-ADDRESS-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
                   :uint64)
@@ -4339,7 +8454,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-buffer-device-address
                    %vk:get-buffer-device-address
-                   "Represents <vkGetBufferDeviceAddress>"
+                   "Represents [vkGetBufferDeviceAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddress.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-DEVICE-ADDRESS-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
                   '%vk:device-address)
@@ -4348,7 +8472,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-buffer-device-address-ext
                    %vk:get-buffer-device-address-ext
-                   "Represents <vkGetBufferDeviceAddressEXT>"
+                   "Represents [vkGetBufferDeviceAddressEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddressEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-DEVICE-ADDRESS-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
                   '%vk:device-address
@@ -4358,7 +8491,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-buffer-device-address-khr
                    %vk:get-buffer-device-address-khr
-                   "Represents <vkGetBufferDeviceAddressKHR>"
+                   "Represents [vkGetBufferDeviceAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddressKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See BUFFER-DEVICE-ADDRESS-INFO
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
                   '%vk:device-address)
@@ -4367,7 +8509,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-headless-surface-ext
                           %vk:create-headless-surface-ext
-                          "Represents <vkCreateHeadlessSurfaceEXT>"
+                          "Represents [vkCreateHeadlessSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateHeadlessSurfaceEXT.html).
+
+Args:
+ - INSTANCE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See HEADLESS-SURFACE-CREATE-INFO-EXT
+See INSTANCE
+"
                           ((instance cffi:foreign-pointer) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -4379,7 +8532,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-supported-framebuffer-mixed-samples-combinations-nv
                       %vk:get-physical-device-supported-framebuffer-mixed-samples-combinations-nv
-                      "Represents <vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV>"
+                      "Represents [vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       combination-count
@@ -4392,7 +8552,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (initialize-performance-api-intel
                    %vk:initialize-performance-api-intel
-                   "Represents <vkInitializePerformanceApiINTEL>"
+                   "Represents [vkInitializePerformanceApiINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkInitializePerformanceApiINTEL.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INITIALIZE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See INITIALIZE-PERFORMANCE-API-INFO-INTEL
+"
                    ((device cffi:foreign-pointer) (initialize-info (or vk:initialize-performance-api-info-intel cffi:foreign-pointer)))
                    ()
                   nil
@@ -4402,7 +8571,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (uninitialize-performance-api-intel
                    %vk:uninitialize-performance-api-intel
-                   "Represents <vkUninitializePerformanceApiINTEL>"
+                   "Represents [vkUninitializePerformanceApiINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUninitializePerformanceApiINTEL.html).
+
+Args:
+ - DEVICE: <a description>
+Returns: TODO
+
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    ()
                   nil
@@ -4411,7 +8587,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-performance-marker-intel
                    %vk:cmd-set-performance-marker-intel
-                   "Represents <vkCmdSetPerformanceMarkerINTEL>"
+                   "Represents [vkCmdSetPerformanceMarkerINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-MARKER-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PERFORMANCE-MARKER-INFO-INTEL
+"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-marker-info-intel cffi:foreign-pointer)))
                    ()
                   nil
@@ -4421,7 +8606,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-performance-stream-marker-intel
                    %vk:cmd-set-performance-stream-marker-intel
-                   "Represents <vkCmdSetPerformanceStreamMarkerINTEL>"
+                   "Represents [vkCmdSetPerformanceStreamMarkerINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-MARKER-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PERFORMANCE-STREAM-MARKER-INFO-INTEL
+"
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-stream-marker-info-intel cffi:foreign-pointer)))
                    ()
                   nil
@@ -4431,7 +8625,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-performance-override-intel
                    %vk:cmd-set-performance-override-intel
-                   "Represents <vkCmdSetPerformanceOverrideINTEL>"
+                   "Represents [vkCmdSetPerformanceOverrideINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-OVERRIDE-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PERFORMANCE-OVERRIDE-INFO-INTEL
+"
                    ((command-buffer cffi:foreign-pointer) (override-info (or vk:performance-override-info-intel cffi:foreign-pointer)))
                    ()
                   nil
@@ -4441,7 +8644,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (acquire-performance-configuration-intel
                           %vk:acquire-performance-configuration-intel
-                          "Represents <vkAcquirePerformanceConfigurationINTEL>"
+                          "Represents [vkAcquirePerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ACQUIRE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See PERFORMANCE-CONFIGURATION-ACQUIRE-INFO-INTEL
+"
                           ((device cffi:foreign-pointer) (acquire-info (or vk:performance-configuration-acquire-info-intel cffi:foreign-pointer)))
                           ()
                           nil
@@ -4452,7 +8664,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (release-performance-configuration-intel
                    %vk:release-performance-configuration-intel
-                   "Represents <vkReleasePerformanceConfigurationINTEL>"
+                   "Represents [vkReleasePerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html).
+
+Args:
+ - DEVICE: <a description>
+ - CONFIGURATION: (optional) <a description>
+Returns: TODO
+
+See DEVICE
+See PERFORMANCE-CONFIGURATION-INTEL
+"
                    ((device cffi:foreign-pointer))
                    (((configuration (cffi:null-pointer)) cffi:foreign-pointer))
                   nil
@@ -4462,7 +8683,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-set-performance-configuration-intel
                    %vk:queue-set-performance-configuration-intel
-                   "Represents <vkQueueSetPerformanceConfigurationINTEL>"
+                   "Represents [vkQueueSetPerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html).
+
+Args:
+ - QUEUE: <a description>
+ - CONFIGURATION: <a description>
+Returns: TODO
+
+See PERFORMANCE-CONFIGURATION-INTEL
+See QUEUE
+"
                    ((queue cffi:foreign-pointer) (configuration cffi:foreign-pointer))
                    ()
                   nil
@@ -4472,7 +8702,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-performance-parameter-intel
                        %vk:get-performance-parameter-intel
-                       "Represents <vkGetPerformanceParameterINTEL>"
+                       "Represents [vkGetPerformanceParameterINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPerformanceParameterINTEL.html).
+
+Args:
+ - DEVICE: <a description>
+ - PARAMETER: <a description>
+Returns: TODO
+
+See DEVICE
+See PERFORMANCE-PARAMETER-TYPE-INTEL
+"
                        ((device cffi:foreign-pointer) (parameter keyword))
                        ()
                        t)
@@ -4482,7 +8721,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-device-memory-opaque-capture-address
                    %vk:get-device-memory-opaque-capture-address
-                   "Represents <vkGetDeviceMemoryOpaqueCaptureAddress>"
+                   "Represents [vkGetDeviceMemoryOpaqueCaptureAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
+"
                    ((device cffi:foreign-pointer) (info (or vk:device-memory-opaque-capture-address-info cffi:foreign-pointer)))
                    ()
                   :uint64)
@@ -4491,7 +8739,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-device-memory-opaque-capture-address-khr
                    %vk:get-device-memory-opaque-capture-address-khr
-                   "Represents <vkGetDeviceMemoryOpaqueCaptureAddressKHR>"
+                   "Represents [vkGetDeviceMemoryOpaqueCaptureAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
+"
                    ((device cffi:foreign-pointer) (info (or vk:device-memory-opaque-capture-address-info cffi:foreign-pointer)))
                    ()
                   :uint64)
@@ -4500,7 +8757,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-pipeline-executable-properties-khr
                       %vk:get-pipeline-executable-properties-khr
-                      "Represents <vkGetPipelineExecutablePropertiesKHR>"
+                      "Represents [vkGetPipelineExecutablePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-PIPELINE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE-INFO-KHR
+"
                       ((device cffi:foreign-pointer) (pipeline-info (or vk:pipeline-info-khr cffi:foreign-pointer)))
                       ()
                       executable-count
@@ -4513,7 +8779,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-pipeline-executable-statistics-khr
                       %vk:get-pipeline-executable-statistics-khr
-                      "Represents <vkGetPipelineExecutableStatisticsKHR>"
+                      "Represents [vkGetPipelineExecutableStatisticsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutableStatisticsKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-EXECUTABLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE-EXECUTABLE-INFO-KHR
+"
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
                       statistic-count
@@ -4526,7 +8801,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-pipeline-executable-internal-representations-khr
                       %vk:get-pipeline-executable-internal-representations-khr
-                      "Represents <vkGetPipelineExecutableInternalRepresentationsKHR>"
+                      "Represents [vkGetPipelineExecutableInternalRepresentationsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-EXECUTABLE-INFO: <a description>
+Returns: TODO
+
+See DEVICE
+See PIPELINE-EXECUTABLE-INFO-KHR
+"
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
                       internal-representation-count
@@ -4539,7 +8823,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-line-stipple-ext
                    %vk:cmd-set-line-stipple-ext
-                   "Represents <vkCmdSetLineStippleEXT>"
+                   "Represents [vkCmdSetLineStippleEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLineStippleEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - LINE-STIPPLE-FACTOR: <a description>
+ - LINE-STIPPLE-PATTERN: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (line-stipple-factor unsigned-byte) (line-stipple-pattern unsigned-byte))
                    ()
                   nil
@@ -4550,7 +8843,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-tool-properties-ext
                       %vk:get-physical-device-tool-properties-ext
-                      "Represents <vkGetPhysicalDeviceToolPropertiesEXT>"
+                      "Represents [vkGetPhysicalDeviceToolPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       tool-count
@@ -4563,7 +8863,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-acceleration-structure-khr
                           %vk:create-acceleration-structure-khr
-                          "Represents <vkCreateAccelerationStructureKHR>"
+                          "Represents [vkCreateAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAccelerationStructureKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-CREATE-INFO-KHR
+See ALLOCATION-CALLBACKS
+See DEVICE
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -4574,7 +8885,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-build-acceleration-structures-khr
                    %vk:cmd-build-acceleration-structures-khr
-                   "Represents <vkCmdBuildAccelerationStructuresKHR>"
+                   "Represents [vkCmdBuildAccelerationStructuresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-INFOS: <a description>
+ - PP-BUILD-RANGE-INFOS: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
+See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (infos list) (p-build-range-infos list))
                    ()
                   nil)
@@ -4585,7 +8907,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-build-acceleration-structures-indirect-khr
                    %vk:cmd-build-acceleration-structures-indirect-khr
-                   "Represents <vkCmdBuildAccelerationStructuresIndirectKHR>"
+                   "Represents [vkCmdBuildAccelerationStructuresIndirectKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-INFOS: <a description>
+ - P-INDIRECT-DEVICE-ADDRESSES: <a description>
+ - P-INDIRECT-STRIDES: <a description>
+ - PP-MAX-PRIMITIVE-COUNTS: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
+See COMMAND-BUFFER
+See DEVICE-ADDRESS
+"
                    ((command-buffer cffi:foreign-pointer) (infos list) (indirect-device-addresses list) (indirect-strides list) (p-max-primitive-counts list))
                    ()
                   nil)
@@ -4598,7 +8933,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (build-acceleration-structures-khr
                    %vk:build-acceleration-structures-khr
-                   "Represents <vkBuildAccelerationStructuresKHR>"
+                   "Represents [vkBuildAccelerationStructuresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBuildAccelerationStructuresKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFOS: <a description>
+ - PP-BUILD-RANGE-INFOS: <a description>
+ - DEFERRED-OPERATION: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
+See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (infos list) (p-build-range-infos list))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -4610,7 +8958,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-acceleration-structure-device-address-khr
                    %vk:get-acceleration-structure-device-address-khr
-                   "Represents <vkGetAccelerationStructureDeviceAddressKHR>"
+                   "Represents [vkGetAccelerationStructureDeviceAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-INFO: <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-DEVICE-ADDRESS-INFO-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-device-address-info-khr cffi:foreign-pointer)))
                    ()
                   '%vk:device-address)
@@ -4619,7 +8976,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-deferred-operation-khr
                           %vk:create-deferred-operation-khr
-                          "Represents <vkCreateDeferredOperationKHR>"
+                          "Represents [vkCreateDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDeferredOperationKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+"
                           ((device cffi:foreign-pointer))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
@@ -4629,7 +8995,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-deferred-operation-khr
                    %vk:destroy-deferred-operation-khr
-                   "Represents <vkDestroyDeferredOperationKHR>"
+                   "Represents [vkDestroyDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDeferredOperationKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - OPERATION: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer))
                    (((operation (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
@@ -4639,7 +9016,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-deferred-operation-max-concurrency-khr
                    %vk:get-deferred-operation-max-concurrency-khr
-                   "Represents <vkGetDeferredOperationMaxConcurrencyKHR>"
+                   "Represents [vkGetDeferredOperationMaxConcurrencyKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - OPERATION: <a description>
+Returns: TODO
+
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
                    ()
                   :uint32)
@@ -4648,7 +9034,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (get-deferred-operation-result-khr
                    %vk:get-deferred-operation-result-khr
-                   "Represents <vkGetDeferredOperationResultKHR>"
+                   "Represents [vkGetDeferredOperationResultKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeferredOperationResultKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - OPERATION: <a description>
+Returns: TODO
+
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
                    ()
                   nil)
@@ -4657,7 +9052,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (deferred-operation-join-khr
                    %vk:deferred-operation-join-khr
-                   "Represents <vkDeferredOperationJoinKHR>"
+                   "Represents [vkDeferredOperationJoinKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDeferredOperationJoinKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - OPERATION: <a description>
+Returns: TODO
+
+See DEFERRED-OPERATION-KHR
+See DEVICE
+"
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
                    ()
                   nil)
@@ -4666,7 +9070,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-cull-mode-ext
                    %vk:cmd-set-cull-mode-ext
-                   "Represents <vkCmdSetCullModeEXT>"
+                   "Represents [vkCmdSetCullModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCullModeEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - CULL-MODE: (optional) <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See CULL-MODE-FLAGS
+"
                    ((command-buffer cffi:foreign-pointer))
                    (((cull-mode nil) (or unsigned-byte list)))
                   nil
@@ -4676,7 +9089,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-front-face-ext
                    %vk:cmd-set-front-face-ext
-                   "Represents <vkCmdSetFrontFaceEXT>"
+                   "Represents [vkCmdSetFrontFaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFrontFaceEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FRONT-FACE: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See FRONT-FACE
+"
                    ((command-buffer cffi:foreign-pointer) (front-face keyword))
                    ()
                   nil
@@ -4686,7 +9108,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-primitive-topology-ext
                    %vk:cmd-set-primitive-topology-ext
-                   "Represents <vkCmdSetPrimitiveTopologyEXT>"
+                   "Represents [vkCmdSetPrimitiveTopologyEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPrimitiveTopologyEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - PRIMITIVE-TOPOLOGY: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PRIMITIVE-TOPOLOGY
+"
                    ((command-buffer cffi:foreign-pointer) (primitive-topology keyword))
                    ()
                   nil
@@ -4696,7 +9127,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-viewport-with-count-ext
                    %vk:cmd-set-viewport-with-count-ext
-                   "Represents <vkCmdSetViewportWithCountEXT>"
+                   "Represents [vkCmdSetViewportWithCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportWithCountEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-VIEWPORTS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See VIEWPORT
+"
                    ((command-buffer cffi:foreign-pointer) (viewports list))
                    ()
                   nil
@@ -4707,7 +9147,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-scissor-with-count-ext
                    %vk:cmd-set-scissor-with-count-ext
-                   "Represents <vkCmdSetScissorWithCountEXT>"
+                   "Represents [vkCmdSetScissorWithCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetScissorWithCountEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-SCISSORS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RECT-2D
+"
                    ((command-buffer cffi:foreign-pointer) (scissors list))
                    ()
                   nil
@@ -4718,7 +9167,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-bind-vertex-buffers-2-ext
                    %vk:cmd-bind-vertex-buffers-2-ext
-                   "Represents <vkCmdBindVertexBuffers2EXT>"
+                   "Represents [vkCmdBindVertexBuffers2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindVertexBuffers2EXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FIRST-BINDING: <a description>
+ - P-BUFFERS: <a description>
+ - P-OFFSETS: <a description>
+ - P-SIZES: (optional) <a description>
+ - P-STRIDES: (optional) <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+"
                    ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers list) (offsets list))
                    (((sizes nil) list) ((strides nil) list))
                   nil
@@ -4733,7 +9196,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-depth-test-enable-ext
                    %vk:cmd-set-depth-test-enable-ext
-                   "Represents <vkCmdSetDepthTestEnableEXT>"
+                   "Represents [vkCmdSetDepthTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthTestEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEPTH-TEST-ENABLE: <a description>
+Returns: TODO
+
+See BOOL32
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (depth-test-enable boolean))
                    ()
                   nil
@@ -4743,7 +9215,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-depth-write-enable-ext
                    %vk:cmd-set-depth-write-enable-ext
-                   "Represents <vkCmdSetDepthWriteEnableEXT>"
+                   "Represents [vkCmdSetDepthWriteEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthWriteEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEPTH-WRITE-ENABLE: <a description>
+Returns: TODO
+
+See BOOL32
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (depth-write-enable boolean))
                    ()
                   nil
@@ -4753,7 +9234,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-depth-compare-op-ext
                    %vk:cmd-set-depth-compare-op-ext
-                   "Represents <vkCmdSetDepthCompareOpEXT>"
+                   "Represents [vkCmdSetDepthCompareOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthCompareOpEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEPTH-COMPARE-OP: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COMPARE-OP
+"
                    ((command-buffer cffi:foreign-pointer) (depth-compare-op keyword))
                    ()
                   nil
@@ -4763,7 +9253,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-depth-bounds-test-enable-ext
                    %vk:cmd-set-depth-bounds-test-enable-ext
-                   "Represents <vkCmdSetDepthBoundsTestEnableEXT>"
+                   "Represents [vkCmdSetDepthBoundsTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBoundsTestEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - DEPTH-BOUNDS-TEST-ENABLE: <a description>
+Returns: TODO
+
+See BOOL32
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (depth-bounds-test-enable boolean))
                    ()
                   nil
@@ -4773,7 +9272,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-stencil-test-enable-ext
                    %vk:cmd-set-stencil-test-enable-ext
-                   "Represents <vkCmdSetStencilTestEnableEXT>"
+                   "Represents [vkCmdSetStencilTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilTestEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - STENCIL-TEST-ENABLE: <a description>
+Returns: TODO
+
+See BOOL32
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (stencil-test-enable boolean))
                    ()
                   nil
@@ -4783,7 +9291,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-stencil-op-ext
                    %vk:cmd-set-stencil-op-ext
-                   "Represents <vkCmdSetStencilOpEXT>"
+                   "Represents [vkCmdSetStencilOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilOpEXT.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - FACE-MASK: <a description>
+ - FAIL-OP: <a description>
+ - PASS-OP: <a description>
+ - DEPTH-FAIL-OP: <a description>
+ - COMPARE-OP: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COMPARE-OP
+See STENCIL-FACE-FLAGS
+See STENCIL-OP
+"
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (fail-op keyword) (pass-op keyword) (depth-fail-op keyword) (compare-op keyword))
                    ()
                   nil
@@ -4797,7 +9320,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (create-private-data-slot-ext
                           %vk:create-private-data-slot-ext
-                          "Represents <vkCreatePrivateDataSlotEXT>"
+                          "Represents [vkCreatePrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePrivateDataSlotEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - P-CREATE-INFO: <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PRIVATE-DATA-SLOT-CREATE-INFO-EXT
+"
                           ((device cffi:foreign-pointer) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
@@ -4809,7 +9343,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (destroy-private-data-slot-ext
                    %vk:destroy-private-data-slot-ext
-                   "Represents <vkDestroyPrivateDataSlotEXT>"
+                   "Represents [vkDestroyPrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPrivateDataSlotEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - PRIVATE-DATA-SLOT: (optional) <a description>
+ - P-ALLOCATOR: (optional) <a description>
+Returns: TODO
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See PRIVATE-DATA-SLOT-EXT
+"
                    ((device cffi:foreign-pointer))
                    (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
@@ -4820,7 +9365,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (set-private-data-ext
                    %vk:set-private-data-ext
-                   "Represents <vkSetPrivateDataEXT>"
+                   "Represents [vkSetPrivateDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetPrivateDataEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - OBJECT-TYPE: <a description>
+ - OBJECT-HANDLE: <a description>
+ - PRIVATE-DATA-SLOT: <a description>
+ - DATA: <a description>
+Returns: TODO
+
+See DEVICE
+See OBJECT-TYPE
+See PRIVATE-DATA-SLOT-EXT
+"
                    ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer) (data unsigned-byte))
                    ()
                   nil
@@ -4833,7 +9391,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-create-handle-fun (get-private-data-ext
                           %vk:get-private-data-ext
-                          "Represents <vkGetPrivateDataEXT>"
+                          "Represents [vkGetPrivateDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPrivateDataEXT.html).
+
+Args:
+ - DEVICE: <a description>
+ - OBJECT-TYPE: <a description>
+ - OBJECT-HANDLE: <a description>
+ - PRIVATE-DATA-SLOT: <a description>
+Returns: TODO
+
+See DEVICE
+See OBJECT-TYPE
+See PRIVATE-DATA-SLOT-EXT
+"
                           ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer))
                           ()
                           t
@@ -4846,7 +9416,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-buffer-2-khr
                    %vk:cmd-copy-buffer-2-khr
-                   "Represents <vkCmdCopyBuffer2KHR>"
+                   "Represents [vkCmdCopyBuffer2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBuffer2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-COPY-BUFFER-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-BUFFER-INFO-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (copy-buffer-info (or vk:copy-buffer-info-2-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4855,7 +9434,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-image-2-khr
                    %vk:cmd-copy-image-2-khr
-                   "Represents <vkCmdCopyImage2KHR>"
+                   "Represents [vkCmdCopyImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImage2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-COPY-IMAGE-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-IMAGE-INFO-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (copy-image-info (or vk:copy-image-info-2-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4864,7 +9452,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-blit-image-2-khr
                    %vk:cmd-blit-image-2-khr
-                   "Represents <vkCmdBlitImage2KHR>"
+                   "Represents [vkCmdBlitImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBlitImage2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-BLIT-IMAGE-INFO: <a description>
+Returns: TODO
+
+See BLIT-IMAGE-INFO-2-KHR
+See COMMAND-BUFFER
+"
                    ((command-buffer cffi:foreign-pointer) (blit-image-info (or vk:blit-image-info-2-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4873,7 +9470,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-buffer-to-image-2-khr
                    %vk:cmd-copy-buffer-to-image-2-khr
-                   "Represents <vkCmdCopyBufferToImage2KHR>"
+                   "Represents [vkCmdCopyBufferToImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBufferToImage2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-COPY-BUFFER-TO-IMAGE-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-BUFFER-TO-IMAGE-INFO-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (copy-buffer-to-image-info (or vk:copy-buffer-to-image-info-2-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4882,7 +9488,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-copy-image-to-buffer-2-khr
                    %vk:cmd-copy-image-to-buffer-2-khr
-                   "Represents <vkCmdCopyImageToBuffer2KHR>"
+                   "Represents [vkCmdCopyImageToBuffer2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImageToBuffer2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-COPY-IMAGE-TO-BUFFER-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See COPY-IMAGE-TO-BUFFER-INFO-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (copy-image-to-buffer-info (or vk:copy-image-to-buffer-info-2-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4891,7 +9506,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-resolve-image-2-khr
                    %vk:cmd-resolve-image-2-khr
-                   "Represents <vkCmdResolveImage2KHR>"
+                   "Represents [vkCmdResolveImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResolveImage2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-RESOLVE-IMAGE-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See RESOLVE-IMAGE-INFO-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (resolve-image-info (or vk:resolve-image-info-2-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4900,7 +9524,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-fragment-shading-rate-khr
                    %vk:cmd-set-fragment-shading-rate-khr
-                   "Represents <vkCmdSetFragmentShadingRateKHR>"
+                   "Represents [vkCmdSetFragmentShadingRateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-FRAGMENT-SIZE: <a description>
+ - COMBINER-OPS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See EXTENT-2D
+See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (fragment-size (or vk:extent-2d cffi:foreign-pointer)) (combiner-ops keyword))
                    ()
                   nil)
@@ -4910,7 +9545,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-enumerate-fun (get-physical-device-fragment-shading-rates-khr
                       %vk:get-physical-device-fragment-shading-rates-khr
-                      "Represents <vkGetPhysicalDeviceFragmentShadingRatesKHR>"
+                      "Represents [vkGetPhysicalDeviceFragmentShadingRatesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: <a description>
+Returns: TODO
+
+See PHYSICAL-DEVICE
+"
                       ((physical-device cffi:foreign-pointer))
                       ()
                       fragment-shading-rate-count
@@ -4922,7 +9564,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-fragment-shading-rate-enum-nv
                    %vk:cmd-set-fragment-shading-rate-enum-nv
-                   "Represents <vkCmdSetFragmentShadingRateEnumNV>"
+                   "Represents [vkCmdSetFragmentShadingRateEnumNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - SHADING-RATE: <a description>
+ - COMBINER-OPS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
+See FRAGMENT-SHADING-RATE-NV
+"
                    ((command-buffer cffi:foreign-pointer) (shading-rate keyword) (combiner-ops keyword))
                    ()
                   nil
@@ -4933,7 +9586,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-struct-fun (get-acceleration-structure-build-sizes-khr
                        %vk:get-acceleration-structure-build-sizes-khr
-                       "Represents <vkGetAccelerationStructureBuildSizesKHR>"
+                       "Represents [vkGetAccelerationStructureBuildSizesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html).
+
+Args:
+ - DEVICE: <a description>
+ - BUILD-TYPE: <a description>
+ - P-BUILD-INFO: <a description>
+ - P-MAX-PRIMITIVE-COUNTS: (optional) <a description>
+Returns: TODO
+
+See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
+See ACCELERATION-STRUCTURE-BUILD-TYPE-KHR
+See DEVICE
+"
                        ((device cffi:foreign-pointer) (build-type keyword) (build-info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)))
                        (((max-primitive-counts nil) list)))
   (device '%vk:device device :in :handle)
@@ -4944,7 +9609,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-set-event-2-khr
                    %vk:cmd-set-event-2-khr
-                   "Represents <vkCmdSetEvent2KHR>"
+                   "Represents [vkCmdSetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - EVENT: <a description>
+ - P-DEPENDENCY-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEPENDENCY-INFO-KHR
+See EVENT
+"
                    ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4954,7 +9630,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-reset-event-2-khr
                    %vk:cmd-reset-event-2-khr
-                   "Represents <vkCmdResetEvent2KHR>"
+                   "Represents [vkCmdResetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetEvent2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - EVENT: <a description>
+ - STAGE-MASK: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See EVENT
+See PIPELINE-STAGE-FLAGS-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
                    ()
                   nil)
@@ -4964,7 +9651,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-wait-events-2-khr
                    %vk:cmd-wait-events-2-khr
-                   "Represents <vkCmdWaitEvents2KHR>"
+                   "Represents [vkCmdWaitEvents2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWaitEvents2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-EVENTS: <a description>
+ - P-DEPENDENCY-INFOS: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEPENDENCY-INFO-KHR
+See EVENT
+"
                    ((command-buffer cffi:foreign-pointer) (events list) (dependency-infos list))
                    ()
                   nil)
@@ -4975,7 +9673,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-pipeline-barrier-2-khr
                    %vk:cmd-pipeline-barrier-2-khr
-                   "Represents <vkCmdPipelineBarrier2KHR>"
+                   "Represents [vkCmdPipelineBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPipelineBarrier2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - P-DEPENDENCY-INFO: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See DEPENDENCY-INFO-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
                    ()
                   nil)
@@ -4984,7 +9691,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (queue-submit-2-khr
                    %vk:queue-submit-2-khr
-                   "Represents <vkQueueSubmit2KHR>"
+                   "Represents [vkQueueSubmit2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSubmit2KHR.html).
+
+Args:
+ - QUEUE: <a description>
+ - P-SUBMITS: <a description>
+ - FENCE: (optional) <a description>
+Returns: TODO
+
+See FENCE
+See QUEUE
+See SUBMIT-INFO-2-KHR
+"
                    ((queue cffi:foreign-pointer) (submits list))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer))
                   nil)
@@ -4995,7 +9713,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-write-timestamp-2-khr
                    %vk:cmd-write-timestamp-2-khr
-                   "Represents <vkCmdWriteTimestamp2KHR>"
+                   "Represents [vkCmdWriteTimestamp2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - STAGE: <a description>
+ - QUERY-POOL: <a description>
+ - QUERY: <a description>
+Returns: TODO
+
+See COMMAND-BUFFER
+See PIPELINE-STAGE-FLAGS-2-KHR
+See QUERY-POOL
+"
                    ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (query-pool cffi:foreign-pointer) (query unsigned-byte))
                    ()
                   nil)
@@ -5006,7 +9736,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-simple-fun (cmd-write-buffer-marker-2-amd
                    %vk:cmd-write-buffer-marker-2-amd
-                   "Represents <vkCmdWriteBufferMarker2AMD>"
+                   "Represents [vkCmdWriteBufferMarker2AMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteBufferMarker2AMD.html).
+
+Args:
+ - COMMAND-BUFFER: <a description>
+ - STAGE: <a description>
+ - DST-BUFFER: <a description>
+ - DST-OFFSET: <a description>
+ - MARKER: <a description>
+Returns: TODO
+
+See BUFFER
+See COMMAND-BUFFER
+See DEVICE-SIZE
+See PIPELINE-STAGE-FLAGS-2-KHR
+"
                    ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
                    ()
                   nil
@@ -5019,7 +9763,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defvk-get-structs-fun (get-queue-checkpoint-data-2-nv
                         %vk:get-queue-checkpoint-data-2-nv
-                        "Represents <vkGetQueueCheckpointData2NV>"
+                        "Represents [vkGetQueueCheckpointData2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueueCheckpointData2NV.html).
+
+Args:
+ - QUEUE: <a description>
+Returns: TODO
+
+See QUEUE
+"
                         ((queue cffi:foreign-pointer))
                         ()
                         checkpoint-data-count

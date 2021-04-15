@@ -5,9 +5,7 @@
 
 (in-package :vk)
 
-(eval-when (:compile-toplevel ;; todo: remove other stages when this is done
-            :load-toplevel
-            :execute)
+(eval-when (:compile-toplevel)
   (defun process-args (args optional-p &optional (extension-p nil))
     "Splits ARGS into a list of argument names and a list of types which can be used for type declarations.
 If OPTIONAL-P is truthy NULL is appended to each type declaration."
@@ -72,6 +70,8 @@ options are :handle, :in/:out, :optional
                       let-args))))
       (when extension-p (push 'extension-loader vk-input-args))
       (cl:values (reverse translated-args) (reverse let-args) (reverse vk-input-args) (reverse output-args)))))
+
+;; TODO: there is a lot of duplicated code here - clean this up
 
 ;;; ---------------------------------------------- 0 output parameters -----------------------------------------------------------------
 

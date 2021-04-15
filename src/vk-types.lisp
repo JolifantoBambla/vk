@@ -23,6 +23,7 @@ Slots:
  - S-TYPE: an enum value of STRUCTURE-TYPE.
  - NEXT (optional): an instance of a class extending this class.
 
+Slot types:
 See STRUCTURE-TYPE
 See BASE-OUT-STRUCTURE
 "))
@@ -42,6 +43,7 @@ Slots:
  - S-TYPE: an enum value of STRUCTURE-TYPE.
  - NEXT (optional): an instance of a class extending this class.
 
+Slot types:
 See STRUCTURE-TYPE
 See BASE-IN-STRUCTURE
 "))
@@ -97,6 +99,10 @@ Slots:
 Slots:
  - WIDTH: a positive (32-bit) integer.
  - HEIGHT: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-FRAGMENT-SHADING-RATE-KHR
+See GET-RENDER-AREA-GRANULARITY
 "))
 
 (defclass extent-3d ()
@@ -154,6 +160,10 @@ Slots:
  - HEIGHT: a single-float.
  - MIN-DEPTH: a single-float.
  - MAX-DEPTH: a single-float.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-VIEWPORT
+See CMD-SET-VIEWPORT-WITH-COUNT-EXT
 "))
 
 (defclass rect-2d ()
@@ -171,8 +181,16 @@ Slots:
  - OFFSET: an OFFSET-2D.
  - EXTENT: an EXTENT-2D.
 
+Slot types:
 See OFFSET-2D
 See EXTENT-2D
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-DISCARD-RECTANGLE-EXT
+See CMD-SET-EXCLUSIVE-SCISSOR-NV
+See CMD-SET-SCISSOR
+See CMD-SET-SCISSOR-WITH-COUNT-EXT
+See GET-PHYSICAL-DEVICE-PRESENT-RECTANGLES-KHR
 "))
 
 (defclass clear-rect ()
@@ -195,7 +213,11 @@ Slots:
  - BASE-ARRAY-LAYER: a positive (32-bit) integer.
  - LAYER-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See RECT-2D
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CLEAR-ATTACHMENTS
 "))
 
 (defclass component-mapping ()
@@ -223,6 +245,7 @@ Slots:
  - B: an enum value of COMPONENT-SWIZZLE.
  - A: an enum value of COMPONENT-SWIZZLE.
 
+Slot types:
 See COMPONENT-SWIZZLE
 "))
 
@@ -276,9 +299,13 @@ Slots:
  - LIMITS: a PHYSICAL-DEVICE-LIMITS.
  - SPARSE-PROPERTIES: a PHYSICAL-DEVICE-SPARSE-PROPERTIES.
 
+Slot types:
 See PHYSICAL-DEVICE-TYPE
 See PHYSICAL-DEVICE-LIMITS
 See PHYSICAL-DEVICE-SPARSE-PROPERTIES
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-PROPERTIES
 "))
 
 (defclass extension-properties ()
@@ -295,6 +322,10 @@ See PHYSICAL-DEVICE-SPARSE-PROPERTIES
 Slots:
  - EXTENSION-NAME: a string.
  - SPEC-VERSION: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See ENUMERATE-DEVICE-EXTENSION-PROPERTIES
+See ENUMERATE-INSTANCE-EXTENSION-PROPERTIES
 "))
 
 (defclass layer-properties ()
@@ -321,6 +352,10 @@ Slots:
  - SPEC-VERSION: a positive (32-bit) integer.
  - IMPLEMENTATION-VERSION: a positive (32-bit) integer.
  - DESCRIPTION: a string.
+
+Instances of this class are used as parameters of the following functions:
+See ENUMERATE-DEVICE-LAYER-PROPERTIES
+See ENUMERATE-INSTANCE-LAYER-PROPERTIES
 "))
 
 (defclass application-info ()
@@ -394,11 +429,102 @@ Slots:
  - PFN-INTERNAL-ALLOCATION (optional): a PFN-INTERNAL-ALLOCATION-NOTIFICATION.
  - PFN-INTERNAL-FREE (optional): a PFN-INTERNAL-FREE-NOTIFICATION.
 
+Slot types:
 See PFN-ALLOCATION-FUNCTION
 See PFN-REALLOCATION-FUNCTION
 See PFN-FREE-FUNCTION
 See PFN-INTERNAL-ALLOCATION-NOTIFICATION
 See PFN-INTERNAL-FREE-NOTIFICATION
+
+Instances of this class are used as parameters of the following functions:
+See ALLOCATE-MEMORY
+See CREATE-ACCELERATION-STRUCTURE-KHR
+See CREATE-ACCELERATION-STRUCTURE-NV
+See CREATE-ANDROID-SURFACE-KHR
+See CREATE-BUFFER
+See CREATE-BUFFER-VIEW
+See CREATE-COMMAND-POOL
+See CREATE-COMPUTE-PIPELINES
+See CREATE-DEBUG-REPORT-CALLBACK-EXT
+See CREATE-DEBUG-UTILS-MESSENGER-EXT
+See CREATE-DEFERRED-OPERATION-KHR
+See CREATE-DESCRIPTOR-POOL
+See CREATE-DESCRIPTOR-SET-LAYOUT
+See CREATE-DESCRIPTOR-UPDATE-TEMPLATE
+See CREATE-DEVICE
+See CREATE-DIRECT-FB-SURFACE-EXT
+See CREATE-DISPLAY-MODE-KHR
+See CREATE-DISPLAY-PLANE-SURFACE-KHR
+See CREATE-EVENT
+See CREATE-FENCE
+See CREATE-FRAMEBUFFER
+See CREATE-GRAPHICS-PIPELINES
+See CREATE-HEADLESS-SURFACE-EXT
+See CREATE-I-OS-SURFACE-MVK
+See CREATE-IMAGE
+See CREATE-IMAGE-PIPE-SURFACE-FUCHSIA
+See CREATE-IMAGE-VIEW
+See CREATE-INDIRECT-COMMANDS-LAYOUT-NV
+See CREATE-INSTANCE
+See CREATE-MAC-OS-SURFACE-MVK
+See CREATE-METAL-SURFACE-EXT
+See CREATE-PIPELINE-CACHE
+See CREATE-PIPELINE-LAYOUT
+See CREATE-PRIVATE-DATA-SLOT-EXT
+See CREATE-QUERY-POOL
+See CREATE-RAY-TRACING-PIPELINES-KHR
+See CREATE-RAY-TRACING-PIPELINES-NV
+See CREATE-RENDER-PASS
+See CREATE-RENDER-PASS-2
+See CREATE-SAMPLER
+See CREATE-SAMPLER-YCBCR-CONVERSION
+See CREATE-SCREEN-SURFACE-QNX
+See CREATE-SEMAPHORE
+See CREATE-SHADER-MODULE
+See CREATE-SHARED-SWAPCHAINS-KHR
+See CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
+See CREATE-SWAPCHAIN-KHR
+See CREATE-VALIDATION-CACHE-EXT
+See CREATE-VI-SURFACE-NN
+See CREATE-WAYLAND-SURFACE-KHR
+See CREATE-WIN32-SURFACE-KHR
+See CREATE-XCB-SURFACE-KHR
+See CREATE-XLIB-SURFACE-KHR
+See DESTROY-ACCELERATION-STRUCTURE-KHR
+See DESTROY-ACCELERATION-STRUCTURE-NV
+See DESTROY-BUFFER
+See DESTROY-BUFFER-VIEW
+See DESTROY-COMMAND-POOL
+See DESTROY-DEBUG-REPORT-CALLBACK-EXT
+See DESTROY-DEBUG-UTILS-MESSENGER-EXT
+See DESTROY-DEFERRED-OPERATION-KHR
+See DESTROY-DESCRIPTOR-POOL
+See DESTROY-DESCRIPTOR-SET-LAYOUT
+See DESTROY-DESCRIPTOR-UPDATE-TEMPLATE
+See DESTROY-DEVICE
+See DESTROY-EVENT
+See DESTROY-FENCE
+See DESTROY-FRAMEBUFFER
+See DESTROY-IMAGE
+See DESTROY-IMAGE-VIEW
+See DESTROY-INDIRECT-COMMANDS-LAYOUT-NV
+See DESTROY-INSTANCE
+See DESTROY-PIPELINE
+See DESTROY-PIPELINE-CACHE
+See DESTROY-PIPELINE-LAYOUT
+See DESTROY-PRIVATE-DATA-SLOT-EXT
+See DESTROY-QUERY-POOL
+See DESTROY-RENDER-PASS
+See DESTROY-SAMPLER
+See DESTROY-SAMPLER-YCBCR-CONVERSION
+See DESTROY-SEMAPHORE
+See DESTROY-SHADER-MODULE
+See DESTROY-SURFACE-KHR
+See DESTROY-SWAPCHAIN-KHR
+See DESTROY-VALIDATION-CACHE-EXT
+See FREE-MEMORY
+See REGISTER-DEVICE-EVENT-EXT
+See REGISTER-DISPLAY-EVENT-EXT
 "))
 
 (defclass device-queue-create-info ()
@@ -426,7 +552,11 @@ Slots:
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
  - QUEUE-PRIORITIES: a list of foreign pointer to a buffer of size QUEUE-COUNTs.
 
+Slot types:
 See DEVICE-QUEUE-CREATE-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: DEVICE-QUEUE-GLOBAL-PRIORITY-CREATE-INFO-EXT
 "))
 
 (defclass device-create-info ()
@@ -464,9 +594,101 @@ Slots:
  - ENABLED-EXTENSION-NAMES: a list of foreign pointer to a buffer of size ENABLED-EXTENSION-COUNTs.
  - ENABLED-FEATURES (optional): a PHYSICAL-DEVICE-FEATURES.
 
+Slot types:
 See DEVICE-CREATE-FLAGS
 See DEVICE-QUEUE-CREATE-INFO
 See PHYSICAL-DEVICE-FEATURES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
+See: PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
+See: PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
+See: PHYSICAL-DEVICE-SHADER-TERMINATE-INVOCATION-FEATURES-KHR
+See: PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-FEATURES-KHR
+See: PHYSICAL-DEVICE-SHADER-IMAGE-ATOMIC-INT-64-FEATURES-EXT
+See: PHYSICAL-DEVICE-4444-FORMATS-FEATURES-EXT
+See: PHYSICAL-DEVICE-PORTABILITY-SUBSET-FEATURES-KHR
+See: PHYSICAL-DEVICE-WORKGROUP-MEMORY-EXPLICIT-LAYOUT-FEATURES-KHR
+See: PHYSICAL-DEVICE-IMAGE-ROBUSTNESS-FEATURES-EXT
+See: PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT
+See: PHYSICAL-DEVICE-ZERO-INITIALIZE-WORKGROUP-MEMORY-FEATURES-KHR
+See: DEVICE-DIAGNOSTICS-CONFIG-CREATE-INFO-NV
+See: PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV
+See: PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-FEATURES-EXT
+See: PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT
+See: PHYSICAL-DEVICE-COHERENT-MEMORY-FEATURES-AMD
+See: PHYSICAL-DEVICE-VULKAN-1-2-FEATURES
+See: PHYSICAL-DEVICE-VULKAN-1-1-FEATURES
+See: PHYSICAL-DEVICE-PIPELINE-CREATION-CACHE-CONTROL-FEATURES-EXT
+See: PHYSICAL-DEVICE-LINE-RASTERIZATION-FEATURES-EXT
+See: PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-FEATURES-EXT
+See: PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-DEMOTE-TO-HELPER-INVOCATION-FEATURES-EXT
+See: PHYSICAL-DEVICE-PIPELINE-EXECUTABLE-PROPERTIES-FEATURES-KHR
+See: PHYSICAL-DEVICE-SEPARATE-DEPTH-STENCIL-LAYOUTS-FEATURES
+See: PHYSICAL-DEVICE-FRAGMENT-SHADER-INTERLOCK-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-S-M-BUILTINS-FEATURES-NV
+See: PHYSICAL-DEVICE-INDEX-TYPE-UINT-8-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-CLOCK-FEATURES-KHR
+See: PHYSICAL-DEVICE-SHADER-INTEGER-FUNCTIONS-2-FEATURES-INTEL
+See: PHYSICAL-DEVICE-COVERAGE-REDUCTION-MODE-FEATURES-NV
+See: PHYSICAL-DEVICE-PERFORMANCE-QUERY-FEATURES-KHR
+See: PHYSICAL-DEVICE-YCBCR-IMAGE-ARRAYS-FEATURES-EXT
+See: PHYSICAL-DEVICE-COOPERATIVE-MATRIX-FEATURES-NV
+See: PHYSICAL-DEVICE-TEXTURE-COMPRESSION-ASTC-H-D-R-FEATURES-EXT
+See: PHYSICAL-DEVICE-IMAGELESS-FRAMEBUFFER-FEATURES
+See: PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES-EXT
+See: PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES
+See: PHYSICAL-DEVICE-MEMORY-PRIORITY-FEATURES-EXT
+See: PHYSICAL-DEVICE-DEPTH-CLIP-ENABLE-FEATURES-EXT
+See: PHYSICAL-DEVICE-UNIFORM-BUFFER-STANDARD-LAYOUT-FEATURES
+See: PHYSICAL-DEVICE-SCALAR-BLOCK-LAYOUT-FEATURES
+See: PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-FEATURES-EXT
+See: PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-FEATURES-EXT
+See: DEVICE-MEMORY-OVERALLOCATION-CREATE-INFO-AMD
+See: PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR
+See: PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-FEATURES-KHR
+See: PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-FEATURES-KHR
+See: PHYSICAL-DEVICE-MESH-SHADER-FEATURES-NV
+See: PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV
+See: PHYSICAL-DEVICE-DEDICATED-ALLOCATION-IMAGE-ALIASING-FEATURES-NV
+See: PHYSICAL-DEVICE-SHADER-IMAGE-FOOTPRINT-FEATURES-NV
+See: PHYSICAL-DEVICE-FRAGMENT-SHADER-BARYCENTRIC-FEATURES-NV
+See: PHYSICAL-DEVICE-COMPUTE-SHADER-DERIVATIVES-FEATURES-NV
+See: PHYSICAL-DEVICE-CORNER-SAMPLED-IMAGE-FEATURES-NV
+See: PHYSICAL-DEVICE-EXCLUSIVE-SCISSOR-FEATURES-NV
+See: PHYSICAL-DEVICE-REPRESENTATIVE-FRAGMENT-TEST-FEATURES-NV
+See: PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT
+See: PHYSICAL-DEVICE-ASTC-DECODE-FEATURES-EXT
+See: PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-ATOMIC-INT-64-FEATURES
+See: PHYSICAL-DEVICE-VULKAN-MEMORY-MODEL-FEATURES
+See: PHYSICAL-DEVICE-CONDITIONAL-RENDERING-FEATURES-EXT
+See: PHYSICAL-DEVICE-8-BIT-STORAGE-FEATURES
+See: PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-FEATURES
+See: PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-FEATURES
+See: DEVICE-DEVICE-MEMORY-REPORT-CREATE-INFO-EXT
+See: PHYSICAL-DEVICE-DEVICE-MEMORY-REPORT-FEATURES-EXT
+See: PHYSICAL-DEVICE-HOST-QUERY-RESET-FEATURES
+See: PHYSICAL-DEVICE-SHADER-FLOAT-16-INT-8-FEATURES
+See: PHYSICAL-DEVICE-SHADER-DRAW-PARAMETERS-FEATURES
+See: PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-FEATURES-EXT
+See: PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-FEATURES-EXT
+See: PHYSICAL-DEVICE-PROTECTED-MEMORY-FEATURES
+See: PHYSICAL-DEVICE-SAMPLER-YCBCR-CONVERSION-FEATURES
+See: PHYSICAL-DEVICE-SHADER-SUBGROUP-EXTENDED-TYPES-FEATURES
+See: PHYSICAL-DEVICE-16-BIT-STORAGE-FEATURES
+See: DEVICE-GROUP-DEVICE-CREATE-INFO
+See: PHYSICAL-DEVICE-MULTIVIEW-FEATURES
+See: PHYSICAL-DEVICE-VARIABLE-POINTERS-FEATURES
+See: PHYSICAL-DEVICE-FEATURES-2
+See: PHYSICAL-DEVICE-PRIVATE-DATA-FEATURES-EXT
+See: DEVICE-PRIVATE-DATA-CREATE-INFO-EXT
+See: PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-FEATURES-NV
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DEVICE
 "))
 
 (defclass instance-create-info ()
@@ -499,8 +721,18 @@ Slots:
  - ENABLED-LAYER-NAMES: a list of foreign pointer to a buffer of size ENABLED-LAYER-COUNTs.
  - ENABLED-EXTENSION-NAMES: a list of foreign pointer to a buffer of size ENABLED-EXTENSION-COUNTs.
 
+Slot types:
 See INSTANCE-CREATE-FLAGS
 See APPLICATION-INFO
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: DEBUG-UTILS-MESSENGER-CREATE-INFO-EXT
+See: VALIDATION-FEATURES-EXT
+See: VALIDATION-FLAGS-EXT
+See: DEBUG-REPORT-CALLBACK-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-INSTANCE
 "))
 
 (defclass queue-family-properties ()
@@ -528,8 +760,12 @@ Slots:
  - TIMESTAMP-VALID-BITS: a positive (32-bit) integer.
  - MIN-IMAGE-TRANSFER-GRANULARITY: an EXTENT-3D.
 
+Slot types:
 See QUEUE-FLAGS
 See EXTENT-3D
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PROPERTIES
 "))
 
 (defclass physical-device-memory-properties ()
@@ -557,8 +793,12 @@ Slots:
  - MEMORY-HEAP-COUNT: a positive (32-bit) integer.
  - MEMORY-HEAPS: a MEMORY-HEAP.
 
+Slot types:
 See MEMORY-TYPE
 See MEMORY-HEAP
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-MEMORY-PROPERTIES
 "))
 
 (defclass memory-allocate-info ()
@@ -581,7 +821,28 @@ Slots:
  - ALLOCATION-SIZE: a DEVICE-SIZE.
  - MEMORY-TYPE-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See DEVICE-SIZE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: MEMORY-OPAQUE-CAPTURE-ADDRESS-ALLOCATE-INFO
+See: MEMORY-PRIORITY-ALLOCATE-INFO-EXT
+See: IMPORT-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
+See: IMPORT-MEMORY-HOST-POINTER-INFO-EXT
+See: MEMORY-DEDICATED-ALLOCATE-INFO
+See: MEMORY-ALLOCATE-FLAGS-INFO
+See: IMPORT-MEMORY-FD-INFO-KHR
+See: IMPORT-MEMORY-ZIRCON-HANDLE-INFO-FUCHSIA
+See: EXPORT-MEMORY-WIN32-HANDLE-INFO-KHR
+See: IMPORT-MEMORY-WIN32-HANDLE-INFO-KHR
+See: EXPORT-MEMORY-ALLOCATE-INFO
+See: EXPORT-MEMORY-WIN32-HANDLE-INFO-NV
+See: IMPORT-MEMORY-WIN32-HANDLE-INFO-NV
+See: EXPORT-MEMORY-ALLOCATE-INFO-NV
+See: DEDICATED-ALLOCATION-MEMORY-ALLOCATE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See ALLOCATE-MEMORY
 "))
 
 (defclass memory-requirements ()
@@ -604,7 +865,12 @@ Slots:
  - ALIGNMENT: a DEVICE-SIZE.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
+Slot types:
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See GET-BUFFER-MEMORY-REQUIREMENTS
+See GET-IMAGE-MEMORY-REQUIREMENTS
 "))
 
 (defclass sparse-image-format-properties ()
@@ -627,9 +893,13 @@ Slots:
  - IMAGE-GRANULARITY: an EXTENT-3D.
  - FLAGS (optional): a list containing a valid combination of SPARSE-IMAGE-FORMAT-FLAGS.
 
+Slot types:
 See IMAGE-ASPECT-FLAGS
 See EXTENT-3D
 See SPARSE-IMAGE-FORMAT-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES
 "))
 
 (defclass sparse-image-memory-requirements ()
@@ -662,8 +932,12 @@ Slots:
  - IMAGE-MIP-TAIL-OFFSET: a DEVICE-SIZE.
  - IMAGE-MIP-TAIL-STRIDE: a DEVICE-SIZE.
 
+Slot types:
 See SPARSE-IMAGE-FORMAT-PROPERTIES
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS
 "))
 
 (defclass memory-type ()
@@ -681,6 +955,7 @@ Slots:
  - PROPERTY-FLAGS (optional): a list containing a valid combination of MEMORY-PROPERTY-FLAGS.
  - HEAP-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See MEMORY-PROPERTY-FLAGS
 "))
 
@@ -699,6 +974,7 @@ Slots:
  - SIZE: a DEVICE-SIZE.
  - FLAGS (optional): a list containing a valid combination of MEMORY-HEAP-FLAGS.
 
+Slot types:
 See DEVICE-SIZE
 See MEMORY-HEAP-FLAGS
 "))
@@ -728,8 +1004,13 @@ Slots:
  - OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-MEMORY
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See FLUSH-MAPPED-MEMORY-RANGES
+See INVALIDATE-MAPPED-MEMORY-RANGES
 "))
 
 (defclass format-properties ()
@@ -752,7 +1033,11 @@ Slots:
  - OPTIMAL-TILING-FEATURES (optional): a list containing a valid combination of FORMAT-FEATURE-FLAGS.
  - BUFFER-FEATURES (optional): a list containing a valid combination of FORMAT-FEATURE-FLAGS.
 
+Slot types:
 See FORMAT-FEATURE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-FORMAT-PROPERTIES
 "))
 
 (defclass image-format-properties ()
@@ -785,9 +1070,13 @@ Slots:
  - SAMPLE-COUNTS (optional): a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - MAX-RESOURCE-SIZE: a DEVICE-SIZE.
 
+Slot types:
 See EXTENT-3D
 See SAMPLE-COUNT-FLAGS
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES
 "))
 
 (defclass descriptor-buffer-info ()
@@ -810,6 +1099,7 @@ Slots:
  - OFFSET: a DEVICE-SIZE.
  - RANGE: a DEVICE-SIZE.
 
+Slot types:
 See BUFFER
 See DEVICE-SIZE
 "))
@@ -834,6 +1124,7 @@ Slots:
  - IMAGE-VIEW: an IMAGE-VIEW.
  - IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See SAMPLER
 See IMAGE-VIEW
 See IMAGE-LAYOUT
@@ -884,11 +1175,21 @@ Slots:
  - BUFFER-INFO: a list of foreign pointer to a buffer of size DESCRIPTOR-COUNTs.
  - TEXEL-BUFFER-VIEW: a list of foreign pointer to a buffer of size DESCRIPTOR-COUNTs.
 
+Slot types:
 See DESCRIPTOR-SET
 See DESCRIPTOR-TYPE
 See DESCRIPTOR-IMAGE-INFO
 See DESCRIPTOR-BUFFER-INFO
 See BUFFER-VIEW
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: WRITE-DESCRIPTOR-SET-ACCELERATION-STRUCTURE-NV
+See: WRITE-DESCRIPTOR-SET-ACCELERATION-STRUCTURE-KHR
+See: WRITE-DESCRIPTOR-SET-INLINE-UNIFORM-BLOCK-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CMD-PUSH-DESCRIPTOR-SET-KHR
+See UPDATE-DESCRIPTOR-SETS
 "))
 
 (defclass copy-descriptor-set ()
@@ -936,7 +1237,11 @@ Slots:
  - DST-ARRAY-ELEMENT: a positive (32-bit) integer.
  - DESCRIPTOR-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See DESCRIPTOR-SET
+
+Instances of this class are used as parameters of the following functions:
+See UPDATE-DESCRIPTOR-SETS
 "))
 
 (defclass buffer-create-info ()
@@ -974,10 +1279,20 @@ Slots:
  - SHARING-MODE: an enum value of SHARING-MODE.
  - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
 
+Slot types:
 See BUFFER-CREATE-FLAGS
 See DEVICE-SIZE
 See BUFFER-USAGE-FLAGS
 See SHARING-MODE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: BUFFER-DEVICE-ADDRESS-CREATE-INFO-EXT
+See: BUFFER-OPAQUE-CAPTURE-ADDRESS-CREATE-INFO
+See: EXTERNAL-MEMORY-BUFFER-CREATE-INFO
+See: DEDICATED-ALLOCATION-BUFFER-CREATE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-BUFFER
 "))
 
 (defclass buffer-view-create-info ()
@@ -1015,10 +1330,14 @@ Slots:
  - OFFSET: a DEVICE-SIZE.
  - RANGE: a DEVICE-SIZE.
 
+Slot types:
 See BUFFER-VIEW-CREATE-FLAGS
 See BUFFER
 See FORMAT
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-BUFFER-VIEW
 "))
 
 (defclass image-subresource ()
@@ -1041,7 +1360,11 @@ Slots:
  - MIP-LEVEL: a positive (32-bit) integer.
  - ARRAY-LAYER: a positive (32-bit) integer.
 
+Slot types:
 See IMAGE-ASPECT-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-SUBRESOURCE-LAYOUT
 "))
 
 (defclass image-subresource-layers ()
@@ -1069,6 +1392,7 @@ Slots:
  - BASE-ARRAY-LAYER: a positive (32-bit) integer.
  - LAYER-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See IMAGE-ASPECT-FLAGS
 "))
 
@@ -1102,7 +1426,12 @@ Slots:
  - BASE-ARRAY-LAYER: a positive (32-bit) integer.
  - LAYER-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See IMAGE-ASPECT-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CLEAR-COLOR-IMAGE
+See CMD-CLEAR-DEPTH-STENCIL-IMAGE
 "))
 
 (defclass memory-barrier ()
@@ -1125,7 +1454,12 @@ Slots:
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
 
+Slot types:
 See ACCESS-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See CMD-PIPELINE-BARRIER
+See CMD-WAIT-EVENTS
 "))
 
 (defclass buffer-memory-barrier ()
@@ -1173,9 +1507,14 @@ Slots:
  - OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See ACCESS-FLAGS
 See BUFFER
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See CMD-PIPELINE-BARRIER
+See CMD-WAIT-EVENTS
 "))
 
 (defclass image-memory-barrier ()
@@ -1228,10 +1567,18 @@ Slots:
  - IMAGE: an IMAGE.
  - SUBRESOURCE-RANGE: an IMAGE-SUBRESOURCE-RANGE.
 
+Slot types:
 See ACCESS-FLAGS
 See IMAGE-LAYOUT
 See IMAGE
 See IMAGE-SUBRESOURCE-RANGE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SAMPLE-LOCATIONS-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CMD-PIPELINE-BARRIER
+See CMD-WAIT-EVENTS
 "))
 
 (defclass image-create-info ()
@@ -1304,6 +1651,7 @@ Slots:
  - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
  - INITIAL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See IMAGE-CREATE-FLAGS
 See IMAGE-TYPE
 See FORMAT
@@ -1313,6 +1661,20 @@ See IMAGE-TILING
 See IMAGE-USAGE-FLAGS
 See SHARING-MODE
 See IMAGE-LAYOUT
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: IMAGE-STENCIL-USAGE-CREATE-INFO
+See: IMAGE-DRM-FORMAT-MODIFIER-EXPLICIT-CREATE-INFO-EXT
+See: IMAGE-DRM-FORMAT-MODIFIER-LIST-CREATE-INFO-EXT
+See: EXTERNAL-FORMAT-ANDROID
+See: IMAGE-FORMAT-LIST-CREATE-INFO
+See: IMAGE-SWAPCHAIN-CREATE-INFO-KHR
+See: EXTERNAL-MEMORY-IMAGE-CREATE-INFO
+See: EXTERNAL-MEMORY-IMAGE-CREATE-INFO-NV
+See: DEDICATED-ALLOCATION-IMAGE-CREATE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-IMAGE
 "))
 
 (defclass subresource-layout ()
@@ -1345,7 +1707,11 @@ Slots:
  - ARRAY-PITCH: a DEVICE-SIZE.
  - DEPTH-PITCH: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-SUBRESOURCE-LAYOUT
 "))
 
 (defclass image-view-create-info ()
@@ -1388,12 +1754,21 @@ Slots:
  - COMPONENTS: a COMPONENT-MAPPING.
  - SUBRESOURCE-RANGE: an IMAGE-SUBRESOURCE-RANGE.
 
+Slot types:
 See IMAGE-VIEW-CREATE-FLAGS
 See IMAGE
 See IMAGE-VIEW-TYPE
 See FORMAT
 See COMPONENT-MAPPING
 See IMAGE-SUBRESOURCE-RANGE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: IMAGE-VIEW-ASTC-DECODE-MODE-EXT
+See: SAMPLER-YCBCR-CONVERSION-INFO
+See: IMAGE-VIEW-USAGE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-IMAGE-VIEW
 "))
 
 (defclass buffer-copy ()
@@ -1416,7 +1791,11 @@ Slots:
  - DST-OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-BUFFER
 "))
 
 (defclass sparse-memory-bind ()
@@ -1449,6 +1828,7 @@ Slots:
  - MEMORY-OFFSET: a DEVICE-SIZE.
  - FLAGS (optional): a list containing a valid combination of SPARSE-MEMORY-BIND-FLAGS.
 
+Slot types:
 See DEVICE-MEMORY
 See DEVICE-SIZE
 See SPARSE-MEMORY-BIND-FLAGS
@@ -1489,6 +1869,7 @@ Slots:
  - MEMORY-OFFSET: a DEVICE-SIZE.
  - FLAGS (optional): a list containing a valid combination of SPARSE-MEMORY-BIND-FLAGS.
 
+Slot types:
 See IMAGE-SUBRESOURCE
 See OFFSET-3D
 See EXTENT-3D
@@ -1512,6 +1893,7 @@ Slots:
  - BUFFER: a BUFFER.
  - BINDS: a list of foreign pointer to a buffer of size BIND-COUNTs.
 
+Slot types:
 See BUFFER
 See SPARSE-MEMORY-BIND
 "))
@@ -1531,6 +1913,7 @@ Slots:
  - IMAGE: an IMAGE.
  - BINDS: a list of foreign pointer to a buffer of size BIND-COUNTs.
 
+Slot types:
 See IMAGE
 See SPARSE-MEMORY-BIND
 "))
@@ -1550,6 +1933,7 @@ Slots:
  - IMAGE: an IMAGE.
  - BINDS: a list of foreign pointer to a buffer of size BIND-COUNTs.
 
+Slot types:
 See IMAGE
 See SPARSE-IMAGE-MEMORY-BIND
 "))
@@ -1589,10 +1973,18 @@ Slots:
  - IMAGE-BINDS: a list of foreign pointer to a buffer of size IMAGE-BIND-COUNTs.
  - SIGNAL-SEMAPHORES: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-COUNTs.
 
+Slot types:
 See SPARSE-BUFFER-MEMORY-BIND-INFO
 See SPARSE-IMAGE-OPAQUE-MEMORY-BIND-INFO
 See SPARSE-IMAGE-MEMORY-BIND-INFO
 See SEMAPHORE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: TIMELINE-SEMAPHORE-SUBMIT-INFO
+See: DEVICE-GROUP-BIND-SPARSE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See QUEUE-BIND-SPARSE
 "))
 
 (defclass image-copy ()
@@ -1625,9 +2017,13 @@ Slots:
  - DST-OFFSET: an OFFSET-3D.
  - EXTENT: an EXTENT-3D.
 
+Slot types:
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
 See EXTENT-3D
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-IMAGE
 "))
 
 (defclass image-blit ()
@@ -1655,8 +2051,12 @@ Slots:
  - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
  - DST-OFFSETS: an OFFSET-3D.
 
+Slot types:
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BLIT-IMAGE
 "))
 
 (defclass buffer-image-copy ()
@@ -1694,10 +2094,15 @@ Slots:
  - IMAGE-OFFSET: an OFFSET-3D.
  - IMAGE-EXTENT: an EXTENT-3D.
 
+Slot types:
 See DEVICE-SIZE
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
 See EXTENT-3D
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-BUFFER-TO-IMAGE
+See CMD-COPY-IMAGE-TO-BUFFER
 "))
 
 (defclass image-resolve ()
@@ -1730,9 +2135,13 @@ Slots:
  - DST-OFFSET: an OFFSET-3D.
  - EXTENT: an EXTENT-3D.
 
+Slot types:
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
 See EXTENT-3D
+
+Instances of this class are used as parameters of the following functions:
+See CMD-RESOLVE-IMAGE
 "))
 
 (defclass shader-module-create-info ()
@@ -1755,7 +2164,14 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of SHADER-MODULE-CREATE-FLAGS.
  - CODE: a foreign pointer to a buffer of size LATEXMATH:[\\TEXTRM{CODE-SIZE} \\OVER -4].
 
+Slot types:
 See SHADER-MODULE-CREATE-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SHADER-MODULE-VALIDATION-CACHE-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-SHADER-MODULE
 "))
 
 (defclass descriptor-set-layout-binding ()
@@ -1788,6 +2204,7 @@ Slots:
  - STAGE-FLAGS: a list containing a valid combination of SHADER-STAGE-FLAGS.
  - IMMUTABLE-SAMPLERS (optional): a foreign pointer to a buffer of size DESCRIPTOR-COUNT.
 
+Slot types:
 See DESCRIPTOR-TYPE
 See SHADER-STAGE-FLAGS
 See SAMPLER
@@ -1813,8 +2230,17 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of DESCRIPTOR-SET-LAYOUT-CREATE-FLAGS.
  - BINDINGS: a list of foreign pointer to a buffer of size BINDING-COUNTs.
 
+Slot types:
 See DESCRIPTOR-SET-LAYOUT-CREATE-FLAGS
 See DESCRIPTOR-SET-LAYOUT-BINDING
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: MUTABLE-DESCRIPTOR-TYPE-CREATE-INFO-VALVE
+See: DESCRIPTOR-SET-LAYOUT-BINDING-FLAGS-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DESCRIPTOR-SET-LAYOUT
+See GET-DESCRIPTOR-SET-LAYOUT-SUPPORT
 "))
 
 (defclass descriptor-pool-size ()
@@ -1832,6 +2258,7 @@ Slots:
  - TYPE: an enum value of DESCRIPTOR-TYPE.
  - DESCRIPTOR-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See DESCRIPTOR-TYPE
 "))
 
@@ -1860,8 +2287,16 @@ Slots:
  - MAX-SETS: a positive (32-bit) integer.
  - POOL-SIZES: a list of foreign pointer to a buffer of size POOL-SIZE-COUNTs.
 
+Slot types:
 See DESCRIPTOR-POOL-CREATE-FLAGS
 See DESCRIPTOR-POOL-SIZE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: MUTABLE-DESCRIPTOR-TYPE-CREATE-INFO-VALVE
+See: DESCRIPTOR-POOL-INLINE-UNIFORM-BLOCK-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DESCRIPTOR-POOL
 "))
 
 (defclass descriptor-set-allocate-info ()
@@ -1884,8 +2319,15 @@ Slots:
  - DESCRIPTOR-POOL: a DESCRIPTOR-POOL.
  - SET-LAYOUTS: a list of foreign pointer to a buffer of size DESCRIPTOR-SET-COUNTs.
 
+Slot types:
 See DESCRIPTOR-POOL
 See DESCRIPTOR-SET-LAYOUT
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-ALLOCATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See ALLOCATE-DESCRIPTOR-SETS
 "))
 
 (defclass specialization-map-entry ()
@@ -1929,6 +2371,7 @@ Slots:
  - DATA-SIZE (optional): a positive integer.
  - DATA: a foreign pointer to a buffer of size DATA-SIZE.
 
+Slot types:
 See SPECIALIZATION-MAP-ENTRY
 "))
 
@@ -1967,10 +2410,14 @@ Slots:
  - NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
  - SPECIALIZATION-INFO (optional): a SPECIALIZATION-INFO.
 
+Slot types:
 See PIPELINE-SHADER-STAGE-CREATE-FLAGS
 See SHADER-STAGE-FLAG-BITS
 See SHADER-MODULE
 See SPECIALIZATION-INFO
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-SHADER-STAGE-REQUIRED-SUBGROUP-SIZE-CREATE-INFO-EXT
 "))
 
 (defclass compute-pipeline-create-info ()
@@ -2008,10 +2455,18 @@ Slots:
  - BASE-PIPELINE-HANDLE (optional): a PIPELINE.
  - BASE-PIPELINE-INDEX: a (32-bit) integer.
 
+Slot types:
 See PIPELINE-CREATE-FLAGS
 See PIPELINE-SHADER-STAGE-CREATE-INFO
 See PIPELINE-LAYOUT
 See PIPELINE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-COMPILER-CONTROL-CREATE-INFO-AMD
+See: PIPELINE-CREATION-FEEDBACK-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-COMPUTE-PIPELINES
 "))
 
 (defclass vertex-input-binding-description ()
@@ -2034,6 +2489,7 @@ Slots:
  - STRIDE: a positive (32-bit) integer.
  - INPUT-RATE: an enum value of VERTEX-INPUT-RATE.
 
+Slot types:
 See VERTEX-INPUT-RATE
 "))
 
@@ -2062,6 +2518,7 @@ Slots:
  - FORMAT: an enum value of FORMAT.
  - OFFSET: a positive (32-bit) integer.
 
+Slot types:
 See FORMAT
 "))
 
@@ -2090,9 +2547,13 @@ Slots:
  - VERTEX-BINDING-DESCRIPTIONS: a list of foreign pointer to a buffer of size VERTEX-BINDING-DESCRIPTION-COUNTs.
  - VERTEX-ATTRIBUTE-DESCRIPTIONS: a list of foreign pointer to a buffer of size VERTEX-ATTRIBUTE-DESCRIPTION-COUNTs.
 
+Slot types:
 See PIPELINE-VERTEX-INPUT-STATE-CREATE-FLAGS
 See VERTEX-INPUT-BINDING-DESCRIPTION
 See VERTEX-INPUT-ATTRIBUTE-DESCRIPTION
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-VERTEX-INPUT-DIVISOR-STATE-CREATE-INFO-EXT
 "))
 
 (defclass pipeline-input-assembly-state-create-info ()
@@ -2120,6 +2581,7 @@ Slots:
  - TOPOLOGY: an enum value of PRIMITIVE-TOPOLOGY.
  - PRIMITIVE-RESTART-ENABLE: a BOOL32.
 
+Slot types:
 See PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-FLAGS
 See PRIMITIVE-TOPOLOGY
 See BOOL32
@@ -2145,7 +2607,11 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-TESSELLATION-STATE-CREATE-FLAGS.
  - PATCH-CONTROL-POINTS: a positive (32-bit) integer.
 
+Slot types:
 See PIPELINE-TESSELLATION-STATE-CREATE-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-TESSELLATION-DOMAIN-ORIGIN-STATE-CREATE-INFO
 "))
 
 (defclass pipeline-viewport-state-create-info ()
@@ -2173,9 +2639,17 @@ Slots:
  - VIEWPORTS (optional): a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
  - SCISSORS (optional): a list of foreign pointer to a buffer of size SCISSOR-COUNTs.
 
+Slot types:
 See PIPELINE-VIEWPORT-STATE-CREATE-FLAGS
 See VIEWPORT
 See RECT-2D
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-VIEWPORT-COARSE-SAMPLE-ORDER-STATE-CREATE-INFO-NV
+See: PIPELINE-VIEWPORT-SHADING-RATE-IMAGE-STATE-CREATE-INFO-NV
+See: PIPELINE-VIEWPORT-EXCLUSIVE-SCISSOR-STATE-CREATE-INFO-NV
+See: PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-INFO-NV
+See: PIPELINE-VIEWPORT-W-SCALING-STATE-CREATE-INFO-NV
 "))
 
 (defclass pipeline-rasterization-state-create-info ()
@@ -2243,11 +2717,19 @@ Slots:
  - DEPTH-BIAS-SLOPE-FACTOR: a single-float.
  - LINE-WIDTH: a single-float.
 
+Slot types:
 See PIPELINE-RASTERIZATION-STATE-CREATE-FLAGS
 See POLYGON-MODE
 See CULL-MODE-FLAGS
 See FRONT-FACE
 See BOOL32
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-RASTERIZATION-LINE-STATE-CREATE-INFO-EXT
+See: PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-INFO-EXT
+See: PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-INFO-EXT
+See: PIPELINE-RASTERIZATION-CONSERVATIVE-STATE-CREATE-INFO-EXT
+See: PIPELINE-RASTERIZATION-STATE-RASTERIZATION-ORDER-AMD
 "))
 
 (defclass pipeline-multisample-state-create-info ()
@@ -2295,10 +2777,17 @@ Slots:
  - ALPHA-TO-COVERAGE-ENABLE: a BOOL32.
  - ALPHA-TO-ONE-ENABLE: a BOOL32.
 
+Slot types:
 See PIPELINE-MULTISAMPLE-STATE-CREATE-FLAGS
 See SAMPLE-COUNT-FLAG-BITS
 See SAMPLE-MASK
 See BOOL32
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-INFO-NV
+See: PIPELINE-COVERAGE-MODULATION-STATE-CREATE-INFO-NV
+See: PIPELINE-SAMPLE-LOCATIONS-STATE-CREATE-INFO-EXT
+See: PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-INFO-NV
 "))
 
 (defclass pipeline-color-blend-attachment-state ()
@@ -2346,6 +2835,7 @@ Slots:
  - ALPHA-BLEND-OP: an enum value of BLEND-OP.
  - COLOR-WRITE-MASK (optional): a list containing a valid combination of COLOR-COMPONENT-FLAGS.
 
+Slot types:
 See BOOL32
 See BLEND-FACTOR
 See BLEND-OP
@@ -2387,10 +2877,14 @@ Slots:
  - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
  - BLEND-CONSTANTS: a single-float.
 
+Slot types:
 See PIPELINE-COLOR-BLEND-STATE-CREATE-FLAGS
 See BOOL32
 See LOGIC-OP
 See PIPELINE-COLOR-BLEND-ATTACHMENT-STATE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-COLOR-BLEND-ADVANCED-STATE-CREATE-INFO-EXT
 "))
 
 (defclass pipeline-dynamic-state-create-info ()
@@ -2413,6 +2907,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-DYNAMIC-STATE-CREATE-FLAGS.
  - DYNAMIC-STATES: a list of foreign pointer to a buffer of size DYNAMIC-STATE-COUNTs.
 
+Slot types:
 See PIPELINE-DYNAMIC-STATE-CREATE-FLAGS
 See DYNAMIC-STATE
 "))
@@ -2457,6 +2952,7 @@ Slots:
  - WRITE-MASK: a positive (32-bit) integer.
  - REFERENCE: a positive (32-bit) integer.
 
+Slot types:
 See STENCIL-OP
 See COMPARE-OP
 "))
@@ -2521,6 +3017,7 @@ Slots:
  - MIN-DEPTH-BOUNDS: a single-float.
  - MAX-DEPTH-BOUNDS: a single-float.
 
+Slot types:
 See PIPELINE-DEPTH-STENCIL-STATE-CREATE-FLAGS
 See COMPARE-OP
 See BOOL32
@@ -2617,6 +3114,7 @@ Slots:
  - BASE-PIPELINE-HANDLE (optional): a PIPELINE.
  - BASE-PIPELINE-INDEX: a (32-bit) integer.
 
+Slot types:
 See PIPELINE-CREATE-FLAGS
 See PIPELINE-SHADER-STAGE-CREATE-INFO
 See PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO
@@ -2631,6 +3129,18 @@ See PIPELINE-DYNAMIC-STATE-CREATE-INFO
 See PIPELINE-LAYOUT
 See RENDER-PASS
 See PIPELINE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-FRAGMENT-SHADING-RATE-ENUM-STATE-CREATE-INFO-NV
+See: PIPELINE-FRAGMENT-SHADING-RATE-STATE-CREATE-INFO-KHR
+See: PIPELINE-COMPILER-CONTROL-CREATE-INFO-AMD
+See: PIPELINE-CREATION-FEEDBACK-CREATE-INFO-EXT
+See: PIPELINE-REPRESENTATIVE-FRAGMENT-TEST-STATE-CREATE-INFO-NV
+See: PIPELINE-DISCARD-RECTANGLE-STATE-CREATE-INFO-EXT
+See: GRAPHICS-PIPELINE-SHADER-GROUPS-CREATE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-GRAPHICS-PIPELINES
 "))
 
 (defclass pipeline-cache-create-info ()
@@ -2658,7 +3168,11 @@ Slots:
  - INITIAL-DATA-SIZE (optional): a positive integer.
  - INITIAL-DATA: a foreign pointer to a buffer of size INITIAL-DATA-SIZE.
 
+Slot types:
 See PIPELINE-CACHE-CREATE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-PIPELINE-CACHE
 "))
 
 (defclass push-constant-range ()
@@ -2681,6 +3195,7 @@ Slots:
  - OFFSET: a positive (32-bit) integer.
  - SIZE: a positive (32-bit) integer.
 
+Slot types:
 See SHADER-STAGE-FLAGS
 "))
 
@@ -2709,9 +3224,13 @@ Slots:
  - SET-LAYOUTS: a list of foreign pointer to a buffer of size SET-LAYOUT-COUNTs.
  - PUSH-CONSTANT-RANGES: a list of foreign pointer to a buffer of size PUSH-CONSTANT-RANGE-COUNTs.
 
+Slot types:
 See PIPELINE-LAYOUT-CREATE-FLAGS
 See DESCRIPTOR-SET-LAYOUT
 See PUSH-CONSTANT-RANGE
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-PIPELINE-LAYOUT
 "))
 
 (defclass sampler-create-info ()
@@ -2804,6 +3323,7 @@ Slots:
  - BORDER-COLOR: an enum value of BORDER-COLOR.
  - UNNORMALIZED-COORDINATES: a BOOL32.
 
+Slot types:
 See SAMPLER-CREATE-FLAGS
 See FILTER
 See SAMPLER-MIPMAP-MODE
@@ -2811,6 +3331,14 @@ See SAMPLER-ADDRESS-MODE
 See COMPARE-OP
 See BORDER-COLOR
 See BOOL32
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SAMPLER-CUSTOM-BORDER-COLOR-CREATE-INFO-EXT
+See: SAMPLER-REDUCTION-MODE-CREATE-INFO
+See: SAMPLER-YCBCR-CONVERSION-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-SAMPLER
 "))
 
 (defclass command-pool-create-info ()
@@ -2833,7 +3361,11 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of COMMAND-POOL-CREATE-FLAGS.
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See COMMAND-POOL-CREATE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-COMMAND-POOL
 "))
 
 (defclass command-buffer-allocate-info ()
@@ -2861,8 +3393,12 @@ Slots:
  - LEVEL: an enum value of COMMAND-BUFFER-LEVEL.
  - COMMAND-BUFFER-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See COMMAND-POOL
 See COMMAND-BUFFER-LEVEL
+
+Instances of this class are used as parameters of the following functions:
+See ALLOCATE-COMMAND-BUFFERS
 "))
 
 (defclass command-buffer-inheritance-info ()
@@ -2905,11 +3441,16 @@ Slots:
  - QUERY-FLAGS (optional): a list containing a valid combination of QUERY-CONTROL-FLAGS.
  - PIPELINE-STATISTICS (optional): a list containing a valid combination of QUERY-PIPELINE-STATISTIC-FLAGS.
 
+Slot types:
 See RENDER-PASS
 See FRAMEBUFFER
 See BOOL32
 See QUERY-CONTROL-FLAGS
 See QUERY-PIPELINE-STATISTIC-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM
+See: COMMAND-BUFFER-INHERITANCE-CONDITIONAL-RENDERING-INFO-EXT
 "))
 
 (defclass command-buffer-begin-info ()
@@ -2932,8 +3473,15 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of COMMAND-BUFFER-USAGE-FLAGS.
  - INHERITANCE-INFO (optional): a COMMAND-BUFFER-INHERITANCE-INFO.
 
+Slot types:
 See COMMAND-BUFFER-USAGE-FLAGS
 See COMMAND-BUFFER-INHERITANCE-INFO
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: DEVICE-GROUP-COMMAND-BUFFER-BEGIN-INFO
+
+Instances of this class are used as parameters of the following functions:
+See BEGIN-COMMAND-BUFFER
 "))
 
 (defclass render-pass-begin-info ()
@@ -2966,10 +3514,21 @@ Slots:
  - RENDER-AREA: a RECT-2D.
  - CLEAR-VALUES: a list of foreign pointer to a buffer of size CLEAR-VALUE-COUNTs.
 
+Slot types:
 See RENDER-PASS
 See FRAMEBUFFER
 See RECT-2D
 See CLEAR-VALUE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: RENDER-PASS-TRANSFORM-BEGIN-INFO-QCOM
+See: RENDER-PASS-ATTACHMENT-BEGIN-INFO
+See: RENDER-PASS-SAMPLE-LOCATIONS-BEGIN-INFO-EXT
+See: DEVICE-GROUP-RENDER-PASS-BEGIN-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BEGIN-RENDER-PASS
+See CMD-BEGIN-RENDER-PASS-2
 "))
 
 (defclass clear-color-value ()
@@ -2988,6 +3547,9 @@ Slots:
  - FLOAT-32: a single-float.
  - INT-32: a (32-bit) integer.
  - UINT-32: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CLEAR-COLOR-IMAGE
 "))
 
 (defclass clear-depth-stencil-value ()
@@ -3004,6 +3566,9 @@ Slots:
 Slots:
  - DEPTH: a single-float.
  - STENCIL: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CLEAR-DEPTH-STENCIL-IMAGE
 "))
 
 (defclass clear-value ()
@@ -3019,6 +3584,7 @@ Slots:
  - COLOR: a CLEAR-COLOR-VALUE.
  - DEPTH-STENCIL: a CLEAR-DEPTH-STENCIL-VALUE.
 
+Slot types:
 See CLEAR-COLOR-VALUE
 See CLEAR-DEPTH-STENCIL-VALUE
 "))
@@ -3043,8 +3609,12 @@ Slots:
  - COLOR-ATTACHMENT: a positive (32-bit) integer.
  - CLEAR-VALUE: a CLEAR-VALUE.
 
+Slot types:
 See IMAGE-ASPECT-FLAGS
 See CLEAR-VALUE
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CLEAR-ATTACHMENTS
 "))
 
 (defclass attachment-description ()
@@ -3097,6 +3667,7 @@ Slots:
  - INITIAL-LAYOUT: an enum value of IMAGE-LAYOUT.
  - FINAL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See ATTACHMENT-DESCRIPTION-FLAGS
 See FORMAT
 See SAMPLE-COUNT-FLAG-BITS
@@ -3120,6 +3691,7 @@ Slots:
  - ATTACHMENT: a positive (32-bit) integer.
  - LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See IMAGE-LAYOUT
 "))
 
@@ -3163,6 +3735,7 @@ Slots:
  - DEPTH-STENCIL-ATTACHMENT (optional): an ATTACHMENT-REFERENCE.
  - PRESERVE-ATTACHMENTS: a list of foreign pointer to a buffer of size PRESERVE-ATTACHMENT-COUNTs.
 
+Slot types:
 See SUBPASS-DESCRIPTION-FLAGS
 See PIPELINE-BIND-POINT
 See ATTACHMENT-REFERENCE
@@ -3208,6 +3781,7 @@ Slots:
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS
 See ACCESS-FLAGS
 See DEPENDENCY-FLAGS
@@ -3243,10 +3817,19 @@ Slots:
  - SUBPASSES: a list of foreign pointer to a buffer of size SUBPASS-COUNTs.
  - DEPENDENCIES: a list of foreign pointer to a buffer of size DEPENDENCY-COUNTs.
 
+Slot types:
 See RENDER-PASS-CREATE-FLAGS
 See ATTACHMENT-DESCRIPTION
 See SUBPASS-DESCRIPTION
 See SUBPASS-DEPENDENCY
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: RENDER-PASS-FRAGMENT-DENSITY-MAP-CREATE-INFO-EXT
+See: RENDER-PASS-INPUT-ATTACHMENT-ASPECT-CREATE-INFO
+See: RENDER-PASS-MULTIVIEW-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-RENDER-PASS
 "))
 
 (defclass event-create-info ()
@@ -3264,7 +3847,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of EVENT-CREATE-FLAGS.
 
+Slot types:
 See EVENT-CREATE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-EVENT
 "))
 
 (defclass fence-create-info ()
@@ -3282,7 +3869,15 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of FENCE-CREATE-FLAGS.
 
+Slot types:
 See FENCE-CREATE-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: EXPORT-FENCE-WIN32-HANDLE-INFO-KHR
+See: EXPORT-FENCE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-FENCE
 "))
 
 (defclass physical-device-features ()
@@ -3565,7 +4160,11 @@ Slots:
  - VARIABLE-MULTISAMPLE-RATE: a BOOL32.
  - INHERITED-QUERIES: a BOOL32.
 
+Slot types:
 See BOOL32
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-FEATURES
 "))
 
 (defclass physical-device-sparse-properties ()
@@ -3598,6 +4197,7 @@ Slots:
  - RESIDENCY-ALIGNED-MIP-SIZE: a BOOL32.
  - RESIDENCY-NON-RESIDENT-STRICT: a BOOL32.
 
+Slot types:
 See BOOL32
 "))
 
@@ -4136,6 +4736,7 @@ Slots:
  - OPTIMAL-BUFFER-COPY-ROW-PITCH-ALIGNMENT: a DEVICE-SIZE.
  - NON-COHERENT-ATOM-SIZE: a DEVICE-SIZE.
 
+Slot types:
 See SAMPLE-COUNT-FLAGS
 See BOOL32
 See DEVICE-SIZE
@@ -4156,7 +4757,16 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-CREATE-FLAGS.
 
+Slot types:
 See SEMAPHORE-CREATE-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SEMAPHORE-TYPE-CREATE-INFO
+See: EXPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
+See: EXPORT-SEMAPHORE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-SEMAPHORE
 "))
 
 (defclass query-pool-create-info ()
@@ -4189,9 +4799,17 @@ Slots:
  - QUERY-COUNT: a positive (32-bit) integer.
  - PIPELINE-STATISTICS (optional): a list containing a valid combination of QUERY-PIPELINE-STATISTIC-FLAGS.
 
+Slot types:
 See QUERY-POOL-CREATE-FLAGS
 See QUERY-TYPE
 See QUERY-PIPELINE-STATISTIC-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: QUERY-POOL-PERFORMANCE-QUERY-CREATE-INFO-INTEL
+See: QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-QUERY-POOL
 "))
 
 (defclass framebuffer-create-info ()
@@ -4234,9 +4852,16 @@ Slots:
  - HEIGHT: a positive (32-bit) integer.
  - LAYERS: a positive (32-bit) integer.
 
+Slot types:
 See FRAMEBUFFER-CREATE-FLAGS
 See RENDER-PASS
 See IMAGE-VIEW
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: FRAMEBUFFER-ATTACHMENTS-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-FRAMEBUFFER
 "))
 
 (defclass draw-indirect-command ()
@@ -4347,9 +4972,22 @@ Slots:
  - COMMAND-BUFFERS: a list of foreign pointer to a buffer of size COMMAND-BUFFER-COUNTs.
  - SIGNAL-SEMAPHORES: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-COUNTs.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS
 See COMMAND-BUFFER
 See SEMAPHORE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PERFORMANCE-QUERY-SUBMIT-INFO-KHR
+See: TIMELINE-SEMAPHORE-SUBMIT-INFO
+See: PROTECTED-SUBMIT-INFO
+See: DEVICE-GROUP-SUBMIT-INFO
+See: D-3D-1-2-FENCE-SUBMIT-INFO-KHR
+See: WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-KHR
+See: WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See QUEUE-SUBMIT
 "))
 
 (defclass display-properties-khr ()
@@ -4392,10 +5030,14 @@ Slots:
  - PLANE-REORDER-POSSIBLE: a BOOL32.
  - PERSISTENT-CONTENT: a BOOL32.
 
+Slot types:
 See DISPLAY-KHR
 See EXTENT-2D
 See SURFACE-TRANSFORM-FLAGS-KHR
 See BOOL32
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-DISPLAY-PROPERTIES-KHR
 "))
 
 (defclass display-plane-properties-khr ()
@@ -4413,7 +5055,11 @@ Slots:
  - CURRENT-DISPLAY: a DISPLAY-KHR.
  - CURRENT-STACK-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See DISPLAY-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-DISPLAY-PLANE-PROPERTIES-KHR
 "))
 
 (defclass display-mode-parameters-khr ()
@@ -4431,6 +5077,7 @@ Slots:
  - VISIBLE-REGION: an EXTENT-2D.
  - REFRESH-RATE: a positive (32-bit) integer.
 
+Slot types:
 See EXTENT-2D
 "))
 
@@ -4449,8 +5096,12 @@ Slots:
  - DISPLAY-MODE: a DISPLAY-MODE-KHR.
  - PARAMETERS: a DISPLAY-MODE-PARAMETERS-KHR.
 
+Slot types:
 See DISPLAY-MODE-KHR
 See DISPLAY-MODE-PARAMETERS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-DISPLAY-MODE-PROPERTIES-KHR
 "))
 
 (defclass display-mode-create-info-khr ()
@@ -4473,8 +5124,12 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of DISPLAY-MODE-CREATE-FLAGS-KHR.
  - PARAMETERS: a DISPLAY-MODE-PARAMETERS-KHR.
 
+Slot types:
 See DISPLAY-MODE-CREATE-FLAGS-KHR
 See DISPLAY-MODE-PARAMETERS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DISPLAY-MODE-KHR
 "))
 
 (defclass display-plane-capabilities-khr ()
@@ -4527,9 +5182,13 @@ Slots:
  - MIN-DST-EXTENT: an EXTENT-2D.
  - MAX-DST-EXTENT: an EXTENT-2D.
 
+Slot types:
 See DISPLAY-PLANE-ALPHA-FLAGS-KHR
 See OFFSET-2D
 See EXTENT-2D
+
+Instances of this class are used as parameters of the following functions:
+See GET-DISPLAY-PLANE-CAPABILITIES-KHR
 "))
 
 (defclass display-surface-create-info-khr ()
@@ -4582,11 +5241,15 @@ Slots:
  - ALPHA-MODE: an enum value of DISPLAY-PLANE-ALPHA-FLAG-BITS-KHR.
  - IMAGE-EXTENT: an EXTENT-2D.
 
+Slot types:
 See DISPLAY-SURFACE-CREATE-FLAGS-KHR
 See DISPLAY-MODE-KHR
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 See DISPLAY-PLANE-ALPHA-FLAG-BITS-KHR
 See EXTENT-2D
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DISPLAY-PLANE-SURFACE-KHR
 "))
 
 (defclass display-present-info-khr ()
@@ -4614,6 +5277,7 @@ Slots:
  - DST-RECT: a RECT-2D.
  - PERSISTENT: a BOOL32.
 
+Slot types:
 See RECT-2D
 See BOOL32
 
@@ -4676,11 +5340,15 @@ Slots:
  - SUPPORTED-COMPOSITE-ALPHA (optional): a list containing a valid combination of COMPOSITE-ALPHA-FLAGS-KHR.
  - SUPPORTED-USAGE-FLAGS (optional): a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
+Slot types:
 See EXTENT-2D
 See SURFACE-TRANSFORM-FLAGS-KHR
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 See COMPOSITE-ALPHA-FLAGS-KHR
 See IMAGE-USAGE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-KHR
 "))
 
 (defclass android-surface-create-info-khr ()
@@ -4703,8 +5371,12 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of ANDROID-SURFACE-CREATE-FLAGS-KHR.
  - WINDOW: an A-NATIVE-WINDOW.
 
+Slot types:
 See ANDROID-SURFACE-CREATE-FLAGS-KHR
 See A-NATIVE-WINDOW
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-ANDROID-SURFACE-KHR
 "))
 
 (defclass vi-surface-create-info-nn ()
@@ -4727,7 +5399,11 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of VI-SURFACE-CREATE-FLAGS-NN.
  - WINDOW: a foreign pointer.
 
+Slot types:
 See VI-SURFACE-CREATE-FLAGS-NN
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-VI-SURFACE-NN
 "))
 
 (defclass wayland-surface-create-info-khr ()
@@ -4755,9 +5431,13 @@ Slots:
  - DISPLAY: a WL_DISPLAY.
  - SURFACE: a WL_SURFACE.
 
+Slot types:
 See WAYLAND-SURFACE-CREATE-FLAGS-KHR
 See WL_DISPLAY
 See WL_SURFACE
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-WAYLAND-SURFACE-KHR
 "))
 
 (defclass win32-surface-create-info-khr ()
@@ -4785,9 +5465,13 @@ Slots:
  - HINSTANCE: a HINSTANCE.
  - HWND: a HWND.
 
+Slot types:
 See WIN32-SURFACE-CREATE-FLAGS-KHR
 See HINSTANCE
 See HWND
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-WIN32-SURFACE-KHR
 "))
 
 (defclass xlib-surface-create-info-khr ()
@@ -4815,9 +5499,13 @@ Slots:
  - DPY: a DISPLAY.
  - WINDOW: a WINDOW.
 
+Slot types:
 See XLIB-SURFACE-CREATE-FLAGS-KHR
 See DISPLAY
 See WINDOW
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-XLIB-SURFACE-KHR
 "))
 
 (defclass xcb-surface-create-info-khr ()
@@ -4845,9 +5533,13 @@ Slots:
  - CONNECTION: a XCB_CONNECTION_T.
  - WINDOW: a XCB_WINDOW_T.
 
+Slot types:
 See XCB-SURFACE-CREATE-FLAGS-KHR
 See XCB_CONNECTION_T
 See XCB_WINDOW_T
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-XCB-SURFACE-KHR
 "))
 
 (defclass direct-fb-surface-create-info-ext ()
@@ -4875,9 +5567,13 @@ Slots:
  - DFB: an I-DIRECT-FB.
  - SURFACE: an I-DIRECT-FB-SURFACE.
 
+Slot types:
 See DIRECT-FB-SURFACE-CREATE-FLAGS-EXT
 See I-DIRECT-FB
 See I-DIRECT-FB-SURFACE
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DIRECT-FB-SURFACE-EXT
 "))
 
 (defclass image-pipe-surface-create-info-fuchsia ()
@@ -4900,8 +5596,12 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of IMAGE-PIPE-SURFACE-CREATE-FLAGS-FUCHSIA.
  - IMAGE-PIPE-HANDLE: a ZX_HANDLE_T.
 
+Slot types:
 See IMAGE-PIPE-SURFACE-CREATE-FLAGS-FUCHSIA
 See ZX_HANDLE_T
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-IMAGE-PIPE-SURFACE-FUCHSIA
 "))
 
 (defclass stream-descriptor-surface-create-info-ggp ()
@@ -4924,8 +5624,12 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of STREAM-DESCRIPTOR-SURFACE-CREATE-FLAGS-GGP.
  - STREAM-DESCRIPTOR: a GGP-STREAM-DESCRIPTOR.
 
+Slot types:
 See STREAM-DESCRIPTOR-SURFACE-CREATE-FLAGS-GGP
 See GGP-STREAM-DESCRIPTOR
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
 "))
 
 (defclass screen-surface-create-info-qnx ()
@@ -4953,9 +5657,13 @@ Slots:
  - CONTEXT: a _SCREEN_CONTEXT.
  - WINDOW: a _SCREEN_WINDOW.
 
+Slot types:
 See SCREEN-SURFACE-CREATE-FLAGS-QNX
 See _SCREEN_CONTEXT
 See _SCREEN_WINDOW
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-SCREEN-SURFACE-QNX
 "))
 
 (defclass surface-format-khr ()
@@ -4973,8 +5681,12 @@ Slots:
  - FORMAT: an enum value of FORMAT.
  - COLOR-SPACE: an enum value of COLOR-SPACE-KHR.
 
+Slot types:
 See FORMAT
 See COLOR-SPACE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-KHR
 "))
 
 (defclass swapchain-create-info-khr ()
@@ -5062,6 +5774,7 @@ Slots:
  - CLIPPED: a BOOL32.
  - OLD-SWAPCHAIN (optional): a SWAPCHAIN-KHR.
 
+Slot types:
 See SWAPCHAIN-CREATE-FLAGS-KHR
 See SURFACE-KHR
 See FORMAT
@@ -5074,6 +5787,18 @@ See COMPOSITE-ALPHA-FLAG-BITS-KHR
 See PRESENT-MODE-KHR
 See BOOL32
 See SWAPCHAIN-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SURFACE-FULL-SCREEN-EXCLUSIVE-WIN32-INFO-EXT
+See: SURFACE-FULL-SCREEN-EXCLUSIVE-INFO-EXT
+See: IMAGE-FORMAT-LIST-CREATE-INFO
+See: SWAPCHAIN-DISPLAY-NATIVE-HDR-CREATE-INFO-AMD
+See: DEVICE-GROUP-SWAPCHAIN-CREATE-INFO-KHR
+See: SWAPCHAIN-COUNTER-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-SHARED-SWAPCHAINS-KHR
+See CREATE-SWAPCHAIN-KHR
 "))
 
 (defclass present-info-khr ()
@@ -5106,9 +5831,20 @@ Slots:
  - IMAGE-INDICES: a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
  - RESULTS (optional): a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
 
+Slot types:
 See SEMAPHORE
 See SWAPCHAIN-KHR
 See RESULT
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PRESENT-FRAME-TOKEN-GGP
+See: PRESENT-TIMES-INFO-GOOGLE
+See: DEVICE-GROUP-PRESENT-INFO-KHR
+See: PRESENT-REGIONS-KHR
+See: DISPLAY-PRESENT-INFO-KHR
+
+Instances of this class are used as parameters of the following functions:
+See QUEUE-PRESENT-KHR
 "))
 
 (defclass debug-report-callback-create-info-ext ()
@@ -5136,11 +5872,15 @@ Slots:
  - PFN-CALLBACK: a PFN-DEBUG-REPORT-CALLBACK-EXT.
  - USER-DATA (optional): a foreign pointer.
 
+Slot types:
 See DEBUG-REPORT-FLAGS-EXT
 See PFN-DEBUG-REPORT-CALLBACK-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See INSTANCE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DEBUG-REPORT-CALLBACK-EXT
 "))
 
 (defclass validation-flags-ext ()
@@ -5158,6 +5898,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DISABLED-VALIDATION-CHECKS: a list of foreign pointer to a buffer of size DISABLED-VALIDATION-CHECK-COUNTs.
 
+Slot types:
 See VALIDATION-CHECK-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5184,6 +5925,7 @@ Slots:
  - ENABLED-VALIDATION-FEATURES: a list of foreign pointer to a buffer of size ENABLED-VALIDATION-FEATURE-COUNTs.
  - DISABLED-VALIDATION-FEATURES: a list of foreign pointer to a buffer of size DISABLED-VALIDATION-FEATURE-COUNTs.
 
+Slot types:
 See VALIDATION-FEATURE-ENABLE-EXT
 See VALIDATION-FEATURE-DISABLE-EXT
 
@@ -5206,6 +5948,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - RASTERIZATION-ORDER: an enum value of RASTERIZATION-ORDER-AMD.
 
+Slot types:
 See RASTERIZATION-ORDER-AMD
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5237,7 +5980,11 @@ Slots:
  - OBJECT: a positive (64-bit) integer.
  - OBJECT-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
 
+Slot types:
 See DEBUG-REPORT-OBJECT-TYPE-EXT
+
+Instances of this class are used as parameters of the following functions:
+See DEBUG-MARKER-SET-OBJECT-NAME-EXT
 "))
 
 (defclass debug-marker-object-tag-info-ext ()
@@ -5275,7 +6022,11 @@ Slots:
  - TAG-SIZE: a positive integer.
  - TAG: a foreign pointer to a buffer of size TAG-SIZE.
 
+Slot types:
 See DEBUG-REPORT-OBJECT-TYPE-EXT
+
+Instances of this class are used as parameters of the following functions:
+See DEBUG-MARKER-SET-OBJECT-TAG-EXT
 "))
 
 (defclass debug-marker-marker-info-ext ()
@@ -5297,6 +6048,10 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MARKER-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
  - COLOR: a single-float.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-DEBUG-MARKER-BEGIN-EXT
+See CMD-DEBUG-MARKER-INSERT-EXT
 "))
 
 (defclass dedicated-allocation-image-create-info-nv ()
@@ -5314,6 +6069,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEDICATED-ALLOCATION: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5335,6 +6091,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEDICATED-ALLOCATION: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5361,6 +6118,7 @@ Slots:
  - IMAGE (optional): an IMAGE.
  - BUFFER (optional): a BUFFER.
 
+Slot types:
 See IMAGE
 See BUFFER
 
@@ -5393,9 +6151,13 @@ Slots:
  - EXPORT-FROM-IMPORTED-HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
  - COMPATIBLE-HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
 
+Slot types:
 See IMAGE-FORMAT-PROPERTIES
 See EXTERNAL-MEMORY-FEATURE-FLAGS-NV
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-IMAGE-FORMAT-PROPERTIES-NV
 "))
 
 (defclass external-memory-image-create-info-nv ()
@@ -5413,6 +6175,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5434,6 +6197,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5460,6 +6224,7 @@ Slots:
  - HANDLE-TYPE (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
  - HANDLE (optional): a HANDLE.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
 See HANDLE
 
@@ -5487,6 +6252,7 @@ Slots:
  - ATTRIBUTES (optional): a SECURITY_ATTRIBUTES.
  - DW-ACCESS (optional): a DWORD.
 
+Slot types:
 See SECURITY_ATTRIBUTES
 See DWORD
 
@@ -5529,6 +6295,7 @@ Slots:
  - RELEASE-SYNCS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
  - RELEASE-KEYS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
 
+Slot types:
 See DEVICE-MEMORY
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5551,6 +6318,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEVICE-GENERATED-COMMANDS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5592,7 +6360,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS: a list containing a valid combination of PRIVATE-DATA-SLOT-CREATE-FLAGS-EXT.
 
+Slot types:
 See PRIVATE-DATA-SLOT-CREATE-FLAGS-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-PRIVATE-DATA-SLOT-EXT
 "))
 
 (defclass physical-device-private-data-features-ext ()
@@ -5610,6 +6382,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PRIVATE-DATA: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -5701,6 +6474,7 @@ Slots:
  - VERTEX-INPUT-STATE (optional): a PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO.
  - TESSELLATION-STATE (optional): a PIPELINE-TESSELLATION-STATE-CREATE-INFO.
 
+Slot types:
 See PIPELINE-SHADER-STAGE-CREATE-INFO
 See PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO
 See PIPELINE-TESSELLATION-STATE-CREATE-INFO
@@ -5726,6 +6500,7 @@ Slots:
  - GROUPS: a list of foreign pointer to a buffer of size GROUP-COUNTs.
  - PIPELINES: a list of foreign pointer to a buffer of size PIPELINE-COUNTs.
 
+Slot types:
 See GRAPHICS-SHADER-GROUP-CREATE-INFO-NV
 See PIPELINE
 
@@ -5764,6 +6539,7 @@ Slots:
  - SIZE: a positive (32-bit) integer.
  - INDEX-TYPE: an enum value of INDEX-TYPE.
 
+Slot types:
 See DEVICE-ADDRESS
 See INDEX-TYPE
 "))
@@ -5788,6 +6564,7 @@ Slots:
  - SIZE: a positive (32-bit) integer.
  - STRIDE: a positive (32-bit) integer.
 
+Slot types:
 See DEVICE-ADDRESS
 "))
 
@@ -5817,6 +6594,7 @@ Slots:
  - BUFFER: a BUFFER.
  - OFFSET: a DEVICE-SIZE.
 
+Slot types:
 See BUFFER
 See DEVICE-SIZE
 "))
@@ -5891,6 +6669,7 @@ Slots:
  - INDEX-TYPES: a list of foreign pointer to a buffer of size INDEX-TYPE-COUNTs.
  - INDEX-TYPE-VALUES: a list of foreign pointer to a buffer of size INDEX-TYPE-COUNTs.
 
+Slot types:
 See INDIRECT-COMMANDS-TOKEN-TYPE-NV
 See BOOL32
 See PIPELINE-LAYOUT
@@ -5929,9 +6708,13 @@ Slots:
  - TOKENS: a list of foreign pointer to a buffer of size TOKEN-COUNTs.
  - STREAM-STRIDES: a list of foreign pointer to a buffer of size STREAM-COUNTs.
 
+Slot types:
 See INDIRECT-COMMANDS-LAYOUT-USAGE-FLAGS-NV
 See PIPELINE-BIND-POINT
 See INDIRECT-COMMANDS-LAYOUT-TOKEN-NV
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-INDIRECT-COMMANDS-LAYOUT-NV
 "))
 
 (defclass generated-commands-info-nv ()
@@ -6004,12 +6787,17 @@ Slots:
  - SEQUENCES-INDEX-BUFFER (optional): a BUFFER.
  - SEQUENCES-INDEX-OFFSET: a DEVICE-SIZE.
 
+Slot types:
 See PIPELINE-BIND-POINT
 See PIPELINE
 See INDIRECT-COMMANDS-LAYOUT-NV
 See INDIRECT-COMMANDS-STREAM-NV
 See BUFFER
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See CMD-EXECUTE-GENERATED-COMMANDS-NV
+See CMD-PREPROCESS-GENERATED-COMMANDS-NV
 "))
 
 (defclass generated-commands-memory-requirements-info-nv ()
@@ -6042,9 +6830,13 @@ Slots:
  - INDIRECT-COMMANDS-LAYOUT: an INDIRECT-COMMANDS-LAYOUT-NV.
  - MAX-SEQUENCES-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See PIPELINE-BIND-POINT
 See PIPELINE
 See INDIRECT-COMMANDS-LAYOUT-NV
+
+Instances of this class are used as parameters of the following functions:
+See GET-GENERATED-COMMANDS-MEMORY-REQUIREMENTS-NV
 "))
 
 (defclass physical-device-features-2 ()
@@ -6062,10 +6854,96 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FEATURES: a PHYSICAL-DEVICE-FEATURES.
 
+Slot types:
 See PHYSICAL-DEVICE-FEATURES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
+See: PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
+See: PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
+See: PHYSICAL-DEVICE-SHADER-TERMINATE-INVOCATION-FEATURES-KHR
+See: PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-FEATURES-KHR
+See: PHYSICAL-DEVICE-SHADER-IMAGE-ATOMIC-INT-64-FEATURES-EXT
+See: PHYSICAL-DEVICE-4444-FORMATS-FEATURES-EXT
+See: PHYSICAL-DEVICE-PORTABILITY-SUBSET-FEATURES-KHR
+See: PHYSICAL-DEVICE-WORKGROUP-MEMORY-EXPLICIT-LAYOUT-FEATURES-KHR
+See: PHYSICAL-DEVICE-IMAGE-ROBUSTNESS-FEATURES-EXT
+See: PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT
+See: PHYSICAL-DEVICE-ZERO-INITIALIZE-WORKGROUP-MEMORY-FEATURES-KHR
+See: PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV
+See: PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-FEATURES-EXT
+See: PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT
+See: PHYSICAL-DEVICE-COHERENT-MEMORY-FEATURES-AMD
+See: PHYSICAL-DEVICE-VULKAN-1-2-FEATURES
+See: PHYSICAL-DEVICE-VULKAN-1-1-FEATURES
+See: PHYSICAL-DEVICE-PIPELINE-CREATION-CACHE-CONTROL-FEATURES-EXT
+See: PHYSICAL-DEVICE-LINE-RASTERIZATION-FEATURES-EXT
+See: PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-FEATURES-EXT
+See: PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-DEMOTE-TO-HELPER-INVOCATION-FEATURES-EXT
+See: PHYSICAL-DEVICE-PIPELINE-EXECUTABLE-PROPERTIES-FEATURES-KHR
+See: PHYSICAL-DEVICE-SEPARATE-DEPTH-STENCIL-LAYOUTS-FEATURES
+See: PHYSICAL-DEVICE-FRAGMENT-SHADER-INTERLOCK-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-S-M-BUILTINS-FEATURES-NV
+See: PHYSICAL-DEVICE-INDEX-TYPE-UINT-8-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-CLOCK-FEATURES-KHR
+See: PHYSICAL-DEVICE-SHADER-INTEGER-FUNCTIONS-2-FEATURES-INTEL
+See: PHYSICAL-DEVICE-COVERAGE-REDUCTION-MODE-FEATURES-NV
+See: PHYSICAL-DEVICE-PERFORMANCE-QUERY-FEATURES-KHR
+See: PHYSICAL-DEVICE-YCBCR-IMAGE-ARRAYS-FEATURES-EXT
+See: PHYSICAL-DEVICE-COOPERATIVE-MATRIX-FEATURES-NV
+See: PHYSICAL-DEVICE-TEXTURE-COMPRESSION-ASTC-H-D-R-FEATURES-EXT
+See: PHYSICAL-DEVICE-IMAGELESS-FRAMEBUFFER-FEATURES
+See: PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES-EXT
+See: PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES
+See: PHYSICAL-DEVICE-MEMORY-PRIORITY-FEATURES-EXT
+See: PHYSICAL-DEVICE-DEPTH-CLIP-ENABLE-FEATURES-EXT
+See: PHYSICAL-DEVICE-UNIFORM-BUFFER-STANDARD-LAYOUT-FEATURES
+See: PHYSICAL-DEVICE-SCALAR-BLOCK-LAYOUT-FEATURES
+See: PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-FEATURES-EXT
+See: PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-FEATURES-EXT
+See: PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR
+See: PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-FEATURES-KHR
+See: PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-FEATURES-KHR
+See: PHYSICAL-DEVICE-MESH-SHADER-FEATURES-NV
+See: PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV
+See: PHYSICAL-DEVICE-DEDICATED-ALLOCATION-IMAGE-ALIASING-FEATURES-NV
+See: PHYSICAL-DEVICE-SHADER-IMAGE-FOOTPRINT-FEATURES-NV
+See: PHYSICAL-DEVICE-FRAGMENT-SHADER-BARYCENTRIC-FEATURES-NV
+See: PHYSICAL-DEVICE-COMPUTE-SHADER-DERIVATIVES-FEATURES-NV
+See: PHYSICAL-DEVICE-CORNER-SAMPLED-IMAGE-FEATURES-NV
+See: PHYSICAL-DEVICE-EXCLUSIVE-SCISSOR-FEATURES-NV
+See: PHYSICAL-DEVICE-REPRESENTATIVE-FRAGMENT-TEST-FEATURES-NV
+See: PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT
+See: PHYSICAL-DEVICE-ASTC-DECODE-FEATURES-EXT
+See: PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-FEATURES-EXT
+See: PHYSICAL-DEVICE-SHADER-ATOMIC-INT-64-FEATURES
+See: PHYSICAL-DEVICE-VULKAN-MEMORY-MODEL-FEATURES
+See: PHYSICAL-DEVICE-CONDITIONAL-RENDERING-FEATURES-EXT
+See: PHYSICAL-DEVICE-8-BIT-STORAGE-FEATURES
+See: PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-FEATURES
+See: PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-FEATURES
+See: PHYSICAL-DEVICE-DEVICE-MEMORY-REPORT-FEATURES-EXT
+See: PHYSICAL-DEVICE-HOST-QUERY-RESET-FEATURES
+See: PHYSICAL-DEVICE-SHADER-FLOAT-16-INT-8-FEATURES
+See: PHYSICAL-DEVICE-SHADER-DRAW-PARAMETERS-FEATURES
+See: PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-FEATURES-EXT
+See: PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-FEATURES-EXT
+See: PHYSICAL-DEVICE-PROTECTED-MEMORY-FEATURES
+See: PHYSICAL-DEVICE-SAMPLER-YCBCR-CONVERSION-FEATURES
+See: PHYSICAL-DEVICE-SHADER-SUBGROUP-EXTENDED-TYPES-FEATURES
+See: PHYSICAL-DEVICE-16-BIT-STORAGE-FEATURES
+See: PHYSICAL-DEVICE-MULTIVIEW-FEATURES
+See: PHYSICAL-DEVICE-VARIABLE-POINTERS-FEATURES
+See: PHYSICAL-DEVICE-PRIVATE-DATA-FEATURES-EXT
+See: PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-FEATURES-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See DEVICE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-FEATURES-2
 "))
 
 (defclass physical-device-properties-2 ()
@@ -6083,7 +6961,59 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PROPERTIES: a PHYSICAL-DEVICE-PROPERTIES.
 
+Slot types:
 See PHYSICAL-DEVICE-PROPERTIES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-PROPERTIES-NV
+See: PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-PROPERTIES-KHR
+See: PHYSICAL-DEVICE-PORTABILITY-SUBSET-PROPERTIES-KHR
+See: PHYSICAL-DEVICE-ROBUSTNESS-2-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-VULKAN-1-2-PROPERTIES
+See: PHYSICAL-DEVICE-VULKAN-1-1-PROPERTIES
+See: PHYSICAL-DEVICE-LINE-RASTERIZATION-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-SHADER-S-M-BUILTINS-PROPERTIES-NV
+See: PHYSICAL-DEVICE-PERFORMANCE-QUERY-PROPERTIES-KHR
+See: PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
+See: PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-RAY-TRACING-PROPERTIES-NV
+See: PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-PROPERTIES-KHR
+See: PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-PROPERTIES-KHR
+See: PHYSICAL-DEVICE-MESH-SHADER-PROPERTIES-NV
+See: PHYSICAL-DEVICE-SHADING-RATE-IMAGE-PROPERTIES-NV
+See: PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-DEPTH-STENCIL-RESOLVE-PROPERTIES
+See: PHYSICAL-DEVICE-P-C-I-BUS-INFO-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-PROPERTIES
+See: PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-PROPERTIES
+See: PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-2-AMD
+See: PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-AMD
+See: PHYSICAL-DEVICE-CONSERVATIVE-RASTERIZATION-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-EXTERNAL-MEMORY-HOST-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-FLOAT-CONTROLS-PROPERTIES
+See: PHYSICAL-DEVICE-MAINTENANCE-3-PROPERTIES
+See: PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-SAMPLE-LOCATIONS-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-SAMPLER-FILTER-MINMAX-PROPERTIES
+See: PHYSICAL-DEVICE-PROTECTED-MEMORY-PROPERTIES
+See: PHYSICAL-DEVICE-POINT-CLIPPING-PROPERTIES
+See: PHYSICAL-DEVICE-SUBGROUP-PROPERTIES
+See: PHYSICAL-DEVICE-MULTIVIEW-PER-VIEW-ATTRIBUTES-PROPERTIES-NV-X
+See: PHYSICAL-DEVICE-DISCARD-RECTANGLE-PROPERTIES-EXT
+See: PHYSICAL-DEVICE-MULTIVIEW-PROPERTIES
+See: PHYSICAL-DEVICE-ID-PROPERTIES
+See: PHYSICAL-DEVICE-DRIVER-PROPERTIES
+See: PHYSICAL-DEVICE-PUSH-DESCRIPTOR-PROPERTIES-KHR
+See: PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-PROPERTIES-NV
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-PROPERTIES-2
 "))
 
 (defclass format-properties-2 ()
@@ -6101,7 +7031,14 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FORMAT-PROPERTIES: a FORMAT-PROPERTIES.
 
+Slot types:
 See FORMAT-PROPERTIES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: DRM-FORMAT-MODIFIER-PROPERTIES-LIST-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-FORMAT-PROPERTIES-2
 "))
 
 (defclass image-format-properties-2 ()
@@ -6119,7 +7056,18 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - IMAGE-FORMAT-PROPERTIES: an IMAGE-FORMAT-PROPERTIES.
 
+Slot types:
 See IMAGE-FORMAT-PROPERTIES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: FILTER-CUBIC-IMAGE-VIEW-IMAGE-FORMAT-PROPERTIES-EXT
+See: ANDROID-HARDWARE-BUFFER-USAGE-ANDROID
+See: TEXTURE-L-O-D-GATHER-FORMAT-PROPERTIES-AMD
+See: SAMPLER-YCBCR-CONVERSION-IMAGE-FORMAT-PROPERTIES
+See: EXTERNAL-IMAGE-FORMAT-PROPERTIES
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES-2
 "))
 
 (defclass physical-device-image-format-info-2 ()
@@ -6157,11 +7105,22 @@ Slots:
  - USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - FLAGS (optional): a list containing a valid combination of IMAGE-CREATE-FLAGS.
 
+Slot types:
 See FORMAT
 See IMAGE-TYPE
 See IMAGE-TILING
 See IMAGE-USAGE-FLAGS
 See IMAGE-CREATE-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PHYSICAL-DEVICE-IMAGE-VIEW-IMAGE-FORMAT-INFO-EXT
+See: IMAGE-STENCIL-USAGE-CREATE-INFO
+See: PHYSICAL-DEVICE-IMAGE-DRM-FORMAT-MODIFIER-INFO-EXT
+See: IMAGE-FORMAT-LIST-CREATE-INFO
+See: PHYSICAL-DEVICE-EXTERNAL-IMAGE-FORMAT-INFO
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES-2
 "))
 
 (defclass queue-family-properties-2 ()
@@ -6179,7 +7138,15 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - QUEUE-FAMILY-PROPERTIES: a QUEUE-FAMILY-PROPERTIES.
 
+Slot types:
 See QUEUE-FAMILY-PROPERTIES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: QUEUE-FAMILY-CHECKPOINT-PROPERTIES-2-NV
+See: QUEUE-FAMILY-CHECKPOINT-PROPERTIES-NV
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PROPERTIES-2
 "))
 
 (defclass physical-device-memory-properties-2 ()
@@ -6197,7 +7164,14 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-PROPERTIES: a PHYSICAL-DEVICE-MEMORY-PROPERTIES.
 
+Slot types:
 See PHYSICAL-DEVICE-MEMORY-PROPERTIES
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PHYSICAL-DEVICE-MEMORY-BUDGET-PROPERTIES-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
 "))
 
 (defclass sparse-image-format-properties-2 ()
@@ -6215,7 +7189,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PROPERTIES: a SPARSE-IMAGE-FORMAT-PROPERTIES.
 
+Slot types:
 See SPARSE-IMAGE-FORMAT-PROPERTIES
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES-2
 "))
 
 (defclass physical-device-sparse-image-format-info-2 ()
@@ -6253,11 +7231,15 @@ Slots:
  - USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - TILING: an enum value of IMAGE-TILING.
 
+Slot types:
 See FORMAT
 See IMAGE-TYPE
 See SAMPLE-COUNT-FLAG-BITS
 See IMAGE-USAGE-FLAGS
 See IMAGE-TILING
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES-2
 "))
 
 (defclass physical-device-push-descriptor-properties-khr ()
@@ -6335,6 +7317,7 @@ Slots:
  - DRIVER-INFO: a string.
  - CONFORMANCE-VERSION: a CONFORMANCE-VERSION.
 
+Slot types:
 See DRIVER-ID
 See CONFORMANCE-VERSION
 
@@ -6362,6 +7345,7 @@ Slots:
  - SWAPCHAIN-COUNT: a positive (32-bit) integer.
  - REGIONS (optional): a foreign pointer to a buffer of size SWAPCHAIN-COUNT.
 
+Slot types:
 See PRESENT-REGION-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6378,6 +7362,7 @@ See PRESENT-INFO-KHR
 Slots:
  - RECTANGLES (optional): a list of foreign pointer to a buffer of size RECTANGLE-COUNTs.
 
+Slot types:
 See RECT-LAYER-KHR
 "))
 
@@ -6401,6 +7386,7 @@ Slots:
  - EXTENT: an EXTENT-2D.
  - LAYER: a positive (32-bit) integer.
 
+Slot types:
 See OFFSET-2D
 See EXTENT-2D
 "))
@@ -6425,6 +7411,7 @@ Slots:
  - VARIABLE-POINTERS-STORAGE-BUFFER: a BOOL32.
  - VARIABLE-POINTERS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6452,6 +7439,7 @@ Slots:
  - EXPORT-FROM-IMPORTED-HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
  - COMPATIBLE-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
+Slot types:
 See EXTERNAL-MEMORY-FEATURE-FLAGS
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS
 "))
@@ -6471,6 +7459,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6492,6 +7481,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - EXTERNAL-MEMORY-PROPERTIES: an EXTERNAL-MEMORY-PROPERTIES.
 
+Slot types:
 See EXTERNAL-MEMORY-PROPERTIES
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6523,9 +7513,13 @@ Slots:
  - USAGE: a list containing a valid combination of BUFFER-USAGE-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See BUFFER-CREATE-FLAGS
 See BUFFER-USAGE-FLAGS
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-BUFFER-PROPERTIES
 "))
 
 (defclass external-buffer-properties ()
@@ -6543,7 +7537,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - EXTERNAL-MEMORY-PROPERTIES: an EXTERNAL-MEMORY-PROPERTIES.
 
+Slot types:
 See EXTERNAL-MEMORY-PROPERTIES
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-BUFFER-PROPERTIES
 "))
 
 (defclass physical-device-id-properties ()
@@ -6581,6 +7579,7 @@ Slots:
  - DEVICE-NODE-MASK: a positive (32-bit) integer.
  - DEVICE-LUID-VALID: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6602,6 +7601,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6623,6 +7623,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6644,6 +7645,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6675,6 +7677,7 @@ Slots:
  - HANDLE (optional): a HANDLE.
  - NAME (optional): a LPCWSTR.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See HANDLE
 See LPCWSTR
@@ -6708,6 +7711,7 @@ Slots:
  - DW-ACCESS: a DWORD.
  - NAME: a LPCWSTR.
 
+Slot types:
 See SECURITY_ATTRIBUTES
 See DWORD
 See LPCWSTR
@@ -6736,6 +7740,7 @@ Slots:
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - HANDLE (optional): a ZX_HANDLE_T.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See ZX_HANDLE_T
 
@@ -6757,6 +7762,9 @@ See MEMORY-ALLOCATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
 "))
 
 (defclass memory-get-zircon-handle-info-fuchsia ()
@@ -6779,8 +7787,12 @@ Slots:
  - MEMORY: a DEVICE-MEMORY.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See DEVICE-MEMORY
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-ZIRCON-HANDLE-FUCHSIA
 "))
 
 (defclass memory-win32-handle-properties-khr ()
@@ -6797,6 +7809,9 @@ See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-WIN32-HANDLE-PROPERTIES-KHR
 "))
 
 (defclass memory-get-win32-handle-info-khr ()
@@ -6819,8 +7834,12 @@ Slots:
  - MEMORY: a DEVICE-MEMORY.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See DEVICE-MEMORY
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-WIN32-HANDLE-KHR
 "))
 
 (defclass import-memory-fd-info-khr ()
@@ -6843,6 +7862,7 @@ Slots:
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - FD: an integer.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6863,6 +7883,9 @@ See MEMORY-ALLOCATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-FD-PROPERTIES-KHR
 "))
 
 (defclass memory-get-fd-info-khr ()
@@ -6885,8 +7908,12 @@ Slots:
  - MEMORY: a DEVICE-MEMORY.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See DEVICE-MEMORY
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-FD-KHR
 "))
 
 (defclass win32-keyed-mutex-acquire-release-info-khr ()
@@ -6924,6 +7951,7 @@ Slots:
  - RELEASE-SYNCS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
  - RELEASE-KEYS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
 
+Slot types:
 See DEVICE-MEMORY
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -6946,7 +7974,14 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SEMAPHORE-TYPE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-PROPERTIES
 "))
 
 (defclass external-semaphore-properties ()
@@ -6974,8 +8009,12 @@ Slots:
  - COMPATIBLE-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS.
  - EXTERNAL-SEMAPHORE-FEATURES (optional): a list containing a valid combination of EXTERNAL-SEMAPHORE-FEATURE-FLAGS.
 
+Slot types:
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS
 See EXTERNAL-SEMAPHORE-FEATURE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-PROPERTIES
 "))
 
 (defclass export-semaphore-create-info ()
@@ -6993,6 +8032,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS.
 
+Slot types:
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7034,11 +8074,15 @@ Slots:
  - HANDLE (optional): a HANDLE.
  - NAME (optional): a LPCWSTR.
 
+Slot types:
 See SEMAPHORE
 See SEMAPHORE-IMPORT-FLAGS
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
 See HANDLE
 See LPCWSTR
+
+Instances of this class are used as parameters of the following functions:
+See IMPORT-SEMAPHORE-WIN32-HANDLE-KHR
 "))
 
 (defclass export-semaphore-win32-handle-info-khr ()
@@ -7066,6 +8110,7 @@ Slots:
  - DW-ACCESS: a DWORD.
  - NAME: a LPCWSTR.
 
+Slot types:
 See SECURITY_ATTRIBUTES
 See DWORD
 See LPCWSTR
@@ -7118,8 +8163,12 @@ Slots:
  - SEMAPHORE: a SEMAPHORE.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See SEMAPHORE
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-SEMAPHORE-WIN32-HANDLE-KHR
 "))
 
 (defclass import-semaphore-fd-info-khr ()
@@ -7152,9 +8201,13 @@ Slots:
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
  - FD: an integer.
 
+Slot types:
 See SEMAPHORE
 See SEMAPHORE-IMPORT-FLAGS
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See IMPORT-SEMAPHORE-FD-KHR
 "))
 
 (defclass semaphore-get-fd-info-khr ()
@@ -7177,8 +8230,12 @@ Slots:
  - SEMAPHORE: a SEMAPHORE.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See SEMAPHORE
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-SEMAPHORE-FD-KHR
 "))
 
 (defclass import-semaphore-zircon-handle-info-fuchsia ()
@@ -7211,10 +8268,14 @@ Slots:
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
  - ZIRCON-HANDLE: a ZX_HANDLE_T.
 
+Slot types:
 See SEMAPHORE
 See SEMAPHORE-IMPORT-FLAGS
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
 See ZX_HANDLE_T
+
+Instances of this class are used as parameters of the following functions:
+See IMPORT-SEMAPHORE-ZIRCON-HANDLE-FUCHSIA
 "))
 
 (defclass semaphore-get-zircon-handle-info-fuchsia ()
@@ -7237,8 +8298,12 @@ Slots:
  - SEMAPHORE: a SEMAPHORE.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See SEMAPHORE
 See EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-SEMAPHORE-ZIRCON-HANDLE-FUCHSIA
 "))
 
 (defclass physical-device-external-fence-info ()
@@ -7256,7 +8321,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-FENCE-PROPERTIES
 "))
 
 (defclass external-fence-properties ()
@@ -7284,8 +8353,12 @@ Slots:
  - COMPATIBLE-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-FENCE-HANDLE-TYPE-FLAGS.
  - EXTERNAL-FENCE-FEATURES (optional): a list containing a valid combination of EXTERNAL-FENCE-FEATURE-FLAGS.
 
+Slot types:
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAGS
 See EXTERNAL-FENCE-FEATURE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-EXTERNAL-FENCE-PROPERTIES
 "))
 
 (defclass export-fence-create-info ()
@@ -7303,6 +8376,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-FENCE-HANDLE-TYPE-FLAGS.
 
+Slot types:
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7344,11 +8418,15 @@ Slots:
  - HANDLE (optional): a HANDLE.
  - NAME (optional): a LPCWSTR.
 
+Slot types:
 See FENCE
 See FENCE-IMPORT-FLAGS
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS
 See HANDLE
 See LPCWSTR
+
+Instances of this class are used as parameters of the following functions:
+See IMPORT-FENCE-WIN32-HANDLE-KHR
 "))
 
 (defclass export-fence-win32-handle-info-khr ()
@@ -7376,6 +8454,7 @@ Slots:
  - DW-ACCESS: a DWORD.
  - NAME: a LPCWSTR.
 
+Slot types:
 See SECURITY_ATTRIBUTES
 See DWORD
 See LPCWSTR
@@ -7404,8 +8483,12 @@ Slots:
  - FENCE: a FENCE.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See FENCE
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-FENCE-WIN32-HANDLE-KHR
 "))
 
 (defclass import-fence-fd-info-khr ()
@@ -7438,9 +8521,13 @@ Slots:
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
  - FD: an integer.
 
+Slot types:
 See FENCE
 See FENCE-IMPORT-FLAGS
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See IMPORT-FENCE-FD-KHR
 "))
 
 (defclass fence-get-fd-info-khr ()
@@ -7463,8 +8550,12 @@ Slots:
  - FENCE: a FENCE.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
 
+Slot types:
 See FENCE
 See EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-FENCE-FD-KHR
 "))
 
 (defclass physical-device-multiview-features ()
@@ -7492,6 +8583,7 @@ Slots:
  - MULTIVIEW-GEOMETRY-SHADER: a BOOL32.
  - MULTIVIEW-TESSELLATION-SHADER: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7617,12 +8709,16 @@ Slots:
  - SUPPORTED-USAGE-FLAGS (optional): a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - SUPPORTED-SURFACE-COUNTERS (optional): a list containing a valid combination of SURFACE-COUNTER-FLAGS-EXT.
 
+Slot types:
 See EXTENT-2D
 See SURFACE-TRANSFORM-FLAGS-KHR
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 See COMPOSITE-ALPHA-FLAGS-KHR
 See IMAGE-USAGE-FLAGS
 See SURFACE-COUNTER-FLAGS-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-EXT
 "))
 
 (defclass display-power-info-ext ()
@@ -7640,7 +8736,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - POWER-STATE: an enum value of DISPLAY-POWER-STATE-EXT.
 
+Slot types:
 See DISPLAY-POWER-STATE-EXT
+
+Instances of this class are used as parameters of the following functions:
+See DISPLAY-POWER-CONTROL-EXT
 "))
 
 (defclass device-event-info-ext ()
@@ -7658,7 +8758,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEVICE-EVENT: an enum value of DEVICE-EVENT-TYPE-EXT.
 
+Slot types:
 See DEVICE-EVENT-TYPE-EXT
+
+Instances of this class are used as parameters of the following functions:
+See REGISTER-DEVICE-EVENT-EXT
 "))
 
 (defclass display-event-info-ext ()
@@ -7676,7 +8780,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DISPLAY-EVENT: an enum value of DISPLAY-EVENT-TYPE-EXT.
 
+Slot types:
 See DISPLAY-EVENT-TYPE-EXT
+
+Instances of this class are used as parameters of the following functions:
+See REGISTER-DISPLAY-EVENT-EXT
 "))
 
 (defclass swapchain-counter-create-info-ext ()
@@ -7694,6 +8802,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SURFACE-COUNTERS (optional): a list containing a valid combination of SURFACE-COUNTER-FLAGS-EXT.
 
+Slot types:
 See SURFACE-COUNTER-FLAGS-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7725,8 +8834,12 @@ Slots:
  - PHYSICAL-DEVICES: a PHYSICAL-DEVICE.
  - SUBSET-ALLOCATION: a BOOL32.
 
+Slot types:
 See PHYSICAL-DEVICE
 See BOOL32
+
+Instances of this class are used as parameters of the following functions:
+See ENUMERATE-PHYSICAL-DEVICE-GROUPS
 "))
 
 (defclass memory-allocate-flags-info ()
@@ -7749,6 +8862,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of MEMORY-ALLOCATE-FLAGS.
  - DEVICE-MASK: a positive (32-bit) integer.
 
+Slot types:
 See MEMORY-ALLOCATE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7780,9 +8894,16 @@ Slots:
  - MEMORY: a DEVICE-MEMORY.
  - MEMORY-OFFSET: a DEVICE-SIZE.
 
+Slot types:
 See BUFFER
 See DEVICE-MEMORY
 See DEVICE-SIZE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: BIND-BUFFER-MEMORY-DEVICE-GROUP-INFO
+
+Instances of this class are used as parameters of the following functions:
+See BIND-BUFFER-MEMORY-2
 "))
 
 (defclass bind-buffer-memory-device-group-info ()
@@ -7829,9 +8950,18 @@ Slots:
  - MEMORY: a DEVICE-MEMORY.
  - MEMORY-OFFSET: a DEVICE-SIZE.
 
+Slot types:
 See IMAGE
 See DEVICE-MEMORY
 See DEVICE-SIZE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: BIND-IMAGE-PLANE-MEMORY-INFO
+See: BIND-IMAGE-MEMORY-SWAPCHAIN-INFO-KHR
+See: BIND-IMAGE-MEMORY-DEVICE-GROUP-INFO
+
+Instances of this class are used as parameters of the following functions:
+See BIND-IMAGE-MEMORY-2
 "))
 
 (defclass bind-image-memory-device-group-info ()
@@ -7854,6 +8984,7 @@ Slots:
  - DEVICE-INDICES: a list of foreign pointer to a buffer of size DEVICE-INDEX-COUNTs.
  - SPLIT-INSTANCE-BIND-REGIONS: a list of foreign pointer to a buffer of size SPLIT-INSTANCE-BIND-REGION-COUNTs.
 
+Slot types:
 See RECT-2D
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7880,6 +9011,7 @@ Slots:
  - DEVICE-MASK: a positive (32-bit) integer.
  - DEVICE-RENDER-AREAS: a list of foreign pointer to a buffer of size DEVICE-RENDER-AREA-COUNTs.
 
+Slot types:
 See RECT-2D
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -7978,7 +9110,11 @@ Slots:
  - PRESENT-MASK: a positive (32-bit) integer.
  - MODES: a list containing a valid combination of DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR.
 
+Slot types:
 See DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
 "))
 
 (defclass image-swapchain-create-info-khr ()
@@ -7996,6 +9132,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SWAPCHAIN (optional): a SWAPCHAIN-KHR.
 
+Slot types:
 See SWAPCHAIN-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8022,6 +9159,7 @@ Slots:
  - SWAPCHAIN: a SWAPCHAIN-KHR.
  - IMAGE-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See SWAPCHAIN-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8063,9 +9201,13 @@ Slots:
  - FENCE (optional): a FENCE.
  - DEVICE-MASK: a positive (32-bit) integer.
 
+Slot types:
 See SWAPCHAIN-KHR
 See SEMAPHORE
 See FENCE
+
+Instances of this class are used as parameters of the following functions:
+See ACQUIRE-NEXT-IMAGE-2-KHR
 "))
 
 (defclass device-group-present-info-khr ()
@@ -8088,6 +9230,7 @@ Slots:
  - DEVICE-MASKS: a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
  - MODE: an enum value of DEVICE-GROUP-PRESENT-MODE-FLAG-BITS-KHR.
 
+Slot types:
 See DEVICE-GROUP-PRESENT-MODE-FLAG-BITS-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8109,6 +9252,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PHYSICAL-DEVICES: a list of foreign pointer to a buffer of size PHYSICAL-DEVICE-COUNTs.
 
+Slot types:
 See PHYSICAL-DEVICE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8130,6 +9274,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MODES: a list containing a valid combination of DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR.
 
+Slot types:
 See DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8171,6 +9316,7 @@ Slots:
  - OFFSET: a positive integer.
  - STRIDE: a positive integer.
 
+Slot types:
 See DESCRIPTOR-TYPE
 "))
 
@@ -8219,12 +9365,16 @@ Slots:
  - PIPELINE-LAYOUT: a PIPELINE-LAYOUT.
  - SET: a positive (32-bit) integer.
 
+Slot types:
 See DESCRIPTOR-UPDATE-TEMPLATE-CREATE-FLAGS
 See DESCRIPTOR-UPDATE-TEMPLATE-ENTRY
 See DESCRIPTOR-UPDATE-TEMPLATE-TYPE
 See DESCRIPTOR-SET-LAYOUT
 See PIPELINE-BIND-POINT
 See PIPELINE-LAYOUT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DESCRIPTOR-UPDATE-TEMPLATE
 "))
 
 (defclass x-y-color-ext ()
@@ -8293,7 +9443,11 @@ Slots:
  - MAX-CONTENT-LIGHT-LEVEL: a single-float.
  - MAX-FRAME-AVERAGE-LIGHT-LEVEL: a single-float.
 
+Slot types:
 See X-Y-COLOR-EXT
+
+Instances of this class are used as parameters of the following functions:
+See SET-HDR-METADATA-EXT
 "))
 
 (defclass display-native-hdr-surface-capabilities-amd ()
@@ -8311,6 +9465,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LOCAL-DIMMING-SUPPORT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8332,6 +9487,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LOCAL-DIMMING-ENABLE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8347,6 +9503,9 @@ See SWAPCHAIN-CREATE-INFO-KHR
 
 Slots:
  - REFRESH-DURATION: a positive (64-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-REFRESH-CYCLE-DURATION-GOOGLE
 "))
 
 (defclass past-presentation-timing-google ()
@@ -8378,6 +9537,9 @@ Slots:
  - ACTUAL-PRESENT-TIME: a positive (64-bit) integer.
  - EARLIEST-PRESENT-TIME: a positive (64-bit) integer.
  - PRESENT-MARGIN: a positive (64-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-PAST-PRESENTATION-TIMING-GOOGLE
 "))
 
 (defclass present-times-info-google ()
@@ -8400,6 +9562,7 @@ Slots:
  - SWAPCHAIN-COUNT: a positive (32-bit) integer.
  - TIMES (optional): a foreign pointer to a buffer of size SWAPCHAIN-COUNT.
 
+Slot types:
 See PRESENT-TIME-GOOGLE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8442,7 +9605,11 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of I-OS-SURFACE-CREATE-FLAGS-MVK.
  - VIEW: a foreign pointer.
 
+Slot types:
 See I-OS-SURFACE-CREATE-FLAGS-MVK
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-I-OS-SURFACE-MVK
 "))
 
 (defclass mac-os-surface-create-info-mvk ()
@@ -8465,7 +9632,11 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of MAC-OS-SURFACE-CREATE-FLAGS-MVK.
  - VIEW: a foreign pointer.
 
+Slot types:
 See MAC-OS-SURFACE-CREATE-FLAGS-MVK
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-MAC-OS-SURFACE-MVK
 "))
 
 (defclass metal-surface-create-info-ext ()
@@ -8488,8 +9659,12 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of METAL-SURFACE-CREATE-FLAGS-EXT.
  - LAYER: a CA-METAL-LAYER.
 
+Slot types:
 See METAL-SURFACE-CREATE-FLAGS-EXT
 See CA-METAL-LAYER
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-METAL-SURFACE-EXT
 "))
 
 (defclass viewport-w-scaling-nv ()
@@ -8506,6 +9681,9 @@ See CA-METAL-LAYER
 Slots:
  - XCOEFF: a single-float.
  - YCOEFF: a single-float.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-VIEWPORT-W-SCALING-NV
 "))
 
 (defclass pipeline-viewport-w-scaling-state-create-info-nv ()
@@ -8528,6 +9706,7 @@ Slots:
  - VIEWPORT-W-SCALING-ENABLE: a BOOL32.
  - VIEWPORT-W-SCALINGS (optional): a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
 
+Slot types:
 See BOOL32
 See VIEWPORT-W-SCALING-NV
 
@@ -8560,6 +9739,7 @@ Slots:
  - Z: an enum value of VIEWPORT-COORDINATE-SWIZZLE-NV.
  - W: an enum value of VIEWPORT-COORDINATE-SWIZZLE-NV.
 
+Slot types:
 See VIEWPORT-COORDINATE-SWIZZLE-NV
 "))
 
@@ -8583,6 +9763,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-FLAGS-NV.
  - VIEWPORT-SWIZZLES: a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
 
+Slot types:
 See PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-FLAGS-NV
 See VIEWPORT-SWIZZLE-NV
 
@@ -8634,6 +9815,7 @@ Slots:
  - DISCARD-RECTANGLE-MODE: an enum value of DISCARD-RECTANGLE-MODE-EXT.
  - DISCARD-RECTANGLES: a list of foreign pointer to a buffer of size DISCARD-RECTANGLE-COUNTs.
 
+Slot types:
 See PIPELINE-DISCARD-RECTANGLE-STATE-CREATE-FLAGS-EXT
 See DISCARD-RECTANGLE-MODE-EXT
 See RECT-2D
@@ -8657,6 +9839,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PER-VIEW-POSITION-ALL-COMPONENTS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8683,6 +9866,7 @@ Slots:
  - INPUT-ATTACHMENT-INDEX: a positive (32-bit) integer.
  - ASPECT-MASK: a list containing a valid combination of IMAGE-ASPECT-FLAGS.
 
+Slot types:
 See IMAGE-ASPECT-FLAGS
 "))
 
@@ -8701,6 +9885,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ASPECT-REFERENCES: a list of foreign pointer to a buffer of size ASPECT-REFERENCE-COUNTs.
 
+Slot types:
 See INPUT-ATTACHMENT-ASPECT-REFERENCE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8722,7 +9907,18 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SURFACE: a SURFACE-KHR.
 
+Slot types:
 See SURFACE-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SURFACE-FULL-SCREEN-EXCLUSIVE-WIN32-INFO-EXT
+See: SURFACE-FULL-SCREEN-EXCLUSIVE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-DEVICE-GROUP-SURFACE-PRESENT-MODES-2-EXT
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-2-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-2-EXT
 "))
 
 (defclass surface-capabilities-2-khr ()
@@ -8740,7 +9936,17 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SURFACE-CAPABILITIES: a SURFACE-CAPABILITIES-KHR.
 
+Slot types:
 See SURFACE-CAPABILITIES-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SURFACE-CAPABILITIES-FULL-SCREEN-EXCLUSIVE-EXT
+See: SURFACE-PROTECTED-CAPABILITIES-KHR
+See: SHARED-PRESENT-SURFACE-CAPABILITIES-KHR
+See: DISPLAY-NATIVE-HDR-SURFACE-CAPABILITIES-AMD
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-KHR
 "))
 
 (defclass surface-format-2-khr ()
@@ -8758,7 +9964,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SURFACE-FORMAT: a SURFACE-FORMAT-KHR.
 
+Slot types:
 See SURFACE-FORMAT-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-2-KHR
 "))
 
 (defclass display-properties-2-khr ()
@@ -8776,7 +9986,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DISPLAY-PROPERTIES: a DISPLAY-PROPERTIES-KHR.
 
+Slot types:
 See DISPLAY-PROPERTIES-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-DISPLAY-PROPERTIES-2-KHR
 "))
 
 (defclass display-plane-properties-2-khr ()
@@ -8794,7 +10008,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DISPLAY-PLANE-PROPERTIES: a DISPLAY-PLANE-PROPERTIES-KHR.
 
+Slot types:
 See DISPLAY-PLANE-PROPERTIES-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-DISPLAY-PLANE-PROPERTIES-2-KHR
 "))
 
 (defclass display-mode-properties-2-khr ()
@@ -8812,7 +10030,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DISPLAY-MODE-PROPERTIES: a DISPLAY-MODE-PROPERTIES-KHR.
 
+Slot types:
 See DISPLAY-MODE-PROPERTIES-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-DISPLAY-MODE-PROPERTIES-2-KHR
 "))
 
 (defclass display-plane-info-2-khr ()
@@ -8835,7 +10057,11 @@ Slots:
  - MODE: a DISPLAY-MODE-KHR.
  - PLANE-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See DISPLAY-MODE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-DISPLAY-PLANE-CAPABILITIES-2-KHR
 "))
 
 (defclass display-plane-capabilities-2-khr ()
@@ -8853,7 +10079,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CAPABILITIES: a DISPLAY-PLANE-CAPABILITIES-KHR.
 
+Slot types:
 See DISPLAY-PLANE-CAPABILITIES-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-DISPLAY-PLANE-CAPABILITIES-2-KHR
 "))
 
 (defclass shared-present-surface-capabilities-khr ()
@@ -8871,6 +10101,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHARED-PRESENT-SUPPORTED-USAGE-FLAGS (optional): a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
+Slot types:
 See IMAGE-USAGE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8907,6 +10138,7 @@ Slots:
  - STORAGE-PUSH-CONSTANT-16: a BOOL32.
  - STORAGE-INPUT-OUTPUT-16: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8944,6 +10176,7 @@ Slots:
  - SUPPORTED-OPERATIONS: a list containing a valid combination of SUBGROUP-FEATURE-FLAGS.
  - QUAD-OPERATIONS-IN-ALL-STAGES: a BOOL32.
 
+Slot types:
 See SHADER-STAGE-FLAGS
 See SUBGROUP-FEATURE-FLAGS
 See BOOL32
@@ -8967,6 +10200,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-SUBGROUP-EXTENDED-TYPES: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -8989,7 +10223,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - BUFFER: a BUFFER.
 
+Slot types:
 See BUFFER
+
+Instances of this class are used as parameters of the following functions:
+See GET-BUFFER-MEMORY-REQUIREMENTS-2
 "))
 
 (defclass image-memory-requirements-info-2 ()
@@ -9007,7 +10245,14 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - IMAGE: an IMAGE.
 
+Slot types:
 See IMAGE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: IMAGE-PLANE-MEMORY-REQUIREMENTS-INFO
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-MEMORY-REQUIREMENTS-2
 "))
 
 (defclass image-sparse-memory-requirements-info-2 ()
@@ -9025,7 +10270,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - IMAGE: an IMAGE.
 
+Slot types:
 See IMAGE
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS-2
 "))
 
 (defclass memory-requirements-2 ()
@@ -9043,7 +10292,16 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-REQUIREMENTS: a MEMORY-REQUIREMENTS.
 
+Slot types:
 See MEMORY-REQUIREMENTS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: MEMORY-DEDICATED-REQUIREMENTS
+
+Instances of this class are used as parameters of the following functions:
+See GET-BUFFER-MEMORY-REQUIREMENTS-2
+See GET-GENERATED-COMMANDS-MEMORY-REQUIREMENTS-NV
+See GET-IMAGE-MEMORY-REQUIREMENTS-2
 "))
 
 (defclass sparse-image-memory-requirements-2 ()
@@ -9061,7 +10319,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-REQUIREMENTS: a SPARSE-IMAGE-MEMORY-REQUIREMENTS.
 
+Slot types:
 See SPARSE-IMAGE-MEMORY-REQUIREMENTS
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS-2
 "))
 
 (defclass physical-device-point-clipping-properties ()
@@ -9079,6 +10341,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - POINT-CLIPPING-BEHAVIOR: an enum value of POINT-CLIPPING-BEHAVIOR.
 
+Slot types:
 See POINT-CLIPPING-BEHAVIOR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9105,6 +10368,7 @@ Slots:
  - PREFERS-DEDICATED-ALLOCATION: a BOOL32.
  - REQUIRES-DEDICATED-ALLOCATION: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9131,6 +10395,7 @@ Slots:
  - IMAGE (optional): an IMAGE.
  - BUFFER (optional): a BUFFER.
 
+Slot types:
 See IMAGE
 See BUFFER
 
@@ -9153,6 +10418,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
+Slot types:
 See IMAGE-USAGE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9174,6 +10440,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DOMAIN-ORIGIN: an enum value of TESSELLATION-DOMAIN-ORIGIN.
 
+Slot types:
 See TESSELLATION-DOMAIN-ORIGIN
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9195,6 +10462,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CONVERSION: a SAMPLER-YCBCR-CONVERSION.
 
+Slot types:
 See SAMPLER-YCBCR-CONVERSION
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9252,6 +10520,7 @@ Slots:
  - CHROMA-FILTER: an enum value of FILTER.
  - FORCE-EXPLICIT-RECONSTRUCTION: a BOOL32.
 
+Slot types:
 See FORMAT
 See SAMPLER-YCBCR-MODEL-CONVERSION
 See SAMPLER-YCBCR-RANGE
@@ -9259,6 +10528,12 @@ See COMPONENT-MAPPING
 See CHROMA-LOCATION
 See FILTER
 See BOOL32
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: EXTERNAL-FORMAT-ANDROID
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-SAMPLER-YCBCR-CONVERSION
 "))
 
 (defclass bind-image-plane-memory-info ()
@@ -9276,6 +10551,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PLANE-ASPECT: an enum value of IMAGE-ASPECT-FLAG-BITS.
 
+Slot types:
 See IMAGE-ASPECT-FLAG-BITS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9297,6 +10573,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PLANE-ASPECT: an enum value of IMAGE-ASPECT-FLAG-BITS.
 
+Slot types:
 See IMAGE-ASPECT-FLAG-BITS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9318,6 +10595,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SAMPLER-YCBCR-CONVERSION: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9359,6 +10637,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SUPPORTS-TEXTURE-GATHER-L-O-D-BIAS-AMD: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9390,9 +10669,13 @@ Slots:
  - OFFSET: a DEVICE-SIZE.
  - FLAGS (optional): a list containing a valid combination of CONDITIONAL-RENDERING-FLAGS-EXT.
 
+Slot types:
 See BUFFER
 See DEVICE-SIZE
 See CONDITIONAL-RENDERING-FLAGS-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BEGIN-CONDITIONAL-RENDERING-EXT
 "))
 
 (defclass protected-submit-info ()
@@ -9410,6 +10693,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PROTECTED-SUBMIT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9431,6 +10715,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PROTECTED-MEMORY: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9453,6 +10738,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PROTECTED-NO-FAULT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9484,7 +10770,11 @@ Slots:
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
  - QUEUE-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See DEVICE-QUEUE-CREATE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-DEVICE-QUEUE-2
 "))
 
 (defclass pipeline-coverage-to-color-state-create-info-nv ()
@@ -9512,6 +10802,7 @@ Slots:
  - COVERAGE-TO-COLOR-ENABLE: a BOOL32.
  - COVERAGE-TO-COLOR-LOCATION (optional): a positive (32-bit) integer.
 
+Slot types:
 See PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-FLAGS-NV
 See BOOL32
 
@@ -9539,6 +10830,7 @@ Slots:
  - FILTER-MINMAX-SINGLE-COMPONENT-FORMATS: a BOOL32.
  - FILTER-MINMAX-IMAGE-COMPONENT-MAPPING: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9586,6 +10878,7 @@ Slots:
  - SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
  - SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size SAMPLE-LOCATIONS-COUNTs.
 
+Slot types:
 See SAMPLE-COUNT-FLAG-BITS
 See EXTENT-2D
 See SAMPLE-LOCATION-EXT
@@ -9593,6 +10886,9 @@ See SAMPLE-LOCATION-EXT
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See IMAGE-MEMORY-BARRIER
 See IMAGE-MEMORY-BARRIER-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-SAMPLE-LOCATIONS-EXT
 "))
 
 (defclass attachment-sample-locations-ext ()
@@ -9610,6 +10906,7 @@ Slots:
  - ATTACHMENT-INDEX: a positive (32-bit) integer.
  - SAMPLE-LOCATIONS-INFO: a SAMPLE-LOCATIONS-INFO-EXT.
 
+Slot types:
 See SAMPLE-LOCATIONS-INFO-EXT
 "))
 
@@ -9628,6 +10925,7 @@ Slots:
  - SUBPASS-INDEX: a positive (32-bit) integer.
  - SAMPLE-LOCATIONS-INFO: a SAMPLE-LOCATIONS-INFO-EXT.
 
+Slot types:
 See SAMPLE-LOCATIONS-INFO-EXT
 "))
 
@@ -9651,6 +10949,7 @@ Slots:
  - ATTACHMENT-INITIAL-SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size ATTACHMENT-INITIAL-SAMPLE-LOCATIONS-COUNTs.
  - POST-SUBPASS-SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size POST-SUBPASS-SAMPLE-LOCATIONS-COUNTs.
 
+Slot types:
 See ATTACHMENT-SAMPLE-LOCATIONS-EXT
 See SUBPASS-SAMPLE-LOCATIONS-EXT
 
@@ -9678,6 +10977,7 @@ Slots:
  - SAMPLE-LOCATIONS-ENABLE: a BOOL32.
  - SAMPLE-LOCATIONS-INFO: a SAMPLE-LOCATIONS-INFO-EXT.
 
+Slot types:
 See BOOL32
 See SAMPLE-LOCATIONS-INFO-EXT
 
@@ -9720,6 +11020,7 @@ Slots:
  - SAMPLE-LOCATION-SUB-PIXEL-BITS: a positive (32-bit) integer.
  - VARIABLE-SAMPLE-LOCATIONS: a BOOL32.
 
+Slot types:
 See SAMPLE-COUNT-FLAGS
 See EXTENT-2D
 See BOOL32
@@ -9743,7 +11044,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MAX-SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
 
+Slot types:
 See EXTENT-2D
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-MULTISAMPLE-PROPERTIES-EXT
 "))
 
 (defclass sampler-reduction-mode-create-info ()
@@ -9761,6 +11066,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - REDUCTION-MODE: an enum value of SAMPLER-REDUCTION-MODE.
 
+Slot types:
 See SAMPLER-REDUCTION-MODE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9782,6 +11088,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ADVANCED-BLEND-COHERENT-OPERATIONS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9829,6 +11136,7 @@ Slots:
  - ADVANCED-BLEND-CORRELATED-OVERLAP: a BOOL32.
  - ADVANCED-BLEND-ALL-OPERATIONS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -9860,6 +11168,7 @@ Slots:
  - DST-PREMULTIPLIED: a BOOL32.
  - BLEND-OVERLAP: an enum value of BLEND-OVERLAP-EXT.
 
+Slot types:
 See BOOL32
 See BLEND-OVERLAP-EXT
 
@@ -9887,6 +11196,7 @@ Slots:
  - INLINE-UNIFORM-BLOCK: a BOOL32.
  - DESCRIPTOR-BINDING-INLINE-UNIFORM-BLOCK-UPDATE-AFTER-BIND: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10006,6 +11316,7 @@ Slots:
  - COVERAGE-MODULATION-TABLE-ENABLE: a BOOL32.
  - COVERAGE-MODULATION-TABLE (optional): a list of foreign pointer to a buffer of size COVERAGE-MODULATION-TABLE-COUNTs.
 
+Slot types:
 See PIPELINE-COVERAGE-MODULATION-STATE-CREATE-FLAGS-NV
 See COVERAGE-MODULATION-MODE-NV
 See BOOL32
@@ -10029,6 +11340,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - VIEW-FORMATS: a list of foreign pointer to a buffer of size VIEW-FORMAT-COUNTs.
 
+Slot types:
 See FORMAT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10062,7 +11374,11 @@ Slots:
  - INITIAL-DATA-SIZE (optional): a positive integer.
  - INITIAL-DATA: a foreign pointer to a buffer of size INITIAL-DATA-SIZE.
 
+Slot types:
 See VALIDATION-CACHE-CREATE-FLAGS-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-VALIDATION-CACHE-EXT
 "))
 
 (defclass shader-module-validation-cache-create-info-ext ()
@@ -10080,6 +11396,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - VALIDATION-CACHE: a VALIDATION-CACHE-EXT.
 
+Slot types:
 See VALIDATION-CACHE-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10106,6 +11423,7 @@ Slots:
  - MAX-PER-SET-DESCRIPTORS: a positive (32-bit) integer.
  - MAX-MEMORY-ALLOCATION-SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10127,7 +11445,14 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SUPPORTED: a BOOL32.
 
+Slot types:
 See BOOL32
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-LAYOUT-SUPPORT
+
+Instances of this class are used as parameters of the following functions:
+See GET-DESCRIPTOR-SET-LAYOUT-SUPPORT
 "))
 
 (defclass physical-device-shader-draw-parameters-features ()
@@ -10145,6 +11470,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-DRAW-PARAMETERS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10172,6 +11498,7 @@ Slots:
  - SHADER-FLOAT-16: a BOOL32.
  - SHADER-INT-8: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10274,6 +11601,7 @@ Slots:
  - SHADER-ROUNDING-MODE-RTZ-FLOAT-32: a BOOL32.
  - SHADER-ROUNDING-MODE-RTZ-FLOAT-64: a BOOL32.
 
+Slot types:
 See SHADER-FLOAT-CONTROLS-INDEPENDENCE
 See BOOL32
 
@@ -10296,6 +11624,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HOST-QUERY-RESET: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10374,6 +11703,7 @@ Slots:
  - NUM-AVAILABLE-SGPRS: a positive (32-bit) integer.
  - COMPUTE-WORK-GROUP-SIZE: a positive (32-bit) integer.
 
+Slot types:
 See SHADER-STAGE-FLAGS
 See SHADER-RESOURCE-USAGE-AMD
 "))
@@ -10393,6 +11723,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - GLOBAL-PRIORITY: an enum value of QUEUE-GLOBAL-PRIORITY-EXT.
 
+Slot types:
 See QUEUE-GLOBAL-PRIORITY-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10424,7 +11755,11 @@ Slots:
  - OBJECT-HANDLE: a positive (64-bit) integer.
  - OBJECT-NAME (optional): a foreign pointer to a buffer of size NULL-TERMINATED.
 
+Slot types:
 See OBJECT-TYPE
+
+Instances of this class are used as parameters of the following functions:
+See SET-DEBUG-UTILS-OBJECT-NAME-EXT
 "))
 
 (defclass debug-utils-object-tag-info-ext ()
@@ -10462,7 +11797,11 @@ Slots:
  - TAG-SIZE: a positive integer.
  - TAG: a foreign pointer to a buffer of size TAG-SIZE.
 
+Slot types:
 See OBJECT-TYPE
+
+Instances of this class are used as parameters of the following functions:
+See SET-DEBUG-UTILS-OBJECT-TAG-EXT
 "))
 
 (defclass debug-utils-label-ext ()
@@ -10484,6 +11823,12 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LABEL-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
  - COLOR: a single-float.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BEGIN-DEBUG-UTILS-LABEL-EXT
+See CMD-INSERT-DEBUG-UTILS-LABEL-EXT
+See QUEUE-BEGIN-DEBUG-UTILS-LABEL-EXT
+See QUEUE-INSERT-DEBUG-UTILS-LABEL-EXT
 "))
 
 (defclass debug-utils-messenger-create-info-ext ()
@@ -10521,6 +11866,7 @@ Slots:
  - PFN-USER-CALLBACK: a PFN-DEBUG-UTILS-MESSENGER-CALLBACK-EXT.
  - USER-DATA (optional): a foreign pointer.
 
+Slot types:
 See DEBUG-UTILS-MESSENGER-CREATE-FLAGS-EXT
 See DEBUG-UTILS-MESSAGE-SEVERITY-FLAGS-EXT
 See DEBUG-UTILS-MESSAGE-TYPE-FLAGS-EXT
@@ -10528,6 +11874,9 @@ See PFN-DEBUG-UTILS-MESSENGER-CALLBACK-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See INSTANCE-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-DEBUG-UTILS-MESSENGER-EXT
 "))
 
 (defclass debug-utils-messenger-callback-data-ext ()
@@ -10575,9 +11924,13 @@ Slots:
  - CMD-BUF-LABELS: a list of foreign pointer to a buffer of size CMD-BUF-LABEL-COUNTs.
  - OBJECTS: a list of foreign pointer to a buffer of size OBJECT-COUNTs.
 
+Slot types:
 See DEBUG-UTILS-MESSENGER-CALLBACK-DATA-FLAGS-EXT
 See DEBUG-UTILS-LABEL-EXT
 See DEBUG-UTILS-OBJECT-NAME-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See SUBMIT-DEBUG-UTILS-MESSAGE-EXT
 "))
 
 (defclass physical-device-device-memory-report-features-ext ()
@@ -10595,6 +11948,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEVICE-MEMORY-REPORT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10627,6 +11981,7 @@ Slots:
  - PFN-USER-CALLBACK: a PFN-DEVICE-MEMORY-REPORT-CALLBACK-EXT.
  - USER-DATA: a foreign pointer.
 
+Slot types:
 See DEVICE-MEMORY-REPORT-FLAGS-EXT
 See PFN-DEVICE-MEMORY-REPORT-CALLBACK-EXT
 
@@ -10679,6 +12034,7 @@ Slots:
  - OBJECT-HANDLE: a positive (64-bit) integer.
  - HEAP-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See DEVICE-MEMORY-REPORT-FLAGS-EXT
 See DEVICE-MEMORY-REPORT-EVENT-TYPE-EXT
 See DEVICE-SIZE
@@ -10705,6 +12061,7 @@ Slots:
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - HOST-POINTER: a foreign pointer.
 
+Slot types:
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10725,6 +12082,9 @@ See MEMORY-ALLOCATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-HOST-POINTER-PROPERTIES-EXT
 "))
 
 (defclass physical-device-external-memory-host-properties-ext ()
@@ -10742,6 +12102,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MIN-IMPORTED-HOST-POINTER-ALIGNMENT: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10803,6 +12164,7 @@ Slots:
  - FULLY-COVERED-FRAGMENT-SHADER-INPUT-VARIABLE: a BOOL32.
  - CONSERVATIVE-RASTERIZATION-POST-DEPTH-COVERAGE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10824,7 +12186,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TIME-DOMAIN: an enum value of TIME-DOMAIN-EXT.
 
+Slot types:
 See TIME-DOMAIN-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-CALIBRATED-TIMESTAMPS-EXT
 "))
 
 (defclass physical-device-shader-core-properties-amd ()
@@ -10931,6 +12297,7 @@ Slots:
  - SHADER-CORE-FEATURES: a list containing a valid combination of SHADER-CORE-PROPERTIES-FLAGS-AMD.
  - ACTIVE-COMPUTE-UNIT-COUNT: a positive (32-bit) integer.
 
+Slot types:
 See SHADER-CORE-PROPERTIES-FLAGS-AMD
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10962,6 +12329,7 @@ Slots:
  - CONSERVATIVE-RASTERIZATION-MODE: an enum value of CONSERVATIVE-RASTERIZATION-MODE-EXT.
  - EXTRA-PRIMITIVE-OVERESTIMATION-SIZE: a single-float.
 
+Slot types:
 See PIPELINE-RASTERIZATION-CONSERVATIVE-STATE-CREATE-FLAGS-EXT
 See CONSERVATIVE-RASTERIZATION-MODE-EXT
 
@@ -11079,6 +12447,7 @@ Slots:
  - DESCRIPTOR-BINDING-VARIABLE-DESCRIPTOR-COUNT: a BOOL32.
  - RUNTIME-DESCRIPTOR-ARRAY: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11211,6 +12580,7 @@ Slots:
  - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-STORAGE-IMAGES: a positive (32-bit) integer.
  - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-INPUT-ATTACHMENTS: a positive (32-bit) integer.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11232,6 +12602,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - BINDING-FLAGS: a list of foreign pointer to a buffer of size BINDING-COUNTs.
 
+Slot types:
 See DESCRIPTOR-BINDING-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11331,12 +12702,16 @@ Slots:
  - INITIAL-LAYOUT: an enum value of IMAGE-LAYOUT.
  - FINAL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See ATTACHMENT-DESCRIPTION-FLAGS
 See FORMAT
 See SAMPLE-COUNT-FLAG-BITS
 See ATTACHMENT-LOAD-OP
 See ATTACHMENT-STORE-OP
 See IMAGE-LAYOUT
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: ATTACHMENT-DESCRIPTION-STENCIL-LAYOUT
 "))
 
 (defclass attachment-reference-2 ()
@@ -11364,8 +12739,12 @@ Slots:
  - LAYOUT: an enum value of IMAGE-LAYOUT.
  - ASPECT-MASK: a list containing a valid combination of IMAGE-ASPECT-FLAGS.
 
+Slot types:
 See IMAGE-LAYOUT
 See IMAGE-ASPECT-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: ATTACHMENT-REFERENCE-STENCIL-LAYOUT
 "))
 
 (defclass subpass-description-2 ()
@@ -11418,9 +12797,14 @@ Slots:
  - DEPTH-STENCIL-ATTACHMENT (optional): an ATTACHMENT-REFERENCE-2.
  - PRESERVE-ATTACHMENTS: a list of foreign pointer to a buffer of size PRESERVE-ATTACHMENT-COUNTs.
 
+Slot types:
 See SUBPASS-DESCRIPTION-FLAGS
 See PIPELINE-BIND-POINT
 See ATTACHMENT-REFERENCE-2
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR
+See: SUBPASS-DESCRIPTION-DEPTH-STENCIL-RESOLVE
 "))
 
 (defclass subpass-dependency-2 ()
@@ -11473,9 +12857,13 @@ Slots:
  - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
  - VIEW-OFFSET: a (32-bit) integer.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS
 See ACCESS-FLAGS
 See DEPENDENCY-FLAGS
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: MEMORY-BARRIER-2-KHR
 "))
 
 (defclass render-pass-create-info-2 ()
@@ -11513,10 +12901,17 @@ Slots:
  - DEPENDENCIES: a list of foreign pointer to a buffer of size DEPENDENCY-COUNTs.
  - CORRELATED-VIEW-MASKS: a list of foreign pointer to a buffer of size CORRELATED-VIEW-MASK-COUNTs.
 
+Slot types:
 See RENDER-PASS-CREATE-FLAGS
 See ATTACHMENT-DESCRIPTION-2
 See SUBPASS-DESCRIPTION-2
 See SUBPASS-DEPENDENCY-2
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: RENDER-PASS-FRAGMENT-DENSITY-MAP-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-RENDER-PASS-2
 "))
 
 (defclass subpass-begin-info ()
@@ -11534,7 +12929,12 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CONTENTS: an enum value of SUBPASS-CONTENTS.
 
+Slot types:
 See SUBPASS-CONTENTS
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BEGIN-RENDER-PASS-2
+See CMD-NEXT-SUBPASS-2
 "))
 
 (defclass subpass-end-info ()
@@ -11546,6 +12946,10 @@ See SUBPASS-CONTENTS
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-END-RENDER-PASS-2
+See CMD-NEXT-SUBPASS-2
 "))
 
 (defclass physical-device-timeline-semaphore-features ()
@@ -11563,6 +12967,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TIMELINE-SEMAPHORE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11609,6 +13014,7 @@ Slots:
  - SEMAPHORE-TYPE: an enum value of SEMAPHORE-TYPE.
  - INITIAL-VALUE: a positive (64-bit) integer.
 
+Slot types:
 See SEMAPHORE-TYPE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11666,8 +13072,12 @@ Slots:
  - SEMAPHORES: a list of foreign pointer to a buffer of size SEMAPHORE-COUNTs.
  - VALUES: a list of foreign pointer to a buffer of size SEMAPHORE-COUNTs.
 
+Slot types:
 See SEMAPHORE-WAIT-FLAGS
 See SEMAPHORE
+
+Instances of this class are used as parameters of the following functions:
+See WAIT-SEMAPHORES
 "))
 
 (defclass semaphore-signal-info ()
@@ -11690,7 +13100,11 @@ Slots:
  - SEMAPHORE: a SEMAPHORE.
  - VALUE: a positive (64-bit) integer.
 
+Slot types:
 See SEMAPHORE
+
+Instances of this class are used as parameters of the following functions:
+See SIGNAL-SEMAPHORE
 "))
 
 (defclass vertex-input-binding-divisor-description-ext ()
@@ -11724,6 +13138,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - VERTEX-BINDING-DIVISORS: a list of foreign pointer to a buffer of size VERTEX-BINDING-DIVISOR-COUNTs.
 
+Slot types:
 See VERTEX-INPUT-BINDING-DIVISOR-DESCRIPTION-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11798,6 +13213,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - BUFFER: an A-HARDWARE-BUFFER.
 
+Slot types:
 See A-HARDWARE-BUFFER
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11843,7 +13259,14 @@ Slots:
  - ALLOCATION-SIZE: a DEVICE-SIZE.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
+Slot types:
 See DEVICE-SIZE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: ANDROID-HARDWARE-BUFFER-FORMAT-PROPERTIES-ANDROID
+
+Instances of this class are used as parameters of the following functions:
+See GET-ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
 "))
 
 (defclass memory-get-android-hardware-buffer-info-android ()
@@ -11861,7 +13284,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY: a DEVICE-MEMORY.
 
+Slot types:
 See DEVICE-MEMORY
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-ANDROID-HARDWARE-BUFFER-ANDROID
 "))
 
 (defclass android-hardware-buffer-format-properties-android ()
@@ -11914,6 +13341,7 @@ Slots:
  - SUGGESTED-X-CHROMA-OFFSET: an enum value of CHROMA-LOCATION.
  - SUGGESTED-Y-CHROMA-OFFSET: an enum value of CHROMA-LOCATION.
 
+Slot types:
 See FORMAT
 See FORMAT-FEATURE-FLAGS
 See COMPONENT-MAPPING
@@ -11940,6 +13368,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CONDITIONAL-RENDERING-ENABLE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11991,6 +13420,7 @@ Slots:
  - UNIFORM-AND-STORAGE-BUFFER-8-BIT-ACCESS: a BOOL32.
  - STORAGE-PUSH-CONSTANT-8: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12018,6 +13448,7 @@ Slots:
  - CONDITIONAL-RENDERING: a BOOL32.
  - INHERITED-CONDITIONAL-RENDERING: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12050,6 +13481,7 @@ Slots:
  - VULKAN-MEMORY-MODEL-DEVICE-SCOPE: a BOOL32.
  - VULKAN-MEMORY-MODEL-AVAILABILITY-VISIBILITY-CHAINS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12077,6 +13509,7 @@ Slots:
  - SHADER-BUFFER-INT-64-ATOMICS: a BOOL32.
  - SHADER-SHARED-INT-64-ATOMICS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12154,6 +13587,7 @@ Slots:
  - SPARSE-IMAGE-FLOAT-32-ATOMICS: a BOOL32.
  - SPARSE-IMAGE-FLOAT-32-ATOMIC-ADD: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12181,6 +13615,7 @@ Slots:
  - VERTEX-ATTRIBUTE-INSTANCE-RATE-DIVISOR: a BOOL32.
  - VERTEX-ATTRIBUTE-INSTANCE-RATE-ZERO-DIVISOR: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12203,6 +13638,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CHECKPOINT-EXECUTION-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12229,7 +13665,11 @@ Slots:
  - STAGE: an enum value of PIPELINE-STAGE-FLAG-BITS.
  - CHECKPOINT-MARKER: a foreign pointer.
 
+Slot types:
 See PIPELINE-STAGE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-QUEUE-CHECKPOINT-DATA-NV
 "))
 
 (defclass physical-device-depth-stencil-resolve-properties ()
@@ -12262,6 +13702,7 @@ Slots:
  - INDEPENDENT-RESOLVE-NONE: a BOOL32.
  - INDEPENDENT-RESOLVE: a BOOL32.
 
+Slot types:
 See RESOLVE-MODE-FLAGS
 See BOOL32
 
@@ -12294,6 +13735,7 @@ Slots:
  - STENCIL-RESOLVE-MODE: an enum value of RESOLVE-MODE-FLAG-BITS.
  - DEPTH-STENCIL-RESOLVE-ATTACHMENT (optional): an ATTACHMENT-REFERENCE-2.
 
+Slot types:
 See RESOLVE-MODE-FLAG-BITS
 See ATTACHMENT-REFERENCE-2
 
@@ -12316,6 +13758,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DECODE-MODE: an enum value of FORMAT.
 
+Slot types:
 See FORMAT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12337,6 +13780,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DECODE-MODE-SHARED-EXPONENT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12364,6 +13808,7 @@ Slots:
  - TRANSFORM-FEEDBACK: a BOOL32.
  - GEOMETRY-STREAMS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12431,6 +13876,7 @@ Slots:
  - TRANSFORM-FEEDBACK-RASTERIZATION-STREAM-SELECT: a BOOL32.
  - TRANSFORM-FEEDBACK-DRAW: a BOOL32.
 
+Slot types:
 See DEVICE-SIZE
 See BOOL32
 
@@ -12458,6 +13904,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-FLAGS-EXT.
  - RASTERIZATION-STREAM: a positive (32-bit) integer.
 
+Slot types:
 See PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-FLAGS-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12479,6 +13926,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - REPRESENTATIVE-FRAGMENT-TEST: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12501,6 +13949,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - REPRESENTATIVE-FRAGMENT-TEST-ENABLE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12522,6 +13971,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - EXCLUSIVE-SCISSOR: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12544,6 +13994,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - EXCLUSIVE-SCISSORS: a list of foreign pointer to a buffer of size EXCLUSIVE-SCISSOR-COUNTs.
 
+Slot types:
 See RECT-2D
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12565,6 +14016,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CORNER-SAMPLED-IMAGE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12592,6 +14044,7 @@ Slots:
  - COMPUTE-DERIVATIVE-GROUP-QUADS: a BOOL32.
  - COMPUTE-DERIVATIVE-GROUP-LINEAR: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12614,6 +14067,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FRAGMENT-SHADER-BARYCENTRIC: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12636,6 +14090,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - IMAGE-FOOTPRINT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12658,6 +14113,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEDICATED-ALLOCATION-IMAGE-ALIASING: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12675,7 +14131,11 @@ See DEVICE-CREATE-INFO
 Slots:
  - SHADING-RATE-PALETTE-ENTRIES: a list of foreign pointer to a buffer of size SHADING-RATE-PALETTE-ENTRY-COUNTs.
 
+Slot types:
 See SHADING-RATE-PALETTE-ENTRY-NV
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-VIEWPORT-SHADING-RATE-PALETTE-NV
 "))
 
 (defclass pipeline-viewport-shading-rate-image-state-create-info-nv ()
@@ -12698,6 +14158,7 @@ Slots:
  - SHADING-RATE-IMAGE-ENABLE: a BOOL32.
  - SHADING-RATE-PALETTES: a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
 
+Slot types:
 See BOOL32
 See SHADING-RATE-PALETTE-NV
 
@@ -12725,6 +14186,7 @@ Slots:
  - SHADING-RATE-IMAGE: a BOOL32.
  - SHADING-RATE-COARSE-SAMPLE-ORDER: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12757,6 +14219,7 @@ Slots:
  - SHADING-RATE-PALETTE-SIZE: a positive (32-bit) integer.
  - SHADING-RATE-MAX-COARSE-SAMPLES: a positive (32-bit) integer.
 
+Slot types:
 See EXTENT-2D
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12804,8 +14267,12 @@ Slots:
  - SAMPLE-COUNT: a positive (32-bit) integer.
  - SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size SAMPLE-LOCATION-COUNTs.
 
+Slot types:
 See SHADING-RATE-PALETTE-ENTRY-NV
 See COARSE-SAMPLE-LOCATION-NV
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-COARSE-SAMPLE-ORDER-NV
 "))
 
 (defclass pipeline-viewport-coarse-sample-order-state-create-info-nv ()
@@ -12828,6 +14295,7 @@ Slots:
  - SAMPLE-ORDER-TYPE: an enum value of COARSE-SAMPLE-ORDER-TYPE-NV.
  - CUSTOM-SAMPLE-ORDERS: a list of foreign pointer to a buffer of size CUSTOM-SAMPLE-ORDER-COUNTs.
 
+Slot types:
 See COARSE-SAMPLE-ORDER-TYPE-NV
 See COARSE-SAMPLE-ORDER-CUSTOM-NV
 
@@ -12855,6 +14323,7 @@ Slots:
  - TASK-SHADER: a BOOL32.
  - MESH-SHADER: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12992,6 +14461,7 @@ Slots:
  - ANY-HIT-SHADER: a positive (32-bit) integer.
  - INTERSECTION-SHADER: a positive (32-bit) integer.
 
+Slot types:
 See RAY-TRACING-SHADER-GROUP-TYPE-KHR
 "))
 
@@ -13035,6 +14505,7 @@ Slots:
  - INTERSECTION-SHADER: a positive (32-bit) integer.
  - SHADER-GROUP-CAPTURE-REPLAY-HANDLE (optional): a foreign pointer.
 
+Slot types:
 See RAY-TRACING-SHADER-GROUP-TYPE-KHR
 "))
 
@@ -13083,11 +14554,18 @@ Slots:
  - BASE-PIPELINE-HANDLE (optional): a PIPELINE.
  - BASE-PIPELINE-INDEX: a (32-bit) integer.
 
+Slot types:
 See PIPELINE-CREATE-FLAGS
 See PIPELINE-SHADER-STAGE-CREATE-INFO
 See RAY-TRACING-SHADER-GROUP-CREATE-INFO-NV
 See PIPELINE-LAYOUT
 See PIPELINE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-CREATION-FEEDBACK-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-RAY-TRACING-PIPELINES-NV
 "))
 
 (defclass ray-tracing-pipeline-create-info-khr ()
@@ -13150,6 +14628,7 @@ Slots:
  - BASE-PIPELINE-HANDLE (optional): a PIPELINE.
  - BASE-PIPELINE-INDEX: a (32-bit) integer.
 
+Slot types:
 See PIPELINE-CREATE-FLAGS
 See PIPELINE-SHADER-STAGE-CREATE-INFO
 See RAY-TRACING-SHADER-GROUP-CREATE-INFO-KHR
@@ -13158,6 +14637,12 @@ See RAY-TRACING-PIPELINE-INTERFACE-CREATE-INFO-KHR
 See PIPELINE-DYNAMIC-STATE-CREATE-INFO
 See PIPELINE-LAYOUT
 See PIPELINE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PIPELINE-CREATION-FEEDBACK-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-RAY-TRACING-PIPELINES-KHR
 "))
 
 (defclass geometry-triangles-nv ()
@@ -13225,6 +14710,7 @@ Slots:
  - TRANSFORM-DATA (optional): a BUFFER.
  - TRANSFORM-OFFSET: a DEVICE-SIZE.
 
+Slot types:
 See FORMAT
 See INDEX-TYPE
 See BUFFER
@@ -13261,6 +14747,7 @@ Slots:
  - STRIDE: a positive (32-bit) integer.
  - OFFSET: a DEVICE-SIZE.
 
+Slot types:
 See BUFFER
 See DEVICE-SIZE
 "))
@@ -13280,6 +14767,7 @@ Slots:
  - TRIANGLES: a GEOMETRY-TRIANGLES-NV.
  - AABBS: a GEOMETRY-AABB-NV.
 
+Slot types:
 See GEOMETRY-TRIANGLES-NV
 See GEOMETRY-AABB-NV
 "))
@@ -13309,6 +14797,7 @@ Slots:
  - GEOMETRY: a GEOMETRY-DATA-NV.
  - FLAGS (optional): a list containing a valid combination of GEOMETRY-FLAGS-KHR.
 
+Slot types:
 See GEOMETRY-TYPE-KHR
 See GEOMETRY-DATA-NV
 See GEOMETRY-FLAGS-KHR
@@ -13344,9 +14833,13 @@ Slots:
  - INSTANCE-COUNT (optional): a positive (32-bit) integer.
  - GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
 
+Slot types:
 See ACCELERATION-STRUCTURE-TYPE-NV
 See BUILD-ACCELERATION-STRUCTURE-FLAGS-NV
 See GEOMETRY-NV
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BUILD-ACCELERATION-STRUCTURE-NV
 "))
 
 (defclass acceleration-structure-create-info-nv ()
@@ -13369,8 +14862,12 @@ Slots:
  - COMPACTED-SIZE: a DEVICE-SIZE.
  - INFO: an ACCELERATION-STRUCTURE-INFO-NV.
 
+Slot types:
 See DEVICE-SIZE
 See ACCELERATION-STRUCTURE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-ACCELERATION-STRUCTURE-NV
 "))
 
 (defclass bind-acceleration-structure-memory-info-nv ()
@@ -13403,9 +14900,13 @@ Slots:
  - MEMORY-OFFSET: a DEVICE-SIZE.
  - DEVICE-INDICES: a list of foreign pointer to a buffer of size DEVICE-INDEX-COUNTs.
 
+Slot types:
 See ACCELERATION-STRUCTURE-NV
 See DEVICE-MEMORY
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See BIND-ACCELERATION-STRUCTURE-MEMORY-NV
 "))
 
 (defclass write-descriptor-set-acceleration-structure-khr ()
@@ -13423,6 +14924,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ACCELERATION-STRUCTURES: a list of foreign pointer to a buffer of size ACCELERATION-STRUCTURE-COUNTs.
 
+Slot types:
 See ACCELERATION-STRUCTURE-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13444,6 +14946,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ACCELERATION-STRUCTURES: a list of foreign pointer to a buffer of size ACCELERATION-STRUCTURE-COUNTs.
 
+Slot types:
 See ACCELERATION-STRUCTURE-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13470,8 +14973,12 @@ Slots:
  - TYPE: an enum value of ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-NV.
  - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-NV.
 
+Slot types:
 See ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-NV
 See ACCELERATION-STRUCTURE-NV
+
+Instances of this class are used as parameters of the following functions:
+See GET-ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-NV
 "))
 
 (defclass physical-device-acceleration-structure-features-khr ()
@@ -13509,6 +15016,7 @@ Slots:
  - ACCELERATION-STRUCTURE-HOST-COMMANDS: a BOOL32.
  - DESCRIPTOR-BINDING-ACCELERATION-STRUCTURE-UPDATE-AFTER-BIND: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13551,6 +15059,7 @@ Slots:
  - RAY-TRACING-PIPELINE-TRACE-RAYS-INDIRECT: a BOOL32.
  - RAY-TRAVERSAL-PRIMITIVE-CULLING: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13573,6 +15082,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - RAY-QUERY: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13762,8 +15272,13 @@ Slots:
  - STRIDE: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-ADDRESS
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See CMD-TRACE-RAYS-INDIRECT-KHR
+See CMD-TRACE-RAYS-KHR
 "))
 
 (defclass trace-rays-indirect-command-khr ()
@@ -13802,6 +15317,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DRM-FORMAT-MODIFIER-PROPERTIES: a list of foreign pointer to a buffer of size DRM-FORMAT-MODIFIER-COUNTs.
 
+Slot types:
 See DRM-FORMAT-MODIFIER-PROPERTIES-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13828,6 +15344,7 @@ Slots:
  - DRM-FORMAT-MODIFIER-PLANE-COUNT: a positive (32-bit) integer.
  - DRM-FORMAT-MODIFIER-TILING-FEATURES: a list containing a valid combination of FORMAT-FEATURE-FLAGS.
 
+Slot types:
 See FORMAT-FEATURE-FLAGS
 "))
 
@@ -13856,6 +15373,7 @@ Slots:
  - SHARING-MODE: an enum value of SHARING-MODE.
  - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
 
+Slot types:
 See SHARING-MODE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13901,6 +15419,7 @@ Slots:
  - DRM-FORMAT-MODIFIER: a positive (64-bit) integer.
  - PLANE-LAYOUTS: a list of foreign pointer to a buffer of size DRM-FORMAT-MODIFIER-PLANE-COUNTs.
 
+Slot types:
 See SUBRESOURCE-LAYOUT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13921,6 +15440,9 @@ See IMAGE-CREATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DRM-FORMAT-MODIFIER: a positive (64-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
 "))
 
 (defclass image-stencil-usage-create-info ()
@@ -13938,6 +15460,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - STENCIL-USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
+Slot types:
 See IMAGE-USAGE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13960,6 +15483,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - OVERALLOCATION-BEHAVIOR: an enum value of MEMORY-OVERALLOCATION-BEHAVIOR-AMD.
 
+Slot types:
 See MEMORY-OVERALLOCATION-BEHAVIOR-AMD
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13991,6 +15515,7 @@ Slots:
  - FRAGMENT-DENSITY-MAP-DYNAMIC: a BOOL32.
  - FRAGMENT-DENSITY-MAP-NON-SUBSAMPLED-IMAGES: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14013,6 +15538,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FRAGMENT-DENSITY-MAP-DEFERRED: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14045,6 +15571,7 @@ Slots:
  - MAX-FRAGMENT-DENSITY-TEXEL-SIZE: an EXTENT-2D.
  - FRAGMENT-DENSITY-INVOCATIONS: a BOOL32.
 
+Slot types:
 See EXTENT-2D
 See BOOL32
 
@@ -14082,6 +15609,7 @@ Slots:
  - MAX-SUBSAMPLED-ARRAY-LAYERS: a positive (32-bit) integer.
  - MAX-DESCRIPTOR-SET-SUBSAMPLED-SAMPLERS: a positive (32-bit) integer.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14103,6 +15631,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FRAGMENT-DENSITY-MAP-ATTACHMENT: an ATTACHMENT-REFERENCE.
 
+Slot types:
 See ATTACHMENT-REFERENCE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14125,6 +15654,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SCALAR-BLOCK-LAYOUT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14147,6 +15677,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SUPPORTS-PROTECTED: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14168,6 +15699,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - UNIFORM-BUFFER-STANDARD-LAYOUT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14190,6 +15722,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEPTH-CLIP-ENABLE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14217,6 +15750,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-FLAGS-EXT.
  - DEPTH-CLIP-ENABLE: a BOOL32.
 
+Slot types:
 See PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-FLAGS-EXT
 See BOOL32
 
@@ -14244,6 +15778,7 @@ Slots:
  - HEAP-BUDGET: a DEVICE-SIZE.
  - HEAP-USAGE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14265,6 +15800,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY-PRIORITY: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14316,6 +15852,7 @@ Slots:
  - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a BOOL32.
  - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14348,6 +15885,7 @@ Slots:
  - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a BOOL32.
  - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14370,7 +15908,12 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - BUFFER: a BUFFER.
 
+Slot types:
 See BUFFER
+
+Instances of this class are used as parameters of the following functions:
+See GET-BUFFER-DEVICE-ADDRESS
+See GET-BUFFER-OPAQUE-CAPTURE-ADDRESS
 "))
 
 (defclass buffer-opaque-capture-address-create-info ()
@@ -14407,6 +15950,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEVICE-ADDRESS: a DEVICE-ADDRESS.
 
+Slot types:
 See DEVICE-ADDRESS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14428,6 +15972,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - IMAGE-VIEW-TYPE: an enum value of IMAGE-VIEW-TYPE.
 
+Slot types:
 See IMAGE-VIEW-TYPE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14454,6 +15999,7 @@ Slots:
  - FILTER-CUBIC: a BOOL32.
  - FILTER-CUBIC-MINMAX: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14475,6 +16021,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - IMAGELESS-FRAMEBUFFER: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14497,6 +16044,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ATTACHMENT-IMAGE-INFOS: a list of foreign pointer to a buffer of size ATTACHMENT-IMAGE-INFO-COUNTs.
 
+Slot types:
 See FRAMEBUFFER-ATTACHMENT-IMAGE-INFO
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14543,6 +16091,7 @@ Slots:
  - LAYER-COUNT: a positive (32-bit) integer.
  - VIEW-FORMATS: a list of foreign pointer to a buffer of size VIEW-FORMAT-COUNTs.
 
+Slot types:
 See IMAGE-CREATE-FLAGS
 See IMAGE-USAGE-FLAGS
 See FORMAT
@@ -14563,6 +16112,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
 
+Slot types:
 See IMAGE-VIEW
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14584,6 +16134,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TEXTURE-COMPRESSION-ASTC_-H-D-R: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14611,6 +16162,7 @@ Slots:
  - COOPERATIVE-MATRIX: a BOOL32.
  - COOPERATIVE-MATRIX-ROBUST-BUFFER-ACCESS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14633,6 +16185,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - COOPERATIVE-MATRIX-SUPPORTED-STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
 
+Slot types:
 See SHADER-STAGE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14689,8 +16242,12 @@ Slots:
  - D-TYPE: an enum value of COMPONENT-TYPE-NV.
  - SCOPE: an enum value of SCOPE-NV.
 
+Slot types:
 See COMPONENT-TYPE-NV
 See SCOPE-NV
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
 "))
 
 (defclass physical-device-ycbcr-image-arrays-features-ext ()
@@ -14708,6 +16265,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - YCBCR-IMAGE-ARRAYS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14740,9 +16298,13 @@ Slots:
  - DESCRIPTOR-TYPE: an enum value of DESCRIPTOR-TYPE.
  - SAMPLER (optional): a SAMPLER.
 
+Slot types:
 See IMAGE-VIEW
 See DESCRIPTOR-TYPE
 See SAMPLER
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-VIEW-HANDLE-NV-X
 "))
 
 (defclass image-view-address-properties-nv-x ()
@@ -14765,8 +16327,12 @@ Slots:
  - DEVICE-ADDRESS: a DEVICE-ADDRESS.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-ADDRESS
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See GET-IMAGE-VIEW-ADDRESS-NV-X
 "))
 
 (defclass present-frame-token-ggp ()
@@ -14784,6 +16350,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FRAME-TOKEN: a GGP-FRAME-TOKEN.
 
+Slot types:
 See GGP-FRAME-TOKEN
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14805,6 +16372,7 @@ Slots:
  - FLAGS: a list containing a valid combination of PIPELINE-CREATION-FEEDBACK-FLAGS-EXT.
  - DURATION: a positive (64-bit) integer.
 
+Slot types:
 See PIPELINE-CREATION-FEEDBACK-FLAGS-EXT
 "))
 
@@ -14828,6 +16396,7 @@ Slots:
  - PIPELINE-CREATION-FEEDBACK: a PIPELINE-CREATION-FEEDBACK-EXT.
  - PIPELINE-STAGE-CREATION-FEEDBACKS: a list of foreign pointer to a buffer of size PIPELINE-STAGE-CREATION-FEEDBACK-COUNTs.
 
+Slot types:
 See PIPELINE-CREATION-FEEDBACK-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14852,6 +16421,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FULL-SCREEN-EXCLUSIVE: an enum value of FULL-SCREEN-EXCLUSIVE-EXT.
 
+Slot types:
 See FULL-SCREEN-EXCLUSIVE-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14874,6 +16444,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - HMONITOR: a HMONITOR.
 
+Slot types:
 See HMONITOR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14896,6 +16467,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FULL-SCREEN-EXCLUSIVE-SUPPORTED: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14922,6 +16494,7 @@ Slots:
  - PERFORMANCE-COUNTER-QUERY-POOLS: a BOOL32.
  - PERFORMANCE-COUNTER-MULTIPLE-QUERY-POOLS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14944,6 +16517,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ALLOW-COMMAND-BUFFER-QUERY-COPIES: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14980,9 +16554,13 @@ Slots:
  - STORAGE: an enum value of PERFORMANCE-COUNTER-STORAGE-KHR.
  - UUID: a positive (8-bit) integer.
 
+Slot types:
 See PERFORMANCE-COUNTER-UNIT-KHR
 See PERFORMANCE-COUNTER-SCOPE-KHR
 See PERFORMANCE-COUNTER-STORAGE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See ENUMERATE-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-COUNTERS-KHR
 "))
 
 (defclass performance-counter-description-khr ()
@@ -15015,7 +16593,11 @@ Slots:
  - CATEGORY: a string.
  - DESCRIPTION: a string.
 
+Slot types:
 See PERFORMANCE-COUNTER-DESCRIPTION-FLAGS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See ENUMERATE-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-COUNTERS-KHR
 "))
 
 (defclass query-pool-performance-create-info-khr ()
@@ -15040,6 +16622,9 @@ Slots:
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See QUERY-POOL-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-PASSES-KHR
 "))
 
 (defclass performance-counter-result-khr ()
@@ -15092,7 +16677,11 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of ACQUIRE-PROFILING-LOCK-FLAGS-KHR.
  - TIMEOUT: a positive (64-bit) integer.
 
+Slot types:
 See ACQUIRE-PROFILING-LOCK-FLAGS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See ACQUIRE-PROFILING-LOCK-KHR
 "))
 
 (defclass performance-query-submit-info-khr ()
@@ -15130,7 +16719,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of HEADLESS-SURFACE-CREATE-FLAGS-EXT.
 
+Slot types:
 See HEADLESS-SURFACE-CREATE-FLAGS-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-HEADLESS-SURFACE-EXT
 "))
 
 (defclass physical-device-coverage-reduction-mode-features-nv ()
@@ -15148,6 +16741,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - COVERAGE-REDUCTION-MODE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15175,6 +16769,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-FLAGS-NV.
  - COVERAGE-REDUCTION-MODE: an enum value of COVERAGE-REDUCTION-MODE-NV.
 
+Slot types:
 See PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-FLAGS-NV
 See COVERAGE-REDUCTION-MODE-NV
 
@@ -15212,9 +16807,13 @@ Slots:
  - DEPTH-STENCIL-SAMPLES: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - COLOR-SAMPLES: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
 
+Slot types:
 See COVERAGE-REDUCTION-MODE-NV
 See SAMPLE-COUNT-FLAG-BITS
 See SAMPLE-COUNT-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-SUPPORTED-FRAMEBUFFER-MIXED-SAMPLES-COMBINATIONS-NV
 "))
 
 (defclass physical-device-shader-integer-functions-2-features-intel ()
@@ -15232,6 +16831,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-INTEGER-FUNCTIONS-2: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15264,6 +16864,7 @@ Slots:
  - VALUE-BOOL: a BOOL32.
  - VALUE-STRING: a foreign pointer to a buffer of size NULL-TERMINATED.
 
+Slot types:
 See BOOL32
 "))
 
@@ -15282,8 +16883,12 @@ Slots:
  - TYPE: an enum value of PERFORMANCE-VALUE-TYPE-INTEL.
  - DATA: a PERFORMANCE-VALUE-DATA-INTEL.
 
+Slot types:
 See PERFORMANCE-VALUE-TYPE-INTEL
 See PERFORMANCE-VALUE-DATA-INTEL
+
+Instances of this class are used as parameters of the following functions:
+See GET-PERFORMANCE-PARAMETER-INTEL
 "))
 
 (defclass initialize-performance-api-info-intel ()
@@ -15300,6 +16905,9 @@ See PERFORMANCE-VALUE-DATA-INTEL
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - USER-DATA (optional): a foreign pointer.
+
+Instances of this class are used as parameters of the following functions:
+See INITIALIZE-PERFORMANCE-API-INTEL
 "))
 
 (defclass query-pool-performance-query-create-info-intel ()
@@ -15317,6 +16925,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PERFORMANCE-COUNTERS-SAMPLING: an enum value of QUERY-POOL-SAMPLING-MODE-INTEL.
 
+Slot types:
 See QUERY-POOL-SAMPLING-MODE-INTEL
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15337,6 +16946,9 @@ See QUERY-POOL-CREATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MARKER: a positive (64-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-PERFORMANCE-MARKER-INTEL
 "))
 
 (defclass performance-stream-marker-info-intel ()
@@ -15353,6 +16965,9 @@ Slots:
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MARKER: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-PERFORMANCE-STREAM-MARKER-INTEL
 "))
 
 (defclass performance-override-info-intel ()
@@ -15380,8 +16995,12 @@ Slots:
  - ENABLE: a BOOL32.
  - PARAMETER: a positive (64-bit) integer.
 
+Slot types:
 See PERFORMANCE-OVERRIDE-TYPE-INTEL
 See BOOL32
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-PERFORMANCE-OVERRIDE-INTEL
 "))
 
 (defclass performance-configuration-acquire-info-intel ()
@@ -15399,7 +17018,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TYPE: an enum value of PERFORMANCE-CONFIGURATION-TYPE-INTEL.
 
+Slot types:
 See PERFORMANCE-CONFIGURATION-TYPE-INTEL
+
+Instances of this class are used as parameters of the following functions:
+See ACQUIRE-PERFORMANCE-CONFIGURATION-INTEL
 "))
 
 (defclass physical-device-shader-clock-features-khr ()
@@ -15422,6 +17045,7 @@ Slots:
  - SHADER-SUBGROUP-CLOCK: a BOOL32.
  - SHADER-DEVICE-CLOCK: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15444,6 +17068,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - INDEX-TYPE-UINT-8: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15490,6 +17115,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-S-M-BUILTINS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15522,6 +17148,7 @@ Slots:
  - FRAGMENT-SHADER-PIXEL-INTERLOCK: a BOOL32.
  - FRAGMENT-SHADER-SHADING-RATE-INTERLOCK: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15544,6 +17171,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SEPARATE-DEPTH-STENCIL-LAYOUTS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15566,6 +17194,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - STENCIL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See IMAGE-LAYOUT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15592,6 +17221,7 @@ Slots:
  - STENCIL-INITIAL-LAYOUT: an enum value of IMAGE-LAYOUT.
  - STENCIL-FINAL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
+Slot types:
 See IMAGE-LAYOUT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15613,6 +17243,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PIPELINE-EXECUTABLE-INFO: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15635,7 +17266,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PIPELINE: a PIPELINE.
 
+Slot types:
 See PIPELINE
+
+Instances of this class are used as parameters of the following functions:
+See GET-PIPELINE-EXECUTABLE-PROPERTIES-KHR
 "))
 
 (defclass pipeline-executable-properties-khr ()
@@ -15668,7 +17303,11 @@ Slots:
  - DESCRIPTION: a string.
  - SUBGROUP-SIZE: a positive (32-bit) integer.
 
+Slot types:
 See SHADER-STAGE-FLAGS
+
+Instances of this class are used as parameters of the following functions:
+See GET-PIPELINE-EXECUTABLE-PROPERTIES-KHR
 "))
 
 (defclass pipeline-executable-info-khr ()
@@ -15691,7 +17330,12 @@ Slots:
  - PIPELINE: a PIPELINE.
  - EXECUTABLE-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See PIPELINE
+
+Instances of this class are used as parameters of the following functions:
+See GET-PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATIONS-KHR
+See GET-PIPELINE-EXECUTABLE-STATISTICS-KHR
 "))
 
 (defclass pipeline-executable-statistic-value-khr ()
@@ -15715,6 +17359,7 @@ Slots:
  - U64: a positive (64-bit) integer.
  - F64: a double-float.
 
+Slot types:
 See BOOL32
 "))
 
@@ -15748,8 +17393,12 @@ Slots:
  - FORMAT: an enum value of PIPELINE-EXECUTABLE-STATISTIC-FORMAT-KHR.
  - VALUE: a PIPELINE-EXECUTABLE-STATISTIC-VALUE-KHR.
 
+Slot types:
 See PIPELINE-EXECUTABLE-STATISTIC-FORMAT-KHR
 See PIPELINE-EXECUTABLE-STATISTIC-VALUE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PIPELINE-EXECUTABLE-STATISTICS-KHR
 "))
 
 (defclass pipeline-executable-internal-representation-khr ()
@@ -15787,7 +17436,11 @@ Slots:
  - DATA-SIZE: a positive integer.
  - DATA (optional): a foreign pointer to a buffer of size DATA-SIZE.
 
+Slot types:
 See BOOL32
+
+Instances of this class are used as parameters of the following functions:
+See GET-PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATIONS-KHR
 "))
 
 (defclass physical-device-shader-demote-to-helper-invocation-features-ext ()
@@ -15805,6 +17458,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-DEMOTE-TO-HELPER-INVOCATION: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15827,6 +17481,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TEXEL-BUFFER-ALIGNMENT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15864,6 +17519,7 @@ Slots:
  - UNIFORM-TEXEL-BUFFER-OFFSET-ALIGNMENT-BYTES: a DEVICE-SIZE.
  - UNIFORM-TEXEL-BUFFER-OFFSET-SINGLE-TEXEL-ALIGNMENT: a BOOL32.
 
+Slot types:
 See DEVICE-SIZE
 See BOOL32
 
@@ -15891,6 +17547,7 @@ Slots:
  - SUBGROUP-SIZE-CONTROL: a BOOL32.
  - COMPUTE-FULL-SUBGROUPS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15928,6 +17585,7 @@ Slots:
  - MAX-COMPUTE-WORKGROUP-SUBGROUPS: a positive (32-bit) integer.
  - REQUIRED-SUBGROUP-SIZE-STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
 
+Slot types:
 See SHADER-STAGE-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15987,7 +17645,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MEMORY: a DEVICE-MEMORY.
 
+Slot types:
 See DEVICE-MEMORY
+
+Instances of this class are used as parameters of the following functions:
+See GET-DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS
 "))
 
 (defclass physical-device-line-rasterization-features-ext ()
@@ -16030,6 +17692,7 @@ Slots:
  - STIPPLED-BRESENHAM-LINES: a BOOL32.
  - STIPPLED-SMOOTH-LINES: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16086,6 +17749,7 @@ Slots:
  - LINE-STIPPLE-FACTOR: a positive (32-bit) integer.
  - LINE-STIPPLE-PATTERN: a positive (16-bit) integer.
 
+Slot types:
 See LINE-RASTERIZATION-MODE-EXT
 See BOOL32
 
@@ -16108,6 +17772,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PIPELINE-CREATION-CACHE-CONTROL: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16185,6 +17850,7 @@ Slots:
  - SAMPLER-YCBCR-CONVERSION: a BOOL32.
  - SHADER-DRAW-PARAMETERS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16277,6 +17943,7 @@ Slots:
  - MAX-PER-SET-DESCRIPTORS: a positive (32-bit) integer.
  - MAX-MEMORY-ALLOCATION-SIZE: a DEVICE-SIZE.
 
+Slot types:
 See SHADER-STAGE-FLAGS
 See SUBGROUP-FEATURE-FLAGS
 See POINT-CLIPPING-BEHAVIOR
@@ -16532,6 +18199,7 @@ Slots:
  - SHADER-OUTPUT-LAYER: a BOOL32.
  - SUBGROUP-BROADCAST-DYNAMIC-ID: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16809,6 +18477,7 @@ Slots:
  - MAX-TIMELINE-SEMAPHORE-VALUE-DIFFERENCE: a positive (64-bit) integer.
  - FRAMEBUFFER-INTEGER-COLOR-SAMPLE-COUNTS (optional): a list containing a valid combination of SAMPLE-COUNT-FLAGS.
 
+Slot types:
 See DRIVER-ID
 See CONFORMANCE-VERSION
 See SHADER-FLOAT-CONTROLS-INDEPENDENCE
@@ -16835,6 +18504,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - COMPILER-CONTROL-FLAGS (optional): a list containing a valid combination of PIPELINE-COMPILER-CONTROL-FLAGS-AMD.
 
+Slot types:
 See PIPELINE-COMPILER-CONTROL-FLAGS-AMD
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16857,6 +18527,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DEVICE-COHERENT-MEMORY: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16899,7 +18570,11 @@ Slots:
  - DESCRIPTION: a string.
  - LAYER: a string.
 
+Slot types:
 See TOOL-PURPOSE-FLAGS-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
 "))
 
 (defclass sampler-custom-border-color-create-info-ext ()
@@ -16922,6 +18597,7 @@ Slots:
  - CUSTOM-BORDER-COLOR: a CLEAR-COLOR-VALUE.
  - FORMAT: an enum value of FORMAT.
 
+Slot types:
 See CLEAR-COLOR-VALUE
 See FORMAT
 
@@ -16968,6 +18644,7 @@ Slots:
  - CUSTOM-BORDER-COLORS: a BOOL32.
  - CUSTOM-BORDER-COLOR-WITHOUT-FORMAT: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16988,6 +18665,7 @@ Slots:
  - DEVICE-ADDRESS: a DEVICE-ADDRESS.
  - HOST-ADDRESS: a foreign pointer.
 
+Slot types:
 See DEVICE-ADDRESS
 "))
 
@@ -17004,6 +18682,7 @@ Slots:
  - DEVICE-ADDRESS: a DEVICE-ADDRESS.
  - HOST-ADDRESS: a foreign pointer.
 
+Slot types:
 See DEVICE-ADDRESS
 "))
 
@@ -17052,6 +18731,7 @@ Slots:
  - INDEX-DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - TRANSFORM-DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
 
+Slot types:
 See FORMAT
 See DEVICE-SIZE
 See INDEX-TYPE
@@ -17078,6 +18758,7 @@ Slots:
  - DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - STRIDE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-OR-HOST-ADDRESS-CONST-KHR
 See DEVICE-SIZE
 "))
@@ -17102,6 +18783,7 @@ Slots:
  - ARRAY-OF-POINTERS: a BOOL32.
  - DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
 
+Slot types:
 See BOOL32
 See DEVICE-OR-HOST-ADDRESS-CONST-KHR
 "))
@@ -17123,6 +18805,7 @@ Slots:
  - AABBS: an ACCELERATION-STRUCTURE-GEOMETRY-AABBS-DATA-KHR.
  - INSTANCES: an ACCELERATION-STRUCTURE-GEOMETRY-INSTANCES-DATA-KHR.
 
+Slot types:
 See ACCELERATION-STRUCTURE-GEOMETRY-TRIANGLES-DATA-KHR
 See ACCELERATION-STRUCTURE-GEOMETRY-AABBS-DATA-KHR
 See ACCELERATION-STRUCTURE-GEOMETRY-INSTANCES-DATA-KHR
@@ -17153,6 +18836,7 @@ Slots:
  - GEOMETRY: an ACCELERATION-STRUCTURE-GEOMETRY-DATA-KHR.
  - FLAGS (optional): a list containing a valid combination of GEOMETRY-FLAGS-KHR.
 
+Slot types:
 See GEOMETRY-TYPE-KHR
 See ACCELERATION-STRUCTURE-GEOMETRY-DATA-KHR
 See GEOMETRY-FLAGS-KHR
@@ -17208,12 +18892,19 @@ Slots:
  - P-GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
  - SCRATCH-DATA: a DEVICE-OR-HOST-ADDRESS-KHR.
 
+Slot types:
 See ACCELERATION-STRUCTURE-TYPE-KHR
 See BUILD-ACCELERATION-STRUCTURE-FLAGS-KHR
 See BUILD-ACCELERATION-STRUCTURE-MODE-KHR
 See ACCELERATION-STRUCTURE-KHR
 See ACCELERATION-STRUCTURE-GEOMETRY-KHR
 See DEVICE-OR-HOST-ADDRESS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See BUILD-ACCELERATION-STRUCTURES-KHR
+See CMD-BUILD-ACCELERATION-STRUCTURES-INDIRECT-KHR
+See CMD-BUILD-ACCELERATION-STRUCTURES-KHR
+See GET-ACCELERATION-STRUCTURE-BUILD-SIZES-KHR
 "))
 
 (defclass acceleration-structure-build-range-info-khr ()
@@ -17240,6 +18931,10 @@ Slots:
  - PRIMITIVE-OFFSET: a positive (32-bit) integer.
  - FIRST-VERTEX: a positive (32-bit) integer.
  - TRANSFORM-OFFSET: a positive (32-bit) integer.
+
+Instances of this class are used as parameters of the following functions:
+See BUILD-ACCELERATION-STRUCTURES-KHR
+See CMD-BUILD-ACCELERATION-STRUCTURES-KHR
 "))
 
 (defclass acceleration-structure-create-info-khr ()
@@ -17282,11 +18977,15 @@ Slots:
  - TYPE: an enum value of ACCELERATION-STRUCTURE-TYPE-KHR.
  - DEVICE-ADDRESS (optional): a DEVICE-ADDRESS.
 
+Slot types:
 See ACCELERATION-STRUCTURE-CREATE-FLAGS-KHR
 See BUFFER
 See DEVICE-SIZE
 See ACCELERATION-STRUCTURE-TYPE-KHR
 See DEVICE-ADDRESS
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-ACCELERATION-STRUCTURE-KHR
 "))
 
 (defclass aabb-positions-khr ()
@@ -17371,6 +19070,7 @@ Slots:
  - FLAGS (optional): a list containing a valid combination of GEOMETRY-INSTANCE-FLAGS-KHR.
  - ACCELERATION-STRUCTURE-REFERENCE: a positive (64-bit) integer.
 
+Slot types:
 See TRANSFORM-MATRIX-KHR
 See GEOMETRY-INSTANCE-FLAGS-KHR
 "))
@@ -17390,7 +19090,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-KHR.
 
+Slot types:
 See ACCELERATION-STRUCTURE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-ACCELERATION-STRUCTURE-DEVICE-ADDRESS-KHR
 "))
 
 (defclass acceleration-structure-version-info-khr ()
@@ -17407,6 +19111,9 @@ See ACCELERATION-STRUCTURE-KHR
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - VERSION-DATA: a foreign pointer to a buffer of size 2*ENAME:-V-K_-U-U-I-D_-S-I-Z-E.
+
+Instances of this class are used as parameters of the following functions:
+See GET-DEVICE-ACCELERATION-STRUCTURE-COMPATIBILITY-KHR
 "))
 
 (defclass copy-acceleration-structure-info-khr ()
@@ -17434,8 +19141,13 @@ Slots:
  - DST: an ACCELERATION-STRUCTURE-KHR.
  - MODE: an enum value of COPY-ACCELERATION-STRUCTURE-MODE-KHR.
 
+Slot types:
 See ACCELERATION-STRUCTURE-KHR
 See COPY-ACCELERATION-STRUCTURE-MODE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-ACCELERATION-STRUCTURE-KHR
+See COPY-ACCELERATION-STRUCTURE-KHR
 "))
 
 (defclass copy-acceleration-structure-to-memory-info-khr ()
@@ -17463,9 +19175,14 @@ Slots:
  - DST: a DEVICE-OR-HOST-ADDRESS-KHR.
  - MODE: an enum value of COPY-ACCELERATION-STRUCTURE-MODE-KHR.
 
+Slot types:
 See ACCELERATION-STRUCTURE-KHR
 See DEVICE-OR-HOST-ADDRESS-KHR
 See COPY-ACCELERATION-STRUCTURE-MODE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
+See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
 "))
 
 (defclass copy-memory-to-acceleration-structure-info-khr ()
@@ -17493,9 +19210,14 @@ Slots:
  - DST: an ACCELERATION-STRUCTURE-KHR.
  - MODE: an enum value of COPY-ACCELERATION-STRUCTURE-MODE-KHR.
 
+Slot types:
 See DEVICE-OR-HOST-ADDRESS-CONST-KHR
 See ACCELERATION-STRUCTURE-KHR
 See COPY-ACCELERATION-STRUCTURE-MODE-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
+See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
 "))
 
 (defclass ray-tracing-pipeline-interface-create-info-khr ()
@@ -17534,6 +19256,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LIBRARIES: a list of foreign pointer to a buffer of size LIBRARY-COUNTs.
 
+Slot types:
 See PIPELINE
 "))
 
@@ -17552,6 +19275,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - EXTENDED-DYNAMIC-STATE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17574,6 +19298,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
 
+Slot types:
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17595,6 +19320,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
 
+Slot types:
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17622,6 +19348,7 @@ Slots:
  - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
  - RENDER-AREA: a RECT-2D.
 
+Slot types:
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 See RECT-2D
 
@@ -17644,6 +19371,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DIAGNOSTICS-CONFIG: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17666,6 +19394,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of DEVICE-DIAGNOSTICS-CONFIG-FLAGS-NV.
 
+Slot types:
 See DEVICE-DIAGNOSTICS-CONFIG-FLAGS-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17687,6 +19416,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-ZERO-INITIALIZE-WORKGROUP-MEMORY: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17719,6 +19449,7 @@ Slots:
  - ROBUST-IMAGE-ACCESS-2: a BOOL32.
  - NULL-DESCRIPTOR: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17746,6 +19477,7 @@ Slots:
  - ROBUST-STORAGE-BUFFER-ACCESS-SIZE-ALIGNMENT: a DEVICE-SIZE.
  - ROBUST-UNIFORM-BUFFER-ACCESS-SIZE-ALIGNMENT: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17767,6 +19499,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ROBUST-IMAGE-ACCESS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17804,6 +19537,7 @@ Slots:
  - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-8-BIT-ACCESS: a BOOL32.
  - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-16-BIT-ACCESS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17896,6 +19630,7 @@ Slots:
  - TRIANGLE-FANS: a BOOL32.
  - VERTEX-ATTRIBUTE-ACCESS-BEYOND-STRIDE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17942,6 +19677,7 @@ Slots:
  - FORMAT-A4R4G4B4: a BOOL32.
  - FORMAT-A4B4G4R4: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17974,6 +19710,7 @@ Slots:
  - DST-OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
 "))
 
@@ -18012,6 +19749,7 @@ Slots:
  - DST-OFFSET: an OFFSET-3D.
  - EXTENT: an EXTENT-3D.
 
+Slot types:
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
 See EXTENT-3D
@@ -18047,8 +19785,12 @@ Slots:
  - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
  - DST-OFFSETS: an OFFSET-3D.
 
+Slot types:
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: COPY-COMMAND-TRANSFORM-INFO-QCOM
 "))
 
 (defclass buffer-image-copy-2-khr ()
@@ -18091,10 +19833,14 @@ Slots:
  - IMAGE-OFFSET: an OFFSET-3D.
  - IMAGE-EXTENT: an EXTENT-3D.
 
+Slot types:
 See DEVICE-SIZE
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
 See EXTENT-3D
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: COPY-COMMAND-TRANSFORM-INFO-QCOM
 "))
 
 (defclass image-resolve-2-khr ()
@@ -18132,6 +19878,7 @@ Slots:
  - DST-OFFSET: an OFFSET-3D.
  - EXTENT: an EXTENT-3D.
 
+Slot types:
 See IMAGE-SUBRESOURCE-LAYERS
 See OFFSET-3D
 See EXTENT-3D
@@ -18162,8 +19909,12 @@ Slots:
  - DST-BUFFER: a BUFFER.
  - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
 
+Slot types:
 See BUFFER
 See BUFFER-COPY-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-BUFFER-2-KHR
 "))
 
 (defclass copy-image-info-2-khr ()
@@ -18201,9 +19952,13 @@ Slots:
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
 
+Slot types:
 See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-COPY-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-IMAGE-2-KHR
 "))
 
 (defclass blit-image-info-2-khr ()
@@ -18246,10 +20001,14 @@ Slots:
  - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
  - FILTER: an enum value of FILTER.
 
+Slot types:
 See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-BLIT-2-KHR
 See FILTER
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BLIT-IMAGE-2-KHR
 "))
 
 (defclass copy-buffer-to-image-info-2-khr ()
@@ -18282,10 +20041,14 @@ Slots:
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
 
+Slot types:
 See BUFFER
 See IMAGE
 See IMAGE-LAYOUT
 See BUFFER-IMAGE-COPY-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-BUFFER-TO-IMAGE-2-KHR
 "))
 
 (defclass copy-image-to-buffer-info-2-khr ()
@@ -18318,10 +20081,14 @@ Slots:
  - DST-BUFFER: a BUFFER.
  - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
 
+Slot types:
 See IMAGE
 See IMAGE-LAYOUT
 See BUFFER
 See BUFFER-IMAGE-COPY-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-COPY-IMAGE-TO-BUFFER-2-KHR
 "))
 
 (defclass resolve-image-info-2-khr ()
@@ -18359,9 +20126,13 @@ Slots:
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
 
+Slot types:
 See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-RESOLVE-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-RESOLVE-IMAGE-2-KHR
 "))
 
 (defclass physical-device-shader-image-atomic-int-64-features-ext ()
@@ -18384,6 +20155,7 @@ Slots:
  - SHADER-IMAGE-INT-64-ATOMICS: a BOOL32.
  - SPARSE-IMAGE-INT-64-ATOMICS: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18411,6 +20183,7 @@ Slots:
  - FRAGMENT-SHADING-RATE-ATTACHMENT: an ATTACHMENT-REFERENCE-2.
  - SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
 
+Slot types:
 See ATTACHMENT-REFERENCE-2
 See EXTENT-2D
 
@@ -18438,6 +20211,7 @@ Slots:
  - FRAGMENT-SIZE: an EXTENT-2D.
  - COMBINER-OPS: an enum value of FRAGMENT-SHADING-RATE-COMBINER-OP-KHR.
 
+Slot types:
 See EXTENT-2D
 See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
 
@@ -18470,6 +20244,7 @@ Slots:
  - PRIMITIVE-FRAGMENT-SHADING-RATE: a BOOL32.
  - ATTACHMENT-FRAGMENT-SHADING-RATE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18572,6 +20347,7 @@ Slots:
  - FRAGMENT-SHADING-RATE-WITH-CUSTOM-SAMPLE-LOCATIONS: a BOOL32.
  - FRAGMENT-SHADING-RATE-STRICT-MULTIPLY-COMBINER: a BOOL32.
 
+Slot types:
 See EXTENT-2D
 See SAMPLE-COUNT-FLAG-BITS
 See BOOL32
@@ -18600,8 +20376,12 @@ Slots:
  - SAMPLE-COUNTS: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - FRAGMENT-SIZE: an EXTENT-2D.
 
+Slot types:
 See SAMPLE-COUNT-FLAGS
 See EXTENT-2D
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-FRAGMENT-SHADING-RATES-KHR
 "))
 
 (defclass physical-device-shader-terminate-invocation-features-khr ()
@@ -18619,6 +20399,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SHADER-TERMINATE-INVOCATION: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18651,6 +20432,7 @@ Slots:
  - SUPERSAMPLE-FRAGMENT-SHADING-RATES: a BOOL32.
  - NO-INVOCATION-FRAGMENT-SHADING-RATES: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18673,6 +20455,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MAX-FRAGMENT-SHADING-RATE-INVOCATION-COUNT: an enum value of SAMPLE-COUNT-FLAG-BITS.
 
+Slot types:
 See SAMPLE-COUNT-FLAG-BITS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18704,6 +20487,7 @@ Slots:
  - SHADING-RATE: an enum value of FRAGMENT-SHADING-RATE-NV.
  - COMBINER-OPS: an enum value of FRAGMENT-SHADING-RATE-COMBINER-OP-KHR.
 
+Slot types:
 See FRAGMENT-SHADING-RATE-TYPE-NV
 See FRAGMENT-SHADING-RATE-NV
 See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
@@ -18737,7 +20521,11 @@ Slots:
  - UPDATE-SCRATCH-SIZE: a DEVICE-SIZE.
  - BUILD-SCRATCH-SIZE: a DEVICE-SIZE.
 
+Slot types:
 See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See GET-ACCELERATION-STRUCTURE-BUILD-SIZES-KHR
 "))
 
 (defclass physical-device-mutable-descriptor-type-features-valve ()
@@ -18755,6 +20543,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MUTABLE-DESCRIPTOR-TYPE: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18772,6 +20561,7 @@ See DEVICE-CREATE-INFO
 Slots:
  - DESCRIPTOR-TYPES: a list of foreign pointer to a buffer of size DESCRIPTOR-TYPE-COUNTs.
 
+Slot types:
 See DESCRIPTOR-TYPE
 "))
 
@@ -18790,6 +20580,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MUTABLE-DESCRIPTOR-TYPE-LISTS: a list of foreign pointer to a buffer of size MUTABLE-DESCRIPTOR-TYPE-LIST-COUNTs.
 
+Slot types:
 See MUTABLE-DESCRIPTOR-TYPE-LIST-VALVE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18827,6 +20618,7 @@ Slots:
  - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS-2-KHR
 See ACCESS-FLAGS-2-KHR
 
@@ -18894,11 +20686,15 @@ Slots:
  - IMAGE: an IMAGE.
  - SUBRESOURCE-RANGE: an IMAGE-SUBRESOURCE-RANGE.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS-2-KHR
 See ACCESS-FLAGS-2-KHR
 See IMAGE-LAYOUT
 See IMAGE
 See IMAGE-SUBRESOURCE-RANGE
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: SAMPLE-LOCATIONS-INFO-EXT
 "))
 
 (defclass buffer-memory-barrier-2-khr ()
@@ -18956,6 +20752,7 @@ Slots:
  - OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS-2-KHR
 See ACCESS-FLAGS-2-KHR
 See BUFFER
@@ -18992,10 +20789,16 @@ Slots:
  - BUFFER-MEMORY-BARRIERS: a list of foreign pointer to a buffer of size BUFFER-MEMORY-BARRIER-COUNTs.
  - IMAGE-MEMORY-BARRIERS: a list of foreign pointer to a buffer of size IMAGE-MEMORY-BARRIER-COUNTs.
 
+Slot types:
 See DEPENDENCY-FLAGS
 See MEMORY-BARRIER-2-KHR
 See BUFFER-MEMORY-BARRIER-2-KHR
 See IMAGE-MEMORY-BARRIER-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-PIPELINE-BARRIER-2-KHR
+See CMD-SET-EVENT-2-KHR
+See CMD-WAIT-EVENTS-2-KHR
 "))
 
 (defclass semaphore-submit-info-khr ()
@@ -19028,6 +20831,7 @@ Slots:
  - STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - DEVICE-INDEX: a positive (32-bit) integer.
 
+Slot types:
 See SEMAPHORE
 See PIPELINE-STAGE-FLAGS-2-KHR
 "))
@@ -19052,6 +20856,7 @@ Slots:
  - COMMAND-BUFFER: a COMMAND-BUFFER.
  - DEVICE-MASK: a positive (32-bit) integer.
 
+Slot types:
 See COMMAND-BUFFER
 "))
 
@@ -19085,9 +20890,18 @@ Slots:
  - COMMAND-BUFFER-INFOS: a list of foreign pointer to a buffer of size COMMAND-BUFFER-INFO-COUNTs.
  - SIGNAL-SEMAPHORE-INFOS: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-INFO-COUNTs.
 
+Slot types:
 See SUBMIT-FLAGS-KHR
 See COMMAND-BUFFER-SUBMIT-INFO-KHR
 See SEMAPHORE-SUBMIT-INFO-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See: PERFORMANCE-QUERY-SUBMIT-INFO-KHR
+See: WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-KHR
+See: WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-NV
+
+Instances of this class are used as parameters of the following functions:
+See QUEUE-SUBMIT-2-KHR
 "))
 
 (defclass queue-family-checkpoint-properties-2-nv ()
@@ -19105,6 +20919,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - CHECKPOINT-EXECUTION-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS-2-KHR
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -19131,7 +20946,11 @@ Slots:
  - STAGE: a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - CHECKPOINT-MARKER: a foreign pointer.
 
+Slot types:
 See PIPELINE-STAGE-FLAGS-2-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-QUEUE-CHECKPOINT-DATA-2-NV
 "))
 
 (defclass physical-device-synchronization-2-features-khr ()
@@ -19149,6 +20968,7 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SYNCHRONIZATION-2: a BOOL32.
 
+Slot types:
 See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
