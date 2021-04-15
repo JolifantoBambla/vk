@@ -4770,163 +4770,1057 @@ Has the values:
 
 
 (deftype instance ()
-  "Represents the handle [VkInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstance.html)."
+  "Represents the handle [VkInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstance.html).
+
+Children:
+See DEBUG-REPORT-CALLBACK-EXT
+See DEBUG-UTILS-MESSENGER-EXT
+See SURFACE-KHR
+
+Related functions:
+See CREATE-ANDROID-SURFACE-KHR
+See CREATE-DEBUG-REPORT-CALLBACK-EXT
+See CREATE-DEBUG-UTILS-MESSENGER-EXT
+See CREATE-DIRECT-FB-SURFACE-EXT
+See CREATE-DISPLAY-PLANE-SURFACE-KHR
+See CREATE-HEADLESS-SURFACE-EXT
+See CREATE-I-OS-SURFACE-MVK
+See CREATE-IMAGE-PIPE-SURFACE-FUCHSIA
+See CREATE-INSTANCE
+See CREATE-MAC-OS-SURFACE-MVK
+See CREATE-METAL-SURFACE-EXT
+See CREATE-SCREEN-SURFACE-QNX
+See CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
+See CREATE-VI-SURFACE-NN
+See CREATE-WAYLAND-SURFACE-KHR
+See CREATE-WIN32-SURFACE-KHR
+See CREATE-XCB-SURFACE-KHR
+See CREATE-XLIB-SURFACE-KHR
+See DEBUG-REPORT-MESSAGE-EXT
+See DESTROY-DEBUG-REPORT-CALLBACK-EXT
+See DESTROY-DEBUG-UTILS-MESSENGER-EXT
+See DESTROY-INSTANCE
+See DESTROY-SURFACE-KHR
+See ENUMERATE-PHYSICAL-DEVICE-GROUPS
+See ENUMERATE-PHYSICAL-DEVICES
+See GET-INSTANCE-PROC-ADDR
+See SUBMIT-DEBUG-UTILS-MESSAGE-EXT"
   'cffi:foreign-pointer)
 
 (deftype physical-device ()
-  "Represents the handle [VkPhysicalDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevice.html)."
+  "Represents the handle [VkPhysicalDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevice.html).
+
+Parents:
+See INSTANCE
+
+Related functions:
+See ACQUIRE-WINRT-DISPLAY-NV
+See ACQUIRE-XLIB-DISPLAY-EXT
+See CREATE-DEVICE
+See CREATE-DISPLAY-MODE-KHR
+See ENUMERATE-DEVICE-EXTENSION-PROPERTIES
+See ENUMERATE-DEVICE-LAYER-PROPERTIES
+See ENUMERATE-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-COUNTERS-KHR
+See ENUMERATE-PHYSICAL-DEVICES
+See GET-DISPLAY-MODE-PROPERTIES-2-KHR
+See GET-DISPLAY-MODE-PROPERTIES-KHR
+See GET-DISPLAY-PLANE-CAPABILITIES-2-KHR
+See GET-DISPLAY-PLANE-CAPABILITIES-KHR
+See GET-DISPLAY-PLANE-SUPPORTED-DISPLAYS-KHR
+See GET-PHYSICAL-DEVICE-CALIBRATEABLE-TIME-DOMAINS-EXT
+See GET-PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
+See GET-PHYSICAL-DEVICE-DIRECT-FB-PRESENTATION-SUPPORT-EXT
+See GET-PHYSICAL-DEVICE-DISPLAY-PLANE-PROPERTIES-2-KHR
+See GET-PHYSICAL-DEVICE-DISPLAY-PLANE-PROPERTIES-KHR
+See GET-PHYSICAL-DEVICE-DISPLAY-PROPERTIES-2-KHR
+See GET-PHYSICAL-DEVICE-DISPLAY-PROPERTIES-KHR
+See GET-PHYSICAL-DEVICE-EXTERNAL-BUFFER-PROPERTIES
+See GET-PHYSICAL-DEVICE-EXTERNAL-FENCE-PROPERTIES
+See GET-PHYSICAL-DEVICE-EXTERNAL-IMAGE-FORMAT-PROPERTIES-NV
+See GET-PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-PROPERTIES
+See GET-PHYSICAL-DEVICE-FEATURES
+See GET-PHYSICAL-DEVICE-FEATURES-2
+See GET-PHYSICAL-DEVICE-FORMAT-PROPERTIES
+See GET-PHYSICAL-DEVICE-FORMAT-PROPERTIES-2
+See GET-PHYSICAL-DEVICE-FRAGMENT-SHADING-RATES-KHR
+See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES
+See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES-2
+See GET-PHYSICAL-DEVICE-MEMORY-PROPERTIES
+See GET-PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
+See GET-PHYSICAL-DEVICE-MULTISAMPLE-PROPERTIES-EXT
+See GET-PHYSICAL-DEVICE-PRESENT-RECTANGLES-KHR
+See GET-PHYSICAL-DEVICE-PROPERTIES
+See GET-PHYSICAL-DEVICE-PROPERTIES-2
+See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-PASSES-KHR
+See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PROPERTIES
+See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PROPERTIES-2
+See GET-PHYSICAL-DEVICE-SCREEN-PRESENTATION-SUPPORT-QNX
+See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES
+See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES-2
+See GET-PHYSICAL-DEVICE-SUPPORTED-FRAMEBUFFER-MIXED-SAMPLES-COMBINATIONS-NV
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-EXT
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-2-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-2-EXT
+See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-SUPPORT-KHR
+See GET-PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
+See GET-PHYSICAL-DEVICE-WAYLAND-PRESENTATION-SUPPORT-KHR
+See GET-PHYSICAL-DEVICE-WIN32-PRESENTATION-SUPPORT-KHR
+See GET-PHYSICAL-DEVICE-XCB-PRESENTATION-SUPPORT-KHR
+See GET-PHYSICAL-DEVICE-XLIB-PRESENTATION-SUPPORT-KHR
+See GET-RAND-R-OUTPUT-DISPLAY-EXT
+See GET-WINRT-DISPLAY-NV
+See RELEASE-DISPLAY-EXT"
   'cffi:foreign-pointer)
 
 (deftype device ()
-  "Represents the handle [VkDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDevice.html)."
+  "Represents the handle [VkDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDevice.html).
+
+Parents:
+See PHYSICAL-DEVICE
+
+Children:
+See ACCELERATION-STRUCTURE-KHR
+See ACCELERATION-STRUCTURE-NV
+See BUFFER
+See BUFFER-VIEW
+See COMMAND-BUFFER
+See COMMAND-POOL
+See DEFERRED-OPERATION-KHR
+See DESCRIPTOR-POOL
+See DESCRIPTOR-SET
+See DESCRIPTOR-SET-LAYOUT
+See DESCRIPTOR-UPDATE-TEMPLATE
+See DEVICE-MEMORY
+See EVENT
+See FENCE
+See FRAMEBUFFER
+See IMAGE
+See IMAGE-VIEW
+See INDIRECT-COMMANDS-LAYOUT-NV
+See PIPELINE
+See PIPELINE-CACHE
+See PIPELINE-LAYOUT
+See PRIVATE-DATA-SLOT-EXT
+See QUERY-POOL
+See RENDER-PASS
+See SAMPLER
+See SAMPLER-YCBCR-CONVERSION
+See SEMAPHORE
+See SHADER-MODULE
+See SWAPCHAIN-KHR
+See VALIDATION-CACHE-EXT
+
+Related functions:
+See ACQUIRE-FULL-SCREEN-EXCLUSIVE-MODE-EXT
+See ACQUIRE-NEXT-IMAGE-2-KHR
+See ACQUIRE-NEXT-IMAGE-KHR
+See ACQUIRE-PERFORMANCE-CONFIGURATION-INTEL
+See ACQUIRE-PROFILING-LOCK-KHR
+See ALLOCATE-COMMAND-BUFFERS
+See ALLOCATE-DESCRIPTOR-SETS
+See ALLOCATE-MEMORY
+See BIND-ACCELERATION-STRUCTURE-MEMORY-NV
+See BIND-BUFFER-MEMORY
+See BIND-BUFFER-MEMORY-2
+See BIND-IMAGE-MEMORY
+See BIND-IMAGE-MEMORY-2
+See BUILD-ACCELERATION-STRUCTURES-KHR
+See COMPILE-DEFERRED-NV
+See COPY-ACCELERATION-STRUCTURE-KHR
+See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
+See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
+See CREATE-ACCELERATION-STRUCTURE-KHR
+See CREATE-ACCELERATION-STRUCTURE-NV
+See CREATE-BUFFER
+See CREATE-BUFFER-VIEW
+See CREATE-COMMAND-POOL
+See CREATE-COMPUTE-PIPELINES
+See CREATE-DEFERRED-OPERATION-KHR
+See CREATE-DESCRIPTOR-POOL
+See CREATE-DESCRIPTOR-SET-LAYOUT
+See CREATE-DESCRIPTOR-UPDATE-TEMPLATE
+See CREATE-DEVICE
+See CREATE-EVENT
+See CREATE-FENCE
+See CREATE-FRAMEBUFFER
+See CREATE-GRAPHICS-PIPELINES
+See CREATE-IMAGE
+See CREATE-IMAGE-VIEW
+See CREATE-INDIRECT-COMMANDS-LAYOUT-NV
+See CREATE-PIPELINE-CACHE
+See CREATE-PIPELINE-LAYOUT
+See CREATE-PRIVATE-DATA-SLOT-EXT
+See CREATE-QUERY-POOL
+See CREATE-RAY-TRACING-PIPELINES-KHR
+See CREATE-RAY-TRACING-PIPELINES-NV
+See CREATE-RENDER-PASS
+See CREATE-RENDER-PASS-2
+See CREATE-SAMPLER
+See CREATE-SAMPLER-YCBCR-CONVERSION
+See CREATE-SEMAPHORE
+See CREATE-SHADER-MODULE
+See CREATE-SHARED-SWAPCHAINS-KHR
+See CREATE-SWAPCHAIN-KHR
+See CREATE-VALIDATION-CACHE-EXT
+See DEBUG-MARKER-SET-OBJECT-NAME-EXT
+See DEBUG-MARKER-SET-OBJECT-TAG-EXT
+See DEFERRED-OPERATION-JOIN-KHR
+See DESTROY-ACCELERATION-STRUCTURE-KHR
+See DESTROY-ACCELERATION-STRUCTURE-NV
+See DESTROY-BUFFER
+See DESTROY-BUFFER-VIEW
+See DESTROY-COMMAND-POOL
+See DESTROY-DEFERRED-OPERATION-KHR
+See DESTROY-DESCRIPTOR-POOL
+See DESTROY-DESCRIPTOR-SET-LAYOUT
+See DESTROY-DESCRIPTOR-UPDATE-TEMPLATE
+See DESTROY-DEVICE
+See DESTROY-EVENT
+See DESTROY-FENCE
+See DESTROY-FRAMEBUFFER
+See DESTROY-IMAGE
+See DESTROY-IMAGE-VIEW
+See DESTROY-INDIRECT-COMMANDS-LAYOUT-NV
+See DESTROY-PIPELINE
+See DESTROY-PIPELINE-CACHE
+See DESTROY-PIPELINE-LAYOUT
+See DESTROY-PRIVATE-DATA-SLOT-EXT
+See DESTROY-QUERY-POOL
+See DESTROY-RENDER-PASS
+See DESTROY-SAMPLER
+See DESTROY-SAMPLER-YCBCR-CONVERSION
+See DESTROY-SEMAPHORE
+See DESTROY-SHADER-MODULE
+See DESTROY-SWAPCHAIN-KHR
+See DESTROY-VALIDATION-CACHE-EXT
+See DEVICE-WAIT-IDLE
+See DISPLAY-POWER-CONTROL-EXT
+See FLUSH-MAPPED-MEMORY-RANGES
+See FREE-COMMAND-BUFFERS
+See FREE-DESCRIPTOR-SETS
+See FREE-MEMORY
+See GET-ACCELERATION-STRUCTURE-BUILD-SIZES-KHR
+See GET-ACCELERATION-STRUCTURE-DEVICE-ADDRESS-KHR
+See GET-ACCELERATION-STRUCTURE-HANDLE-NV
+See GET-ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-NV
+See GET-ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
+See GET-BUFFER-DEVICE-ADDRESS
+See GET-BUFFER-MEMORY-REQUIREMENTS
+See GET-BUFFER-MEMORY-REQUIREMENTS-2
+See GET-BUFFER-OPAQUE-CAPTURE-ADDRESS
+See GET-CALIBRATED-TIMESTAMPS-EXT
+See GET-DEFERRED-OPERATION-MAX-CONCURRENCY-KHR
+See GET-DEFERRED-OPERATION-RESULT-KHR
+See GET-DESCRIPTOR-SET-LAYOUT-SUPPORT
+See GET-DEVICE-ACCELERATION-STRUCTURE-COMPATIBILITY-KHR
+See GET-DEVICE-GROUP-PEER-MEMORY-FEATURES
+See GET-DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
+See GET-DEVICE-GROUP-SURFACE-PRESENT-MODES-2-EXT
+See GET-DEVICE-GROUP-SURFACE-PRESENT-MODES-KHR
+See GET-DEVICE-MEMORY-COMMITMENT
+See GET-DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS
+See GET-DEVICE-PROC-ADDR
+See GET-DEVICE-QUEUE
+See GET-DEVICE-QUEUE-2
+See GET-EVENT-STATUS
+See GET-FENCE-FD-KHR
+See GET-FENCE-STATUS
+See GET-FENCE-WIN32-HANDLE-KHR
+See GET-GENERATED-COMMANDS-MEMORY-REQUIREMENTS-NV
+See GET-IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
+See GET-IMAGE-MEMORY-REQUIREMENTS
+See GET-IMAGE-MEMORY-REQUIREMENTS-2
+See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS
+See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS-2
+See GET-IMAGE-SUBRESOURCE-LAYOUT
+See GET-IMAGE-VIEW-ADDRESS-NV-X
+See GET-IMAGE-VIEW-HANDLE-NV-X
+See GET-MEMORY-ANDROID-HARDWARE-BUFFER-ANDROID
+See GET-MEMORY-FD-KHR
+See GET-MEMORY-FD-PROPERTIES-KHR
+See GET-MEMORY-HOST-POINTER-PROPERTIES-EXT
+See GET-MEMORY-WIN32-HANDLE-KHR
+See GET-MEMORY-WIN32-HANDLE-NV
+See GET-MEMORY-WIN32-HANDLE-PROPERTIES-KHR
+See GET-MEMORY-ZIRCON-HANDLE-FUCHSIA
+See GET-MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
+See GET-PAST-PRESENTATION-TIMING-GOOGLE
+See GET-PERFORMANCE-PARAMETER-INTEL
+See GET-PIPELINE-CACHE-DATA
+See GET-PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATIONS-KHR
+See GET-PIPELINE-EXECUTABLE-PROPERTIES-KHR
+See GET-PIPELINE-EXECUTABLE-STATISTICS-KHR
+See GET-PRIVATE-DATA-EXT
+See GET-QUERY-POOL-RESULTS
+See GET-RAY-TRACING-CAPTURE-REPLAY-SHADER-GROUP-HANDLES-KHR
+See GET-RAY-TRACING-SHADER-GROUP-HANDLES-KHR
+See GET-RAY-TRACING-SHADER-GROUP-STACK-SIZE-KHR
+See GET-REFRESH-CYCLE-DURATION-GOOGLE
+See GET-RENDER-AREA-GRANULARITY
+See GET-SEMAPHORE-COUNTER-VALUE
+See GET-SEMAPHORE-FD-KHR
+See GET-SEMAPHORE-WIN32-HANDLE-KHR
+See GET-SEMAPHORE-ZIRCON-HANDLE-FUCHSIA
+See GET-SHADER-INFO-AMD
+See GET-SWAPCHAIN-COUNTER-EXT
+See GET-SWAPCHAIN-IMAGES-KHR
+See GET-SWAPCHAIN-STATUS-KHR
+See GET-VALIDATION-CACHE-DATA-EXT
+See IMPORT-FENCE-FD-KHR
+See IMPORT-FENCE-WIN32-HANDLE-KHR
+See IMPORT-SEMAPHORE-FD-KHR
+See IMPORT-SEMAPHORE-WIN32-HANDLE-KHR
+See IMPORT-SEMAPHORE-ZIRCON-HANDLE-FUCHSIA
+See INITIALIZE-PERFORMANCE-API-INTEL
+See INVALIDATE-MAPPED-MEMORY-RANGES
+See MAP-MEMORY
+See MERGE-PIPELINE-CACHES
+See MERGE-VALIDATION-CACHES-EXT
+See REGISTER-DEVICE-EVENT-EXT
+See REGISTER-DISPLAY-EVENT-EXT
+See RELEASE-FULL-SCREEN-EXCLUSIVE-MODE-EXT
+See RELEASE-PERFORMANCE-CONFIGURATION-INTEL
+See RELEASE-PROFILING-LOCK-KHR
+See RESET-COMMAND-POOL
+See RESET-DESCRIPTOR-POOL
+See RESET-EVENT
+See RESET-FENCES
+See RESET-QUERY-POOL
+See SET-DEBUG-UTILS-OBJECT-NAME-EXT
+See SET-DEBUG-UTILS-OBJECT-TAG-EXT
+See SET-EVENT
+See SET-HDR-METADATA-EXT
+See SET-LOCAL-DIMMING-AMD
+See SET-PRIVATE-DATA-EXT
+See SIGNAL-SEMAPHORE
+See TRIM-COMMAND-POOL
+See UNINITIALIZE-PERFORMANCE-API-INTEL
+See UNMAP-MEMORY
+See UPDATE-DESCRIPTOR-SET-WITH-TEMPLATE
+See UPDATE-DESCRIPTOR-SETS
+See WAIT-FOR-FENCES
+See WAIT-SEMAPHORES
+See WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR"
   'cffi:foreign-pointer)
 
 (deftype queue ()
-  "Represents the handle [VkQueue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueue.html)."
+  "Represents the handle [VkQueue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueue.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See GET-DEVICE-QUEUE
+See GET-DEVICE-QUEUE-2
+See GET-QUEUE-CHECKPOINT-DATA-2-NV
+See GET-QUEUE-CHECKPOINT-DATA-NV
+See QUEUE-BEGIN-DEBUG-UTILS-LABEL-EXT
+See QUEUE-BIND-SPARSE
+See QUEUE-END-DEBUG-UTILS-LABEL-EXT
+See QUEUE-INSERT-DEBUG-UTILS-LABEL-EXT
+See QUEUE-PRESENT-KHR
+See QUEUE-SET-PERFORMANCE-CONFIGURATION-INTEL
+See QUEUE-SUBMIT
+See QUEUE-SUBMIT-2-KHR
+See QUEUE-WAIT-IDLE"
   'cffi:foreign-pointer)
 
 (deftype command-buffer ()
-  "Represents the handle [VkCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBuffer.html)."
+  "Represents the handle [VkCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBuffer.html).
+
+Parents:
+See COMMAND-POOL
+
+Related functions:
+See ALLOCATE-COMMAND-BUFFERS
+See BEGIN-COMMAND-BUFFER
+See CMD-BEGIN-CONDITIONAL-RENDERING-EXT
+See CMD-BEGIN-DEBUG-UTILS-LABEL-EXT
+See CMD-BEGIN-QUERY
+See CMD-BEGIN-QUERY-INDEXED-EXT
+See CMD-BEGIN-RENDER-PASS
+See CMD-BEGIN-RENDER-PASS-2
+See CMD-BEGIN-TRANSFORM-FEEDBACK-EXT
+See CMD-BIND-DESCRIPTOR-SETS
+See CMD-BIND-INDEX-BUFFER
+See CMD-BIND-PIPELINE
+See CMD-BIND-PIPELINE-SHADER-GROUP-NV
+See CMD-BIND-SHADING-RATE-IMAGE-NV
+See CMD-BIND-TRANSFORM-FEEDBACK-BUFFERS-EXT
+See CMD-BIND-VERTEX-BUFFERS
+See CMD-BIND-VERTEX-BUFFERS-2-EXT
+See CMD-BLIT-IMAGE
+See CMD-BLIT-IMAGE-2-KHR
+See CMD-BUILD-ACCELERATION-STRUCTURE-NV
+See CMD-BUILD-ACCELERATION-STRUCTURES-INDIRECT-KHR
+See CMD-BUILD-ACCELERATION-STRUCTURES-KHR
+See CMD-CLEAR-ATTACHMENTS
+See CMD-CLEAR-COLOR-IMAGE
+See CMD-CLEAR-DEPTH-STENCIL-IMAGE
+See CMD-COPY-ACCELERATION-STRUCTURE-KHR
+See CMD-COPY-ACCELERATION-STRUCTURE-NV
+See CMD-COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
+See CMD-COPY-BUFFER
+See CMD-COPY-BUFFER-2-KHR
+See CMD-COPY-BUFFER-TO-IMAGE
+See CMD-COPY-BUFFER-TO-IMAGE-2-KHR
+See CMD-COPY-IMAGE
+See CMD-COPY-IMAGE-2-KHR
+See CMD-COPY-IMAGE-TO-BUFFER
+See CMD-COPY-IMAGE-TO-BUFFER-2-KHR
+See CMD-COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
+See CMD-COPY-QUERY-POOL-RESULTS
+See CMD-DEBUG-MARKER-BEGIN-EXT
+See CMD-DEBUG-MARKER-END-EXT
+See CMD-DEBUG-MARKER-INSERT-EXT
+See CMD-DISPATCH
+See CMD-DISPATCH-BASE
+See CMD-DISPATCH-INDIRECT
+See CMD-DRAW
+See CMD-DRAW-INDEXED
+See CMD-DRAW-INDEXED-INDIRECT
+See CMD-DRAW-INDEXED-INDIRECT-COUNT
+See CMD-DRAW-INDIRECT
+See CMD-DRAW-INDIRECT-BYTE-COUNT-EXT
+See CMD-DRAW-INDIRECT-COUNT
+See CMD-DRAW-MESH-TASKS-INDIRECT-COUNT-NV
+See CMD-DRAW-MESH-TASKS-INDIRECT-NV
+See CMD-DRAW-MESH-TASKS-NV
+See CMD-END-CONDITIONAL-RENDERING-EXT
+See CMD-END-DEBUG-UTILS-LABEL-EXT
+See CMD-END-QUERY
+See CMD-END-QUERY-INDEXED-EXT
+See CMD-END-RENDER-PASS
+See CMD-END-RENDER-PASS-2
+See CMD-END-TRANSFORM-FEEDBACK-EXT
+See CMD-EXECUTE-COMMANDS
+See CMD-EXECUTE-GENERATED-COMMANDS-NV
+See CMD-FILL-BUFFER
+See CMD-INSERT-DEBUG-UTILS-LABEL-EXT
+See CMD-NEXT-SUBPASS
+See CMD-NEXT-SUBPASS-2
+See CMD-PIPELINE-BARRIER
+See CMD-PIPELINE-BARRIER-2-KHR
+See CMD-PREPROCESS-GENERATED-COMMANDS-NV
+See CMD-PUSH-CONSTANTS
+See CMD-PUSH-DESCRIPTOR-SET-KHR
+See CMD-PUSH-DESCRIPTOR-SET-WITH-TEMPLATE-KHR
+See CMD-RESET-EVENT
+See CMD-RESET-EVENT-2-KHR
+See CMD-RESET-QUERY-POOL
+See CMD-RESOLVE-IMAGE
+See CMD-RESOLVE-IMAGE-2-KHR
+See CMD-SET-BLEND-CONSTANTS
+See CMD-SET-CHECKPOINT-NV
+See CMD-SET-COARSE-SAMPLE-ORDER-NV
+See CMD-SET-CULL-MODE-EXT
+See CMD-SET-DEPTH-BIAS
+See CMD-SET-DEPTH-BOUNDS
+See CMD-SET-DEPTH-BOUNDS-TEST-ENABLE-EXT
+See CMD-SET-DEPTH-COMPARE-OP-EXT
+See CMD-SET-DEPTH-TEST-ENABLE-EXT
+See CMD-SET-DEPTH-WRITE-ENABLE-EXT
+See CMD-SET-DEVICE-MASK
+See CMD-SET-DISCARD-RECTANGLE-EXT
+See CMD-SET-EVENT
+See CMD-SET-EVENT-2-KHR
+See CMD-SET-EXCLUSIVE-SCISSOR-NV
+See CMD-SET-FRAGMENT-SHADING-RATE-ENUM-NV
+See CMD-SET-FRAGMENT-SHADING-RATE-KHR
+See CMD-SET-FRONT-FACE-EXT
+See CMD-SET-LINE-STIPPLE-EXT
+See CMD-SET-LINE-WIDTH
+See CMD-SET-PERFORMANCE-MARKER-INTEL
+See CMD-SET-PERFORMANCE-OVERRIDE-INTEL
+See CMD-SET-PERFORMANCE-STREAM-MARKER-INTEL
+See CMD-SET-PRIMITIVE-TOPOLOGY-EXT
+See CMD-SET-RAY-TRACING-PIPELINE-STACK-SIZE-KHR
+See CMD-SET-SAMPLE-LOCATIONS-EXT
+See CMD-SET-SCISSOR
+See CMD-SET-SCISSOR-WITH-COUNT-EXT
+See CMD-SET-STENCIL-COMPARE-MASK
+See CMD-SET-STENCIL-OP-EXT
+See CMD-SET-STENCIL-REFERENCE
+See CMD-SET-STENCIL-TEST-ENABLE-EXT
+See CMD-SET-STENCIL-WRITE-MASK
+See CMD-SET-VIEWPORT
+See CMD-SET-VIEWPORT-SHADING-RATE-PALETTE-NV
+See CMD-SET-VIEWPORT-W-SCALING-NV
+See CMD-SET-VIEWPORT-WITH-COUNT-EXT
+See CMD-TRACE-RAYS-INDIRECT-KHR
+See CMD-TRACE-RAYS-KHR
+See CMD-TRACE-RAYS-NV
+See CMD-UPDATE-BUFFER
+See CMD-WAIT-EVENTS
+See CMD-WAIT-EVENTS-2-KHR
+See CMD-WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR
+See CMD-WRITE-ACCELERATION-STRUCTURES-PROPERTIES-NV
+See CMD-WRITE-BUFFER-MARKER-2-AMD
+See CMD-WRITE-BUFFER-MARKER-AMD
+See CMD-WRITE-TIMESTAMP
+See CMD-WRITE-TIMESTAMP-2-KHR
+See END-COMMAND-BUFFER
+See FREE-COMMAND-BUFFERS
+See RESET-COMMAND-BUFFER"
   'cffi:foreign-pointer)
 
 (deftype device-memory ()
-  "Represents the (non-dispatchable) handle [VkDeviceMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemory.html)."
+  "Represents the (non-dispatchable) handle [VkDeviceMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemory.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See ALLOCATE-MEMORY
+See BIND-BUFFER-MEMORY
+See BIND-IMAGE-MEMORY
+See FREE-MEMORY
+See GET-DEVICE-MEMORY-COMMITMENT
+See GET-MEMORY-WIN32-HANDLE-NV
+See MAP-MEMORY
+See UNMAP-MEMORY"
   'cffi:foreign-pointer)
 
 (deftype command-pool ()
-  "Represents the (non-dispatchable) handle [VkCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPool.html)."
+  "Represents the (non-dispatchable) handle [VkCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPool.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-COMMAND-POOL
+See DESTROY-COMMAND-POOL
+See FREE-COMMAND-BUFFERS
+See RESET-COMMAND-POOL
+See TRIM-COMMAND-POOL"
   'cffi:foreign-pointer)
 
 (deftype buffer ()
-  "Represents the (non-dispatchable) handle [VkBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuffer.html)."
+  "Represents the (non-dispatchable) handle [VkBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuffer.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See BIND-BUFFER-MEMORY
+See CMD-BEGIN-TRANSFORM-FEEDBACK-EXT
+See CMD-BIND-INDEX-BUFFER
+See CMD-BIND-TRANSFORM-FEEDBACK-BUFFERS-EXT
+See CMD-BIND-VERTEX-BUFFERS
+See CMD-BIND-VERTEX-BUFFERS-2-EXT
+See CMD-BUILD-ACCELERATION-STRUCTURE-NV
+See CMD-COPY-BUFFER
+See CMD-COPY-BUFFER-TO-IMAGE
+See CMD-COPY-IMAGE-TO-BUFFER
+See CMD-COPY-QUERY-POOL-RESULTS
+See CMD-DISPATCH-INDIRECT
+See CMD-DRAW-INDEXED-INDIRECT
+See CMD-DRAW-INDEXED-INDIRECT-COUNT
+See CMD-DRAW-INDIRECT
+See CMD-DRAW-INDIRECT-BYTE-COUNT-EXT
+See CMD-DRAW-INDIRECT-COUNT
+See CMD-DRAW-MESH-TASKS-INDIRECT-COUNT-NV
+See CMD-DRAW-MESH-TASKS-INDIRECT-NV
+See CMD-END-TRANSFORM-FEEDBACK-EXT
+See CMD-FILL-BUFFER
+See CMD-TRACE-RAYS-NV
+See CMD-UPDATE-BUFFER
+See CMD-WRITE-BUFFER-MARKER-2-AMD
+See CMD-WRITE-BUFFER-MARKER-AMD
+See CREATE-BUFFER
+See DESTROY-BUFFER
+See GET-BUFFER-MEMORY-REQUIREMENTS"
   'cffi:foreign-pointer)
 
 (deftype buffer-view ()
-  "Represents the (non-dispatchable) handle [VkBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferView.html)."
+  "Represents the (non-dispatchable) handle [VkBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferView.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-BUFFER-VIEW
+See DESTROY-BUFFER-VIEW"
   'cffi:foreign-pointer)
 
 (deftype image ()
-  "Represents the (non-dispatchable) handle [VkImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImage.html)."
+  "Represents the (non-dispatchable) handle [VkImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImage.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See BIND-IMAGE-MEMORY
+See CMD-BLIT-IMAGE
+See CMD-CLEAR-COLOR-IMAGE
+See CMD-CLEAR-DEPTH-STENCIL-IMAGE
+See CMD-COPY-BUFFER-TO-IMAGE
+See CMD-COPY-IMAGE
+See CMD-COPY-IMAGE-TO-BUFFER
+See CMD-RESOLVE-IMAGE
+See CREATE-IMAGE
+See DESTROY-IMAGE
+See GET-IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
+See GET-IMAGE-MEMORY-REQUIREMENTS
+See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS
+See GET-IMAGE-SUBRESOURCE-LAYOUT
+See GET-SWAPCHAIN-IMAGES-KHR"
   'cffi:foreign-pointer)
 
 (deftype image-view ()
-  "Represents the (non-dispatchable) handle [VkImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageView.html)."
+  "Represents the (non-dispatchable) handle [VkImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageView.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-BIND-SHADING-RATE-IMAGE-NV
+See CREATE-IMAGE-VIEW
+See DESTROY-IMAGE-VIEW
+See GET-IMAGE-VIEW-ADDRESS-NV-X"
   'cffi:foreign-pointer)
 
 (deftype shader-module ()
-  "Represents the (non-dispatchable) handle [VkShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModule.html)."
+  "Represents the (non-dispatchable) handle [VkShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModule.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-SHADER-MODULE
+See DESTROY-SHADER-MODULE"
   'cffi:foreign-pointer)
 
 (deftype pipeline ()
-  "Represents the (non-dispatchable) handle [VkPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipeline.html)."
+  "Represents the (non-dispatchable) handle [VkPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipeline.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-BIND-PIPELINE
+See CMD-BIND-PIPELINE-SHADER-GROUP-NV
+See COMPILE-DEFERRED-NV
+See CREATE-COMPUTE-PIPELINES
+See CREATE-GRAPHICS-PIPELINES
+See CREATE-RAY-TRACING-PIPELINES-KHR
+See CREATE-RAY-TRACING-PIPELINES-NV
+See DESTROY-PIPELINE
+See GET-RAY-TRACING-CAPTURE-REPLAY-SHADER-GROUP-HANDLES-KHR
+See GET-RAY-TRACING-SHADER-GROUP-HANDLES-KHR
+See GET-RAY-TRACING-SHADER-GROUP-STACK-SIZE-KHR
+See GET-SHADER-INFO-AMD"
   'cffi:foreign-pointer)
 
 (deftype pipeline-layout ()
-  "Represents the (non-dispatchable) handle [VkPipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineLayout.html)."
+  "Represents the (non-dispatchable) handle [VkPipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineLayout.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-BIND-DESCRIPTOR-SETS
+See CMD-PUSH-CONSTANTS
+See CMD-PUSH-DESCRIPTOR-SET-KHR
+See CMD-PUSH-DESCRIPTOR-SET-WITH-TEMPLATE-KHR
+See CREATE-PIPELINE-LAYOUT
+See DESTROY-PIPELINE-LAYOUT"
   'cffi:foreign-pointer)
 
 (deftype sampler ()
-  "Represents the (non-dispatchable) handle [VkSampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampler.html)."
+  "Represents the (non-dispatchable) handle [VkSampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampler.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-SAMPLER
+See DESTROY-SAMPLER"
   'cffi:foreign-pointer)
 
 (deftype descriptor-set ()
-  "Represents the (non-dispatchable) handle [VkDescriptorSet](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSet.html)."
+  "Represents the (non-dispatchable) handle [VkDescriptorSet](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSet.html).
+
+Parents:
+See DESCRIPTOR-POOL
+
+Related functions:
+See ALLOCATE-DESCRIPTOR-SETS
+See CMD-BIND-DESCRIPTOR-SETS
+See FREE-DESCRIPTOR-SETS
+See UPDATE-DESCRIPTOR-SET-WITH-TEMPLATE"
   'cffi:foreign-pointer)
 
 (deftype descriptor-set-layout ()
-  "Represents the (non-dispatchable) handle [VkDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayout.html)."
+  "Represents the (non-dispatchable) handle [VkDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayout.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-DESCRIPTOR-SET-LAYOUT
+See DESTROY-DESCRIPTOR-SET-LAYOUT"
   'cffi:foreign-pointer)
 
 (deftype descriptor-pool ()
-  "Represents the (non-dispatchable) handle [VkDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPool.html)."
+  "Represents the (non-dispatchable) handle [VkDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPool.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-DESCRIPTOR-POOL
+See DESTROY-DESCRIPTOR-POOL
+See FREE-DESCRIPTOR-SETS
+See RESET-DESCRIPTOR-POOL"
   'cffi:foreign-pointer)
 
 (deftype fence ()
-  "Represents the (non-dispatchable) handle [VkFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFence.html)."
+  "Represents the (non-dispatchable) handle [VkFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFence.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See ACQUIRE-NEXT-IMAGE-KHR
+See CREATE-FENCE
+See DESTROY-FENCE
+See GET-FENCE-STATUS
+See QUEUE-BIND-SPARSE
+See QUEUE-SUBMIT
+See QUEUE-SUBMIT-2-KHR
+See REGISTER-DEVICE-EVENT-EXT
+See REGISTER-DISPLAY-EVENT-EXT
+See RESET-FENCES
+See WAIT-FOR-FENCES"
   'cffi:foreign-pointer)
 
 (deftype semaphore ()
-  "Represents the (non-dispatchable) handle [VkSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphore.html)."
+  "Represents the (non-dispatchable) handle [VkSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphore.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See ACQUIRE-NEXT-IMAGE-KHR
+See CREATE-SEMAPHORE
+See DESTROY-SEMAPHORE
+See GET-SEMAPHORE-COUNTER-VALUE"
   'cffi:foreign-pointer)
 
 (deftype event ()
-  "Represents the (non-dispatchable) handle [VkEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkEvent.html)."
+  "Represents the (non-dispatchable) handle [VkEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkEvent.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-RESET-EVENT
+See CMD-RESET-EVENT-2-KHR
+See CMD-SET-EVENT
+See CMD-SET-EVENT-2-KHR
+See CMD-WAIT-EVENTS
+See CMD-WAIT-EVENTS-2-KHR
+See CREATE-EVENT
+See DESTROY-EVENT
+See GET-EVENT-STATUS
+See RESET-EVENT
+See SET-EVENT"
   'cffi:foreign-pointer)
 
 (deftype query-pool ()
-  "Represents the (non-dispatchable) handle [VkQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPool.html)."
+  "Represents the (non-dispatchable) handle [VkQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPool.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-BEGIN-QUERY
+See CMD-BEGIN-QUERY-INDEXED-EXT
+See CMD-COPY-QUERY-POOL-RESULTS
+See CMD-END-QUERY
+See CMD-END-QUERY-INDEXED-EXT
+See CMD-RESET-QUERY-POOL
+See CMD-WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR
+See CMD-WRITE-ACCELERATION-STRUCTURES-PROPERTIES-NV
+See CMD-WRITE-TIMESTAMP
+See CMD-WRITE-TIMESTAMP-2-KHR
+See CREATE-QUERY-POOL
+See DESTROY-QUERY-POOL
+See GET-QUERY-POOL-RESULTS
+See RESET-QUERY-POOL"
   'cffi:foreign-pointer)
 
 (deftype framebuffer ()
-  "Represents the (non-dispatchable) handle [VkFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebuffer.html)."
+  "Represents the (non-dispatchable) handle [VkFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebuffer.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-FRAMEBUFFER
+See DESTROY-FRAMEBUFFER"
   'cffi:foreign-pointer)
 
 (deftype render-pass ()
-  "Represents the (non-dispatchable) handle [VkRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPass.html)."
+  "Represents the (non-dispatchable) handle [VkRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPass.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-RENDER-PASS
+See CREATE-RENDER-PASS-2
+See DESTROY-RENDER-PASS
+See GET-RENDER-AREA-GRANULARITY"
   'cffi:foreign-pointer)
 
 (deftype pipeline-cache ()
-  "Represents the (non-dispatchable) handle [VkPipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCache.html)."
+  "Represents the (non-dispatchable) handle [VkPipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCache.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-COMPUTE-PIPELINES
+See CREATE-GRAPHICS-PIPELINES
+See CREATE-PIPELINE-CACHE
+See CREATE-RAY-TRACING-PIPELINES-KHR
+See CREATE-RAY-TRACING-PIPELINES-NV
+See DESTROY-PIPELINE-CACHE
+See GET-PIPELINE-CACHE-DATA
+See MERGE-PIPELINE-CACHES"
   'cffi:foreign-pointer)
 
 (deftype indirect-commands-layout-nv ()
-  "Represents the (non-dispatchable) handle [VkIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutNV.html)."
+  "Represents the (non-dispatchable) handle [VkIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutNV.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-INDIRECT-COMMANDS-LAYOUT-NV
+See DESTROY-INDIRECT-COMMANDS-LAYOUT-NV"
   'cffi:foreign-pointer)
 
 (deftype descriptor-update-template ()
-  "Represents the (non-dispatchable) handle [VkDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplate.html)."
+  "Represents the (non-dispatchable) handle [VkDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplate.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-PUSH-DESCRIPTOR-SET-WITH-TEMPLATE-KHR
+See CREATE-DESCRIPTOR-UPDATE-TEMPLATE
+See DESTROY-DESCRIPTOR-UPDATE-TEMPLATE
+See UPDATE-DESCRIPTOR-SET-WITH-TEMPLATE"
   'cffi:foreign-pointer)
 
 (deftype sampler-ycbcr-conversion ()
-  "Represents the (non-dispatchable) handle [VkSamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversion.html)."
+  "Represents the (non-dispatchable) handle [VkSamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversion.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-SAMPLER-YCBCR-CONVERSION
+See DESTROY-SAMPLER-YCBCR-CONVERSION"
   'cffi:foreign-pointer)
 
 (deftype validation-cache-ext ()
-  "Represents the (non-dispatchable) handle [VkValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCacheEXT.html)."
+  "Represents the (non-dispatchable) handle [VkValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCacheEXT.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-VALIDATION-CACHE-EXT
+See DESTROY-VALIDATION-CACHE-EXT
+See GET-VALIDATION-CACHE-DATA-EXT
+See MERGE-VALIDATION-CACHES-EXT"
   'cffi:foreign-pointer)
 
 (deftype acceleration-structure-khr ()
-  "Represents the (non-dispatchable) handle [VkAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureKHR.html)."
+  "Represents the (non-dispatchable) handle [VkAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureKHR.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR
+See CREATE-ACCELERATION-STRUCTURE-KHR
+See DESTROY-ACCELERATION-STRUCTURE-KHR
+See WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR"
   'cffi:foreign-pointer)
 
 (deftype acceleration-structure-nv ()
-  "Represents the (non-dispatchable) handle [VkAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureNV.html)."
+  "Represents the (non-dispatchable) handle [VkAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureNV.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CMD-BUILD-ACCELERATION-STRUCTURE-NV
+See CMD-COPY-ACCELERATION-STRUCTURE-NV
+See CMD-WRITE-ACCELERATION-STRUCTURES-PROPERTIES-NV
+See CREATE-ACCELERATION-STRUCTURE-NV
+See DESTROY-ACCELERATION-STRUCTURE-NV
+See GET-ACCELERATION-STRUCTURE-HANDLE-NV"
   'cffi:foreign-pointer)
 
 (deftype performance-configuration-intel ()
-  "Represents the (non-dispatchable) handle [VkPerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceConfigurationINTEL.html)."
+  "Represents the (non-dispatchable) handle [VkPerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceConfigurationINTEL.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See ACQUIRE-PERFORMANCE-CONFIGURATION-INTEL
+See QUEUE-SET-PERFORMANCE-CONFIGURATION-INTEL
+See RELEASE-PERFORMANCE-CONFIGURATION-INTEL"
   'cffi:foreign-pointer)
 
 (deftype deferred-operation-khr ()
-  "Represents the (non-dispatchable) handle [VkDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeferredOperationKHR.html)."
+  "Represents the (non-dispatchable) handle [VkDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeferredOperationKHR.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See BUILD-ACCELERATION-STRUCTURES-KHR
+See COPY-ACCELERATION-STRUCTURE-KHR
+See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
+See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
+See CREATE-DEFERRED-OPERATION-KHR
+See CREATE-RAY-TRACING-PIPELINES-KHR
+See DEFERRED-OPERATION-JOIN-KHR
+See DESTROY-DEFERRED-OPERATION-KHR
+See GET-DEFERRED-OPERATION-MAX-CONCURRENCY-KHR
+See GET-DEFERRED-OPERATION-RESULT-KHR"
   'cffi:foreign-pointer)
 
 (deftype private-data-slot-ext ()
-  "Represents the (non-dispatchable) handle [VkPrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrivateDataSlotEXT.html)."
+  "Represents the (non-dispatchable) handle [VkPrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrivateDataSlotEXT.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-PRIVATE-DATA-SLOT-EXT
+See DESTROY-PRIVATE-DATA-SLOT-EXT
+See GET-PRIVATE-DATA-EXT
+See SET-PRIVATE-DATA-EXT"
   'cffi:foreign-pointer)
 
 (deftype display-khr ()
-  "Represents the (non-dispatchable) handle [VkDisplayKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayKHR.html)."
+  "Represents the (non-dispatchable) handle [VkDisplayKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayKHR.html).
+
+Parents:
+See PHYSICAL-DEVICE
+
+Related functions:
+See ACQUIRE-WINRT-DISPLAY-NV
+See ACQUIRE-XLIB-DISPLAY-EXT
+See CREATE-DISPLAY-MODE-KHR
+See DISPLAY-POWER-CONTROL-EXT
+See GET-DISPLAY-MODE-PROPERTIES-2-KHR
+See GET-DISPLAY-MODE-PROPERTIES-KHR
+See GET-DISPLAY-PLANE-SUPPORTED-DISPLAYS-KHR
+See GET-RAND-R-OUTPUT-DISPLAY-EXT
+See GET-WINRT-DISPLAY-NV
+See REGISTER-DISPLAY-EVENT-EXT
+See RELEASE-DISPLAY-EXT"
   'cffi:foreign-pointer)
 
 (deftype display-mode-khr ()
-  "Represents the (non-dispatchable) handle [VkDisplayModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayModeKHR.html)."
+  "Represents the (non-dispatchable) handle [VkDisplayModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayModeKHR.html).
+
+Parents:
+See DISPLAY-KHR
+
+Related functions:
+See CREATE-DISPLAY-MODE-KHR
+See GET-DISPLAY-PLANE-CAPABILITIES-KHR"
   'cffi:foreign-pointer)
 
 (deftype surface-khr ()
-  "Represents the (non-dispatchable) handle [VkSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceKHR.html)."
+  "Represents the (non-dispatchable) handle [VkSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceKHR.html).
+
+Parents:
+See INSTANCE
+
+Related functions:
+See CREATE-ANDROID-SURFACE-KHR
+See CREATE-DIRECT-FB-SURFACE-EXT
+See CREATE-DISPLAY-PLANE-SURFACE-KHR
+See CREATE-HEADLESS-SURFACE-EXT
+See CREATE-I-OS-SURFACE-MVK
+See CREATE-IMAGE-PIPE-SURFACE-FUCHSIA
+See CREATE-MAC-OS-SURFACE-MVK
+See CREATE-METAL-SURFACE-EXT
+See CREATE-SCREEN-SURFACE-QNX
+See CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
+See CREATE-VI-SURFACE-NN
+See CREATE-WAYLAND-SURFACE-KHR
+See CREATE-WIN32-SURFACE-KHR
+See CREATE-XCB-SURFACE-KHR
+See CREATE-XLIB-SURFACE-KHR
+See DESTROY-SURFACE-KHR
+See GET-DEVICE-GROUP-SURFACE-PRESENT-MODES-KHR
+See GET-PHYSICAL-DEVICE-PRESENT-RECTANGLES-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-EXT
+See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-KHR
+See GET-PHYSICAL-DEVICE-SURFACE-SUPPORT-KHR"
   'cffi:foreign-pointer)
 
 (deftype swapchain-khr ()
-  "Represents the (non-dispatchable) handle [VkSwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainKHR.html)."
+  "Represents the (non-dispatchable) handle [VkSwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainKHR.html).
+
+Parents:
+See SURFACE-KHR
+
+Related functions:
+See ACQUIRE-FULL-SCREEN-EXCLUSIVE-MODE-EXT
+See ACQUIRE-NEXT-IMAGE-KHR
+See CREATE-SHARED-SWAPCHAINS-KHR
+See CREATE-SWAPCHAIN-KHR
+See DESTROY-SWAPCHAIN-KHR
+See GET-PAST-PRESENTATION-TIMING-GOOGLE
+See GET-REFRESH-CYCLE-DURATION-GOOGLE
+See GET-SWAPCHAIN-COUNTER-EXT
+See GET-SWAPCHAIN-IMAGES-KHR
+See GET-SWAPCHAIN-STATUS-KHR
+See RELEASE-FULL-SCREEN-EXCLUSIVE-MODE-EXT
+See SET-HDR-METADATA-EXT
+See SET-LOCAL-DIMMING-AMD"
   'cffi:foreign-pointer)
 
 (deftype debug-report-callback-ext ()
-  "Represents the (non-dispatchable) handle [VkDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportCallbackEXT.html)."
+  "Represents the (non-dispatchable) handle [VkDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportCallbackEXT.html).
+
+Parents:
+See INSTANCE
+
+Related functions:
+See CREATE-DEBUG-REPORT-CALLBACK-EXT
+See DESTROY-DEBUG-REPORT-CALLBACK-EXT"
   'cffi:foreign-pointer)
 
 (deftype debug-utils-messenger-ext ()
-  "Represents the (non-dispatchable) handle [VkDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessengerEXT.html)."
+  "Represents the (non-dispatchable) handle [VkDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessengerEXT.html).
+
+Parents:
+See INSTANCE
+
+Related functions:
+See CREATE-DEBUG-UTILS-MESSENGER-EXT
+See DESTROY-DEBUG-UTILS-MESSENGER-EXT"
   'cffi:foreign-pointer)
 
 
@@ -4944,7 +5838,7 @@ Has the values:
 
 Slots:
  - S-TYPE: an enum value of STRUCTURE-TYPE.
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
 
 Slot types:
 See STRUCTURE-TYPE
@@ -4964,7 +5858,7 @@ See BASE-OUT-STRUCTURE
 
 Slots:
  - S-TYPE: an enum value of STRUCTURE-TYPE.
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
 
 Slot types:
 See STRUCTURE-TYPE
@@ -5309,10 +6203,10 @@ See ENUMERATE-INSTANCE-LAYER-PROPERTIES
   (:documentation "Represents the struct [VkApplicationInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkApplicationInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - APPLICATION-NAME (optional): a foreign pointer to a buffer of size NULL-TERMINATED.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - APPLICATION-NAME (optional): a string.
  - APPLICATION-VERSION: a positive (32-bit) integer.
- - ENGINE-NAME (optional): a foreign pointer to a buffer of size NULL-TERMINATED.
+ - ENGINE-NAME (optional): a string.
  - ENGINE-VERSION: a positive (32-bit) integer.
  - API-VERSION: a positive (32-bit) integer.
 "))
@@ -5470,10 +6364,10 @@ See REGISTER-DISPLAY-EVENT-EXT
   (:documentation "Represents the struct [VkDeviceQueueCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceQueueCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEVICE-QUEUE-CREATE-FLAGS.
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
- - QUEUE-PRIORITIES: a list of foreign pointer to a buffer of size QUEUE-COUNTs.
+ - QUEUE-PRIORITIES: a list of single-floats.
 
 Slot types:
 See DEVICE-QUEUE-CREATE-FLAGS
@@ -5510,11 +6404,11 @@ See DEVICE-QUEUE-GLOBAL-PRIORITY-CREATE-INFO-EXT
   (:documentation "Represents the struct [VkDeviceCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEVICE-CREATE-FLAGS.
- - QUEUE-CREATE-INFOS: a list of foreign pointer to a buffer of size QUEUE-CREATE-INFO-COUNTs.
- - ENABLED-LAYER-NAMES: a list of foreign pointer to a buffer of size ENABLED-LAYER-COUNTs.
- - ENABLED-EXTENSION-NAMES: a list of foreign pointer to a buffer of size ENABLED-EXTENSION-COUNTs.
+ - QUEUE-CREATE-INFOS: a list of DEVICE-QUEUE-CREATE-INFOs.
+ - ENABLED-LAYER-NAMES: a list of strings.
+ - ENABLED-EXTENSION-NAMES: a list of strings.
  - ENABLED-FEATURES (optional): a PHYSICAL-DEVICE-FEATURES.
 
 Slot types:
@@ -5638,11 +6532,11 @@ See CREATE-DEVICE
   (:documentation "Represents the struct [VkInstanceCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInstanceCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of INSTANCE-CREATE-FLAGS.
  - APPLICATION-INFO (optional): an APPLICATION-INFO.
- - ENABLED-LAYER-NAMES: a list of foreign pointer to a buffer of size ENABLED-LAYER-COUNTs.
- - ENABLED-EXTENSION-NAMES: a list of foreign pointer to a buffer of size ENABLED-EXTENSION-COUNTs.
+ - ENABLED-LAYER-NAMES: a list of strings.
+ - ENABLED-EXTENSION-NAMES: a list of strings.
 
 Slot types:
 See INSTANCE-CREATE-FLAGS
@@ -5740,7 +6634,7 @@ See GET-PHYSICAL-DEVICE-MEMORY-PROPERTIES
   (:documentation "Represents the struct [VkMemoryAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ALLOCATION-SIZE: a DEVICE-SIZE.
  - MEMORY-TYPE-INDEX: a positive (32-bit) integer.
 
@@ -5922,7 +6816,7 @@ See MEMORY-HEAP-FLAGS
   (:documentation "Represents the struct [VkMappedMemoryRange](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMappedMemoryRange.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY: a DEVICE-MEMORY.
  - OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
@@ -6089,14 +6983,14 @@ See IMAGE-LAYOUT
   (:documentation "Represents the struct [VkWriteDescriptorSet](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSet.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DST-SET: a DESCRIPTOR-SET.
  - DST-BINDING: a positive (32-bit) integer.
  - DST-ARRAY-ELEMENT: a positive (32-bit) integer.
  - DESCRIPTOR-TYPE: an enum value of DESCRIPTOR-TYPE.
- - IMAGE-INFO: a list of foreign pointer to a buffer of size DESCRIPTOR-COUNTs.
- - BUFFER-INFO: a list of foreign pointer to a buffer of size DESCRIPTOR-COUNTs.
- - TEXEL-BUFFER-VIEW: a list of foreign pointer to a buffer of size DESCRIPTOR-COUNTs.
+ - IMAGE-INFO: a list of DESCRIPTOR-IMAGE-INFOs.
+ - BUFFER-INFO: a list of DESCRIPTOR-BUFFER-INFOs.
+ - TEXEL-BUFFER-VIEW: a list of BUFFER-VIEWs.
 
 Slot types:
 See DESCRIPTOR-SET
@@ -6151,7 +7045,7 @@ See UPDATE-DESCRIPTOR-SETS
   (:documentation "Represents the struct [VkCopyDescriptorSet](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyDescriptorSet.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-SET: a DESCRIPTOR-SET.
  - SRC-BINDING: a positive (32-bit) integer.
  - SRC-ARRAY-ELEMENT: a positive (32-bit) integer.
@@ -6195,12 +7089,12 @@ See UPDATE-DESCRIPTOR-SETS
   (:documentation "Represents the struct [VkBufferCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of BUFFER-CREATE-FLAGS.
  - SIZE: a DEVICE-SIZE.
  - USAGE: a list containing a valid combination of BUFFER-USAGE-FLAGS.
  - SHARING-MODE: an enum value of SHARING-MODE.
- - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
+ - QUEUE-FAMILY-INDICES: a list of positive (32-bit) integers.
 
 Slot types:
 See BUFFER-CREATE-FLAGS
@@ -6246,7 +7140,7 @@ See CREATE-BUFFER
   (:documentation "Represents the struct [VkBufferViewCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferViewCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of BUFFER-VIEW-CREATE-FLAGS.
  - BUFFER: a BUFFER.
  - FORMAT: an enum value of FORMAT.
@@ -6373,7 +7267,7 @@ See CMD-CLEAR-DEPTH-STENCIL-IMAGE
   (:documentation "Represents the struct [VkMemoryBarrier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryBarrier.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS.
 
@@ -6421,7 +7315,7 @@ See CMD-WAIT-EVENTS
   (:documentation "Represents the struct [VkBufferMemoryBarrier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferMemoryBarrier.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-ACCESS-MASK: a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK: a list containing a valid combination of ACCESS-FLAGS.
  - SRC-QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
@@ -6480,7 +7374,7 @@ See CMD-WAIT-EVENTS
   (:documentation "Represents the struct [VkImageMemoryBarrier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageMemoryBarrier.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-ACCESS-MASK: a list containing a valid combination of ACCESS-FLAGS.
  - DST-ACCESS-MASK: a list containing a valid combination of ACCESS-FLAGS.
  - OLD-LAYOUT: an enum value of IMAGE-LAYOUT.
@@ -6560,7 +7454,7 @@ See CMD-WAIT-EVENTS
   (:documentation "Represents the struct [VkImageCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of IMAGE-CREATE-FLAGS.
  - IMAGE-TYPE: an enum value of IMAGE-TYPE.
  - FORMAT: an enum value of FORMAT.
@@ -6571,7 +7465,7 @@ Slots:
  - TILING: an enum value of IMAGE-TILING.
  - USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - SHARING-MODE: an enum value of SHARING-MODE.
- - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
+ - QUEUE-FAMILY-INDICES: a list of positive (32-bit) integers.
  - INITIAL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
 Slot types:
@@ -6669,7 +7563,7 @@ See GET-IMAGE-SUBRESOURCE-LAYOUT
   (:documentation "Represents the struct [VkImageViewCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of IMAGE-VIEW-CREATE-FLAGS.
  - IMAGE: an IMAGE.
  - VIEW-TYPE: an enum value of IMAGE-VIEW-TYPE.
@@ -6814,7 +7708,7 @@ See SPARSE-MEMORY-BIND-FLAGS
 
 Slots:
  - BUFFER: a BUFFER.
- - BINDS: a list of foreign pointer to a buffer of size BIND-COUNTs.
+ - BINDS: a list of SPARSE-MEMORY-BINDs.
 
 Slot types:
 See BUFFER
@@ -6834,7 +7728,7 @@ See SPARSE-MEMORY-BIND
 
 Slots:
  - IMAGE: an IMAGE.
- - BINDS: a list of foreign pointer to a buffer of size BIND-COUNTs.
+ - BINDS: a list of SPARSE-MEMORY-BINDs.
 
 Slot types:
 See IMAGE
@@ -6854,7 +7748,7 @@ See SPARSE-MEMORY-BIND
 
 Slots:
  - IMAGE: an IMAGE.
- - BINDS: a list of foreign pointer to a buffer of size BIND-COUNTs.
+ - BINDS: a list of SPARSE-IMAGE-MEMORY-BINDs.
 
 Slot types:
 See IMAGE
@@ -6889,12 +7783,12 @@ See SPARSE-IMAGE-MEMORY-BIND
   (:documentation "Represents the struct [VkBindSparseInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindSparseInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - WAIT-SEMAPHORES: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-COUNTs.
- - BUFFER-BINDS: a list of foreign pointer to a buffer of size BUFFER-BIND-COUNTs.
- - IMAGE-OPAQUE-BINDS: a list of foreign pointer to a buffer of size IMAGE-OPAQUE-BIND-COUNTs.
- - IMAGE-BINDS: a list of foreign pointer to a buffer of size IMAGE-BIND-COUNTs.
- - SIGNAL-SEMAPHORES: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - WAIT-SEMAPHORES: a list of SEMAPHOREs.
+ - BUFFER-BINDS: a list of SPARSE-BUFFER-MEMORY-BIND-INFOs.
+ - IMAGE-OPAQUE-BINDS: a list of SPARSE-IMAGE-OPAQUE-MEMORY-BIND-INFOs.
+ - IMAGE-BINDS: a list of SPARSE-IMAGE-MEMORY-BIND-INFOs.
+ - SIGNAL-SEMAPHORES: a list of SEMAPHOREs.
 
 Slot types:
 See SPARSE-BUFFER-MEMORY-BIND-INFO
@@ -7083,9 +7977,9 @@ See CMD-RESOLVE-IMAGE
   (:documentation "Represents the struct [VkShaderModuleCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModuleCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SHADER-MODULE-CREATE-FLAGS.
- - CODE: a foreign pointer to a buffer of size LATEXMATH:[\\TEXTRM{CODE-SIZE} \\OVER -4].
+ - CODE: a positive (32-bit) integer.
 
 Slot types:
 See SHADER-MODULE-CREATE-FLAGS
@@ -7125,7 +8019,7 @@ Slots:
  - DESCRIPTOR-TYPE: an enum value of DESCRIPTOR-TYPE.
  - DESCRIPTOR-COUNT (optional): a positive (32-bit) integer.
  - STAGE-FLAGS: a list containing a valid combination of SHADER-STAGE-FLAGS.
- - IMMUTABLE-SAMPLERS (optional): a foreign pointer to a buffer of size DESCRIPTOR-COUNT.
+ - IMMUTABLE-SAMPLERS (optional): a SAMPLER.
 
 Slot types:
 See DESCRIPTOR-TYPE
@@ -7149,9 +8043,9 @@ See SAMPLER
   (:documentation "Represents the struct [VkDescriptorSetLayoutCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayoutCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DESCRIPTOR-SET-LAYOUT-CREATE-FLAGS.
- - BINDINGS: a list of foreign pointer to a buffer of size BINDING-COUNTs.
+ - BINDINGS: a list of DESCRIPTOR-SET-LAYOUT-BINDINGs.
 
 Slot types:
 See DESCRIPTOR-SET-LAYOUT-CREATE-FLAGS
@@ -7205,10 +8099,10 @@ See DESCRIPTOR-TYPE
   (:documentation "Represents the struct [VkDescriptorPoolCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPoolCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DESCRIPTOR-POOL-CREATE-FLAGS.
  - MAX-SETS: a positive (32-bit) integer.
- - POOL-SIZES: a list of foreign pointer to a buffer of size POOL-SIZE-COUNTs.
+ - POOL-SIZES: a list of DESCRIPTOR-POOL-SIZEs.
 
 Slot types:
 See DESCRIPTOR-POOL-CREATE-FLAGS
@@ -7238,9 +8132,9 @@ See CREATE-DESCRIPTOR-POOL
   (:documentation "Represents the struct [VkDescriptorSetAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DESCRIPTOR-POOL: a DESCRIPTOR-POOL.
- - SET-LAYOUTS: a list of foreign pointer to a buffer of size DESCRIPTOR-SET-COUNTs.
+ - SET-LAYOUTS: a list of DESCRIPTOR-SET-LAYOUTs.
 
 Slot types:
 See DESCRIPTOR-POOL
@@ -7290,7 +8184,7 @@ Slots:
   (:documentation "Represents the struct [VkSpecializationInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSpecializationInfo.html).
 
 Slots:
- - MAP-ENTRIES: a list of foreign pointer to a buffer of size MAP-ENTRY-COUNTs.
+ - MAP-ENTRIES: a list of SPECIALIZATION-MAP-ENTRYs.
  - DATA-SIZE (optional): a positive integer.
  - DATA: a foreign pointer to a buffer of size DATA-SIZE.
 
@@ -7326,11 +8220,11 @@ See SPECIALIZATION-MAP-ENTRY
   (:documentation "Represents the struct [VkPipelineShaderStageCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-SHADER-STAGE-CREATE-FLAGS.
  - STAGE: an enum value of SHADER-STAGE-FLAG-BITS.
  - MODULE: a SHADER-MODULE.
- - NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
+ - NAME: a string.
  - SPECIALIZATION-INFO (optional): a SPECIALIZATION-INFO.
 
 Slot types:
@@ -7371,7 +8265,7 @@ See PIPELINE-SHADER-STAGE-REQUIRED-SUBGROUP-SIZE-CREATE-INFO-EXT
   (:documentation "Represents the struct [VkComputePipelineCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComputePipelineCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-CREATE-FLAGS.
  - STAGE: a PIPELINE-SHADER-STAGE-CREATE-INFO.
  - LAYOUT: a PIPELINE-LAYOUT.
@@ -7465,10 +8359,10 @@ See FORMAT
   (:documentation "Represents the struct [VkPipelineVertexInputStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineVertexInputStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-VERTEX-INPUT-STATE-CREATE-FLAGS.
- - VERTEX-BINDING-DESCRIPTIONS: a list of foreign pointer to a buffer of size VERTEX-BINDING-DESCRIPTION-COUNTs.
- - VERTEX-ATTRIBUTE-DESCRIPTIONS: a list of foreign pointer to a buffer of size VERTEX-ATTRIBUTE-DESCRIPTION-COUNTs.
+ - VERTEX-BINDING-DESCRIPTIONS: a list of VERTEX-INPUT-BINDING-DESCRIPTIONs.
+ - VERTEX-ATTRIBUTE-DESCRIPTIONS: a list of VERTEX-INPUT-ATTRIBUTE-DESCRIPTIONs.
 
 Slot types:
 See PIPELINE-VERTEX-INPUT-STATE-CREATE-FLAGS
@@ -7499,7 +8393,7 @@ See PIPELINE-VERTEX-INPUT-DIVISOR-STATE-CREATE-INFO-EXT
   (:documentation "Represents the struct [VkPipelineInputAssemblyStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineInputAssemblyStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-FLAGS.
  - TOPOLOGY: an enum value of PRIMITIVE-TOPOLOGY.
  - PRIMITIVE-RESTART-ENABLE: a boolean.
@@ -7525,7 +8419,7 @@ See PRIMITIVE-TOPOLOGY
   (:documentation "Represents the struct [VkPipelineTessellationStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineTessellationStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-TESSELLATION-STATE-CREATE-FLAGS.
  - PATCH-CONTROL-POINTS: a positive (32-bit) integer.
 
@@ -7556,10 +8450,10 @@ See PIPELINE-TESSELLATION-DOMAIN-ORIGIN-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineViewportStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineViewportStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-VIEWPORT-STATE-CREATE-FLAGS.
- - VIEWPORTS (optional): a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
- - SCISSORS (optional): a list of foreign pointer to a buffer of size SCISSOR-COUNTs.
+ - VIEWPORTS (optional): a list of VIEWPORTs.
+ - SCISSORS (optional): a list of RECT-2Ds.
 
 Slot types:
 See PIPELINE-VIEWPORT-STATE-CREATE-FLAGS
@@ -7626,7 +8520,7 @@ See PIPELINE-VIEWPORT-W-SCALING-STATE-CREATE-INFO-NV
   (:documentation "Represents the struct [VkPipelineRasterizationStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-STATE-CREATE-FLAGS.
  - DEPTH-CLAMP-ENABLE: a boolean.
  - RASTERIZER-DISCARD-ENABLE: a boolean.
@@ -7689,12 +8583,12 @@ See PIPELINE-RASTERIZATION-STATE-RASTERIZATION-ORDER-AMD
   (:documentation "Represents the struct [VkPipelineMultisampleStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineMultisampleStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-MULTISAMPLE-STATE-CREATE-FLAGS.
  - RASTERIZATION-SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
  - SAMPLE-SHADING-ENABLE: a boolean.
  - MIN-SAMPLE-SHADING: a single-float.
- - SAMPLE-MASK (optional): a foreign pointer to a buffer of size LATEXMATH:[\\LCEIL{\\MATHIT{RASTERIZATION-SAMPLES} \\OVER -3-2}\\RCEIL].
+ - SAMPLE-MASK (optional): a SAMPLE-MASK.
  - ALPHA-TO-COVERAGE-ENABLE: a boolean.
  - ALPHA-TO-ONE-ENABLE: a boolean.
 
@@ -7789,11 +8683,11 @@ See COLOR-COMPONENT-FLAGS
   (:documentation "Represents the struct [VkPipelineColorBlendStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COLOR-BLEND-STATE-CREATE-FLAGS.
  - LOGIC-OP-ENABLE: a boolean.
  - LOGIC-OP: an enum value of LOGIC-OP.
- - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
+ - ATTACHMENTS: a list of PIPELINE-COLOR-BLEND-ATTACHMENT-STATEs.
  - BLEND-CONSTANTS: a single-float.
 
 Slot types:
@@ -7821,9 +8715,9 @@ See PIPELINE-COLOR-BLEND-ADVANCED-STATE-CREATE-INFO-EXT
   (:documentation "Represents the struct [VkPipelineDynamicStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineDynamicStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-DYNAMIC-STATE-CREATE-FLAGS.
- - DYNAMIC-STATES: a list of foreign pointer to a buffer of size DYNAMIC-STATE-COUNTs.
+ - DYNAMIC-STATES: a list of enum value of DYNAMIC-STATEs.
 
 Slot types:
 See PIPELINE-DYNAMIC-STATE-CREATE-FLAGS
@@ -7923,7 +8817,7 @@ See COMPARE-OP
   (:documentation "Represents the struct [VkPipelineDepthStencilStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineDepthStencilStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-DEPTH-STENCIL-STATE-CREATE-FLAGS.
  - DEPTH-TEST-ENABLE: a boolean.
  - DEPTH-WRITE-ENABLE: a boolean.
@@ -8013,9 +8907,9 @@ See STENCIL-OP-STATE
   (:documentation "Represents the struct [VkGraphicsPipelineCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGraphicsPipelineCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-CREATE-FLAGS.
- - STAGES: a list of foreign pointer to a buffer of size STAGE-COUNTs.
+ - STAGES: a list of PIPELINE-SHADER-STAGE-CREATE-INFOs.
  - VERTEX-INPUT-STATE (optional): a PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO.
  - INPUT-ASSEMBLY-STATE (optional): a PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-INFO.
  - TESSELLATION-STATE (optional): a PIPELINE-TESSELLATION-STATE-CREATE-INFO.
@@ -8080,7 +8974,7 @@ See CREATE-GRAPHICS-PIPELINES
   (:documentation "Represents the struct [VkPipelineCacheCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCacheCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-CACHE-CREATE-FLAGS.
  - INITIAL-DATA-SIZE (optional): a positive integer.
  - INITIAL-DATA: a foreign pointer to a buffer of size INITIAL-DATA-SIZE.
@@ -8136,10 +9030,10 @@ See SHADER-STAGE-FLAGS
   (:documentation "Represents the struct [VkPipelineLayoutCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineLayoutCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-LAYOUT-CREATE-FLAGS.
- - SET-LAYOUTS: a list of foreign pointer to a buffer of size SET-LAYOUT-COUNTs.
- - PUSH-CONSTANT-RANGES: a list of foreign pointer to a buffer of size PUSH-CONSTANT-RANGE-COUNTs.
+ - SET-LAYOUTS: a list of DESCRIPTOR-SET-LAYOUTs.
+ - PUSH-CONSTANT-RANGES: a list of PUSH-CONSTANT-RANGEs.
 
 Slot types:
 See PIPELINE-LAYOUT-CREATE-FLAGS
@@ -8222,7 +9116,7 @@ See CREATE-PIPELINE-LAYOUT
   (:documentation "Represents the struct [VkSamplerCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SAMPLER-CREATE-FLAGS.
  - MAG-FILTER: an enum value of FILTER.
  - MIN-FILTER: an enum value of FILTER.
@@ -8273,7 +9167,7 @@ See CREATE-SAMPLER
   (:documentation "Represents the struct [VkCommandPoolCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPoolCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of COMMAND-POOL-CREATE-FLAGS.
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
 
@@ -8304,7 +9198,7 @@ See CREATE-COMMAND-POOL
   (:documentation "Represents the struct [VkCommandBufferAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COMMAND-POOL: a COMMAND-POOL.
  - LEVEL: an enum value of COMMAND-BUFFER-LEVEL.
  - COMMAND-BUFFER-COUNT: a positive (32-bit) integer.
@@ -8349,7 +9243,7 @@ See ALLOCATE-COMMAND-BUFFERS
   (:documentation "Represents the struct [VkCommandBufferInheritanceInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferInheritanceInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RENDER-PASS (optional): a RENDER-PASS.
  - SUBPASS: a positive (32-bit) integer.
  - FRAMEBUFFER (optional): a FRAMEBUFFER.
@@ -8384,7 +9278,7 @@ See COMMAND-BUFFER-INHERITANCE-CONDITIONAL-RENDERING-INFO-EXT
   (:documentation "Represents the struct [VkCommandBufferBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferBeginInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of COMMAND-BUFFER-USAGE-FLAGS.
  - INHERITANCE-INFO (optional): a COMMAND-BUFFER-INHERITANCE-INFO.
 
@@ -8423,11 +9317,11 @@ See BEGIN-COMMAND-BUFFER
   (:documentation "Represents the struct [VkRenderPassBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassBeginInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RENDER-PASS: a RENDER-PASS.
  - FRAMEBUFFER: a FRAMEBUFFER.
  - RENDER-AREA: a RECT-2D.
- - CLEAR-VALUES: a list of foreign pointer to a buffer of size CLEAR-VALUE-COUNTs.
+ - CLEAR-VALUES: a list of CLEAR-VALUEs.
 
 Slot types:
 See RENDER-PASS
@@ -8644,11 +9538,11 @@ See IMAGE-LAYOUT
 Slots:
  - FLAGS (optional): a list containing a valid combination of SUBPASS-DESCRIPTION-FLAGS.
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
- - INPUT-ATTACHMENTS: a list of foreign pointer to a buffer of size INPUT-ATTACHMENT-COUNTs.
- - COLOR-ATTACHMENTS: a list of foreign pointer to a buffer of size COLOR-ATTACHMENT-COUNTs.
- - RESOLVE-ATTACHMENTS (optional): a list of foreign pointer to a buffer of size COLOR-ATTACHMENT-COUNTs.
+ - INPUT-ATTACHMENTS: a list of ATTACHMENT-REFERENCEs.
+ - COLOR-ATTACHMENTS: a list of ATTACHMENT-REFERENCEs.
+ - RESOLVE-ATTACHMENTS (optional): a list of ATTACHMENT-REFERENCEs.
  - DEPTH-STENCIL-ATTACHMENT (optional): an ATTACHMENT-REFERENCE.
- - PRESERVE-ATTACHMENTS: a list of foreign pointer to a buffer of size PRESERVE-ATTACHMENT-COUNTs.
+ - PRESERVE-ATTACHMENTS: a list of positive (32-bit) integers.
 
 Slot types:
 See SUBPASS-DESCRIPTION-FLAGS
@@ -8726,11 +9620,11 @@ See DEPENDENCY-FLAGS
   (:documentation "Represents the struct [VkRenderPassCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of RENDER-PASS-CREATE-FLAGS.
- - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
- - SUBPASSES: a list of foreign pointer to a buffer of size SUBPASS-COUNTs.
- - DEPENDENCIES: a list of foreign pointer to a buffer of size DEPENDENCY-COUNTs.
+ - ATTACHMENTS: a list of ATTACHMENT-DESCRIPTIONs.
+ - SUBPASSES: a list of SUBPASS-DESCRIPTIONs.
+ - DEPENDENCIES: a list of SUBPASS-DEPENDENCYs.
 
 Slot types:
 See RENDER-PASS-CREATE-FLAGS
@@ -8759,7 +9653,7 @@ See CREATE-RENDER-PASS
   (:documentation "Represents the struct [VkEventCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkEventCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of EVENT-CREATE-FLAGS.
 
 Slot types:
@@ -8781,7 +9675,7 @@ See CREATE-EVENT
   (:documentation "Represents the struct [VkFenceCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of FENCE-CREATE-FLAGS.
 
 Slot types:
@@ -9662,7 +10556,7 @@ See DEVICE-SIZE
   (:documentation "Represents the struct [VkSemaphoreCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-CREATE-FLAGS.
 
 Slot types:
@@ -9701,7 +10595,7 @@ See CREATE-SEMAPHORE
   (:documentation "Represents the struct [VkQueryPoolCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPoolCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of QUERY-POOL-CREATE-FLAGS.
  - QUERY-TYPE: an enum value of QUERY-TYPE.
  - QUERY-COUNT: a positive (32-bit) integer.
@@ -9752,10 +10646,10 @@ See CREATE-QUERY-POOL
   (:documentation "Represents the struct [VkFramebufferCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of FRAMEBUFFER-CREATE-FLAGS.
  - RENDER-PASS: a RENDER-PASS.
- - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
+ - ATTACHMENTS: a list of IMAGE-VIEWs.
  - WIDTH: a positive (32-bit) integer.
  - HEIGHT: a positive (32-bit) integer.
  - LAYERS: a positive (32-bit) integer.
@@ -9874,11 +10768,11 @@ Slots:
   (:documentation "Represents the struct [VkSubmitInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubmitInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - WAIT-SEMAPHORES: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-COUNTs.
- - WAIT-DST-STAGE-MASK: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-COUNTs.
- - COMMAND-BUFFERS: a list of foreign pointer to a buffer of size COMMAND-BUFFER-COUNTs.
- - SIGNAL-SEMAPHORES: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - WAIT-SEMAPHORES: a list of SEMAPHOREs.
+ - WAIT-DST-STAGE-MASK: a list of list containing a valid combination of PIPELINE-STAGE-FLAGSs.
+ - COMMAND-BUFFERS: a list of COMMAND-BUFFERs.
+ - SIGNAL-SEMAPHORES: a list of SEMAPHOREs.
 
 Slot types:
 See PIPELINE-STAGE-FLAGS
@@ -9931,7 +10825,7 @@ See QUEUE-SUBMIT
 
 Slots:
  - DISPLAY: a DISPLAY-KHR.
- - DISPLAY-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
+ - DISPLAY-NAME: a string.
  - PHYSICAL-DIMENSIONS: an EXTENT-2D.
  - PHYSICAL-RESOLUTION: an EXTENT-2D.
  - SUPPORTED-TRANSFORMS (optional): a list containing a valid combination of SURFACE-TRANSFORM-FLAGS-KHR.
@@ -10027,7 +10921,7 @@ See GET-DISPLAY-MODE-PROPERTIES-KHR
   (:documentation "Represents the struct [VkDisplayModeCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayModeCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DISPLAY-MODE-CREATE-FLAGS-KHR.
  - PARAMETERS: a DISPLAY-MODE-PARAMETERS-KHR.
 
@@ -10138,7 +11032,7 @@ See GET-DISPLAY-PLANE-CAPABILITIES-KHR
   (:documentation "Represents the struct [VkDisplaySurfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplaySurfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DISPLAY-SURFACE-CREATE-FLAGS-KHR.
  - DISPLAY-MODE: a DISPLAY-MODE-KHR.
  - PLANE-INDEX: a positive (32-bit) integer.
@@ -10179,7 +11073,7 @@ See CREATE-DISPLAY-PLANE-SURFACE-KHR
   (:documentation "Represents the struct [VkDisplayPresentInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPresentInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-RECT: a RECT-2D.
  - DST-RECT: a RECT-2D.
  - PERSISTENT: a boolean.
@@ -10273,7 +11167,7 @@ See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-KHR
   (:documentation "Represents the struct [VkAndroidSurfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAndroidSurfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of ANDROID-SURFACE-CREATE-FLAGS-KHR.
  - WINDOW: an A-NATIVE-WINDOW.
 
@@ -10301,7 +11195,7 @@ See CREATE-ANDROID-SURFACE-KHR
   (:documentation "Represents the struct [VkViSurfaceCreateInfoNN](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkViSurfaceCreateInfoNN.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of VI-SURFACE-CREATE-FLAGS-NN.
  - WINDOW: a foreign pointer.
 
@@ -10332,7 +11226,7 @@ See CREATE-VI-SURFACE-NN
   (:documentation "Represents the struct [VkWaylandSurfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWaylandSurfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of WAYLAND-SURFACE-CREATE-FLAGS-KHR.
  - DISPLAY: a WL_DISPLAY.
  - SURFACE: a WL_SURFACE.
@@ -10366,7 +11260,7 @@ See CREATE-WAYLAND-SURFACE-KHR
   (:documentation "Represents the struct [VkWin32SurfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWin32SurfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of WIN32-SURFACE-CREATE-FLAGS-KHR.
  - HINSTANCE: a HINSTANCE.
  - HWND: a HWND.
@@ -10400,7 +11294,7 @@ See CREATE-WIN32-SURFACE-KHR
   (:documentation "Represents the struct [VkXlibSurfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkXlibSurfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of XLIB-SURFACE-CREATE-FLAGS-KHR.
  - DPY: a DISPLAY.
  - WINDOW: a WINDOW.
@@ -10434,7 +11328,7 @@ See CREATE-XLIB-SURFACE-KHR
   (:documentation "Represents the struct [VkXcbSurfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkXcbSurfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of XCB-SURFACE-CREATE-FLAGS-KHR.
  - CONNECTION: a XCB_CONNECTION_T.
  - WINDOW: a XCB_WINDOW_T.
@@ -10468,7 +11362,7 @@ See CREATE-XCB-SURFACE-KHR
   (:documentation "Represents the struct [VkDirectFBSurfaceCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDirectFBSurfaceCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DIRECT-FB-SURFACE-CREATE-FLAGS-EXT.
  - DFB: an I-DIRECT-FB.
  - SURFACE: an I-DIRECT-FB-SURFACE.
@@ -10498,7 +11392,7 @@ See CREATE-DIRECT-FB-SURFACE-EXT
   (:documentation "Represents the struct [VkImagePipeSurfaceCreateInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImagePipeSurfaceCreateInfoFUCHSIA.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of IMAGE-PIPE-SURFACE-CREATE-FLAGS-FUCHSIA.
  - IMAGE-PIPE-HANDLE: a ZX_HANDLE_T.
 
@@ -10526,7 +11420,7 @@ See CREATE-IMAGE-PIPE-SURFACE-FUCHSIA
   (:documentation "Represents the struct [VkStreamDescriptorSurfaceCreateInfoGGP](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStreamDescriptorSurfaceCreateInfoGGP.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of STREAM-DESCRIPTOR-SURFACE-CREATE-FLAGS-GGP.
  - STREAM-DESCRIPTOR: a GGP-STREAM-DESCRIPTOR.
 
@@ -10558,7 +11452,7 @@ See CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
   (:documentation "Represents the struct [VkScreenSurfaceCreateInfoQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkScreenSurfaceCreateInfoQNX.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SCREEN-SURFACE-CREATE-FLAGS-QNX.
  - CONTEXT: a _SCREEN_CONTEXT.
  - WINDOW: a _SCREEN_WINDOW.
@@ -10663,7 +11557,7 @@ See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-KHR
   (:documentation "Represents the struct [VkSwapchainCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SWAPCHAIN-CREATE-FLAGS-KHR.
  - SURFACE: a SURFACE-KHR.
  - MIN-IMAGE-COUNT: a positive (32-bit) integer.
@@ -10673,7 +11567,7 @@ Slots:
  - IMAGE-ARRAY-LAYERS: a positive (32-bit) integer.
  - IMAGE-USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - IMAGE-SHARING-MODE: an enum value of SHARING-MODE.
- - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
+ - QUEUE-FAMILY-INDICES: a list of positive (32-bit) integers.
  - PRE-TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
  - COMPOSITE-ALPHA: an enum value of COMPOSITE-ALPHA-FLAG-BITS-KHR.
  - PRESENT-MODE: an enum value of PRESENT-MODE-KHR.
@@ -10730,11 +11624,11 @@ See CREATE-SWAPCHAIN-KHR
   (:documentation "Represents the struct [VkPresentInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - WAIT-SEMAPHORES: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-COUNTs.
- - SWAPCHAINS: a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
- - IMAGE-INDICES: a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
- - RESULTS (optional): a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - WAIT-SEMAPHORES: a list of SEMAPHOREs.
+ - SWAPCHAINS: a list of SWAPCHAIN-KHRs.
+ - IMAGE-INDICES: a list of positive (32-bit) integers.
+ - RESULTS (optional): a list of enum value of RESULTs.
 
 Slot types:
 See SEMAPHORE
@@ -10772,7 +11666,7 @@ See QUEUE-PRESENT-KHR
   (:documentation "Represents the struct [VkDebugReportCallbackCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportCallbackCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEBUG-REPORT-FLAGS-EXT.
  - PFN-CALLBACK: a PFN-DEBUG-REPORT-CALLBACK-EXT.
  - USER-DATA (optional): a foreign pointer.
@@ -10800,8 +11694,8 @@ See CREATE-DEBUG-REPORT-CALLBACK-EXT
   (:documentation "Represents the struct [VkValidationFlagsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationFlagsEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DISABLED-VALIDATION-CHECKS: a list of foreign pointer to a buffer of size DISABLED-VALIDATION-CHECK-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DISABLED-VALIDATION-CHECKS: a list of enum value of VALIDATION-CHECK-EXTs.
 
 Slot types:
 See VALIDATION-CHECK-EXT
@@ -10826,9 +11720,9 @@ See INSTANCE-CREATE-INFO
   (:documentation "Represents the struct [VkValidationFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ENABLED-VALIDATION-FEATURES: a list of foreign pointer to a buffer of size ENABLED-VALIDATION-FEATURE-COUNTs.
- - DISABLED-VALIDATION-FEATURES: a list of foreign pointer to a buffer of size DISABLED-VALIDATION-FEATURE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ENABLED-VALIDATION-FEATURES: a list of enum value of VALIDATION-FEATURE-ENABLE-EXTs.
+ - DISABLED-VALIDATION-FEATURES: a list of enum value of VALIDATION-FEATURE-DISABLE-EXTs.
 
 Slot types:
 See VALIDATION-FEATURE-ENABLE-EXT
@@ -10850,7 +11744,7 @@ See INSTANCE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineRasterizationStateRasterizationOrderAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationStateRasterizationOrderAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RASTERIZATION-ORDER: an enum value of RASTERIZATION-ORDER-AMD.
 
 Slot types:
@@ -10880,10 +11774,10 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkDebugMarkerObjectNameInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugMarkerObjectNameInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OBJECT-TYPE: an enum value of DEBUG-REPORT-OBJECT-TYPE-EXT.
  - OBJECT: a positive (64-bit) integer.
- - OBJECT-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
+ - OBJECT-NAME: a string.
 
 Slot types:
 See DEBUG-REPORT-OBJECT-TYPE-EXT
@@ -10920,7 +11814,7 @@ See DEBUG-MARKER-SET-OBJECT-NAME-EXT
   (:documentation "Represents the struct [VkDebugMarkerObjectTagInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugMarkerObjectTagInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OBJECT-TYPE: an enum value of DEBUG-REPORT-OBJECT-TYPE-EXT.
  - OBJECT: a positive (64-bit) integer.
  - TAG-NAME: a positive (64-bit) integer.
@@ -10950,8 +11844,8 @@ See DEBUG-MARKER-SET-OBJECT-TAG-EXT
   (:documentation "Represents the struct [VkDebugMarkerMarkerInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugMarkerMarkerInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - MARKER-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MARKER-NAME: a string.
  - COLOR: a single-float.
 
 Instances of this class are used as parameters of the following functions:
@@ -10971,7 +11865,7 @@ See CMD-DEBUG-MARKER-INSERT-EXT
   (:documentation "Represents the struct [VkDedicatedAllocationImageCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDedicatedAllocationImageCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEDICATED-ALLOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -10990,7 +11884,7 @@ See IMAGE-CREATE-INFO
   (:documentation "Represents the struct [VkDedicatedAllocationBufferCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDedicatedAllocationBufferCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEDICATED-ALLOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11013,7 +11907,7 @@ See BUFFER-CREATE-INFO
   (:documentation "Represents the struct [VkDedicatedAllocationMemoryAllocateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDedicatedAllocationMemoryAllocateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE (optional): an IMAGE.
  - BUFFER (optional): a BUFFER.
 
@@ -11071,7 +11965,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-IMAGE-FORMAT-PROPERTIES-NV
   (:documentation "Represents the struct [VkExternalMemoryImageCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryImageCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
 
 Slot types:
@@ -11093,7 +11987,7 @@ See IMAGE-CREATE-INFO
   (:documentation "Represents the struct [VkExportMemoryAllocateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportMemoryAllocateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
 
 Slot types:
@@ -11119,7 +12013,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkImportMemoryWin32HandleInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryWin32HandleInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV.
  - HANDLE (optional): a HANDLE.
 
@@ -11147,7 +12041,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkExportMemoryWin32HandleInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportMemoryWin32HandleInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ATTRIBUTES (optional): a SECURITY_ATTRIBUTES.
  - DW-ACCESS (optional): a DWORD.
 
@@ -11187,12 +12081,12 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkWin32KeyedMutexAcquireReleaseInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWin32KeyedMutexAcquireReleaseInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ACQUIRE-SYNCS: a list of foreign pointer to a buffer of size ACQUIRE-COUNTs.
- - ACQUIRE-KEYS: a list of foreign pointer to a buffer of size ACQUIRE-COUNTs.
- - ACQUIRE-TIMEOUT-MILLISECONDS: a list of foreign pointer to a buffer of size ACQUIRE-COUNTs.
- - RELEASE-SYNCS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
- - RELEASE-KEYS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ACQUIRE-SYNCS: a list of DEVICE-MEMORYs.
+ - ACQUIRE-KEYS: a list of positive (64-bit) integers.
+ - ACQUIRE-TIMEOUT-MILLISECONDS: a list of positive (32-bit) integers.
+ - RELEASE-SYNCS: a list of DEVICE-MEMORYs.
+ - RELEASE-KEYS: a list of positive (64-bit) integers.
 
 Slot types:
 See DEVICE-MEMORY
@@ -11214,7 +12108,7 @@ See SUBMIT-INFO-2-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-GENERATED-COMMANDS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11234,7 +12128,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkDevicePrivateDataCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDevicePrivateDataCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PRIVATE-DATA-SLOT-REQUEST-COUNT: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11253,7 +12147,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPrivateDataSlotCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrivateDataSlotCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS: a list containing a valid combination of PRIVATE-DATA-SLOT-CREATE-FLAGS-EXT.
 
 Slot types:
@@ -11275,7 +12169,7 @@ See CREATE-PRIVATE-DATA-SLOT-EXT
   (:documentation "Represents the struct [VkPhysicalDevicePrivateDataFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePrivateDataFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PRIVATE-DATA: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -11327,7 +12221,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-GRAPHICS-SHADER-GROUP-COUNT: a positive (32-bit) integer.
  - MAX-INDIRECT-SEQUENCE-COUNT: a positive (32-bit) integer.
  - MAX-INDIRECT-COMMANDS-TOKEN-COUNT: a positive (32-bit) integer.
@@ -11362,8 +12256,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkGraphicsShaderGroupCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGraphicsShaderGroupCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - STAGES: a list of foreign pointer to a buffer of size STAGE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STAGES: a list of PIPELINE-SHADER-STAGE-CREATE-INFOs.
  - VERTEX-INPUT-STATE (optional): a PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO.
  - TESSELLATION-STATE (optional): a PIPELINE-TESSELLATION-STATE-CREATE-INFO.
 
@@ -11389,9 +12283,9 @@ See PIPELINE-TESSELLATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkGraphicsPipelineShaderGroupsCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGraphicsPipelineShaderGroupsCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - GROUPS: a list of foreign pointer to a buffer of size GROUP-COUNTs.
- - PIPELINES: a list of foreign pointer to a buffer of size PIPELINE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - GROUPS: a list of GRAPHICS-SHADER-GROUP-CREATE-INFO-NVs.
+ - PIPELINES: a list of PIPELINEs.
 
 Slot types:
 See GRAPHICS-SHADER-GROUP-CREATE-INFO-NV
@@ -11548,7 +12442,7 @@ See DEVICE-SIZE
   (:documentation "Represents the struct [VkIndirectCommandsLayoutTokenNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutTokenNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TOKEN-TYPE: an enum value of INDIRECT-COMMANDS-TOKEN-TYPE-NV.
  - STREAM: a positive (32-bit) integer.
  - OFFSET: a positive (32-bit) integer.
@@ -11559,8 +12453,8 @@ Slots:
  - PUSHCONSTANT-OFFSET: a positive (32-bit) integer.
  - PUSHCONSTANT-SIZE: a positive (32-bit) integer.
  - INDIRECT-STATE-FLAGS (optional): a list containing a valid combination of INDIRECT-STATE-FLAGS-NV.
- - INDEX-TYPES: a list of foreign pointer to a buffer of size INDEX-TYPE-COUNTs.
- - INDEX-TYPE-VALUES: a list of foreign pointer to a buffer of size INDEX-TYPE-COUNTs.
+ - INDEX-TYPES: a list of enum value of INDEX-TYPEs.
+ - INDEX-TYPE-VALUES: a list of positive (32-bit) integers.
 
 Slot types:
 See INDIRECT-COMMANDS-TOKEN-TYPE-NV
@@ -11594,11 +12488,11 @@ See INDEX-TYPE
   (:documentation "Represents the struct [VkIndirectCommandsLayoutCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS: a list containing a valid combination of INDIRECT-COMMANDS-LAYOUT-USAGE-FLAGS-NV.
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
- - TOKENS: a list of foreign pointer to a buffer of size TOKEN-COUNTs.
- - STREAM-STRIDES: a list of foreign pointer to a buffer of size STREAM-COUNTs.
+ - TOKENS: a list of INDIRECT-COMMANDS-LAYOUT-TOKEN-NVs.
+ - STREAM-STRIDES: a list of positive (32-bit) integers.
 
 Slot types:
 See INDIRECT-COMMANDS-LAYOUT-USAGE-FLAGS-NV
@@ -11665,11 +12559,11 @@ See CREATE-INDIRECT-COMMANDS-LAYOUT-NV
   (:documentation "Represents the struct [VkGeneratedCommandsInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeneratedCommandsInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
  - PIPELINE: a PIPELINE.
  - INDIRECT-COMMANDS-LAYOUT: an INDIRECT-COMMANDS-LAYOUT-NV.
- - STREAMS: a list of foreign pointer to a buffer of size STREAM-COUNTs.
+ - STREAMS: a list of INDIRECT-COMMANDS-STREAM-NVs.
  - SEQUENCES-COUNT: a positive (32-bit) integer.
  - PREPROCESS-BUFFER: a BUFFER.
  - PREPROCESS-OFFSET: a DEVICE-SIZE.
@@ -11716,7 +12610,7 @@ See CMD-PREPROCESS-GENERATED-COMMANDS-NV
   (:documentation "Represents the struct [VkGeneratedCommandsMemoryRequirementsInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeneratedCommandsMemoryRequirementsInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
  - PIPELINE: a PIPELINE.
  - INDIRECT-COMMANDS-LAYOUT: an INDIRECT-COMMANDS-LAYOUT-NV.
@@ -11743,7 +12637,7 @@ See GET-GENERATED-COMMANDS-MEMORY-REQUIREMENTS-NV
   (:documentation "Represents the struct [VkPhysicalDeviceFeatures2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFeatures2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FEATURES: a PHYSICAL-DEVICE-FEATURES.
 
 Slot types:
@@ -11850,7 +12744,7 @@ See GET-PHYSICAL-DEVICE-FEATURES-2
   (:documentation "Represents the struct [VkPhysicalDeviceProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceProperties2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PROPERTIES: a PHYSICAL-DEVICE-PROPERTIES.
 
 Slot types:
@@ -11920,7 +12814,7 @@ See GET-PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFormatProperties2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FORMAT-PROPERTIES: a FORMAT-PROPERTIES.
 
 Slot types:
@@ -11945,7 +12839,7 @@ See GET-PHYSICAL-DEVICE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageFormatProperties2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE-FORMAT-PROPERTIES: an IMAGE-FORMAT-PROPERTIES.
 
 Slot types:
@@ -11990,7 +12884,7 @@ See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceImageFormatInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceImageFormatInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FORMAT: an enum value of FORMAT.
  - TYPE: an enum value of IMAGE-TYPE.
  - TILING: an enum value of IMAGE-TILING.
@@ -12027,7 +12921,7 @@ See GET-PHYSICAL-DEVICE-IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkQueueFamilyProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFamilyProperties2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - QUEUE-FAMILY-PROPERTIES: a QUEUE-FAMILY-PROPERTIES.
 
 Slot types:
@@ -12053,7 +12947,7 @@ See GET-PHYSICAL-DEVICE-QUEUE-FAMILY-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceMemoryProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMemoryProperties2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-PROPERTIES: a PHYSICAL-DEVICE-MEMORY-PROPERTIES.
 
 Slot types:
@@ -12078,7 +12972,7 @@ See GET-PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
   (:documentation "Represents the struct [VkSparseImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSparseImageFormatProperties2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PROPERTIES: a SPARSE-IMAGE-FORMAT-PROPERTIES.
 
 Slot types:
@@ -12116,7 +13010,7 @@ See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceSparseImageFormatInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSparseImageFormatInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FORMAT: an enum value of FORMAT.
  - TYPE: an enum value of IMAGE-TYPE.
  - SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
@@ -12146,7 +13040,7 @@ See GET-PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDevicePushDescriptorPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePushDescriptorPropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-PUSH-DESCRIPTORS: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12203,7 +13097,7 @@ Slots:
   (:documentation "Represents the struct [VkPhysicalDeviceDriverProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDriverProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DRIVER-ID: an enum value of DRIVER-ID.
  - DRIVER-NAME: a string.
  - DRIVER-INFO: a string.
@@ -12233,9 +13127,9 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPresentRegionsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentRegionsKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SWAPCHAIN-COUNT: a positive (32-bit) integer.
- - REGIONS (optional): a foreign pointer to a buffer of size SWAPCHAIN-COUNT.
+ - REGIONS (optional): a PRESENT-REGION-KHR.
 
 Slot types:
 See PRESENT-REGION-KHR
@@ -12252,7 +13146,7 @@ See PRESENT-INFO-KHR
   (:documentation "Represents the struct [VkPresentRegionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentRegionKHR.html).
 
 Slots:
- - RECTANGLES (optional): a list of foreign pointer to a buffer of size RECTANGLE-COUNTs.
+ - RECTANGLES (optional): a list of RECT-LAYER-KHRs.
 
 Slot types:
 See RECT-LAYER-KHR
@@ -12299,7 +13193,7 @@ See EXTENT-2D
   (:documentation "Represents the struct [VkPhysicalDeviceVariablePointersFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVariablePointersFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VARIABLE-POINTERS-STORAGE-BUFFER: a boolean.
  - VARIABLE-POINTERS: a boolean.
 
@@ -12345,7 +13239,7 @@ See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS
   (:documentation "Represents the struct [VkPhysicalDeviceExternalImageFormatInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExternalImageFormatInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
 Slot types:
@@ -12367,7 +13261,7 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
   (:documentation "Represents the struct [VkExternalImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalImageFormatProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXTERNAL-MEMORY-PROPERTIES: an EXTERNAL-MEMORY-PROPERTIES.
 
 Slot types:
@@ -12397,7 +13291,7 @@ See IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceExternalBufferInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExternalBufferInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of BUFFER-CREATE-FLAGS.
  - USAGE: a list containing a valid combination of BUFFER-USAGE-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
@@ -12423,7 +13317,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-BUFFER-PROPERTIES
   (:documentation "Represents the struct [VkExternalBufferProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalBufferProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXTERNAL-MEMORY-PROPERTIES: an EXTERNAL-MEMORY-PROPERTIES.
 
 Slot types:
@@ -12461,7 +13355,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-BUFFER-PROPERTIES
   (:documentation "Represents the struct [VkPhysicalDeviceIDProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceIDProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-UUID: a positive (8-bit) integer.
  - DRIVER-UUID: a positive (8-bit) integer.
  - DEVICE-LUID: a positive (8-bit) integer.
@@ -12484,7 +13378,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkExternalMemoryImageCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryImageCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
 Slot types:
@@ -12506,7 +13400,7 @@ See IMAGE-CREATE-INFO
   (:documentation "Represents the struct [VkExternalMemoryBufferCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryBufferCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
 Slot types:
@@ -12528,7 +13422,7 @@ See BUFFER-CREATE-INFO
   (:documentation "Represents the struct [VkExportMemoryAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportMemoryAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS.
 
 Slot types:
@@ -12558,7 +13452,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkImportMemoryWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - HANDLE (optional): a HANDLE.
  - NAME (optional): a LPCWSTR.
@@ -12592,7 +13486,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkExportMemoryWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportMemoryWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ATTRIBUTES (optional): a SECURITY_ATTRIBUTES.
  - DW-ACCESS: a DWORD.
  - NAME: a LPCWSTR.
@@ -12622,7 +13516,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkImportMemoryZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryZirconHandleInfoFUCHSIA.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - HANDLE (optional): a ZX_HANDLE_T.
 
@@ -12646,7 +13540,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkMemoryZirconHandlePropertiesFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryZirconHandlePropertiesFUCHSIA.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -12669,7 +13563,7 @@ See GET-MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
   (:documentation "Represents the struct [VkMemoryGetZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryGetZirconHandleInfoFUCHSIA.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY: a DEVICE-MEMORY.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
@@ -12693,7 +13587,7 @@ See GET-MEMORY-ZIRCON-HANDLE-FUCHSIA
   (:documentation "Represents the struct [VkMemoryWin32HandlePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryWin32HandlePropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -12716,7 +13610,7 @@ See GET-MEMORY-WIN32-HANDLE-PROPERTIES-KHR
   (:documentation "Represents the struct [VkMemoryGetWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryGetWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY: a DEVICE-MEMORY.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
@@ -12744,7 +13638,7 @@ See GET-MEMORY-WIN32-HANDLE-KHR
   (:documentation "Represents the struct [VkImportMemoryFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryFdInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE (optional): an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - FD: an integer.
 
@@ -12767,7 +13661,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkMemoryFdPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryFdPropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -12790,7 +13684,7 @@ See GET-MEMORY-FD-PROPERTIES-KHR
   (:documentation "Represents the struct [VkMemoryGetFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryGetFdInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY: a DEVICE-MEMORY.
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
 
@@ -12830,12 +13724,12 @@ See GET-MEMORY-FD-KHR
   (:documentation "Represents the struct [VkWin32KeyedMutexAcquireReleaseInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWin32KeyedMutexAcquireReleaseInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ACQUIRE-SYNCS: a list of foreign pointer to a buffer of size ACQUIRE-COUNTs.
- - ACQUIRE-KEYS: a list of foreign pointer to a buffer of size ACQUIRE-COUNTs.
- - ACQUIRE-TIMEOUTS: a list of foreign pointer to a buffer of size ACQUIRE-COUNTs.
- - RELEASE-SYNCS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
- - RELEASE-KEYS: a list of foreign pointer to a buffer of size RELEASE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ACQUIRE-SYNCS: a list of DEVICE-MEMORYs.
+ - ACQUIRE-KEYS: a list of positive (64-bit) integers.
+ - ACQUIRE-TIMEOUTS: a list of positive (32-bit) integers.
+ - RELEASE-SYNCS: a list of DEVICE-MEMORYs.
+ - RELEASE-KEYS: a list of positive (64-bit) integers.
 
 Slot types:
 See DEVICE-MEMORY
@@ -12857,7 +13751,7 @@ See SUBMIT-INFO-2-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceExternalSemaphoreInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExternalSemaphoreInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
 Slot types:
@@ -12890,7 +13784,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-PROPERTIES
   (:documentation "Represents the struct [VkExternalSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalSemaphoreProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXPORT-FROM-IMPORTED-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS.
  - COMPATIBLE-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS.
  - EXTERNAL-SEMAPHORE-FEATURES (optional): a list containing a valid combination of EXTERNAL-SEMAPHORE-FEATURE-FLAGS.
@@ -12915,7 +13809,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-PROPERTIES
   (:documentation "Represents the struct [VkExportSemaphoreCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportSemaphoreCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAGS.
 
 Slot types:
@@ -12953,7 +13847,7 @@ See SEMAPHORE-CREATE-INFO
   (:documentation "Represents the struct [VkImportSemaphoreWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportSemaphoreWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-IMPORT-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
@@ -12991,7 +13885,7 @@ See IMPORT-SEMAPHORE-WIN32-HANDLE-KHR
   (:documentation "Represents the struct [VkExportSemaphoreWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportSemaphoreWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ATTRIBUTES (optional): a SECURITY_ATTRIBUTES.
  - DW-ACCESS: a DWORD.
  - NAME: a LPCWSTR.
@@ -13021,9 +13915,9 @@ See SEMAPHORE-CREATE-INFO
   (:documentation "Represents the struct [VkD3D12FenceSubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkD3D12FenceSubmitInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - WAIT-SEMAPHORE-VALUES (optional): a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-VALUES-COUNTs.
- - SIGNAL-SEMAPHORE-VALUES (optional): a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-VALUES-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - WAIT-SEMAPHORE-VALUES (optional): a list of positive (64-bit) integers.
+ - SIGNAL-SEMAPHORE-VALUES (optional): a list of positive (64-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
@@ -13045,7 +13939,7 @@ See SUBMIT-INFO
   (:documentation "Represents the struct [VkSemaphoreGetWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreGetWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
@@ -13081,7 +13975,7 @@ See GET-SEMAPHORE-WIN32-HANDLE-KHR
   (:documentation "Represents the struct [VkImportSemaphoreFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportSemaphoreFdInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-IMPORT-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
@@ -13112,7 +14006,7 @@ See IMPORT-SEMAPHORE-FD-KHR
   (:documentation "Represents the struct [VkSemaphoreGetFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreGetFdInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
@@ -13148,7 +14042,7 @@ See GET-SEMAPHORE-FD-KHR
   (:documentation "Represents the struct [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportSemaphoreZirconHandleInfoFUCHSIA.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-IMPORT-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
@@ -13180,7 +14074,7 @@ See IMPORT-SEMAPHORE-ZIRCON-HANDLE-FUCHSIA
   (:documentation "Represents the struct [VkSemaphoreGetZirconHandleInfoFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreGetZirconHandleInfoFUCHSIA.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - HANDLE-TYPE: an enum value of EXTERNAL-SEMAPHORE-HANDLE-TYPE-FLAG-BITS.
 
@@ -13204,7 +14098,7 @@ See GET-SEMAPHORE-ZIRCON-HANDLE-FUCHSIA
   (:documentation "Represents the struct [VkPhysicalDeviceExternalFenceInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExternalFenceInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
 
 Slot types:
@@ -13234,7 +14128,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-FENCE-PROPERTIES
   (:documentation "Represents the struct [VkExternalFenceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFenceProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXPORT-FROM-IMPORTED-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-FENCE-HANDLE-TYPE-FLAGS.
  - COMPATIBLE-HANDLE-TYPES: a list containing a valid combination of EXTERNAL-FENCE-HANDLE-TYPE-FLAGS.
  - EXTERNAL-FENCE-FEATURES (optional): a list containing a valid combination of EXTERNAL-FENCE-FEATURE-FLAGS.
@@ -13259,7 +14153,7 @@ See GET-PHYSICAL-DEVICE-EXTERNAL-FENCE-PROPERTIES
   (:documentation "Represents the struct [VkExportFenceCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportFenceCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPES (optional): a list containing a valid combination of EXTERNAL-FENCE-HANDLE-TYPE-FLAGS.
 
 Slot types:
@@ -13297,7 +14191,7 @@ See FENCE-CREATE-INFO
   (:documentation "Represents the struct [VkImportFenceWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportFenceWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FENCE: a FENCE.
  - FLAGS (optional): a list containing a valid combination of FENCE-IMPORT-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
@@ -13335,7 +14229,7 @@ See IMPORT-FENCE-WIN32-HANDLE-KHR
   (:documentation "Represents the struct [VkExportFenceWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExportFenceWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ATTRIBUTES (optional): a SECURITY_ATTRIBUTES.
  - DW-ACCESS: a DWORD.
  - NAME: a LPCWSTR.
@@ -13365,7 +14259,7 @@ See FENCE-CREATE-INFO
   (:documentation "Represents the struct [VkFenceGetWin32HandleInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceGetWin32HandleInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FENCE: a FENCE.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
 
@@ -13401,7 +14295,7 @@ See GET-FENCE-WIN32-HANDLE-KHR
   (:documentation "Represents the struct [VkImportFenceFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportFenceFdInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FENCE: a FENCE.
  - FLAGS (optional): a list containing a valid combination of FENCE-IMPORT-FLAGS.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
@@ -13432,7 +14326,7 @@ See IMPORT-FENCE-FD-KHR
   (:documentation "Represents the struct [VkFenceGetFdInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceGetFdInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FENCE: a FENCE.
  - HANDLE-TYPE: an enum value of EXTERNAL-FENCE-HANDLE-TYPE-FLAG-BITS.
 
@@ -13464,7 +14358,7 @@ See GET-FENCE-FD-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceMultiviewFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMultiviewFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MULTIVIEW: a boolean.
  - MULTIVIEW-GEOMETRY-SHADER: a boolean.
  - MULTIVIEW-TESSELLATION-SHADER: a boolean.
@@ -13490,7 +14384,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceMultiviewProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMultiviewProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-MULTIVIEW-VIEW-COUNT: a positive (32-bit) integer.
  - MAX-MULTIVIEW-INSTANCE-INDEX: a positive (32-bit) integer.
 
@@ -13518,10 +14412,10 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkRenderPassMultiviewCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassMultiviewCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - VIEW-MASKS: a list of foreign pointer to a buffer of size SUBPASS-COUNTs.
- - VIEW-OFFSETS: a list of foreign pointer to a buffer of size DEPENDENCY-COUNTs.
- - CORRELATION-MASKS: a list of foreign pointer to a buffer of size CORRELATION-MASK-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VIEW-MASKS: a list of positive (32-bit) integers.
+ - VIEW-OFFSETS: a list of (32-bit) integers.
+ - CORRELATION-MASKS: a list of positive (32-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See RENDER-PASS-CREATE-INFO
@@ -13579,7 +14473,7 @@ See RENDER-PASS-CREATE-INFO
   (:documentation "Represents the struct [VkSurfaceCapabilities2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceCapabilities2EXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MIN-IMAGE-COUNT: a positive (32-bit) integer.
  - MAX-IMAGE-COUNT: a positive (32-bit) integer.
  - CURRENT-EXTENT: an EXTENT-2D.
@@ -13616,7 +14510,7 @@ See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-EXT
   (:documentation "Represents the struct [VkDisplayPowerInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPowerInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - POWER-STATE: an enum value of DISPLAY-POWER-STATE-EXT.
 
 Slot types:
@@ -13638,7 +14532,7 @@ See DISPLAY-POWER-CONTROL-EXT
   (:documentation "Represents the struct [VkDeviceEventInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceEventInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-EVENT: an enum value of DEVICE-EVENT-TYPE-EXT.
 
 Slot types:
@@ -13660,7 +14554,7 @@ See REGISTER-DEVICE-EVENT-EXT
   (:documentation "Represents the struct [VkDisplayEventInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayEventInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DISPLAY-EVENT: an enum value of DISPLAY-EVENT-TYPE-EXT.
 
 Slot types:
@@ -13682,7 +14576,7 @@ See REGISTER-DISPLAY-EVENT-EXT
   (:documentation "Represents the struct [VkSwapchainCounterCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainCounterCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SURFACE-COUNTERS (optional): a list containing a valid combination of SURFACE-COUNTER-FLAGS-EXT.
 
 Slot types:
@@ -13712,7 +14606,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceGroupProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceGroupProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PHYSICAL-DEVICE-COUNT: a positive (32-bit) integer.
  - PHYSICAL-DEVICES: a PHYSICAL-DEVICE.
  - SUBSET-ALLOCATION: a boolean.
@@ -13740,7 +14634,7 @@ See ENUMERATE-PHYSICAL-DEVICE-GROUPS
   (:documentation "Represents the struct [VkMemoryAllocateFlagsInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryAllocateFlagsInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of MEMORY-ALLOCATE-FLAGS.
  - DEVICE-MASK: a positive (32-bit) integer.
 
@@ -13771,7 +14665,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkBindBufferMemoryInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindBufferMemoryInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER: a BUFFER.
  - MEMORY: a DEVICE-MEMORY.
  - MEMORY-OFFSET: a DEVICE-SIZE.
@@ -13800,8 +14694,8 @@ See BIND-BUFFER-MEMORY-2
   (:documentation "Represents the struct [VkBindBufferMemoryDeviceGroupInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindBufferMemoryDeviceGroupInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DEVICE-INDICES: a list of foreign pointer to a buffer of size DEVICE-INDEX-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DEVICE-INDICES: a list of positive (32-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See BIND-BUFFER-MEMORY-INFO
@@ -13827,7 +14721,7 @@ See BIND-BUFFER-MEMORY-INFO
   (:documentation "Represents the struct [VkBindImageMemoryInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindImageMemoryInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE: an IMAGE.
  - MEMORY: a DEVICE-MEMORY.
  - MEMORY-OFFSET: a DEVICE-SIZE.
@@ -13862,9 +14756,9 @@ See BIND-IMAGE-MEMORY-2
   (:documentation "Represents the struct [VkBindImageMemoryDeviceGroupInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindImageMemoryDeviceGroupInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DEVICE-INDICES: a list of foreign pointer to a buffer of size DEVICE-INDEX-COUNTs.
- - SPLIT-INSTANCE-BIND-REGIONS: a list of foreign pointer to a buffer of size SPLIT-INSTANCE-BIND-REGION-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DEVICE-INDICES: a list of positive (32-bit) integers.
+ - SPLIT-INSTANCE-BIND-REGIONS: a list of RECT-2Ds.
 
 Slot types:
 See RECT-2D
@@ -13889,9 +14783,9 @@ See BIND-IMAGE-MEMORY-INFO
   (:documentation "Represents the struct [VkDeviceGroupRenderPassBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupRenderPassBeginInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-MASK: a positive (32-bit) integer.
- - DEVICE-RENDER-AREAS: a list of foreign pointer to a buffer of size DEVICE-RENDER-AREA-COUNTs.
+ - DEVICE-RENDER-AREAS: a list of RECT-2Ds.
 
 Slot types:
 See RECT-2D
@@ -13912,7 +14806,7 @@ See RENDER-PASS-BEGIN-INFO
   (:documentation "Represents the struct [VkDeviceGroupCommandBufferBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupCommandBufferBeginInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-MASK: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -13939,10 +14833,10 @@ See COMMAND-BUFFER-BEGIN-INFO
   (:documentation "Represents the struct [VkDeviceGroupSubmitInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupSubmitInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - WAIT-SEMAPHORE-DEVICE-INDICES: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-COUNTs.
- - COMMAND-BUFFER-DEVICE-MASKS: a list of foreign pointer to a buffer of size COMMAND-BUFFER-COUNTs.
- - SIGNAL-SEMAPHORE-DEVICE-INDICES: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - WAIT-SEMAPHORE-DEVICE-INDICES: a list of positive (32-bit) integers.
+ - COMMAND-BUFFER-DEVICE-MASKS: a list of positive (32-bit) integers.
+ - SIGNAL-SEMAPHORE-DEVICE-INDICES: a list of positive (32-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
@@ -13964,7 +14858,7 @@ See SUBMIT-INFO
   (:documentation "Represents the struct [VkDeviceGroupBindSparseInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupBindSparseInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RESOURCE-DEVICE-INDEX: a positive (32-bit) integer.
  - MEMORY-DEVICE-INDEX: a positive (32-bit) integer.
 
@@ -13988,7 +14882,7 @@ See BIND-SPARSE-INFO
   (:documentation "Represents the struct [VkDeviceGroupPresentCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupPresentCapabilitiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PRESENT-MASK: a positive (32-bit) integer.
  - MODES: a list containing a valid combination of DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR.
 
@@ -14011,7 +14905,7 @@ See GET-DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
   (:documentation "Represents the struct [VkImageSwapchainCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageSwapchainCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SWAPCHAIN (optional): a SWAPCHAIN-KHR.
 
 Slot types:
@@ -14037,7 +14931,7 @@ See IMAGE-CREATE-INFO
   (:documentation "Represents the struct [VkBindImageMemorySwapchainInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindImageMemorySwapchainInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SWAPCHAIN: a SWAPCHAIN-KHR.
  - IMAGE-INDEX: a positive (32-bit) integer.
 
@@ -14076,7 +14970,7 @@ See BIND-IMAGE-MEMORY-INFO
   (:documentation "Represents the struct [VkAcquireNextImageInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAcquireNextImageInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SWAPCHAIN: a SWAPCHAIN-KHR.
  - TIMEOUT: a positive (64-bit) integer.
  - SEMAPHORE (optional): a SEMAPHORE.
@@ -14108,8 +15002,8 @@ See ACQUIRE-NEXT-IMAGE-2-KHR
   (:documentation "Represents the struct [VkDeviceGroupPresentInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupPresentInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DEVICE-MASKS: a list of foreign pointer to a buffer of size SWAPCHAIN-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DEVICE-MASKS: a list of positive (32-bit) integers.
  - MODE: an enum value of DEVICE-GROUP-PRESENT-MODE-FLAG-BITS-KHR.
 
 Slot types:
@@ -14131,8 +15025,8 @@ See PRESENT-INFO-KHR
   (:documentation "Represents the struct [VkDeviceGroupDeviceCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupDeviceCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - PHYSICAL-DEVICES: a list of foreign pointer to a buffer of size PHYSICAL-DEVICE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PHYSICAL-DEVICES: a list of PHYSICAL-DEVICEs.
 
 Slot types:
 See PHYSICAL-DEVICE
@@ -14153,7 +15047,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkDeviceGroupSwapchainCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupSwapchainCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MODES: a list containing a valid combination of DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR.
 
 Slot types:
@@ -14238,9 +15132,9 @@ See DESCRIPTOR-TYPE
   (:documentation "Represents the struct [VkDescriptorUpdateTemplateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DESCRIPTOR-UPDATE-TEMPLATE-CREATE-FLAGS.
- - DESCRIPTOR-UPDATE-ENTRIES: a list of foreign pointer to a buffer of size DESCRIPTOR-UPDATE-ENTRY-COUNTs.
+ - DESCRIPTOR-UPDATE-ENTRIES: a list of DESCRIPTOR-UPDATE-TEMPLATE-ENTRYs.
  - TEMPLATE-TYPE: an enum value of DESCRIPTOR-UPDATE-TEMPLATE-TYPE.
  - DESCRIPTOR-SET-LAYOUT: a DESCRIPTOR-SET-LAYOUT.
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
@@ -14315,7 +15209,7 @@ Slots:
   (:documentation "Represents the struct [VkHdrMetadataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkHdrMetadataEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DISPLAY-PRIMARY-RED: a X-Y-COLOR-EXT.
  - DISPLAY-PRIMARY-GREEN: a X-Y-COLOR-EXT.
  - DISPLAY-PRIMARY-BLUE: a X-Y-COLOR-EXT.
@@ -14344,7 +15238,7 @@ See SET-HDR-METADATA-EXT
   (:documentation "Represents the struct [VkDisplayNativeHdrSurfaceCapabilitiesAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayNativeHdrSurfaceCapabilitiesAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - LOCAL-DIMMING-SUPPORT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14363,7 +15257,7 @@ See SURFACE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkSwapchainDisplayNativeHdrCreateInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainDisplayNativeHdrCreateInfoAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - LOCAL-DIMMING-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14434,9 +15328,9 @@ See GET-PAST-PRESENTATION-TIMING-GOOGLE
   (:documentation "Represents the struct [VkPresentTimesInfoGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentTimesInfoGOOGLE.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SWAPCHAIN-COUNT: a positive (32-bit) integer.
- - TIMES (optional): a foreign pointer to a buffer of size SWAPCHAIN-COUNT.
+ - TIMES (optional): a PRESENT-TIME-GOOGLE.
 
 Slot types:
 See PRESENT-TIME-GOOGLE
@@ -14477,7 +15371,7 @@ Slots:
   (:documentation "Represents the struct [VkIOSSurfaceCreateInfoMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIOSSurfaceCreateInfoMVK.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of I-OS-SURFACE-CREATE-FLAGS-MVK.
  - VIEW: a foreign pointer.
 
@@ -14504,7 +15398,7 @@ See CREATE-I-OS-SURFACE-MVK
   (:documentation "Represents the struct [VkMacOSSurfaceCreateInfoMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMacOSSurfaceCreateInfoMVK.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of MAC-OS-SURFACE-CREATE-FLAGS-MVK.
  - VIEW: a foreign pointer.
 
@@ -14531,7 +15425,7 @@ See CREATE-MAC-OS-SURFACE-MVK
   (:documentation "Represents the struct [VkMetalSurfaceCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMetalSurfaceCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of METAL-SURFACE-CREATE-FLAGS-EXT.
  - LAYER: a CA-METAL-LAYER.
 
@@ -14578,9 +15472,9 @@ See CMD-SET-VIEWPORT-W-SCALING-NV
   (:documentation "Represents the struct [VkPipelineViewportWScalingStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineViewportWScalingStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VIEWPORT-W-SCALING-ENABLE: a boolean.
- - VIEWPORT-W-SCALINGS (optional): a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
+ - VIEWPORT-W-SCALINGS (optional): a list of VIEWPORT-W-SCALING-NVs.
 
 Slot types:
 See VIEWPORT-W-SCALING-NV
@@ -14634,9 +15528,9 @@ See VIEWPORT-COORDINATE-SWIZZLE-NV
   (:documentation "Represents the struct [VkPipelineViewportSwizzleStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineViewportSwizzleStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-FLAGS-NV.
- - VIEWPORT-SWIZZLES: a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
+ - VIEWPORT-SWIZZLES: a list of VIEWPORT-SWIZZLE-NVs.
 
 Slot types:
 See PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-FLAGS-NV
@@ -14658,7 +15552,7 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDiscardRectanglePropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDiscardRectanglePropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-DISCARD-RECTANGLES: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14685,10 +15579,10 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineDiscardRectangleStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineDiscardRectangleStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-DISCARD-RECTANGLE-STATE-CREATE-FLAGS-EXT.
  - DISCARD-RECTANGLE-MODE: an enum value of DISCARD-RECTANGLE-MODE-EXT.
- - DISCARD-RECTANGLES: a list of foreign pointer to a buffer of size DISCARD-RECTANGLE-COUNTs.
+ - DISCARD-RECTANGLES: a list of RECT-2Ds.
 
 Slot types:
 See PIPELINE-DISCARD-RECTANGLE-STATE-CREATE-FLAGS-EXT
@@ -14711,7 +15605,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PER-VIEW-POSITION-ALL-COMPONENTS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14754,8 +15648,8 @@ See IMAGE-ASPECT-FLAGS
   (:documentation "Represents the struct [VkRenderPassInputAttachmentAspectCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassInputAttachmentAspectCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ASPECT-REFERENCES: a list of foreign pointer to a buffer of size ASPECT-REFERENCE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ASPECT-REFERENCES: a list of INPUT-ATTACHMENT-ASPECT-REFERENCEs.
 
 Slot types:
 See INPUT-ATTACHMENT-ASPECT-REFERENCE
@@ -14776,7 +15670,7 @@ See RENDER-PASS-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceSurfaceInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSurfaceInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SURFACE: a SURFACE-KHR.
 
 Slot types:
@@ -14805,7 +15699,7 @@ See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-2-EXT
   (:documentation "Represents the struct [VkSurfaceCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceCapabilities2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SURFACE-CAPABILITIES: a SURFACE-CAPABILITIES-KHR.
 
 Slot types:
@@ -14833,7 +15727,7 @@ See GET-PHYSICAL-DEVICE-SURFACE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkSurfaceFormat2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceFormat2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SURFACE-FORMAT: a SURFACE-FORMAT-KHR.
 
 Slot types:
@@ -14855,7 +15749,7 @@ See GET-PHYSICAL-DEVICE-SURFACE-FORMATS-2-KHR
   (:documentation "Represents the struct [VkDisplayProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayProperties2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DISPLAY-PROPERTIES: a DISPLAY-PROPERTIES-KHR.
 
 Slot types:
@@ -14877,7 +15771,7 @@ See GET-PHYSICAL-DEVICE-DISPLAY-PROPERTIES-2-KHR
   (:documentation "Represents the struct [VkDisplayPlaneProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlaneProperties2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DISPLAY-PLANE-PROPERTIES: a DISPLAY-PLANE-PROPERTIES-KHR.
 
 Slot types:
@@ -14899,7 +15793,7 @@ See GET-PHYSICAL-DEVICE-DISPLAY-PLANE-PROPERTIES-2-KHR
   (:documentation "Represents the struct [VkDisplayModeProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayModeProperties2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DISPLAY-MODE-PROPERTIES: a DISPLAY-MODE-PROPERTIES-KHR.
 
 Slot types:
@@ -14925,7 +15819,7 @@ See GET-DISPLAY-MODE-PROPERTIES-2-KHR
   (:documentation "Represents the struct [VkDisplayPlaneInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlaneInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MODE: a DISPLAY-MODE-KHR.
  - PLANE-INDEX: a positive (32-bit) integer.
 
@@ -14948,7 +15842,7 @@ See GET-DISPLAY-PLANE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkDisplayPlaneCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlaneCapabilities2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CAPABILITIES: a DISPLAY-PLANE-CAPABILITIES-KHR.
 
 Slot types:
@@ -14970,7 +15864,7 @@ See GET-DISPLAY-PLANE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkSharedPresentSurfaceCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSharedPresentSurfaceCapabilitiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHARED-PRESENT-SUPPORTED-USAGE-FLAGS (optional): a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
 Slot types:
@@ -15004,7 +15898,7 @@ See SURFACE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkPhysicalDevice16BitStorageFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevice16BitStorageFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
  - UNIFORM-AND-STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
  - STORAGE-PUSH-CONSTANT-16: a boolean.
@@ -15039,7 +15933,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceSubgroupProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSubgroupProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUBGROUP-SIZE: a positive (32-bit) integer.
  - SUPPORTED-STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
  - SUPPORTED-OPERATIONS: a list containing a valid combination of SUBGROUP-FEATURE-FLAGS.
@@ -15065,7 +15959,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-SUBGROUP-EXTENDED-TYPES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15085,7 +15979,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkBufferMemoryRequirementsInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferMemoryRequirementsInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER: a BUFFER.
 
 Slot types:
@@ -15107,7 +16001,7 @@ See GET-BUFFER-MEMORY-REQUIREMENTS-2
   (:documentation "Represents the struct [VkImageMemoryRequirementsInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageMemoryRequirementsInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE: an IMAGE.
 
 Slot types:
@@ -15132,7 +16026,7 @@ See GET-IMAGE-MEMORY-REQUIREMENTS-2
   (:documentation "Represents the struct [VkImageSparseMemoryRequirementsInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageSparseMemoryRequirementsInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE: an IMAGE.
 
 Slot types:
@@ -15154,7 +16048,7 @@ See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS-2
   (:documentation "Represents the struct [VkMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryRequirements2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-REQUIREMENTS: a MEMORY-REQUIREMENTS.
 
 Slot types:
@@ -15181,7 +16075,7 @@ See GET-IMAGE-MEMORY-REQUIREMENTS-2
   (:documentation "Represents the struct [VkSparseImageMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSparseImageMemoryRequirements2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-REQUIREMENTS: a SPARSE-IMAGE-MEMORY-REQUIREMENTS.
 
 Slot types:
@@ -15203,7 +16097,7 @@ See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS-2
   (:documentation "Represents the struct [VkPhysicalDevicePointClippingProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePointClippingProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - POINT-CLIPPING-BEHAVIOR: an enum value of POINT-CLIPPING-BEHAVIOR.
 
 Slot types:
@@ -15229,7 +16123,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkMemoryDedicatedRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryDedicatedRequirements.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PREFERS-DEDICATED-ALLOCATION: a boolean.
  - REQUIRES-DEDICATED-ALLOCATION: a boolean.
 
@@ -15253,7 +16147,7 @@ See MEMORY-REQUIREMENTS-2
   (:documentation "Represents the struct [VkMemoryDedicatedAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryDedicatedAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE (optional): an IMAGE.
  - BUFFER (optional): a BUFFER.
 
@@ -15277,7 +16171,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkImageViewUsageCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewUsageCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
 Slot types:
@@ -15299,7 +16193,7 @@ See IMAGE-VIEW-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineTessellationDomainOriginStateCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineTessellationDomainOriginStateCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DOMAIN-ORIGIN: an enum value of TESSELLATION-DOMAIN-ORIGIN.
 
 Slot types:
@@ -15321,7 +16215,7 @@ See PIPELINE-TESSELLATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkSamplerYcbcrConversionInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversionInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CONVERSION: a SAMPLER-YCBCR-CONVERSION.
 
 Slot types:
@@ -15372,7 +16266,7 @@ See IMAGE-VIEW-CREATE-INFO
   (:documentation "Represents the struct [VkSamplerYcbcrConversionCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversionCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FORMAT: an enum value of FORMAT.
  - YCBCR-MODEL: an enum value of SAMPLER-YCBCR-MODEL-CONVERSION.
  - YCBCR-RANGE: an enum value of SAMPLER-YCBCR-RANGE.
@@ -15409,7 +16303,7 @@ See CREATE-SAMPLER-YCBCR-CONVERSION
   (:documentation "Represents the struct [VkBindImagePlaneMemoryInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindImagePlaneMemoryInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PLANE-ASPECT: an enum value of IMAGE-ASPECT-FLAG-BITS.
 
 Slot types:
@@ -15431,7 +16325,7 @@ See BIND-IMAGE-MEMORY-INFO
   (:documentation "Represents the struct [VkImagePlaneMemoryRequirementsInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImagePlaneMemoryRequirementsInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PLANE-ASPECT: an enum value of IMAGE-ASPECT-FLAG-BITS.
 
 Slot types:
@@ -15453,7 +16347,7 @@ See IMAGE-MEMORY-REQUIREMENTS-INFO-2
   (:documentation "Represents the struct [VkPhysicalDeviceSamplerYcbcrConversionFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSamplerYcbcrConversionFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLER-YCBCR-CONVERSION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15473,7 +16367,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkSamplerYcbcrConversionImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrConversionImageFormatProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COMBINED-IMAGE-SAMPLER-DESCRIPTOR-COUNT: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15492,7 +16386,7 @@ See IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkTextureLODGatherFormatPropertiesAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTextureLODGatherFormatPropertiesAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUPPORTS-TEXTURE-GATHER-L-O-D-BIAS-AMD: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15519,7 +16413,7 @@ See IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkConditionalRenderingBeginInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkConditionalRenderingBeginInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER: a BUFFER.
  - OFFSET: a DEVICE-SIZE.
  - FLAGS (optional): a list containing a valid combination of CONDITIONAL-RENDERING-FLAGS-EXT.
@@ -15545,7 +16439,7 @@ See CMD-BEGIN-CONDITIONAL-RENDERING-EXT
   (:documentation "Represents the struct [VkProtectedSubmitInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkProtectedSubmitInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PROTECTED-SUBMIT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15564,7 +16458,7 @@ See SUBMIT-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceProtectedMemoryFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceProtectedMemoryFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PROTECTED-MEMORY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15584,7 +16478,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceProtectedMemoryProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceProtectedMemoryProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PROTECTED-NO-FAULT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15611,7 +16505,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkDeviceQueueInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceQueueInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEVICE-QUEUE-CREATE-FLAGS.
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
  - QUEUE-INDEX: a positive (32-bit) integer.
@@ -15643,7 +16537,7 @@ See GET-DEVICE-QUEUE-2
   (:documentation "Represents the struct [VkPipelineCoverageToColorStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCoverageToColorStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-FLAGS-NV.
  - COVERAGE-TO-COLOR-ENABLE: a boolean.
  - COVERAGE-TO-COLOR-LOCATION (optional): a positive (32-bit) integer.
@@ -15671,7 +16565,7 @@ See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceSamplerFilterMinmaxProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSamplerFilterMinmaxProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FILTER-MINMAX-SINGLE-COMPONENT-FORMATS: a boolean.
  - FILTER-MINMAX-IMAGE-COMPONENT-MAPPING: a boolean.
 
@@ -15715,10 +16609,10 @@ Slots:
   (:documentation "Represents the struct [VkSampleLocationsInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampleLocationsInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLE-LOCATIONS-PER-PIXEL: an enum value of SAMPLE-COUNT-FLAG-BITS.
  - SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
- - SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size SAMPLE-LOCATIONS-COUNTs.
+ - SAMPLE-LOCATIONS: a list of SAMPLE-LOCATION-EXTs.
 
 Slot types:
 See SAMPLE-COUNT-FLAG-BITS
@@ -15787,9 +16681,9 @@ See SAMPLE-LOCATIONS-INFO-EXT
   (:documentation "Represents the struct [VkRenderPassSampleLocationsBeginInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassSampleLocationsBeginInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ATTACHMENT-INITIAL-SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size ATTACHMENT-INITIAL-SAMPLE-LOCATIONS-COUNTs.
- - POST-SUBPASS-SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size POST-SUBPASS-SAMPLE-LOCATIONS-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ATTACHMENT-INITIAL-SAMPLE-LOCATIONS: a list of ATTACHMENT-SAMPLE-LOCATIONS-EXTs.
+ - POST-SUBPASS-SAMPLE-LOCATIONS: a list of SUBPASS-SAMPLE-LOCATIONS-EXTs.
 
 Slot types:
 See ATTACHMENT-SAMPLE-LOCATIONS-EXT
@@ -15815,7 +16709,7 @@ See RENDER-PASS-BEGIN-INFO
   (:documentation "Represents the struct [VkPipelineSampleLocationsStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineSampleLocationsStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLE-LOCATIONS-ENABLE: a boolean.
  - SAMPLE-LOCATIONS-INFO: a SAMPLE-LOCATIONS-INFO-EXT.
 
@@ -15854,7 +16748,7 @@ See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceSampleLocationsPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSampleLocationsPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLE-LOCATION-SAMPLE-COUNTS: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - MAX-SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
  - SAMPLE-LOCATION-COORDINATE-RANGE: a single-float.
@@ -15881,7 +16775,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkMultisamplePropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMultisamplePropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
 
 Slot types:
@@ -15903,7 +16797,7 @@ See GET-PHYSICAL-DEVICE-MULTISAMPLE-PROPERTIES-EXT
   (:documentation "Represents the struct [VkSamplerReductionModeCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerReductionModeCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - REDUCTION-MODE: an enum value of SAMPLER-REDUCTION-MODE.
 
 Slot types:
@@ -15925,7 +16819,7 @@ See SAMPLER-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ADVANCED-BLEND-COHERENT-OPERATIONS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -15965,7 +16859,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ADVANCED-BLEND-MAX-COLOR-ATTACHMENTS: a positive (32-bit) integer.
  - ADVANCED-BLEND-INDEPENDENT-BLEND: a boolean.
  - ADVANCED-BLEND-NON-PREMULTIPLIED-SRC-COLOR: a boolean.
@@ -15997,7 +16891,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineColorBlendAdvancedStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAdvancedStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-PREMULTIPLIED: a boolean.
  - DST-PREMULTIPLIED: a boolean.
  - BLEND-OVERLAP: an enum value of BLEND-OVERLAP-EXT.
@@ -16025,7 +16919,7 @@ See PIPELINE-COLOR-BLEND-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceInlineUniformBlockFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceInlineUniformBlockFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - INLINE-UNIFORM-BLOCK: a boolean.
  - DESCRIPTOR-BINDING-INLINE-UNIFORM-BLOCK-UPDATE-AFTER-BIND: a boolean.
 
@@ -16062,7 +16956,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceInlineUniformBlockPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceInlineUniformBlockPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-INLINE-UNIFORM-BLOCK-SIZE: a positive (32-bit) integer.
  - MAX-PER-STAGE-DESCRIPTOR-INLINE-UNIFORM-BLOCKS: a positive (32-bit) integer.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-INLINE-UNIFORM-BLOCKS: a positive (32-bit) integer.
@@ -16089,7 +16983,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkWriteDescriptorSetInlineUniformBlockEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSetInlineUniformBlockEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DATA-SIZE: a positive (32-bit) integer.
  - DATA: a foreign pointer to a buffer of size DATA-SIZE.
 
@@ -16109,7 +17003,7 @@ See WRITE-DESCRIPTOR-SET
   (:documentation "Represents the struct [VkDescriptorPoolInlineUniformBlockCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPoolInlineUniformBlockCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-INLINE-UNIFORM-BLOCK-BINDINGS: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16140,11 +17034,11 @@ See DESCRIPTOR-POOL-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineCoverageModulationStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCoverageModulationStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COVERAGE-MODULATION-STATE-CREATE-FLAGS-NV.
  - COVERAGE-MODULATION-MODE: an enum value of COVERAGE-MODULATION-MODE-NV.
  - COVERAGE-MODULATION-TABLE-ENABLE: a boolean.
- - COVERAGE-MODULATION-TABLE (optional): a list of foreign pointer to a buffer of size COVERAGE-MODULATION-TABLE-COUNTs.
+ - COVERAGE-MODULATION-TABLE (optional): a list of single-floats.
 
 Slot types:
 See PIPELINE-COVERAGE-MODULATION-STATE-CREATE-FLAGS-NV
@@ -16166,8 +17060,8 @@ See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkImageFormatListCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageFormatListCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - VIEW-FORMATS: a list of foreign pointer to a buffer of size VIEW-FORMAT-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VIEW-FORMATS: a list of enum value of FORMATs.
 
 Slot types:
 See FORMAT
@@ -16198,7 +17092,7 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
   (:documentation "Represents the struct [VkValidationCacheCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCacheCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of VALIDATION-CACHE-CREATE-FLAGS-EXT.
  - INITIAL-DATA-SIZE (optional): a positive integer.
  - INITIAL-DATA: a foreign pointer to a buffer of size INITIAL-DATA-SIZE.
@@ -16222,7 +17116,7 @@ See CREATE-VALIDATION-CACHE-EXT
   (:documentation "Represents the struct [VkShaderModuleValidationCacheCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderModuleValidationCacheCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VALIDATION-CACHE: a VALIDATION-CACHE-EXT.
 
 Slot types:
@@ -16248,7 +17142,7 @@ See SHADER-MODULE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceMaintenance3Properties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMaintenance3Properties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-PER-SET-DESCRIPTORS: a positive (32-bit) integer.
  - MAX-MEMORY-ALLOCATION-SIZE: a DEVICE-SIZE.
 
@@ -16271,7 +17165,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkDescriptorSetLayoutSupport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayoutSupport.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUPPORTED: a boolean.
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
@@ -16293,7 +17187,7 @@ See GET-DESCRIPTOR-SET-LAYOUT-SUPPORT
   (:documentation "Represents the struct [VkPhysicalDeviceShaderDrawParametersFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderDrawParametersFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-DRAW-PARAMETERS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16317,7 +17211,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShaderFloat16Int8Features](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-FLOAT-16: a boolean.
  - SHADER-INT-8: a boolean.
 
@@ -16402,7 +17296,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFloatControlsProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFloatControlsProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DENORM-BEHAVIOR-INDEPENDENCE: an enum value of SHADER-FLOAT-CONTROLS-INDEPENDENCE.
  - ROUNDING-MODE-INDEPENDENCE: an enum value of SHADER-FLOAT-CONTROLS-INDEPENDENCE.
  - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-16: a boolean.
@@ -16440,7 +17334,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceHostQueryResetFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceHostQueryResetFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HOST-QUERY-RESET: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16536,7 +17430,7 @@ See SHADER-RESOURCE-USAGE-AMD
   (:documentation "Represents the struct [VkDeviceQueueGlobalPriorityCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceQueueGlobalPriorityCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - GLOBAL-PRIORITY: an enum value of QUEUE-GLOBAL-PRIORITY-EXT.
 
 Slot types:
@@ -16566,10 +17460,10 @@ See DEVICE-QUEUE-CREATE-INFO
   (:documentation "Represents the struct [VkDebugUtilsObjectNameInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsObjectNameInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OBJECT-TYPE: an enum value of OBJECT-TYPE.
  - OBJECT-HANDLE: a positive (64-bit) integer.
- - OBJECT-NAME (optional): a foreign pointer to a buffer of size NULL-TERMINATED.
+ - OBJECT-NAME (optional): a string.
 
 Slot types:
 See OBJECT-TYPE
@@ -16606,7 +17500,7 @@ See SET-DEBUG-UTILS-OBJECT-NAME-EXT
   (:documentation "Represents the struct [VkDebugUtilsObjectTagInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsObjectTagInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OBJECT-TYPE: an enum value of OBJECT-TYPE.
  - OBJECT-HANDLE: a positive (64-bit) integer.
  - TAG-NAME: a positive (64-bit) integer.
@@ -16636,8 +17530,8 @@ See SET-DEBUG-UTILS-OBJECT-TAG-EXT
   (:documentation "Represents the struct [VkDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsLabelEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - LABEL-NAME: a foreign pointer to a buffer of size NULL-TERMINATED.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - LABEL-NAME: a string.
  - COLOR: a single-float.
 
 Instances of this class are used as parameters of the following functions:
@@ -16675,7 +17569,7 @@ See QUEUE-INSERT-DEBUG-UTILS-LABEL-EXT
   (:documentation "Represents the struct [VkDebugUtilsMessengerCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessengerCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEBUG-UTILS-MESSENGER-CREATE-FLAGS-EXT.
  - MESSAGE-SEVERITY: a list containing a valid combination of DEBUG-UTILS-MESSAGE-SEVERITY-FLAGS-EXT.
  - MESSAGE-TYPE: a list containing a valid combination of DEBUG-UTILS-MESSAGE-TYPE-FLAGS-EXT.
@@ -16731,14 +17625,14 @@ See CREATE-DEBUG-UTILS-MESSENGER-EXT
   (:documentation "Represents the struct [VkDebugUtilsMessengerCallbackDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessengerCallbackDataEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEBUG-UTILS-MESSENGER-CALLBACK-DATA-FLAGS-EXT.
- - MESSAGE-ID-NAME (optional): a foreign pointer to a buffer of size NULL-TERMINATED.
+ - MESSAGE-ID-NAME (optional): a string.
  - MESSAGE-ID-NUMBER: a (32-bit) integer.
- - MESSAGE: a foreign pointer to a buffer of size NULL-TERMINATED.
- - QUEUE-LABELS: a list of foreign pointer to a buffer of size QUEUE-LABEL-COUNTs.
- - CMD-BUF-LABELS: a list of foreign pointer to a buffer of size CMD-BUF-LABEL-COUNTs.
- - OBJECTS: a list of foreign pointer to a buffer of size OBJECT-COUNTs.
+ - MESSAGE: a string.
+ - QUEUE-LABELS: a list of DEBUG-UTILS-LABEL-EXTs.
+ - CMD-BUF-LABELS: a list of DEBUG-UTILS-LABEL-EXTs.
+ - OBJECTS: a list of DEBUG-UTILS-OBJECT-NAME-INFO-EXTs.
 
 Slot types:
 See DEBUG-UTILS-MESSENGER-CALLBACK-DATA-FLAGS-EXT
@@ -16761,7 +17655,7 @@ See SUBMIT-DEBUG-UTILS-MESSAGE-EXT
   (:documentation "Represents the struct [VkPhysicalDeviceDeviceMemoryReportFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDeviceMemoryReportFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-MEMORY-REPORT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -16789,7 +17683,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkDeviceDeviceMemoryReportCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceDeviceMemoryReportCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS: a list containing a valid combination of DEVICE-MEMORY-REPORT-FLAGS-EXT.
  - PFN-USER-CALLBACK: a PFN-DEVICE-MEMORY-REPORT-CALLBACK-EXT.
  - USER-DATA: a foreign pointer.
@@ -16838,7 +17732,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkDeviceMemoryReportCallbackDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemoryReportCallbackDataEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS: a list containing a valid combination of DEVICE-MEMORY-REPORT-FLAGS-EXT.
  - TYPE: an enum value of DEVICE-MEMORY-REPORT-EVENT-TYPE-EXT.
  - MEMORY-OBJECT-ID: a positive (64-bit) integer.
@@ -16870,7 +17764,7 @@ See OBJECT-TYPE
   (:documentation "Represents the struct [VkImportMemoryHostPointerInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportMemoryHostPointerInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
  - HOST-POINTER: a foreign pointer.
 
@@ -16893,7 +17787,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkMemoryHostPointerPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryHostPointerPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -16912,7 +17806,7 @@ See GET-MEMORY-HOST-POINTER-PROPERTIES-EXT
   (:documentation "Represents the struct [VkPhysicalDeviceExternalMemoryHostPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExternalMemoryHostPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MIN-IMPORTED-HOST-POINTER-ALIGNMENT: a DEVICE-SIZE.
 
 Slot types:
@@ -16966,7 +17860,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceConservativeRasterizationPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceConservativeRasterizationPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PRIMITIVE-OVERESTIMATION-SIZE: a single-float.
  - MAX-EXTRA-PRIMITIVE-OVERESTIMATION-SIZE: a single-float.
  - EXTRA-PRIMITIVE-OVERESTIMATION-SIZE-GRANULARITY: a single-float.
@@ -16993,7 +17887,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkCalibratedTimestampInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCalibratedTimestampInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TIME-DOMAIN: an enum value of TIME-DOMAIN-EXT.
 
 Slot types:
@@ -17067,7 +17961,7 @@ See GET-CALIBRATED-TIMESTAMPS-EXT
   (:documentation "Represents the struct [VkPhysicalDeviceShaderCorePropertiesAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderCorePropertiesAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-ENGINE-COUNT: a positive (32-bit) integer.
  - SHADER-ARRAYS-PER-ENGINE-COUNT: a positive (32-bit) integer.
  - COMPUTE-UNITS-PER-SHADER-ARRAY: a positive (32-bit) integer.
@@ -17103,7 +17997,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceShaderCoreProperties2AMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderCoreProperties2AMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-CORE-FEATURES: a list containing a valid combination of SHADER-CORE-PROPERTIES-FLAGS-AMD.
  - ACTIVE-COMPUTE-UNIT-COUNT: a positive (32-bit) integer.
 
@@ -17134,7 +18028,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineRasterizationConservativeStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationConservativeStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-CONSERVATIVE-STATE-CREATE-FLAGS-EXT.
  - CONSERVATIVE-RASTERIZATION-MODE: an enum value of CONSERVATIVE-RASTERIZATION-MODE-EXT.
  - EXTRA-PRIMITIVE-OVERESTIMATION-SIZE: a single-float.
@@ -17235,7 +18129,7 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDescriptorIndexingFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDescriptorIndexingFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-INPUT-ATTACHMENT-ARRAY-DYNAMIC-INDEXING: a boolean.
  - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
  - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
@@ -17362,7 +18256,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDescriptorIndexingProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDescriptorIndexingProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-UPDATE-AFTER-BIND-DESCRIPTORS-IN-ALL-POOLS: a positive (32-bit) integer.
  - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
  - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
@@ -17403,8 +18297,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkDescriptorSetLayoutBindingFlagsCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayoutBindingFlagsCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - BINDING-FLAGS: a list of foreign pointer to a buffer of size BINDING-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - BINDING-FLAGS: a list of list containing a valid combination of DESCRIPTOR-BINDING-FLAGSs.
 
 Slot types:
 See DESCRIPTOR-BINDING-FLAGS
@@ -17425,8 +18319,8 @@ See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
   (:documentation "Represents the struct [VkDescriptorSetVariableDescriptorCountAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetVariableDescriptorCountAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DESCRIPTOR-COUNTS: a list of foreign pointer to a buffer of size DESCRIPTOR-SET-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DESCRIPTOR-COUNTS: a list of positive (32-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See DESCRIPTOR-SET-ALLOCATE-INFO
@@ -17444,7 +18338,7 @@ See DESCRIPTOR-SET-ALLOCATE-INFO
   (:documentation "Represents the struct [VkDescriptorSetVariableDescriptorCountLayoutSupport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-VARIABLE-DESCRIPTOR-COUNT: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17495,7 +18389,7 @@ See DESCRIPTOR-SET-LAYOUT-SUPPORT
   (:documentation "Represents the struct [VkAttachmentDescription2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentDescription2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of ATTACHMENT-DESCRIPTION-FLAGS.
  - FORMAT: an enum value of FORMAT.
  - SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
@@ -17538,7 +18432,7 @@ See ATTACHMENT-DESCRIPTION-STENCIL-LAYOUT
   (:documentation "Represents the struct [VkAttachmentReference2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentReference2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ATTACHMENT: a positive (32-bit) integer.
  - LAYOUT: an enum value of IMAGE-LAYOUT.
  - ASPECT-MASK: a list containing a valid combination of IMAGE-ASPECT-FLAGS.
@@ -17591,15 +18485,15 @@ See ATTACHMENT-REFERENCE-STENCIL-LAYOUT
   (:documentation "Represents the struct [VkSubpassDescription2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDescription2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SUBPASS-DESCRIPTION-FLAGS.
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
  - VIEW-MASK: a positive (32-bit) integer.
- - INPUT-ATTACHMENTS: a list of foreign pointer to a buffer of size INPUT-ATTACHMENT-COUNTs.
- - COLOR-ATTACHMENTS: a list of foreign pointer to a buffer of size COLOR-ATTACHMENT-COUNTs.
- - RESOLVE-ATTACHMENTS (optional): a list of foreign pointer to a buffer of size COLOR-ATTACHMENT-COUNTs.
+ - INPUT-ATTACHMENTS: a list of ATTACHMENT-REFERENCE-2s.
+ - COLOR-ATTACHMENTS: a list of ATTACHMENT-REFERENCE-2s.
+ - RESOLVE-ATTACHMENTS (optional): a list of ATTACHMENT-REFERENCE-2s.
  - DEPTH-STENCIL-ATTACHMENT (optional): an ATTACHMENT-REFERENCE-2.
- - PRESERVE-ATTACHMENTS: a list of foreign pointer to a buffer of size PRESERVE-ATTACHMENT-COUNTs.
+ - PRESERVE-ATTACHMENTS: a list of positive (32-bit) integers.
 
 Slot types:
 See SUBPASS-DESCRIPTION-FLAGS
@@ -17651,7 +18545,7 @@ See SUBPASS-DESCRIPTION-DEPTH-STENCIL-RESOLVE
   (:documentation "Represents the struct [VkSubpassDependency2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDependency2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-SUBPASS: a positive (32-bit) integer.
  - DST-SUBPASS: a positive (32-bit) integer.
  - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS.
@@ -17698,12 +18592,12 @@ See MEMORY-BARRIER-2-KHR
   (:documentation "Represents the struct [VkRenderPassCreateInfo2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassCreateInfo2.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of RENDER-PASS-CREATE-FLAGS.
- - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
- - SUBPASSES: a list of foreign pointer to a buffer of size SUBPASS-COUNTs.
- - DEPENDENCIES: a list of foreign pointer to a buffer of size DEPENDENCY-COUNTs.
- - CORRELATED-VIEW-MASKS: a list of foreign pointer to a buffer of size CORRELATED-VIEW-MASK-COUNTs.
+ - ATTACHMENTS: a list of ATTACHMENT-DESCRIPTION-2s.
+ - SUBPASSES: a list of SUBPASS-DESCRIPTION-2s.
+ - DEPENDENCIES: a list of SUBPASS-DEPENDENCY-2s.
+ - CORRELATED-VIEW-MASKS: a list of positive (32-bit) integers.
 
 Slot types:
 See RENDER-PASS-CREATE-FLAGS
@@ -17730,7 +18624,7 @@ See CREATE-RENDER-PASS-2
   (:documentation "Represents the struct [VkSubpassBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassBeginInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CONTENTS: an enum value of SUBPASS-CONTENTS.
 
 Slot types:
@@ -17749,7 +18643,7 @@ See CMD-NEXT-SUBPASS-2
   (:documentation "Represents the struct [VkSubpassEndInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassEndInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
 
 Instances of this class are used as parameters of the following functions:
 See CMD-END-RENDER-PASS-2
@@ -17768,7 +18662,7 @@ See CMD-NEXT-SUBPASS-2
   (:documentation "Represents the struct [VkPhysicalDeviceTimelineSemaphoreFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TIMELINE-SEMAPHORE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17788,7 +18682,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceTimelineSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-TIMELINE-SEMAPHORE-VALUE-DIFFERENCE: a positive (64-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17811,7 +18705,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkSemaphoreTypeCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreTypeCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE-TYPE: an enum value of SEMAPHORE-TYPE.
  - INITIAL-VALUE: a positive (64-bit) integer.
 
@@ -17839,9 +18733,9 @@ See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
   (:documentation "Represents the struct [VkTimelineSemaphoreSubmitInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTimelineSemaphoreSubmitInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - WAIT-SEMAPHORE-VALUES (optional): a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-VALUE-COUNTs.
- - SIGNAL-SEMAPHORE-VALUES (optional): a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-VALUE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - WAIT-SEMAPHORE-VALUES (optional): a list of positive (64-bit) integers.
+ - SIGNAL-SEMAPHORE-VALUES (optional): a list of positive (64-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
@@ -17868,10 +18762,10 @@ See BIND-SPARSE-INFO
   (:documentation "Represents the struct [VkSemaphoreWaitInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreWaitInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SEMAPHORE-WAIT-FLAGS.
- - SEMAPHORES: a list of foreign pointer to a buffer of size SEMAPHORE-COUNTs.
- - VALUES: a list of foreign pointer to a buffer of size SEMAPHORE-COUNTs.
+ - SEMAPHORES: a list of SEMAPHOREs.
+ - VALUES: a list of positive (64-bit) integers.
 
 Slot types:
 See SEMAPHORE-WAIT-FLAGS
@@ -17897,7 +18791,7 @@ See WAIT-SEMAPHORES
   (:documentation "Represents the struct [VkSemaphoreSignalInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreSignalInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - VALUE: a positive (64-bit) integer.
 
@@ -17936,8 +18830,8 @@ Slots:
   (:documentation "Represents the struct [VkPipelineVertexInputDivisorStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineVertexInputDivisorStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - VERTEX-BINDING-DIVISORS: a list of foreign pointer to a buffer of size VERTEX-BINDING-DIVISOR-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VERTEX-BINDING-DIVISORS: a list of VERTEX-INPUT-BINDING-DIVISOR-DESCRIPTION-EXTs.
 
 Slot types:
 See VERTEX-INPUT-BINDING-DIVISOR-DESCRIPTION-EXT
@@ -17958,7 +18852,7 @@ See PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-VERTEX-ATTRIB-DIVISOR: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17989,7 +18883,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDevicePCIBusInfoPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePCIBusInfoPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PCI-DOMAIN: a positive (32-bit) integer.
  - PCI-BUS: a positive (32-bit) integer.
  - PCI-DEVICE: a positive (32-bit) integer.
@@ -18011,7 +18905,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkImportAndroidHardwareBufferInfoANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImportAndroidHardwareBufferInfoANDROID.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER: an A-HARDWARE-BUFFER.
 
 Slot types:
@@ -18033,7 +18927,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkAndroidHardwareBufferUsageANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAndroidHardwareBufferUsageANDROID.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ANDROID-HARDWARE-BUFFER-USAGE: a positive (64-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18056,7 +18950,7 @@ See IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkAndroidHardwareBufferPropertiesANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAndroidHardwareBufferPropertiesANDROID.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ALLOCATION-SIZE: a DEVICE-SIZE.
  - MEMORY-TYPE-BITS: a positive (32-bit) integer.
 
@@ -18082,7 +18976,7 @@ See GET-ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
   (:documentation "Represents the struct [VkMemoryGetAndroidHardwareBufferInfoANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryGetAndroidHardwareBufferInfoANDROID.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY: a DEVICE-MEMORY.
 
 Slot types:
@@ -18132,7 +19026,7 @@ See GET-MEMORY-ANDROID-HARDWARE-BUFFER-ANDROID
   (:documentation "Represents the struct [VkAndroidHardwareBufferFormatPropertiesANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAndroidHardwareBufferFormatPropertiesANDROID.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FORMAT: an enum value of FORMAT.
  - EXTERNAL-FORMAT: a positive (64-bit) integer.
  - FORMAT-FEATURES: a list containing a valid combination of FORMAT-FEATURE-FLAGS.
@@ -18166,7 +19060,7 @@ See ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
   (:documentation "Represents the struct [VkCommandBufferInheritanceConditionalRenderingInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferInheritanceConditionalRenderingInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CONDITIONAL-RENDERING-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18185,7 +19079,7 @@ See COMMAND-BUFFER-INHERITANCE-INFO
   (:documentation "Represents the struct [VkExternalFormatANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFormatANDROID.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXTERNAL-FORMAT: a positive (64-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18213,7 +19107,7 @@ See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDevice8BitStorageFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevice8BitStorageFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
  - UNIFORM-AND-STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
  - STORAGE-PUSH-CONSTANT-8: a boolean.
@@ -18239,7 +19133,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceConditionalRenderingFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceConditionalRenderingFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CONDITIONAL-RENDERING: a boolean.
  - INHERITED-CONDITIONAL-RENDERING: a boolean.
 
@@ -18268,7 +19162,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceVulkanMemoryModelFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVulkanMemoryModelFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VULKAN-MEMORY-MODEL: a boolean.
  - VULKAN-MEMORY-MODEL-DEVICE-SCOPE: a boolean.
  - VULKAN-MEMORY-MODEL-AVAILABILITY-VISIBILITY-CHAINS: a boolean.
@@ -18294,7 +19188,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShaderAtomicInt64Features](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderAtomicInt64Features.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-BUFFER-INT-64-ATOMICS: a boolean.
  - SHADER-SHARED-INT-64-ATOMICS: a boolean.
 
@@ -18359,7 +19253,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShaderAtomicFloatFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderAtomicFloatFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-BUFFER-FLOAT-32-ATOMICS: a boolean.
  - SHADER-BUFFER-FLOAT-32-ATOMIC-ADD: a boolean.
  - SHADER-BUFFER-FLOAT-64-ATOMICS: a boolean.
@@ -18394,7 +19288,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VERTEX-ATTRIBUTE-INSTANCE-RATE-DIVISOR: a boolean.
  - VERTEX-ATTRIBUTE-INSTANCE-RATE-ZERO-DIVISOR: a boolean.
 
@@ -18415,7 +19309,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkQueueFamilyCheckpointPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFamilyCheckpointPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CHECKPOINT-EXECUTION-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS.
 
 Slot types:
@@ -18441,7 +19335,7 @@ See QUEUE-FAMILY-PROPERTIES-2
   (:documentation "Represents the struct [VkCheckpointDataNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCheckpointDataNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STAGE: an enum value of PIPELINE-STAGE-FLAG-BITS.
  - CHECKPOINT-MARKER: a foreign pointer.
 
@@ -18476,7 +19370,7 @@ See GET-QUEUE-CHECKPOINT-DATA-NV
   (:documentation "Represents the struct [VkPhysicalDeviceDepthStencilResolveProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDepthStencilResolveProperties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUPPORTED-DEPTH-RESOLVE-MODES: a list containing a valid combination of RESOLVE-MODE-FLAGS.
  - SUPPORTED-STENCIL-RESOLVE-MODES: a list containing a valid combination of RESOLVE-MODE-FLAGS.
  - INDEPENDENT-RESOLVE-NONE: a boolean.
@@ -18509,7 +19403,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkSubpassDescriptionDepthStencilResolve](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDescriptionDepthStencilResolve.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEPTH-RESOLVE-MODE: an enum value of RESOLVE-MODE-FLAG-BITS.
  - STENCIL-RESOLVE-MODE: an enum value of RESOLVE-MODE-FLAG-BITS.
  - DEPTH-STENCIL-RESOLVE-ATTACHMENT (optional): an ATTACHMENT-REFERENCE-2.
@@ -18534,7 +19428,7 @@ See SUBPASS-DESCRIPTION-2
   (:documentation "Represents the struct [VkImageViewASTCDecodeModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewASTCDecodeModeEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DECODE-MODE: an enum value of FORMAT.
 
 Slot types:
@@ -18556,7 +19450,7 @@ See IMAGE-VIEW-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceASTCDecodeFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceASTCDecodeFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DECODE-MODE-SHARED-EXPONENT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18580,7 +19474,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceTransformFeedbackFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TRANSFORM-FEEDBACK: a boolean.
  - GEOMETRY-STREAMS: a boolean.
 
@@ -18637,7 +19531,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceTransformFeedbackPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTransformFeedbackPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-TRANSFORM-FEEDBACK-STREAMS: a positive (32-bit) integer.
  - MAX-TRANSFORM-FEEDBACK-BUFFERS: a positive (32-bit) integer.
  - MAX-TRANSFORM-FEEDBACK-BUFFER-SIZE: a DEVICE-SIZE.
@@ -18672,7 +19566,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineRasterizationStateStreamCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationStateStreamCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-FLAGS-EXT.
  - RASTERIZATION-STREAM: a positive (32-bit) integer.
 
@@ -18695,7 +19589,7 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - REPRESENTATIVE-FRAGMENT-TEST: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18715,7 +19609,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineRepresentativeFragmentTestStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - REPRESENTATIVE-FRAGMENT-TEST-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18734,7 +19628,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceExclusiveScissorFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExclusiveScissorFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXCLUSIVE-SCISSOR: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18754,8 +19648,8 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineViewportExclusiveScissorStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineViewportExclusiveScissorStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - EXCLUSIVE-SCISSORS: a list of foreign pointer to a buffer of size EXCLUSIVE-SCISSOR-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - EXCLUSIVE-SCISSORS: a list of RECT-2Ds.
 
 Slot types:
 See RECT-2D
@@ -18776,7 +19670,7 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceCornerSampledImageFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCornerSampledImageFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CORNER-SAMPLED-IMAGE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18800,7 +19694,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceComputeShaderDerivativesFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceComputeShaderDerivativesFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COMPUTE-DERIVATIVE-GROUP-QUADS: a boolean.
  - COMPUTE-DERIVATIVE-GROUP-LINEAR: a boolean.
 
@@ -18821,7 +19715,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-SHADER-BARYCENTRIC: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18841,7 +19735,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShaderImageFootprintFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderImageFootprintFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE-FOOTPRINT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18861,7 +19755,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEDICATED-ALLOCATION-IMAGE-ALIASING: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -18877,7 +19771,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkShadingRatePaletteNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShadingRatePaletteNV.html).
 
 Slots:
- - SHADING-RATE-PALETTE-ENTRIES: a list of foreign pointer to a buffer of size SHADING-RATE-PALETTE-ENTRY-COUNTs.
+ - SHADING-RATE-PALETTE-ENTRIES: a list of enum value of SHADING-RATE-PALETTE-ENTRY-NVs.
 
 Slot types:
 See SHADING-RATE-PALETTE-ENTRY-NV
@@ -18902,9 +19796,9 @@ See CMD-SET-VIEWPORT-SHADING-RATE-PALETTE-NV
   (:documentation "Represents the struct [VkPipelineViewportShadingRateImageStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineViewportShadingRateImageStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADING-RATE-IMAGE-ENABLE: a boolean.
- - SHADING-RATE-PALETTES: a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
+ - SHADING-RATE-PALETTES: a list of SHADING-RATE-PALETTE-NVs.
 
 Slot types:
 See SHADING-RATE-PALETTE-NV
@@ -18929,7 +19823,7 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShadingRateImageFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShadingRateImageFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADING-RATE-IMAGE: a boolean.
  - SHADING-RATE-COARSE-SAMPLE-ORDER: a boolean.
 
@@ -18958,7 +19852,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShadingRateImagePropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShadingRateImagePropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADING-RATE-TEXEL-SIZE: an EXTENT-2D.
  - SHADING-RATE-PALETTE-SIZE: a positive (32-bit) integer.
  - SHADING-RATE-MAX-COARSE-SAMPLES: a positive (32-bit) integer.
@@ -19009,7 +19903,7 @@ Slots:
 Slots:
  - SHADING-RATE: an enum value of SHADING-RATE-PALETTE-ENTRY-NV.
  - SAMPLE-COUNT: a positive (32-bit) integer.
- - SAMPLE-LOCATIONS: a list of foreign pointer to a buffer of size SAMPLE-LOCATION-COUNTs.
+ - SAMPLE-LOCATIONS: a list of COARSE-SAMPLE-LOCATION-NVs.
 
 Slot types:
 See SHADING-RATE-PALETTE-ENTRY-NV
@@ -19035,9 +19929,9 @@ See CMD-SET-COARSE-SAMPLE-ORDER-NV
   (:documentation "Represents the struct [VkPipelineViewportCoarseSampleOrderStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineViewportCoarseSampleOrderStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLE-ORDER-TYPE: an enum value of COARSE-SAMPLE-ORDER-TYPE-NV.
- - CUSTOM-SAMPLE-ORDERS: a list of foreign pointer to a buffer of size CUSTOM-SAMPLE-ORDER-COUNTs.
+ - CUSTOM-SAMPLE-ORDERS: a list of COARSE-SAMPLE-ORDER-CUSTOM-NVs.
 
 Slot types:
 See COARSE-SAMPLE-ORDER-TYPE-NV
@@ -19063,7 +19957,7 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceMeshShaderFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMeshShaderFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TASK-SHADER: a boolean.
  - MESH-SHADER: a boolean.
 
@@ -19132,7 +20026,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceMeshShaderPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMeshShaderPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-DRAW-MESH-TASKS-COUNT: a positive (32-bit) integer.
  - MAX-TASK-WORK-GROUP-INVOCATIONS: a positive (32-bit) integer.
  - MAX-TASK-WORK-GROUP-SIZE: a positive (32-bit) integer.
@@ -19195,7 +20089,7 @@ Slots:
   (:documentation "Represents the struct [VkRayTracingShaderGroupCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingShaderGroupCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an enum value of RAY-TRACING-SHADER-GROUP-TYPE-KHR.
  - GENERAL-SHADER: a positive (32-bit) integer.
  - CLOSEST-HIT-SHADER: a positive (32-bit) integer.
@@ -19238,7 +20132,7 @@ See RAY-TRACING-SHADER-GROUP-TYPE-KHR
   (:documentation "Represents the struct [VkRayTracingShaderGroupCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingShaderGroupCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an enum value of RAY-TRACING-SHADER-GROUP-TYPE-KHR.
  - GENERAL-SHADER: a positive (32-bit) integer.
  - CLOSEST-HIT-SHADER: a positive (32-bit) integer.
@@ -19286,10 +20180,10 @@ See RAY-TRACING-SHADER-GROUP-TYPE-KHR
   (:documentation "Represents the struct [VkRayTracingPipelineCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-CREATE-FLAGS.
- - STAGES: a list of foreign pointer to a buffer of size STAGE-COUNTs.
- - GROUPS: a list of foreign pointer to a buffer of size GROUP-COUNTs.
+ - STAGES: a list of PIPELINE-SHADER-STAGE-CREATE-INFOs.
+ - GROUPS: a list of RAY-TRACING-SHADER-GROUP-CREATE-INFO-NVs.
  - MAX-RECURSION-DEPTH: a positive (32-bit) integer.
  - LAYOUT: a PIPELINE-LAYOUT.
  - BASE-PIPELINE-HANDLE (optional): a PIPELINE.
@@ -19357,10 +20251,10 @@ See CREATE-RAY-TRACING-PIPELINES-NV
   (:documentation "Represents the struct [VkRayTracingPipelineCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-CREATE-FLAGS.
- - STAGES: a list of foreign pointer to a buffer of size STAGE-COUNTs.
- - GROUPS: a list of foreign pointer to a buffer of size GROUP-COUNTs.
+ - STAGES: a list of PIPELINE-SHADER-STAGE-CREATE-INFOs.
+ - GROUPS: a list of RAY-TRACING-SHADER-GROUP-CREATE-INFO-KHRs.
  - MAX-PIPELINE-RAY-RECURSION-DEPTH: a positive (32-bit) integer.
  - LIBRARY-INFO (optional): a PIPELINE-LIBRARY-CREATE-INFO-KHR.
  - LIBRARY-INTERFACE (optional): a RAY-TRACING-PIPELINE-INTERFACE-CREATE-INFO-KHR.
@@ -19438,7 +20332,7 @@ See CREATE-RAY-TRACING-PIPELINES-KHR
   (:documentation "Represents the struct [VkGeometryTrianglesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryTrianglesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VERTEX-DATA (optional): a BUFFER.
  - VERTEX-OFFSET: a DEVICE-SIZE.
  - VERTEX-COUNT: a positive (32-bit) integer.
@@ -19482,7 +20376,7 @@ See DEVICE-SIZE
   (:documentation "Represents the struct [VkGeometryAABBNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryAABBNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - AABB-DATA (optional): a BUFFER.
  - NUM-AABBS: a positive (32-bit) integer.
  - STRIDE: a positive (32-bit) integer.
@@ -19533,7 +20427,7 @@ See GEOMETRY-AABB-NV
   (:documentation "Represents the struct [VkGeometryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - GEOMETRY-TYPE: an enum value of GEOMETRY-TYPE-KHR.
  - GEOMETRY: a GEOMETRY-DATA-NV.
  - FLAGS (optional): a list containing a valid combination of GEOMETRY-FLAGS-KHR.
@@ -19568,11 +20462,11 @@ See GEOMETRY-FLAGS-KHR
   (:documentation "Represents the struct [VkAccelerationStructureInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an ACCELERATION-STRUCTURE-TYPE-NV.
  - FLAGS (optional): a BUILD-ACCELERATION-STRUCTURE-FLAGS-NV.
  - INSTANCE-COUNT (optional): a positive (32-bit) integer.
- - GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
+ - GEOMETRIES: a list of GEOMETRY-NVs.
 
 Slot types:
 See ACCELERATION-STRUCTURE-TYPE-NV
@@ -19599,7 +20493,7 @@ See CMD-BUILD-ACCELERATION-STRUCTURE-NV
   (:documentation "Represents the struct [VkAccelerationStructureCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COMPACTED-SIZE: a DEVICE-SIZE.
  - INFO: an ACCELERATION-STRUCTURE-INFO-NV.
 
@@ -19635,11 +20529,11 @@ See CREATE-ACCELERATION-STRUCTURE-NV
   (:documentation "Represents the struct [VkBindAccelerationStructureMemoryInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBindAccelerationStructureMemoryInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-NV.
  - MEMORY: a DEVICE-MEMORY.
  - MEMORY-OFFSET: a DEVICE-SIZE.
- - DEVICE-INDICES: a list of foreign pointer to a buffer of size DEVICE-INDEX-COUNTs.
+ - DEVICE-INDICES: a list of positive (32-bit) integers.
 
 Slot types:
 See ACCELERATION-STRUCTURE-NV
@@ -19662,8 +20556,8 @@ See BIND-ACCELERATION-STRUCTURE-MEMORY-NV
   (:documentation "Represents the struct [VkWriteDescriptorSetAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSetAccelerationStructureKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ACCELERATION-STRUCTURES: a list of foreign pointer to a buffer of size ACCELERATION-STRUCTURE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ACCELERATION-STRUCTURES: a list of ACCELERATION-STRUCTURE-KHRs.
 
 Slot types:
 See ACCELERATION-STRUCTURE-KHR
@@ -19684,8 +20578,8 @@ See WRITE-DESCRIPTOR-SET
   (:documentation "Represents the struct [VkWriteDescriptorSetAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkWriteDescriptorSetAccelerationStructureNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ACCELERATION-STRUCTURES: a list of foreign pointer to a buffer of size ACCELERATION-STRUCTURE-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ACCELERATION-STRUCTURES: a list of ACCELERATION-STRUCTURE-NVs.
 
 Slot types:
 See ACCELERATION-STRUCTURE-NV
@@ -19710,7 +20604,7 @@ See WRITE-DESCRIPTOR-SET
   (:documentation "Represents the struct [VkAccelerationStructureMemoryRequirementsInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureMemoryRequirementsInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an enum value of ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-TYPE-NV.
  - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-NV.
 
@@ -19750,7 +20644,7 @@ See GET-ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-NV
   (:documentation "Represents the struct [VkPhysicalDeviceAccelerationStructureFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceAccelerationStructureFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ACCELERATION-STRUCTURE: a boolean.
  - ACCELERATION-STRUCTURE-CAPTURE-REPLAY: a boolean.
  - ACCELERATION-STRUCTURE-INDIRECT-BUILD: a boolean.
@@ -19790,7 +20684,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPipelineFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RAY-TRACING-PIPELINE: a boolean.
  - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY: a boolean.
  - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY-MIXED: a boolean.
@@ -19814,7 +20708,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceRayQueryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayQueryFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RAY-QUERY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -19862,7 +20756,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceAccelerationStructurePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceAccelerationStructurePropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-GEOMETRY-COUNT: a positive (64-bit) integer.
  - MAX-INSTANCE-COUNT: a positive (64-bit) integer.
  - MAX-PRIMITIVE-COUNT: a positive (64-bit) integer.
@@ -19916,7 +20810,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPipelinePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPipelinePropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-GROUP-HANDLE-SIZE: a positive (32-bit) integer.
  - MAX-RAY-RECURSION-DEPTH: a positive (32-bit) integer.
  - MAX-SHADER-GROUP-STRIDE: a positive (32-bit) integer.
@@ -19970,7 +20864,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceRayTracingPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRayTracingPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-GROUP-HANDLE-SIZE: a positive (32-bit) integer.
  - MAX-RECURSION-DEPTH: a positive (32-bit) integer.
  - MAX-SHADER-GROUP-STRIDE: a positive (32-bit) integer.
@@ -20046,8 +20940,8 @@ Slots:
   (:documentation "Represents the struct [VkDrmFormatModifierPropertiesListEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDrmFormatModifierPropertiesListEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DRM-FORMAT-MODIFIER-PROPERTIES: a list of foreign pointer to a buffer of size DRM-FORMAT-MODIFIER-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DRM-FORMAT-MODIFIER-PROPERTIES: a list of DRM-FORMAT-MODIFIER-PROPERTIES-EXTs.
 
 Slot types:
 See DRM-FORMAT-MODIFIER-PROPERTIES-EXT
@@ -20100,10 +20994,10 @@ See FORMAT-FEATURE-FLAGS
   (:documentation "Represents the struct [VkPhysicalDeviceImageDrmFormatModifierInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceImageDrmFormatModifierInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DRM-FORMAT-MODIFIER: a positive (64-bit) integer.
  - SHARING-MODE: an enum value of SHARING-MODE.
- - QUEUE-FAMILY-INDICES: a list of foreign pointer to a buffer of size QUEUE-FAMILY-INDEX-COUNTs.
+ - QUEUE-FAMILY-INDICES: a list of positive (32-bit) integers.
 
 Slot types:
 See SHARING-MODE
@@ -20124,8 +21018,8 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
   (:documentation "Represents the struct [VkImageDrmFormatModifierListCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageDrmFormatModifierListCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - DRM-FORMAT-MODIFIERS: a list of foreign pointer to a buffer of size DRM-FORMAT-MODIFIER-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DRM-FORMAT-MODIFIERS: a list of positive (64-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See IMAGE-CREATE-INFO
@@ -20147,9 +21041,9 @@ See IMAGE-CREATE-INFO
   (:documentation "Represents the struct [VkImageDrmFormatModifierExplicitCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageDrmFormatModifierExplicitCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DRM-FORMAT-MODIFIER: a positive (64-bit) integer.
- - PLANE-LAYOUTS: a list of foreign pointer to a buffer of size DRM-FORMAT-MODIFIER-PLANE-COUNTs.
+ - PLANE-LAYOUTS: a list of SUBRESOURCE-LAYOUTs.
 
 Slot types:
 See SUBRESOURCE-LAYOUT
@@ -20170,7 +21064,7 @@ See IMAGE-CREATE-INFO
   (:documentation "Represents the struct [VkImageDrmFormatModifierPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageDrmFormatModifierPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DRM-FORMAT-MODIFIER: a positive (64-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -20189,7 +21083,7 @@ See GET-IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
   (:documentation "Represents the struct [VkImageStencilUsageCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageStencilUsageCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STENCIL-USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
 Slot types:
@@ -20212,7 +21106,7 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
   (:documentation "Represents the struct [VkDeviceMemoryOverallocationCreateInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemoryOverallocationCreateInfoAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OVERALLOCATION-BEHAVIOR: an enum value of MEMORY-OVERALLOCATION-BEHAVIOR-AMD.
 
 Slot types:
@@ -20242,7 +21136,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentDensityMapFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentDensityMapFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-DENSITY-MAP: a boolean.
  - FRAGMENT-DENSITY-MAP-DYNAMIC: a boolean.
  - FRAGMENT-DENSITY-MAP-NON-SUBSAMPLED-IMAGES: a boolean.
@@ -20264,7 +21158,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentDensityMap2FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentDensityMap2FeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-DENSITY-MAP-DEFERRED: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20292,7 +21186,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentDensityMapPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentDensityMapPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MIN-FRAGMENT-DENSITY-TEXEL-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-DENSITY-TEXEL-SIZE: an EXTENT-2D.
  - FRAGMENT-DENSITY-INVOCATIONS: a boolean.
@@ -20328,7 +21222,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentDensityMap2PropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentDensityMap2PropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUBSAMPLED-LOADS: a boolean.
  - SUBSAMPLED-COARSE-RECONSTRUCTION-EARLY-ACCESS: a boolean.
  - MAX-SUBSAMPLED-ARRAY-LAYERS: a positive (32-bit) integer.
@@ -20350,7 +21244,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkRenderPassFragmentDensityMapCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassFragmentDensityMapCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-DENSITY-MAP-ATTACHMENT: an ATTACHMENT-REFERENCE.
 
 Slot types:
@@ -20373,7 +21267,7 @@ See RENDER-PASS-CREATE-INFO-2
   (:documentation "Represents the struct [VkPhysicalDeviceScalarBlockLayoutFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceScalarBlockLayoutFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SCALAR-BLOCK-LAYOUT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20393,7 +21287,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkSurfaceProtectedCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceProtectedCapabilitiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUPPORTS-PROTECTED: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20412,7 +21306,7 @@ See SURFACE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceUniformBufferStandardLayoutFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceUniformBufferStandardLayoutFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - UNIFORM-BUFFER-STANDARD-LAYOUT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20432,7 +21326,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDepthClipEnableFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDepthClipEnableFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEPTH-CLIP-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20456,7 +21350,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineRasterizationDepthClipStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationDepthClipStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-FLAGS-EXT.
  - DEPTH-CLIP-ENABLE: a boolean.
 
@@ -20483,7 +21377,7 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceMemoryBudgetPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMemoryBudgetPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HEAP-BUDGET: a DEVICE-SIZE.
  - HEAP-USAGE: a DEVICE-SIZE.
 
@@ -20506,7 +21400,7 @@ See PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceMemoryPriorityFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMemoryPriorityFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY-PRIORITY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20526,7 +21420,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkMemoryPriorityAllocateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryPriorityAllocateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PRIORITY: a single-float.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20553,7 +21447,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceBufferDeviceAddressFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBufferDeviceAddressFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER-DEVICE-ADDRESS: a boolean.
  - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a boolean.
  - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a boolean.
@@ -20583,7 +21477,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceBufferDeviceAddressFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER-DEVICE-ADDRESS: a boolean.
  - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a boolean.
  - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a boolean.
@@ -20605,7 +21499,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkBufferDeviceAddressInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferDeviceAddressInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER: a BUFFER.
 
 Slot types:
@@ -20628,7 +21522,7 @@ See GET-BUFFER-OPAQUE-CAPTURE-ADDRESS
   (:documentation "Represents the struct [VkBufferOpaqueCaptureAddressCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferOpaqueCaptureAddressCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OPAQUE-CAPTURE-ADDRESS: a positive (64-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20647,7 +21541,7 @@ See BUFFER-CREATE-INFO
   (:documentation "Represents the struct [VkBufferDeviceAddressCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferDeviceAddressCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-ADDRESS: a DEVICE-ADDRESS.
 
 Slot types:
@@ -20669,7 +21563,7 @@ See BUFFER-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceImageViewImageFormatInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceImageViewImageFormatInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE-VIEW-TYPE: an enum value of IMAGE-VIEW-TYPE.
 
 Slot types:
@@ -20695,7 +21589,7 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
   (:documentation "Represents the struct [VkFilterCubicImageViewImageFormatPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFilterCubicImageViewImageFormatPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FILTER-CUBIC: a boolean.
  - FILTER-CUBIC-MINMAX: a boolean.
 
@@ -20715,7 +21609,7 @@ See IMAGE-FORMAT-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceImagelessFramebufferFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceImagelessFramebufferFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGELESS-FRAMEBUFFER: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20735,8 +21629,8 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkFramebufferAttachmentsCreateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferAttachmentsCreateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ATTACHMENT-IMAGE-INFOS: a list of foreign pointer to a buffer of size ATTACHMENT-IMAGE-INFO-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ATTACHMENT-IMAGE-INFOS: a list of FRAMEBUFFER-ATTACHMENT-IMAGE-INFOs.
 
 Slot types:
 See FRAMEBUFFER-ATTACHMENT-IMAGE-INFO
@@ -20777,13 +21671,13 @@ See FRAMEBUFFER-CREATE-INFO
   (:documentation "Represents the struct [VkFramebufferAttachmentImageInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferAttachmentImageInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of IMAGE-CREATE-FLAGS.
  - USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - WIDTH: a positive (32-bit) integer.
  - HEIGHT: a positive (32-bit) integer.
  - LAYER-COUNT: a positive (32-bit) integer.
- - VIEW-FORMATS: a list of foreign pointer to a buffer of size VIEW-FORMAT-COUNTs.
+ - VIEW-FORMATS: a list of enum value of FORMATs.
 
 Slot types:
 See IMAGE-CREATE-FLAGS
@@ -20803,8 +21697,8 @@ See FORMAT
   (:documentation "Represents the struct [VkRenderPassAttachmentBeginInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassAttachmentBeginInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - ATTACHMENTS: a list of IMAGE-VIEWs.
 
 Slot types:
 See IMAGE-VIEW
@@ -20825,7 +21719,7 @@ See RENDER-PASS-BEGIN-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TEXTURE-COMPRESSION-ASTC_-H-D-R: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20849,7 +21743,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceCooperativeMatrixFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCooperativeMatrixFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COOPERATIVE-MATRIX: a boolean.
  - COOPERATIVE-MATRIX-ROBUST-BUFFER-ACCESS: a boolean.
 
@@ -20870,7 +21764,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceCooperativeMatrixPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCooperativeMatrixPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COOPERATIVE-MATRIX-SUPPORTED-STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
 
 Slot types:
@@ -20920,7 +21814,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkCooperativeMatrixPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCooperativeMatrixPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - M-SIZE: a positive (32-bit) integer.
  - N-SIZE: a positive (32-bit) integer.
  - K-SIZE: a positive (32-bit) integer.
@@ -20950,7 +21844,7 @@ See GET-PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
   (:documentation "Represents the struct [VkPhysicalDeviceYcbcrImageArraysFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - YCBCR-IMAGE-ARRAYS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -20978,7 +21872,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkImageViewHandleInfoNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewHandleInfoNVX.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - IMAGE-VIEW: an IMAGE-VIEW.
  - DESCRIPTOR-TYPE: an enum value of DESCRIPTOR-TYPE.
  - SAMPLER (optional): a SAMPLER.
@@ -21008,7 +21902,7 @@ See GET-IMAGE-VIEW-HANDLE-NV-X
   (:documentation "Represents the struct [VkImageViewAddressPropertiesNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewAddressPropertiesNVX.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-ADDRESS: a DEVICE-ADDRESS.
  - SIZE: a DEVICE-SIZE.
 
@@ -21032,7 +21926,7 @@ See GET-IMAGE-VIEW-ADDRESS-NV-X
   (:documentation "Represents the struct [VkPresentFrameTokenGGP](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentFrameTokenGGP.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAME-TOKEN: a GGP-FRAME-TOKEN.
 
 Slot types:
@@ -21077,9 +21971,9 @@ See PIPELINE-CREATION-FEEDBACK-FLAGS-EXT
   (:documentation "Represents the struct [VkPipelineCreationFeedbackCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCreationFeedbackCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE-CREATION-FEEDBACK: a PIPELINE-CREATION-FEEDBACK-EXT.
- - PIPELINE-STAGE-CREATION-FEEDBACKS: a list of foreign pointer to a buffer of size PIPELINE-STAGE-CREATION-FEEDBACK-COUNTs.
+ - PIPELINE-STAGE-CREATION-FEEDBACKS: a list of PIPELINE-CREATION-FEEDBACK-EXTs.
 
 Slot types:
 See PIPELINE-CREATION-FEEDBACK-EXT
@@ -21103,7 +21997,7 @@ See RAY-TRACING-PIPELINE-CREATE-INFO-KHR
   (:documentation "Represents the struct [VkSurfaceFullScreenExclusiveInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceFullScreenExclusiveInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FULL-SCREEN-EXCLUSIVE: an enum value of FULL-SCREEN-EXCLUSIVE-EXT.
 
 Slot types:
@@ -21126,7 +22020,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
   (:documentation "Represents the struct [VkSurfaceFullScreenExclusiveWin32InfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceFullScreenExclusiveWin32InfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - HMONITOR: a HMONITOR.
 
 Slot types:
@@ -21149,7 +22043,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
   (:documentation "Represents the struct [VkSurfaceCapabilitiesFullScreenExclusiveEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceCapabilitiesFullScreenExclusiveEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FULL-SCREEN-EXCLUSIVE-SUPPORTED: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21172,7 +22066,7 @@ See SURFACE-CAPABILITIES-2-KHR
   (:documentation "Represents the struct [VkPhysicalDevicePerformanceQueryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePerformanceQueryFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PERFORMANCE-COUNTER-QUERY-POOLS: a boolean.
  - PERFORMANCE-COUNTER-MULTIPLE-QUERY-POOLS: a boolean.
 
@@ -21193,7 +22087,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDevicePerformanceQueryPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePerformanceQueryPropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ALLOW-COMMAND-BUFFER-QUERY-COPIES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21224,7 +22118,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPerformanceCounterKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - UNIT: an enum value of PERFORMANCE-COUNTER-UNIT-KHR.
  - SCOPE: an enum value of PERFORMANCE-COUNTER-SCOPE-KHR.
  - STORAGE: an enum value of PERFORMANCE-COUNTER-STORAGE-KHR.
@@ -21263,7 +22157,7 @@ See ENUMERATE-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-COUNTERS-KHR
   (:documentation "Represents the struct [VkPerformanceCounterDescriptionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterDescriptionKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PERFORMANCE-COUNTER-DESCRIPTION-FLAGS-KHR.
  - NAME: a string.
  - CATEGORY: a string.
@@ -21292,9 +22186,9 @@ See ENUMERATE-PHYSICAL-DEVICE-QUEUE-FAMILY-PERFORMANCE-QUERY-COUNTERS-KHR
   (:documentation "Represents the struct [VkQueryPoolPerformanceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPoolPerformanceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
- - COUNTER-INDICES: a list of foreign pointer to a buffer of size COUNTER-INDEX-COUNTs.
+ - COUNTER-INDICES: a list of positive (32-bit) integers.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See QUERY-POOL-CREATE-INFO
@@ -21349,7 +22243,7 @@ Slots:
   (:documentation "Represents the struct [VkAcquireProfilingLockInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAcquireProfilingLockInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of ACQUIRE-PROFILING-LOCK-FLAGS-KHR.
  - TIMEOUT: a positive (64-bit) integer.
 
@@ -21372,7 +22266,7 @@ See ACQUIRE-PROFILING-LOCK-KHR
   (:documentation "Represents the struct [VkPerformanceQuerySubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceQuerySubmitInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COUNTER-PASS-INDEX: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21392,7 +22286,7 @@ See SUBMIT-INFO-2-KHR
   (:documentation "Represents the struct [VkHeadlessSurfaceCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkHeadlessSurfaceCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of HEADLESS-SURFACE-CREATE-FLAGS-EXT.
 
 Slot types:
@@ -21414,7 +22308,7 @@ See CREATE-HEADLESS-SURFACE-EXT
   (:documentation "Represents the struct [VkPhysicalDeviceCoverageReductionModeFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCoverageReductionModeFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COVERAGE-REDUCTION-MODE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21438,7 +22332,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineCoverageReductionStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCoverageReductionStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-FLAGS-NV.
  - COVERAGE-REDUCTION-MODE: an enum value of COVERAGE-REDUCTION-MODE-NV.
 
@@ -21474,7 +22368,7 @@ See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkFramebufferMixedSamplesCombinationNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferMixedSamplesCombinationNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COVERAGE-REDUCTION-MODE: an enum value of COVERAGE-REDUCTION-MODE-NV.
  - RASTERIZATION-SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
  - DEPTH-STENCIL-SAMPLES: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
@@ -21501,7 +22395,7 @@ See GET-PHYSICAL-DEVICE-SUPPORTED-FRAMEBUFFER-MIXED-SAMPLES-COMBINATIONS-NV
   (:documentation "Represents the struct [VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-INTEGER-FUNCTIONS-2: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21532,7 +22426,7 @@ Slots:
  - VALUE-64: a positive (64-bit) integer.
  - VALUE-FLOAT: a single-float.
  - VALUE-BOOL: a boolean.
- - VALUE-STRING: a foreign pointer to a buffer of size NULL-TERMINATED.
+ - VALUE-STRING: a string.
 "))
 
 (defclass performance-value-intel ()
@@ -21570,7 +22464,7 @@ See GET-PERFORMANCE-PARAMETER-INTEL
   (:documentation "Represents the struct [VkInitializePerformanceApiInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInitializePerformanceApiInfoINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - USER-DATA (optional): a foreign pointer.
 
 Instances of this class are used as parameters of the following functions:
@@ -21589,7 +22483,7 @@ See INITIALIZE-PERFORMANCE-API-INTEL
   (:documentation "Represents the struct [VkQueryPoolPerformanceQueryCreateInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPoolPerformanceQueryCreateInfoINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PERFORMANCE-COUNTERS-SAMPLING: an enum value of QUERY-POOL-SAMPLING-MODE-INTEL.
 
 Slot types:
@@ -21611,7 +22505,7 @@ See QUERY-POOL-CREATE-INFO
   (:documentation "Represents the struct [VkPerformanceMarkerInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceMarkerInfoINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MARKER: a positive (64-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -21630,7 +22524,7 @@ See CMD-SET-PERFORMANCE-MARKER-INTEL
   (:documentation "Represents the struct [VkPerformanceStreamMarkerInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceStreamMarkerInfoINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MARKER: a positive (32-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
@@ -21657,7 +22551,7 @@ See CMD-SET-PERFORMANCE-STREAM-MARKER-INTEL
   (:documentation "Represents the struct [VkPerformanceOverrideInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceOverrideInfoINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an enum value of PERFORMANCE-OVERRIDE-TYPE-INTEL.
  - ENABLE: a boolean.
  - PARAMETER: a positive (64-bit) integer.
@@ -21681,7 +22575,7 @@ See CMD-SET-PERFORMANCE-OVERRIDE-INTEL
   (:documentation "Represents the struct [VkPerformanceConfigurationAcquireInfoINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceConfigurationAcquireInfoINTEL.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an enum value of PERFORMANCE-CONFIGURATION-TYPE-INTEL.
 
 Slot types:
@@ -21707,7 +22601,7 @@ See ACQUIRE-PERFORMANCE-CONFIGURATION-INTEL
   (:documentation "Represents the struct [VkPhysicalDeviceShaderClockFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderClockFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-SUBGROUP-CLOCK: a boolean.
  - SHADER-DEVICE-CLOCK: a boolean.
 
@@ -21728,7 +22622,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceIndexTypeUint8FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceIndexTypeUint8FeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - INDEX-TYPE-UINT-8: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21752,7 +22646,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceShaderSMBuiltinsPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderSMBuiltinsPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-S-M-COUNT: a positive (32-bit) integer.
  - SHADER-WARPS-PER-S-M: a positive (32-bit) integer.
 
@@ -21772,7 +22666,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceShaderSMBuiltinsFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderSMBuiltinsFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-S-M-BUILTINS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21800,7 +22694,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-SHADER-SAMPLE-INTERLOCK: a boolean.
  - FRAGMENT-SHADER-PIXEL-INTERLOCK: a boolean.
  - FRAGMENT-SHADER-SHADING-RATE-INTERLOCK: a boolean.
@@ -21822,7 +22716,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEPARATE-DEPTH-STENCIL-LAYOUTS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21842,7 +22736,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkAttachmentReferenceStencilLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentReferenceStencilLayout.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STENCIL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
 Slot types:
@@ -21868,7 +22762,7 @@ See ATTACHMENT-REFERENCE-2
   (:documentation "Represents the struct [VkAttachmentDescriptionStencilLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentDescriptionStencilLayout.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STENCIL-INITIAL-LAYOUT: an enum value of IMAGE-LAYOUT.
  - STENCIL-FINAL-LAYOUT: an enum value of IMAGE-LAYOUT.
 
@@ -21891,7 +22785,7 @@ See ATTACHMENT-DESCRIPTION-2
   (:documentation "Represents the struct [VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE-EXECUTABLE-INFO: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21911,7 +22805,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPipelineInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE: a PIPELINE.
 
 Slot types:
@@ -21945,7 +22839,7 @@ See GET-PIPELINE-EXECUTABLE-PROPERTIES-KHR
   (:documentation "Represents the struct [VkPipelineExecutablePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutablePropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
  - NAME: a string.
  - DESCRIPTION: a string.
@@ -21974,7 +22868,7 @@ See GET-PIPELINE-EXECUTABLE-PROPERTIES-KHR
   (:documentation "Represents the struct [VkPipelineExecutableInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE: a PIPELINE.
  - EXECUTABLE-INDEX: a positive (32-bit) integer.
 
@@ -22032,7 +22926,7 @@ Slots:
   (:documentation "Represents the struct [VkPipelineExecutableStatisticKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableStatisticKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - NAME: a string.
  - DESCRIPTION: a string.
  - FORMAT: an enum value of PIPELINE-EXECUTABLE-STATISTIC-FORMAT-KHR.
@@ -22074,7 +22968,7 @@ See GET-PIPELINE-EXECUTABLE-STATISTICS-KHR
   (:documentation "Represents the struct [VkPipelineExecutableInternalRepresentationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableInternalRepresentationKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - NAME: a string.
  - DESCRIPTION: a string.
  - IS-TEXT: a boolean.
@@ -22097,7 +22991,7 @@ See GET-PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATIONS-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-DEMOTE-TO-HELPER-INVOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -22117,7 +23011,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TEXEL-BUFFER-ALIGNMENT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -22149,7 +23043,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STORAGE-TEXEL-BUFFER-OFFSET-ALIGNMENT-BYTES: a DEVICE-SIZE.
  - STORAGE-TEXEL-BUFFER-OFFSET-SINGLE-TEXEL-ALIGNMENT: a boolean.
  - UNIFORM-TEXEL-BUFFER-OFFSET-ALIGNMENT-BYTES: a DEVICE-SIZE.
@@ -22178,7 +23072,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceSubgroupSizeControlFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SUBGROUP-SIZE-CONTROL: a boolean.
  - COMPUTE-FULL-SUBGROUPS: a boolean.
 
@@ -22211,7 +23105,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceSubgroupSizeControlPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MIN-SUBGROUP-SIZE: a positive (32-bit) integer.
  - MAX-SUBGROUP-SIZE: a positive (32-bit) integer.
  - MAX-COMPUTE-WORKGROUP-SUBGROUPS: a positive (32-bit) integer.
@@ -22236,7 +23130,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - REQUIRED-SUBGROUP-SIZE: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -22255,7 +23149,7 @@ See PIPELINE-SHADER-STAGE-CREATE-INFO
   (:documentation "Represents the struct [VkMemoryOpaqueCaptureAddressAllocateInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryOpaqueCaptureAddressAllocateInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - OPAQUE-CAPTURE-ADDRESS: a positive (64-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -22274,7 +23168,7 @@ See MEMORY-ALLOCATE-INFO
   (:documentation "Represents the struct [VkDeviceMemoryOpaqueCaptureAddressInfo](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemoryOpaqueCaptureAddressInfo.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MEMORY: a DEVICE-MEMORY.
 
 Slot types:
@@ -22316,7 +23210,7 @@ See GET-DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS
   (:documentation "Represents the struct [VkPhysicalDeviceLineRasterizationFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceLineRasterizationFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - RECTANGULAR-LINES: a boolean.
  - BRESENHAM-LINES: a boolean.
  - SMOOTH-LINES: a boolean.
@@ -22341,7 +23235,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceLineRasterizationPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceLineRasterizationPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - LINE-SUB-PIXEL-PRECISION-BITS: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -22372,7 +23266,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineRasterizationLineStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationLineStateCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - LINE-RASTERIZATION-MODE: an enum value of LINE-RASTERIZATION-MODE-EXT.
  - STIPPLED-LINE-ENABLE: a boolean.
  - LINE-STIPPLE-FACTOR: a positive (32-bit) integer.
@@ -22397,7 +23291,7 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE-CREATION-CACHE-CONTROL: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -22461,7 +23355,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceVulkan11Features](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVulkan11Features.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
  - UNIFORM-AND-STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
  - STORAGE-PUSH-CONSTANT-16: a boolean.
@@ -22548,7 +23442,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceVulkan11Properties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVulkan11Properties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-UUID: a positive (8-bit) integer.
  - DRIVER-UUID: a positive (8-bit) integer.
  - DEVICE-LUID: a positive (8-bit) integer.
@@ -22771,7 +23665,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceVulkan12Features](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVulkan12Features.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLER-MIRROR-CLAMP-TO-EDGE: a boolean.
  - DRAW-INDIRECT-COUNT: a boolean.
  - STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
@@ -23041,7 +23935,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceVulkan12Properties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVulkan12Properties.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DRIVER-ID: an enum value of DRIVER-ID.
  - DRIVER-NAME: a string.
  - DRIVER-INFO: a string.
@@ -23118,7 +24012,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineCompilerControlCreateInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCompilerControlCreateInfoAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COMPILER-CONTROL-FLAGS (optional): a list containing a valid combination of PIPELINE-COMPILER-CONTROL-FLAGS-AMD.
 
 Slot types:
@@ -23141,7 +24035,7 @@ See COMPUTE-PIPELINE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceCoherentMemoryFeaturesAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCoherentMemoryFeaturesAMD.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEVICE-COHERENT-MEMORY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -23177,7 +24071,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceToolPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceToolPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - NAME: a string.
  - VERSION: a string.
  - PURPOSES: a list containing a valid combination of TOOL-PURPOSE-FLAGS-EXT.
@@ -23207,7 +24101,7 @@ See GET-PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
   (:documentation "Represents the struct [VkSamplerCustomBorderColorCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerCustomBorderColorCreateInfoEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CUSTOM-BORDER-COLOR: a CLEAR-COLOR-VALUE.
  - FORMAT: an enum value of FORMAT.
 
@@ -23231,7 +24125,7 @@ See SAMPLER-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceCustomBorderColorPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCustomBorderColorPropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-CUSTOM-BORDER-COLOR-SAMPLERS: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -23254,7 +24148,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceCustomBorderColorFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceCustomBorderColorFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CUSTOM-BORDER-COLORS: a boolean.
  - CUSTOM-BORDER-COLOR-WITHOUT-FORMAT: a boolean.
 
@@ -23333,7 +24227,7 @@ See DEVICE-ADDRESS
   (:documentation "Represents the struct [VkAccelerationStructureGeometryTrianglesDataKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureGeometryTrianglesDataKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - VERTEX-FORMAT: an enum value of FORMAT.
  - VERTEX-DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - VERTEX-STRIDE: a DEVICE-SIZE.
@@ -23365,7 +24259,7 @@ See DEVICE-OR-HOST-ADDRESS-CONST-KHR
   (:documentation "Represents the struct [VkAccelerationStructureGeometryAabbsDataKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureGeometryAabbsDataKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - STRIDE: a DEVICE-SIZE.
 
@@ -23390,7 +24284,7 @@ See DEVICE-SIZE
   (:documentation "Represents the struct [VkAccelerationStructureGeometryInstancesDataKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureGeometryInstancesDataKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ARRAY-OF-POINTERS: a boolean.
  - DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
 
@@ -23441,7 +24335,7 @@ See ACCELERATION-STRUCTURE-GEOMETRY-INSTANCES-DATA-KHR
   (:documentation "Represents the struct [VkAccelerationStructureGeometryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureGeometryKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - GEOMETRY-TYPE: an enum value of GEOMETRY-TYPE-KHR.
  - GEOMETRY: an ACCELERATION-STRUCTURE-GEOMETRY-DATA-KHR.
  - FLAGS (optional): a list containing a valid combination of GEOMETRY-FLAGS-KHR.
@@ -23492,14 +24386,14 @@ See GEOMETRY-FLAGS-KHR
   (:documentation "Represents the struct [VkAccelerationStructureBuildGeometryInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildGeometryInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TYPE: an enum value of ACCELERATION-STRUCTURE-TYPE-KHR.
  - FLAGS (optional): a list containing a valid combination of BUILD-ACCELERATION-STRUCTURE-FLAGS-KHR.
  - MODE: an enum value of BUILD-ACCELERATION-STRUCTURE-MODE-KHR.
  - SRC-ACCELERATION-STRUCTURE (optional): an ACCELERATION-STRUCTURE-KHR.
  - DST-ACCELERATION-STRUCTURE (optional): an ACCELERATION-STRUCTURE-KHR.
- - GEOMETRIES (optional): a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
- - P-GEOMETRIES: a list of foreign pointer to a buffer of size GEOMETRY-COUNTs.
+ - GEOMETRIES (optional): a list of ACCELERATION-STRUCTURE-GEOMETRY-KHRs.
+ - P-GEOMETRIES: a list of ACCELERATION-STRUCTURE-GEOMETRY-KHRs.
  - SCRATCH-DATA: a DEVICE-OR-HOST-ADDRESS-KHR.
 
 Slot types:
@@ -23579,7 +24473,7 @@ See CMD-BUILD-ACCELERATION-STRUCTURES-KHR
   (:documentation "Represents the struct [VkAccelerationStructureCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CREATE-FLAGS (optional): a list containing a valid combination of ACCELERATION-STRUCTURE-CREATE-FLAGS-KHR.
  - BUFFER: a BUFFER.
  - OFFSET: a DEVICE-SIZE.
@@ -23697,7 +24591,7 @@ See GEOMETRY-INSTANCE-FLAGS-KHR
   (:documentation "Represents the struct [VkAccelerationStructureDeviceAddressInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureDeviceAddressInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ACCELERATION-STRUCTURE: an ACCELERATION-STRUCTURE-KHR.
 
 Slot types:
@@ -23719,8 +24613,8 @@ See GET-ACCELERATION-STRUCTURE-DEVICE-ADDRESS-KHR
   (:documentation "Represents the struct [VkAccelerationStructureVersionInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureVersionInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - VERSION-DATA: a foreign pointer to a buffer of size 2*ENAME:-V-K_-U-U-I-D_-S-I-Z-E.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VERSION-DATA: a positive (8-bit) integer.
 
 Instances of this class are used as parameters of the following functions:
 See GET-DEVICE-ACCELERATION-STRUCTURE-COMPATIBILITY-KHR
@@ -23746,7 +24640,7 @@ See GET-DEVICE-ACCELERATION-STRUCTURE-COMPATIBILITY-KHR
   (:documentation "Represents the struct [VkCopyAccelerationStructureInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyAccelerationStructureInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC: an ACCELERATION-STRUCTURE-KHR.
  - DST: an ACCELERATION-STRUCTURE-KHR.
  - MODE: an enum value of COPY-ACCELERATION-STRUCTURE-MODE-KHR.
@@ -23780,7 +24674,7 @@ See COPY-ACCELERATION-STRUCTURE-KHR
   (:documentation "Represents the struct [VkCopyAccelerationStructureToMemoryInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyAccelerationStructureToMemoryInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC: an ACCELERATION-STRUCTURE-KHR.
  - DST: a DEVICE-OR-HOST-ADDRESS-KHR.
  - MODE: an enum value of COPY-ACCELERATION-STRUCTURE-MODE-KHR.
@@ -23815,7 +24709,7 @@ See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
   (:documentation "Represents the struct [VkCopyMemoryToAccelerationStructureInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyMemoryToAccelerationStructureInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
  - DST: an ACCELERATION-STRUCTURE-KHR.
  - MODE: an enum value of COPY-ACCELERATION-STRUCTURE-MODE-KHR.
@@ -23846,7 +24740,7 @@ See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
   (:documentation "Represents the struct [VkRayTracingPipelineInterfaceCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingPipelineInterfaceCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-PIPELINE-RAY-PAYLOAD-SIZE: a positive (32-bit) integer.
  - MAX-PIPELINE-RAY-HIT-ATTRIBUTE-SIZE: a positive (32-bit) integer.
 "))
@@ -23863,8 +24757,8 @@ Slots:
   (:documentation "Represents the struct [VkPipelineLibraryCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineLibraryCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - LIBRARIES: a list of foreign pointer to a buffer of size LIBRARY-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - LIBRARIES: a list of PIPELINEs.
 
 Slot types:
 See PIPELINE
@@ -23882,7 +24776,7 @@ See PIPELINE
   (:documentation "Represents the struct [VkPhysicalDeviceExtendedDynamicStateFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExtendedDynamicStateFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - EXTENDED-DYNAMIC-STATE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -23902,7 +24796,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkRenderPassTransformBeginInfoQCOM](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassTransformBeginInfoQCOM.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
 
 Slot types:
@@ -23924,7 +24818,7 @@ See RENDER-PASS-BEGIN-INFO
   (:documentation "Represents the struct [VkCopyCommandTransformInfoQCOM](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyCommandTransformInfoQCOM.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
 
 Slot types:
@@ -23951,7 +24845,7 @@ See IMAGE-BLIT-2-KHR
   (:documentation "Represents the struct [VkCommandBufferInheritanceRenderPassTransformInfoQCOM](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
  - RENDER-AREA: a RECT-2D.
 
@@ -23975,7 +24869,7 @@ See COMMAND-BUFFER-INHERITANCE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceDiagnosticsConfigFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceDiagnosticsConfigFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DIAGNOSTICS-CONFIG: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -23995,7 +24889,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkDeviceDiagnosticsConfigCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceDiagnosticsConfigCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of DEVICE-DIAGNOSTICS-CONFIG-FLAGS-NV.
 
 Slot types:
@@ -24017,7 +24911,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-ZERO-INITIALIZE-WORKGROUP-MEMORY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -24045,7 +24939,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceRobustness2FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRobustness2FeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ROBUST-BUFFER-ACCESS-2: a boolean.
  - ROBUST-IMAGE-ACCESS-2: a boolean.
  - NULL-DESCRIPTOR: a boolean.
@@ -24071,7 +24965,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceRobustness2PropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceRobustness2PropertiesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ROBUST-STORAGE-BUFFER-ACCESS-SIZE-ALIGNMENT: a DEVICE-SIZE.
  - ROBUST-UNIFORM-BUFFER-ACCESS-SIZE-ALIGNMENT: a DEVICE-SIZE.
 
@@ -24094,7 +24988,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceImageRobustnessFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceImageRobustnessFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ROBUST-IMAGE-ACCESS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -24126,7 +25020,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - WORKGROUP-MEMORY-EXPLICIT-LAYOUT: a boolean.
  - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-SCALAR-BLOCK-LAYOUT: a boolean.
  - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-8-BIT-ACCESS: a boolean.
@@ -24205,7 +25099,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDevicePortabilitySubsetFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePortabilitySubsetFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CONSTANT-ALPHA-COLOR-BLEND-FACTORS: a boolean.
  - EVENTS: a boolean.
  - IMAGE-VIEW-FORMAT-REINTERPRETATION: a boolean.
@@ -24239,7 +25133,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDevicePortabilitySubsetPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePortabilitySubsetPropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MIN-VERTEX-INPUT-BINDING-STRIDE-ALIGNMENT: a positive (32-bit) integer.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -24262,7 +25156,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDevice4444FormatsFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevice4444FormatsFeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FORMAT-A4R4G4B4: a boolean.
  - FORMAT-A4B4G4R4: a boolean.
 
@@ -24291,7 +25185,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkBufferCopy2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferCopy2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-OFFSET: a DEVICE-SIZE.
  - DST-OFFSET: a DEVICE-SIZE.
  - SIZE: a DEVICE-SIZE.
@@ -24328,7 +25222,7 @@ See DEVICE-SIZE
   (:documentation "Represents the struct [VkImageCopy2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageCopy2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
  - SRC-OFFSET: an OFFSET-3D.
  - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
@@ -24365,7 +25259,7 @@ See EXTENT-3D
   (:documentation "Represents the struct [VkImageBlit2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageBlit2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
  - SRC-OFFSETS: an OFFSET-3D.
  - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
@@ -24411,7 +25305,7 @@ See COPY-COMMAND-TRANSFORM-INFO-QCOM
   (:documentation "Represents the struct [VkBufferImageCopy2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferImageCopy2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - BUFFER-OFFSET: a DEVICE-SIZE.
  - BUFFER-ROW-LENGTH: a positive (32-bit) integer.
  - BUFFER-IMAGE-HEIGHT: a positive (32-bit) integer.
@@ -24457,7 +25351,7 @@ See COPY-COMMAND-TRANSFORM-INFO-QCOM
   (:documentation "Represents the struct [VkImageResolve2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageResolve2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
  - SRC-OFFSET: an OFFSET-3D.
  - DST-SUBRESOURCE: an IMAGE-SUBRESOURCE-LAYERS.
@@ -24490,10 +25384,10 @@ See EXTENT-3D
   (:documentation "Represents the struct [VkCopyBufferInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyBufferInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-BUFFER: a BUFFER.
  - DST-BUFFER: a BUFFER.
- - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - REGIONS: a list of BUFFER-COPY-2-KHRs.
 
 Slot types:
 See BUFFER
@@ -24531,12 +25425,12 @@ See CMD-COPY-BUFFER-2-KHR
   (:documentation "Represents the struct [VkCopyImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyImageInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-IMAGE: an IMAGE.
  - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - DST-IMAGE: an IMAGE.
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
- - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - REGIONS: a list of IMAGE-COPY-2-KHRs.
 
 Slot types:
 See IMAGE
@@ -24579,12 +25473,12 @@ See CMD-COPY-IMAGE-2-KHR
   (:documentation "Represents the struct [VkBlitImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlitImageInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-IMAGE: an IMAGE.
  - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - DST-IMAGE: an IMAGE.
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
- - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - REGIONS: a list of IMAGE-BLIT-2-KHRs.
  - FILTER: an enum value of FILTER.
 
 Slot types:
@@ -24621,11 +25515,11 @@ See CMD-BLIT-IMAGE-2-KHR
   (:documentation "Represents the struct [VkCopyBufferToImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyBufferToImageInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-BUFFER: a BUFFER.
  - DST-IMAGE: an IMAGE.
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
- - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - REGIONS: a list of BUFFER-IMAGE-COPY-2-KHRs.
 
 Slot types:
 See BUFFER
@@ -24661,11 +25555,11 @@ See CMD-COPY-BUFFER-TO-IMAGE-2-KHR
   (:documentation "Represents the struct [VkCopyImageToBufferInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyImageToBufferInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-IMAGE: an IMAGE.
  - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - DST-BUFFER: a BUFFER.
- - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - REGIONS: a list of BUFFER-IMAGE-COPY-2-KHRs.
 
 Slot types:
 See IMAGE
@@ -24705,12 +25599,12 @@ See CMD-COPY-IMAGE-TO-BUFFER-2-KHR
   (:documentation "Represents the struct [VkResolveImageInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkResolveImageInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-IMAGE: an IMAGE.
  - SRC-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
  - DST-IMAGE: an IMAGE.
  - DST-IMAGE-LAYOUT: an enum value of IMAGE-LAYOUT.
- - REGIONS: a list of foreign pointer to a buffer of size REGION-COUNTs.
+ - REGIONS: a list of IMAGE-RESOLVE-2-KHRs.
 
 Slot types:
 See IMAGE
@@ -24737,7 +25631,7 @@ See CMD-RESOLVE-IMAGE-2-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-IMAGE-INT-64-ATOMICS: a boolean.
  - SPARSE-IMAGE-INT-64-ATOMICS: a boolean.
 
@@ -24762,7 +25656,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkFragmentShadingRateAttachmentInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateAttachmentInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-SHADING-RATE-ATTACHMENT: an ATTACHMENT-REFERENCE-2.
  - SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
 
@@ -24790,7 +25684,7 @@ See SUBPASS-DESCRIPTION-2
   (:documentation "Represents the struct [VkPipelineFragmentShadingRateStateCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineFragmentShadingRateStateCreateInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-SIZE: an EXTENT-2D.
  - COMBINER-OPS: an enum value of FRAGMENT-SHADING-RATE-COMBINER-OP-KHR.
 
@@ -24822,7 +25716,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - PIPELINE-FRAGMENT-SHADING-RATE: a boolean.
  - PRIMITIVE-FRAGMENT-SHADING-RATE: a boolean.
  - ATTACHMENT-FRAGMENT-SHADING-RATE: a boolean.
@@ -24908,7 +25802,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRatePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRatePropertiesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MIN-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE-ASPECT-RATIO: a positive (32-bit) integer.
@@ -24951,7 +25845,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SAMPLE-COUNTS: a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - FRAGMENT-SIZE: an EXTENT-2D.
 
@@ -24975,7 +25869,7 @@ See GET-PHYSICAL-DEVICE-FRAGMENT-SHADING-RATES-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADER-TERMINATE-INVOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -25003,7 +25897,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FRAGMENT-SHADING-RATE-ENUMS: a boolean.
  - SUPERSAMPLE-FRAGMENT-SHADING-RATES: a boolean.
  - NO-INVOCATION-FRAGMENT-SHADING-RATES: a boolean.
@@ -25025,7 +25919,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MAX-FRAGMENT-SHADING-RATE-INVOCATION-COUNT: an enum value of SAMPLE-COUNT-FLAG-BITS.
 
 Slot types:
@@ -25055,7 +25949,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
   (:documentation "Represents the struct [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineFragmentShadingRateEnumStateCreateInfoNV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SHADING-RATE-TYPE: an enum value of FRAGMENT-SHADING-RATE-TYPE-NV.
  - SHADING-RATE: an enum value of FRAGMENT-SHADING-RATE-NV.
  - COMBINER-OPS: an enum value of FRAGMENT-SHADING-RATE-COMBINER-OP-KHR.
@@ -25089,7 +25983,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
   (:documentation "Represents the struct [VkAccelerationStructureBuildSizesInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildSizesInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - ACCELERATION-STRUCTURE-SIZE: a DEVICE-SIZE.
  - UPDATE-SCRATCH-SIZE: a DEVICE-SIZE.
  - BUILD-SCRATCH-SIZE: a DEVICE-SIZE.
@@ -25113,7 +26007,7 @@ See GET-ACCELERATION-STRUCTURE-BUILD-SIZES-KHR
   (:documentation "Represents the struct [VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - MUTABLE-DESCRIPTOR-TYPE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -25129,7 +26023,7 @@ See DEVICE-CREATE-INFO
   (:documentation "Represents the struct [VkMutableDescriptorTypeListVALVE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMutableDescriptorTypeListVALVE.html).
 
 Slots:
- - DESCRIPTOR-TYPES: a list of foreign pointer to a buffer of size DESCRIPTOR-TYPE-COUNTs.
+ - DESCRIPTOR-TYPES: a list of enum value of DESCRIPTOR-TYPEs.
 
 Slot types:
 See DESCRIPTOR-TYPE
@@ -25147,8 +26041,8 @@ See DESCRIPTOR-TYPE
   (:documentation "Represents the struct [VkMutableDescriptorTypeCreateInfoVALVE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMutableDescriptorTypeCreateInfoVALVE.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
- - MUTABLE-DESCRIPTOR-TYPE-LISTS: a list of foreign pointer to a buffer of size MUTABLE-DESCRIPTOR-TYPE-LIST-COUNTs.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MUTABLE-DESCRIPTOR-TYPE-LISTS: a list of MUTABLE-DESCRIPTOR-TYPE-LIST-VALVEs.
 
 Slot types:
 See MUTABLE-DESCRIPTOR-TYPE-LIST-VALVE
@@ -25182,7 +26076,7 @@ See DESCRIPTOR-POOL-CREATE-INFO
   (:documentation "Represents the struct [VkMemoryBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryBarrier2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
  - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
@@ -25244,7 +26138,7 @@ See SUBPASS-DEPENDENCY-2
   (:documentation "Represents the struct [VkImageMemoryBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageMemoryBarrier2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
  - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
@@ -25311,7 +26205,7 @@ See SAMPLE-LOCATIONS-INFO-EXT
   (:documentation "Represents the struct [VkBufferMemoryBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferMemoryBarrier2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SRC-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - SRC-ACCESS-MASK (optional): a list containing a valid combination of ACCESS-FLAGS-2-KHR.
  - DST-STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
@@ -25353,11 +26247,11 @@ See DEVICE-SIZE
   (:documentation "Represents the struct [VkDependencyInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDependencyInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - DEPENDENCY-FLAGS (optional): a list containing a valid combination of DEPENDENCY-FLAGS.
- - MEMORY-BARRIERS: a list of foreign pointer to a buffer of size MEMORY-BARRIER-COUNTs.
- - BUFFER-MEMORY-BARRIERS: a list of foreign pointer to a buffer of size BUFFER-MEMORY-BARRIER-COUNTs.
- - IMAGE-MEMORY-BARRIERS: a list of foreign pointer to a buffer of size IMAGE-MEMORY-BARRIER-COUNTs.
+ - MEMORY-BARRIERS: a list of MEMORY-BARRIER-2-KHRs.
+ - BUFFER-MEMORY-BARRIERS: a list of BUFFER-MEMORY-BARRIER-2-KHRs.
+ - IMAGE-MEMORY-BARRIERS: a list of IMAGE-MEMORY-BARRIER-2-KHRs.
 
 Slot types:
 See DEPENDENCY-FLAGS
@@ -25395,7 +26289,7 @@ See CMD-WAIT-EVENTS-2-KHR
   (:documentation "Represents the struct [VkSemaphoreSubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreSubmitInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SEMAPHORE: a SEMAPHORE.
  - VALUE: a positive (64-bit) integer.
  - STAGE-MASK (optional): a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
@@ -25422,7 +26316,7 @@ See PIPELINE-STAGE-FLAGS-2-KHR
   (:documentation "Represents the struct [VkCommandBufferSubmitInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferSubmitInfoKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - COMMAND-BUFFER: a COMMAND-BUFFER.
  - DEVICE-MASK: a positive (32-bit) integer.
 
@@ -25454,11 +26348,11 @@ See COMMAND-BUFFER
   (:documentation "Represents the struct [VkSubmitInfo2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubmitInfo2KHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - FLAGS (optional): a list containing a valid combination of SUBMIT-FLAGS-KHR.
- - WAIT-SEMAPHORE-INFOS: a list of foreign pointer to a buffer of size WAIT-SEMAPHORE-INFO-COUNTs.
- - COMMAND-BUFFER-INFOS: a list of foreign pointer to a buffer of size COMMAND-BUFFER-INFO-COUNTs.
- - SIGNAL-SEMAPHORE-INFOS: a list of foreign pointer to a buffer of size SIGNAL-SEMAPHORE-INFO-COUNTs.
+ - WAIT-SEMAPHORE-INFOS: a list of SEMAPHORE-SUBMIT-INFO-KHRs.
+ - COMMAND-BUFFER-INFOS: a list of COMMAND-BUFFER-SUBMIT-INFO-KHRs.
+ - SIGNAL-SEMAPHORE-INFOS: a list of SEMAPHORE-SUBMIT-INFO-KHRs.
 
 Slot types:
 See SUBMIT-FLAGS-KHR
@@ -25486,7 +26380,7 @@ See QUEUE-SUBMIT-2-KHR
   (:documentation "Represents the struct [VkQueueFamilyCheckpointProperties2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFamilyCheckpointProperties2NV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - CHECKPOINT-EXECUTION-STAGE-MASK: a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
 
 Slot types:
@@ -25512,7 +26406,7 @@ See QUEUE-FAMILY-PROPERTIES-2
   (:documentation "Represents the struct [VkCheckpointData2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCheckpointData2NV.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STAGE: a list containing a valid combination of PIPELINE-STAGE-FLAGS-2-KHR.
  - CHECKPOINT-MARKER: a foreign pointer.
 
@@ -25535,7 +26429,7 @@ See GET-QUEUE-CHECKPOINT-DATA-2-NV
   (:documentation "Represents the struct [VkPhysicalDeviceSynchronization2FeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSynchronization2FeaturesKHR.html).
 
 Slots:
- - NEXT (optional): an instance of a class extending this class.
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SYNCHRONIZATION-2: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
