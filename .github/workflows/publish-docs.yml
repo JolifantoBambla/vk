@@ -66,10 +66,10 @@ jobs:
             --non-interactive \
             --eval "(ql:quickload :staple)" \
             --eval "(ql:quickload :staple-markdown)" \
-            --eval "(ql:quickload :vk :packages '(:vk :vk-alloc :vk-utils))" \
+            --eval "(ql:quickload :vk)" \
             --eval "
               (progn
-                (staple:generate :vk)
+                (staple:generate :vk :packages '(:vk :vk-alloc :vk-utils))
                 (sb-ext:quit))
             "
 
