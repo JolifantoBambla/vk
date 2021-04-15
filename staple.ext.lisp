@@ -1,9 +1,17 @@
 ;;;; staple.ext.lisp
 
+(in-package :staple)
+
 (defclass vk-page (staple:simple-page) ())
+
+(defmethod staple:template ((system (eql (asdf:find-system :vk))))
+  (asdf:system-relative-pathname system #P".docs/docs-template.ctml"))
 
 (defmethod staple:page-type ((system (eql (asdf:find-system :vk))))
   'vk-page)
+
+(defmethod staple:subsystems ((system (eql (asdf:find-system :vk))))
+  (list (asdf:find-system :vk)))
 
 ;;; disabled definitions
 (defmethod staple:definition-wanted-p ((definition definitions:generic-function) page))
@@ -29,4 +37,14 @@
                                      (subseq formatted (+ c-name-start 1) split-pos)
                                      (subseq formatted (+ link-end 1)))))
     formatted))
+
+;; even hackier way to distinguish between enums and handles (it doesn't even work when vk-page is not defined in staple)
+(defmethod clip:clip ((definition definitions:type-definition) field)
+  (cond
+    ((string= (string-downcase field) "enum")
+     (search "represents the enum" (string-downcase (definitions:documentation definition))))
+    ((string= (string-downcase field) "handle")
+     (or (search "represents the (non-dispatchable) handle" (string-downcase (definitions:documentation definition)))
+         (search "represents the handle" (string-downcase (definitions:documentation definition)))))
+    (t (call-next-method))))
 
