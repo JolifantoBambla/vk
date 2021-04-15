@@ -42,7 +42,7 @@ E.g.
  (<foreign3> '(<foreign4>))
  (<foreign4> nil))
 
-A not on multithreading: Hash tables are by default not thread safe. Since entries in this hash table are not meant to be shared between threads, you can bind *ALLOCATED-FOREIGN-OBJECTS* to a thread-local variable and it should be fine. E.g. with BOURDEAUX-THREADS you can use *SPECIAL-DEFAULT-BINDINGS* for this.")
+A note on multithreading: Hash tables are by default not thread safe. Since entries in this hash table are not meant to be shared between threads, you can bind *ALLOCATED-FOREIGN-OBJECTS* to a thread-local variable and it should be fine.")
 
 (defparameter *allocate-foreign-object-func* #'cffi:foreign-alloc
   "Configures how foreign resources are allocated. You might want to use this for implementing a memory pool to reuse allocated resources, etc.")
@@ -74,7 +74,7 @@ The allocated foreign resource is stored in *ALLOCATED-FOREIGN-OBJECTS*, where i
 If CONTENT is NIL, no resource is allocated and a CFFI:NULL-POINTER is returned.
 
 See *ALLOCATED-FOREIGN-OBJECTS*
-See *ALLOCATE-FOREIGN-FUNC*"
+See *ALLOCATE-FOREIGN-OBJECT-FUNC*"
   (if content
       (let ((p-resource nil))
         (if (arrayp content)
