@@ -10,8 +10,7 @@
 (defmethod staple:page-type ((system (eql (asdf:find-system :vk))))
   'vk-page)
 
-(defmethod staple:subsystems ((system (eql (asdf:find-system :vk))))
-  (list (asdf:find-system :vk)))
+(defmethod staple:subsystems ((system (eql (asdf:find-system :vk)))))
 
 ;;; disabled definitions
 (defmethod staple:definition-wanted-p ((definition definitions:generic-function) page))
