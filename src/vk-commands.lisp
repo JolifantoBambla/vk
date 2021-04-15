@@ -12,12 +12,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                           "Represents [vkCreateInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateInstance.html).
 
 Args:
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    INSTANCE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See INSTANCE
 See INSTANCE-CREATE-INFO
+See RESULT
 "
                           ((create-info (or vk:instance-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -32,8 +38,7 @@ See INSTANCE-CREATE-INFO
 
 Args:
  - INSTANCE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
@@ -50,9 +55,16 @@ See INSTANCE
 
 Args:
  - INSTANCE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PHYSICAL-DEVICE
+    RESULT)
 
 See INSTANCE
+See PHYSICAL-DEVICE
+See RESULT
 "
                       ((instance cffi:foreign-pointer))
                       ()
@@ -69,8 +81,11 @@ See INSTANCE
 
 Args:
  - DEVICE: <a description>
- - P-NAME: <a description>
-Returns: TODO
+ - NAME: <a description>
+
+Returns:
+  (CL:VALUES
+    CFFI:FOREIGN-POINTER ;; a function pointer)
 
 See DEVICE
 "
@@ -85,9 +100,12 @@ See DEVICE
                    "Represents [vkGetInstanceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetInstanceProcAddr.html).
 
 Args:
- - P-NAME: <a description>
+ - NAME: <a description>
  - INSTANCE: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    CFFI:FOREIGN-POINTER ;; a function pointer)
 
 See INSTANCE
 "
@@ -103,9 +121,13 @@ See INSTANCE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-PROPERTIES)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-PROPERTIES
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -118,9 +140,14 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    QUEUE-FAMILY-PROPERTIES)
 
 See PHYSICAL-DEVICE
+See QUEUE-FAMILY-PROPERTIES
 "
                         ((physical-device cffi:foreign-pointer))
                         ()
@@ -137,9 +164,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-MEMORY-PROPERTIES)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-MEMORY-PROPERTIES
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -152,9 +183,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-FEATURES)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-FEATURES
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -168,9 +203,13 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - FORMAT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    FORMAT-PROPERTIES)
 
 See FORMAT
+See FORMAT-PROPERTIES
 See PHYSICAL-DEVICE
 "
                        ((physical-device cffi:foreign-pointer) (format keyword))
@@ -190,14 +229,20 @@ Args:
  - TILING: <a description>
  - USAGE: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    IMAGE-FORMAT-PROPERTIES
+    RESULT)
 
 See FORMAT
 See IMAGE-CREATE-FLAGS
+See IMAGE-FORMAT-PROPERTIES
 See IMAGE-TILING
 See IMAGE-TYPE
 See IMAGE-USAGE-FLAGS
 See PHYSICAL-DEVICE
+See RESULT
 "
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list))))
@@ -215,13 +260,19 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See DEVICE
 See DEVICE-CREATE-INFO
 See PHYSICAL-DEVICE
+See RESULT
 "
                           ((physical-device cffi:foreign-pointer) (create-info (or vk:device-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -237,8 +288,7 @@ See PHYSICAL-DEVICE
 
 Args:
  - DEVICE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -254,8 +304,13 @@ See DEVICE
                           "Represents [vkEnumerateInstanceVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceVersion.html).
 
 Args:
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    RESULT)
+
+See RESULT
 "
                           ()
                           ()
@@ -267,8 +322,15 @@ Returns: TODO
                       "Represents [vkEnumerateInstanceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceLayerProperties.html).
 
 Args:
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    LAYER-PROPERTIES
+    RESULT)
+
+See LAYER-PROPERTIES
+See RESULT
 "
                       ()
                       ()
@@ -283,9 +345,16 @@ Returns: TODO
                       "Represents [vkEnumerateInstanceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceExtensionProperties.html).
 
 Args:
- - P-LAYER-NAME: (optional) <a description>
-Returns: TODO
+ - LAYER-NAME: (optional) <a description>
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    EXTENSION-PROPERTIES
+    RESULT)
+
+See EXTENSION-PROPERTIES
+See RESULT
 "
                       ()
                       (((layer-name "") string))
@@ -302,9 +371,16 @@ Returns: TODO
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    LAYER-PROPERTIES
+    RESULT)
+
+See LAYER-PROPERTIES
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -321,10 +397,17 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-LAYER-NAME: (optional) <a description>
-Returns: TODO
+ - LAYER-NAME: (optional) <a description>
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    EXTENSION-PROPERTIES
+    RESULT)
+
+See EXTENSION-PROPERTIES
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       (((layer-name "") string))
@@ -344,9 +427,13 @@ Args:
  - DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
  - QUEUE-INDEX: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    QUEUE)
 
 See DEVICE
+See QUEUE
 "
                           ((device cffi:foreign-pointer) (queue-family-index unsigned-byte) (queue-index unsigned-byte))
                           ()
@@ -362,12 +449,16 @@ See DEVICE
 
 Args:
  - QUEUE: <a description>
- - P-SUBMITS: <a description>
+ - SUBMITS: <a description>
  - FENCE: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See FENCE
 See QUEUE
+See RESULT
 See SUBMIT-INFO
 "
                    ((queue cffi:foreign-pointer) (submits list))
@@ -384,9 +475,13 @@ See SUBMIT-INFO
 
 Args:
  - QUEUE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See QUEUE
+See RESULT
 "
                    ((queue cffi:foreign-pointer))
                    ()
@@ -399,9 +494,13 @@ See QUEUE
 
 Args:
  - DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer))
                    ()
@@ -414,13 +513,19 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-ALLOCATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE-MEMORY
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See DEVICE-MEMORY
 See MEMORY-ALLOCATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (allocate-info (or vk:memory-allocate-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -437,8 +542,7 @@ See MEMORY-ALLOCATE-INFO
 Args:
  - DEVICE: <a description>
  - MEMORY: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -460,14 +564,18 @@ Args:
  - MEMORY: <a description>
  - OFFSET: <a description>
  - SIZE: <a description>
- - PP-DATA: <a description>
+ - P-DATA: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See DEVICE-MEMORY
 See DEVICE-SIZE
 See MEMORY-MAP-FLAGS
+See RESULT
 "
                    ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (offset unsigned-byte) (size unsigned-byte) (p-data cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
@@ -486,7 +594,6 @@ See MEMORY-MAP-FLAGS
 Args:
  - DEVICE: <a description>
  - MEMORY: <a description>
-Returns: TODO
 
 See DEVICE
 See DEVICE-MEMORY
@@ -503,11 +610,15 @@ See DEVICE-MEMORY
 
 Args:
  - DEVICE: <a description>
- - P-MEMORY-RANGES: <a description>
-Returns: TODO
+ - MEMORY-RANGES: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See MAPPED-MEMORY-RANGE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (memory-ranges list))
                    ()
@@ -522,11 +633,15 @@ See MAPPED-MEMORY-RANGE
 
 Args:
  - DEVICE: <a description>
- - P-MEMORY-RANGES: <a description>
-Returns: TODO
+ - MEMORY-RANGES: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See MAPPED-MEMORY-RANGE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (memory-ranges list))
                    ()
@@ -542,10 +657,14 @@ See MAPPED-MEMORY-RANGE
 Args:
  - DEVICE: <a description>
  - MEMORY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    DEVICE-SIZE)
 
 See DEVICE
 See DEVICE-MEMORY
+See DEVICE-SIZE
 "
                           ((device cffi:foreign-pointer) (memory cffi:foreign-pointer))
                           ()
@@ -561,10 +680,14 @@ See DEVICE-MEMORY
 Args:
  - DEVICE: <a description>
  - BUFFER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS)
 
 See BUFFER
 See DEVICE
+See MEMORY-REQUIREMENTS
 "
                        ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
                        ())
@@ -581,12 +704,16 @@ Args:
  - BUFFER: <a description>
  - MEMORY: <a description>
  - MEMORY-OFFSET: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BUFFER
 See DEVICE
 See DEVICE-MEMORY
 See DEVICE-SIZE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset unsigned-byte))
                    ()
@@ -603,10 +730,14 @@ See DEVICE-SIZE
 Args:
  - DEVICE: <a description>
  - IMAGE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS)
 
 See DEVICE
 See IMAGE
+See MEMORY-REQUIREMENTS
 "
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                        ())
@@ -623,12 +754,16 @@ Args:
  - IMAGE: <a description>
  - MEMORY: <a description>
  - MEMORY-OFFSET: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See DEVICE-MEMORY
 See DEVICE-SIZE
 See IMAGE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset unsigned-byte))
                    ()
@@ -645,10 +780,15 @@ See IMAGE
 Args:
  - DEVICE: <a description>
  - IMAGE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SPARSE-IMAGE-MEMORY-REQUIREMENTS)
 
 See DEVICE
 See IMAGE
+See SPARSE-IMAGE-MEMORY-REQUIREMENTS
 "
                         ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                         ()
@@ -671,7 +811,11 @@ Args:
  - SAMPLES: <a description>
  - USAGE: <a description>
  - TILING: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SPARSE-IMAGE-FORMAT-PROPERTIES)
 
 See FORMAT
 See IMAGE-TILING
@@ -679,6 +823,7 @@ See IMAGE-TYPE
 See IMAGE-USAGE-FLAGS
 See PHYSICAL-DEVICE
 See SAMPLE-COUNT-FLAG-BITS
+See SPARSE-IMAGE-FORMAT-PROPERTIES
 "
                         ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (samples keyword) (usage (or unsigned-byte list)) (tiling keyword))
                         ()
@@ -700,13 +845,17 @@ See SAMPLE-COUNT-FLAG-BITS
 
 Args:
  - QUEUE: <a description>
- - P-BIND-INFO: <a description>
+ - BIND-INFO: <a description>
  - FENCE: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BIND-SPARSE-INFO
 See FENCE
 See QUEUE
+See RESULT
 "
                    ((queue cffi:foreign-pointer) (bind-info list))
                    (((fence (cffi:null-pointer)) cffi:foreign-pointer))
@@ -722,13 +871,19 @@ See QUEUE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    FENCE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See FENCE
 See FENCE-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:fence-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -745,8 +900,7 @@ See FENCE-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - FENCE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -765,11 +919,15 @@ See FENCE
 
 Args:
  - DEVICE: <a description>
- - P-FENCES: <a description>
-Returns: TODO
+ - FENCES: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See FENCE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (fences list))
                    ()
@@ -785,10 +943,14 @@ See FENCE
 Args:
  - DEVICE: <a description>
  - FENCE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See FENCE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (fence cffi:foreign-pointer))
                    ()
@@ -802,14 +964,18 @@ See FENCE
 
 Args:
  - DEVICE: <a description>
- - P-FENCES: <a description>
+ - FENCES: <a description>
  - WAIT-ALL: <a description>
  - TIMEOUT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BOOL32
 See DEVICE
 See FENCE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (fences list) (wait-all boolean) (timeout unsigned-byte))
                    ()
@@ -826,12 +992,18 @@ See FENCE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SEMAPHORE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
+See SEMAPHORE
 See SEMAPHORE-CREATE-INFO
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:semaphore-create-info cffi:foreign-pointer)))
@@ -849,8 +1021,7 @@ See SEMAPHORE-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - SEMAPHORE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -869,13 +1040,19 @@ See SEMAPHORE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    EVENT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EVENT
 See EVENT-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:event-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -892,8 +1069,7 @@ See EVENT-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - EVENT: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -913,10 +1089,14 @@ See EVENT
 Args:
  - DEVICE: <a description>
  - EVENT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See EVENT
+See RESULT
 "
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
                    ()
@@ -931,10 +1111,14 @@ See EVENT
 Args:
  - DEVICE: <a description>
  - EVENT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See EVENT
+See RESULT
 "
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
                    ()
@@ -949,10 +1133,14 @@ See EVENT
 Args:
  - DEVICE: <a description>
  - EVENT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See EVENT
+See RESULT
 "
                    ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
                    ()
@@ -966,13 +1154,19 @@ See EVENT
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    QUERY-POOL
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See QUERY-POOL
 See QUERY-POOL-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:query-pool-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -989,8 +1183,7 @@ See QUERY-POOL-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - QUERY-POOL: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1013,15 +1206,19 @@ Args:
  - FIRST-QUERY: <a description>
  - QUERY-COUNT: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
+ - DATA: <a description>
  - STRIDE: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See DEVICE-SIZE
 See QUERY-POOL
 See QUERY-RESULT-FLAGS
+See RESULT
 "
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
@@ -1044,7 +1241,6 @@ Args:
  - QUERY-POOL: <a description>
  - FIRST-QUERY: <a description>
  - QUERY-COUNT: <a description>
-Returns: TODO
 
 See DEVICE
 See QUERY-POOL
@@ -1066,7 +1262,6 @@ Args:
  - QUERY-POOL: <a description>
  - FIRST-QUERY: <a description>
  - QUERY-COUNT: <a description>
-Returns: TODO
 
 See DEVICE
 See QUERY-POOL
@@ -1086,13 +1281,19 @@ See QUERY-POOL
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    BUFFER
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See BUFFER
 See BUFFER-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1109,8 +1310,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - BUFFER: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See BUFFER
@@ -1129,13 +1329,19 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    BUFFER-VIEW
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See BUFFER-VIEW
 See BUFFER-VIEW-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-view-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1152,8 +1358,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - BUFFER-VIEW: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See BUFFER-VIEW
@@ -1172,13 +1377,19 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    IMAGE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See IMAGE
 See IMAGE-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:image-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1195,8 +1406,7 @@ See IMAGE-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - IMAGE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1216,12 +1426,16 @@ See IMAGE
 Args:
  - DEVICE: <a description>
  - IMAGE: <a description>
- - P-SUBRESOURCE: <a description>
-Returns: TODO
+ - SUBRESOURCE: <a description>
+
+Returns:
+  (CL:VALUES
+    SUBRESOURCE-LAYOUT)
 
 See DEVICE
 See IMAGE
 See IMAGE-SUBRESOURCE
+See SUBRESOURCE-LAYOUT
 "
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (subresource (or vk:image-subresource cffi:foreign-pointer)))
                        ())
@@ -1236,13 +1450,19 @@ See IMAGE-SUBRESOURCE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    IMAGE-VIEW
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See IMAGE-VIEW
 See IMAGE-VIEW-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:image-view-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1259,8 +1479,7 @@ See IMAGE-VIEW-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - IMAGE-VIEW: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1279,12 +1498,18 @@ See IMAGE-VIEW
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SHADER-MODULE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
+See SHADER-MODULE
 See SHADER-MODULE-CREATE-INFO
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:shader-module-create-info cffi:foreign-pointer)))
@@ -1302,8 +1527,7 @@ See SHADER-MODULE-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - SHADER-MODULE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1322,13 +1546,19 @@ See SHADER-MODULE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PIPELINE-CACHE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See PIPELINE-CACHE
 See PIPELINE-CACHE-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-cache-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1345,8 +1575,7 @@ See PIPELINE-CACHE-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - PIPELINE-CACHE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1366,11 +1595,16 @@ See PIPELINE-CACHE
 Args:
  - DEVICE: <a description>
  - PIPELINE-CACHE: <a description>
- - P-DATA: (optional) <a description>
-Returns: TODO
+ - DATA: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SIZE_T
+    RESULT)
 
 See DEVICE
 See PIPELINE-CACHE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (pipeline-cache cffi:foreign-pointer))
                           (((data nil) cffi:foreign-pointer))
@@ -1387,11 +1621,15 @@ See PIPELINE-CACHE
 Args:
  - DEVICE: <a description>
  - DST-CACHE: <a description>
- - P-SRC-CACHES: <a description>
-Returns: TODO
+ - SRC-CACHES: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See PIPELINE-CACHE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches list))
                    ()
@@ -1407,15 +1645,21 @@ See PIPELINE-CACHE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFOS: <a description>
+ - CREATE-INFOS: <a description>
  - PIPELINE-CACHE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PIPELINE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
 See GRAPHICS-PIPELINE-CREATE-INFO
+See PIPELINE
 See PIPELINE-CACHE
+See RESULT
 "
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1433,15 +1677,21 @@ See PIPELINE-CACHE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFOS: <a description>
+ - CREATE-INFOS: <a description>
  - PIPELINE-CACHE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PIPELINE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See COMPUTE-PIPELINE-CREATE-INFO
 See DEVICE
+See PIPELINE
 See PIPELINE-CACHE
+See RESULT
 "
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1460,8 +1710,7 @@ See PIPELINE-CACHE
 Args:
  - DEVICE: <a description>
  - PIPELINE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1480,13 +1729,19 @@ See PIPELINE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PIPELINE-LAYOUT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See PIPELINE-LAYOUT
 See PIPELINE-LAYOUT-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-layout-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1503,8 +1758,7 @@ See PIPELINE-LAYOUT-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - PIPELINE-LAYOUT: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1523,12 +1777,18 @@ See PIPELINE-LAYOUT
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SAMPLER
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
+See SAMPLER
 See SAMPLER-CREATE-INFO
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-create-info cffi:foreign-pointer)))
@@ -1546,8 +1806,7 @@ See SAMPLER-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - SAMPLER: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1566,13 +1825,19 @@ See SAMPLER
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-SET-LAYOUT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See DESCRIPTOR-SET-LAYOUT
 See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1589,8 +1854,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - DESCRIPTOR-SET-LAYOUT: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DESCRIPTOR-SET-LAYOUT
@@ -1609,13 +1873,19 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-POOL
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See DESCRIPTOR-POOL
 See DESCRIPTOR-POOL-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-pool-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1632,8 +1902,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - DESCRIPTOR-POOL: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DESCRIPTOR-POOL
@@ -1654,11 +1923,15 @@ Args:
  - DEVICE: <a description>
  - DESCRIPTOR-POOL: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DESCRIPTOR-POOL
 See DESCRIPTOR-POOL-RESET-FLAGS
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
@@ -1673,11 +1946,17 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-ALLOCATE-INFO: <a description>
-Returns: TODO
+ - ALLOCATE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-SET
+    RESULT)
+
+See DESCRIPTOR-SET
 See DESCRIPTOR-SET-ALLOCATE-INFO
 See DEVICE
+See RESULT
 "
                            ((device cffi:foreign-pointer) (allocate-info (or vk:descriptor-set-allocate-info cffi:foreign-pointer)))
                            ()
@@ -1693,12 +1972,16 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - DESCRIPTOR-POOL: <a description>
- - P-DESCRIPTOR-SETS: <a description>
-Returns: TODO
+ - DESCRIPTOR-SETS: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DESCRIPTOR-POOL
 See DESCRIPTOR-SET
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer) (descriptor-sets list))
                    ()
@@ -1714,9 +1997,8 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-DESCRIPTOR-WRITES: <a description>
- - P-DESCRIPTOR-COPIES: <a description>
-Returns: TODO
+ - DESCRIPTOR-WRITES: <a description>
+ - DESCRIPTOR-COPIES: <a description>
 
 See COPY-DESCRIPTOR-SET
 See DEVICE
@@ -1737,13 +2019,19 @@ See WRITE-DESCRIPTOR-SET
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    FRAMEBUFFER
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See FRAMEBUFFER
 See FRAMEBUFFER-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:framebuffer-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1760,8 +2048,7 @@ See FRAMEBUFFER-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - FRAMEBUFFER: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1780,13 +2067,19 @@ See FRAMEBUFFER
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    RENDER-PASS
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RENDER-PASS
 See RENDER-PASS-CREATE-INFO
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1803,8 +2096,7 @@ See RENDER-PASS-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - RENDER-PASS: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -1824,9 +2116,13 @@ See RENDER-PASS
 Args:
  - DEVICE: <a description>
  - RENDER-PASS: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    EXTENT-2D)
 
 See DEVICE
+See EXTENT-2D
 See RENDER-PASS
 "
                        ((device cffi:foreign-pointer) (render-pass cffi:foreign-pointer))
@@ -1841,13 +2137,19 @@ See RENDER-PASS
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    COMMAND-POOL
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See COMMAND-POOL
 See COMMAND-POOL-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:command-pool-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -1864,8 +2166,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - COMMAND-POOL: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See COMMAND-POOL
@@ -1886,11 +2187,15 @@ Args:
  - DEVICE: <a description>
  - COMMAND-POOL: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-POOL
 See COMMAND-POOL-RESET-FLAGS
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
@@ -1905,11 +2210,17 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-ALLOCATE-INFO: <a description>
-Returns: TODO
+ - ALLOCATE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    COMMAND-BUFFER
+    RESULT)
+
+See COMMAND-BUFFER
 See COMMAND-BUFFER-ALLOCATE-INFO
 See DEVICE
+See RESULT
 "
                            ((device cffi:foreign-pointer) (allocate-info (or vk:command-buffer-allocate-info cffi:foreign-pointer)))
                            ()
@@ -1925,8 +2236,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - COMMAND-POOL: <a description>
- - P-COMMAND-BUFFERS: <a description>
-Returns: TODO
+ - COMMAND-BUFFERS: <a description>
 
 See COMMAND-BUFFER
 See COMMAND-POOL
@@ -1946,11 +2256,15 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-BEGIN-INFO: <a description>
-Returns: TODO
+ - BEGIN-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-BUFFER
 See COMMAND-BUFFER-BEGIN-INFO
+See RESULT
 "
                    ((command-buffer cffi:foreign-pointer) (begin-info (or vk:command-buffer-begin-info cffi:foreign-pointer)))
                    ()
@@ -1964,9 +2278,13 @@ See COMMAND-BUFFER-BEGIN-INFO
 
 Args:
  - COMMAND-BUFFER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-BUFFER
+See RESULT
 "
                    ((command-buffer cffi:foreign-pointer))
                    ()
@@ -1980,10 +2298,14 @@ See COMMAND-BUFFER
 Args:
  - COMMAND-BUFFER: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-BUFFER
 See COMMAND-BUFFER-RESET-FLAGS
+See RESULT
 "
                    ((command-buffer cffi:foreign-pointer))
                    (((flags nil) (or unsigned-byte list)))
@@ -1999,7 +2321,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - PIPELINE-BIND-POINT: <a description>
  - PIPELINE: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See PIPELINE
@@ -2019,8 +2340,7 @@ See PIPELINE-BIND-POINT
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-VIEWPORT: <a description>
- - P-VIEWPORTS: <a description>
-Returns: TODO
+ - VIEWPORTS: <a description>
 
 See COMMAND-BUFFER
 See VIEWPORT
@@ -2040,8 +2360,7 @@ See VIEWPORT
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-SCISSOR: <a description>
- - P-SCISSORS: <a description>
-Returns: TODO
+ - SCISSORS: <a description>
 
 See COMMAND-BUFFER
 See RECT-2D
@@ -2061,7 +2380,6 @@ See RECT-2D
 Args:
  - COMMAND-BUFFER: <a description>
  - LINE-WIDTH: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2080,7 +2398,6 @@ Args:
  - DEPTH-BIAS-CONSTANT-FACTOR: <a description>
  - DEPTH-BIAS-CLAMP: <a description>
  - DEPTH-BIAS-SLOPE-FACTOR: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2099,7 +2416,6 @@ See COMMAND-BUFFER
 Args:
  - COMMAND-BUFFER: <a description>
  - BLEND-CONSTANTS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2117,7 +2433,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - MIN-DEPTH-BOUNDS: <a description>
  - MAX-DEPTH-BOUNDS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2136,7 +2451,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - FACE-MASK: <a description>
  - COMPARE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See STENCIL-FACE-FLAGS
@@ -2156,7 +2470,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - FACE-MASK: <a description>
  - WRITE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See STENCIL-FACE-FLAGS
@@ -2176,7 +2489,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - FACE-MASK: <a description>
  - REFERENCE: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See STENCIL-FACE-FLAGS
@@ -2197,9 +2509,8 @@ Args:
  - PIPELINE-BIND-POINT: <a description>
  - LAYOUT: <a description>
  - FIRST-SET: <a description>
- - P-DESCRIPTOR-SETS: <a description>
- - P-DYNAMIC-OFFSETS: <a description>
-Returns: TODO
+ - DESCRIPTOR-SETS: <a description>
+ - DYNAMIC-OFFSETS: <a description>
 
 See COMMAND-BUFFER
 See DESCRIPTOR-SET
@@ -2227,7 +2538,6 @@ Args:
  - BUFFER: <a description>
  - OFFSET: <a description>
  - INDEX-TYPE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2249,9 +2559,8 @@ See INDEX-TYPE
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-BINDING: <a description>
- - P-BUFFERS: <a description>
- - P-OFFSETS: <a description>
-Returns: TODO
+ - BUFFERS: <a description>
+ - OFFSETS: <a description>
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2276,7 +2585,6 @@ Args:
  - INSTANCE-COUNT: <a description>
  - FIRST-VERTEX: <a description>
  - FIRST-INSTANCE: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2300,7 +2608,6 @@ Args:
  - FIRST-INDEX: <a description>
  - VERTEX-OFFSET: <a description>
  - FIRST-INSTANCE: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2324,7 +2631,6 @@ Args:
  - OFFSET: <a description>
  - DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2349,7 +2655,6 @@ Args:
  - OFFSET: <a description>
  - DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2373,7 +2678,6 @@ Args:
  - GROUP-COUNT-X: <a description>
  - GROUP-COUNT-Y: <a description>
  - GROUP-COUNT-Z: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2393,7 +2697,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - BUFFER: <a description>
  - OFFSET: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2414,8 +2717,7 @@ Args:
  - COMMAND-BUFFER: <a description>
  - SRC-BUFFER: <a description>
  - DST-BUFFER: <a description>
- - P-REGIONS: <a description>
-Returns: TODO
+ - REGIONS: <a description>
 
 See BUFFER
 See BUFFER-COPY
@@ -2440,8 +2742,7 @@ Args:
  - SRC-IMAGE-LAYOUT: <a description>
  - DST-IMAGE: <a description>
  - DST-IMAGE-LAYOUT: <a description>
- - P-REGIONS: <a description>
-Returns: TODO
+ - REGIONS: <a description>
 
 See COMMAND-BUFFER
 See IMAGE
@@ -2469,9 +2770,8 @@ Args:
  - SRC-IMAGE-LAYOUT: <a description>
  - DST-IMAGE: <a description>
  - DST-IMAGE-LAYOUT: <a description>
- - P-REGIONS: <a description>
+ - REGIONS: <a description>
  - FILTER: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See FILTER
@@ -2500,8 +2800,7 @@ Args:
  - SRC-BUFFER: <a description>
  - DST-IMAGE: <a description>
  - DST-IMAGE-LAYOUT: <a description>
- - P-REGIONS: <a description>
-Returns: TODO
+ - REGIONS: <a description>
 
 See BUFFER
 See BUFFER-IMAGE-COPY
@@ -2528,8 +2827,7 @@ Args:
  - SRC-IMAGE: <a description>
  - SRC-IMAGE-LAYOUT: <a description>
  - DST-BUFFER: <a description>
- - P-REGIONS: <a description>
-Returns: TODO
+ - REGIONS: <a description>
 
 See BUFFER
 See BUFFER-IMAGE-COPY
@@ -2556,8 +2854,7 @@ Args:
  - DST-BUFFER: <a description>
  - DST-OFFSET: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2582,7 +2879,6 @@ Args:
  - DST-OFFSET: <a description>
  - SIZE: <a description>
  - DATA: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2605,9 +2901,8 @@ Args:
  - COMMAND-BUFFER: <a description>
  - IMAGE: <a description>
  - IMAGE-LAYOUT: <a description>
- - P-COLOR: <a description>
- - P-RANGES: <a description>
-Returns: TODO
+ - COLOR: <a description>
+ - RANGES: <a description>
 
 See CLEAR-COLOR-VALUE
 See COMMAND-BUFFER
@@ -2633,9 +2928,8 @@ Args:
  - COMMAND-BUFFER: <a description>
  - IMAGE: <a description>
  - IMAGE-LAYOUT: <a description>
- - P-DEPTH-STENCIL: <a description>
- - P-RANGES: <a description>
-Returns: TODO
+ - DEPTH-STENCIL: <a description>
+ - RANGES: <a description>
 
 See CLEAR-DEPTH-STENCIL-VALUE
 See COMMAND-BUFFER
@@ -2659,9 +2953,8 @@ See IMAGE-SUBRESOURCE-RANGE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-ATTACHMENTS: <a description>
- - P-RECTS: <a description>
-Returns: TODO
+ - ATTACHMENTS: <a description>
+ - RECTS: <a description>
 
 See CLEAR-ATTACHMENT
 See CLEAR-RECT
@@ -2686,8 +2979,7 @@ Args:
  - SRC-IMAGE-LAYOUT: <a description>
  - DST-IMAGE: <a description>
  - DST-IMAGE-LAYOUT: <a description>
- - P-REGIONS: <a description>
-Returns: TODO
+ - REGIONS: <a description>
 
 See COMMAND-BUFFER
 See IMAGE
@@ -2713,7 +3005,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - EVENT: <a description>
  - STAGE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See EVENT
@@ -2734,7 +3025,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - EVENT: <a description>
  - STAGE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See EVENT
@@ -2753,13 +3043,12 @@ See PIPELINE-STAGE-FLAGS
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-EVENTS: <a description>
- - P-MEMORY-BARRIERS: <a description>
- - P-BUFFER-MEMORY-BARRIERS: <a description>
- - P-IMAGE-MEMORY-BARRIERS: <a description>
+ - EVENTS: <a description>
+ - MEMORY-BARRIERS: <a description>
+ - BUFFER-MEMORY-BARRIERS: <a description>
+ - IMAGE-MEMORY-BARRIERS: <a description>
  - SRC-STAGE-MASK: (optional) <a description>
  - DST-STAGE-MASK: (optional) <a description>
-Returns: TODO
 
 See BUFFER-MEMORY-BARRIER
 See COMMAND-BUFFER
@@ -2791,11 +3080,10 @@ Args:
  - COMMAND-BUFFER: <a description>
  - SRC-STAGE-MASK: <a description>
  - DST-STAGE-MASK: <a description>
- - P-MEMORY-BARRIERS: <a description>
- - P-BUFFER-MEMORY-BARRIERS: <a description>
- - P-IMAGE-MEMORY-BARRIERS: <a description>
+ - MEMORY-BARRIERS: <a description>
+ - BUFFER-MEMORY-BARRIERS: <a description>
+ - IMAGE-MEMORY-BARRIERS: <a description>
  - DEPENDENCY-FLAGS: (optional) <a description>
-Returns: TODO
 
 See BUFFER-MEMORY-BARRIER
 See COMMAND-BUFFER
@@ -2827,7 +3115,6 @@ Args:
  - QUERY-POOL: <a description>
  - QUERY: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See QUERY-CONTROL-FLAGS
@@ -2849,7 +3136,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - QUERY-POOL: <a description>
  - QUERY: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See QUERY-POOL
@@ -2867,8 +3153,7 @@ See QUERY-POOL
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-CONDITIONAL-RENDERING-BEGIN: <a description>
-Returns: TODO
+ - CONDITIONAL-RENDERING-BEGIN: <a description>
 
 See COMMAND-BUFFER
 See CONDITIONAL-RENDERING-BEGIN-INFO-EXT
@@ -2886,7 +3171,6 @@ See CONDITIONAL-RENDERING-BEGIN-INFO-EXT
 
 Args:
  - COMMAND-BUFFER: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -2905,7 +3189,6 @@ Args:
  - QUERY-POOL: <a description>
  - FIRST-QUERY: <a description>
  - QUERY-COUNT: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See QUERY-POOL
@@ -2927,7 +3210,6 @@ Args:
  - PIPELINE-STAGE: <a description>
  - QUERY-POOL: <a description>
  - QUERY: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See PIPELINE-STAGE-FLAG-BITS
@@ -2954,7 +3236,6 @@ Args:
  - DST-OFFSET: <a description>
  - STRIDE: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -2984,8 +3265,7 @@ Args:
  - STAGE-FLAGS: <a description>
  - OFFSET: <a description>
  - SIZE: <a description>
- - P-VALUES: <a description>
-Returns: TODO
+ - VALUES: <a description>
 
 See COMMAND-BUFFER
 See PIPELINE-LAYOUT
@@ -3007,9 +3287,8 @@ See SHADER-STAGE-FLAGS
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-RENDER-PASS-BEGIN: <a description>
+ - RENDER-PASS-BEGIN: <a description>
  - CONTENTS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See RENDER-PASS-BEGIN-INFO
@@ -3029,7 +3308,6 @@ See SUBPASS-CONTENTS
 Args:
  - COMMAND-BUFFER: <a description>
  - CONTENTS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See SUBPASS-CONTENTS
@@ -3046,7 +3324,6 @@ See SUBPASS-CONTENTS
 
 Args:
  - COMMAND-BUFFER: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -3061,8 +3338,7 @@ See COMMAND-BUFFER
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-COMMAND-BUFFERS: <a description>
-Returns: TODO
+ - COMMAND-BUFFERS: <a description>
 
 See COMMAND-BUFFER
 "
@@ -3079,13 +3355,19 @@ See COMMAND-BUFFER
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See ANDROID-SURFACE-CREATE-INFO-KHR
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:android-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3101,9 +3383,16 @@ See INSTANCE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-PROPERTIES-KHR
+    RESULT)
+
+See DISPLAY-PROPERTIES-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -3120,9 +3409,16 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-PLANE-PROPERTIES-KHR
+    RESULT)
+
+See DISPLAY-PLANE-PROPERTIES-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -3140,9 +3436,16 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - PLANE-INDEX: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-KHR
+    RESULT)
+
+See DISPLAY-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer) (plane-index unsigned-byte))
                       ()
@@ -3161,10 +3464,17 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - DISPLAY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-MODE-PROPERTIES-KHR
+    RESULT)
 
 See DISPLAY-KHR
+See DISPLAY-MODE-PROPERTIES-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
@@ -3183,14 +3493,20 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - DISPLAY: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DISPLAY-MODE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DISPLAY-KHR
 See DISPLAY-MODE-CREATE-INFO-KHR
+See DISPLAY-MODE-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                           ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (create-info (or vk:display-mode-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3209,10 +3525,16 @@ Args:
  - PHYSICAL-DEVICE: <a description>
  - MODE: <a description>
  - PLANE-INDEX: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    DISPLAY-PLANE-CAPABILITIES-KHR
+    RESULT)
 
 See DISPLAY-MODE-KHR
+See DISPLAY-PLANE-CAPABILITIES-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                        ((physical-device cffi:foreign-pointer) (mode cffi:foreign-pointer) (plane-index unsigned-byte))
                        ())
@@ -3227,13 +3549,19 @@ See PHYSICAL-DEVICE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DISPLAY-SURFACE-CREATE-INFO-KHR
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:display-surface-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3249,13 +3577,19 @@ See INSTANCE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFOS: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFOS: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SWAPCHAIN-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
 See SWAPCHAIN-CREATE-INFO-KHR
+See SWAPCHAIN-KHR
 "
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3273,8 +3607,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
 Args:
  - INSTANCE: <a description>
  - SURFACE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
@@ -3295,9 +3628,15 @@ Args:
  - PHYSICAL-DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
  - SURFACE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    BOOL32
+    RESULT)
+
+See BOOL32
 See PHYSICAL-DEVICE
+See RESULT
 See SURFACE-KHR
 "
                           ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (surface cffi:foreign-pointer))
@@ -3315,9 +3654,15 @@ See SURFACE-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - SURFACE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    SURFACE-CAPABILITIES-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
+See RESULT
+See SURFACE-CAPABILITIES-KHR
 See SURFACE-KHR
 "
                        ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
@@ -3333,9 +3678,16 @@ See SURFACE-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - SURFACE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SURFACE-FORMAT-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
+See RESULT
+See SURFACE-FORMAT-KHR
 See SURFACE-KHR
 "
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
@@ -3355,9 +3707,16 @@ See SURFACE-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - SURFACE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PRESENT-MODE-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
+See PRESENT-MODE-KHR
+See RESULT
 See SURFACE-KHR
 "
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
@@ -3376,13 +3735,19 @@ See SURFACE-KHR
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SWAPCHAIN-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
 See SWAPCHAIN-CREATE-INFO-KHR
+See SWAPCHAIN-KHR
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:swapchain-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3399,8 +3764,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -3420,9 +3784,16 @@ See SWAPCHAIN-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    IMAGE
+    RESULT)
 
 See DEVICE
+See IMAGE
+See RESULT
 See SWAPCHAIN-KHR
 "
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
@@ -3445,10 +3816,15 @@ Args:
  - TIMEOUT: <a description>
  - SEMAPHORE: (optional) <a description>
  - FENCE: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    RESULT)
 
 See DEVICE
 See FENCE
+See RESULT
 See SEMAPHORE
 See SWAPCHAIN-KHR
 "
@@ -3468,11 +3844,15 @@ See SWAPCHAIN-KHR
 
 Args:
  - QUEUE: <a description>
- - P-PRESENT-INFO: <a description>
-Returns: TODO
+ - PRESENT-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See PRESENT-INFO-KHR
 See QUEUE
+See RESULT
 "
                    ((queue cffi:foreign-pointer) (present-info (or vk:present-info-khr cffi:foreign-pointer)))
                    ()
@@ -3486,12 +3866,18 @@ See QUEUE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 See VI-SURFACE-CREATE-INFO-NN
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
@@ -3509,12 +3895,18 @@ See VI-SURFACE-CREATE-INFO-NN
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 See WAYLAND-SURFACE-CREATE-INFO-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:wayland-surface-create-info-khr cffi:foreign-pointer)))
@@ -3533,7 +3925,10 @@ Args:
  - PHYSICAL-DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
  - DISPLAY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    BOOLEAN)
 
 See PHYSICAL-DEVICE
 See WL_DISPLAY
@@ -3551,12 +3946,18 @@ See WL_DISPLAY
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 See WIN32-SURFACE-CREATE-INFO-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:win32-surface-create-info-khr cffi:foreign-pointer)))
@@ -3574,7 +3975,10 @@ See WIN32-SURFACE-CREATE-INFO-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    BOOLEAN)
 
 See PHYSICAL-DEVICE
 "
@@ -3590,12 +3994,18 @@ See PHYSICAL-DEVICE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 See XLIB-SURFACE-CREATE-INFO-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:xlib-surface-create-info-khr cffi:foreign-pointer)))
@@ -3615,7 +4025,10 @@ Args:
  - QUEUE-FAMILY-INDEX: <a description>
  - DPY: <a description>
  - VISUAL-ID: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    BOOLEAN)
 
 See DISPLAY
 See PHYSICAL-DEVICE
@@ -3635,12 +4048,18 @@ See VISUAL-ID
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 See XCB-SURFACE-CREATE-INFO-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:xcb-surface-create-info-khr cffi:foreign-pointer)))
@@ -3660,7 +4079,10 @@ Args:
  - QUEUE-FAMILY-INDEX: <a description>
  - CONNECTION: <a description>
  - VISUAL_ID: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    BOOLEAN)
 
 See PHYSICAL-DEVICE
 See XCB_CONNECTION_T
@@ -3680,13 +4102,19 @@ See XCB_VISUALID_T
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DIRECT-FB-SURFACE-CREATE-INFO-EXT
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3705,7 +4133,10 @@ Args:
  - PHYSICAL-DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
  - DFB: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    BOOLEAN)
 
 See I-DIRECT-FB
 See PHYSICAL-DEVICE
@@ -3724,13 +4155,19 @@ See PHYSICAL-DEVICE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See IMAGE-PIPE-SURFACE-CREATE-INFO-FUCHSIA
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3747,13 +4184,19 @@ See INSTANCE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
 See STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3770,13 +4213,19 @@ See STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
+See RESULT
 See SCREEN-SURFACE-CREATE-INFO-QNX
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3794,9 +4243,14 @@ See SCREEN-SURFACE-CREATE-INFO-QNX
 Args:
  - PHYSICAL-DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    _SCREEN_WINDOW
+    BOOLEAN)
 
 See PHYSICAL-DEVICE
+See _SCREEN_WINDOW
 "
                        ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                        ()
@@ -3811,13 +4265,19 @@ See PHYSICAL-DEVICE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DEBUG-REPORT-CALLBACK-EXT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEBUG-REPORT-CALLBACK-CREATE-INFO-EXT
+See DEBUG-REPORT-CALLBACK-EXT
 See INSTANCE
+See RESULT
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -3835,8 +4295,7 @@ See INSTANCE
 Args:
  - INSTANCE: <a description>
  - CALLBACK: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEBUG-REPORT-CALLBACK-EXT
@@ -3861,9 +4320,8 @@ Args:
  - OBJECT: <a description>
  - LOCATION: <a description>
  - MESSAGE-CODE: <a description>
- - P-LAYER-PREFIX: <a description>
- - P-MESSAGE: <a description>
-Returns: TODO
+ - LAYER-PREFIX: <a description>
+ - MESSAGE: <a description>
 
 See DEBUG-REPORT-FLAGS-EXT
 See DEBUG-REPORT-OBJECT-TYPE-EXT
@@ -3888,11 +4346,15 @@ See INSTANCE
 
 Args:
  - DEVICE: <a description>
- - P-NAME-INFO: <a description>
-Returns: TODO
+ - NAME-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEBUG-MARKER-OBJECT-NAME-INFO-EXT
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-marker-object-name-info-ext cffi:foreign-pointer)))
                    ()
@@ -3907,11 +4369,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-TAG-INFO: <a description>
-Returns: TODO
+ - TAG-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEBUG-MARKER-OBJECT-TAG-INFO-EXT
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-marker-object-tag-info-ext cffi:foreign-pointer)))
                    ()
@@ -3926,8 +4392,7 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-MARKER-INFO: <a description>
-Returns: TODO
+ - MARKER-INFO: <a description>
 
 See COMMAND-BUFFER
 See DEBUG-MARKER-MARKER-INFO-EXT
@@ -3945,7 +4410,6 @@ See DEBUG-MARKER-MARKER-INFO-EXT
 
 Args:
  - COMMAND-BUFFER: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -3961,8 +4425,7 @@ See COMMAND-BUFFER
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-MARKER-INFO: <a description>
-Returns: TODO
+ - MARKER-INFO: <a description>
 
 See COMMAND-BUFFER
 See DEBUG-MARKER-MARKER-INFO-EXT
@@ -3986,8 +4449,13 @@ Args:
  - USAGE: <a description>
  - FLAGS: (optional) <a description>
  - EXTERNAL-HANDLE-TYPE: (optional) <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-IMAGE-FORMAT-PROPERTIES-NV
+    RESULT)
+
+See EXTERNAL-IMAGE-FORMAT-PROPERTIES-NV
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
 See FORMAT
 See IMAGE-CREATE-FLAGS
@@ -3995,6 +4463,7 @@ See IMAGE-TILING
 See IMAGE-TYPE
 See IMAGE-USAGE-FLAGS
 See PHYSICAL-DEVICE
+See RESULT
 "
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list)) ((external-handle-type nil) (or unsigned-byte list)))
@@ -4016,11 +4485,17 @@ Args:
  - DEVICE: <a description>
  - MEMORY: <a description>
  - HANDLE-TYPE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    HANDLE
+    RESULT)
 
 See DEVICE
 See DEVICE-MEMORY
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
+See HANDLE
+See RESULT
 "
                        ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (handle-type (or unsigned-byte list)))
                        ()
@@ -4037,8 +4512,7 @@ See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
 Args:
  - COMMAND-BUFFER: <a description>
  - IS-PREPROCESSED: <a description>
- - P-GENERATED-COMMANDS-INFO: <a description>
-Returns: TODO
+ - GENERATED-COMMANDS-INFO: <a description>
 
 See BOOL32
 See COMMAND-BUFFER
@@ -4058,8 +4532,7 @@ See GENERATED-COMMANDS-INFO-NV
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-GENERATED-COMMANDS-INFO: <a description>
-Returns: TODO
+ - GENERATED-COMMANDS-INFO: <a description>
 
 See COMMAND-BUFFER
 See GENERATED-COMMANDS-INFO-NV
@@ -4080,7 +4553,6 @@ Args:
  - PIPELINE-BIND-POINT: <a description>
  - PIPELINE: <a description>
  - GROUP-INDEX: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See PIPELINE
@@ -4101,11 +4573,15 @@ See PIPELINE-BIND-POINT
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
 
 See DEVICE
 See GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
+See MEMORY-REQUIREMENTS-2
 "
                        ((device cffi:foreign-pointer) (info (or vk:generated-commands-memory-requirements-info-nv cffi:foreign-pointer)))
                        ()
@@ -4120,13 +4596,19 @@ See GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    INDIRECT-COMMANDS-LAYOUT-NV
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
 See INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV
+See INDIRECT-COMMANDS-LAYOUT-NV
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -4144,8 +4626,7 @@ See INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV
 Args:
  - DEVICE: <a description>
  - INDIRECT-COMMANDS-LAYOUT: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -4165,9 +4646,13 @@ See INDIRECT-COMMANDS-LAYOUT-NV
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-FEATURES-2)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-FEATURES-2
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -4180,9 +4665,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-FEATURES-2)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-FEATURES-2
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -4195,9 +4684,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-PROPERTIES-2
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -4210,9 +4703,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-PROPERTIES-2
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -4226,9 +4723,13 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - FORMAT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    FORMAT-PROPERTIES-2)
 
 See FORMAT
+See FORMAT-PROPERTIES-2
 See PHYSICAL-DEVICE
 "
                        ((physical-device cffi:foreign-pointer) (format keyword))
@@ -4244,9 +4745,13 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - FORMAT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    FORMAT-PROPERTIES-2)
 
 See FORMAT
+See FORMAT-PROPERTIES-2
 See PHYSICAL-DEVICE
 "
                        ((physical-device cffi:foreign-pointer) (format keyword))
@@ -4261,11 +4766,17 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-IMAGE-FORMAT-INFO: <a description>
-Returns: TODO
+ - IMAGE-FORMAT-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    IMAGE-FORMAT-PROPERTIES-2
+    RESULT)
+
+See IMAGE-FORMAT-PROPERTIES-2
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
+See RESULT
 "
                        ((physical-device cffi:foreign-pointer) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
                        ())
@@ -4279,11 +4790,17 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-IMAGE-FORMAT-INFO: <a description>
-Returns: TODO
+ - IMAGE-FORMAT-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    IMAGE-FORMAT-PROPERTIES-2
+    RESULT)
+
+See IMAGE-FORMAT-PROPERTIES-2
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
+See RESULT
 "
                        ((physical-device cffi:foreign-pointer) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
                        ())
@@ -4297,9 +4814,14 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    QUEUE-FAMILY-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
+See QUEUE-FAMILY-PROPERTIES-2
 "
                         ((physical-device cffi:foreign-pointer))
                         ()
@@ -4316,9 +4838,14 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    QUEUE-FAMILY-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
+See QUEUE-FAMILY-PROPERTIES-2
 "
                         ((physical-device cffi:foreign-pointer))
                         ()
@@ -4335,9 +4862,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-MEMORY-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -4350,9 +4881,13 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PHYSICAL-DEVICE-MEMORY-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
 "
                        ((physical-device cffi:foreign-pointer))
                        ())
@@ -4365,11 +4900,16 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-FORMAT-INFO: <a description>
-Returns: TODO
+ - FORMAT-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SPARSE-IMAGE-FORMAT-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
+See SPARSE-IMAGE-FORMAT-PROPERTIES-2
 "
                         ((physical-device cffi:foreign-pointer) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
                         ()
@@ -4387,11 +4927,16 @@ See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-FORMAT-INFO: <a description>
-Returns: TODO
+ - FORMAT-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SPARSE-IMAGE-FORMAT-PROPERTIES-2)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
+See SPARSE-IMAGE-FORMAT-PROPERTIES-2
 "
                         ((physical-device cffi:foreign-pointer) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
                         ()
@@ -4412,8 +4957,7 @@ Args:
  - PIPELINE-BIND-POINT: <a description>
  - LAYOUT: <a description>
  - SET: <a description>
- - P-DESCRIPTOR-WRITES: <a description>
-Returns: TODO
+ - DESCRIPTOR-WRITES: <a description>
 
 See COMMAND-BUFFER
 See PIPELINE-BIND-POINT
@@ -4438,7 +4982,6 @@ Args:
  - DEVICE: <a description>
  - COMMAND-POOL: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
 
 See COMMAND-POOL
 See COMMAND-POOL-TRIM-FLAGS
@@ -4459,7 +5002,6 @@ Args:
  - DEVICE: <a description>
  - COMMAND-POOL: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
 
 See COMMAND-POOL
 See COMMAND-POOL-TRIM-FLAGS
@@ -4478,9 +5020,13 @@ See DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-EXTERNAL-BUFFER-INFO: <a description>
-Returns: TODO
+ - EXTERNAL-BUFFER-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-BUFFER-PROPERTIES)
+
+See EXTERNAL-BUFFER-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
 "
@@ -4496,9 +5042,13 @@ See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-EXTERNAL-BUFFER-INFO: <a description>
-Returns: TODO
+ - EXTERNAL-BUFFER-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-BUFFER-PROPERTIES)
+
+See EXTERNAL-BUFFER-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
 "
@@ -4514,11 +5064,17 @@ See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
 
 Args:
  - DEVICE: <a description>
- - P-GET-WIN32-HANDLE-INFO: <a description>
-Returns: TODO
+ - GET-WIN32-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    HANDLE
+    RESULT)
 
 See DEVICE
+See HANDLE
 See MEMORY-GET-WIN32-HANDLE-INFO-KHR
+See RESULT
 "
                        ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:memory-get-win32-handle-info-khr cffi:foreign-pointer)))
                        ())
@@ -4534,11 +5090,17 @@ Args:
  - DEVICE: <a description>
  - HANDLE-TYPE: <a description>
  - HANDLE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    MEMORY-WIN32-HANDLE-PROPERTIES-KHR
+    RESULT)
 
 See DEVICE
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See HANDLE
+See MEMORY-WIN32-HANDLE-PROPERTIES-KHR
+See RESULT
 "
                        ((device cffi:foreign-pointer) (handle-type keyword) (handle cffi:foreign-pointer))
                        ())
@@ -4553,11 +5115,16 @@ See HANDLE
 
 Args:
  - DEVICE: <a description>
- - P-GET-FD-INFO: <a description>
-Returns: TODO
+ - GET-FD-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    INT
+    RESULT)
 
 See DEVICE
 See MEMORY-GET-FD-INFO-KHR
+See RESULT
 "
                           ((device cffi:foreign-pointer) (get-fd-info (or vk:memory-get-fd-info-khr cffi:foreign-pointer)))
                           ()
@@ -4574,10 +5141,16 @@ Args:
  - DEVICE: <a description>
  - HANDLE-TYPE: <a description>
  - FD: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    MEMORY-FD-PROPERTIES-KHR
+    RESULT)
 
 See DEVICE
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+See MEMORY-FD-PROPERTIES-KHR
+See RESULT
 "
                        ((device cffi:foreign-pointer) (handle-type keyword) (fd integer))
                        ())
@@ -4592,11 +5165,17 @@ See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 
 Args:
  - DEVICE: <a description>
- - P-GET-ZIRCON-HANDLE-INFO: <a description>
-Returns: TODO
+ - GET-ZIRCON-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    ZX_HANDLE_T
+    RESULT)
 
 See DEVICE
 See MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+See RESULT
+See ZX_HANDLE_T
 "
                        ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:memory-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                        ()
@@ -4613,10 +5192,16 @@ Args:
  - DEVICE: <a description>
  - HANDLE-TYPE: <a description>
  - ZIRCON-HANDLE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
+    RESULT)
 
 See DEVICE
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+See MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
+See RESULT
 See ZX_HANDLE_T
 "
                        ((device cffi:foreign-pointer) (handle-type keyword) (zircon-handle cffi:foreign-pointer))
@@ -4633,9 +5218,13 @@ See ZX_HANDLE_T
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-EXTERNAL-SEMAPHORE-INFO: <a description>
-Returns: TODO
+ - EXTERNAL-SEMAPHORE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-SEMAPHORE-PROPERTIES)
+
+See EXTERNAL-SEMAPHORE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
 "
@@ -4651,9 +5240,13 @@ See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-EXTERNAL-SEMAPHORE-INFO: <a description>
-Returns: TODO
+ - EXTERNAL-SEMAPHORE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-SEMAPHORE-PROPERTIES)
+
+See EXTERNAL-SEMAPHORE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
 "
@@ -4669,10 +5262,16 @@ See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
 
 Args:
  - DEVICE: <a description>
- - P-GET-WIN32-HANDLE-INFO: <a description>
-Returns: TODO
+ - GET-WIN32-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    HANDLE
+    RESULT)
 
 See DEVICE
+See HANDLE
+See RESULT
 See SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR
 "
                        ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:semaphore-get-win32-handle-info-khr cffi:foreign-pointer)))
@@ -4687,11 +5286,15 @@ See SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-IMPORT-SEMAPHORE-WIN32-HANDLE-INFO: <a description>
-Returns: TODO
+ - IMPORT-SEMAPHORE-WIN32-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
+See RESULT
 "
                    ((device cffi:foreign-pointer) (import-semaphore-win32-handle-info (or vk:import-semaphore-win32-handle-info-khr cffi:foreign-pointer)))
                    ()
@@ -4705,10 +5308,15 @@ See IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-GET-FD-INFO: <a description>
-Returns: TODO
+ - GET-FD-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    INT
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE-GET-FD-INFO-KHR
 "
                           ((device cffi:foreign-pointer) (get-fd-info (or vk:semaphore-get-fd-info-khr cffi:foreign-pointer)))
@@ -4724,11 +5332,15 @@ See SEMAPHORE-GET-FD-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-IMPORT-SEMAPHORE-FD-INFO: <a description>
-Returns: TODO
+ - IMPORT-SEMAPHORE-FD-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See IMPORT-SEMAPHORE-FD-INFO-KHR
+See RESULT
 "
                    ((device cffi:foreign-pointer) (import-semaphore-fd-info (or vk:import-semaphore-fd-info-khr cffi:foreign-pointer)))
                    ()
@@ -4742,11 +5354,17 @@ See IMPORT-SEMAPHORE-FD-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-GET-ZIRCON-HANDLE-INFO: <a description>
-Returns: TODO
+ - GET-ZIRCON-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    ZX_HANDLE_T
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+See ZX_HANDLE_T
 "
                        ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:semaphore-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                        ()
@@ -4761,11 +5379,15 @@ See SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
 
 Args:
  - DEVICE: <a description>
- - P-IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO: <a description>
-Returns: TODO
+ - IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
+See RESULT
 "
                    ((device cffi:foreign-pointer) (import-semaphore-zircon-handle-info (or vk:import-semaphore-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                    ()
@@ -4780,9 +5402,13 @@ See IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-EXTERNAL-FENCE-INFO: <a description>
-Returns: TODO
+ - EXTERNAL-FENCE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-FENCE-PROPERTIES)
+
+See EXTERNAL-FENCE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
 "
@@ -4798,9 +5424,13 @@ See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-EXTERNAL-FENCE-INFO: <a description>
-Returns: TODO
+ - EXTERNAL-FENCE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    EXTERNAL-FENCE-PROPERTIES)
+
+See EXTERNAL-FENCE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
 "
@@ -4816,11 +5446,17 @@ See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
 
 Args:
  - DEVICE: <a description>
- - P-GET-WIN32-HANDLE-INFO: <a description>
-Returns: TODO
+ - GET-WIN32-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    HANDLE
+    RESULT)
 
 See DEVICE
 See FENCE-GET-WIN32-HANDLE-INFO-KHR
+See HANDLE
+See RESULT
 "
                        ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:fence-get-win32-handle-info-khr cffi:foreign-pointer)))
                        ())
@@ -4834,11 +5470,15 @@ See FENCE-GET-WIN32-HANDLE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-IMPORT-FENCE-WIN32-HANDLE-INFO: <a description>
-Returns: TODO
+ - IMPORT-FENCE-WIN32-HANDLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See IMPORT-FENCE-WIN32-HANDLE-INFO-KHR
+See RESULT
 "
                    ((device cffi:foreign-pointer) (import-fence-win32-handle-info (or vk:import-fence-win32-handle-info-khr cffi:foreign-pointer)))
                    ()
@@ -4852,11 +5492,16 @@ See IMPORT-FENCE-WIN32-HANDLE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-GET-FD-INFO: <a description>
-Returns: TODO
+ - GET-FD-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    INT
+    RESULT)
 
 See DEVICE
 See FENCE-GET-FD-INFO-KHR
+See RESULT
 "
                           ((device cffi:foreign-pointer) (get-fd-info (or vk:fence-get-fd-info-khr cffi:foreign-pointer)))
                           ()
@@ -4871,11 +5516,15 @@ See FENCE-GET-FD-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-IMPORT-FENCE-FD-INFO: <a description>
-Returns: TODO
+ - IMPORT-FENCE-FD-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See IMPORT-FENCE-FD-INFO-KHR
+See RESULT
 "
                    ((device cffi:foreign-pointer) (import-fence-fd-info (or vk:import-fence-fd-info-khr cffi:foreign-pointer)))
                    ()
@@ -4890,10 +5539,14 @@ See IMPORT-FENCE-FD-INFO-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - DISPLAY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DISPLAY-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
@@ -4910,11 +5563,15 @@ Args:
  - PHYSICAL-DEVICE: <a description>
  - DPY: <a description>
  - DISPLAY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DISPLAY
 See DISPLAY-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                    ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
@@ -4932,10 +5589,16 @@ Args:
  - PHYSICAL-DEVICE: <a description>
  - DPY: <a description>
  - RR-OUTPUT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    DISPLAY-KHR
+    RESULT)
 
 See DISPLAY
+See DISPLAY-KHR
 See PHYSICAL-DEVICE
+See RESULT
 See RR-OUTPUT
 "
                           ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (rr-output cffi:foreign-pointer))
@@ -4954,10 +5617,14 @@ See RR-OUTPUT
 Args:
  - PHYSICAL-DEVICE: <a description>
  - DISPLAY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DISPLAY-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
@@ -4973,9 +5640,15 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - DEVICE-RELATIVE-ID: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    DISPLAY-KHR
+    RESULT)
+
+See DISPLAY-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                           ((physical-device cffi:foreign-pointer) (device-relative-id unsigned-byte))
                           ()
@@ -4992,12 +5665,16 @@ See PHYSICAL-DEVICE
 Args:
  - DEVICE: <a description>
  - DISPLAY: <a description>
- - P-DISPLAY-POWER-INFO: <a description>
-Returns: TODO
+ - DISPLAY-POWER-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See DISPLAY-KHR
 See DISPLAY-POWER-INFO-EXT
+See RESULT
 "
                    ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-power-info (or vk:display-power-info-ext cffi:foreign-pointer)))
                    ()
@@ -5013,13 +5690,19 @@ See DISPLAY-POWER-INFO-EXT
 
 Args:
  - DEVICE: <a description>
- - P-DEVICE-EVENT-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - DEVICE-EVENT-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    FENCE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
 See DEVICE-EVENT-INFO-EXT
+See FENCE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5037,14 +5720,20 @@ See DEVICE-EVENT-INFO-EXT
 Args:
  - DEVICE: <a description>
  - DISPLAY: <a description>
- - P-DISPLAY-EVENT-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - DISPLAY-EVENT-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    FENCE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
 See DISPLAY-EVENT-INFO-EXT
 See DISPLAY-KHR
+See FENCE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5064,9 +5753,14 @@ Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
  - COUNTER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-6-4_T
+    RESULT)
 
 See DEVICE
+See RESULT
 See SURFACE-COUNTER-FLAG-BITS-EXT
 See SWAPCHAIN-KHR
 "
@@ -5086,9 +5780,15 @@ See SWAPCHAIN-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - SURFACE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    SURFACE-CAPABILITIES-2-EXT
+    RESULT)
 
 See PHYSICAL-DEVICE
+See RESULT
+See SURFACE-CAPABILITIES-2-EXT
 See SURFACE-KHR
 "
                        ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
@@ -5104,9 +5804,16 @@ See SURFACE-KHR
 
 Args:
  - INSTANCE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PHYSICAL-DEVICE-GROUP-PROPERTIES
+    RESULT)
 
 See INSTANCE
+See PHYSICAL-DEVICE-GROUP-PROPERTIES
+See RESULT
 "
                       ((instance cffi:foreign-pointer))
                       ()
@@ -5123,9 +5830,16 @@ See INSTANCE
 
 Args:
  - INSTANCE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PHYSICAL-DEVICE-GROUP-PROPERTIES
+    RESULT)
 
 See INSTANCE
+See PHYSICAL-DEVICE-GROUP-PROPERTIES
+See RESULT
 "
                       ((instance cffi:foreign-pointer))
                       ()
@@ -5145,9 +5859,13 @@ Args:
  - HEAP-INDEX: <a description>
  - LOCAL-DEVICE-INDEX: <a description>
  - REMOTE-DEVICE-INDEX: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PEER-MEMORY-FEATURE-FLAGS)
 
 See DEVICE
+See PEER-MEMORY-FEATURE-FLAGS
 "
                        ((device cffi:foreign-pointer) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
                        ())
@@ -5166,9 +5884,13 @@ Args:
  - HEAP-INDEX: <a description>
  - LOCAL-DEVICE-INDEX: <a description>
  - REMOTE-DEVICE-INDEX: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PEER-MEMORY-FEATURE-FLAGS)
 
 See DEVICE
+See PEER-MEMORY-FEATURE-FLAGS
 "
                        ((device cffi:foreign-pointer) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
                        ())
@@ -5184,11 +5906,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-BIND-INFOS: <a description>
-Returns: TODO
+ - BIND-INFOS: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BIND-BUFFER-MEMORY-INFO
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
@@ -5203,11 +5929,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-BIND-INFOS: <a description>
-Returns: TODO
+ - BIND-INFOS: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BIND-BUFFER-MEMORY-INFO
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
@@ -5222,11 +5952,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-BIND-INFOS: <a description>
-Returns: TODO
+ - BIND-INFOS: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BIND-IMAGE-MEMORY-INFO
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
@@ -5241,11 +5975,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-BIND-INFOS: <a description>
-Returns: TODO
+ - BIND-INFOS: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BIND-IMAGE-MEMORY-INFO
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
@@ -5261,7 +5999,6 @@ See DEVICE
 Args:
  - COMMAND-BUFFER: <a description>
  - DEVICE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -5278,7 +6015,6 @@ See COMMAND-BUFFER
 Args:
  - COMMAND-BUFFER: <a description>
  - DEVICE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -5294,9 +6030,15 @@ See COMMAND-BUFFER
 
 Args:
  - DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
+    RESULT)
 
 See DEVICE
+See DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
+See RESULT
 "
                        ((device cffi:foreign-pointer))
                        ())
@@ -5310,9 +6052,15 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - SURFACE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
+    RESULT)
 
 See DEVICE
+See DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
+See RESULT
 See SURFACE-KHR
 "
                        ((device cffi:foreign-pointer) (surface cffi:foreign-pointer))
@@ -5327,11 +6075,16 @@ See SURFACE-KHR
 
 Args:
  - DEVICE: <a description>
- - P-ACQUIRE-INFO: <a description>
-Returns: TODO
+ - ACQUIRE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    RESULT)
 
 See ACQUIRE-NEXT-IMAGE-INFO-KHR
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (acquire-info (or vk:acquire-next-image-info-khr cffi:foreign-pointer)))
                           ()
@@ -5352,7 +6105,6 @@ Args:
  - GROUP-COUNT-X: <a description>
  - GROUP-COUNT-Y: <a description>
  - GROUP-COUNT-Z: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -5379,7 +6131,6 @@ Args:
  - GROUP-COUNT-X: <a description>
  - GROUP-COUNT-Y: <a description>
  - GROUP-COUNT-Z: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -5401,9 +6152,16 @@ See COMMAND-BUFFER
 Args:
  - PHYSICAL-DEVICE: <a description>
  - SURFACE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    RECT-2D
+    RESULT)
 
 See PHYSICAL-DEVICE
+See RECT-2D
+See RESULT
 See SURFACE-KHR
 "
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
@@ -5422,13 +6180,19 @@ See SURFACE-KHR
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-UPDATE-TEMPLATE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE
 See DESCRIPTOR-UPDATE-TEMPLATE-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5444,13 +6208,19 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-UPDATE-TEMPLATE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE
 See DESCRIPTOR-UPDATE-TEMPLATE-CREATE-INFO
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5467,8 +6237,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - DESCRIPTOR-UPDATE-TEMPLATE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DESCRIPTOR-UPDATE-TEMPLATE
@@ -5488,8 +6257,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - DESCRIPTOR-UPDATE-TEMPLATE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DESCRIPTOR-UPDATE-TEMPLATE
@@ -5510,8 +6278,7 @@ Args:
  - DEVICE: <a description>
  - DESCRIPTOR-SET: <a description>
  - DESCRIPTOR-UPDATE-TEMPLATE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
 
 See DESCRIPTOR-SET
 See DESCRIPTOR-UPDATE-TEMPLATE
@@ -5533,8 +6300,7 @@ Args:
  - DEVICE: <a description>
  - DESCRIPTOR-SET: <a description>
  - DESCRIPTOR-UPDATE-TEMPLATE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
 
 See DESCRIPTOR-SET
 See DESCRIPTOR-UPDATE-TEMPLATE
@@ -5557,8 +6323,7 @@ Args:
  - DESCRIPTOR-UPDATE-TEMPLATE: <a description>
  - LAYOUT: <a description>
  - SET: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
 
 See COMMAND-BUFFER
 See DESCRIPTOR-UPDATE-TEMPLATE
@@ -5579,9 +6344,8 @@ See PIPELINE-LAYOUT
 
 Args:
  - DEVICE: <a description>
- - P-SWAPCHAINS: <a description>
- - P-METADATA: <a description>
-Returns: TODO
+ - SWAPCHAINS: <a description>
+ - METADATA: <a description>
 
 See DEVICE
 See HDR-METADATA-EXT
@@ -5603,9 +6367,13 @@ See SWAPCHAIN-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SWAPCHAIN-KHR
 "
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
@@ -5621,9 +6389,15 @@ See SWAPCHAIN-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    REFRESH-CYCLE-DURATION-GOOGLE
+    RESULT)
 
 See DEVICE
+See REFRESH-CYCLE-DURATION-GOOGLE
+See RESULT
 See SWAPCHAIN-KHR
 "
                        ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
@@ -5640,9 +6414,16 @@ See SWAPCHAIN-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PAST-PRESENTATION-TIMING-GOOGLE
+    RESULT)
 
 See DEVICE
+See PAST-PRESENTATION-TIMING-GOOGLE
+See RESULT
 See SWAPCHAIN-KHR
 "
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
@@ -5662,13 +6443,19 @@ See SWAPCHAIN-KHR
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See I-OS-SURFACE-CREATE-INFO-MVK
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:i-os-surface-create-info-mvk cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5685,13 +6472,19 @@ See INSTANCE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
 See MAC-OS-SURFACE-CREATE-INFO-MVK
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5708,13 +6501,19 @@ See MAC-OS-SURFACE-CREATE-INFO-MVK
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See INSTANCE
 See METAL-SURFACE-CREATE-INFO-EXT
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5732,8 +6531,7 @@ See METAL-SURFACE-CREATE-INFO-EXT
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-VIEWPORT: <a description>
- - P-VIEWPORT-W-SCALINGS: <a description>
-Returns: TODO
+ - VIEWPORT-W-SCALINGS: <a description>
 
 See COMMAND-BUFFER
 See VIEWPORT-W-SCALING-NV
@@ -5754,8 +6552,7 @@ See VIEWPORT-W-SCALING-NV
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-DISCARD-RECTANGLE: <a description>
- - P-DISCARD-RECTANGLES: <a description>
-Returns: TODO
+ - DISCARD-RECTANGLES: <a description>
 
 See COMMAND-BUFFER
 See RECT-2D
@@ -5775,8 +6572,7 @@ See RECT-2D
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-SAMPLE-LOCATIONS-INFO: <a description>
-Returns: TODO
+ - SAMPLE-LOCATIONS-INFO: <a description>
 
 See COMMAND-BUFFER
 See SAMPLE-LOCATIONS-INFO-EXT
@@ -5795,8 +6591,12 @@ See SAMPLE-LOCATIONS-INFO-EXT
 Args:
  - PHYSICAL-DEVICE: <a description>
  - SAMPLES: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    MULTISAMPLE-PROPERTIES-EXT)
+
+See MULTISAMPLE-PROPERTIES-EXT
 See PHYSICAL-DEVICE
 See SAMPLE-COUNT-FLAG-BITS
 "
@@ -5813,11 +6613,17 @@ See SAMPLE-COUNT-FLAG-BITS
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-SURFACE-INFO: <a description>
-Returns: TODO
+ - SURFACE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-CAPABILITIES-2-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+See RESULT
+See SURFACE-CAPABILITIES-2-KHR
 "
                        ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                        ())
@@ -5831,11 +6637,18 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-SURFACE-INFO: <a description>
-Returns: TODO
+ - SURFACE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SURFACE-FORMAT-2-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+See RESULT
+See SURFACE-FORMAT-2-KHR
 "
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
@@ -5853,9 +6666,16 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-PROPERTIES-2-KHR
+    RESULT)
+
+See DISPLAY-PROPERTIES-2-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -5872,9 +6692,16 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-PLANE-PROPERTIES-2-KHR
+    RESULT)
+
+See DISPLAY-PLANE-PROPERTIES-2-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -5892,10 +6719,17 @@ See PHYSICAL-DEVICE
 Args:
  - PHYSICAL-DEVICE: <a description>
  - DISPLAY: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    DISPLAY-MODE-PROPERTIES-2-KHR
+    RESULT)
 
 See DISPLAY-KHR
+See DISPLAY-MODE-PROPERTIES-2-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
@@ -5913,11 +6747,17 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-DISPLAY-PLANE-INFO: <a description>
-Returns: TODO
+ - DISPLAY-PLANE-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    DISPLAY-PLANE-CAPABILITIES-2-KHR
+    RESULT)
+
+See DISPLAY-PLANE-CAPABILITIES-2-KHR
 See DISPLAY-PLANE-INFO-2-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                        ((physical-device cffi:foreign-pointer) (display-plane-info (or vk:display-plane-info-2-khr cffi:foreign-pointer)))
                        ())
@@ -5931,11 +6771,15 @@ See PHYSICAL-DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
 
 See BUFFER-MEMORY-REQUIREMENTS-INFO-2
 See DEVICE
+See MEMORY-REQUIREMENTS-2
 "
                        ((device cffi:foreign-pointer) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
@@ -5949,11 +6793,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
 
 See BUFFER-MEMORY-REQUIREMENTS-INFO-2
 See DEVICE
+See MEMORY-REQUIREMENTS-2
 "
                        ((device cffi:foreign-pointer) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
@@ -5967,11 +6815,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
 
 See DEVICE
 See IMAGE-MEMORY-REQUIREMENTS-INFO-2
+See MEMORY-REQUIREMENTS-2
 "
                        ((device cffi:foreign-pointer) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
@@ -5985,11 +6837,15 @@ See IMAGE-MEMORY-REQUIREMENTS-INFO-2
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
 
 See DEVICE
 See IMAGE-MEMORY-REQUIREMENTS-INFO-2
+See MEMORY-REQUIREMENTS-2
 "
                        ((device cffi:foreign-pointer) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
                        ())
@@ -6003,11 +6859,16 @@ See IMAGE-MEMORY-REQUIREMENTS-INFO-2
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SPARSE-IMAGE-MEMORY-REQUIREMENTS-2)
 
 See DEVICE
 See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
+See SPARSE-IMAGE-MEMORY-REQUIREMENTS-2
 "
                         ((device cffi:foreign-pointer) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
                         ()
@@ -6025,11 +6886,16 @@ See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    SPARSE-IMAGE-MEMORY-REQUIREMENTS-2)
 
 See DEVICE
 See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
+See SPARSE-IMAGE-MEMORY-REQUIREMENTS-2
 "
                         ((device cffi:foreign-pointer) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
                         ()
@@ -6047,12 +6913,18 @@ See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SAMPLER-YCBCR-CONVERSION
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
+See SAMPLER-YCBCR-CONVERSION
 See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
@@ -6069,12 +6941,18 @@ See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SAMPLER-YCBCR-CONVERSION
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
+See SAMPLER-YCBCR-CONVERSION
 See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
@@ -6092,8 +6970,7 @@ See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 Args:
  - DEVICE: <a description>
  - YCBCR-CONVERSION: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -6113,8 +6990,7 @@ See SAMPLER-YCBCR-CONVERSION
 Args:
  - DEVICE: <a description>
  - YCBCR-CONVERSION: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -6133,11 +7009,15 @@ See SAMPLER-YCBCR-CONVERSION
 
 Args:
  - DEVICE: <a description>
- - P-QUEUE-INFO: <a description>
-Returns: TODO
+ - QUEUE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    QUEUE)
 
 See DEVICE
 See DEVICE-QUEUE-INFO-2
+See QUEUE
 "
                           ((device cffi:foreign-pointer) (queue-info (or vk:device-queue-info-2 cffi:foreign-pointer)))
                           ()
@@ -6152,13 +7032,19 @@ See DEVICE-QUEUE-INFO-2
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    VALIDATION-CACHE-EXT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
 See VALIDATION-CACHE-CREATE-INFO-EXT
+See VALIDATION-CACHE-EXT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6176,8 +7062,7 @@ See VALIDATION-CACHE-CREATE-INFO-EXT
 Args:
  - DEVICE: <a description>
  - VALIDATION-CACHE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -6198,10 +7083,15 @@ See VALIDATION-CACHE-EXT
 Args:
  - DEVICE: <a description>
  - VALIDATION-CACHE: <a description>
- - P-DATA: (optional) <a description>
-Returns: TODO
+ - DATA: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SIZE_T
+    RESULT)
 
 See DEVICE
+See RESULT
 See VALIDATION-CACHE-EXT
 "
                           ((device cffi:foreign-pointer) (validation-cache cffi:foreign-pointer))
@@ -6220,10 +7110,14 @@ See VALIDATION-CACHE-EXT
 Args:
  - DEVICE: <a description>
  - DST-CACHE: <a description>
- - P-SRC-CACHES: <a description>
-Returns: TODO
+ - SRC-CACHES: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See VALIDATION-CACHE-EXT
 "
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches list))
@@ -6241,10 +7135,14 @@ See VALIDATION-CACHE-EXT
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-SET-LAYOUT-SUPPORT)
 
 See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+See DESCRIPTOR-SET-LAYOUT-SUPPORT
 See DEVICE
 "
                        ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
@@ -6259,10 +7157,14 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DESCRIPTOR-SET-LAYOUT-SUPPORT)
 
 See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+See DESCRIPTOR-SET-LAYOUT-SUPPORT
 See DEVICE
 "
                        ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
@@ -6280,11 +7182,16 @@ Args:
  - PIPELINE: <a description>
  - SHADER-STAGE: <a description>
  - INFO-TYPE: <a description>
- - P-INFO: (optional) <a description>
-Returns: TODO
+ - INFO: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SIZE_T
+    RESULT)
 
 See DEVICE
 See PIPELINE
+See RESULT
 See SHADER-INFO-TYPE-AMD
 See SHADER-STAGE-FLAG-BITS
 "
@@ -6307,7 +7214,6 @@ Args:
  - DEVICE: <a description>
  - SWAP-CHAIN: <a description>
  - LOCAL-DIMMING-ENABLE: <a description>
-Returns: TODO
 
 See BOOL32
 See DEVICE
@@ -6327,9 +7233,16 @@ See SWAPCHAIN-KHR
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    TIME-DOMAIN-EXT
+    RESULT)
 
 See PHYSICAL-DEVICE
+See RESULT
+See TIME-DOMAIN-EXT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -6347,11 +7260,17 @@ See PHYSICAL-DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-TIMESTAMP-INFOS: <a description>
-Returns: TODO
+ - TIMESTAMP-INFOS: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-6-4_T
+    UINT-6-4_T
+    RESULT)
 
 See CALIBRATED-TIMESTAMP-INFO-EXT
 See DEVICE
+See RESULT
 "
                                    ((device cffi:foreign-pointer) (timestamp-infos list))
                                    ()
@@ -6370,11 +7289,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-NAME-INFO: <a description>
-Returns: TODO
+ - NAME-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEBUG-UTILS-OBJECT-NAME-INFO-EXT
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-utils-object-name-info-ext cffi:foreign-pointer)))
                    ()
@@ -6389,11 +7312,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-TAG-INFO: <a description>
-Returns: TODO
+ - TAG-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEBUG-UTILS-OBJECT-TAG-INFO-EXT
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-utils-object-tag-info-ext cffi:foreign-pointer)))
                    ()
@@ -6408,8 +7335,7 @@ See DEVICE
 
 Args:
  - QUEUE: <a description>
- - P-LABEL-INFO: <a description>
-Returns: TODO
+ - LABEL-INFO: <a description>
 
 See DEBUG-UTILS-LABEL-EXT
 See QUEUE
@@ -6427,7 +7353,6 @@ See QUEUE
 
 Args:
  - QUEUE: <a description>
-Returns: TODO
 
 See QUEUE
 "
@@ -6443,8 +7368,7 @@ See QUEUE
 
 Args:
  - QUEUE: <a description>
- - P-LABEL-INFO: <a description>
-Returns: TODO
+ - LABEL-INFO: <a description>
 
 See DEBUG-UTILS-LABEL-EXT
 See QUEUE
@@ -6462,8 +7386,7 @@ See QUEUE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-LABEL-INFO: <a description>
-Returns: TODO
+ - LABEL-INFO: <a description>
 
 See COMMAND-BUFFER
 See DEBUG-UTILS-LABEL-EXT
@@ -6481,7 +7404,6 @@ See DEBUG-UTILS-LABEL-EXT
 
 Args:
  - COMMAND-BUFFER: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -6497,8 +7419,7 @@ See COMMAND-BUFFER
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-LABEL-INFO: <a description>
-Returns: TODO
+ - LABEL-INFO: <a description>
 
 See COMMAND-BUFFER
 See DEBUG-UTILS-LABEL-EXT
@@ -6516,13 +7437,19 @@ See DEBUG-UTILS-LABEL-EXT
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DEBUG-UTILS-MESSENGER-EXT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEBUG-UTILS-MESSENGER-CREATE-INFO-EXT
+See DEBUG-UTILS-MESSENGER-EXT
 See INSTANCE
+See RESULT
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6540,8 +7467,7 @@ See INSTANCE
 Args:
  - INSTANCE: <a description>
  - MESSENGER: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEBUG-UTILS-MESSENGER-EXT
@@ -6563,8 +7489,7 @@ Args:
  - INSTANCE: <a description>
  - MESSAGE-SEVERITY: <a description>
  - MESSAGE-TYPES: <a description>
- - P-CALLBACK-DATA: <a description>
-Returns: TODO
+ - CALLBACK-DATA: <a description>
 
 See DEBUG-UTILS-MESSAGE-SEVERITY-FLAG-BITS-EXT
 See DEBUG-UTILS-MESSAGE-TYPE-FLAGS-EXT
@@ -6587,11 +7512,17 @@ See INSTANCE
 Args:
  - DEVICE: <a description>
  - HANDLE-TYPE: <a description>
- - P-HOST-POINTER: <a description>
-Returns: TODO
+ - HOST-POINTER: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-HOST-POINTER-PROPERTIES-EXT
+    RESULT)
 
 See DEVICE
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+See MEMORY-HOST-POINTER-PROPERTIES-EXT
+See RESULT
 "
                        ((device cffi:foreign-pointer) (handle-type keyword) (host-pointer cffi:foreign-pointer))
                        ()
@@ -6611,7 +7542,6 @@ Args:
  - DST-BUFFER: <a description>
  - DST-OFFSET: <a description>
  - MARKER: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -6634,13 +7564,19 @@ See PIPELINE-STAGE-FLAG-BITS
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    RENDER-PASS
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RENDER-PASS
 See RENDER-PASS-CREATE-INFO-2
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6656,13 +7592,19 @@ See RENDER-PASS-CREATE-INFO-2
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    RENDER-PASS
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RENDER-PASS
 See RENDER-PASS-CREATE-INFO-2
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6678,9 +7620,8 @@ See RENDER-PASS-CREATE-INFO-2
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-RENDER-PASS-BEGIN: <a description>
- - P-SUBPASS-BEGIN-INFO: <a description>
-Returns: TODO
+ - RENDER-PASS-BEGIN: <a description>
+ - SUBPASS-BEGIN-INFO: <a description>
 
 See COMMAND-BUFFER
 See RENDER-PASS-BEGIN-INFO
@@ -6699,9 +7640,8 @@ See SUBPASS-BEGIN-INFO
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-RENDER-PASS-BEGIN: <a description>
- - P-SUBPASS-BEGIN-INFO: <a description>
-Returns: TODO
+ - RENDER-PASS-BEGIN: <a description>
+ - SUBPASS-BEGIN-INFO: <a description>
 
 See COMMAND-BUFFER
 See RENDER-PASS-BEGIN-INFO
@@ -6720,9 +7660,8 @@ See SUBPASS-BEGIN-INFO
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-SUBPASS-BEGIN-INFO: <a description>
- - P-SUBPASS-END-INFO: <a description>
-Returns: TODO
+ - SUBPASS-BEGIN-INFO: <a description>
+ - SUBPASS-END-INFO: <a description>
 
 See COMMAND-BUFFER
 See SUBPASS-BEGIN-INFO
@@ -6741,9 +7680,8 @@ See SUBPASS-END-INFO
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-SUBPASS-BEGIN-INFO: <a description>
- - P-SUBPASS-END-INFO: <a description>
-Returns: TODO
+ - SUBPASS-BEGIN-INFO: <a description>
+ - SUBPASS-END-INFO: <a description>
 
 See COMMAND-BUFFER
 See SUBPASS-BEGIN-INFO
@@ -6762,8 +7700,7 @@ See SUBPASS-END-INFO
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-SUBPASS-END-INFO: <a description>
-Returns: TODO
+ - SUBPASS-END-INFO: <a description>
 
 See COMMAND-BUFFER
 See SUBPASS-END-INFO
@@ -6780,8 +7717,7 @@ See SUBPASS-END-INFO
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-SUBPASS-END-INFO: <a description>
-Returns: TODO
+ - SUBPASS-END-INFO: <a description>
 
 See COMMAND-BUFFER
 See SUBPASS-END-INFO
@@ -6799,9 +7735,14 @@ See SUBPASS-END-INFO
 Args:
  - DEVICE: <a description>
  - SEMAPHORE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-6-4_T
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE
 "
                           ((device cffi:foreign-pointer) (semaphore cffi:foreign-pointer))
@@ -6818,9 +7759,14 @@ See SEMAPHORE
 Args:
  - DEVICE: <a description>
  - SEMAPHORE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-6-4_T
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE
 "
                           ((device cffi:foreign-pointer) (semaphore cffi:foreign-pointer))
@@ -6836,11 +7782,15 @@ See SEMAPHORE
 
 Args:
  - DEVICE: <a description>
- - P-WAIT-INFO: <a description>
+ - WAIT-INFO: <a description>
  - TIMEOUT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE-WAIT-INFO
 "
                    ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
@@ -6856,11 +7806,15 @@ See SEMAPHORE-WAIT-INFO
 
 Args:
  - DEVICE: <a description>
- - P-WAIT-INFO: <a description>
+ - WAIT-INFO: <a description>
  - TIMEOUT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE-WAIT-INFO
 "
                    ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
@@ -6876,10 +7830,14 @@ See SEMAPHORE-WAIT-INFO
 
 Args:
  - DEVICE: <a description>
- - P-SIGNAL-INFO: <a description>
-Returns: TODO
+ - SIGNAL-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE-SIGNAL-INFO
 "
                    ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
@@ -6894,10 +7852,14 @@ See SEMAPHORE-SIGNAL-INFO
 
 Args:
  - DEVICE: <a description>
- - P-SIGNAL-INFO: <a description>
-Returns: TODO
+ - SIGNAL-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SEMAPHORE-SIGNAL-INFO
 "
                    ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
@@ -6913,10 +7875,16 @@ See SEMAPHORE-SIGNAL-INFO
 Args:
  - DEVICE: <a description>
  - BUFFER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
+    RESULT)
 
 See A-HARDWARE-BUFFER
+See ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
 See DEVICE
+See RESULT
 "
                        ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
                        ()
@@ -6931,11 +7899,17 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    A-HARDWARE-BUFFER
+    RESULT)
+
+See A-HARDWARE-BUFFER
 See DEVICE
 See MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
+See RESULT
 "
                        ((device cffi:foreign-pointer) (info (or vk:memory-get-android-hardware-buffer-info-android cffi:foreign-pointer)))
                        ()
@@ -6956,7 +7930,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -6985,7 +7958,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7015,7 +7987,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7044,7 +8015,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7073,7 +8043,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7103,7 +8072,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7126,8 +8094,7 @@ See DEVICE-SIZE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-CHECKPOINT-MARKER: <a description>
-Returns: TODO
+ - CHECKPOINT-MARKER: <a description>
 
 See COMMAND-BUFFER
 "
@@ -7144,8 +8111,13 @@ See COMMAND-BUFFER
 
 Args:
  - QUEUE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    CHECKPOINT-DATA-NV)
+
+See CHECKPOINT-DATA-NV
 See QUEUE
 "
                         ((queue cffi:foreign-pointer))
@@ -7165,10 +8137,9 @@ See QUEUE
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-BINDING: <a description>
- - P-BUFFERS: <a description>
- - P-OFFSETS: <a description>
- - P-SIZES: (optional) <a description>
-Returns: TODO
+ - BUFFERS: <a description>
+ - OFFSETS: <a description>
+ - SIZES: (optional) <a description>
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7192,9 +8163,8 @@ See DEVICE-SIZE
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-COUNTER-BUFFER: <a description>
- - P-COUNTER-BUFFERS: <a description>
- - P-COUNTER-BUFFER-OFFSETS: (optional) <a description>
-Returns: TODO
+ - COUNTER-BUFFERS: <a description>
+ - COUNTER-BUFFER-OFFSETS: (optional) <a description>
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7217,9 +8187,8 @@ See DEVICE-SIZE
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-COUNTER-BUFFER: <a description>
- - P-COUNTER-BUFFERS: <a description>
- - P-COUNTER-BUFFER-OFFSETS: (optional) <a description>
-Returns: TODO
+ - COUNTER-BUFFERS: <a description>
+ - COUNTER-BUFFER-OFFSETS: (optional) <a description>
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7245,7 +8214,6 @@ Args:
  - QUERY: <a description>
  - INDEX: <a description>
  - FLAGS: (optional) <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See QUERY-CONTROL-FLAGS
@@ -7270,7 +8238,6 @@ Args:
  - QUERY-POOL: <a description>
  - QUERY: <a description>
  - INDEX: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See QUERY-POOL
@@ -7296,7 +8263,6 @@ Args:
  - COUNTER-BUFFER-OFFSET: <a description>
  - COUNTER-OFFSET: <a description>
  - VERTEX-STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7321,8 +8287,7 @@ See DEVICE-SIZE
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-EXCLUSIVE-SCISSOR: <a description>
- - P-EXCLUSIVE-SCISSORS: <a description>
-Returns: TODO
+ - EXCLUSIVE-SCISSORS: <a description>
 
 See COMMAND-BUFFER
 See RECT-2D
@@ -7344,7 +8309,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - IMAGE-LAYOUT: <a description>
  - IMAGE-VIEW: (optional) <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See IMAGE-LAYOUT
@@ -7365,8 +8329,7 @@ See IMAGE-VIEW
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-VIEWPORT: <a description>
- - P-SHADING-RATE-PALETTES: <a description>
-Returns: TODO
+ - SHADING-RATE-PALETTES: <a description>
 
 See COMMAND-BUFFER
 See SHADING-RATE-PALETTE-NV
@@ -7387,8 +8350,7 @@ See SHADING-RATE-PALETTE-NV
 Args:
  - COMMAND-BUFFER: <a description>
  - SAMPLE-ORDER-TYPE: <a description>
- - P-CUSTOM-SAMPLE-ORDERS: <a description>
-Returns: TODO
+ - CUSTOM-SAMPLE-ORDERS: <a description>
 
 See COARSE-SAMPLE-ORDER-CUSTOM-NV
 See COARSE-SAMPLE-ORDER-TYPE-NV
@@ -7411,7 +8373,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - TASK-COUNT: <a description>
  - FIRST-TASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -7433,7 +8394,6 @@ Args:
  - OFFSET: <a description>
  - DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7461,7 +8421,6 @@ Args:
  - COUNT-BUFFER-OFFSET: <a description>
  - MAX-DRAW-COUNT: <a description>
  - STRIDE: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7487,10 +8446,14 @@ Args:
  - DEVICE: <a description>
  - PIPELINE: <a description>
  - SHADER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See PIPELINE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader unsigned-byte))
                    ()
@@ -7506,13 +8469,19 @@ See PIPELINE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    ACCELERATION-STRUCTURE-NV
+    RESULT)
 
 See ACCELERATION-STRUCTURE-CREATE-INFO-NV
+See ACCELERATION-STRUCTURE-NV
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -7530,8 +8499,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - ACCELERATION-STRUCTURE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ACCELERATION-STRUCTURE-KHR
 See ALLOCATION-CALLBACKS
@@ -7551,8 +8519,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - ACCELERATION-STRUCTURE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ACCELERATION-STRUCTURE-NV
 See ALLOCATION-CALLBACKS
@@ -7572,11 +8539,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2-KHR)
 
 See ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-INFO-NV
 See DEVICE
+See MEMORY-REQUIREMENTS-2-KHR
 "
                        ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-memory-requirements-info-nv cffi:foreign-pointer)))
                        ()
@@ -7591,11 +8562,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-BIND-INFOS: <a description>
-Returns: TODO
+ - BIND-INFOS: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (bind-infos list))
                    ()
@@ -7614,7 +8589,6 @@ Args:
  - DST: <a description>
  - SRC: <a description>
  - MODE: <a description>
-Returns: TODO
 
 See ACCELERATION-STRUCTURE-NV
 See COMMAND-BUFFER
@@ -7635,8 +8609,7 @@ See COPY-ACCELERATION-STRUCTURE-MODE-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-ACCELERATION-STRUCTURE-INFO-KHR
@@ -7653,13 +8626,17 @@ See COPY-ACCELERATION-STRUCTURE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
+ - INFO: <a description>
  - DEFERRED-OPERATION: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COPY-ACCELERATION-STRUCTURE-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
@@ -7674,8 +8651,7 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
@@ -7692,13 +8668,17 @@ See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
+ - INFO: <a description>
  - DEFERRED-OPERATION: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
@@ -7713,8 +8693,7 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
@@ -7731,13 +8710,17 @@ See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
+ - INFO: <a description>
  - DEFERRED-OPERATION: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
@@ -7752,11 +8735,10 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-ACCELERATION-STRUCTURES: <a description>
+ - ACCELERATION-STRUCTURES: <a description>
  - QUERY-TYPE: <a description>
  - QUERY-POOL: <a description>
  - FIRST-QUERY: <a description>
-Returns: TODO
 
 See ACCELERATION-STRUCTURE-KHR
 See COMMAND-BUFFER
@@ -7779,11 +8761,10 @@ See QUERY-TYPE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-ACCELERATION-STRUCTURES: <a description>
+ - ACCELERATION-STRUCTURES: <a description>
  - QUERY-TYPE: <a description>
  - QUERY-POOL: <a description>
  - FIRST-QUERY: <a description>
-Returns: TODO
 
 See ACCELERATION-STRUCTURE-NV
 See COMMAND-BUFFER
@@ -7807,7 +8788,7 @@ See QUERY-TYPE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-INFO: <a description>
+ - INFO: <a description>
  - INSTANCE-OFFSET: <a description>
  - UPDATE: <a description>
  - DST: <a description>
@@ -7815,7 +8796,6 @@ Args:
  - SCRATCH-OFFSET: <a description>
  - INSTANCE-DATA: (optional) <a description>
  - SRC: (optional) <a description>
-Returns: TODO
 
 See ACCELERATION-STRUCTURE-INFO-NV
 See ACCELERATION-STRUCTURE-NV
@@ -7844,16 +8824,20 @@ See DEVICE-SIZE
 
 Args:
  - DEVICE: <a description>
- - P-ACCELERATION-STRUCTURES: <a description>
+ - ACCELERATION-STRUCTURES: <a description>
  - QUERY-TYPE: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
+ - DATA: <a description>
  - STRIDE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See ACCELERATION-STRUCTURE-KHR
 See DEVICE
 See QUERY-TYPE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (acceleration-structures list) (query-type keyword) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
                    ()
@@ -7872,14 +8856,13 @@ See QUERY-TYPE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-RAYGEN-SHADER-BINDING-TABLE: <a description>
- - P-MISS-SHADER-BINDING-TABLE: <a description>
- - P-HIT-SHADER-BINDING-TABLE: <a description>
- - P-CALLABLE-SHADER-BINDING-TABLE: <a description>
+ - RAYGEN-SHADER-BINDING-TABLE: <a description>
+ - MISS-SHADER-BINDING-TABLE: <a description>
+ - HIT-SHADER-BINDING-TABLE: <a description>
+ - CALLABLE-SHADER-BINDING-TABLE: <a description>
  - WIDTH: <a description>
  - HEIGHT: <a description>
  - DEPTH: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See STRIDED-DEVICE-ADDRESS-REGION-KHR
@@ -7916,7 +8899,6 @@ Args:
  - MISS-SHADER-BINDING-TABLE-BUFFER: (optional) <a description>
  - HIT-SHADER-BINDING-TABLE-BUFFER: (optional) <a description>
  - CALLABLE-SHADER-BINDING-TABLE-BUFFER: (optional) <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -7952,11 +8934,15 @@ Args:
  - FIRST-GROUP: <a description>
  - GROUP-COUNT: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See PIPELINE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
@@ -7978,11 +8964,15 @@ Args:
  - FIRST-GROUP: <a description>
  - GROUP-COUNT: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See PIPELINE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
@@ -8005,11 +8995,15 @@ Args:
  - FIRST-GROUP: <a description>
  - GROUP-COUNT: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See PIPELINE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
@@ -8029,11 +9023,15 @@ Args:
  - DEVICE: <a description>
  - ACCELERATION-STRUCTURE: <a description>
  - DATA-SIZE: <a description>
- - P-DATA: <a description>
-Returns: TODO
+ - DATA: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See ACCELERATION-STRUCTURE-NV
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (acceleration-structure cffi:foreign-pointer) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
@@ -8050,15 +9048,21 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFOS: <a description>
+ - CREATE-INFOS: <a description>
  - PIPELINE-CACHE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PIPELINE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See PIPELINE
 See PIPELINE-CACHE
 See RAY-TRACING-PIPELINE-CREATE-INFO-NV
+See RESULT
 "
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8077,17 +9081,23 @@ See RAY-TRACING-PIPELINE-CREATE-INFO-NV
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFOS: <a description>
+ - CREATE-INFOS: <a description>
  - DEFERRED-OPERATION: (optional) <a description>
  - PIPELINE-CACHE: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PIPELINE
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See PIPELINE
 See PIPELINE-CACHE
 See RAY-TRACING-PIPELINE-CREATE-INFO-KHR
+See RESULT
 "
                            ((device cffi:foreign-pointer) (create-infos list))
                            (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer) ((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8106,9 +9116,16 @@ See RAY-TRACING-PIPELINE-CREATE-INFO-KHR
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    COOPERATIVE-MATRIX-PROPERTIES-NV
+    RESULT)
+
+See COOPERATIVE-MATRIX-PROPERTIES-NV
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -8126,12 +9143,11 @@ See PHYSICAL-DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-RAYGEN-SHADER-BINDING-TABLE: <a description>
- - P-MISS-SHADER-BINDING-TABLE: <a description>
- - P-HIT-SHADER-BINDING-TABLE: <a description>
- - P-CALLABLE-SHADER-BINDING-TABLE: <a description>
+ - RAYGEN-SHADER-BINDING-TABLE: <a description>
+ - MISS-SHADER-BINDING-TABLE: <a description>
+ - HIT-SHADER-BINDING-TABLE: <a description>
+ - CALLABLE-SHADER-BINDING-TABLE: <a description>
  - INDIRECT-DEVICE-ADDRESS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See DEVICE-ADDRESS
@@ -8153,9 +9169,13 @@ See STRIDED-DEVICE-ADDRESS-REGION-KHR
 
 Args:
  - DEVICE: <a description>
- - P-VERSION-INFO: <a description>
-Returns: TODO
+ - VERSION-INFO: <a description>
 
+Returns:
+  (CL:VALUES
+    ACCELERATION-STRUCTURE-COMPATIBILITY-KHR)
+
+See ACCELERATION-STRUCTURE-COMPATIBILITY-KHR
 See ACCELERATION-STRUCTURE-VERSION-INFO-KHR
 See DEVICE
 "
@@ -8174,9 +9194,13 @@ Args:
  - PIPELINE: <a description>
  - GROUP: <a description>
  - GROUP-SHADER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    DEVICE-SIZE ;; (UNSIGNED-BYTE 64))
 
 See DEVICE
+See DEVICE-SIZE
 See PIPELINE
 See SHADER-GROUP-SHADER-KHR
 "
@@ -8195,7 +9219,6 @@ See SHADER-GROUP-SHADER-KHR
 Args:
  - COMMAND-BUFFER: <a description>
  - PIPELINE-STACK-SIZE: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -8211,8 +9234,11 @@ See COMMAND-BUFFER
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
 
 See DEVICE
 See IMAGE-VIEW-HANDLE-INFO-NV-X
@@ -8231,10 +9257,16 @@ See IMAGE-VIEW-HANDLE-INFO-NV-X
 Args:
  - DEVICE: <a description>
  - IMAGE-VIEW: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    IMAGE-VIEW-ADDRESS-PROPERTIES-NV-X
+    RESULT)
 
 See DEVICE
 See IMAGE-VIEW
+See IMAGE-VIEW-ADDRESS-PROPERTIES-NV-X
+See RESULT
 "
                        ((device cffi:foreign-pointer) (image-view cffi:foreign-pointer))
                        ()
@@ -8249,11 +9281,18 @@ See IMAGE-VIEW
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-SURFACE-INFO: <a description>
-Returns: TODO
+ - SURFACE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PRESENT-MODE-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+See PRESENT-MODE-KHR
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
@@ -8272,11 +9311,17 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 
 Args:
  - DEVICE: <a description>
- - P-SURFACE-INFO: <a description>
-Returns: TODO
+ - SURFACE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
+    RESULT)
 
 See DEVICE
+See DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
 See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+See RESULT
 "
                        ((device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                        ()
@@ -8292,9 +9337,13 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SWAPCHAIN-KHR
 "
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
@@ -8311,9 +9360,13 @@ See SWAPCHAIN-KHR
 Args:
  - DEVICE: <a description>
  - SWAPCHAIN: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
+See RESULT
 See SWAPCHAIN-KHR
 "
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
@@ -8330,9 +9383,18 @@ See SWAPCHAIN-KHR
 Args:
  - PHYSICAL-DEVICE: <a description>
  - QUEUE-FAMILY-INDEX: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PERFORMANCE-COUNTER-KHR
+    PERFORMANCE-COUNTER-DESCRIPTION-KHR
+    RESULT)
+
+See PERFORMANCE-COUNTER-DESCRIPTION-KHR
+See PERFORMANCE-COUNTER-KHR
 See PHYSICAL-DEVICE
+See RESULT
 "
                                  ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                                  ()
@@ -8351,8 +9413,11 @@ See PHYSICAL-DEVICE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
- - P-PERFORMANCE-QUERY-CREATE-INFO: <a description>
-Returns: TODO
+ - PERFORMANCE-QUERY-CREATE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T)
 
 See PHYSICAL-DEVICE
 See QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
@@ -8370,11 +9435,15 @@ See QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See ACQUIRE-PROFILING-LOCK-INFO-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (info (or vk:acquire-profiling-lock-info-khr cffi:foreign-pointer)))
                    ()
@@ -8388,7 +9457,6 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
-Returns: TODO
 
 See DEVICE
 "
@@ -8404,10 +9472,16 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - IMAGE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
+    RESULT)
 
 See DEVICE
 See IMAGE
+See IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
+See RESULT
 "
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                        ()
@@ -8422,8 +9496,11 @@ See IMAGE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
 
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
@@ -8440,8 +9517,11 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
 
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
@@ -8458,11 +9538,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE-ADDRESS ;; (UNSIGNED-BYTE 64))
 
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
+See DEVICE-ADDRESS
 "
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
@@ -8476,11 +9560,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE-ADDRESS ;; (UNSIGNED-BYTE 64))
 
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
+See DEVICE-ADDRESS
 "
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
@@ -8495,11 +9583,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE-ADDRESS ;; (UNSIGNED-BYTE 64))
 
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
+See DEVICE-ADDRESS
 "
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
@@ -8513,13 +9605,19 @@ See DEVICE
 
 Args:
  - INSTANCE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    SURFACE-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See HEADLESS-SURFACE-CREATE-INFO-EXT
 See INSTANCE
+See RESULT
+See SURFACE-KHR
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8536,9 +9634,16 @@ See INSTANCE
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NV
+    RESULT)
+
+See FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NV
 See PHYSICAL-DEVICE
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -8556,11 +9661,15 @@ See PHYSICAL-DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INITIALIZE-INFO: <a description>
-Returns: TODO
+ - INITIALIZE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See INITIALIZE-PERFORMANCE-API-INFO-INTEL
+See RESULT
 "
                    ((device cffi:foreign-pointer) (initialize-info (or vk:initialize-performance-api-info-intel cffi:foreign-pointer)))
                    ()
@@ -8575,7 +9684,6 @@ See INITIALIZE-PERFORMANCE-API-INFO-INTEL
 
 Args:
  - DEVICE: <a description>
-Returns: TODO
 
 See DEVICE
 "
@@ -8591,11 +9699,15 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-MARKER-INFO: <a description>
-Returns: TODO
+ - MARKER-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-BUFFER
 See PERFORMANCE-MARKER-INFO-INTEL
+See RESULT
 "
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-marker-info-intel cffi:foreign-pointer)))
                    ()
@@ -8610,11 +9722,15 @@ See PERFORMANCE-MARKER-INFO-INTEL
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-MARKER-INFO: <a description>
-Returns: TODO
+ - MARKER-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-BUFFER
 See PERFORMANCE-STREAM-MARKER-INFO-INTEL
+See RESULT
 "
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-stream-marker-info-intel cffi:foreign-pointer)))
                    ()
@@ -8629,11 +9745,15 @@ See PERFORMANCE-STREAM-MARKER-INFO-INTEL
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-OVERRIDE-INFO: <a description>
-Returns: TODO
+ - OVERRIDE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See COMMAND-BUFFER
 See PERFORMANCE-OVERRIDE-INFO-INTEL
+See RESULT
 "
                    ((command-buffer cffi:foreign-pointer) (override-info (or vk:performance-override-info-intel cffi:foreign-pointer)))
                    ()
@@ -8648,11 +9768,17 @@ See PERFORMANCE-OVERRIDE-INFO-INTEL
 
 Args:
  - DEVICE: <a description>
- - P-ACQUIRE-INFO: <a description>
-Returns: TODO
+ - ACQUIRE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    PERFORMANCE-CONFIGURATION-INTEL
+    RESULT)
 
 See DEVICE
 See PERFORMANCE-CONFIGURATION-ACQUIRE-INFO-INTEL
+See PERFORMANCE-CONFIGURATION-INTEL
+See RESULT
 "
                           ((device cffi:foreign-pointer) (acquire-info (or vk:performance-configuration-acquire-info-intel cffi:foreign-pointer)))
                           ()
@@ -8669,10 +9795,14 @@ See PERFORMANCE-CONFIGURATION-ACQUIRE-INFO-INTEL
 Args:
  - DEVICE: <a description>
  - CONFIGURATION: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See PERFORMANCE-CONFIGURATION-INTEL
+See RESULT
 "
                    ((device cffi:foreign-pointer))
                    (((configuration (cffi:null-pointer)) cffi:foreign-pointer))
@@ -8688,10 +9818,14 @@ See PERFORMANCE-CONFIGURATION-INTEL
 Args:
  - QUEUE: <a description>
  - CONFIGURATION: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See PERFORMANCE-CONFIGURATION-INTEL
 See QUEUE
+See RESULT
 "
                    ((queue cffi:foreign-pointer) (configuration cffi:foreign-pointer))
                    ()
@@ -8707,10 +9841,16 @@ See QUEUE
 Args:
  - DEVICE: <a description>
  - PARAMETER: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    PERFORMANCE-VALUE-INTEL
+    RESULT)
 
 See DEVICE
 See PERFORMANCE-PARAMETER-TYPE-INTEL
+See PERFORMANCE-VALUE-INTEL
+See RESULT
 "
                        ((device cffi:foreign-pointer) (parameter keyword))
                        ()
@@ -8725,8 +9865,11 @@ See PERFORMANCE-PARAMETER-TYPE-INTEL
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
 
 See DEVICE
 See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
@@ -8743,8 +9886,11 @@ See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
 
 See DEVICE
 See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
@@ -8761,11 +9907,18 @@ See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
 
 Args:
  - DEVICE: <a description>
- - P-PIPELINE-INFO: <a description>
-Returns: TODO
+ - PIPELINE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PIPELINE-EXECUTABLE-PROPERTIES-KHR
+    RESULT)
 
 See DEVICE
+See PIPELINE-EXECUTABLE-PROPERTIES-KHR
 See PIPELINE-INFO-KHR
+See RESULT
 "
                       ((device cffi:foreign-pointer) (pipeline-info (or vk:pipeline-info-khr cffi:foreign-pointer)))
                       ()
@@ -8783,11 +9936,18 @@ See PIPELINE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-EXECUTABLE-INFO: <a description>
-Returns: TODO
+ - EXECUTABLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PIPELINE-EXECUTABLE-STATISTIC-KHR
+    RESULT)
 
 See DEVICE
 See PIPELINE-EXECUTABLE-INFO-KHR
+See PIPELINE-EXECUTABLE-STATISTIC-KHR
+See RESULT
 "
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
@@ -8805,11 +9965,18 @@ See PIPELINE-EXECUTABLE-INFO-KHR
 
 Args:
  - DEVICE: <a description>
- - P-EXECUTABLE-INFO: <a description>
-Returns: TODO
+ - EXECUTABLE-INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR
+    RESULT)
 
 See DEVICE
 See PIPELINE-EXECUTABLE-INFO-KHR
+See PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR
+See RESULT
 "
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
@@ -8829,7 +9996,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - LINE-STIPPLE-FACTOR: <a description>
  - LINE-STIPPLE-PATTERN: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 "
@@ -8847,9 +10013,16 @@ See COMMAND-BUFFER
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
+    RESULT)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -8867,13 +10040,19 @@ See PHYSICAL-DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    ACCELERATION-STRUCTURE-KHR
+    RESULT)
 
 See ACCELERATION-STRUCTURE-CREATE-INFO-KHR
+See ACCELERATION-STRUCTURE-KHR
 See ALLOCATION-CALLBACKS
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-khr cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8889,9 +10068,8 @@ See DEVICE
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-INFOS: <a description>
- - PP-BUILD-RANGE-INFOS: <a description>
-Returns: TODO
+ - INFOS: <a description>
+ - P-BUILD-RANGE-INFOS: <a description>
 
 See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR
@@ -8911,11 +10089,10 @@ See COMMAND-BUFFER
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-INFOS: <a description>
- - P-INDIRECT-DEVICE-ADDRESSES: <a description>
- - P-INDIRECT-STRIDES: <a description>
- - PP-MAX-PRIMITIVE-COUNTS: <a description>
-Returns: TODO
+ - INFOS: <a description>
+ - INDIRECT-DEVICE-ADDRESSES: <a description>
+ - INDIRECT-STRIDES: <a description>
+ - P-MAX-PRIMITIVE-COUNTS: <a description>
 
 See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See COMMAND-BUFFER
@@ -8937,15 +10114,19 @@ See DEVICE-ADDRESS
 
 Args:
  - DEVICE: <a description>
- - P-INFOS: <a description>
- - PP-BUILD-RANGE-INFOS: <a description>
+ - INFOS: <a description>
+ - P-BUILD-RANGE-INFOS: <a description>
  - DEFERRED-OPERATION: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (infos list) (p-build-range-infos list))
                    (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
@@ -8962,11 +10143,15 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-INFO: <a description>
-Returns: TODO
+ - INFO: <a description>
+
+Returns:
+  (CL:VALUES
+    DEVICE-ADDRESS ;; (UNSIGNED-BYTE 64))
 
 See ACCELERATION-STRUCTURE-DEVICE-ADDRESS-INFO-KHR
 See DEVICE
+See DEVICE-ADDRESS
 "
                    ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-device-address-info-khr cffi:foreign-pointer)))
                    ()
@@ -8980,11 +10165,17 @@ See DEVICE
 
 Args:
  - DEVICE: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    DEFERRED-OPERATION-KHR
+    RESULT)
 
 See ALLOCATION-CALLBACKS
+See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                           ((device cffi:foreign-pointer))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -9000,8 +10191,7 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - OPERATION: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEFERRED-OPERATION-KHR
@@ -9021,7 +10211,10 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - OPERATION: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
 
 See DEFERRED-OPERATION-KHR
 See DEVICE
@@ -9039,10 +10232,14 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - OPERATION: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
                    ()
@@ -9057,10 +10254,14 @@ See DEVICE
 Args:
  - DEVICE: <a description>
  - OPERATION: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See RESULT
 "
                    ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
                    ()
@@ -9075,7 +10276,6 @@ See DEVICE
 Args:
  - COMMAND-BUFFER: <a description>
  - CULL-MODE: (optional) <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See CULL-MODE-FLAGS
@@ -9094,7 +10294,6 @@ See CULL-MODE-FLAGS
 Args:
  - COMMAND-BUFFER: <a description>
  - FRONT-FACE: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See FRONT-FACE
@@ -9113,7 +10312,6 @@ See FRONT-FACE
 Args:
  - COMMAND-BUFFER: <a description>
  - PRIMITIVE-TOPOLOGY: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See PRIMITIVE-TOPOLOGY
@@ -9131,8 +10329,7 @@ See PRIMITIVE-TOPOLOGY
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-VIEWPORTS: <a description>
-Returns: TODO
+ - VIEWPORTS: <a description>
 
 See COMMAND-BUFFER
 See VIEWPORT
@@ -9151,8 +10348,7 @@ See VIEWPORT
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-SCISSORS: <a description>
-Returns: TODO
+ - SCISSORS: <a description>
 
 See COMMAND-BUFFER
 See RECT-2D
@@ -9172,11 +10368,10 @@ See RECT-2D
 Args:
  - COMMAND-BUFFER: <a description>
  - FIRST-BINDING: <a description>
- - P-BUFFERS: <a description>
- - P-OFFSETS: <a description>
- - P-SIZES: (optional) <a description>
- - P-STRIDES: (optional) <a description>
-Returns: TODO
+ - BUFFERS: <a description>
+ - OFFSETS: <a description>
+ - SIZES: (optional) <a description>
+ - STRIDES: (optional) <a description>
 
 See BUFFER
 See COMMAND-BUFFER
@@ -9201,7 +10396,6 @@ See DEVICE-SIZE
 Args:
  - COMMAND-BUFFER: <a description>
  - DEPTH-TEST-ENABLE: <a description>
-Returns: TODO
 
 See BOOL32
 See COMMAND-BUFFER
@@ -9220,7 +10414,6 @@ See COMMAND-BUFFER
 Args:
  - COMMAND-BUFFER: <a description>
  - DEPTH-WRITE-ENABLE: <a description>
-Returns: TODO
 
 See BOOL32
 See COMMAND-BUFFER
@@ -9239,7 +10432,6 @@ See COMMAND-BUFFER
 Args:
  - COMMAND-BUFFER: <a description>
  - DEPTH-COMPARE-OP: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See COMPARE-OP
@@ -9258,7 +10450,6 @@ See COMPARE-OP
 Args:
  - COMMAND-BUFFER: <a description>
  - DEPTH-BOUNDS-TEST-ENABLE: <a description>
-Returns: TODO
 
 See BOOL32
 See COMMAND-BUFFER
@@ -9277,7 +10468,6 @@ See COMMAND-BUFFER
 Args:
  - COMMAND-BUFFER: <a description>
  - STENCIL-TEST-ENABLE: <a description>
-Returns: TODO
 
 See BOOL32
 See COMMAND-BUFFER
@@ -9300,7 +10490,6 @@ Args:
  - PASS-OP: <a description>
  - DEPTH-FAIL-OP: <a description>
  - COMPARE-OP: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See COMPARE-OP
@@ -9324,13 +10513,19 @@ See STENCIL-OP
 
 Args:
  - DEVICE: <a description>
- - P-CREATE-INFO: <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - CREATE-INFO: <a description>
+ - ALLOCATOR: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    PRIVATE-DATA-SLOT-EXT
+    RESULT)
 
 See ALLOCATION-CALLBACKS
 See DEVICE
 See PRIVATE-DATA-SLOT-CREATE-INFO-EXT
+See PRIVATE-DATA-SLOT-EXT
+See RESULT
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -9348,8 +10543,7 @@ See PRIVATE-DATA-SLOT-CREATE-INFO-EXT
 Args:
  - DEVICE: <a description>
  - PRIVATE-DATA-SLOT: (optional) <a description>
- - P-ALLOCATOR: (optional) <a description>
-Returns: TODO
+ - ALLOCATOR: (optional) <a description>
 
 See ALLOCATION-CALLBACKS
 See DEVICE
@@ -9373,11 +10567,15 @@ Args:
  - OBJECT-HANDLE: <a description>
  - PRIVATE-DATA-SLOT: <a description>
  - DATA: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See DEVICE
 See OBJECT-TYPE
 See PRIVATE-DATA-SLOT-EXT
+See RESULT
 "
                    ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer) (data unsigned-byte))
                    ()
@@ -9398,7 +10596,10 @@ Args:
  - OBJECT-TYPE: <a description>
  - OBJECT-HANDLE: <a description>
  - PRIVATE-DATA-SLOT: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-6-4_T)
 
 See DEVICE
 See OBJECT-TYPE
@@ -9420,8 +10621,7 @@ See PRIVATE-DATA-SLOT-EXT
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-COPY-BUFFER-INFO: <a description>
-Returns: TODO
+ - COPY-BUFFER-INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-BUFFER-INFO-2-KHR
@@ -9438,8 +10638,7 @@ See COPY-BUFFER-INFO-2-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-COPY-IMAGE-INFO: <a description>
-Returns: TODO
+ - COPY-IMAGE-INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-IMAGE-INFO-2-KHR
@@ -9456,8 +10655,7 @@ See COPY-IMAGE-INFO-2-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-BLIT-IMAGE-INFO: <a description>
-Returns: TODO
+ - BLIT-IMAGE-INFO: <a description>
 
 See BLIT-IMAGE-INFO-2-KHR
 See COMMAND-BUFFER
@@ -9474,8 +10672,7 @@ See COMMAND-BUFFER
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-COPY-BUFFER-TO-IMAGE-INFO: <a description>
-Returns: TODO
+ - COPY-BUFFER-TO-IMAGE-INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-BUFFER-TO-IMAGE-INFO-2-KHR
@@ -9492,8 +10689,7 @@ See COPY-BUFFER-TO-IMAGE-INFO-2-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-COPY-IMAGE-TO-BUFFER-INFO: <a description>
-Returns: TODO
+ - COPY-IMAGE-TO-BUFFER-INFO: <a description>
 
 See COMMAND-BUFFER
 See COPY-IMAGE-TO-BUFFER-INFO-2-KHR
@@ -9510,8 +10706,7 @@ See COPY-IMAGE-TO-BUFFER-INFO-2-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-RESOLVE-IMAGE-INFO: <a description>
-Returns: TODO
+ - RESOLVE-IMAGE-INFO: <a description>
 
 See COMMAND-BUFFER
 See RESOLVE-IMAGE-INFO-2-KHR
@@ -9528,9 +10723,8 @@ See RESOLVE-IMAGE-INFO-2-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-FRAGMENT-SIZE: <a description>
+ - FRAGMENT-SIZE: <a description>
  - COMBINER-OPS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See EXTENT-2D
@@ -9549,9 +10743,16 @@ See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
 
 Args:
  - PHYSICAL-DEVICE: <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR
+    RESULT)
 
 See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR
+See RESULT
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -9570,7 +10771,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - SHADING-RATE: <a description>
  - COMBINER-OPS: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
@@ -9591,11 +10791,15 @@ See FRAGMENT-SHADING-RATE-NV
 Args:
  - DEVICE: <a description>
  - BUILD-TYPE: <a description>
- - P-BUILD-INFO: <a description>
- - P-MAX-PRIMITIVE-COUNTS: (optional) <a description>
-Returns: TODO
+ - BUILD-INFO: <a description>
+ - MAX-PRIMITIVE-COUNTS: (optional) <a description>
+
+Returns:
+  (CL:VALUES
+    ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR)
 
 See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
+See ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-TYPE-KHR
 See DEVICE
 "
@@ -9614,8 +10818,7 @@ See DEVICE
 Args:
  - COMMAND-BUFFER: <a description>
  - EVENT: <a description>
- - P-DEPENDENCY-INFO: <a description>
-Returns: TODO
+ - DEPENDENCY-INFO: <a description>
 
 See COMMAND-BUFFER
 See DEPENDENCY-INFO-KHR
@@ -9636,7 +10839,6 @@ Args:
  - COMMAND-BUFFER: <a description>
  - EVENT: <a description>
  - STAGE-MASK: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See EVENT
@@ -9655,9 +10857,8 @@ See PIPELINE-STAGE-FLAGS-2-KHR
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-EVENTS: <a description>
- - P-DEPENDENCY-INFOS: <a description>
-Returns: TODO
+ - EVENTS: <a description>
+ - DEPENDENCY-INFOS: <a description>
 
 See COMMAND-BUFFER
 See DEPENDENCY-INFO-KHR
@@ -9677,8 +10878,7 @@ See EVENT
 
 Args:
  - COMMAND-BUFFER: <a description>
- - P-DEPENDENCY-INFO: <a description>
-Returns: TODO
+ - DEPENDENCY-INFO: <a description>
 
 See COMMAND-BUFFER
 See DEPENDENCY-INFO-KHR
@@ -9695,12 +10895,16 @@ See DEPENDENCY-INFO-KHR
 
 Args:
  - QUEUE: <a description>
- - P-SUBMITS: <a description>
+ - SUBMITS: <a description>
  - FENCE: (optional) <a description>
-Returns: TODO
+
+Returns:
+  (CL:VALUES
+    RESULT)
 
 See FENCE
 See QUEUE
+See RESULT
 See SUBMIT-INFO-2-KHR
 "
                    ((queue cffi:foreign-pointer) (submits list))
@@ -9720,7 +10924,6 @@ Args:
  - STAGE: <a description>
  - QUERY-POOL: <a description>
  - QUERY: <a description>
-Returns: TODO
 
 See COMMAND-BUFFER
 See PIPELINE-STAGE-FLAGS-2-KHR
@@ -9744,7 +10947,6 @@ Args:
  - DST-BUFFER: <a description>
  - DST-OFFSET: <a description>
  - MARKER: <a description>
-Returns: TODO
 
 See BUFFER
 See COMMAND-BUFFER
@@ -9767,8 +10969,13 @@ See PIPELINE-STAGE-FLAGS-2-KHR
 
 Args:
  - QUEUE: <a description>
-Returns: TODO
 
+Returns:
+  (CL:VALUES
+    UINT-3-2_T
+    CHECKPOINT-DATA-2-NV)
+
+See CHECKPOINT-DATA-2-NV
 See QUEUE
 "
                         ((queue cffi:foreign-pointer))
