@@ -8,235 +8,693 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (in-package :vulkan)
 
 ;;; extension names
-(alexandria:define-constant +amd-buffer-marker-extension-name+ "VK_AMD_buffer_marker" :test #'string=)
-(alexandria:define-constant +amd-device-coherent-memory-extension-name+ "VK_AMD_device_coherent_memory" :test #'string=)
-(alexandria:define-constant +amd-display-native-hdr-extension-name+ "VK_AMD_display_native_hdr" :test #'string=)
-(alexandria:define-constant +amd-draw-indirect-count-extension-name+ "VK_AMD_draw_indirect_count" :test #'string=)
-(alexandria:define-constant +amd-gcn-shader-extension-name+ "VK_AMD_gcn_shader" :test #'string=)
-(alexandria:define-constant +amd-gpu-shader-half-float-extension-name+ "VK_AMD_gpu_shader_half_float" :test #'string=)
-(alexandria:define-constant +amd-gpu-shader-int16-extension-name+ "VK_AMD_gpu_shader_int16" :test #'string=)
-(alexandria:define-constant +amd-memory-overallocation-behavior-extension-name+ "VK_AMD_memory_overallocation_behavior" :test #'string=)
-(alexandria:define-constant +amd-mixed-attachment-samples-extension-name+ "VK_AMD_mixed_attachment_samples" :test #'string=)
-(alexandria:define-constant +amd-negative-viewport-height-extension-name+ "VK_AMD_negative_viewport_height" :test #'string=)
-(alexandria:define-constant +amd-pipeline-compiler-control-extension-name+ "VK_AMD_pipeline_compiler_control" :test #'string=)
-(alexandria:define-constant +amd-rasterization-order-extension-name+ "VK_AMD_rasterization_order" :test #'string=)
-(alexandria:define-constant +amd-shader-ballot-extension-name+ "VK_AMD_shader_ballot" :test #'string=)
-(alexandria:define-constant +amd-shader-core-properties-2-extension-name+ "VK_AMD_shader_core_properties2" :test #'string=)
-(alexandria:define-constant +amd-shader-core-properties-extension-name+ "VK_AMD_shader_core_properties" :test #'string=)
-(alexandria:define-constant +amd-shader-explicit-vertex-parameter-extension-name+ "VK_AMD_shader_explicit_vertex_parameter" :test #'string=)
-(alexandria:define-constant +amd-shader-fragment-mask-extension-name+ "VK_AMD_shader_fragment_mask" :test #'string=)
-(alexandria:define-constant +amd-shader-image-load-store-lod-extension-name+ "VK_AMD_shader_image_load_store_lod" :test #'string=)
-(alexandria:define-constant +amd-shader-info-extension-name+ "VK_AMD_shader_info" :test #'string=)
-(alexandria:define-constant +amd-shader-trinary-minmax-extension-name+ "VK_AMD_shader_trinary_minmax" :test #'string=)
-(alexandria:define-constant +amd-texture-gather-bias-lod-extension-name+ "VK_AMD_texture_gather_bias_lod" :test #'string=)
-(alexandria:define-constant +android-external-memory-android-hardware-buffer-extension-name+ "VK_ANDROID_external_memory_android_hardware_buffer" :test #'string=)
-(alexandria:define-constant +ext-4444-formats-extension-name+ "VK_EXT_4444_formats" :test #'string=)
-(alexandria:define-constant +ext-acquire-xlib-display-extension-name+ "VK_EXT_acquire_xlib_display" :test #'string=)
-(alexandria:define-constant +ext-astc-decode-mode-extension-name+ "VK_EXT_astc_decode_mode" :test #'string=)
-(alexandria:define-constant +ext-blend-operation-advanced-extension-name+ "VK_EXT_blend_operation_advanced" :test #'string=)
-(alexandria:define-constant +ext-buffer-device-address-extension-name+ "VK_EXT_buffer_device_address" :test #'string=)
-(alexandria:define-constant +ext-calibrated-timestamps-extension-name+ "VK_EXT_calibrated_timestamps" :test #'string=)
-(alexandria:define-constant +ext-conditional-rendering-extension-name+ "VK_EXT_conditional_rendering" :test #'string=)
-(alexandria:define-constant +ext-conservative-rasterization-extension-name+ "VK_EXT_conservative_rasterization" :test #'string=)
-(alexandria:define-constant +ext-custom-border-color-extension-name+ "VK_EXT_custom_border_color" :test #'string=)
-(alexandria:define-constant +ext-debug-marker-extension-name+ "VK_EXT_debug_marker" :test #'string=)
-(alexandria:define-constant +ext-debug-report-extension-name+ "VK_EXT_debug_report" :test #'string=)
-(alexandria:define-constant +ext-debug-utils-extension-name+ "VK_EXT_debug_utils" :test #'string=)
-(alexandria:define-constant +ext-depth-clip-enable-extension-name+ "VK_EXT_depth_clip_enable" :test #'string=)
-(alexandria:define-constant +ext-depth-range-unrestricted-extension-name+ "VK_EXT_depth_range_unrestricted" :test #'string=)
-(alexandria:define-constant +ext-descriptor-indexing-extension-name+ "VK_EXT_descriptor_indexing" :test #'string=)
-(alexandria:define-constant +ext-device-memory-report-extension-name+ "VK_EXT_device_memory_report" :test #'string=)
-(alexandria:define-constant +ext-directfb-surface-extension-name+ "VK_EXT_directfb_surface" :test #'string=)
-(alexandria:define-constant +ext-direct-mode-display-extension-name+ "VK_EXT_direct_mode_display" :test #'string=)
-(alexandria:define-constant +ext-discard-rectangles-extension-name+ "VK_EXT_discard_rectangles" :test #'string=)
-(alexandria:define-constant +ext-display-control-extension-name+ "VK_EXT_display_control" :test #'string=)
-(alexandria:define-constant +ext-display-surface-counter-extension-name+ "VK_EXT_display_surface_counter" :test #'string=)
-(alexandria:define-constant +ext-extended-dynamic-state-extension-name+ "VK_EXT_extended_dynamic_state" :test #'string=)
-(alexandria:define-constant +ext-external-memory-dma-buf-extension-name+ "VK_EXT_external_memory_dma_buf" :test #'string=)
-(alexandria:define-constant +ext-external-memory-host-extension-name+ "VK_EXT_external_memory_host" :test #'string=)
-(alexandria:define-constant +ext-filter-cubic-extension-name+ "VK_EXT_filter_cubic" :test #'string=)
-(alexandria:define-constant +ext-fragment-density-map-2-extension-name+ "VK_EXT_fragment_density_map2" :test #'string=)
-(alexandria:define-constant +ext-fragment-density-map-extension-name+ "VK_EXT_fragment_density_map" :test #'string=)
-(alexandria:define-constant +ext-fragment-shader-interlock-extension-name+ "VK_EXT_fragment_shader_interlock" :test #'string=)
-(alexandria:define-constant +ext-full-screen-exclusive-extension-name+ "VK_EXT_full_screen_exclusive" :test #'string=)
-(alexandria:define-constant +ext-global-priority-extension-name+ "VK_EXT_global_priority" :test #'string=)
-(alexandria:define-constant +ext-hdr-metadata-extension-name+ "VK_EXT_hdr_metadata" :test #'string=)
-(alexandria:define-constant +ext-headless-surface-extension-name+ "VK_EXT_headless_surface" :test #'string=)
-(alexandria:define-constant +ext-host-query-reset-extension-name+ "VK_EXT_host_query_reset" :test #'string=)
-(alexandria:define-constant +ext-image-drm-format-modifier-extension-name+ "VK_EXT_image_drm_format_modifier" :test #'string=)
-(alexandria:define-constant +ext-image-robustness-extension-name+ "VK_EXT_image_robustness" :test #'string=)
-(alexandria:define-constant +ext-index-type-uint8-extension-name+ "VK_EXT_index_type_uint8" :test #'string=)
-(alexandria:define-constant +ext-inline-uniform-block-extension-name+ "VK_EXT_inline_uniform_block" :test #'string=)
-(alexandria:define-constant +ext-line-rasterization-extension-name+ "VK_EXT_line_rasterization" :test #'string=)
-(alexandria:define-constant +ext-memory-budget-extension-name+ "VK_EXT_memory_budget" :test #'string=)
-(alexandria:define-constant +ext-memory-priority-extension-name+ "VK_EXT_memory_priority" :test #'string=)
-(alexandria:define-constant +ext-metal-surface-extension-name+ "VK_EXT_metal_surface" :test #'string=)
-(alexandria:define-constant +ext-pci-bus-info-extension-name+ "VK_EXT_pci_bus_info" :test #'string=)
-(alexandria:define-constant +ext-pipeline-creation-cache-control-extension-name+ "VK_EXT_pipeline_creation_cache_control" :test #'string=)
-(alexandria:define-constant +ext-pipeline-creation-feedback-extension-name+ "VK_EXT_pipeline_creation_feedback" :test #'string=)
-(alexandria:define-constant +ext-post-depth-coverage-extension-name+ "VK_EXT_post_depth_coverage" :test #'string=)
-(alexandria:define-constant +ext-private-data-extension-name+ "VK_EXT_private_data" :test #'string=)
-(alexandria:define-constant +ext-queue-family-foreign-extension-name+ "VK_EXT_queue_family_foreign" :test #'string=)
-(alexandria:define-constant +ext-robustness-2-extension-name+ "VK_EXT_robustness2" :test #'string=)
-(alexandria:define-constant +ext-sampler-filter-minmax-extension-name+ "VK_EXT_sampler_filter_minmax" :test #'string=)
-(alexandria:define-constant +ext-sample-locations-extension-name+ "VK_EXT_sample_locations" :test #'string=)
-(alexandria:define-constant +ext-scalar-block-layout-extension-name+ "VK_EXT_scalar_block_layout" :test #'string=)
-(alexandria:define-constant +ext-separate-stencil-usage-extension-name+ "VK_EXT_separate_stencil_usage" :test #'string=)
-(alexandria:define-constant +ext-shader-atomic-float-extension-name+ "VK_EXT_shader_atomic_float" :test #'string=)
-(alexandria:define-constant +ext-shader-demote-to-helper-invocation-extension-name+ "VK_EXT_shader_demote_to_helper_invocation" :test #'string=)
-(alexandria:define-constant +ext-shader-image-atomic-int64-extension-name+ "VK_EXT_shader_image_atomic_int64" :test #'string=)
-(alexandria:define-constant +ext-shader-stencil-export-extension-name+ "VK_EXT_shader_stencil_export" :test #'string=)
-(alexandria:define-constant +ext-shader-subgroup-ballot-extension-name+ "VK_EXT_shader_subgroup_ballot" :test #'string=)
-(alexandria:define-constant +ext-shader-subgroup-vote-extension-name+ "VK_EXT_shader_subgroup_vote" :test #'string=)
-(alexandria:define-constant +ext-shader-viewport-index-layer-extension-name+ "VK_EXT_shader_viewport_index_layer" :test #'string=)
-(alexandria:define-constant +ext-subgroup-size-control-extension-name+ "VK_EXT_subgroup_size_control" :test #'string=)
-(alexandria:define-constant +ext-swapchain-color-space-extension-name+ "VK_EXT_swapchain_colorspace" :test #'string=)
-(alexandria:define-constant +ext-texel-buffer-alignment-extension-name+ "VK_EXT_texel_buffer_alignment" :test #'string=)
-(alexandria:define-constant +ext-texture-compression-astc-hdr-extension-name+ "VK_EXT_texture_compression_astc_hdr" :test #'string=)
-(alexandria:define-constant +ext-tooling-info-extension-name+ "VK_EXT_tooling_info" :test #'string=)
-(alexandria:define-constant +ext-transform-feedback-extension-name+ "VK_EXT_transform_feedback" :test #'string=)
-(alexandria:define-constant +ext-validation-cache-extension-name+ "VK_EXT_validation_cache" :test #'string=)
-(alexandria:define-constant +ext-validation-features-extension-name+ "VK_EXT_validation_features" :test #'string=)
-(alexandria:define-constant +ext-validation-flags-extension-name+ "VK_EXT_validation_flags" :test #'string=)
-(alexandria:define-constant +ext-vertex-attribute-divisor-extension-name+ "VK_EXT_vertex_attribute_divisor" :test #'string=)
-(alexandria:define-constant +ext-ycbcr-image-arrays-extension-name+ "VK_EXT_ycbcr_image_arrays" :test #'string=)
-(alexandria:define-constant +fuchsia-external-memory-extension-name+ "VK_FUCHSIA_external_memory" :test #'string=)
-(alexandria:define-constant +fuchsia-external-semaphore-extension-name+ "VK_FUCHSIA_external_semaphore" :test #'string=)
-(alexandria:define-constant +fuchsia-imagepipe-surface-extension-name+ "VK_FUCHSIA_imagepipe_surface" :test #'string=)
-(alexandria:define-constant +ggp-frame-token-extension-name+ "VK_GGP_frame_token" :test #'string=)
-(alexandria:define-constant +ggp-stream-descriptor-surface-extension-name+ "VK_GGP_stream_descriptor_surface" :test #'string=)
-(alexandria:define-constant +google-decorate-string-extension-name+ "VK_GOOGLE_decorate_string" :test #'string=)
-(alexandria:define-constant +google-display-timing-extension-name+ "VK_GOOGLE_display_timing" :test #'string=)
-(alexandria:define-constant +google-hlsl-functionality1-extension-name+ "VK_GOOGLE_hlsl_functionality1" :test #'string=)
-(alexandria:define-constant +google-user-type-extension-name+ "VK_GOOGLE_user_type" :test #'string=)
-(alexandria:define-constant +img-filter-cubic-extension-name+ "VK_IMG_filter_cubic" :test #'string=)
-(alexandria:define-constant +img-format-pvrtc-extension-name+ "VK_IMG_format_pvrtc" :test #'string=)
-(alexandria:define-constant +intel-performance-query-extension-name+ "VK_INTEL_performance_query" :test #'string=)
-(alexandria:define-constant +intel-shader-integer-functions-2-extension-name+ "VK_INTEL_shader_integer_functions2" :test #'string=)
-(alexandria:define-constant +khr-16bit-storage-extension-name+ "VK_KHR_16bit_storage" :test #'string=)
-(alexandria:define-constant +khr-8bit-storage-extension-name+ "VK_KHR_8bit_storage" :test #'string=)
-(alexandria:define-constant +khr-acceleration-structure-extension-name+ "VK_KHR_acceleration_structure" :test #'string=)
-(alexandria:define-constant +khr-android-surface-extension-name+ "VK_KHR_android_surface" :test #'string=)
-(alexandria:define-constant +khr-bind-memory-2-extension-name+ "VK_KHR_bind_memory2" :test #'string=)
-(alexandria:define-constant +khr-buffer-device-address-extension-name+ "VK_KHR_buffer_device_address" :test #'string=)
-(alexandria:define-constant +khr-copy-commands-2-extension-name+ "VK_KHR_copy_commands2" :test #'string=)
-(alexandria:define-constant +khr-create-renderpass-2-extension-name+ "VK_KHR_create_renderpass2" :test #'string=)
-(alexandria:define-constant +khr-dedicated-allocation-extension-name+ "VK_KHR_dedicated_allocation" :test #'string=)
-(alexandria:define-constant +khr-deferred-host-operations-extension-name+ "VK_KHR_deferred_host_operations" :test #'string=)
-(alexandria:define-constant +khr-depth-stencil-resolve-extension-name+ "VK_KHR_depth_stencil_resolve" :test #'string=)
-(alexandria:define-constant +khr-descriptor-update-template-extension-name+ "VK_KHR_descriptor_update_template" :test #'string=)
-(alexandria:define-constant +khr-device-group-creation-extension-name+ "VK_KHR_device_group_creation" :test #'string=)
-(alexandria:define-constant +khr-device-group-extension-name+ "VK_KHR_device_group" :test #'string=)
-(alexandria:define-constant +khr-display-extension-name+ "VK_KHR_display" :test #'string=)
-(alexandria:define-constant +khr-display-swapchain-extension-name+ "VK_KHR_display_swapchain" :test #'string=)
-(alexandria:define-constant +khr-draw-indirect-count-extension-name+ "VK_KHR_draw_indirect_count" :test #'string=)
-(alexandria:define-constant +khr-driver-properties-extension-name+ "VK_KHR_driver_properties" :test #'string=)
-(alexandria:define-constant +khr-external-fence-capabilities-extension-name+ "VK_KHR_external_fence_capabilities" :test #'string=)
-(alexandria:define-constant +khr-external-fence-extension-name+ "VK_KHR_external_fence" :test #'string=)
-(alexandria:define-constant +khr-external-fence-fd-extension-name+ "VK_KHR_external_fence_fd" :test #'string=)
-(alexandria:define-constant +khr-external-fence-win32-extension-name+ "VK_KHR_external_fence_win32" :test #'string=)
-(alexandria:define-constant +khr-external-memory-capabilities-extension-name+ "VK_KHR_external_memory_capabilities" :test #'string=)
-(alexandria:define-constant +khr-external-memory-extension-name+ "VK_KHR_external_memory" :test #'string=)
-(alexandria:define-constant +khr-external-memory-fd-extension-name+ "VK_KHR_external_memory_fd" :test #'string=)
-(alexandria:define-constant +khr-external-memory-win32-extension-name+ "VK_KHR_external_memory_win32" :test #'string=)
-(alexandria:define-constant +khr-external-semaphore-capabilities-extension-name+ "VK_KHR_external_semaphore_capabilities" :test #'string=)
-(alexandria:define-constant +khr-external-semaphore-extension-name+ "VK_KHR_external_semaphore" :test #'string=)
-(alexandria:define-constant +khr-external-semaphore-fd-extension-name+ "VK_KHR_external_semaphore_fd" :test #'string=)
-(alexandria:define-constant +khr-external-semaphore-win32-extension-name+ "VK_KHR_external_semaphore_win32" :test #'string=)
-(alexandria:define-constant +khr-fragment-shading-rate-extension-name+ "VK_KHR_fragment_shading_rate" :test #'string=)
-(alexandria:define-constant +khr-get-display-properties-2-extension-name+ "VK_KHR_get_display_properties2" :test #'string=)
-(alexandria:define-constant +khr-get-memory-requirements-2-extension-name+ "VK_KHR_get_memory_requirements2" :test #'string=)
-(alexandria:define-constant +khr-get-physical-device-properties-2-extension-name+ "VK_KHR_get_physical_device_properties2" :test #'string=)
-(alexandria:define-constant +khr-get-surface-capabilities-2-extension-name+ "VK_KHR_get_surface_capabilities2" :test #'string=)
-(alexandria:define-constant +khr-imageless-framebuffer-extension-name+ "VK_KHR_imageless_framebuffer" :test #'string=)
-(alexandria:define-constant +khr-image-format-list-extension-name+ "VK_KHR_image_format_list" :test #'string=)
-(alexandria:define-constant +khr-incremental-present-extension-name+ "VK_KHR_incremental_present" :test #'string=)
-(alexandria:define-constant +khr-maintenance1-extension-name+ "VK_KHR_maintenance1" :test #'string=)
-(alexandria:define-constant +khr-maintenance2-extension-name+ "VK_KHR_maintenance2" :test #'string=)
-(alexandria:define-constant +khr-maintenance3-extension-name+ "VK_KHR_maintenance3" :test #'string=)
-(alexandria:define-constant +khr-multiview-extension-name+ "VK_KHR_multiview" :test #'string=)
-(alexandria:define-constant +khr-performance-query-extension-name+ "VK_KHR_performance_query" :test #'string=)
-(alexandria:define-constant +khr-pipeline-executable-properties-extension-name+ "VK_KHR_pipeline_executable_properties" :test #'string=)
-(alexandria:define-constant +khr-pipeline-library-extension-name+ "VK_KHR_pipeline_library" :test #'string=)
-(alexandria:define-constant +khr-portability-subset-extension-name+ "VK_KHR_portability_subset" :test #'string=)
-(alexandria:define-constant +khr-push-descriptor-extension-name+ "VK_KHR_push_descriptor" :test #'string=)
-(alexandria:define-constant +khr-ray-query-extension-name+ "VK_KHR_ray_query" :test #'string=)
-(alexandria:define-constant +khr-ray-tracing-pipeline-extension-name+ "VK_KHR_ray_tracing_pipeline" :test #'string=)
-(alexandria:define-constant +khr-relaxed-block-layout-extension-name+ "VK_KHR_relaxed_block_layout" :test #'string=)
-(alexandria:define-constant +khr-sampler-mirror-clamp-to-edge-extension-name+ "VK_KHR_sampler_mirror_clamp_to_edge" :test #'string=)
-(alexandria:define-constant +khr-sampler-ycbcr-conversion-extension-name+ "VK_KHR_sampler_ycbcr_conversion" :test #'string=)
-(alexandria:define-constant +khr-separate-depth-stencil-layouts-extension-name+ "VK_KHR_separate_depth_stencil_layouts" :test #'string=)
-(alexandria:define-constant +khr-shader-atomic-int64-extension-name+ "VK_KHR_shader_atomic_int64" :test #'string=)
-(alexandria:define-constant +khr-shader-clock-extension-name+ "VK_KHR_shader_clock" :test #'string=)
-(alexandria:define-constant +khr-shader-draw-parameters-extension-name+ "VK_KHR_shader_draw_parameters" :test #'string=)
-(alexandria:define-constant +khr-shader-float16-int8-extension-name+ "VK_KHR_shader_float16_int8" :test #'string=)
-(alexandria:define-constant +khr-shader-float-controls-extension-name+ "VK_KHR_shader_float_controls" :test #'string=)
-(alexandria:define-constant +khr-shader-non-semantic-info-extension-name+ "VK_KHR_shader_non_semantic_info" :test #'string=)
-(alexandria:define-constant +khr-shader-subgroup-extended-types-extension-name+ "VK_KHR_shader_subgroup_extended_types" :test #'string=)
-(alexandria:define-constant +khr-shader-terminate-invocation-extension-name+ "VK_KHR_shader_terminate_invocation" :test #'string=)
-(alexandria:define-constant +khr-shared-presentable-image-extension-name+ "VK_KHR_shared_presentable_image" :test #'string=)
-(alexandria:define-constant +khr-spirv-1-4-extension-name+ "VK_KHR_spirv_1_4" :test #'string=)
-(alexandria:define-constant +khr-storage-buffer-storage-class-extension-name+ "VK_KHR_storage_buffer_storage_class" :test #'string=)
-(alexandria:define-constant +khr-surface-extension-name+ "VK_KHR_surface" :test #'string=)
-(alexandria:define-constant +khr-surface-protected-capabilities-extension-name+ "VK_KHR_surface_protected_capabilities" :test #'string=)
-(alexandria:define-constant +khr-swapchain-extension-name+ "VK_KHR_swapchain" :test #'string=)
-(alexandria:define-constant +khr-swapchain-mutable-format-extension-name+ "VK_KHR_swapchain_mutable_format" :test #'string=)
-(alexandria:define-constant +khr-synchronization-2-extension-name+ "VK_KHR_synchronization2" :test #'string=)
-(alexandria:define-constant +khr-timeline-semaphore-extension-name+ "VK_KHR_timeline_semaphore" :test #'string=)
-(alexandria:define-constant +khr-uniform-buffer-standard-layout-extension-name+ "VK_KHR_uniform_buffer_standard_layout" :test #'string=)
-(alexandria:define-constant +khr-variable-pointers-extension-name+ "VK_KHR_variable_pointers" :test #'string=)
-(alexandria:define-constant +khr-vulkan-memory-model-extension-name+ "VK_KHR_vulkan_memory_model" :test #'string=)
-(alexandria:define-constant +khr-wayland-surface-extension-name+ "VK_KHR_wayland_surface" :test #'string=)
-(alexandria:define-constant +khr-win32-keyed-mutex-extension-name+ "VK_KHR_win32_keyed_mutex" :test #'string=)
-(alexandria:define-constant +khr-win32-surface-extension-name+ "VK_KHR_win32_surface" :test #'string=)
-(alexandria:define-constant +khr-workgroup-memory-explicit-layout-extension-name+ "VK_KHR_workgroup_memory_explicit_layout" :test #'string=)
-(alexandria:define-constant +khr-xcb-surface-extension-name+ "VK_KHR_xcb_surface" :test #'string=)
-(alexandria:define-constant +khr-xlib-surface-extension-name+ "VK_KHR_xlib_surface" :test #'string=)
-(alexandria:define-constant +khr-zero-initialize-workgroup-memory-extension-name+ "VK_KHR_zero_initialize_workgroup_memory" :test #'string=)
-(alexandria:define-constant +mvk-ios-surface-extension-name+ "VK_MVK_ios_surface" :test #'string=)
-(alexandria:define-constant +mvk-macos-surface-extension-name+ "VK_MVK_macos_surface" :test #'string=)
-(alexandria:define-constant +nn-vi-surface-extension-name+ "VK_NN_vi_surface" :test #'string=)
-(alexandria:define-constant +nvx-image-view-handle-extension-name+ "VK_NVX_image_view_handle" :test #'string=)
-(alexandria:define-constant +nvx-multiview-per-view-attributes-extension-name+ "VK_NVX_multiview_per_view_attributes" :test #'string=)
-(alexandria:define-constant +nv-acquire-winrt-display-extension-name+ "VK_NV_acquire_winrt_display" :test #'string=)
-(alexandria:define-constant +nv-clip-space-w-scaling-extension-name+ "VK_NV_clip_space_w_scaling" :test #'string=)
-(alexandria:define-constant +nv-compute-shader-derivatives-extension-name+ "VK_NV_compute_shader_derivatives" :test #'string=)
-(alexandria:define-constant +nv-cooperative-matrix-extension-name+ "VK_NV_cooperative_matrix" :test #'string=)
-(alexandria:define-constant +nv-corner-sampled-image-extension-name+ "VK_NV_corner_sampled_image" :test #'string=)
-(alexandria:define-constant +nv-coverage-reduction-mode-extension-name+ "VK_NV_coverage_reduction_mode" :test #'string=)
-(alexandria:define-constant +nv-dedicated-allocation-extension-name+ "VK_NV_dedicated_allocation" :test #'string=)
-(alexandria:define-constant +nv-dedicated-allocation-image-aliasing-extension-name+ "VK_NV_dedicated_allocation_image_aliasing" :test #'string=)
-(alexandria:define-constant +nv-device-diagnostics-config-extension-name+ "VK_NV_device_diagnostics_config" :test #'string=)
-(alexandria:define-constant +nv-device-diagnostic-checkpoints-extension-name+ "VK_NV_device_diagnostic_checkpoints" :test #'string=)
-(alexandria:define-constant +nv-device-generated-commands-extension-name+ "VK_NV_device_generated_commands" :test #'string=)
-(alexandria:define-constant +nv-external-memory-capabilities-extension-name+ "VK_NV_external_memory_capabilities" :test #'string=)
-(alexandria:define-constant +nv-external-memory-extension-name+ "VK_NV_external_memory" :test #'string=)
-(alexandria:define-constant +nv-external-memory-win32-extension-name+ "VK_NV_external_memory_win32" :test #'string=)
-(alexandria:define-constant +nv-fill-rectangle-extension-name+ "VK_NV_fill_rectangle" :test #'string=)
-(alexandria:define-constant +nv-fragment-coverage-to-color-extension-name+ "VK_NV_fragment_coverage_to_color" :test #'string=)
-(alexandria:define-constant +nv-fragment-shader-barycentric-extension-name+ "VK_NV_fragment_shader_barycentric" :test #'string=)
-(alexandria:define-constant +nv-fragment-shading-rate-enums-extension-name+ "VK_NV_fragment_shading_rate_enums" :test #'string=)
-(alexandria:define-constant +nv-framebuffer-mixed-samples-extension-name+ "VK_NV_framebuffer_mixed_samples" :test #'string=)
-(alexandria:define-constant +nv-geometry-shader-passthrough-extension-name+ "VK_NV_geometry_shader_passthrough" :test #'string=)
-(alexandria:define-constant +nv-glsl-shader-extension-name+ "VK_NV_glsl_shader" :test #'string=)
-(alexandria:define-constant +nv-mesh-shader-extension-name+ "VK_NV_mesh_shader" :test #'string=)
-(alexandria:define-constant +nv-ray-tracing-extension-name+ "VK_NV_ray_tracing" :test #'string=)
-(alexandria:define-constant +nv-representative-fragment-test-extension-name+ "VK_NV_representative_fragment_test" :test #'string=)
-(alexandria:define-constant +nv-sample-mask-override-coverage-extension-name+ "VK_NV_sample_mask_override_coverage" :test #'string=)
-(alexandria:define-constant +nv-scissor-exclusive-extension-name+ "VK_NV_scissor_exclusive" :test #'string=)
-(alexandria:define-constant +nv-shader-image-footprint-extension-name+ "VK_NV_shader_image_footprint" :test #'string=)
-(alexandria:define-constant +nv-shader-sm-builtins-extension-name+ "VK_NV_shader_sm_builtins" :test #'string=)
-(alexandria:define-constant +nv-shader-subgroup-partitioned-extension-name+ "VK_NV_shader_subgroup_partitioned" :test #'string=)
-(alexandria:define-constant +nv-shading-rate-image-extension-name+ "VK_NV_shading_rate_image" :test #'string=)
-(alexandria:define-constant +nv-viewport-array2-extension-name+ "VK_NV_viewport_array2" :test #'string=)
-(alexandria:define-constant +nv-viewport-swizzle-extension-name+ "VK_NV_viewport_swizzle" :test #'string=)
-(alexandria:define-constant +nv-win32-keyed-mutex-extension-name+ "VK_NV_win32_keyed_mutex" :test #'string=)
-(alexandria:define-constant +qcom-render-pass-shader-resolve-extension-name+ "VK_QCOM_render_pass_shader_resolve" :test #'string=)
-(alexandria:define-constant +qcom-render-pass-transform-extension-name+ "VK_QCOM_render_pass_transform" :test #'string=)
-(alexandria:define-constant +qcom-rotated-copy-commands-extension-name+ "VK_QCOM_rotated_copy_commands" :test #'string=)
-(alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops" :test #'string=)
-(alexandria:define-constant +qnx-screen-surface-extension-name+ "VK_QNX_screen_surface" :test #'string=)
-(alexandria:define-constant +valve-mutable-descriptor-type-extension-name+ "VK_VALVE_mutable_descriptor_type" :test #'string=)
+(alexandria:define-constant +amd-buffer-marker-extension-name+ "VK_AMD_buffer_marker"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_buffer_marker](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_buffer_marker.html).")
+(alexandria:define-constant +amd-device-coherent-memory-extension-name+ "VK_AMD_device_coherent_memory"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_device_coherent_memory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_device_coherent_memory.html).")
+(alexandria:define-constant +amd-display-native-hdr-extension-name+ "VK_AMD_display_native_hdr"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_display_native_hdr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_display_native_hdr.html).")
+(alexandria:define-constant +amd-draw-indirect-count-extension-name+ "VK_AMD_draw_indirect_count"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_draw_indirect_count](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_draw_indirect_count.html).")
+(alexandria:define-constant +amd-gcn-shader-extension-name+ "VK_AMD_gcn_shader"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_gcn_shader](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_gcn_shader.html).")
+(alexandria:define-constant +amd-gpu-shader-half-float-extension-name+ "VK_AMD_gpu_shader_half_float"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_gpu_shader_half_float](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_gpu_shader_half_float.html).")
+(alexandria:define-constant +amd-gpu-shader-int16-extension-name+ "VK_AMD_gpu_shader_int16"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_gpu_shader_int16](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_gpu_shader_int16.html).")
+(alexandria:define-constant +amd-memory-overallocation-behavior-extension-name+ "VK_AMD_memory_overallocation_behavior"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_memory_overallocation_behavior](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_memory_overallocation_behavior.html).")
+(alexandria:define-constant +amd-mixed-attachment-samples-extension-name+ "VK_AMD_mixed_attachment_samples"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_mixed_attachment_samples](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_mixed_attachment_samples.html).")
+(alexandria:define-constant +amd-negative-viewport-height-extension-name+ "VK_AMD_negative_viewport_height"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_negative_viewport_height](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_negative_viewport_height.html).")
+(alexandria:define-constant +amd-pipeline-compiler-control-extension-name+ "VK_AMD_pipeline_compiler_control"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_pipeline_compiler_control](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_pipeline_compiler_control.html).")
+(alexandria:define-constant +amd-rasterization-order-extension-name+ "VK_AMD_rasterization_order"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_rasterization_order](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_rasterization_order.html).")
+(alexandria:define-constant +amd-shader-ballot-extension-name+ "VK_AMD_shader_ballot"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_ballot](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_ballot.html).")
+(alexandria:define-constant +amd-shader-core-properties-2-extension-name+ "VK_AMD_shader_core_properties2"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_core_properties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_core_properties2.html).")
+(alexandria:define-constant +amd-shader-core-properties-extension-name+ "VK_AMD_shader_core_properties"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_core_properties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_core_properties.html).")
+(alexandria:define-constant +amd-shader-explicit-vertex-parameter-extension-name+ "VK_AMD_shader_explicit_vertex_parameter"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_explicit_vertex_parameter](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_explicit_vertex_parameter.html).")
+(alexandria:define-constant +amd-shader-fragment-mask-extension-name+ "VK_AMD_shader_fragment_mask"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_fragment_mask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_fragment_mask.html).")
+(alexandria:define-constant +amd-shader-image-load-store-lod-extension-name+ "VK_AMD_shader_image_load_store_lod"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_image_load_store_lod](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_image_load_store_lod.html).")
+(alexandria:define-constant +amd-shader-info-extension-name+ "VK_AMD_shader_info"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_info](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_info.html).")
+(alexandria:define-constant +amd-shader-trinary-minmax-extension-name+ "VK_AMD_shader_trinary_minmax"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_shader_trinary_minmax](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_shader_trinary_minmax.html).")
+(alexandria:define-constant +amd-texture-gather-bias-lod-extension-name+ "VK_AMD_texture_gather_bias_lod"
+  :test #'string=
+  :documentation "The name of the extension [VK_AMD_texture_gather_bias_lod](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_AMD_texture_gather_bias_lod.html).")
+(alexandria:define-constant +android-external-memory-android-hardware-buffer-extension-name+ "VK_ANDROID_external_memory_android_hardware_buffer"
+  :test #'string=
+  :documentation "The name of the extension [VK_ANDROID_external_memory_android_hardware_buffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html).")
+(alexandria:define-constant +ext-4444-formats-extension-name+ "VK_EXT_4444_formats"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_4444_formats](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_4444_formats.html).")
+(alexandria:define-constant +ext-acquire-xlib-display-extension-name+ "VK_EXT_acquire_xlib_display"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_acquire_xlib_display](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_acquire_xlib_display.html).")
+(alexandria:define-constant +ext-astc-decode-mode-extension-name+ "VK_EXT_astc_decode_mode"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_astc_decode_mode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_astc_decode_mode.html).")
+(alexandria:define-constant +ext-blend-operation-advanced-extension-name+ "VK_EXT_blend_operation_advanced"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_blend_operation_advanced](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_blend_operation_advanced.html).")
+(alexandria:define-constant +ext-buffer-device-address-extension-name+ "VK_EXT_buffer_device_address"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_buffer_device_address](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_buffer_device_address.html).")
+(alexandria:define-constant +ext-calibrated-timestamps-extension-name+ "VK_EXT_calibrated_timestamps"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_calibrated_timestamps](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_calibrated_timestamps.html).")
+(alexandria:define-constant +ext-conditional-rendering-extension-name+ "VK_EXT_conditional_rendering"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_conditional_rendering](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_conditional_rendering.html).")
+(alexandria:define-constant +ext-conservative-rasterization-extension-name+ "VK_EXT_conservative_rasterization"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_conservative_rasterization](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_conservative_rasterization.html).")
+(alexandria:define-constant +ext-custom-border-color-extension-name+ "VK_EXT_custom_border_color"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_custom_border_color](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_custom_border_color.html).")
+(alexandria:define-constant +ext-debug-marker-extension-name+ "VK_EXT_debug_marker"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_debug_marker](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_debug_marker.html).")
+(alexandria:define-constant +ext-debug-report-extension-name+ "VK_EXT_debug_report"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_debug_report](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_debug_report.html).")
+(alexandria:define-constant +ext-debug-utils-extension-name+ "VK_EXT_debug_utils"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_debug_utils](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_debug_utils.html).")
+(alexandria:define-constant +ext-depth-clip-enable-extension-name+ "VK_EXT_depth_clip_enable"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_depth_clip_enable](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_depth_clip_enable.html).")
+(alexandria:define-constant +ext-depth-range-unrestricted-extension-name+ "VK_EXT_depth_range_unrestricted"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_depth_range_unrestricted](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_depth_range_unrestricted.html).")
+(alexandria:define-constant +ext-descriptor-indexing-extension-name+ "VK_EXT_descriptor_indexing"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_descriptor_indexing](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_descriptor_indexing.html).")
+(alexandria:define-constant +ext-device-memory-report-extension-name+ "VK_EXT_device_memory_report"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_device_memory_report](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_device_memory_report.html).")
+(alexandria:define-constant +ext-directfb-surface-extension-name+ "VK_EXT_directfb_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_directfb_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_directfb_surface.html).")
+(alexandria:define-constant +ext-direct-mode-display-extension-name+ "VK_EXT_direct_mode_display"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_direct_mode_display](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_direct_mode_display.html).")
+(alexandria:define-constant +ext-discard-rectangles-extension-name+ "VK_EXT_discard_rectangles"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_discard_rectangles](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_discard_rectangles.html).")
+(alexandria:define-constant +ext-display-control-extension-name+ "VK_EXT_display_control"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_display_control](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_display_control.html).")
+(alexandria:define-constant +ext-display-surface-counter-extension-name+ "VK_EXT_display_surface_counter"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_display_surface_counter](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_display_surface_counter.html).")
+(alexandria:define-constant +ext-extended-dynamic-state-extension-name+ "VK_EXT_extended_dynamic_state"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_extended_dynamic_state](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_extended_dynamic_state.html).")
+(alexandria:define-constant +ext-external-memory-dma-buf-extension-name+ "VK_EXT_external_memory_dma_buf"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_external_memory_dma_buf](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_external_memory_dma_buf.html).")
+(alexandria:define-constant +ext-external-memory-host-extension-name+ "VK_EXT_external_memory_host"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_external_memory_host](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_external_memory_host.html).")
+(alexandria:define-constant +ext-filter-cubic-extension-name+ "VK_EXT_filter_cubic"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_filter_cubic](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_filter_cubic.html).")
+(alexandria:define-constant +ext-fragment-density-map-2-extension-name+ "VK_EXT_fragment_density_map2"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_fragment_density_map2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_fragment_density_map2.html).")
+(alexandria:define-constant +ext-fragment-density-map-extension-name+ "VK_EXT_fragment_density_map"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_fragment_density_map](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_fragment_density_map.html).")
+(alexandria:define-constant +ext-fragment-shader-interlock-extension-name+ "VK_EXT_fragment_shader_interlock"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_fragment_shader_interlock](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_fragment_shader_interlock.html).")
+(alexandria:define-constant +ext-full-screen-exclusive-extension-name+ "VK_EXT_full_screen_exclusive"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_full_screen_exclusive](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_full_screen_exclusive.html).")
+(alexandria:define-constant +ext-global-priority-extension-name+ "VK_EXT_global_priority"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_global_priority](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_global_priority.html).")
+(alexandria:define-constant +ext-hdr-metadata-extension-name+ "VK_EXT_hdr_metadata"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_hdr_metadata](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_hdr_metadata.html).")
+(alexandria:define-constant +ext-headless-surface-extension-name+ "VK_EXT_headless_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_headless_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_headless_surface.html).")
+(alexandria:define-constant +ext-host-query-reset-extension-name+ "VK_EXT_host_query_reset"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_host_query_reset](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_host_query_reset.html).")
+(alexandria:define-constant +ext-image-drm-format-modifier-extension-name+ "VK_EXT_image_drm_format_modifier"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_image_drm_format_modifier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_image_drm_format_modifier.html).")
+(alexandria:define-constant +ext-image-robustness-extension-name+ "VK_EXT_image_robustness"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_image_robustness](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_image_robustness.html).")
+(alexandria:define-constant +ext-index-type-uint8-extension-name+ "VK_EXT_index_type_uint8"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_index_type_uint8](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_index_type_uint8.html).")
+(alexandria:define-constant +ext-inline-uniform-block-extension-name+ "VK_EXT_inline_uniform_block"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_inline_uniform_block](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_inline_uniform_block.html).")
+(alexandria:define-constant +ext-line-rasterization-extension-name+ "VK_EXT_line_rasterization"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_line_rasterization](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_line_rasterization.html).")
+(alexandria:define-constant +ext-memory-budget-extension-name+ "VK_EXT_memory_budget"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_memory_budget](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_memory_budget.html).")
+(alexandria:define-constant +ext-memory-priority-extension-name+ "VK_EXT_memory_priority"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_memory_priority](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_memory_priority.html).")
+(alexandria:define-constant +ext-metal-surface-extension-name+ "VK_EXT_metal_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_metal_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_metal_surface.html).")
+(alexandria:define-constant +ext-pci-bus-info-extension-name+ "VK_EXT_pci_bus_info"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_pci_bus_info](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_pci_bus_info.html).")
+(alexandria:define-constant +ext-pipeline-creation-cache-control-extension-name+ "VK_EXT_pipeline_creation_cache_control"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_pipeline_creation_cache_control](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_pipeline_creation_cache_control.html).")
+(alexandria:define-constant +ext-pipeline-creation-feedback-extension-name+ "VK_EXT_pipeline_creation_feedback"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_pipeline_creation_feedback](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_pipeline_creation_feedback.html).")
+(alexandria:define-constant +ext-post-depth-coverage-extension-name+ "VK_EXT_post_depth_coverage"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_post_depth_coverage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_post_depth_coverage.html).")
+(alexandria:define-constant +ext-private-data-extension-name+ "VK_EXT_private_data"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_private_data](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_private_data.html).")
+(alexandria:define-constant +ext-queue-family-foreign-extension-name+ "VK_EXT_queue_family_foreign"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_queue_family_foreign](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_queue_family_foreign.html).")
+(alexandria:define-constant +ext-robustness-2-extension-name+ "VK_EXT_robustness2"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_robustness2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_robustness2.html).")
+(alexandria:define-constant +ext-sampler-filter-minmax-extension-name+ "VK_EXT_sampler_filter_minmax"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_sampler_filter_minmax](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_sampler_filter_minmax.html).")
+(alexandria:define-constant +ext-sample-locations-extension-name+ "VK_EXT_sample_locations"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_sample_locations](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_sample_locations.html).")
+(alexandria:define-constant +ext-scalar-block-layout-extension-name+ "VK_EXT_scalar_block_layout"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_scalar_block_layout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_scalar_block_layout.html).")
+(alexandria:define-constant +ext-separate-stencil-usage-extension-name+ "VK_EXT_separate_stencil_usage"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_separate_stencil_usage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_separate_stencil_usage.html).")
+(alexandria:define-constant +ext-shader-atomic-float-extension-name+ "VK_EXT_shader_atomic_float"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_atomic_float](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_atomic_float.html).")
+(alexandria:define-constant +ext-shader-demote-to-helper-invocation-extension-name+ "VK_EXT_shader_demote_to_helper_invocation"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_demote_to_helper_invocation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_demote_to_helper_invocation.html).")
+(alexandria:define-constant +ext-shader-image-atomic-int64-extension-name+ "VK_EXT_shader_image_atomic_int64"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_image_atomic_int64](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_image_atomic_int64.html).")
+(alexandria:define-constant +ext-shader-stencil-export-extension-name+ "VK_EXT_shader_stencil_export"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_stencil_export](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_stencil_export.html).")
+(alexandria:define-constant +ext-shader-subgroup-ballot-extension-name+ "VK_EXT_shader_subgroup_ballot"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_subgroup_ballot](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_subgroup_ballot.html).")
+(alexandria:define-constant +ext-shader-subgroup-vote-extension-name+ "VK_EXT_shader_subgroup_vote"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_subgroup_vote](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_subgroup_vote.html).")
+(alexandria:define-constant +ext-shader-viewport-index-layer-extension-name+ "VK_EXT_shader_viewport_index_layer"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_shader_viewport_index_layer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_shader_viewport_index_layer.html).")
+(alexandria:define-constant +ext-subgroup-size-control-extension-name+ "VK_EXT_subgroup_size_control"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_subgroup_size_control](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_subgroup_size_control.html).")
+(alexandria:define-constant +ext-swapchain-color-space-extension-name+ "VK_EXT_swapchain_colorspace"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_swapchain_colorspace](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_swapchain_colorspace.html).")
+(alexandria:define-constant +ext-texel-buffer-alignment-extension-name+ "VK_EXT_texel_buffer_alignment"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_texel_buffer_alignment](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_texel_buffer_alignment.html).")
+(alexandria:define-constant +ext-texture-compression-astc-hdr-extension-name+ "VK_EXT_texture_compression_astc_hdr"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_texture_compression_astc_hdr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_texture_compression_astc_hdr.html).")
+(alexandria:define-constant +ext-tooling-info-extension-name+ "VK_EXT_tooling_info"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_tooling_info](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_tooling_info.html).")
+(alexandria:define-constant +ext-transform-feedback-extension-name+ "VK_EXT_transform_feedback"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_transform_feedback](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_transform_feedback.html).")
+(alexandria:define-constant +ext-validation-cache-extension-name+ "VK_EXT_validation_cache"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_validation_cache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_validation_cache.html).")
+(alexandria:define-constant +ext-validation-features-extension-name+ "VK_EXT_validation_features"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_validation_features](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_validation_features.html).")
+(alexandria:define-constant +ext-validation-flags-extension-name+ "VK_EXT_validation_flags"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_validation_flags](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_validation_flags.html).")
+(alexandria:define-constant +ext-vertex-attribute-divisor-extension-name+ "VK_EXT_vertex_attribute_divisor"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_vertex_attribute_divisor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_vertex_attribute_divisor.html).")
+(alexandria:define-constant +ext-ycbcr-image-arrays-extension-name+ "VK_EXT_ycbcr_image_arrays"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_ycbcr_image_arrays](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_ycbcr_image_arrays.html).")
+(alexandria:define-constant +fuchsia-external-memory-extension-name+ "VK_FUCHSIA_external_memory"
+  :test #'string=
+  :documentation "The name of the extension [VK_FUCHSIA_external_memory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_FUCHSIA_external_memory.html).")
+(alexandria:define-constant +fuchsia-external-semaphore-extension-name+ "VK_FUCHSIA_external_semaphore"
+  :test #'string=
+  :documentation "The name of the extension [VK_FUCHSIA_external_semaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_FUCHSIA_external_semaphore.html).")
+(alexandria:define-constant +fuchsia-imagepipe-surface-extension-name+ "VK_FUCHSIA_imagepipe_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_FUCHSIA_imagepipe_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_FUCHSIA_imagepipe_surface.html).")
+(alexandria:define-constant +ggp-frame-token-extension-name+ "VK_GGP_frame_token"
+  :test #'string=
+  :documentation "The name of the extension [VK_GGP_frame_token](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_GGP_frame_token.html).")
+(alexandria:define-constant +ggp-stream-descriptor-surface-extension-name+ "VK_GGP_stream_descriptor_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_GGP_stream_descriptor_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_GGP_stream_descriptor_surface.html).")
+(alexandria:define-constant +google-decorate-string-extension-name+ "VK_GOOGLE_decorate_string"
+  :test #'string=
+  :documentation "The name of the extension [VK_GOOGLE_decorate_string](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_GOOGLE_decorate_string.html).")
+(alexandria:define-constant +google-display-timing-extension-name+ "VK_GOOGLE_display_timing"
+  :test #'string=
+  :documentation "The name of the extension [VK_GOOGLE_display_timing](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_GOOGLE_display_timing.html).")
+(alexandria:define-constant +google-hlsl-functionality1-extension-name+ "VK_GOOGLE_hlsl_functionality1"
+  :test #'string=
+  :documentation "The name of the extension [VK_GOOGLE_hlsl_functionality1](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_GOOGLE_hlsl_functionality1.html).")
+(alexandria:define-constant +google-user-type-extension-name+ "VK_GOOGLE_user_type"
+  :test #'string=
+  :documentation "The name of the extension [VK_GOOGLE_user_type](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_GOOGLE_user_type.html).")
+(alexandria:define-constant +img-filter-cubic-extension-name+ "VK_IMG_filter_cubic"
+  :test #'string=
+  :documentation "The name of the extension [VK_IMG_filter_cubic](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_IMG_filter_cubic.html).")
+(alexandria:define-constant +img-format-pvrtc-extension-name+ "VK_IMG_format_pvrtc"
+  :test #'string=
+  :documentation "The name of the extension [VK_IMG_format_pvrtc](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_IMG_format_pvrtc.html).")
+(alexandria:define-constant +intel-performance-query-extension-name+ "VK_INTEL_performance_query"
+  :test #'string=
+  :documentation "The name of the extension [VK_INTEL_performance_query](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_INTEL_performance_query.html).")
+(alexandria:define-constant +intel-shader-integer-functions-2-extension-name+ "VK_INTEL_shader_integer_functions2"
+  :test #'string=
+  :documentation "The name of the extension [VK_INTEL_shader_integer_functions2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_INTEL_shader_integer_functions2.html).")
+(alexandria:define-constant +khr-16bit-storage-extension-name+ "VK_KHR_16bit_storage"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_16bit_storage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_16bit_storage.html).")
+(alexandria:define-constant +khr-8bit-storage-extension-name+ "VK_KHR_8bit_storage"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_8bit_storage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_8bit_storage.html).")
+(alexandria:define-constant +khr-acceleration-structure-extension-name+ "VK_KHR_acceleration_structure"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_acceleration_structure](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_acceleration_structure.html).")
+(alexandria:define-constant +khr-android-surface-extension-name+ "VK_KHR_android_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_android_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_android_surface.html).")
+(alexandria:define-constant +khr-bind-memory-2-extension-name+ "VK_KHR_bind_memory2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_bind_memory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_bind_memory2.html).")
+(alexandria:define-constant +khr-buffer-device-address-extension-name+ "VK_KHR_buffer_device_address"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_buffer_device_address](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_buffer_device_address.html).")
+(alexandria:define-constant +khr-copy-commands-2-extension-name+ "VK_KHR_copy_commands2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_copy_commands2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_copy_commands2.html).")
+(alexandria:define-constant +khr-create-renderpass-2-extension-name+ "VK_KHR_create_renderpass2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_create_renderpass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_create_renderpass2.html).")
+(alexandria:define-constant +khr-dedicated-allocation-extension-name+ "VK_KHR_dedicated_allocation"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_dedicated_allocation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_dedicated_allocation.html).")
+(alexandria:define-constant +khr-deferred-host-operations-extension-name+ "VK_KHR_deferred_host_operations"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_deferred_host_operations](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_deferred_host_operations.html).")
+(alexandria:define-constant +khr-depth-stencil-resolve-extension-name+ "VK_KHR_depth_stencil_resolve"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_depth_stencil_resolve](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_depth_stencil_resolve.html).")
+(alexandria:define-constant +khr-descriptor-update-template-extension-name+ "VK_KHR_descriptor_update_template"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_descriptor_update_template](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_descriptor_update_template.html).")
+(alexandria:define-constant +khr-device-group-creation-extension-name+ "VK_KHR_device_group_creation"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_device_group_creation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_device_group_creation.html).")
+(alexandria:define-constant +khr-device-group-extension-name+ "VK_KHR_device_group"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_device_group](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_device_group.html).")
+(alexandria:define-constant +khr-display-extension-name+ "VK_KHR_display"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_display](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_display.html).")
+(alexandria:define-constant +khr-display-swapchain-extension-name+ "VK_KHR_display_swapchain"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_display_swapchain](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_display_swapchain.html).")
+(alexandria:define-constant +khr-draw-indirect-count-extension-name+ "VK_KHR_draw_indirect_count"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_draw_indirect_count](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_draw_indirect_count.html).")
+(alexandria:define-constant +khr-driver-properties-extension-name+ "VK_KHR_driver_properties"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_driver_properties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_driver_properties.html).")
+(alexandria:define-constant +khr-external-fence-capabilities-extension-name+ "VK_KHR_external_fence_capabilities"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_fence_capabilities](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_fence_capabilities.html).")
+(alexandria:define-constant +khr-external-fence-extension-name+ "VK_KHR_external_fence"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_fence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_fence.html).")
+(alexandria:define-constant +khr-external-fence-fd-extension-name+ "VK_KHR_external_fence_fd"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_fence_fd](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_fence_fd.html).")
+(alexandria:define-constant +khr-external-fence-win32-extension-name+ "VK_KHR_external_fence_win32"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_fence_win32](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_fence_win32.html).")
+(alexandria:define-constant +khr-external-memory-capabilities-extension-name+ "VK_KHR_external_memory_capabilities"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_memory_capabilities](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_memory_capabilities.html).")
+(alexandria:define-constant +khr-external-memory-extension-name+ "VK_KHR_external_memory"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_memory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_memory.html).")
+(alexandria:define-constant +khr-external-memory-fd-extension-name+ "VK_KHR_external_memory_fd"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_memory_fd](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_memory_fd.html).")
+(alexandria:define-constant +khr-external-memory-win32-extension-name+ "VK_KHR_external_memory_win32"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_memory_win32](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_memory_win32.html).")
+(alexandria:define-constant +khr-external-semaphore-capabilities-extension-name+ "VK_KHR_external_semaphore_capabilities"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_semaphore_capabilities](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_semaphore_capabilities.html).")
+(alexandria:define-constant +khr-external-semaphore-extension-name+ "VK_KHR_external_semaphore"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_semaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_semaphore.html).")
+(alexandria:define-constant +khr-external-semaphore-fd-extension-name+ "VK_KHR_external_semaphore_fd"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_semaphore_fd](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_semaphore_fd.html).")
+(alexandria:define-constant +khr-external-semaphore-win32-extension-name+ "VK_KHR_external_semaphore_win32"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_external_semaphore_win32](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_semaphore_win32.html).")
+(alexandria:define-constant +khr-fragment-shading-rate-extension-name+ "VK_KHR_fragment_shading_rate"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_fragment_shading_rate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html).")
+(alexandria:define-constant +khr-get-display-properties-2-extension-name+ "VK_KHR_get_display_properties2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_get_display_properties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_get_display_properties2.html).")
+(alexandria:define-constant +khr-get-memory-requirements-2-extension-name+ "VK_KHR_get_memory_requirements2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_get_memory_requirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_get_memory_requirements2.html).")
+(alexandria:define-constant +khr-get-physical-device-properties-2-extension-name+ "VK_KHR_get_physical_device_properties2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_get_physical_device_properties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_get_physical_device_properties2.html).")
+(alexandria:define-constant +khr-get-surface-capabilities-2-extension-name+ "VK_KHR_get_surface_capabilities2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_get_surface_capabilities2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_get_surface_capabilities2.html).")
+(alexandria:define-constant +khr-imageless-framebuffer-extension-name+ "VK_KHR_imageless_framebuffer"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_imageless_framebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_imageless_framebuffer.html).")
+(alexandria:define-constant +khr-image-format-list-extension-name+ "VK_KHR_image_format_list"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_image_format_list](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_image_format_list.html).")
+(alexandria:define-constant +khr-incremental-present-extension-name+ "VK_KHR_incremental_present"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_incremental_present](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_incremental_present.html).")
+(alexandria:define-constant +khr-maintenance1-extension-name+ "VK_KHR_maintenance1"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_maintenance1](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_maintenance1.html).")
+(alexandria:define-constant +khr-maintenance2-extension-name+ "VK_KHR_maintenance2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_maintenance2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_maintenance2.html).")
+(alexandria:define-constant +khr-maintenance3-extension-name+ "VK_KHR_maintenance3"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_maintenance3](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_maintenance3.html).")
+(alexandria:define-constant +khr-multiview-extension-name+ "VK_KHR_multiview"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_multiview](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_multiview.html).")
+(alexandria:define-constant +khr-performance-query-extension-name+ "VK_KHR_performance_query"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_performance_query](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_performance_query.html).")
+(alexandria:define-constant +khr-pipeline-executable-properties-extension-name+ "VK_KHR_pipeline_executable_properties"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_pipeline_executable_properties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_pipeline_executable_properties.html).")
+(alexandria:define-constant +khr-pipeline-library-extension-name+ "VK_KHR_pipeline_library"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_pipeline_library](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_pipeline_library.html).")
+(alexandria:define-constant +khr-portability-subset-extension-name+ "VK_KHR_portability_subset"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_portability_subset](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_portability_subset.html).")
+(alexandria:define-constant +khr-push-descriptor-extension-name+ "VK_KHR_push_descriptor"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_push_descriptor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_push_descriptor.html).")
+(alexandria:define-constant +khr-ray-query-extension-name+ "VK_KHR_ray_query"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_ray_query](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_ray_query.html).")
+(alexandria:define-constant +khr-ray-tracing-pipeline-extension-name+ "VK_KHR_ray_tracing_pipeline"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_ray_tracing_pipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_ray_tracing_pipeline.html).")
+(alexandria:define-constant +khr-relaxed-block-layout-extension-name+ "VK_KHR_relaxed_block_layout"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_relaxed_block_layout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_relaxed_block_layout.html).")
+(alexandria:define-constant +khr-sampler-mirror-clamp-to-edge-extension-name+ "VK_KHR_sampler_mirror_clamp_to_edge"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_sampler_mirror_clamp_to_edge](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_sampler_mirror_clamp_to_edge.html).")
+(alexandria:define-constant +khr-sampler-ycbcr-conversion-extension-name+ "VK_KHR_sampler_ycbcr_conversion"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_sampler_ycbcr_conversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_sampler_ycbcr_conversion.html).")
+(alexandria:define-constant +khr-separate-depth-stencil-layouts-extension-name+ "VK_KHR_separate_depth_stencil_layouts"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_separate_depth_stencil_layouts](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_separate_depth_stencil_layouts.html).")
+(alexandria:define-constant +khr-shader-atomic-int64-extension-name+ "VK_KHR_shader_atomic_int64"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_atomic_int64](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_atomic_int64.html).")
+(alexandria:define-constant +khr-shader-clock-extension-name+ "VK_KHR_shader_clock"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_clock](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_clock.html).")
+(alexandria:define-constant +khr-shader-draw-parameters-extension-name+ "VK_KHR_shader_draw_parameters"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_draw_parameters](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_draw_parameters.html).")
+(alexandria:define-constant +khr-shader-float16-int8-extension-name+ "VK_KHR_shader_float16_int8"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_float16_int8](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_float16_int8.html).")
+(alexandria:define-constant +khr-shader-float-controls-extension-name+ "VK_KHR_shader_float_controls"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_float_controls](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_float_controls.html).")
+(alexandria:define-constant +khr-shader-non-semantic-info-extension-name+ "VK_KHR_shader_non_semantic_info"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_non_semantic_info](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_non_semantic_info.html).")
+(alexandria:define-constant +khr-shader-subgroup-extended-types-extension-name+ "VK_KHR_shader_subgroup_extended_types"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_subgroup_extended_types](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_subgroup_extended_types.html).")
+(alexandria:define-constant +khr-shader-terminate-invocation-extension-name+ "VK_KHR_shader_terminate_invocation"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shader_terminate_invocation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shader_terminate_invocation.html).")
+(alexandria:define-constant +khr-shared-presentable-image-extension-name+ "VK_KHR_shared_presentable_image"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_shared_presentable_image](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_shared_presentable_image.html).")
+(alexandria:define-constant +khr-spirv-1-4-extension-name+ "VK_KHR_spirv_1_4"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_spirv_1_4](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_spirv_1_4.html).")
+(alexandria:define-constant +khr-storage-buffer-storage-class-extension-name+ "VK_KHR_storage_buffer_storage_class"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_storage_buffer_storage_class](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_storage_buffer_storage_class.html).")
+(alexandria:define-constant +khr-surface-extension-name+ "VK_KHR_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_surface.html).")
+(alexandria:define-constant +khr-surface-protected-capabilities-extension-name+ "VK_KHR_surface_protected_capabilities"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_surface_protected_capabilities](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_surface_protected_capabilities.html).")
+(alexandria:define-constant +khr-swapchain-extension-name+ "VK_KHR_swapchain"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_swapchain](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_swapchain.html).")
+(alexandria:define-constant +khr-swapchain-mutable-format-extension-name+ "VK_KHR_swapchain_mutable_format"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_swapchain_mutable_format](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_swapchain_mutable_format.html).")
+(alexandria:define-constant +khr-synchronization-2-extension-name+ "VK_KHR_synchronization2"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_synchronization2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_synchronization2.html).")
+(alexandria:define-constant +khr-timeline-semaphore-extension-name+ "VK_KHR_timeline_semaphore"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_timeline_semaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_timeline_semaphore.html).")
+(alexandria:define-constant +khr-uniform-buffer-standard-layout-extension-name+ "VK_KHR_uniform_buffer_standard_layout"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_uniform_buffer_standard_layout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_uniform_buffer_standard_layout.html).")
+(alexandria:define-constant +khr-variable-pointers-extension-name+ "VK_KHR_variable_pointers"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_variable_pointers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_variable_pointers.html).")
+(alexandria:define-constant +khr-vulkan-memory-model-extension-name+ "VK_KHR_vulkan_memory_model"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_vulkan_memory_model](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_vulkan_memory_model.html).")
+(alexandria:define-constant +khr-wayland-surface-extension-name+ "VK_KHR_wayland_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_wayland_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_wayland_surface.html).")
+(alexandria:define-constant +khr-win32-keyed-mutex-extension-name+ "VK_KHR_win32_keyed_mutex"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_win32_keyed_mutex](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_win32_keyed_mutex.html).")
+(alexandria:define-constant +khr-win32-surface-extension-name+ "VK_KHR_win32_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_win32_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_win32_surface.html).")
+(alexandria:define-constant +khr-workgroup-memory-explicit-layout-extension-name+ "VK_KHR_workgroup_memory_explicit_layout"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_workgroup_memory_explicit_layout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_workgroup_memory_explicit_layout.html).")
+(alexandria:define-constant +khr-xcb-surface-extension-name+ "VK_KHR_xcb_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_xcb_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_xcb_surface.html).")
+(alexandria:define-constant +khr-xlib-surface-extension-name+ "VK_KHR_xlib_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_xlib_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_xlib_surface.html).")
+(alexandria:define-constant +khr-zero-initialize-workgroup-memory-extension-name+ "VK_KHR_zero_initialize_workgroup_memory"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_zero_initialize_workgroup_memory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_zero_initialize_workgroup_memory.html).")
+(alexandria:define-constant +mvk-ios-surface-extension-name+ "VK_MVK_ios_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_MVK_ios_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_MVK_ios_surface.html).")
+(alexandria:define-constant +mvk-macos-surface-extension-name+ "VK_MVK_macos_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_MVK_macos_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_MVK_macos_surface.html).")
+(alexandria:define-constant +nn-vi-surface-extension-name+ "VK_NN_vi_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_NN_vi_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NN_vi_surface.html).")
+(alexandria:define-constant +nvx-image-view-handle-extension-name+ "VK_NVX_image_view_handle"
+  :test #'string=
+  :documentation "The name of the extension [VK_NVX_image_view_handle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NVX_image_view_handle.html).")
+(alexandria:define-constant +nvx-multiview-per-view-attributes-extension-name+ "VK_NVX_multiview_per_view_attributes"
+  :test #'string=
+  :documentation "The name of the extension [VK_NVX_multiview_per_view_attributes](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NVX_multiview_per_view_attributes.html).")
+(alexandria:define-constant +nv-acquire-winrt-display-extension-name+ "VK_NV_acquire_winrt_display"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_acquire_winrt_display](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_acquire_winrt_display.html).")
+(alexandria:define-constant +nv-clip-space-w-scaling-extension-name+ "VK_NV_clip_space_w_scaling"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_clip_space_w_scaling](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_clip_space_w_scaling.html).")
+(alexandria:define-constant +nv-compute-shader-derivatives-extension-name+ "VK_NV_compute_shader_derivatives"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_compute_shader_derivatives](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_compute_shader_derivatives.html).")
+(alexandria:define-constant +nv-cooperative-matrix-extension-name+ "VK_NV_cooperative_matrix"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_cooperative_matrix](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_cooperative_matrix.html).")
+(alexandria:define-constant +nv-corner-sampled-image-extension-name+ "VK_NV_corner_sampled_image"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_corner_sampled_image](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_corner_sampled_image.html).")
+(alexandria:define-constant +nv-coverage-reduction-mode-extension-name+ "VK_NV_coverage_reduction_mode"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_coverage_reduction_mode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_coverage_reduction_mode.html).")
+(alexandria:define-constant +nv-dedicated-allocation-extension-name+ "VK_NV_dedicated_allocation"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_dedicated_allocation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_dedicated_allocation.html).")
+(alexandria:define-constant +nv-dedicated-allocation-image-aliasing-extension-name+ "VK_NV_dedicated_allocation_image_aliasing"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_dedicated_allocation_image_aliasing](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_dedicated_allocation_image_aliasing.html).")
+(alexandria:define-constant +nv-device-diagnostics-config-extension-name+ "VK_NV_device_diagnostics_config"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_device_diagnostics_config](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_device_diagnostics_config.html).")
+(alexandria:define-constant +nv-device-diagnostic-checkpoints-extension-name+ "VK_NV_device_diagnostic_checkpoints"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_device_diagnostic_checkpoints](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_device_diagnostic_checkpoints.html).")
+(alexandria:define-constant +nv-device-generated-commands-extension-name+ "VK_NV_device_generated_commands"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_device_generated_commands](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_device_generated_commands.html).")
+(alexandria:define-constant +nv-external-memory-capabilities-extension-name+ "VK_NV_external_memory_capabilities"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_external_memory_capabilities](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_external_memory_capabilities.html).")
+(alexandria:define-constant +nv-external-memory-extension-name+ "VK_NV_external_memory"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_external_memory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_external_memory.html).")
+(alexandria:define-constant +nv-external-memory-win32-extension-name+ "VK_NV_external_memory_win32"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_external_memory_win32](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_external_memory_win32.html).")
+(alexandria:define-constant +nv-fill-rectangle-extension-name+ "VK_NV_fill_rectangle"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_fill_rectangle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_fill_rectangle.html).")
+(alexandria:define-constant +nv-fragment-coverage-to-color-extension-name+ "VK_NV_fragment_coverage_to_color"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_fragment_coverage_to_color](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_fragment_coverage_to_color.html).")
+(alexandria:define-constant +nv-fragment-shader-barycentric-extension-name+ "VK_NV_fragment_shader_barycentric"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_fragment_shader_barycentric](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_fragment_shader_barycentric.html).")
+(alexandria:define-constant +nv-fragment-shading-rate-enums-extension-name+ "VK_NV_fragment_shading_rate_enums"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_fragment_shading_rate_enums](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_fragment_shading_rate_enums.html).")
+(alexandria:define-constant +nv-framebuffer-mixed-samples-extension-name+ "VK_NV_framebuffer_mixed_samples"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_framebuffer_mixed_samples](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_framebuffer_mixed_samples.html).")
+(alexandria:define-constant +nv-geometry-shader-passthrough-extension-name+ "VK_NV_geometry_shader_passthrough"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_geometry_shader_passthrough](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_geometry_shader_passthrough.html).")
+(alexandria:define-constant +nv-glsl-shader-extension-name+ "VK_NV_glsl_shader"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_glsl_shader](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_glsl_shader.html).")
+(alexandria:define-constant +nv-mesh-shader-extension-name+ "VK_NV_mesh_shader"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_mesh_shader](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_mesh_shader.html).")
+(alexandria:define-constant +nv-ray-tracing-extension-name+ "VK_NV_ray_tracing"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_ray_tracing](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_ray_tracing.html).")
+(alexandria:define-constant +nv-representative-fragment-test-extension-name+ "VK_NV_representative_fragment_test"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_representative_fragment_test](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_representative_fragment_test.html).")
+(alexandria:define-constant +nv-sample-mask-override-coverage-extension-name+ "VK_NV_sample_mask_override_coverage"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_sample_mask_override_coverage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_sample_mask_override_coverage.html).")
+(alexandria:define-constant +nv-scissor-exclusive-extension-name+ "VK_NV_scissor_exclusive"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_scissor_exclusive](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_scissor_exclusive.html).")
+(alexandria:define-constant +nv-shader-image-footprint-extension-name+ "VK_NV_shader_image_footprint"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_shader_image_footprint](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_shader_image_footprint.html).")
+(alexandria:define-constant +nv-shader-sm-builtins-extension-name+ "VK_NV_shader_sm_builtins"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_shader_sm_builtins](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_shader_sm_builtins.html).")
+(alexandria:define-constant +nv-shader-subgroup-partitioned-extension-name+ "VK_NV_shader_subgroup_partitioned"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_shader_subgroup_partitioned](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_shader_subgroup_partitioned.html).")
+(alexandria:define-constant +nv-shading-rate-image-extension-name+ "VK_NV_shading_rate_image"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_shading_rate_image](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_shading_rate_image.html).")
+(alexandria:define-constant +nv-viewport-array2-extension-name+ "VK_NV_viewport_array2"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_viewport_array2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_viewport_array2.html).")
+(alexandria:define-constant +nv-viewport-swizzle-extension-name+ "VK_NV_viewport_swizzle"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_viewport_swizzle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_viewport_swizzle.html).")
+(alexandria:define-constant +nv-win32-keyed-mutex-extension-name+ "VK_NV_win32_keyed_mutex"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_win32_keyed_mutex](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_win32_keyed_mutex.html).")
+(alexandria:define-constant +qcom-render-pass-shader-resolve-extension-name+ "VK_QCOM_render_pass_shader_resolve"
+  :test #'string=
+  :documentation "The name of the extension [VK_QCOM_render_pass_shader_resolve](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_shader_resolve.html).")
+(alexandria:define-constant +qcom-render-pass-transform-extension-name+ "VK_QCOM_render_pass_transform"
+  :test #'string=
+  :documentation "The name of the extension [VK_QCOM_render_pass_transform](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_transform.html).")
+(alexandria:define-constant +qcom-rotated-copy-commands-extension-name+ "VK_QCOM_rotated_copy_commands"
+  :test #'string=
+  :documentation "The name of the extension [VK_QCOM_rotated_copy_commands](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_rotated_copy_commands.html).")
+(alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops"
+  :test #'string=
+  :documentation "The name of the extension [VK_QCOM_render_pass_store_ops](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_store_ops.html).")
+(alexandria:define-constant +qnx-screen-surface-extension-name+ "VK_QNX_screen_surface"
+  :test #'string=
+  :documentation "The name of the extension [VK_QNX_screen_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QNX_screen_surface.html).")
+(alexandria:define-constant +valve-mutable-descriptor-type-extension-name+ "VK_VALVE_mutable_descriptor_type"
+  :test #'string=
+  :documentation "The name of the extension [VK_VALVE_mutable_descriptor_type](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_VALVE_mutable_descriptor_type.html).")
 
 (defctype sample-mask :uint32)
 

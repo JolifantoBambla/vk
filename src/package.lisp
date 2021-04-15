@@ -31,6 +31,35 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:make-extension-loader
     #:*default-extension-loader*
 
+    #:+attachment-unused+
+    #:+false+
+    #:+lod-clamp-none+
+    #:+luid-size+
+    #:+luid-size-khr+
+    #:+max-description-size+
+    #:+max-device-group-size+
+    #:+max-device-group-size-khr+
+    #:+max-driver-info-size+
+    #:+max-driver-info-size-khr+
+    #:+max-driver-name-size+
+    #:+max-driver-name-size-khr+
+    #:+max-extension-name-size+
+    #:+max-memory-heaps+
+    #:+max-memory-types+
+    #:+max-physical-device-name-size+
+    #:+queue-family-external+
+    #:+queue-family-external-khr+
+    #:+queue-family-foreign-ext+
+    #:+queue-family-ignored+
+    #:+remaining-array-layers+
+    #:+remaining-mip-levels+
+    #:+shader-unused-khr+
+    #:+shader-unused-nv+
+    #:+subpass-external+
+    #:+true+
+    #:+uuid-size+
+    #:+whole-size+
+
     #:+amd-buffer-marker-extension-name+
     #:+amd-device-coherent-memory-extension-name+
     #:+amd-display-native-hdr-extension-name+
@@ -4025,6 +4054,34 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:import-from #:%vk
     #:make-extension-loader
     #:*default-extension-loader*
+    #:+attachment-unused+
+    #:+false+
+    #:+lod-clamp-none+
+    #:+luid-size+
+    #:+luid-size-khr+
+    #:+max-description-size+
+    #:+max-device-group-size+
+    #:+max-device-group-size-khr+
+    #:+max-driver-info-size+
+    #:+max-driver-info-size-khr+
+    #:+max-driver-name-size+
+    #:+max-driver-name-size-khr+
+    #:+max-extension-name-size+
+    #:+max-memory-heaps+
+    #:+max-memory-types+
+    #:+max-physical-device-name-size+
+    #:+queue-family-external+
+    #:+queue-family-external-khr+
+    #:+queue-family-foreign-ext+
+    #:+queue-family-ignored+
+    #:+remaining-array-layers+
+    #:+remaining-mip-levels+
+    #:+shader-unused-khr+
+    #:+shader-unused-nv+
+    #:+subpass-external+
+    #:+true+
+    #:+uuid-size+
+    #:+whole-size+
     #:+amd-buffer-marker-extension-name+
     #:+amd-device-coherent-memory-extension-name+
     #:+amd-display-native-hdr-extension-name+
@@ -4260,6 +4317,34 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:*default-extension-loader*
     #:make-api-version
 
+    #:+attachment-unused+
+    #:+false+
+    #:+lod-clamp-none+
+    #:+luid-size+
+    #:+luid-size-khr+
+    #:+max-description-size+
+    #:+max-device-group-size+
+    #:+max-device-group-size-khr+
+    #:+max-driver-info-size+
+    #:+max-driver-info-size-khr+
+    #:+max-driver-name-size+
+    #:+max-driver-name-size-khr+
+    #:+max-extension-name-size+
+    #:+max-memory-heaps+
+    #:+max-memory-types+
+    #:+max-physical-device-name-size+
+    #:+queue-family-external+
+    #:+queue-family-external-khr+
+    #:+queue-family-foreign-ext+
+    #:+queue-family-ignored+
+    #:+remaining-array-layers+
+    #:+remaining-mip-levels+
+    #:+shader-unused-khr+
+    #:+shader-unused-nv+
+    #:+subpass-external+
+    #:+true+
+    #:+uuid-size+
+    #:+whole-size+
     #:+amd-buffer-marker-extension-name+
     #:+amd-device-coherent-memory-extension-name+
     #:+amd-display-native-hdr-extension-name+

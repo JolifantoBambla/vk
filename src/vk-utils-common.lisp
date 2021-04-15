@@ -6,6 +6,14 @@
 (in-package :vk-utils)
 
 (cffi:defcfun ("memcpy" memcpy) :pointer
+  "Copies COUNT bytes from the memory location pointed to by SRC to the memory location pointed to by DEST.
+
+Args:
+ - DEST: a CFFI:FOREIGN-POINTER
+ - SRC: a CFFI:FOREIGN-POINTER
+ - COUNT: a UNSIGNED-BYTE
+
+Returns DEST (i.e. a CFFI:FOREIGN-POINTER)."
   (dest :pointer)
   (src :pointer)
   (count %vk:size-t))

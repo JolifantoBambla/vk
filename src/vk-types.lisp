@@ -18,7 +18,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (deftype attachment-load-op ()
   "Represents the enum [VkAttachmentLoadOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentLoadOp.html).
 
-Has the values: - :LOAD - :CLEAR - :DONT-CARE"
+Has the values:
+ - :LOAD
+ - :CLEAR
+ - :DONT-CARE"
   '(member nil 
     :load
     :clear
@@ -27,7 +30,10 @@ Has the values: - :LOAD - :CLEAR - :DONT-CARE"
 (deftype attachment-store-op ()
   "Represents the enum [VkAttachmentStoreOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentStoreOp.html).
 
-Has the values: - :STORE - :DONT-CARE - :NONE-QCOM"
+Has the values:
+ - :STORE
+ - :DONT-CARE
+ - :NONE-QCOM"
   '(member nil 
     :store
     :dont-care
@@ -36,7 +42,26 @@ Has the values: - :STORE - :DONT-CARE - :NONE-QCOM"
 (deftype blend-factor ()
   "Represents the enum [VkBlendFactor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html).
 
-Has the values: - :ZERO - :ONE - :SRC-COLOR - :ONE-MINUS-SRC-COLOR - :DST-COLOR - :ONE-MINUS-DST-COLOR - :SRC-ALPHA - :ONE-MINUS-SRC-ALPHA - :DST-ALPHA - :ONE-MINUS-DST-ALPHA - :CONSTANT-COLOR - :ONE-MINUS-CONSTANT-COLOR - :CONSTANT-ALPHA - :ONE-MINUS-CONSTANT-ALPHA - :SRC-ALPHA-SATURATE - :SRC1-COLOR - :ONE-MINUS-SRC1-COLOR - :SRC1-ALPHA - :ONE-MINUS-SRC1-ALPHA"
+Has the values:
+ - :ZERO
+ - :ONE
+ - :SRC-COLOR
+ - :ONE-MINUS-SRC-COLOR
+ - :DST-COLOR
+ - :ONE-MINUS-DST-COLOR
+ - :SRC-ALPHA
+ - :ONE-MINUS-SRC-ALPHA
+ - :DST-ALPHA
+ - :ONE-MINUS-DST-ALPHA
+ - :CONSTANT-COLOR
+ - :ONE-MINUS-CONSTANT-COLOR
+ - :CONSTANT-ALPHA
+ - :ONE-MINUS-CONSTANT-ALPHA
+ - :SRC-ALPHA-SATURATE
+ - :SRC1-COLOR
+ - :ONE-MINUS-SRC1-COLOR
+ - :SRC1-ALPHA
+ - :ONE-MINUS-SRC1-ALPHA"
   '(member nil 
     :zero
     :one
@@ -61,7 +86,58 @@ Has the values: - :ZERO - :ONE - :SRC-COLOR - :ONE-MINUS-SRC-COLOR - :DST-COLOR 
 (deftype blend-op ()
   "Represents the enum [VkBlendOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOp.html).
 
-Has the values: - :ADD - :SUBTRACT - :REVERSE-SUBTRACT - :MIN - :MAX - :ZERO-EXT - :SRC-EXT - :DST-EXT - :SRC-OVER-EXT - :DST-OVER-EXT - :SRC-IN-EXT - :DST-IN-EXT - :SRC-OUT-EXT - :DST-OUT-EXT - :SRC-ATOP-EXT - :DST-ATOP-EXT - :XOR-EXT - :MULTIPLY-EXT - :SCREEN-EXT - :OVERLAY-EXT - :DARKEN-EXT - :LIGHTEN-EXT - :COLORDODGE-EXT - :COLORBURN-EXT - :HARDLIGHT-EXT - :SOFTLIGHT-EXT - :DIFFERENCE-EXT - :EXCLUSION-EXT - :INVERT-EXT - :INVERT-RGB-EXT - :LINEARDODGE-EXT - :LINEARBURN-EXT - :VIVIDLIGHT-EXT - :LINEARLIGHT-EXT - :PINLIGHT-EXT - :HARDMIX-EXT - :HSL-HUE-EXT - :HSL-SATURATION-EXT - :HSL-COLOR-EXT - :HSL-LUMINOSITY-EXT - :PLUS-EXT - :PLUS-CLAMPED-EXT - :PLUS-CLAMPED-ALPHA-EXT - :PLUS-DARKER-EXT - :MINUS-EXT - :MINUS-CLAMPED-EXT - :CONTRAST-EXT - :INVERT-OVG-EXT - :RED-EXT - :GREEN-EXT - :BLUE-EXT"
+Has the values:
+ - :ADD
+ - :SUBTRACT
+ - :REVERSE-SUBTRACT
+ - :MIN
+ - :MAX
+ - :ZERO-EXT
+ - :SRC-EXT
+ - :DST-EXT
+ - :SRC-OVER-EXT
+ - :DST-OVER-EXT
+ - :SRC-IN-EXT
+ - :DST-IN-EXT
+ - :SRC-OUT-EXT
+ - :DST-OUT-EXT
+ - :SRC-ATOP-EXT
+ - :DST-ATOP-EXT
+ - :XOR-EXT
+ - :MULTIPLY-EXT
+ - :SCREEN-EXT
+ - :OVERLAY-EXT
+ - :DARKEN-EXT
+ - :LIGHTEN-EXT
+ - :COLORDODGE-EXT
+ - :COLORBURN-EXT
+ - :HARDLIGHT-EXT
+ - :SOFTLIGHT-EXT
+ - :DIFFERENCE-EXT
+ - :EXCLUSION-EXT
+ - :INVERT-EXT
+ - :INVERT-RGB-EXT
+ - :LINEARDODGE-EXT
+ - :LINEARBURN-EXT
+ - :VIVIDLIGHT-EXT
+ - :LINEARLIGHT-EXT
+ - :PINLIGHT-EXT
+ - :HARDMIX-EXT
+ - :HSL-HUE-EXT
+ - :HSL-SATURATION-EXT
+ - :HSL-COLOR-EXT
+ - :HSL-LUMINOSITY-EXT
+ - :PLUS-EXT
+ - :PLUS-CLAMPED-EXT
+ - :PLUS-CLAMPED-ALPHA-EXT
+ - :PLUS-DARKER-EXT
+ - :MINUS-EXT
+ - :MINUS-CLAMPED-EXT
+ - :CONTRAST-EXT
+ - :INVERT-OVG-EXT
+ - :RED-EXT
+ - :GREEN-EXT
+ - :BLUE-EXT"
   '(member nil 
     :add
     :subtract
@@ -118,7 +194,15 @@ Has the values: - :ADD - :SUBTRACT - :REVERSE-SUBTRACT - :MIN - :MAX - :ZERO-EXT
 (deftype border-color ()
   "Represents the enum [VkBorderColor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBorderColor.html).
 
-Has the values: - :FLOAT-TRANSPARENT-BLACK - :INT-TRANSPARENT-BLACK - :FLOAT-OPAQUE-BLACK - :INT-OPAQUE-BLACK - :FLOAT-OPAQUE-WHITE - :INT-OPAQUE-WHITE - :FLOAT-CUSTOM-EXT - :INT-CUSTOM-EXT"
+Has the values:
+ - :FLOAT-TRANSPARENT-BLACK
+ - :INT-TRANSPARENT-BLACK
+ - :FLOAT-OPAQUE-BLACK
+ - :INT-OPAQUE-BLACK
+ - :FLOAT-OPAQUE-WHITE
+ - :INT-OPAQUE-WHITE
+ - :FLOAT-CUSTOM-EXT
+ - :INT-CUSTOM-EXT"
   '(member nil 
     :float-transparent-black
     :int-transparent-black
@@ -132,7 +216,8 @@ Has the values: - :FLOAT-TRANSPARENT-BLACK - :INT-TRANSPARENT-BLACK - :FLOAT-OPA
 (deftype framebuffer-create-flag-bits ()
   "Represents the enum [VkFramebufferCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFramebufferCreateFlagBits.html).
 
-Has the values: - :IMAGELESS"
+Has the values:
+ - :IMAGELESS"
   '(member nil 
     :imageless))
 
@@ -143,14 +228,17 @@ Has the values: - :IMAGELESS"
 (deftype render-pass-create-flag-bits ()
   "Represents the enum [VkRenderPassCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRenderPassCreateFlagBits.html).
 
-Has the values: - :TRANSFORM"
+Has the values:
+ - :TRANSFORM"
   '(member nil 
     :transform))
 
 (deftype sampler-create-flag-bits ()
   "Represents the enum [VkSamplerCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerCreateFlagBits.html).
 
-Has the values: - :SUBSAMPLED - :SUBSAMPLED-COARSE-RECONSTRUCTION"
+Has the values:
+ - :SUBSAMPLED
+ - :SUBSAMPLED-COARSE-RECONSTRUCTION"
   '(member nil 
     :subsampled
     :subsampled-coarse-reconstruction))
@@ -158,21 +246,25 @@ Has the values: - :SUBSAMPLED - :SUBSAMPLED-COARSE-RECONSTRUCTION"
 (deftype pipeline-cache-header-version ()
   "Represents the enum [VkPipelineCacheHeaderVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCacheHeaderVersion.html).
 
-Has the values: - :ONE"
+Has the values:
+ - :ONE"
   '(member nil 
     :one))
 
 (deftype pipeline-cache-create-flag-bits ()
   "Represents the enum [VkPipelineCacheCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCacheCreateFlagBits.html).
 
-Has the values: - :EXTERNALLY-SYNCHRONIZED"
+Has the values:
+ - :EXTERNALLY-SYNCHRONIZED"
   '(member nil 
     :externally-synchronized))
 
 (deftype pipeline-shader-stage-create-flag-bits ()
   "Represents the enum [VkPipelineShaderStageCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineShaderStageCreateFlagBits.html).
 
-Has the values: - :ALLOW-VARYING-SUBGROUP-SIZE - :REQUIRE-FULL-SUBGROUPS"
+Has the values:
+ - :ALLOW-VARYING-SUBGROUP-SIZE
+ - :REQUIRE-FULL-SUBGROUPS"
   '(member nil 
     :allow-varying-subgroup-size
     :require-full-subgroups))
@@ -180,7 +272,10 @@ Has the values: - :ALLOW-VARYING-SUBGROUP-SIZE - :REQUIRE-FULL-SUBGROUPS"
 (deftype descriptor-set-layout-create-flag-bits ()
   "Represents the enum [VkDescriptorSetLayoutCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorSetLayoutCreateFlagBits.html).
 
-Has the values: - :PUSH-DESCRIPTOR - :UPDATE-AFTER-BIND-POOL - :HOST-ONLY-POOL"
+Has the values:
+ - :PUSH-DESCRIPTOR
+ - :UPDATE-AFTER-BIND-POOL
+ - :HOST-ONLY-POOL"
   '(member nil 
     :push-descriptor
     :update-after-bind-pool
@@ -193,14 +288,20 @@ Has the values: - :PUSH-DESCRIPTOR - :UPDATE-AFTER-BIND-POOL - :HOST-ONLY-POOL"
 (deftype device-queue-create-flag-bits ()
   "Represents the enum [VkDeviceQueueCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceQueueCreateFlagBits.html).
 
-Has the values: - :PROTECTED"
+Has the values:
+ - :PROTECTED"
   '(member nil 
     :protected))
 
 (deftype buffer-create-flag-bits ()
   "Represents the enum [VkBufferCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferCreateFlagBits.html).
 
-Has the values: - :SPARSE-BINDING - :SPARSE-RESIDENCY - :SPARSE-ALIASED - :PROTECTED - :DEVICE-ADDRESS-CAPTURE-REPLAY"
+Has the values:
+ - :SPARSE-BINDING
+ - :SPARSE-RESIDENCY
+ - :SPARSE-ALIASED
+ - :PROTECTED
+ - :DEVICE-ADDRESS-CAPTURE-REPLAY"
   '(member nil 
     :sparse-binding
     :sparse-residency
@@ -211,7 +312,23 @@ Has the values: - :SPARSE-BINDING - :SPARSE-RESIDENCY - :SPARSE-ALIASED - :PROTE
 (deftype buffer-usage-flag-bits ()
   "Represents the enum [VkBufferUsageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBufferUsageFlagBits.html).
 
-Has the values: - :TRANSFER-SRC - :TRANSFER-DST - :UNIFORM-TEXEL-BUFFER - :STORAGE-TEXEL-BUFFER - :UNIFORM-BUFFER - :STORAGE-BUFFER - :INDEX-BUFFER - :VERTEX-BUFFER - :INDIRECT-BUFFER - :CONDITIONAL-RENDERING - :SHADER-BINDING-TABLE - :TRANSFORM-FEEDBACK-BUFFER - :TRANSFORM-FEEDBACK-COUNTER-BUFFER - :SHADER-DEVICE-ADDRESS - :ACCELERATION-STRUCTURE-BUILD-INPUT-READ-ONLY - :ACCELERATION-STRUCTURE-STORAGE"
+Has the values:
+ - :TRANSFER-SRC
+ - :TRANSFER-DST
+ - :UNIFORM-TEXEL-BUFFER
+ - :STORAGE-TEXEL-BUFFER
+ - :UNIFORM-BUFFER
+ - :STORAGE-BUFFER
+ - :INDEX-BUFFER
+ - :VERTEX-BUFFER
+ - :INDIRECT-BUFFER
+ - :CONDITIONAL-RENDERING
+ - :SHADER-BINDING-TABLE
+ - :TRANSFORM-FEEDBACK-BUFFER
+ - :TRANSFORM-FEEDBACK-COUNTER-BUFFER
+ - :SHADER-DEVICE-ADDRESS
+ - :ACCELERATION-STRUCTURE-BUILD-INPUT-READ-ONLY
+ - :ACCELERATION-STRUCTURE-STORAGE"
   '(member nil 
     :transfer-src
     :transfer-dst
@@ -233,7 +350,11 @@ Has the values: - :TRANSFER-SRC - :TRANSFER-DST - :UNIFORM-TEXEL-BUFFER - :STORA
 (deftype color-component-flag-bits ()
   "Represents the enum [VkColorComponentFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorComponentFlagBits.html).
 
-Has the values: - :R - :G - :B - :A"
+Has the values:
+ - :R
+ - :G
+ - :B
+ - :A"
   '(member nil 
     :r
     :g
@@ -243,7 +364,14 @@ Has the values: - :R - :G - :B - :A"
 (deftype component-swizzle ()
   "Represents the enum [VkComponentSwizzle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComponentSwizzle.html).
 
-Has the values: - :IDENTITY - :ZERO - :ONE - :R - :G - :B - :A"
+Has the values:
+ - :IDENTITY
+ - :ZERO
+ - :ONE
+ - :R
+ - :G
+ - :B
+ - :A"
   '(member nil 
     :identity
     :zero
@@ -256,7 +384,10 @@ Has the values: - :IDENTITY - :ZERO - :ONE - :R - :G - :B - :A"
 (deftype command-pool-create-flag-bits ()
   "Represents the enum [VkCommandPoolCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPoolCreateFlagBits.html).
 
-Has the values: - :TRANSIENT - :RESET-COMMAND-BUFFER - :PROTECTED"
+Has the values:
+ - :TRANSIENT
+ - :RESET-COMMAND-BUFFER
+ - :PROTECTED"
   '(member nil 
     :transient
     :reset-command-buffer
@@ -265,21 +396,25 @@ Has the values: - :TRANSIENT - :RESET-COMMAND-BUFFER - :PROTECTED"
 (deftype command-pool-reset-flag-bits ()
   "Represents the enum [VkCommandPoolResetFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandPoolResetFlagBits.html).
 
-Has the values: - :RELEASE-RESOURCES"
+Has the values:
+ - :RELEASE-RESOURCES"
   '(member nil 
     :release-resources))
 
 (deftype command-buffer-reset-flag-bits ()
   "Represents the enum [VkCommandBufferResetFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferResetFlagBits.html).
 
-Has the values: - :RELEASE-RESOURCES"
+Has the values:
+ - :RELEASE-RESOURCES"
   '(member nil 
     :release-resources))
 
 (deftype command-buffer-level ()
   "Represents the enum [VkCommandBufferLevel](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferLevel.html).
 
-Has the values: - :PRIMARY - :SECONDARY"
+Has the values:
+ - :PRIMARY
+ - :SECONDARY"
   '(member nil 
     :primary
     :secondary))
@@ -287,7 +422,10 @@ Has the values: - :PRIMARY - :SECONDARY"
 (deftype command-buffer-usage-flag-bits ()
   "Represents the enum [VkCommandBufferUsageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferUsageFlagBits.html).
 
-Has the values: - :ONE-TIME-SUBMIT - :RENDER-PASS-CONTINUE - :SIMULTANEOUS-USE"
+Has the values:
+ - :ONE-TIME-SUBMIT
+ - :RENDER-PASS-CONTINUE
+ - :SIMULTANEOUS-USE"
   '(member nil 
     :one-time-submit
     :render-pass-continue
@@ -296,7 +434,15 @@ Has the values: - :ONE-TIME-SUBMIT - :RENDER-PASS-CONTINUE - :SIMULTANEOUS-USE"
 (deftype compare-op ()
   "Represents the enum [VkCompareOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCompareOp.html).
 
-Has the values: - :NEVER - :LESS - :EQUAL - :LESS-OR-EQUAL - :GREATER - :NOT-EQUAL - :GREATER-OR-EQUAL - :ALWAYS"
+Has the values:
+ - :NEVER
+ - :LESS
+ - :EQUAL
+ - :LESS-OR-EQUAL
+ - :GREATER
+ - :NOT-EQUAL
+ - :GREATER-OR-EQUAL
+ - :ALWAYS"
   '(member nil 
     :never
     :less
@@ -310,7 +456,11 @@ Has the values: - :NEVER - :LESS - :EQUAL - :LESS-OR-EQUAL - :GREATER - :NOT-EQU
 (deftype cull-mode-flag-bits ()
   "Represents the enum [VkCullModeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCullModeFlagBits.html).
 
-Has the values: - :NONE - :FRONT - :BACK - :FRONT-AND-BACK"
+Has the values:
+ - :NONE
+ - :FRONT
+ - :BACK
+ - :FRONT-AND-BACK"
   '(member nil 
     :none
     :front
@@ -320,7 +470,22 @@ Has the values: - :NONE - :FRONT - :BACK - :FRONT-AND-BACK"
 (deftype descriptor-type ()
   "Represents the enum [VkDescriptorType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorType.html).
 
-Has the values: - :SAMPLER - :COMBINED-IMAGE-SAMPLER - :SAMPLED-IMAGE - :STORAGE-IMAGE - :UNIFORM-TEXEL-BUFFER - :STORAGE-TEXEL-BUFFER - :UNIFORM-BUFFER - :STORAGE-BUFFER - :UNIFORM-BUFFER-DYNAMIC - :STORAGE-BUFFER-DYNAMIC - :INPUT-ATTACHMENT - :INLINE-UNIFORM-BLOCK-EXT - :ACCELERATION-STRUCTURE-KHR - :ACCELERATION-STRUCTURE-NV - :MUTABLE-VALVE"
+Has the values:
+ - :SAMPLER
+ - :COMBINED-IMAGE-SAMPLER
+ - :SAMPLED-IMAGE
+ - :STORAGE-IMAGE
+ - :UNIFORM-TEXEL-BUFFER
+ - :STORAGE-TEXEL-BUFFER
+ - :UNIFORM-BUFFER
+ - :STORAGE-BUFFER
+ - :UNIFORM-BUFFER-DYNAMIC
+ - :STORAGE-BUFFER-DYNAMIC
+ - :INPUT-ATTACHMENT
+ - :INLINE-UNIFORM-BLOCK-EXT
+ - :ACCELERATION-STRUCTURE-KHR
+ - :ACCELERATION-STRUCTURE-NV
+ - :MUTABLE-VALVE"
   '(member nil 
     :sampler
     :combined-image-sampler
@@ -345,7 +510,37 @@ Has the values: - :SAMPLER - :COMBINED-IMAGE-SAMPLER - :SAMPLED-IMAGE - :STORAGE
 (deftype dynamic-state ()
   "Represents the enum [VkDynamicState](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDynamicState.html).
 
-Has the values: - :VIEWPORT - :SCISSOR - :LINE-WIDTH - :DEPTH-BIAS - :BLEND-CONSTANTS - :DEPTH-BOUNDS - :STENCIL-COMPARE-MASK - :STENCIL-WRITE-MASK - :STENCIL-REFERENCE - :VIEWPORT-W-SCALING-NV - :DISCARD-RECTANGLE-EXT - :SAMPLE-LOCATIONS-EXT - :VIEWPORT-SHADING-RATE-PALETTE-NV - :VIEWPORT-COARSE-SAMPLE-ORDER-NV - :EXCLUSIVE-SCISSOR-NV - :FRAGMENT-SHADING-RATE-KHR - :LINE-STIPPLE-EXT - :CULL-MODE-EXT - :FRONT-FACE-EXT - :PRIMITIVE-TOPOLOGY-EXT - :VIEWPORT-WITH-COUNT-EXT - :SCISSOR-WITH-COUNT-EXT - :VERTEX-INPUT-BINDING-STRIDE-EXT - :DEPTH-TEST-ENABLE-EXT - :DEPTH-WRITE-ENABLE-EXT - :DEPTH-COMPARE-OP-EXT - :DEPTH-BOUNDS-TEST-ENABLE-EXT - :STENCIL-TEST-ENABLE-EXT - :STENCIL-OP-EXT - :RAY-TRACING-PIPELINE-STACK-SIZE-KHR"
+Has the values:
+ - :VIEWPORT
+ - :SCISSOR
+ - :LINE-WIDTH
+ - :DEPTH-BIAS
+ - :BLEND-CONSTANTS
+ - :DEPTH-BOUNDS
+ - :STENCIL-COMPARE-MASK
+ - :STENCIL-WRITE-MASK
+ - :STENCIL-REFERENCE
+ - :VIEWPORT-W-SCALING-NV
+ - :DISCARD-RECTANGLE-EXT
+ - :SAMPLE-LOCATIONS-EXT
+ - :VIEWPORT-SHADING-RATE-PALETTE-NV
+ - :VIEWPORT-COARSE-SAMPLE-ORDER-NV
+ - :EXCLUSIVE-SCISSOR-NV
+ - :FRAGMENT-SHADING-RATE-KHR
+ - :LINE-STIPPLE-EXT
+ - :CULL-MODE-EXT
+ - :FRONT-FACE-EXT
+ - :PRIMITIVE-TOPOLOGY-EXT
+ - :VIEWPORT-WITH-COUNT-EXT
+ - :SCISSOR-WITH-COUNT-EXT
+ - :VERTEX-INPUT-BINDING-STRIDE-EXT
+ - :DEPTH-TEST-ENABLE-EXT
+ - :DEPTH-WRITE-ENABLE-EXT
+ - :DEPTH-COMPARE-OP-EXT
+ - :DEPTH-BOUNDS-TEST-ENABLE-EXT
+ - :STENCIL-TEST-ENABLE-EXT
+ - :STENCIL-OP-EXT
+ - :RAY-TRACING-PIPELINE-STACK-SIZE-KHR"
   '(member nil 
     :viewport
     :scissor
@@ -381,14 +576,19 @@ Has the values: - :VIEWPORT - :SCISSOR - :LINE-WIDTH - :DEPTH-BIAS - :BLEND-CONS
 (deftype fence-create-flag-bits ()
   "Represents the enum [VkFenceCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceCreateFlagBits.html).
 
-Has the values: - :SIGNALED"
+Has the values:
+ - :SIGNALED"
   '(member nil 
     :signaled))
 
 (deftype polygon-mode ()
   "Represents the enum [VkPolygonMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPolygonMode.html).
 
-Has the values: - :FILL - :LINE - :POINT - :FILL-RECTANGLE-NV"
+Has the values:
+ - :FILL
+ - :LINE
+ - :POINT
+ - :FILL-RECTANGLE-NV"
   '(member nil 
     :fill
     :line
@@ -398,7 +598,250 @@ Has the values: - :FILL - :LINE - :POINT - :FILL-RECTANGLE-NV"
 (deftype format ()
   "Represents the enum [VkFormat](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFormat.html).
 
-Has the values: - :UNDEFINED - :R4G4-UNORM-PACK8 - :R4G4B4A4-UNORM-PACK16 - :B4G4R4A4-UNORM-PACK16 - :R5G6B5-UNORM-PACK16 - :B5G6R5-UNORM-PACK16 - :R5G5B5A1-UNORM-PACK16 - :B5G5R5A1-UNORM-PACK16 - :A1R5G5B5-UNORM-PACK16 - :R8-UNORM - :R8-SNORM - :R8-USCALED - :R8-SSCALED - :R8-UINT - :R8-SINT - :R8-SRGB - :R8G8-UNORM - :R8G8-SNORM - :R8G8-USCALED - :R8G8-SSCALED - :R8G8-UINT - :R8G8-SINT - :R8G8-SRGB - :R8G8B8-UNORM - :R8G8B8-SNORM - :R8G8B8-USCALED - :R8G8B8-SSCALED - :R8G8B8-UINT - :R8G8B8-SINT - :R8G8B8-SRGB - :B8G8R8-UNORM - :B8G8R8-SNORM - :B8G8R8-USCALED - :B8G8R8-SSCALED - :B8G8R8-UINT - :B8G8R8-SINT - :B8G8R8-SRGB - :R8G8B8A8-UNORM - :R8G8B8A8-SNORM - :R8G8B8A8-USCALED - :R8G8B8A8-SSCALED - :R8G8B8A8-UINT - :R8G8B8A8-SINT - :R8G8B8A8-SRGB - :B8G8R8A8-UNORM - :B8G8R8A8-SNORM - :B8G8R8A8-USCALED - :B8G8R8A8-SSCALED - :B8G8R8A8-UINT - :B8G8R8A8-SINT - :B8G8R8A8-SRGB - :A8B8G8R8-UNORM-PACK32 - :A8B8G8R8-SNORM-PACK32 - :A8B8G8R8-USCALED-PACK32 - :A8B8G8R8-SSCALED-PACK32 - :A8B8G8R8-UINT-PACK32 - :A8B8G8R8-SINT-PACK32 - :A8B8G8R8-SRGB-PACK32 - :A2R10G10B10-UNORM-PACK32 - :A2R10G10B10-SNORM-PACK32 - :A2R10G10B10-USCALED-PACK32 - :A2R10G10B10-SSCALED-PACK32 - :A2R10G10B10-UINT-PACK32 - :A2R10G10B10-SINT-PACK32 - :A2B10G10R10-UNORM-PACK32 - :A2B10G10R10-SNORM-PACK32 - :A2B10G10R10-USCALED-PACK32 - :A2B10G10R10-SSCALED-PACK32 - :A2B10G10R10-UINT-PACK32 - :A2B10G10R10-SINT-PACK32 - :R16-UNORM - :R16-SNORM - :R16-USCALED - :R16-SSCALED - :R16-UINT - :R16-SINT - :R16-SFLOAT - :R16G16-UNORM - :R16G16-SNORM - :R16G16-USCALED - :R16G16-SSCALED - :R16G16-UINT - :R16G16-SINT - :R16G16-SFLOAT - :R16G16B16-UNORM - :R16G16B16-SNORM - :R16G16B16-USCALED - :R16G16B16-SSCALED - :R16G16B16-UINT - :R16G16B16-SINT - :R16G16B16-SFLOAT - :R16G16B16A16-UNORM - :R16G16B16A16-SNORM - :R16G16B16A16-USCALED - :R16G16B16A16-SSCALED - :R16G16B16A16-UINT - :R16G16B16A16-SINT - :R16G16B16A16-SFLOAT - :R32-UINT - :R32-SINT - :R32-SFLOAT - :R32G32-UINT - :R32G32-SINT - :R32G32-SFLOAT - :R32G32B32-UINT - :R32G32B32-SINT - :R32G32B32-SFLOAT - :R32G32B32A32-UINT - :R32G32B32A32-SINT - :R32G32B32A32-SFLOAT - :R64-UINT - :R64-SINT - :R64-SFLOAT - :R64G64-UINT - :R64G64-SINT - :R64G64-SFLOAT - :R64G64B64-UINT - :R64G64B64-SINT - :R64G64B64-SFLOAT - :R64G64B64A64-UINT - :R64G64B64A64-SINT - :R64G64B64A64-SFLOAT - :B10G11R11-UFLOAT-PACK32 - :E5B9G9R9-UFLOAT-PACK32 - :D16-UNORM - :X8-D24-UNORM-PACK32 - :D32-SFLOAT - :S8-UINT - :D16-UNORM-S8-UINT - :D24-UNORM-S8-UINT - :D32-SFLOAT-S8-UINT - :BC1-RGB-UNORM-BLOCK - :BC1-RGB-SRGB-BLOCK - :BC1-RGBA-UNORM-BLOCK - :BC1-RGBA-SRGB-BLOCK - :BC2-UNORM-BLOCK - :BC2-SRGB-BLOCK - :BC3-UNORM-BLOCK - :BC3-SRGB-BLOCK - :BC4-UNORM-BLOCK - :BC4-SNORM-BLOCK - :BC5-UNORM-BLOCK - :BC5-SNORM-BLOCK - :BC6H-UFLOAT-BLOCK - :BC6H-SFLOAT-BLOCK - :BC7-UNORM-BLOCK - :BC7-SRGB-BLOCK - :ETC2-R8G8B8-UNORM-BLOCK - :ETC2-R8G8B8-SRGB-BLOCK - :ETC2-R8G8B8A1-UNORM-BLOCK - :ETC2-R8G8B8A1-SRGB-BLOCK - :ETC2-R8G8B8A8-UNORM-BLOCK - :ETC2-R8G8B8A8-SRGB-BLOCK - :EAC-R11-UNORM-BLOCK - :EAC-R11-SNORM-BLOCK - :EAC-R11G11-UNORM-BLOCK - :EAC-R11G11-SNORM-BLOCK - :ASTC-4x4-UNORM-BLOCK - :ASTC-4x4-SRGB-BLOCK - :ASTC-5x4-UNORM-BLOCK - :ASTC-5x4-SRGB-BLOCK - :ASTC-5x5-UNORM-BLOCK - :ASTC-5x5-SRGB-BLOCK - :ASTC-6x5-UNORM-BLOCK - :ASTC-6x5-SRGB-BLOCK - :ASTC-6x6-UNORM-BLOCK - :ASTC-6x6-SRGB-BLOCK - :ASTC-8x5-UNORM-BLOCK - :ASTC-8x5-SRGB-BLOCK - :ASTC-8x6-UNORM-BLOCK - :ASTC-8x6-SRGB-BLOCK - :ASTC-8x8-UNORM-BLOCK - :ASTC-8x8-SRGB-BLOCK - :ASTC-10x5-UNORM-BLOCK - :ASTC-10x5-SRGB-BLOCK - :ASTC-10x6-UNORM-BLOCK - :ASTC-10x6-SRGB-BLOCK - :ASTC-10x8-UNORM-BLOCK - :ASTC-10x8-SRGB-BLOCK - :ASTC-10x10-UNORM-BLOCK - :ASTC-10x10-SRGB-BLOCK - :ASTC-12x10-UNORM-BLOCK - :ASTC-12x10-SRGB-BLOCK - :ASTC-12x12-UNORM-BLOCK - :ASTC-12x12-SRGB-BLOCK - :PVRTC1-2BPP-UNORM-BLOCK-IMG - :PVRTC1-4BPP-UNORM-BLOCK-IMG - :PVRTC2-2BPP-UNORM-BLOCK-IMG - :PVRTC2-4BPP-UNORM-BLOCK-IMG - :PVRTC1-2BPP-SRGB-BLOCK-IMG - :PVRTC1-4BPP-SRGB-BLOCK-IMG - :PVRTC2-2BPP-SRGB-BLOCK-IMG - :PVRTC2-4BPP-SRGB-BLOCK-IMG - :ASTC-4x4-SFLOAT-BLOCK-EXT - :ASTC-5x4-SFLOAT-BLOCK-EXT - :ASTC-5x5-SFLOAT-BLOCK-EXT - :ASTC-6x5-SFLOAT-BLOCK-EXT - :ASTC-6x6-SFLOAT-BLOCK-EXT - :ASTC-8x5-SFLOAT-BLOCK-EXT - :ASTC-8x6-SFLOAT-BLOCK-EXT - :ASTC-8x8-SFLOAT-BLOCK-EXT - :ASTC-10x5-SFLOAT-BLOCK-EXT - :ASTC-10x6-SFLOAT-BLOCK-EXT - :ASTC-10x8-SFLOAT-BLOCK-EXT - :ASTC-10x10-SFLOAT-BLOCK-EXT - :ASTC-12x10-SFLOAT-BLOCK-EXT - :ASTC-12x12-SFLOAT-BLOCK-EXT - :G8B8G8R8-422-UNORM - :B8G8R8G8-422-UNORM - :G8-B8-R8-3PLANE-420-UNORM - :G8-B8R8-2PLANE-420-UNORM - :G8-B8-R8-3PLANE-422-UNORM - :G8-B8R8-2PLANE-422-UNORM - :G8-B8-R8-3PLANE-444-UNORM - :R10X6-UNORM-PACK16 - :R10X6G10X6-UNORM-2PACK16 - :R10X6G10X6B10X6A10X6-UNORM-4PACK16 - :G10X6B10X6G10X6R10X6-422-UNORM-4PACK16 - :B10X6G10X6R10X6G10X6-422-UNORM-4PACK16 - :G10X6-B10X6-R10X6-3PLANE-420-UNORM-3PACK16 - :G10X6-B10X6R10X6-2PLANE-420-UNORM-3PACK16 - :G10X6-B10X6-R10X6-3PLANE-422-UNORM-3PACK16 - :G10X6-B10X6R10X6-2PLANE-422-UNORM-3PACK16 - :G10X6-B10X6-R10X6-3PLANE-444-UNORM-3PACK16 - :R12X4-UNORM-PACK16 - :R12X4G12X4-UNORM-2PACK16 - :R12X4G12X4B12X4A12X4-UNORM-4PACK16 - :G12X4B12X4G12X4R12X4-422-UNORM-4PACK16 - :B12X4G12X4R12X4G12X4-422-UNORM-4PACK16 - :G12X4-B12X4-R12X4-3PLANE-420-UNORM-3PACK16 - :G12X4-B12X4R12X4-2PLANE-420-UNORM-3PACK16 - :G12X4-B12X4-R12X4-3PLANE-422-UNORM-3PACK16 - :G12X4-B12X4R12X4-2PLANE-422-UNORM-3PACK16 - :G12X4-B12X4-R12X4-3PLANE-444-UNORM-3PACK16 - :G16B16G16R16-422-UNORM - :B16G16R16G16-422-UNORM - :G16-B16-R16-3PLANE-420-UNORM - :G16-B16R16-2PLANE-420-UNORM - :G16-B16-R16-3PLANE-422-UNORM - :G16-B16R16-2PLANE-422-UNORM - :G16-B16-R16-3PLANE-444-UNORM - :A4R4G4B4-UNORM-PACK16-EXT - :A4B4G4R4-UNORM-PACK16-EXT"
+Has the values:
+ - :UNDEFINED
+ - :R4G4-UNORM-PACK8
+ - :R4G4B4A4-UNORM-PACK16
+ - :B4G4R4A4-UNORM-PACK16
+ - :R5G6B5-UNORM-PACK16
+ - :B5G6R5-UNORM-PACK16
+ - :R5G5B5A1-UNORM-PACK16
+ - :B5G5R5A1-UNORM-PACK16
+ - :A1R5G5B5-UNORM-PACK16
+ - :R8-UNORM
+ - :R8-SNORM
+ - :R8-USCALED
+ - :R8-SSCALED
+ - :R8-UINT
+ - :R8-SINT
+ - :R8-SRGB
+ - :R8G8-UNORM
+ - :R8G8-SNORM
+ - :R8G8-USCALED
+ - :R8G8-SSCALED
+ - :R8G8-UINT
+ - :R8G8-SINT
+ - :R8G8-SRGB
+ - :R8G8B8-UNORM
+ - :R8G8B8-SNORM
+ - :R8G8B8-USCALED
+ - :R8G8B8-SSCALED
+ - :R8G8B8-UINT
+ - :R8G8B8-SINT
+ - :R8G8B8-SRGB
+ - :B8G8R8-UNORM
+ - :B8G8R8-SNORM
+ - :B8G8R8-USCALED
+ - :B8G8R8-SSCALED
+ - :B8G8R8-UINT
+ - :B8G8R8-SINT
+ - :B8G8R8-SRGB
+ - :R8G8B8A8-UNORM
+ - :R8G8B8A8-SNORM
+ - :R8G8B8A8-USCALED
+ - :R8G8B8A8-SSCALED
+ - :R8G8B8A8-UINT
+ - :R8G8B8A8-SINT
+ - :R8G8B8A8-SRGB
+ - :B8G8R8A8-UNORM
+ - :B8G8R8A8-SNORM
+ - :B8G8R8A8-USCALED
+ - :B8G8R8A8-SSCALED
+ - :B8G8R8A8-UINT
+ - :B8G8R8A8-SINT
+ - :B8G8R8A8-SRGB
+ - :A8B8G8R8-UNORM-PACK32
+ - :A8B8G8R8-SNORM-PACK32
+ - :A8B8G8R8-USCALED-PACK32
+ - :A8B8G8R8-SSCALED-PACK32
+ - :A8B8G8R8-UINT-PACK32
+ - :A8B8G8R8-SINT-PACK32
+ - :A8B8G8R8-SRGB-PACK32
+ - :A2R10G10B10-UNORM-PACK32
+ - :A2R10G10B10-SNORM-PACK32
+ - :A2R10G10B10-USCALED-PACK32
+ - :A2R10G10B10-SSCALED-PACK32
+ - :A2R10G10B10-UINT-PACK32
+ - :A2R10G10B10-SINT-PACK32
+ - :A2B10G10R10-UNORM-PACK32
+ - :A2B10G10R10-SNORM-PACK32
+ - :A2B10G10R10-USCALED-PACK32
+ - :A2B10G10R10-SSCALED-PACK32
+ - :A2B10G10R10-UINT-PACK32
+ - :A2B10G10R10-SINT-PACK32
+ - :R16-UNORM
+ - :R16-SNORM
+ - :R16-USCALED
+ - :R16-SSCALED
+ - :R16-UINT
+ - :R16-SINT
+ - :R16-SFLOAT
+ - :R16G16-UNORM
+ - :R16G16-SNORM
+ - :R16G16-USCALED
+ - :R16G16-SSCALED
+ - :R16G16-UINT
+ - :R16G16-SINT
+ - :R16G16-SFLOAT
+ - :R16G16B16-UNORM
+ - :R16G16B16-SNORM
+ - :R16G16B16-USCALED
+ - :R16G16B16-SSCALED
+ - :R16G16B16-UINT
+ - :R16G16B16-SINT
+ - :R16G16B16-SFLOAT
+ - :R16G16B16A16-UNORM
+ - :R16G16B16A16-SNORM
+ - :R16G16B16A16-USCALED
+ - :R16G16B16A16-SSCALED
+ - :R16G16B16A16-UINT
+ - :R16G16B16A16-SINT
+ - :R16G16B16A16-SFLOAT
+ - :R32-UINT
+ - :R32-SINT
+ - :R32-SFLOAT
+ - :R32G32-UINT
+ - :R32G32-SINT
+ - :R32G32-SFLOAT
+ - :R32G32B32-UINT
+ - :R32G32B32-SINT
+ - :R32G32B32-SFLOAT
+ - :R32G32B32A32-UINT
+ - :R32G32B32A32-SINT
+ - :R32G32B32A32-SFLOAT
+ - :R64-UINT
+ - :R64-SINT
+ - :R64-SFLOAT
+ - :R64G64-UINT
+ - :R64G64-SINT
+ - :R64G64-SFLOAT
+ - :R64G64B64-UINT
+ - :R64G64B64-SINT
+ - :R64G64B64-SFLOAT
+ - :R64G64B64A64-UINT
+ - :R64G64B64A64-SINT
+ - :R64G64B64A64-SFLOAT
+ - :B10G11R11-UFLOAT-PACK32
+ - :E5B9G9R9-UFLOAT-PACK32
+ - :D16-UNORM
+ - :X8-D24-UNORM-PACK32
+ - :D32-SFLOAT
+ - :S8-UINT
+ - :D16-UNORM-S8-UINT
+ - :D24-UNORM-S8-UINT
+ - :D32-SFLOAT-S8-UINT
+ - :BC1-RGB-UNORM-BLOCK
+ - :BC1-RGB-SRGB-BLOCK
+ - :BC1-RGBA-UNORM-BLOCK
+ - :BC1-RGBA-SRGB-BLOCK
+ - :BC2-UNORM-BLOCK
+ - :BC2-SRGB-BLOCK
+ - :BC3-UNORM-BLOCK
+ - :BC3-SRGB-BLOCK
+ - :BC4-UNORM-BLOCK
+ - :BC4-SNORM-BLOCK
+ - :BC5-UNORM-BLOCK
+ - :BC5-SNORM-BLOCK
+ - :BC6H-UFLOAT-BLOCK
+ - :BC6H-SFLOAT-BLOCK
+ - :BC7-UNORM-BLOCK
+ - :BC7-SRGB-BLOCK
+ - :ETC2-R8G8B8-UNORM-BLOCK
+ - :ETC2-R8G8B8-SRGB-BLOCK
+ - :ETC2-R8G8B8A1-UNORM-BLOCK
+ - :ETC2-R8G8B8A1-SRGB-BLOCK
+ - :ETC2-R8G8B8A8-UNORM-BLOCK
+ - :ETC2-R8G8B8A8-SRGB-BLOCK
+ - :EAC-R11-UNORM-BLOCK
+ - :EAC-R11-SNORM-BLOCK
+ - :EAC-R11G11-UNORM-BLOCK
+ - :EAC-R11G11-SNORM-BLOCK
+ - :ASTC-4x4-UNORM-BLOCK
+ - :ASTC-4x4-SRGB-BLOCK
+ - :ASTC-5x4-UNORM-BLOCK
+ - :ASTC-5x4-SRGB-BLOCK
+ - :ASTC-5x5-UNORM-BLOCK
+ - :ASTC-5x5-SRGB-BLOCK
+ - :ASTC-6x5-UNORM-BLOCK
+ - :ASTC-6x5-SRGB-BLOCK
+ - :ASTC-6x6-UNORM-BLOCK
+ - :ASTC-6x6-SRGB-BLOCK
+ - :ASTC-8x5-UNORM-BLOCK
+ - :ASTC-8x5-SRGB-BLOCK
+ - :ASTC-8x6-UNORM-BLOCK
+ - :ASTC-8x6-SRGB-BLOCK
+ - :ASTC-8x8-UNORM-BLOCK
+ - :ASTC-8x8-SRGB-BLOCK
+ - :ASTC-10x5-UNORM-BLOCK
+ - :ASTC-10x5-SRGB-BLOCK
+ - :ASTC-10x6-UNORM-BLOCK
+ - :ASTC-10x6-SRGB-BLOCK
+ - :ASTC-10x8-UNORM-BLOCK
+ - :ASTC-10x8-SRGB-BLOCK
+ - :ASTC-10x10-UNORM-BLOCK
+ - :ASTC-10x10-SRGB-BLOCK
+ - :ASTC-12x10-UNORM-BLOCK
+ - :ASTC-12x10-SRGB-BLOCK
+ - :ASTC-12x12-UNORM-BLOCK
+ - :ASTC-12x12-SRGB-BLOCK
+ - :PVRTC1-2BPP-UNORM-BLOCK-IMG
+ - :PVRTC1-4BPP-UNORM-BLOCK-IMG
+ - :PVRTC2-2BPP-UNORM-BLOCK-IMG
+ - :PVRTC2-4BPP-UNORM-BLOCK-IMG
+ - :PVRTC1-2BPP-SRGB-BLOCK-IMG
+ - :PVRTC1-4BPP-SRGB-BLOCK-IMG
+ - :PVRTC2-2BPP-SRGB-BLOCK-IMG
+ - :PVRTC2-4BPP-SRGB-BLOCK-IMG
+ - :ASTC-4x4-SFLOAT-BLOCK-EXT
+ - :ASTC-5x4-SFLOAT-BLOCK-EXT
+ - :ASTC-5x5-SFLOAT-BLOCK-EXT
+ - :ASTC-6x5-SFLOAT-BLOCK-EXT
+ - :ASTC-6x6-SFLOAT-BLOCK-EXT
+ - :ASTC-8x5-SFLOAT-BLOCK-EXT
+ - :ASTC-8x6-SFLOAT-BLOCK-EXT
+ - :ASTC-8x8-SFLOAT-BLOCK-EXT
+ - :ASTC-10x5-SFLOAT-BLOCK-EXT
+ - :ASTC-10x6-SFLOAT-BLOCK-EXT
+ - :ASTC-10x8-SFLOAT-BLOCK-EXT
+ - :ASTC-10x10-SFLOAT-BLOCK-EXT
+ - :ASTC-12x10-SFLOAT-BLOCK-EXT
+ - :ASTC-12x12-SFLOAT-BLOCK-EXT
+ - :G8B8G8R8-422-UNORM
+ - :B8G8R8G8-422-UNORM
+ - :G8-B8-R8-3PLANE-420-UNORM
+ - :G8-B8R8-2PLANE-420-UNORM
+ - :G8-B8-R8-3PLANE-422-UNORM
+ - :G8-B8R8-2PLANE-422-UNORM
+ - :G8-B8-R8-3PLANE-444-UNORM
+ - :R10X6-UNORM-PACK16
+ - :R10X6G10X6-UNORM-2PACK16
+ - :R10X6G10X6B10X6A10X6-UNORM-4PACK16
+ - :G10X6B10X6G10X6R10X6-422-UNORM-4PACK16
+ - :B10X6G10X6R10X6G10X6-422-UNORM-4PACK16
+ - :G10X6-B10X6-R10X6-3PLANE-420-UNORM-3PACK16
+ - :G10X6-B10X6R10X6-2PLANE-420-UNORM-3PACK16
+ - :G10X6-B10X6-R10X6-3PLANE-422-UNORM-3PACK16
+ - :G10X6-B10X6R10X6-2PLANE-422-UNORM-3PACK16
+ - :G10X6-B10X6-R10X6-3PLANE-444-UNORM-3PACK16
+ - :R12X4-UNORM-PACK16
+ - :R12X4G12X4-UNORM-2PACK16
+ - :R12X4G12X4B12X4A12X4-UNORM-4PACK16
+ - :G12X4B12X4G12X4R12X4-422-UNORM-4PACK16
+ - :B12X4G12X4R12X4G12X4-422-UNORM-4PACK16
+ - :G12X4-B12X4-R12X4-3PLANE-420-UNORM-3PACK16
+ - :G12X4-B12X4R12X4-2PLANE-420-UNORM-3PACK16
+ - :G12X4-B12X4-R12X4-3PLANE-422-UNORM-3PACK16
+ - :G12X4-B12X4R12X4-2PLANE-422-UNORM-3PACK16
+ - :G12X4-B12X4-R12X4-3PLANE-444-UNORM-3PACK16
+ - :G16B16G16R16-422-UNORM
+ - :B16G16R16G16-422-UNORM
+ - :G16-B16-R16-3PLANE-420-UNORM
+ - :G16-B16R16-2PLANE-420-UNORM
+ - :G16-B16-R16-3PLANE-422-UNORM
+ - :G16-B16R16-2PLANE-422-UNORM
+ - :G16-B16-R16-3PLANE-444-UNORM
+ - :A4R4G4B4-UNORM-PACK16-EXT
+ - :A4B4G4R4-UNORM-PACK16-EXT"
   '(member nil 
     :undefined
     :r4g4-unorm-pack8
@@ -647,7 +1090,34 @@ Has the values: - :UNDEFINED - :R4G4-UNORM-PACK8 - :R4G4B4A4-UNORM-PACK16 - :B4G
 (deftype format-feature-flag-bits ()
   "Represents the enum [VkFormatFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFormatFeatureFlagBits.html).
 
-Has the values: - :SAMPLED-IMAGE - :STORAGE-IMAGE - :STORAGE-IMAGE-ATOMIC - :UNIFORM-TEXEL-BUFFER - :STORAGE-TEXEL-BUFFER - :STORAGE-TEXEL-BUFFER-ATOMIC - :VERTEX-BUFFER - :COLOR-ATTACHMENT - :COLOR-ATTACHMENT-BLEND - :DEPTH-STENCIL-ATTACHMENT - :BLIT-SRC - :BLIT-DST - :SAMPLED-IMAGE-FILTER-LINEAR - :SAMPLED-IMAGE-FILTER-CUBIC - :TRANSFER-SRC - :TRANSFER-DST - :SAMPLED-IMAGE-FILTER-MINMAX - :MIDPOINT-CHROMA-SAMPLES - :SAMPLED-IMAGE-YCBCR-CONVERSION-LINEAR-FILTER - :SAMPLED-IMAGE-YCBCR-CONVERSION-SEPARATE-RECONSTRUCTION-FILTER - :SAMPLED-IMAGE-YCBCR-CONVERSION-CHROMA-RECONSTRUCTION-EXPLICIT - :SAMPLED-IMAGE-YCBCR-CONVERSION-CHROMA-RECONSTRUCTION-EXPLICIT-FORCEABLE - :DISJOINT - :COSITED-CHROMA-SAMPLES - :FRAGMENT-DENSITY-MAP - :ACCELERATION-STRUCTURE-VERTEX-BUFFER - :FRAGMENT-SHADING-RATE-ATTACHMENT"
+Has the values:
+ - :SAMPLED-IMAGE
+ - :STORAGE-IMAGE
+ - :STORAGE-IMAGE-ATOMIC
+ - :UNIFORM-TEXEL-BUFFER
+ - :STORAGE-TEXEL-BUFFER
+ - :STORAGE-TEXEL-BUFFER-ATOMIC
+ - :VERTEX-BUFFER
+ - :COLOR-ATTACHMENT
+ - :COLOR-ATTACHMENT-BLEND
+ - :DEPTH-STENCIL-ATTACHMENT
+ - :BLIT-SRC
+ - :BLIT-DST
+ - :SAMPLED-IMAGE-FILTER-LINEAR
+ - :SAMPLED-IMAGE-FILTER-CUBIC
+ - :TRANSFER-SRC
+ - :TRANSFER-DST
+ - :SAMPLED-IMAGE-FILTER-MINMAX
+ - :MIDPOINT-CHROMA-SAMPLES
+ - :SAMPLED-IMAGE-YCBCR-CONVERSION-LINEAR-FILTER
+ - :SAMPLED-IMAGE-YCBCR-CONVERSION-SEPARATE-RECONSTRUCTION-FILTER
+ - :SAMPLED-IMAGE-YCBCR-CONVERSION-CHROMA-RECONSTRUCTION-EXPLICIT
+ - :SAMPLED-IMAGE-YCBCR-CONVERSION-CHROMA-RECONSTRUCTION-EXPLICIT-FORCEABLE
+ - :DISJOINT
+ - :COSITED-CHROMA-SAMPLES
+ - :FRAGMENT-DENSITY-MAP
+ - :ACCELERATION-STRUCTURE-VERTEX-BUFFER
+ - :FRAGMENT-SHADING-RATE-ATTACHMENT"
   '(member nil 
     :sampled-image
     :storage-image
@@ -680,7 +1150,9 @@ Has the values: - :SAMPLED-IMAGE - :STORAGE-IMAGE - :STORAGE-IMAGE-ATOMIC - :UNI
 (deftype front-face ()
   "Represents the enum [VkFrontFace](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFrontFace.html).
 
-Has the values: - :COUNTER-CLOCKWISE - :CLOCKWISE"
+Has the values:
+ - :COUNTER-CLOCKWISE
+ - :CLOCKWISE"
   '(member nil 
     :counter-clockwise
     :clockwise))
@@ -688,7 +1160,18 @@ Has the values: - :COUNTER-CLOCKWISE - :CLOCKWISE"
 (deftype image-aspect-flag-bits ()
   "Represents the enum [VkImageAspectFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageAspectFlagBits.html).
 
-Has the values: - :COLOR - :DEPTH - :STENCIL - :METADATA - :PLANE-0 - :PLANE-1 - :PLANE-2 - :MEMORY-PLANE-0 - :MEMORY-PLANE-1 - :MEMORY-PLANE-2 - :MEMORY-PLANE-3"
+Has the values:
+ - :COLOR
+ - :DEPTH
+ - :STENCIL
+ - :METADATA
+ - :PLANE-0
+ - :PLANE-1
+ - :PLANE-2
+ - :MEMORY-PLANE-0
+ - :MEMORY-PLANE-1
+ - :MEMORY-PLANE-2
+ - :MEMORY-PLANE-3"
   '(member nil 
     :color
     :depth
@@ -705,7 +1188,22 @@ Has the values: - :COLOR - :DEPTH - :STENCIL - :METADATA - :PLANE-0 - :PLANE-1 -
 (deftype image-create-flag-bits ()
   "Represents the enum [VkImageCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageCreateFlagBits.html).
 
-Has the values: - :SPARSE-BINDING - :SPARSE-RESIDENCY - :SPARSE-ALIASED - :MUTABLE-FORMAT - :CUBE-COMPATIBLE - :2D-ARRAY-COMPATIBLE - :SPLIT-INSTANCE-BIND-REGIONS - :BLOCK-TEXEL-VIEW-COMPATIBLE - :EXTENDED-USAGE - :DISJOINT - :ALIAS - :PROTECTED - :SAMPLE-LOCATIONS-COMPATIBLE-DEPTH - :CORNER-SAMPLED - :SUBSAMPLED"
+Has the values:
+ - :SPARSE-BINDING
+ - :SPARSE-RESIDENCY
+ - :SPARSE-ALIASED
+ - :MUTABLE-FORMAT
+ - :CUBE-COMPATIBLE
+ - :2D-ARRAY-COMPATIBLE
+ - :SPLIT-INSTANCE-BIND-REGIONS
+ - :BLOCK-TEXEL-VIEW-COMPATIBLE
+ - :EXTENDED-USAGE
+ - :DISJOINT
+ - :ALIAS
+ - :PROTECTED
+ - :SAMPLE-LOCATIONS-COMPATIBLE-DEPTH
+ - :CORNER-SAMPLED
+ - :SUBSAMPLED"
   '(member nil 
     :sparse-binding
     :sparse-residency
@@ -726,7 +1224,28 @@ Has the values: - :SPARSE-BINDING - :SPARSE-RESIDENCY - :SPARSE-ALIASED - :MUTAB
 (deftype image-layout ()
   "Represents the enum [VkImageLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageLayout.html).
 
-Has the values: - :UNDEFINED - :GENERAL - :COLOR-ATTACHMENT-OPTIMAL - :DEPTH-STENCIL-ATTACHMENT-OPTIMAL - :DEPTH-STENCIL-READ-ONLY-OPTIMAL - :SHADER-READ-ONLY-OPTIMAL - :TRANSFER-SRC-OPTIMAL - :TRANSFER-DST-OPTIMAL - :PREINITIALIZED - :PRESENT-SRC-KHR - :SHARED-PRESENT-KHR - :DEPTH-READ-ONLY-STENCIL-ATTACHMENT-OPTIMAL - :DEPTH-ATTACHMENT-STENCIL-READ-ONLY-OPTIMAL - :SHADING-RATE-OPTIMAL-NV - :FRAGMENT-DENSITY-MAP-OPTIMAL-EXT - :DEPTH-ATTACHMENT-OPTIMAL - :DEPTH-READ-ONLY-OPTIMAL - :STENCIL-ATTACHMENT-OPTIMAL - :STENCIL-READ-ONLY-OPTIMAL - :READ-ONLY-OPTIMAL-KHR - :ATTACHMENT-OPTIMAL-KHR"
+Has the values:
+ - :UNDEFINED
+ - :GENERAL
+ - :COLOR-ATTACHMENT-OPTIMAL
+ - :DEPTH-STENCIL-ATTACHMENT-OPTIMAL
+ - :DEPTH-STENCIL-READ-ONLY-OPTIMAL
+ - :SHADER-READ-ONLY-OPTIMAL
+ - :TRANSFER-SRC-OPTIMAL
+ - :TRANSFER-DST-OPTIMAL
+ - :PREINITIALIZED
+ - :PRESENT-SRC-KHR
+ - :SHARED-PRESENT-KHR
+ - :DEPTH-READ-ONLY-STENCIL-ATTACHMENT-OPTIMAL
+ - :DEPTH-ATTACHMENT-STENCIL-READ-ONLY-OPTIMAL
+ - :SHADING-RATE-OPTIMAL-NV
+ - :FRAGMENT-DENSITY-MAP-OPTIMAL-EXT
+ - :DEPTH-ATTACHMENT-OPTIMAL
+ - :DEPTH-READ-ONLY-OPTIMAL
+ - :STENCIL-ATTACHMENT-OPTIMAL
+ - :STENCIL-READ-ONLY-OPTIMAL
+ - :READ-ONLY-OPTIMAL-KHR
+ - :ATTACHMENT-OPTIMAL-KHR"
   '(member nil 
     :undefined
     :general
@@ -753,7 +1272,10 @@ Has the values: - :UNDEFINED - :GENERAL - :COLOR-ATTACHMENT-OPTIMAL - :DEPTH-STE
 (deftype image-tiling ()
   "Represents the enum [VkImageTiling](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageTiling.html).
 
-Has the values: - :OPTIMAL - :LINEAR - :DRM-FORMAT-MODIFIER-EXT"
+Has the values:
+ - :OPTIMAL
+ - :LINEAR
+ - :DRM-FORMAT-MODIFIER-EXT"
   '(member nil 
     :optimal
     :linear
@@ -762,7 +1284,10 @@ Has the values: - :OPTIMAL - :LINEAR - :DRM-FORMAT-MODIFIER-EXT"
 (deftype image-type ()
   "Represents the enum [VkImageType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageType.html).
 
-Has the values: - :1D - :2D - :3D"
+Has the values:
+ - :1D
+ - :2D
+ - :3D"
   '(member nil 
     :1d
     :2d
@@ -771,7 +1296,17 @@ Has the values: - :1D - :2D - :3D"
 (deftype image-usage-flag-bits ()
   "Represents the enum [VkImageUsageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageUsageFlagBits.html).
 
-Has the values: - :TRANSFER-SRC - :TRANSFER-DST - :SAMPLED - :STORAGE - :COLOR-ATTACHMENT - :DEPTH-STENCIL-ATTACHMENT - :TRANSIENT-ATTACHMENT - :INPUT-ATTACHMENT - :SHADING-RATE-IMAGE - :FRAGMENT-DENSITY-MAP"
+Has the values:
+ - :TRANSFER-SRC
+ - :TRANSFER-DST
+ - :SAMPLED
+ - :STORAGE
+ - :COLOR-ATTACHMENT
+ - :DEPTH-STENCIL-ATTACHMENT
+ - :TRANSIENT-ATTACHMENT
+ - :INPUT-ATTACHMENT
+ - :SHADING-RATE-IMAGE
+ - :FRAGMENT-DENSITY-MAP"
   '(member nil 
     :transfer-src
     :transfer-dst
@@ -787,7 +1322,9 @@ Has the values: - :TRANSFER-SRC - :TRANSFER-DST - :SAMPLED - :STORAGE - :COLOR-A
 (deftype image-view-create-flag-bits ()
   "Represents the enum [VkImageViewCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewCreateFlagBits.html).
 
-Has the values: - :RAGMENT-DENSITY-MAP-DYNAMIC - :RAGMENT-DENSITY-MAP-DEFERRED"
+Has the values:
+ - :RAGMENT-DENSITY-MAP-DYNAMIC
+ - :RAGMENT-DENSITY-MAP-DEFERRED"
   '(member nil 
     :ragment-density-map-dynamic
     :ragment-density-map-deferred))
@@ -795,7 +1332,14 @@ Has the values: - :RAGMENT-DENSITY-MAP-DYNAMIC - :RAGMENT-DENSITY-MAP-DEFERRED"
 (deftype image-view-type ()
   "Represents the enum [VkImageViewType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewType.html).
 
-Has the values: - :1D - :2D - :3D - :CUBE - :1D-ARRAY - :2D-ARRAY - :CUBE-ARRAY"
+Has the values:
+ - :1D
+ - :2D
+ - :3D
+ - :CUBE
+ - :1D-ARRAY
+ - :2D-ARRAY
+ - :CUBE-ARRAY"
   '(member nil 
     :1d
     :2d
@@ -808,7 +1352,9 @@ Has the values: - :1D - :2D - :3D - :CUBE - :1D-ARRAY - :2D-ARRAY - :CUBE-ARRAY"
 (deftype sharing-mode ()
   "Represents the enum [VkSharingMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSharingMode.html).
 
-Has the values: - :EXCLUSIVE - :CONCURRENT"
+Has the values:
+ - :EXCLUSIVE
+ - :CONCURRENT"
   '(member nil 
     :exclusive
     :concurrent))
@@ -816,7 +1362,11 @@ Has the values: - :EXCLUSIVE - :CONCURRENT"
 (deftype index-type ()
   "Represents the enum [VkIndexType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndexType.html).
 
-Has the values: - :UINT16 - :UINT32 - :NONE-KHR - :UINT8-EXT"
+Has the values:
+ - :UINT16
+ - :UINT32
+ - :NONE-KHR
+ - :UINT8-EXT"
   '(member nil 
     :uint16
     :uint32
@@ -826,7 +1376,23 @@ Has the values: - :UINT16 - :UINT32 - :NONE-KHR - :UINT8-EXT"
 (deftype logic-op ()
   "Represents the enum [VkLogicOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkLogicOp.html).
 
-Has the values: - :CLEAR - :AND - :AND-REVERSE - :COPY - :AND-INVERTED - :NO-OP - :XOR - :OR - :NOR - :EQUIVALENT - :INVERT - :OR-REVERSE - :COPY-INVERTED - :OR-INVERTED - :NAND - :SET"
+Has the values:
+ - :CLEAR
+ - :AND
+ - :AND-REVERSE
+ - :COPY
+ - :AND-INVERTED
+ - :NO-OP
+ - :XOR
+ - :OR
+ - :NOR
+ - :EQUIVALENT
+ - :INVERT
+ - :OR-REVERSE
+ - :COPY-INVERTED
+ - :OR-INVERTED
+ - :NAND
+ - :SET"
   '(member nil 
     :clear
     :and
@@ -848,7 +1414,9 @@ Has the values: - :CLEAR - :AND - :AND-REVERSE - :COPY - :AND-INVERTED - :NO-OP 
 (deftype memory-heap-flag-bits ()
   "Represents the enum [VkMemoryHeapFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryHeapFlagBits.html).
 
-Has the values: - :DEVICE-LOCAL - :MULTI-INSTANCE"
+Has the values:
+ - :DEVICE-LOCAL
+ - :MULTI-INSTANCE"
   '(member nil 
     :device-local
     :multi-instance))
@@ -856,7 +1424,36 @@ Has the values: - :DEVICE-LOCAL - :MULTI-INSTANCE"
 (deftype access-flag-bits ()
   "Represents the enum [VkAccessFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccessFlagBits.html).
 
-Has the values: - :NONE-KHR - :INDIRECT-COMMAND-READ - :INDEX-READ - :VERTEX-ATTRIBUTE-READ - :UNIFORM-READ - :INPUT-ATTACHMENT-READ - :SHADER-READ - :SHADER-WRITE - :COLOR-ATTACHMENT-READ - :COLOR-ATTACHMENT-WRITE - :DEPTH-STENCIL-ATTACHMENT-READ - :DEPTH-STENCIL-ATTACHMENT-WRITE - :TRANSFER-READ - :TRANSFER-WRITE - :HOST-READ - :HOST-WRITE - :MEMORY-READ - :MEMORY-WRITE - :COMMAND-PREPROCESS-READ - :COMMAND-PREPROCESS-WRITE - :COLOR-ATTACHMENT-READ-NONCOHERENT - :CONDITIONAL-RENDERING-READ - :ACCELERATION-STRUCTURE-READ - :ACCELERATION-STRUCTURE-WRITE - :SHADING-RATE-IMAGE-READ - :FRAGMENT-DENSITY-MAP-READ - :TRANSFORM-FEEDBACK-WRITE - :TRANSFORM-FEEDBACK-COUNTER-READ - :TRANSFORM-FEEDBACK-COUNTER-WRITE"
+Has the values:
+ - :NONE-KHR
+ - :INDIRECT-COMMAND-READ
+ - :INDEX-READ
+ - :VERTEX-ATTRIBUTE-READ
+ - :UNIFORM-READ
+ - :INPUT-ATTACHMENT-READ
+ - :SHADER-READ
+ - :SHADER-WRITE
+ - :COLOR-ATTACHMENT-READ
+ - :COLOR-ATTACHMENT-WRITE
+ - :DEPTH-STENCIL-ATTACHMENT-READ
+ - :DEPTH-STENCIL-ATTACHMENT-WRITE
+ - :TRANSFER-READ
+ - :TRANSFER-WRITE
+ - :HOST-READ
+ - :HOST-WRITE
+ - :MEMORY-READ
+ - :MEMORY-WRITE
+ - :COMMAND-PREPROCESS-READ
+ - :COMMAND-PREPROCESS-WRITE
+ - :COLOR-ATTACHMENT-READ-NONCOHERENT
+ - :CONDITIONAL-RENDERING-READ
+ - :ACCELERATION-STRUCTURE-READ
+ - :ACCELERATION-STRUCTURE-WRITE
+ - :SHADING-RATE-IMAGE-READ
+ - :FRAGMENT-DENSITY-MAP-READ
+ - :TRANSFORM-FEEDBACK-WRITE
+ - :TRANSFORM-FEEDBACK-COUNTER-READ
+ - :TRANSFORM-FEEDBACK-COUNTER-WRITE"
   '(member nil 
     :none-khr
     :indirect-command-read
@@ -891,7 +1488,15 @@ Has the values: - :NONE-KHR - :INDIRECT-COMMAND-READ - :INDEX-READ - :VERTEX-ATT
 (deftype memory-property-flag-bits ()
   "Represents the enum [VkMemoryPropertyFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryPropertyFlagBits.html).
 
-Has the values: - :DEVICE-LOCAL - :HOST-VISIBLE - :HOST-COHERENT - :HOST-CACHED - :LAZILY-ALLOCATED - :PROTECTED - :DEVICE-COHERENT - :DEVICE-UNCACHED"
+Has the values:
+ - :DEVICE-LOCAL
+ - :HOST-VISIBLE
+ - :HOST-COHERENT
+ - :HOST-CACHED
+ - :LAZILY-ALLOCATED
+ - :PROTECTED
+ - :DEVICE-COHERENT
+ - :DEVICE-UNCACHED"
   '(member nil 
     :device-local
     :host-visible
@@ -905,7 +1510,12 @@ Has the values: - :DEVICE-LOCAL - :HOST-VISIBLE - :HOST-COHERENT - :HOST-CACHED 
 (deftype physical-device-type ()
   "Represents the enum [VkPhysicalDeviceType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceType.html).
 
-Has the values: - :OTHER - :INTEGRATED-GPU - :DISCRETE-GPU - :VIRTUAL-GPU - :CPU"
+Has the values:
+ - :OTHER
+ - :INTEGRATED-GPU
+ - :DISCRETE-GPU
+ - :VIRTUAL-GPU
+ - :CPU"
   '(member nil 
     :other
     :integrated-gpu
@@ -916,7 +1526,10 @@ Has the values: - :OTHER - :INTEGRATED-GPU - :DISCRETE-GPU - :VIRTUAL-GPU - :CPU
 (deftype pipeline-bind-point ()
   "Represents the enum [VkPipelineBindPoint](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineBindPoint.html).
 
-Has the values: - :GRAPHICS - :COMPUTE - :RAY-TRACING-KHR"
+Has the values:
+ - :GRAPHICS
+ - :COMPUTE
+ - :RAY-TRACING-KHR"
   '(member nil 
     :graphics
     :compute
@@ -925,7 +1538,26 @@ Has the values: - :GRAPHICS - :COMPUTE - :RAY-TRACING-KHR"
 (deftype pipeline-create-flag-bits ()
   "Represents the enum [VkPipelineCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCreateFlagBits.html).
 
-Has the values: - :DISABLE-OPTIMIZATION - :ALLOW-DERIVATIVES - :DERIVATIVE - :VIEW-INDEX-FROM-DEVICE-INDEX - :DISPATCH-BASE - :DEFER-COMPILE - :CAPTURE-STATISTICS - :CAPTURE-INTERNAL-REPRESENTATIONS - :FAIL-ON-PIPELINE-COMPILE-REQUIRED - :EARLY-RETURN-ON-FAILURE - :LIBRARY - :RAY-TRACING-SKIP-TRIANGLES - :RAY-TRACING-SKIP-AABBS - :RAY-TRACING-NO-NULL-ANY-HIT-SHADERS - :RAY-TRACING-NO-NULL-CLOSEST-HIT-SHADERS - :RAY-TRACING-NO-NULL-MISS-SHADERS - :RAY-TRACING-NO-NULL-INTERSECTION-SHADERS - :INDIRECT-BINDABLE - :RAY-TRACING-SHADER-GROUP-HANDLE-CAPTURE-REPLAY"
+Has the values:
+ - :DISABLE-OPTIMIZATION
+ - :ALLOW-DERIVATIVES
+ - :DERIVATIVE
+ - :VIEW-INDEX-FROM-DEVICE-INDEX
+ - :DISPATCH-BASE
+ - :DEFER-COMPILE
+ - :CAPTURE-STATISTICS
+ - :CAPTURE-INTERNAL-REPRESENTATIONS
+ - :FAIL-ON-PIPELINE-COMPILE-REQUIRED
+ - :EARLY-RETURN-ON-FAILURE
+ - :LIBRARY
+ - :RAY-TRACING-SKIP-TRIANGLES
+ - :RAY-TRACING-SKIP-AABBS
+ - :RAY-TRACING-NO-NULL-ANY-HIT-SHADERS
+ - :RAY-TRACING-NO-NULL-CLOSEST-HIT-SHADERS
+ - :RAY-TRACING-NO-NULL-MISS-SHADERS
+ - :RAY-TRACING-NO-NULL-INTERSECTION-SHADERS
+ - :INDIRECT-BINDABLE
+ - :RAY-TRACING-SHADER-GROUP-HANDLE-CAPTURE-REPLAY"
   '(member nil 
     :disable-optimization
     :allow-derivatives
@@ -950,7 +1582,18 @@ Has the values: - :DISABLE-OPTIMIZATION - :ALLOW-DERIVATIVES - :DERIVATIVE - :VI
 (deftype primitive-topology ()
   "Represents the enum [VkPrimitiveTopology](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPrimitiveTopology.html).
 
-Has the values: - :POINT-LIST - :LINE-LIST - :LINE-STRIP - :TRIANGLE-LIST - :TRIANGLE-STRIP - :TRIANGLE-FAN - :LINE-LIST-WITH-ADJACENCY - :LINE-STRIP-WITH-ADJACENCY - :TRIANGLE-LIST-WITH-ADJACENCY - :TRIANGLE-STRIP-WITH-ADJACENCY - :PATCH-LIST"
+Has the values:
+ - :POINT-LIST
+ - :LINE-LIST
+ - :LINE-STRIP
+ - :TRIANGLE-LIST
+ - :TRIANGLE-STRIP
+ - :TRIANGLE-FAN
+ - :LINE-LIST-WITH-ADJACENCY
+ - :LINE-STRIP-WITH-ADJACENCY
+ - :TRIANGLE-LIST-WITH-ADJACENCY
+ - :TRIANGLE-STRIP-WITH-ADJACENCY
+ - :PATCH-LIST"
   '(member nil 
     :point-list
     :line-list
@@ -967,14 +1610,26 @@ Has the values: - :POINT-LIST - :LINE-LIST - :LINE-STRIP - :TRIANGLE-LIST - :TRI
 (deftype query-control-flag-bits ()
   "Represents the enum [VkQueryControlFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryControlFlagBits.html).
 
-Has the values: - :PRECISE"
+Has the values:
+ - :PRECISE"
   '(member nil 
     :precise))
 
 (deftype query-pipeline-statistic-flag-bits ()
   "Represents the enum [VkQueryPipelineStatisticFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPipelineStatisticFlagBits.html).
 
-Has the values: - :INPUT-ASSEMBLY-VERTICES - :INPUT-ASSEMBLY-PRIMITIVES - :VERTEX-SHADER-INVOCATIONS - :GEOMETRY-SHADER-INVOCATIONS - :GEOMETRY-SHADER-PRIMITIVES - :CLIPPING-INVOCATIONS - :CLIPPING-PRIMITIVES - :FRAGMENT-SHADER-INVOCATIONS - :TESSELLATION-CONTROL-SHADER-PATCHES - :TESSELLATION-EVALUATION-SHADER-INVOCATIONS - :COMPUTE-SHADER-INVOCATIONS"
+Has the values:
+ - :INPUT-ASSEMBLY-VERTICES
+ - :INPUT-ASSEMBLY-PRIMITIVES
+ - :VERTEX-SHADER-INVOCATIONS
+ - :GEOMETRY-SHADER-INVOCATIONS
+ - :GEOMETRY-SHADER-PRIMITIVES
+ - :CLIPPING-INVOCATIONS
+ - :CLIPPING-PRIMITIVES
+ - :FRAGMENT-SHADER-INVOCATIONS
+ - :TESSELLATION-CONTROL-SHADER-PATCHES
+ - :TESSELLATION-EVALUATION-SHADER-INVOCATIONS
+ - :COMPUTE-SHADER-INVOCATIONS"
   '(member nil 
     :input-assembly-vertices
     :input-assembly-primitives
@@ -991,7 +1646,11 @@ Has the values: - :INPUT-ASSEMBLY-VERTICES - :INPUT-ASSEMBLY-PRIMITIVES - :VERTE
 (deftype query-result-flag-bits ()
   "Represents the enum [VkQueryResultFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryResultFlagBits.html).
 
-Has the values: - :64 - :WAIT - :WITH-AVAILABILITY - :PARTIAL"
+Has the values:
+ - :64
+ - :WAIT
+ - :WITH-AVAILABILITY
+ - :PARTIAL"
   '(member nil 
     :64
     :wait
@@ -1001,7 +1660,16 @@ Has the values: - :64 - :WAIT - :WITH-AVAILABILITY - :PARTIAL"
 (deftype query-type ()
   "Represents the enum [VkQueryType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryType.html).
 
-Has the values: - :OCCLUSION - :PIPELINE-STATISTICS - :TIMESTAMP - :TRANSFORM-FEEDBACK-STREAM-EXT - :PERFORMANCE-QUERY-KHR - :ACCELERATION-STRUCTURE-COMPACTED-SIZE-KHR - :ACCELERATION-STRUCTURE-SERIALIZATION-SIZE-KHR - :ACCELERATION-STRUCTURE-COMPACTED-SIZE-NV - :PERFORMANCE-QUERY-INTEL"
+Has the values:
+ - :OCCLUSION
+ - :PIPELINE-STATISTICS
+ - :TIMESTAMP
+ - :TRANSFORM-FEEDBACK-STREAM-EXT
+ - :PERFORMANCE-QUERY-KHR
+ - :ACCELERATION-STRUCTURE-COMPACTED-SIZE-KHR
+ - :ACCELERATION-STRUCTURE-SERIALIZATION-SIZE-KHR
+ - :ACCELERATION-STRUCTURE-COMPACTED-SIZE-NV
+ - :PERFORMANCE-QUERY-INTEL"
   '(member nil 
     :occlusion
     :pipeline-statistics
@@ -1016,7 +1684,12 @@ Has the values: - :OCCLUSION - :PIPELINE-STATISTICS - :TIMESTAMP - :TRANSFORM-FE
 (deftype queue-flag-bits ()
   "Represents the enum [VkQueueFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFlagBits.html).
 
-Has the values: - :GRAPHICS - :COMPUTE - :TRANSFER - :SPARSE-BINDING - :PROTECTED"
+Has the values:
+ - :GRAPHICS
+ - :COMPUTE
+ - :TRANSFER
+ - :SPARSE-BINDING
+ - :PROTECTED"
   '(member nil 
     :graphics
     :compute
@@ -1027,7 +1700,9 @@ Has the values: - :GRAPHICS - :COMPUTE - :TRANSFER - :SPARSE-BINDING - :PROTECTE
 (deftype subpass-contents ()
   "Represents the enum [VkSubpassContents](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassContents.html).
 
-Has the values: - :INLINE - :SECONDARY-COMMAND-BUFFERS"
+Has the values:
+ - :INLINE
+ - :SECONDARY-COMMAND-BUFFERS"
   '(member nil 
     :inline
     :secondary-command-buffers))
@@ -1035,7 +1710,45 @@ Has the values: - :INLINE - :SECONDARY-COMMAND-BUFFERS"
 (deftype result ()
   "Represents the enum [VkResult](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkResult.html).
 
-Has the values: - :ERROR-INVALID-OPAQUE-CAPTURE-ADDRESS - :ERROR-FULL-SCREEN-EXCLUSIVE-MODE-LOST-EXT - :ERROR-NOT-PERMITTED-EXT - :ERROR-FRAGMENTATION - :ERROR-INVALID-DRM-FORMAT-MODIFIER-PLANE-LAYOUT-EXT - :ERROR-INVALID-EXTERNAL-HANDLE - :ERROR-OUT-OF-POOL-MEMORY - :ERROR-INVALID-SHADER-NV - :ERROR-VALIDATION-FAILED-EXT - :ERROR-INCOMPATIBLE-DISPLAY-KHR - :ERROR-OUT-OF-DATE-KHR - :ERROR-NATIVE-WINDOW-IN-USE-KHR - :ERROR-SURFACE-LOST-KHR - :ERROR-UNKNOWN - :ERROR-FRAGMENTED-POOL - :ERROR-FORMAT-NOT-SUPPORTED - :ERROR-TOO-MANY-OBJECTS - :ERROR-INCOMPATIBLE-DRIVER - :ERROR-FEATURE-NOT-PRESENT - :ERROR-EXTENSION-NOT-PRESENT - :ERROR-LAYER-NOT-PRESENT - :ERROR-MEMORY-MAP-FAILED - :ERROR-DEVICE-LOST - :ERROR-INITIALIZATION-FAILED - :ERROR-OUT-OF-DEVICE-MEMORY - :ERROR-OUT-OF-HOST-MEMORY - :SUCCESS - :NOT-READY - :TIMEOUT - :EVENT-SET - :EVENT-RESET - :INCOMPLETE - :SUBOPTIMAL-KHR - :THREAD-IDLE-KHR - :THREAD-DONE-KHR - :OPERATION-DEFERRED-KHR - :OPERATION-NOT-DEFERRED-KHR - :PIPELINE-COMPILE-REQUIRED-EXT"
+Has the values:
+ - :ERROR-INVALID-OPAQUE-CAPTURE-ADDRESS
+ - :ERROR-FULL-SCREEN-EXCLUSIVE-MODE-LOST-EXT
+ - :ERROR-NOT-PERMITTED-EXT
+ - :ERROR-FRAGMENTATION
+ - :ERROR-INVALID-DRM-FORMAT-MODIFIER-PLANE-LAYOUT-EXT
+ - :ERROR-INVALID-EXTERNAL-HANDLE
+ - :ERROR-OUT-OF-POOL-MEMORY
+ - :ERROR-INVALID-SHADER-NV
+ - :ERROR-VALIDATION-FAILED-EXT
+ - :ERROR-INCOMPATIBLE-DISPLAY-KHR
+ - :ERROR-OUT-OF-DATE-KHR
+ - :ERROR-NATIVE-WINDOW-IN-USE-KHR
+ - :ERROR-SURFACE-LOST-KHR
+ - :ERROR-UNKNOWN
+ - :ERROR-FRAGMENTED-POOL
+ - :ERROR-FORMAT-NOT-SUPPORTED
+ - :ERROR-TOO-MANY-OBJECTS
+ - :ERROR-INCOMPATIBLE-DRIVER
+ - :ERROR-FEATURE-NOT-PRESENT
+ - :ERROR-EXTENSION-NOT-PRESENT
+ - :ERROR-LAYER-NOT-PRESENT
+ - :ERROR-MEMORY-MAP-FAILED
+ - :ERROR-DEVICE-LOST
+ - :ERROR-INITIALIZATION-FAILED
+ - :ERROR-OUT-OF-DEVICE-MEMORY
+ - :ERROR-OUT-OF-HOST-MEMORY
+ - :SUCCESS
+ - :NOT-READY
+ - :TIMEOUT
+ - :EVENT-SET
+ - :EVENT-RESET
+ - :INCOMPLETE
+ - :SUBOPTIMAL-KHR
+ - :THREAD-IDLE-KHR
+ - :THREAD-DONE-KHR
+ - :OPERATION-DEFERRED-KHR
+ - :OPERATION-NOT-DEFERRED-KHR
+ - :PIPELINE-COMPILE-REQUIRED-EXT"
   '(member nil 
     :error-invalid-opaque-capture-address
     :error-full-screen-exclusive-mode-lost-ext
@@ -1079,7 +1792,23 @@ Has the values: - :ERROR-INVALID-OPAQUE-CAPTURE-ADDRESS - :ERROR-FULL-SCREEN-EXC
 (deftype shader-stage-flag-bits ()
   "Represents the enum [VkShaderStageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderStageFlagBits.html).
 
-Has the values: - :VERTEX - :TESSELLATION-CONTROL - :TESSELLATION-EVALUATION - :GEOMETRY - :FRAGMENT - :ALL-GRAPHICS - :COMPUTE - :TASK - :MESH - :RAYGEN - :ANY-HIT - :CLOSEST-HIT - :MISS - :INTERSECTION - :CALLABLE - :ALL"
+Has the values:
+ - :VERTEX
+ - :TESSELLATION-CONTROL
+ - :TESSELLATION-EVALUATION
+ - :GEOMETRY
+ - :FRAGMENT
+ - :ALL-GRAPHICS
+ - :COMPUTE
+ - :TASK
+ - :MESH
+ - :RAYGEN
+ - :ANY-HIT
+ - :CLOSEST-HIT
+ - :MISS
+ - :INTERSECTION
+ - :CALLABLE
+ - :ALL"
   '(member nil 
     :vertex
     :tessellation-control
@@ -1101,14 +1830,18 @@ Has the values: - :VERTEX - :TESSELLATION-CONTROL - :TESSELLATION-EVALUATION - :
 (deftype sparse-memory-bind-flag-bits ()
   "Represents the enum [VkSparseMemoryBindFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSparseMemoryBindFlagBits.html).
 
-Has the values: - :METADATA"
+Has the values:
+ - :METADATA"
   '(member nil 
     :metadata))
 
 (deftype stencil-face-flag-bits ()
   "Represents the enum [VkStencilFaceFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStencilFaceFlagBits.html).
 
-Has the values: - :FRONT - :BACK - :FRONT-AND-BACK"
+Has the values:
+ - :FRONT
+ - :BACK
+ - :FRONT-AND-BACK"
   '(member nil 
     :front
     :back
@@ -1117,7 +1850,15 @@ Has the values: - :FRONT - :BACK - :FRONT-AND-BACK"
 (deftype stencil-op ()
   "Represents the enum [VkStencilOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStencilOp.html).
 
-Has the values: - :KEEP - :ZERO - :REPLACE - :INCREMENT-AND-CLAMP - :DECREMENT-AND-CLAMP - :INVERT - :INCREMENT-AND-WRAP - :DECREMENT-AND-WRAP"
+Has the values:
+ - :KEEP
+ - :ZERO
+ - :REPLACE
+ - :INCREMENT-AND-CLAMP
+ - :DECREMENT-AND-CLAMP
+ - :INVERT
+ - :INCREMENT-AND-WRAP
+ - :DECREMENT-AND-WRAP"
   '(member nil 
     :keep
     :zero
@@ -1131,7 +1872,498 @@ Has the values: - :KEEP - :ZERO - :REPLACE - :INCREMENT-AND-CLAMP - :DECREMENT-A
 (deftype structure-type ()
   "Represents the enum [VkStructureType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkStructureType.html).
 
-Has the values: - :APPLICATION-INFO - :INSTANCE-CREATE-INFO - :DEVICE-QUEUE-CREATE-INFO - :DEVICE-CREATE-INFO - :SUBMIT-INFO - :MEMORY-ALLOCATE-INFO - :MAPPED-MEMORY-RANGE - :BIND-SPARSE-INFO - :FENCE-CREATE-INFO - :SEMAPHORE-CREATE-INFO - :EVENT-CREATE-INFO - :QUERY-POOL-CREATE-INFO - :BUFFER-CREATE-INFO - :BUFFER-VIEW-CREATE-INFO - :IMAGE-CREATE-INFO - :IMAGE-VIEW-CREATE-INFO - :SHADER-MODULE-CREATE-INFO - :PIPELINE-CACHE-CREATE-INFO - :PIPELINE-SHADER-STAGE-CREATE-INFO - :PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO - :PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-INFO - :PIPELINE-TESSELLATION-STATE-CREATE-INFO - :PIPELINE-VIEWPORT-STATE-CREATE-INFO - :PIPELINE-RASTERIZATION-STATE-CREATE-INFO - :PIPELINE-MULTISAMPLE-STATE-CREATE-INFO - :PIPELINE-DEPTH-STENCIL-STATE-CREATE-INFO - :PIPELINE-COLOR-BLEND-STATE-CREATE-INFO - :PIPELINE-DYNAMIC-STATE-CREATE-INFO - :GRAPHICS-PIPELINE-CREATE-INFO - :COMPUTE-PIPELINE-CREATE-INFO - :PIPELINE-LAYOUT-CREATE-INFO - :SAMPLER-CREATE-INFO - :DESCRIPTOR-SET-LAYOUT-CREATE-INFO - :DESCRIPTOR-POOL-CREATE-INFO - :DESCRIPTOR-SET-ALLOCATE-INFO - :WRITE-DESCRIPTOR-SET - :COPY-DESCRIPTOR-SET - :FRAMEBUFFER-CREATE-INFO - :RENDER-PASS-CREATE-INFO - :COMMAND-POOL-CREATE-INFO - :COMMAND-BUFFER-ALLOCATE-INFO - :COMMAND-BUFFER-INHERITANCE-INFO - :COMMAND-BUFFER-BEGIN-INFO - :RENDER-PASS-BEGIN-INFO - :BUFFER-MEMORY-BARRIER - :IMAGE-MEMORY-BARRIER - :MEMORY-BARRIER - :LOADER-INSTANCE-CREATE-INFO - :LOADER-DEVICE-CREATE-INFO - :PHYSICAL-DEVICE-VULKAN-1-1-FEATURES - :PHYSICAL-DEVICE-VULKAN-1-1-PROPERTIES - :PHYSICAL-DEVICE-VULKAN-1-2-FEATURES - :PHYSICAL-DEVICE-VULKAN-1-2-PROPERTIES - :SWAPCHAIN-CREATE-INFO-KHR - :PRESENT-INFO-KHR - :DISPLAY-MODE-CREATE-INFO-KHR - :DISPLAY-SURFACE-CREATE-INFO-KHR - :DISPLAY-PRESENT-INFO-KHR - :XLIB-SURFACE-CREATE-INFO-KHR - :XCB-SURFACE-CREATE-INFO-KHR - :WAYLAND-SURFACE-CREATE-INFO-KHR - :ANDROID-SURFACE-CREATE-INFO-KHR - :WIN32-SURFACE-CREATE-INFO-KHR - :DEBUG-REPORT-CALLBACK-CREATE-INFO-EXT - :PIPELINE-RASTERIZATION-STATE-RASTERIZATION-ORDER-AMD - :DEBUG-MARKER-OBJECT-NAME-INFO-EXT - :DEBUG-MARKER-OBJECT-TAG-INFO-EXT - :DEBUG-MARKER-MARKER-INFO-EXT - :DEDICATED-ALLOCATION-IMAGE-CREATE-INFO-NV - :DEDICATED-ALLOCATION-BUFFER-CREATE-INFO-NV - :DEDICATED-ALLOCATION-MEMORY-ALLOCATE-INFO-NV - :PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT - :PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-PROPERTIES-EXT - :PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-INFO-EXT - :IMAGE-VIEW-HANDLE-INFO-NVX - :IMAGE-VIEW-ADDRESS-PROPERTIES-NVX - :TEXTURE-LOD-GATHER-FORMAT-PROPERTIES-AMD - :STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP - :PHYSICAL-DEVICE-CORNER-SAMPLED-IMAGE-FEATURES-NV - :RENDER-PASS-MULTIVIEW-CREATE-INFO - :PHYSICAL-DEVICE-MULTIVIEW-FEATURES - :PHYSICAL-DEVICE-MULTIVIEW-PROPERTIES - :EXTERNAL-MEMORY-IMAGE-CREATE-INFO-NV - :EXPORT-MEMORY-ALLOCATE-INFO-NV - :IMPORT-MEMORY-WIN32-HANDLE-INFO-NV - :EXPORT-MEMORY-WIN32-HANDLE-INFO-NV - :WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-NV - :PHYSICAL-DEVICE-FEATURES-2 - :PHYSICAL-DEVICE-PROPERTIES-2 - :FORMAT-PROPERTIES-2 - :IMAGE-FORMAT-PROPERTIES-2 - :PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2 - :QUEUE-FAMILY-PROPERTIES-2 - :PHYSICAL-DEVICE-MEMORY-PROPERTIES-2 - :SPARSE-IMAGE-FORMAT-PROPERTIES-2 - :PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2 - :MEMORY-ALLOCATE-FLAGS-INFO - :DEVICE-GROUP-RENDER-PASS-BEGIN-INFO - :DEVICE-GROUP-COMMAND-BUFFER-BEGIN-INFO - :DEVICE-GROUP-SUBMIT-INFO - :DEVICE-GROUP-BIND-SPARSE-INFO - :DEVICE-GROUP-PRESENT-CAPABILITIES-KHR - :IMAGE-SWAPCHAIN-CREATE-INFO-KHR - :BIND-IMAGE-MEMORY-SWAPCHAIN-INFO-KHR - :ACQUIRE-NEXT-IMAGE-INFO-KHR - :DEVICE-GROUP-PRESENT-INFO-KHR - :DEVICE-GROUP-SWAPCHAIN-CREATE-INFO-KHR - :BIND-BUFFER-MEMORY-DEVICE-GROUP-INFO - :BIND-IMAGE-MEMORY-DEVICE-GROUP-INFO - :VALIDATION-FLAGS-EXT - :VI-SURFACE-CREATE-INFO-NN - :PHYSICAL-DEVICE-SHADER-DRAW-PARAMETERS-FEATURES - :PHYSICAL-DEVICE-TEXTURE-COMPRESSION-ASTC-HDR-FEATURES-EXT - :IMAGE-VIEW-ASTC-DECODE-MODE-EXT - :PHYSICAL-DEVICE-ASTC-DECODE-FEATURES-EXT - :PHYSICAL-DEVICE-GROUP-PROPERTIES - :DEVICE-GROUP-DEVICE-CREATE-INFO - :PHYSICAL-DEVICE-EXTERNAL-IMAGE-FORMAT-INFO - :EXTERNAL-IMAGE-FORMAT-PROPERTIES - :PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO - :EXTERNAL-BUFFER-PROPERTIES - :PHYSICAL-DEVICE-ID-PROPERTIES - :EXTERNAL-MEMORY-BUFFER-CREATE-INFO - :EXTERNAL-MEMORY-IMAGE-CREATE-INFO - :EXPORT-MEMORY-ALLOCATE-INFO - :IMPORT-MEMORY-WIN32-HANDLE-INFO-KHR - :EXPORT-MEMORY-WIN32-HANDLE-INFO-KHR - :MEMORY-WIN32-HANDLE-PROPERTIES-KHR - :MEMORY-GET-WIN32-HANDLE-INFO-KHR - :IMPORT-MEMORY-FD-INFO-KHR - :MEMORY-FD-PROPERTIES-KHR - :MEMORY-GET-FD-INFO-KHR - :WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-KHR - :PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO - :EXTERNAL-SEMAPHORE-PROPERTIES - :EXPORT-SEMAPHORE-CREATE-INFO - :IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR - :EXPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR - :D3D12-FENCE-SUBMIT-INFO-KHR - :SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR - :IMPORT-SEMAPHORE-FD-INFO-KHR - :SEMAPHORE-GET-FD-INFO-KHR - :PHYSICAL-DEVICE-PUSH-DESCRIPTOR-PROPERTIES-KHR - :COMMAND-BUFFER-INHERITANCE-CONDITIONAL-RENDERING-INFO-EXT - :PHYSICAL-DEVICE-CONDITIONAL-RENDERING-FEATURES-EXT - :CONDITIONAL-RENDERING-BEGIN-INFO-EXT - :PHYSICAL-DEVICE-SHADER-FLOAT16-INT8-FEATURES - :PHYSICAL-DEVICE-16BIT-STORAGE-FEATURES - :PRESENT-REGIONS-KHR - :DESCRIPTOR-UPDATE-TEMPLATE-CREATE-INFO - :PIPELINE-VIEWPORT-W-SCALING-STATE-CREATE-INFO-NV - :SURFACE-CAPABILITIES-2-EXT - :DISPLAY-POWER-INFO-EXT - :DEVICE-EVENT-INFO-EXT - :DISPLAY-EVENT-INFO-EXT - :SWAPCHAIN-COUNTER-CREATE-INFO-EXT - :PRESENT-TIMES-INFO-GOOGLE - :PHYSICAL-DEVICE-SUBGROUP-PROPERTIES - :PHYSICAL-DEVICE-MULTIVIEW-PER-VIEW-ATTRIBUTES-PROPERTIES-NVX - :PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-INFO-NV - :PHYSICAL-DEVICE-DISCARD-RECTANGLE-PROPERTIES-EXT - :PIPELINE-DISCARD-RECTANGLE-STATE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-CONSERVATIVE-RASTERIZATION-PROPERTIES-EXT - :PIPELINE-RASTERIZATION-CONSERVATIVE-STATE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-DEPTH-CLIP-ENABLE-FEATURES-EXT - :PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-INFO-EXT - :HDR-METADATA-EXT - :PHYSICAL-DEVICE-IMAGELESS-FRAMEBUFFER-FEATURES - :FRAMEBUFFER-ATTACHMENTS-CREATE-INFO - :FRAMEBUFFER-ATTACHMENT-IMAGE-INFO - :RENDER-PASS-ATTACHMENT-BEGIN-INFO - :ATTACHMENT-DESCRIPTION-2 - :ATTACHMENT-REFERENCE-2 - :SUBPASS-DESCRIPTION-2 - :SUBPASS-DEPENDENCY-2 - :RENDER-PASS-CREATE-INFO-2 - :SUBPASS-BEGIN-INFO - :SUBPASS-END-INFO - :SHARED-PRESENT-SURFACE-CAPABILITIES-KHR - :PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO - :EXTERNAL-FENCE-PROPERTIES - :EXPORT-FENCE-CREATE-INFO - :IMPORT-FENCE-WIN32-HANDLE-INFO-KHR - :EXPORT-FENCE-WIN32-HANDLE-INFO-KHR - :FENCE-GET-WIN32-HANDLE-INFO-KHR - :IMPORT-FENCE-FD-INFO-KHR - :FENCE-GET-FD-INFO-KHR - :PHYSICAL-DEVICE-PERFORMANCE-QUERY-FEATURES-KHR - :PHYSICAL-DEVICE-PERFORMANCE-QUERY-PROPERTIES-KHR - :QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR - :PERFORMANCE-QUERY-SUBMIT-INFO-KHR - :ACQUIRE-PROFILING-LOCK-INFO-KHR - :PERFORMANCE-COUNTER-KHR - :PERFORMANCE-COUNTER-DESCRIPTION-KHR - :PHYSICAL-DEVICE-POINT-CLIPPING-PROPERTIES - :RENDER-PASS-INPUT-ATTACHMENT-ASPECT-CREATE-INFO - :IMAGE-VIEW-USAGE-CREATE-INFO - :PIPELINE-TESSELLATION-DOMAIN-ORIGIN-STATE-CREATE-INFO - :PHYSICAL-DEVICE-SURFACE-INFO-2-KHR - :SURFACE-CAPABILITIES-2-KHR - :SURFACE-FORMAT-2-KHR - :PHYSICAL-DEVICE-VARIABLE-POINTERS-FEATURES - :DISPLAY-PROPERTIES-2-KHR - :DISPLAY-PLANE-PROPERTIES-2-KHR - :DISPLAY-MODE-PROPERTIES-2-KHR - :DISPLAY-PLANE-INFO-2-KHR - :DISPLAY-PLANE-CAPABILITIES-2-KHR - :IOS-SURFACE-CREATE-INFO-MVK - :MACOS-SURFACE-CREATE-INFO-MVK - :MEMORY-DEDICATED-REQUIREMENTS - :MEMORY-DEDICATED-ALLOCATE-INFO - :DEBUG-UTILS-OBJECT-NAME-INFO-EXT - :DEBUG-UTILS-OBJECT-TAG-INFO-EXT - :DEBUG-UTILS-LABEL-EXT - :DEBUG-UTILS-MESSENGER-CALLBACK-DATA-EXT - :DEBUG-UTILS-MESSENGER-CREATE-INFO-EXT - :ANDROID-HARDWARE-BUFFER-USAGE-ANDROID - :ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID - :ANDROID-HARDWARE-BUFFER-FORMAT-PROPERTIES-ANDROID - :IMPORT-ANDROID-HARDWARE-BUFFER-INFO-ANDROID - :MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID - :EXTERNAL-FORMAT-ANDROID - :PHYSICAL-DEVICE-SAMPLER-FILTER-MINMAX-PROPERTIES - :SAMPLER-REDUCTION-MODE-CREATE-INFO - :PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-FEATURES-EXT - :PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-PROPERTIES-EXT - :WRITE-DESCRIPTOR-SET-INLINE-UNIFORM-BLOCK-EXT - :DESCRIPTOR-POOL-INLINE-UNIFORM-BLOCK-CREATE-INFO-EXT - :SAMPLE-LOCATIONS-INFO-EXT - :RENDER-PASS-SAMPLE-LOCATIONS-BEGIN-INFO-EXT - :PIPELINE-SAMPLE-LOCATIONS-STATE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-SAMPLE-LOCATIONS-PROPERTIES-EXT - :MULTISAMPLE-PROPERTIES-EXT - :PROTECTED-SUBMIT-INFO - :PHYSICAL-DEVICE-PROTECTED-MEMORY-FEATURES - :PHYSICAL-DEVICE-PROTECTED-MEMORY-PROPERTIES - :DEVICE-QUEUE-INFO-2 - :BUFFER-MEMORY-REQUIREMENTS-INFO-2 - :IMAGE-MEMORY-REQUIREMENTS-INFO-2 - :IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2 - :MEMORY-REQUIREMENTS-2 - :SPARSE-IMAGE-MEMORY-REQUIREMENTS-2 - :IMAGE-FORMAT-LIST-CREATE-INFO - :PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-FEATURES-EXT - :PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-PROPERTIES-EXT - :PIPELINE-COLOR-BLEND-ADVANCED-STATE-CREATE-INFO-EXT - :PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-INFO-NV - :ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR - :ACCELERATION-STRUCTURE-DEVICE-ADDRESS-INFO-KHR - :ACCELERATION-STRUCTURE-GEOMETRY-AABBS-DATA-KHR - :ACCELERATION-STRUCTURE-GEOMETRY-INSTANCES-DATA-KHR - :ACCELERATION-STRUCTURE-GEOMETRY-TRIANGLES-DATA-KHR - :ACCELERATION-STRUCTURE-GEOMETRY-KHR - :WRITE-DESCRIPTOR-SET-ACCELERATION-STRUCTURE-KHR - :ACCELERATION-STRUCTURE-VERSION-INFO-KHR - :COPY-ACCELERATION-STRUCTURE-INFO-KHR - :COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR - :COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR - :PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-FEATURES-KHR - :PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-PROPERTIES-KHR - :RAY-TRACING-PIPELINE-CREATE-INFO-KHR - :RAY-TRACING-SHADER-GROUP-CREATE-INFO-KHR - :ACCELERATION-STRUCTURE-CREATE-INFO-KHR - :RAY-TRACING-PIPELINE-INTERFACE-CREATE-INFO-KHR - :ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR - :PIPELINE-COVERAGE-MODULATION-STATE-CREATE-INFO-NV - :PHYSICAL-DEVICE-SHADER-SM-BUILTINS-FEATURES-NV - :PHYSICAL-DEVICE-SHADER-SM-BUILTINS-PROPERTIES-NV - :SAMPLER-YCBCR-CONVERSION-CREATE-INFO - :SAMPLER-YCBCR-CONVERSION-INFO - :BIND-IMAGE-PLANE-MEMORY-INFO - :IMAGE-PLANE-MEMORY-REQUIREMENTS-INFO - :PHYSICAL-DEVICE-SAMPLER-YCBCR-CONVERSION-FEATURES - :SAMPLER-YCBCR-CONVERSION-IMAGE-FORMAT-PROPERTIES - :BIND-BUFFER-MEMORY-INFO - :BIND-IMAGE-MEMORY-INFO - :DRM-FORMAT-MODIFIER-PROPERTIES-LIST-EXT - :PHYSICAL-DEVICE-IMAGE-DRM-FORMAT-MODIFIER-INFO-EXT - :IMAGE-DRM-FORMAT-MODIFIER-LIST-CREATE-INFO-EXT - :IMAGE-DRM-FORMAT-MODIFIER-EXPLICIT-CREATE-INFO-EXT - :IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT - :VALIDATION-CACHE-CREATE-INFO-EXT - :SHADER-MODULE-VALIDATION-CACHE-CREATE-INFO-EXT - :DESCRIPTOR-SET-LAYOUT-BINDING-FLAGS-CREATE-INFO - :PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-FEATURES - :PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-PROPERTIES - :DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-ALLOCATE-INFO - :DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-LAYOUT-SUPPORT - :PHYSICAL-DEVICE-PORTABILITY-SUBSET-FEATURES-KHR - :PHYSICAL-DEVICE-PORTABILITY-SUBSET-PROPERTIES-KHR - :PIPELINE-VIEWPORT-SHADING-RATE-IMAGE-STATE-CREATE-INFO-NV - :PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV - :PHYSICAL-DEVICE-SHADING-RATE-IMAGE-PROPERTIES-NV - :PIPELINE-VIEWPORT-COARSE-SAMPLE-ORDER-STATE-CREATE-INFO-NV - :RAY-TRACING-PIPELINE-CREATE-INFO-NV - :ACCELERATION-STRUCTURE-CREATE-INFO-NV - :GEOMETRY-NV - :GEOMETRY-TRIANGLES-NV - :GEOMETRY-AABB-NV - :BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV - :WRITE-DESCRIPTOR-SET-ACCELERATION-STRUCTURE-NV - :ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-INFO-NV - :PHYSICAL-DEVICE-RAY-TRACING-PROPERTIES-NV - :RAY-TRACING-SHADER-GROUP-CREATE-INFO-NV - :ACCELERATION-STRUCTURE-INFO-NV - :PHYSICAL-DEVICE-REPRESENTATIVE-FRAGMENT-TEST-FEATURES-NV - :PIPELINE-REPRESENTATIVE-FRAGMENT-TEST-STATE-CREATE-INFO-NV - :PHYSICAL-DEVICE-MAINTENANCE-3-PROPERTIES - :DESCRIPTOR-SET-LAYOUT-SUPPORT - :PHYSICAL-DEVICE-IMAGE-VIEW-IMAGE-FORMAT-INFO-EXT - :FILTER-CUBIC-IMAGE-VIEW-IMAGE-FORMAT-PROPERTIES-EXT - :DEVICE-QUEUE-GLOBAL-PRIORITY-CREATE-INFO-EXT - :PHYSICAL-DEVICE-SHADER-SUBGROUP-EXTENDED-TYPES-FEATURES - :PHYSICAL-DEVICE-8BIT-STORAGE-FEATURES - :IMPORT-MEMORY-HOST-POINTER-INFO-EXT - :MEMORY-HOST-POINTER-PROPERTIES-EXT - :PHYSICAL-DEVICE-EXTERNAL-MEMORY-HOST-PROPERTIES-EXT - :PHYSICAL-DEVICE-SHADER-ATOMIC-INT64-FEATURES - :PHYSICAL-DEVICE-SHADER-CLOCK-FEATURES-KHR - :PIPELINE-COMPILER-CONTROL-CREATE-INFO-AMD - :CALIBRATED-TIMESTAMP-INFO-EXT - :PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-AMD - :DEVICE-MEMORY-OVERALLOCATION-CREATE-INFO-AMD - :PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-PROPERTIES-EXT - :PIPELINE-VERTEX-INPUT-DIVISOR-STATE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-FEATURES-EXT - :PRESENT-FRAME-TOKEN-GGP - :PIPELINE-CREATION-FEEDBACK-CREATE-INFO-EXT - :PHYSICAL-DEVICE-DRIVER-PROPERTIES - :PHYSICAL-DEVICE-FLOAT-CONTROLS-PROPERTIES - :PHYSICAL-DEVICE-DEPTH-STENCIL-RESOLVE-PROPERTIES - :SUBPASS-DESCRIPTION-DEPTH-STENCIL-RESOLVE - :PHYSICAL-DEVICE-COMPUTE-SHADER-DERIVATIVES-FEATURES-NV - :PHYSICAL-DEVICE-MESH-SHADER-FEATURES-NV - :PHYSICAL-DEVICE-MESH-SHADER-PROPERTIES-NV - :PHYSICAL-DEVICE-FRAGMENT-SHADER-BARYCENTRIC-FEATURES-NV - :PHYSICAL-DEVICE-SHADER-IMAGE-FOOTPRINT-FEATURES-NV - :PIPELINE-VIEWPORT-EXCLUSIVE-SCISSOR-STATE-CREATE-INFO-NV - :PHYSICAL-DEVICE-EXCLUSIVE-SCISSOR-FEATURES-NV - :CHECKPOINT-DATA-NV - :QUEUE-FAMILY-CHECKPOINT-PROPERTIES-NV - :PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-FEATURES - :PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-PROPERTIES - :SEMAPHORE-TYPE-CREATE-INFO - :TIMELINE-SEMAPHORE-SUBMIT-INFO - :SEMAPHORE-WAIT-INFO - :SEMAPHORE-SIGNAL-INFO - :PHYSICAL-DEVICE-SHADER-INTEGER-FUNCTIONS-2-FEATURES-INTEL - :QUERY-POOL-PERFORMANCE-QUERY-CREATE-INFO-INTEL - :INITIALIZE-PERFORMANCE-API-INFO-INTEL - :PERFORMANCE-MARKER-INFO-INTEL - :PERFORMANCE-STREAM-MARKER-INFO-INTEL - :PERFORMANCE-OVERRIDE-INFO-INTEL - :PERFORMANCE-CONFIGURATION-ACQUIRE-INFO-INTEL - :PHYSICAL-DEVICE-VULKAN-MEMORY-MODEL-FEATURES - :PHYSICAL-DEVICE-PCI-BUS-INFO-PROPERTIES-EXT - :DISPLAY-NATIVE-HDR-SURFACE-CAPABILITIES-AMD - :SWAPCHAIN-DISPLAY-NATIVE-HDR-CREATE-INFO-AMD - :IMAGEPIPE-SURFACE-CREATE-INFO-FUCHSIA - :PHYSICAL-DEVICE-SHADER-TERMINATE-INVOCATION-FEATURES-KHR - :METAL-SURFACE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-FEATURES-EXT - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-PROPERTIES-EXT - :RENDER-PASS-FRAGMENT-DENSITY-MAP-CREATE-INFO-EXT - :PHYSICAL-DEVICE-SCALAR-BLOCK-LAYOUT-FEATURES - :PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-PROPERTIES-EXT - :PIPELINE-SHADER-STAGE-REQUIRED-SUBGROUP-SIZE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-FEATURES-EXT - :FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR - :PIPELINE-FRAGMENT-SHADING-RATE-STATE-CREATE-INFO-KHR - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-PROPERTIES-KHR - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-FEATURES-KHR - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR - :PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-2-AMD - :PHYSICAL-DEVICE-COHERENT-MEMORY-FEATURES-AMD - :PHYSICAL-DEVICE-SHADER-IMAGE-ATOMIC-INT64-FEATURES-EXT - :PHYSICAL-DEVICE-MEMORY-BUDGET-PROPERTIES-EXT - :PHYSICAL-DEVICE-MEMORY-PRIORITY-FEATURES-EXT - :MEMORY-PRIORITY-ALLOCATE-INFO-EXT - :SURFACE-PROTECTED-CAPABILITIES-KHR - :PHYSICAL-DEVICE-DEDICATED-ALLOCATION-IMAGE-ALIASING-FEATURES-NV - :PHYSICAL-DEVICE-SEPARATE-DEPTH-STENCIL-LAYOUTS-FEATURES - :ATTACHMENT-REFERENCE-STENCIL-LAYOUT - :ATTACHMENT-DESCRIPTION-STENCIL-LAYOUT - :PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES-EXT - :BUFFER-DEVICE-ADDRESS-INFO - :BUFFER-DEVICE-ADDRESS-CREATE-INFO-EXT - :PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT - :IMAGE-STENCIL-USAGE-CREATE-INFO - :VALIDATION-FEATURES-EXT - :PHYSICAL-DEVICE-COOPERATIVE-MATRIX-FEATURES-NV - :COOPERATIVE-MATRIX-PROPERTIES-NV - :PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV - :PHYSICAL-DEVICE-COVERAGE-REDUCTION-MODE-FEATURES-NV - :PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-INFO-NV - :FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NV - :PHYSICAL-DEVICE-FRAGMENT-SHADER-INTERLOCK-FEATURES-EXT - :PHYSICAL-DEVICE-YCBCR-IMAGE-ARRAYS-FEATURES-EXT - :PHYSICAL-DEVICE-UNIFORM-BUFFER-STANDARD-LAYOUT-FEATURES - :SURFACE-FULL-SCREEN-EXCLUSIVE-INFO-EXT - :SURFACE-FULL-SCREEN-EXCLUSIVE-WIN32-INFO-EXT - :SURFACE-CAPABILITIES-FULL-SCREEN-EXCLUSIVE-EXT - :HEADLESS-SURFACE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES - :BUFFER-OPAQUE-CAPTURE-ADDRESS-CREATE-INFO - :MEMORY-OPAQUE-CAPTURE-ADDRESS-ALLOCATE-INFO - :DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO - :PHYSICAL-DEVICE-LINE-RASTERIZATION-FEATURES-EXT - :PIPELINE-RASTERIZATION-LINE-STATE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-LINE-RASTERIZATION-PROPERTIES-EXT - :PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-FEATURES-EXT - :PHYSICAL-DEVICE-HOST-QUERY-RESET-FEATURES - :PHYSICAL-DEVICE-INDEX-TYPE-UINT8-FEATURES-EXT - :PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-FEATURES-EXT - :PHYSICAL-DEVICE-PIPELINE-EXECUTABLE-PROPERTIES-FEATURES-KHR - :PIPELINE-INFO-KHR - :PIPELINE-EXECUTABLE-PROPERTIES-KHR - :PIPELINE-EXECUTABLE-INFO-KHR - :PIPELINE-EXECUTABLE-STATISTIC-KHR - :PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR - :PHYSICAL-DEVICE-SHADER-DEMOTE-TO-HELPER-INVOCATION-FEATURES-EXT - :PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-PROPERTIES-NV - :GRAPHICS-SHADER-GROUP-CREATE-INFO-NV - :GRAPHICS-PIPELINE-SHADER-GROUPS-CREATE-INFO-NV - :INDIRECT-COMMANDS-LAYOUT-TOKEN-NV - :INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV - :GENERATED-COMMANDS-INFO-NV - :GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV - :PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-FEATURES-NV - :PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-FEATURES-EXT - :PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-PROPERTIES-EXT - :COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM - :RENDER-PASS-TRANSFORM-BEGIN-INFO-QCOM - :PHYSICAL-DEVICE-DEVICE-MEMORY-REPORT-FEATURES-EXT - :DEVICE-DEVICE-MEMORY-REPORT-CREATE-INFO-EXT - :DEVICE-MEMORY-REPORT-CALLBACK-DATA-EXT - :PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT - :PHYSICAL-DEVICE-ROBUSTNESS-2-PROPERTIES-EXT - :SAMPLER-CUSTOM-BORDER-COLOR-CREATE-INFO-EXT - :PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-PROPERTIES-EXT - :PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT - :PIPELINE-LIBRARY-CREATE-INFO-KHR - :PHYSICAL-DEVICE-PRIVATE-DATA-FEATURES-EXT - :DEVICE-PRIVATE-DATA-CREATE-INFO-EXT - :PRIVATE-DATA-SLOT-CREATE-INFO-EXT - :PHYSICAL-DEVICE-PIPELINE-CREATION-CACHE-CONTROL-FEATURES-EXT - :PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV - :DEVICE-DIAGNOSTICS-CONFIG-CREATE-INFO-NV - :MEMORY-BARRIER-2-KHR - :BUFFER-MEMORY-BARRIER-2-KHR - :IMAGE-MEMORY-BARRIER-2-KHR - :DEPENDENCY-INFO-KHR - :SUBMIT-INFO-2-KHR - :SEMAPHORE-SUBMIT-INFO-KHR - :COMMAND-BUFFER-SUBMIT-INFO-KHR - :PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR - :QUEUE-FAMILY-CHECKPOINT-PROPERTIES-2-NV - :CHECKPOINT-DATA-2-NV - :PHYSICAL-DEVICE-ZERO-INITIALIZE-WORKGROUP-MEMORY-FEATURES-KHR - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-PROPERTIES-NV - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV - :PIPELINE-FRAGMENT-SHADING-RATE-ENUM-STATE-CREATE-INFO-NV - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-FEATURES-EXT - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-PROPERTIES-EXT - :COPY-COMMAND-TRANSFORM-INFO-QCOM - :PHYSICAL-DEVICE-IMAGE-ROBUSTNESS-FEATURES-EXT - :PHYSICAL-DEVICE-WORKGROUP-MEMORY-EXPLICIT-LAYOUT-FEATURES-KHR - :COPY-BUFFER-INFO-2-KHR - :COPY-IMAGE-INFO-2-KHR - :COPY-BUFFER-TO-IMAGE-INFO-2-KHR - :COPY-IMAGE-TO-BUFFER-INFO-2-KHR - :BLIT-IMAGE-INFO-2-KHR - :RESOLVE-IMAGE-INFO-2-KHR - :BUFFER-COPY-2-KHR - :IMAGE-COPY-2-KHR - :IMAGE-BLIT-2-KHR - :BUFFER-IMAGE-COPY-2-KHR - :IMAGE-RESOLVE-2-KHR - :PHYSICAL-DEVICE-4444-FORMATS-FEATURES-EXT - :DIRECTFB-SURFACE-CREATE-INFO-EXT - :PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-FEATURES-KHR - :PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-PROPERTIES-KHR - :PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR - :PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE - :MUTABLE-DESCRIPTOR-TYPE-CREATE-INFO-VALVE - :IMPORT-MEMORY-ZIRCON-HANDLE-INFO-FUCHSIA - :MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA - :MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA - :IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA - :SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA - :SCREEN-SURFACE-CREATE-INFO-QNX"
+Has the values:
+ - :APPLICATION-INFO
+ - :INSTANCE-CREATE-INFO
+ - :DEVICE-QUEUE-CREATE-INFO
+ - :DEVICE-CREATE-INFO
+ - :SUBMIT-INFO
+ - :MEMORY-ALLOCATE-INFO
+ - :MAPPED-MEMORY-RANGE
+ - :BIND-SPARSE-INFO
+ - :FENCE-CREATE-INFO
+ - :SEMAPHORE-CREATE-INFO
+ - :EVENT-CREATE-INFO
+ - :QUERY-POOL-CREATE-INFO
+ - :BUFFER-CREATE-INFO
+ - :BUFFER-VIEW-CREATE-INFO
+ - :IMAGE-CREATE-INFO
+ - :IMAGE-VIEW-CREATE-INFO
+ - :SHADER-MODULE-CREATE-INFO
+ - :PIPELINE-CACHE-CREATE-INFO
+ - :PIPELINE-SHADER-STAGE-CREATE-INFO
+ - :PIPELINE-VERTEX-INPUT-STATE-CREATE-INFO
+ - :PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-INFO
+ - :PIPELINE-TESSELLATION-STATE-CREATE-INFO
+ - :PIPELINE-VIEWPORT-STATE-CREATE-INFO
+ - :PIPELINE-RASTERIZATION-STATE-CREATE-INFO
+ - :PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
+ - :PIPELINE-DEPTH-STENCIL-STATE-CREATE-INFO
+ - :PIPELINE-COLOR-BLEND-STATE-CREATE-INFO
+ - :PIPELINE-DYNAMIC-STATE-CREATE-INFO
+ - :GRAPHICS-PIPELINE-CREATE-INFO
+ - :COMPUTE-PIPELINE-CREATE-INFO
+ - :PIPELINE-LAYOUT-CREATE-INFO
+ - :SAMPLER-CREATE-INFO
+ - :DESCRIPTOR-SET-LAYOUT-CREATE-INFO
+ - :DESCRIPTOR-POOL-CREATE-INFO
+ - :DESCRIPTOR-SET-ALLOCATE-INFO
+ - :WRITE-DESCRIPTOR-SET
+ - :COPY-DESCRIPTOR-SET
+ - :FRAMEBUFFER-CREATE-INFO
+ - :RENDER-PASS-CREATE-INFO
+ - :COMMAND-POOL-CREATE-INFO
+ - :COMMAND-BUFFER-ALLOCATE-INFO
+ - :COMMAND-BUFFER-INHERITANCE-INFO
+ - :COMMAND-BUFFER-BEGIN-INFO
+ - :RENDER-PASS-BEGIN-INFO
+ - :BUFFER-MEMORY-BARRIER
+ - :IMAGE-MEMORY-BARRIER
+ - :MEMORY-BARRIER
+ - :LOADER-INSTANCE-CREATE-INFO
+ - :LOADER-DEVICE-CREATE-INFO
+ - :PHYSICAL-DEVICE-VULKAN-1-1-FEATURES
+ - :PHYSICAL-DEVICE-VULKAN-1-1-PROPERTIES
+ - :PHYSICAL-DEVICE-VULKAN-1-2-FEATURES
+ - :PHYSICAL-DEVICE-VULKAN-1-2-PROPERTIES
+ - :SWAPCHAIN-CREATE-INFO-KHR
+ - :PRESENT-INFO-KHR
+ - :DISPLAY-MODE-CREATE-INFO-KHR
+ - :DISPLAY-SURFACE-CREATE-INFO-KHR
+ - :DISPLAY-PRESENT-INFO-KHR
+ - :XLIB-SURFACE-CREATE-INFO-KHR
+ - :XCB-SURFACE-CREATE-INFO-KHR
+ - :WAYLAND-SURFACE-CREATE-INFO-KHR
+ - :ANDROID-SURFACE-CREATE-INFO-KHR
+ - :WIN32-SURFACE-CREATE-INFO-KHR
+ - :DEBUG-REPORT-CALLBACK-CREATE-INFO-EXT
+ - :PIPELINE-RASTERIZATION-STATE-RASTERIZATION-ORDER-AMD
+ - :DEBUG-MARKER-OBJECT-NAME-INFO-EXT
+ - :DEBUG-MARKER-OBJECT-TAG-INFO-EXT
+ - :DEBUG-MARKER-MARKER-INFO-EXT
+ - :DEDICATED-ALLOCATION-IMAGE-CREATE-INFO-NV
+ - :DEDICATED-ALLOCATION-BUFFER-CREATE-INFO-NV
+ - :DEDICATED-ALLOCATION-MEMORY-ALLOCATE-INFO-NV
+ - :PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT
+ - :PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-PROPERTIES-EXT
+ - :PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-INFO-EXT
+ - :IMAGE-VIEW-HANDLE-INFO-NVX
+ - :IMAGE-VIEW-ADDRESS-PROPERTIES-NVX
+ - :TEXTURE-LOD-GATHER-FORMAT-PROPERTIES-AMD
+ - :STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
+ - :PHYSICAL-DEVICE-CORNER-SAMPLED-IMAGE-FEATURES-NV
+ - :RENDER-PASS-MULTIVIEW-CREATE-INFO
+ - :PHYSICAL-DEVICE-MULTIVIEW-FEATURES
+ - :PHYSICAL-DEVICE-MULTIVIEW-PROPERTIES
+ - :EXTERNAL-MEMORY-IMAGE-CREATE-INFO-NV
+ - :EXPORT-MEMORY-ALLOCATE-INFO-NV
+ - :IMPORT-MEMORY-WIN32-HANDLE-INFO-NV
+ - :EXPORT-MEMORY-WIN32-HANDLE-INFO-NV
+ - :WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-NV
+ - :PHYSICAL-DEVICE-FEATURES-2
+ - :PHYSICAL-DEVICE-PROPERTIES-2
+ - :FORMAT-PROPERTIES-2
+ - :IMAGE-FORMAT-PROPERTIES-2
+ - :PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
+ - :QUEUE-FAMILY-PROPERTIES-2
+ - :PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
+ - :SPARSE-IMAGE-FORMAT-PROPERTIES-2
+ - :PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
+ - :MEMORY-ALLOCATE-FLAGS-INFO
+ - :DEVICE-GROUP-RENDER-PASS-BEGIN-INFO
+ - :DEVICE-GROUP-COMMAND-BUFFER-BEGIN-INFO
+ - :DEVICE-GROUP-SUBMIT-INFO
+ - :DEVICE-GROUP-BIND-SPARSE-INFO
+ - :DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
+ - :IMAGE-SWAPCHAIN-CREATE-INFO-KHR
+ - :BIND-IMAGE-MEMORY-SWAPCHAIN-INFO-KHR
+ - :ACQUIRE-NEXT-IMAGE-INFO-KHR
+ - :DEVICE-GROUP-PRESENT-INFO-KHR
+ - :DEVICE-GROUP-SWAPCHAIN-CREATE-INFO-KHR
+ - :BIND-BUFFER-MEMORY-DEVICE-GROUP-INFO
+ - :BIND-IMAGE-MEMORY-DEVICE-GROUP-INFO
+ - :VALIDATION-FLAGS-EXT
+ - :VI-SURFACE-CREATE-INFO-NN
+ - :PHYSICAL-DEVICE-SHADER-DRAW-PARAMETERS-FEATURES
+ - :PHYSICAL-DEVICE-TEXTURE-COMPRESSION-ASTC-HDR-FEATURES-EXT
+ - :IMAGE-VIEW-ASTC-DECODE-MODE-EXT
+ - :PHYSICAL-DEVICE-ASTC-DECODE-FEATURES-EXT
+ - :PHYSICAL-DEVICE-GROUP-PROPERTIES
+ - :DEVICE-GROUP-DEVICE-CREATE-INFO
+ - :PHYSICAL-DEVICE-EXTERNAL-IMAGE-FORMAT-INFO
+ - :EXTERNAL-IMAGE-FORMAT-PROPERTIES
+ - :PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
+ - :EXTERNAL-BUFFER-PROPERTIES
+ - :PHYSICAL-DEVICE-ID-PROPERTIES
+ - :EXTERNAL-MEMORY-BUFFER-CREATE-INFO
+ - :EXTERNAL-MEMORY-IMAGE-CREATE-INFO
+ - :EXPORT-MEMORY-ALLOCATE-INFO
+ - :IMPORT-MEMORY-WIN32-HANDLE-INFO-KHR
+ - :EXPORT-MEMORY-WIN32-HANDLE-INFO-KHR
+ - :MEMORY-WIN32-HANDLE-PROPERTIES-KHR
+ - :MEMORY-GET-WIN32-HANDLE-INFO-KHR
+ - :IMPORT-MEMORY-FD-INFO-KHR
+ - :MEMORY-FD-PROPERTIES-KHR
+ - :MEMORY-GET-FD-INFO-KHR
+ - :WIN32-KEYED-MUTEX-ACQUIRE-RELEASE-INFO-KHR
+ - :PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
+ - :EXTERNAL-SEMAPHORE-PROPERTIES
+ - :EXPORT-SEMAPHORE-CREATE-INFO
+ - :IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
+ - :EXPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
+ - :D3D12-FENCE-SUBMIT-INFO-KHR
+ - :SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR
+ - :IMPORT-SEMAPHORE-FD-INFO-KHR
+ - :SEMAPHORE-GET-FD-INFO-KHR
+ - :PHYSICAL-DEVICE-PUSH-DESCRIPTOR-PROPERTIES-KHR
+ - :COMMAND-BUFFER-INHERITANCE-CONDITIONAL-RENDERING-INFO-EXT
+ - :PHYSICAL-DEVICE-CONDITIONAL-RENDERING-FEATURES-EXT
+ - :CONDITIONAL-RENDERING-BEGIN-INFO-EXT
+ - :PHYSICAL-DEVICE-SHADER-FLOAT16-INT8-FEATURES
+ - :PHYSICAL-DEVICE-16BIT-STORAGE-FEATURES
+ - :PRESENT-REGIONS-KHR
+ - :DESCRIPTOR-UPDATE-TEMPLATE-CREATE-INFO
+ - :PIPELINE-VIEWPORT-W-SCALING-STATE-CREATE-INFO-NV
+ - :SURFACE-CAPABILITIES-2-EXT
+ - :DISPLAY-POWER-INFO-EXT
+ - :DEVICE-EVENT-INFO-EXT
+ - :DISPLAY-EVENT-INFO-EXT
+ - :SWAPCHAIN-COUNTER-CREATE-INFO-EXT
+ - :PRESENT-TIMES-INFO-GOOGLE
+ - :PHYSICAL-DEVICE-SUBGROUP-PROPERTIES
+ - :PHYSICAL-DEVICE-MULTIVIEW-PER-VIEW-ATTRIBUTES-PROPERTIES-NVX
+ - :PIPELINE-VIEWPORT-SWIZZLE-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-DISCARD-RECTANGLE-PROPERTIES-EXT
+ - :PIPELINE-DISCARD-RECTANGLE-STATE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-CONSERVATIVE-RASTERIZATION-PROPERTIES-EXT
+ - :PIPELINE-RASTERIZATION-CONSERVATIVE-STATE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-DEPTH-CLIP-ENABLE-FEATURES-EXT
+ - :PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-INFO-EXT
+ - :HDR-METADATA-EXT
+ - :PHYSICAL-DEVICE-IMAGELESS-FRAMEBUFFER-FEATURES
+ - :FRAMEBUFFER-ATTACHMENTS-CREATE-INFO
+ - :FRAMEBUFFER-ATTACHMENT-IMAGE-INFO
+ - :RENDER-PASS-ATTACHMENT-BEGIN-INFO
+ - :ATTACHMENT-DESCRIPTION-2
+ - :ATTACHMENT-REFERENCE-2
+ - :SUBPASS-DESCRIPTION-2
+ - :SUBPASS-DEPENDENCY-2
+ - :RENDER-PASS-CREATE-INFO-2
+ - :SUBPASS-BEGIN-INFO
+ - :SUBPASS-END-INFO
+ - :SHARED-PRESENT-SURFACE-CAPABILITIES-KHR
+ - :PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
+ - :EXTERNAL-FENCE-PROPERTIES
+ - :EXPORT-FENCE-CREATE-INFO
+ - :IMPORT-FENCE-WIN32-HANDLE-INFO-KHR
+ - :EXPORT-FENCE-WIN32-HANDLE-INFO-KHR
+ - :FENCE-GET-WIN32-HANDLE-INFO-KHR
+ - :IMPORT-FENCE-FD-INFO-KHR
+ - :FENCE-GET-FD-INFO-KHR
+ - :PHYSICAL-DEVICE-PERFORMANCE-QUERY-FEATURES-KHR
+ - :PHYSICAL-DEVICE-PERFORMANCE-QUERY-PROPERTIES-KHR
+ - :QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
+ - :PERFORMANCE-QUERY-SUBMIT-INFO-KHR
+ - :ACQUIRE-PROFILING-LOCK-INFO-KHR
+ - :PERFORMANCE-COUNTER-KHR
+ - :PERFORMANCE-COUNTER-DESCRIPTION-KHR
+ - :PHYSICAL-DEVICE-POINT-CLIPPING-PROPERTIES
+ - :RENDER-PASS-INPUT-ATTACHMENT-ASPECT-CREATE-INFO
+ - :IMAGE-VIEW-USAGE-CREATE-INFO
+ - :PIPELINE-TESSELLATION-DOMAIN-ORIGIN-STATE-CREATE-INFO
+ - :PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
+ - :SURFACE-CAPABILITIES-2-KHR
+ - :SURFACE-FORMAT-2-KHR
+ - :PHYSICAL-DEVICE-VARIABLE-POINTERS-FEATURES
+ - :DISPLAY-PROPERTIES-2-KHR
+ - :DISPLAY-PLANE-PROPERTIES-2-KHR
+ - :DISPLAY-MODE-PROPERTIES-2-KHR
+ - :DISPLAY-PLANE-INFO-2-KHR
+ - :DISPLAY-PLANE-CAPABILITIES-2-KHR
+ - :IOS-SURFACE-CREATE-INFO-MVK
+ - :MACOS-SURFACE-CREATE-INFO-MVK
+ - :MEMORY-DEDICATED-REQUIREMENTS
+ - :MEMORY-DEDICATED-ALLOCATE-INFO
+ - :DEBUG-UTILS-OBJECT-NAME-INFO-EXT
+ - :DEBUG-UTILS-OBJECT-TAG-INFO-EXT
+ - :DEBUG-UTILS-LABEL-EXT
+ - :DEBUG-UTILS-MESSENGER-CALLBACK-DATA-EXT
+ - :DEBUG-UTILS-MESSENGER-CREATE-INFO-EXT
+ - :ANDROID-HARDWARE-BUFFER-USAGE-ANDROID
+ - :ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
+ - :ANDROID-HARDWARE-BUFFER-FORMAT-PROPERTIES-ANDROID
+ - :IMPORT-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
+ - :MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
+ - :EXTERNAL-FORMAT-ANDROID
+ - :PHYSICAL-DEVICE-SAMPLER-FILTER-MINMAX-PROPERTIES
+ - :SAMPLER-REDUCTION-MODE-CREATE-INFO
+ - :PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-FEATURES-EXT
+ - :PHYSICAL-DEVICE-INLINE-UNIFORM-BLOCK-PROPERTIES-EXT
+ - :WRITE-DESCRIPTOR-SET-INLINE-UNIFORM-BLOCK-EXT
+ - :DESCRIPTOR-POOL-INLINE-UNIFORM-BLOCK-CREATE-INFO-EXT
+ - :SAMPLE-LOCATIONS-INFO-EXT
+ - :RENDER-PASS-SAMPLE-LOCATIONS-BEGIN-INFO-EXT
+ - :PIPELINE-SAMPLE-LOCATIONS-STATE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-SAMPLE-LOCATIONS-PROPERTIES-EXT
+ - :MULTISAMPLE-PROPERTIES-EXT
+ - :PROTECTED-SUBMIT-INFO
+ - :PHYSICAL-DEVICE-PROTECTED-MEMORY-FEATURES
+ - :PHYSICAL-DEVICE-PROTECTED-MEMORY-PROPERTIES
+ - :DEVICE-QUEUE-INFO-2
+ - :BUFFER-MEMORY-REQUIREMENTS-INFO-2
+ - :IMAGE-MEMORY-REQUIREMENTS-INFO-2
+ - :IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
+ - :MEMORY-REQUIREMENTS-2
+ - :SPARSE-IMAGE-MEMORY-REQUIREMENTS-2
+ - :IMAGE-FORMAT-LIST-CREATE-INFO
+ - :PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-FEATURES-EXT
+ - :PHYSICAL-DEVICE-BLEND-OPERATION-ADVANCED-PROPERTIES-EXT
+ - :PIPELINE-COLOR-BLEND-ADVANCED-STATE-CREATE-INFO-EXT
+ - :PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-INFO-NV
+ - :ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
+ - :ACCELERATION-STRUCTURE-DEVICE-ADDRESS-INFO-KHR
+ - :ACCELERATION-STRUCTURE-GEOMETRY-AABBS-DATA-KHR
+ - :ACCELERATION-STRUCTURE-GEOMETRY-INSTANCES-DATA-KHR
+ - :ACCELERATION-STRUCTURE-GEOMETRY-TRIANGLES-DATA-KHR
+ - :ACCELERATION-STRUCTURE-GEOMETRY-KHR
+ - :WRITE-DESCRIPTOR-SET-ACCELERATION-STRUCTURE-KHR
+ - :ACCELERATION-STRUCTURE-VERSION-INFO-KHR
+ - :COPY-ACCELERATION-STRUCTURE-INFO-KHR
+ - :COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
+ - :COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
+ - :PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-FEATURES-KHR
+ - :PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-PROPERTIES-KHR
+ - :RAY-TRACING-PIPELINE-CREATE-INFO-KHR
+ - :RAY-TRACING-SHADER-GROUP-CREATE-INFO-KHR
+ - :ACCELERATION-STRUCTURE-CREATE-INFO-KHR
+ - :RAY-TRACING-PIPELINE-INTERFACE-CREATE-INFO-KHR
+ - :ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR
+ - :PIPELINE-COVERAGE-MODULATION-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-SHADER-SM-BUILTINS-FEATURES-NV
+ - :PHYSICAL-DEVICE-SHADER-SM-BUILTINS-PROPERTIES-NV
+ - :SAMPLER-YCBCR-CONVERSION-CREATE-INFO
+ - :SAMPLER-YCBCR-CONVERSION-INFO
+ - :BIND-IMAGE-PLANE-MEMORY-INFO
+ - :IMAGE-PLANE-MEMORY-REQUIREMENTS-INFO
+ - :PHYSICAL-DEVICE-SAMPLER-YCBCR-CONVERSION-FEATURES
+ - :SAMPLER-YCBCR-CONVERSION-IMAGE-FORMAT-PROPERTIES
+ - :BIND-BUFFER-MEMORY-INFO
+ - :BIND-IMAGE-MEMORY-INFO
+ - :DRM-FORMAT-MODIFIER-PROPERTIES-LIST-EXT
+ - :PHYSICAL-DEVICE-IMAGE-DRM-FORMAT-MODIFIER-INFO-EXT
+ - :IMAGE-DRM-FORMAT-MODIFIER-LIST-CREATE-INFO-EXT
+ - :IMAGE-DRM-FORMAT-MODIFIER-EXPLICIT-CREATE-INFO-EXT
+ - :IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
+ - :VALIDATION-CACHE-CREATE-INFO-EXT
+ - :SHADER-MODULE-VALIDATION-CACHE-CREATE-INFO-EXT
+ - :DESCRIPTOR-SET-LAYOUT-BINDING-FLAGS-CREATE-INFO
+ - :PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-FEATURES
+ - :PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-PROPERTIES
+ - :DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-ALLOCATE-INFO
+ - :DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-LAYOUT-SUPPORT
+ - :PHYSICAL-DEVICE-PORTABILITY-SUBSET-FEATURES-KHR
+ - :PHYSICAL-DEVICE-PORTABILITY-SUBSET-PROPERTIES-KHR
+ - :PIPELINE-VIEWPORT-SHADING-RATE-IMAGE-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV
+ - :PHYSICAL-DEVICE-SHADING-RATE-IMAGE-PROPERTIES-NV
+ - :PIPELINE-VIEWPORT-COARSE-SAMPLE-ORDER-STATE-CREATE-INFO-NV
+ - :RAY-TRACING-PIPELINE-CREATE-INFO-NV
+ - :ACCELERATION-STRUCTURE-CREATE-INFO-NV
+ - :GEOMETRY-NV
+ - :GEOMETRY-TRIANGLES-NV
+ - :GEOMETRY-AABB-NV
+ - :BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV
+ - :WRITE-DESCRIPTOR-SET-ACCELERATION-STRUCTURE-NV
+ - :ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-INFO-NV
+ - :PHYSICAL-DEVICE-RAY-TRACING-PROPERTIES-NV
+ - :RAY-TRACING-SHADER-GROUP-CREATE-INFO-NV
+ - :ACCELERATION-STRUCTURE-INFO-NV
+ - :PHYSICAL-DEVICE-REPRESENTATIVE-FRAGMENT-TEST-FEATURES-NV
+ - :PIPELINE-REPRESENTATIVE-FRAGMENT-TEST-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-MAINTENANCE-3-PROPERTIES
+ - :DESCRIPTOR-SET-LAYOUT-SUPPORT
+ - :PHYSICAL-DEVICE-IMAGE-VIEW-IMAGE-FORMAT-INFO-EXT
+ - :FILTER-CUBIC-IMAGE-VIEW-IMAGE-FORMAT-PROPERTIES-EXT
+ - :DEVICE-QUEUE-GLOBAL-PRIORITY-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-SHADER-SUBGROUP-EXTENDED-TYPES-FEATURES
+ - :PHYSICAL-DEVICE-8BIT-STORAGE-FEATURES
+ - :IMPORT-MEMORY-HOST-POINTER-INFO-EXT
+ - :MEMORY-HOST-POINTER-PROPERTIES-EXT
+ - :PHYSICAL-DEVICE-EXTERNAL-MEMORY-HOST-PROPERTIES-EXT
+ - :PHYSICAL-DEVICE-SHADER-ATOMIC-INT64-FEATURES
+ - :PHYSICAL-DEVICE-SHADER-CLOCK-FEATURES-KHR
+ - :PIPELINE-COMPILER-CONTROL-CREATE-INFO-AMD
+ - :CALIBRATED-TIMESTAMP-INFO-EXT
+ - :PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-AMD
+ - :DEVICE-MEMORY-OVERALLOCATION-CREATE-INFO-AMD
+ - :PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-PROPERTIES-EXT
+ - :PIPELINE-VERTEX-INPUT-DIVISOR-STATE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-FEATURES-EXT
+ - :PRESENT-FRAME-TOKEN-GGP
+ - :PIPELINE-CREATION-FEEDBACK-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-DRIVER-PROPERTIES
+ - :PHYSICAL-DEVICE-FLOAT-CONTROLS-PROPERTIES
+ - :PHYSICAL-DEVICE-DEPTH-STENCIL-RESOLVE-PROPERTIES
+ - :SUBPASS-DESCRIPTION-DEPTH-STENCIL-RESOLVE
+ - :PHYSICAL-DEVICE-COMPUTE-SHADER-DERIVATIVES-FEATURES-NV
+ - :PHYSICAL-DEVICE-MESH-SHADER-FEATURES-NV
+ - :PHYSICAL-DEVICE-MESH-SHADER-PROPERTIES-NV
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADER-BARYCENTRIC-FEATURES-NV
+ - :PHYSICAL-DEVICE-SHADER-IMAGE-FOOTPRINT-FEATURES-NV
+ - :PIPELINE-VIEWPORT-EXCLUSIVE-SCISSOR-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-EXCLUSIVE-SCISSOR-FEATURES-NV
+ - :CHECKPOINT-DATA-NV
+ - :QUEUE-FAMILY-CHECKPOINT-PROPERTIES-NV
+ - :PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-FEATURES
+ - :PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-PROPERTIES
+ - :SEMAPHORE-TYPE-CREATE-INFO
+ - :TIMELINE-SEMAPHORE-SUBMIT-INFO
+ - :SEMAPHORE-WAIT-INFO
+ - :SEMAPHORE-SIGNAL-INFO
+ - :PHYSICAL-DEVICE-SHADER-INTEGER-FUNCTIONS-2-FEATURES-INTEL
+ - :QUERY-POOL-PERFORMANCE-QUERY-CREATE-INFO-INTEL
+ - :INITIALIZE-PERFORMANCE-API-INFO-INTEL
+ - :PERFORMANCE-MARKER-INFO-INTEL
+ - :PERFORMANCE-STREAM-MARKER-INFO-INTEL
+ - :PERFORMANCE-OVERRIDE-INFO-INTEL
+ - :PERFORMANCE-CONFIGURATION-ACQUIRE-INFO-INTEL
+ - :PHYSICAL-DEVICE-VULKAN-MEMORY-MODEL-FEATURES
+ - :PHYSICAL-DEVICE-PCI-BUS-INFO-PROPERTIES-EXT
+ - :DISPLAY-NATIVE-HDR-SURFACE-CAPABILITIES-AMD
+ - :SWAPCHAIN-DISPLAY-NATIVE-HDR-CREATE-INFO-AMD
+ - :IMAGEPIPE-SURFACE-CREATE-INFO-FUCHSIA
+ - :PHYSICAL-DEVICE-SHADER-TERMINATE-INVOCATION-FEATURES-KHR
+ - :METAL-SURFACE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-FEATURES-EXT
+ - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-PROPERTIES-EXT
+ - :RENDER-PASS-FRAGMENT-DENSITY-MAP-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-SCALAR-BLOCK-LAYOUT-FEATURES
+ - :PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-PROPERTIES-EXT
+ - :PIPELINE-SHADER-STAGE-REQUIRED-SUBGROUP-SIZE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-SUBGROUP-SIZE-CONTROL-FEATURES-EXT
+ - :FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR
+ - :PIPELINE-FRAGMENT-SHADING-RATE-STATE-CREATE-INFO-KHR
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-PROPERTIES-KHR
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-FEATURES-KHR
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR
+ - :PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-2-AMD
+ - :PHYSICAL-DEVICE-COHERENT-MEMORY-FEATURES-AMD
+ - :PHYSICAL-DEVICE-SHADER-IMAGE-ATOMIC-INT64-FEATURES-EXT
+ - :PHYSICAL-DEVICE-MEMORY-BUDGET-PROPERTIES-EXT
+ - :PHYSICAL-DEVICE-MEMORY-PRIORITY-FEATURES-EXT
+ - :MEMORY-PRIORITY-ALLOCATE-INFO-EXT
+ - :SURFACE-PROTECTED-CAPABILITIES-KHR
+ - :PHYSICAL-DEVICE-DEDICATED-ALLOCATION-IMAGE-ALIASING-FEATURES-NV
+ - :PHYSICAL-DEVICE-SEPARATE-DEPTH-STENCIL-LAYOUTS-FEATURES
+ - :ATTACHMENT-REFERENCE-STENCIL-LAYOUT
+ - :ATTACHMENT-DESCRIPTION-STENCIL-LAYOUT
+ - :PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES-EXT
+ - :BUFFER-DEVICE-ADDRESS-INFO
+ - :BUFFER-DEVICE-ADDRESS-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
+ - :IMAGE-STENCIL-USAGE-CREATE-INFO
+ - :VALIDATION-FEATURES-EXT
+ - :PHYSICAL-DEVICE-COOPERATIVE-MATRIX-FEATURES-NV
+ - :COOPERATIVE-MATRIX-PROPERTIES-NV
+ - :PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
+ - :PHYSICAL-DEVICE-COVERAGE-REDUCTION-MODE-FEATURES-NV
+ - :PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-INFO-NV
+ - :FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NV
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADER-INTERLOCK-FEATURES-EXT
+ - :PHYSICAL-DEVICE-YCBCR-IMAGE-ARRAYS-FEATURES-EXT
+ - :PHYSICAL-DEVICE-UNIFORM-BUFFER-STANDARD-LAYOUT-FEATURES
+ - :SURFACE-FULL-SCREEN-EXCLUSIVE-INFO-EXT
+ - :SURFACE-FULL-SCREEN-EXCLUSIVE-WIN32-INFO-EXT
+ - :SURFACE-CAPABILITIES-FULL-SCREEN-EXCLUSIVE-EXT
+ - :HEADLESS-SURFACE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-BUFFER-DEVICE-ADDRESS-FEATURES
+ - :BUFFER-OPAQUE-CAPTURE-ADDRESS-CREATE-INFO
+ - :MEMORY-OPAQUE-CAPTURE-ADDRESS-ALLOCATE-INFO
+ - :DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
+ - :PHYSICAL-DEVICE-LINE-RASTERIZATION-FEATURES-EXT
+ - :PIPELINE-RASTERIZATION-LINE-STATE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-LINE-RASTERIZATION-PROPERTIES-EXT
+ - :PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-FEATURES-EXT
+ - :PHYSICAL-DEVICE-HOST-QUERY-RESET-FEATURES
+ - :PHYSICAL-DEVICE-INDEX-TYPE-UINT8-FEATURES-EXT
+ - :PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-FEATURES-EXT
+ - :PHYSICAL-DEVICE-PIPELINE-EXECUTABLE-PROPERTIES-FEATURES-KHR
+ - :PIPELINE-INFO-KHR
+ - :PIPELINE-EXECUTABLE-PROPERTIES-KHR
+ - :PIPELINE-EXECUTABLE-INFO-KHR
+ - :PIPELINE-EXECUTABLE-STATISTIC-KHR
+ - :PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR
+ - :PHYSICAL-DEVICE-SHADER-DEMOTE-TO-HELPER-INVOCATION-FEATURES-EXT
+ - :PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-PROPERTIES-NV
+ - :GRAPHICS-SHADER-GROUP-CREATE-INFO-NV
+ - :GRAPHICS-PIPELINE-SHADER-GROUPS-CREATE-INFO-NV
+ - :INDIRECT-COMMANDS-LAYOUT-TOKEN-NV
+ - :INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV
+ - :GENERATED-COMMANDS-INFO-NV
+ - :GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
+ - :PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-FEATURES-NV
+ - :PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-FEATURES-EXT
+ - :PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-PROPERTIES-EXT
+ - :COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM
+ - :RENDER-PASS-TRANSFORM-BEGIN-INFO-QCOM
+ - :PHYSICAL-DEVICE-DEVICE-MEMORY-REPORT-FEATURES-EXT
+ - :DEVICE-DEVICE-MEMORY-REPORT-CREATE-INFO-EXT
+ - :DEVICE-MEMORY-REPORT-CALLBACK-DATA-EXT
+ - :PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT
+ - :PHYSICAL-DEVICE-ROBUSTNESS-2-PROPERTIES-EXT
+ - :SAMPLER-CUSTOM-BORDER-COLOR-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-PROPERTIES-EXT
+ - :PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT
+ - :PIPELINE-LIBRARY-CREATE-INFO-KHR
+ - :PHYSICAL-DEVICE-PRIVATE-DATA-FEATURES-EXT
+ - :DEVICE-PRIVATE-DATA-CREATE-INFO-EXT
+ - :PRIVATE-DATA-SLOT-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-PIPELINE-CREATION-CACHE-CONTROL-FEATURES-EXT
+ - :PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV
+ - :DEVICE-DIAGNOSTICS-CONFIG-CREATE-INFO-NV
+ - :MEMORY-BARRIER-2-KHR
+ - :BUFFER-MEMORY-BARRIER-2-KHR
+ - :IMAGE-MEMORY-BARRIER-2-KHR
+ - :DEPENDENCY-INFO-KHR
+ - :SUBMIT-INFO-2-KHR
+ - :SEMAPHORE-SUBMIT-INFO-KHR
+ - :COMMAND-BUFFER-SUBMIT-INFO-KHR
+ - :PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
+ - :QUEUE-FAMILY-CHECKPOINT-PROPERTIES-2-NV
+ - :CHECKPOINT-DATA-2-NV
+ - :PHYSICAL-DEVICE-ZERO-INITIALIZE-WORKGROUP-MEMORY-FEATURES-KHR
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-PROPERTIES-NV
+ - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
+ - :PIPELINE-FRAGMENT-SHADING-RATE-ENUM-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-FEATURES-EXT
+ - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-PROPERTIES-EXT
+ - :COPY-COMMAND-TRANSFORM-INFO-QCOM
+ - :PHYSICAL-DEVICE-IMAGE-ROBUSTNESS-FEATURES-EXT
+ - :PHYSICAL-DEVICE-WORKGROUP-MEMORY-EXPLICIT-LAYOUT-FEATURES-KHR
+ - :COPY-BUFFER-INFO-2-KHR
+ - :COPY-IMAGE-INFO-2-KHR
+ - :COPY-BUFFER-TO-IMAGE-INFO-2-KHR
+ - :COPY-IMAGE-TO-BUFFER-INFO-2-KHR
+ - :BLIT-IMAGE-INFO-2-KHR
+ - :RESOLVE-IMAGE-INFO-2-KHR
+ - :BUFFER-COPY-2-KHR
+ - :IMAGE-COPY-2-KHR
+ - :IMAGE-BLIT-2-KHR
+ - :BUFFER-IMAGE-COPY-2-KHR
+ - :IMAGE-RESOLVE-2-KHR
+ - :PHYSICAL-DEVICE-4444-FORMATS-FEATURES-EXT
+ - :DIRECTFB-SURFACE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-FEATURES-KHR
+ - :PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-PROPERTIES-KHR
+ - :PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR
+ - :PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
+ - :MUTABLE-DESCRIPTOR-TYPE-CREATE-INFO-VALVE
+ - :IMPORT-MEMORY-ZIRCON-HANDLE-INFO-FUCHSIA
+ - :MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
+ - :MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+ - :IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
+ - :SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+ - :SCREEN-SURFACE-CREATE-INFO-QNX"
   '(member nil 
     :application-info
     :instance-create-info
@@ -1628,7 +2860,12 @@ Has the values: - :APPLICATION-INFO - :INSTANCE-CREATE-INFO - :DEVICE-QUEUE-CREA
 (deftype system-allocation-scope ()
   "Represents the enum [VkSystemAllocationScope](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSystemAllocationScope.html).
 
-Has the values: - :COMMAND - :OBJECT - :CACHE - :DEVICE - :INSTANCE"
+Has the values:
+ - :COMMAND
+ - :OBJECT
+ - :CACHE
+ - :DEVICE
+ - :INSTANCE"
   '(member nil 
     :command
     :object
@@ -1639,14 +2876,20 @@ Has the values: - :COMMAND - :OBJECT - :CACHE - :DEVICE - :INSTANCE"
 (deftype internal-allocation-type ()
   "Represents the enum [VkInternalAllocationType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkInternalAllocationType.html).
 
-Has the values: - :EXECUTABLE"
+Has the values:
+ - :EXECUTABLE"
   '(member nil 
     :executable))
 
 (deftype sampler-address-mode ()
   "Represents the enum [VkSamplerAddressMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerAddressMode.html).
 
-Has the values: - :REPEAT - :MIRRORED-REPEAT - :CLAMP-TO-EDGE - :CLAMP-TO-BORDER - :MIRROR-CLAMP-TO-EDGE"
+Has the values:
+ - :REPEAT
+ - :MIRRORED-REPEAT
+ - :CLAMP-TO-EDGE
+ - :CLAMP-TO-BORDER
+ - :MIRROR-CLAMP-TO-EDGE"
   '(member nil 
     :repeat
     :mirrored-repeat
@@ -1657,7 +2900,10 @@ Has the values: - :REPEAT - :MIRRORED-REPEAT - :CLAMP-TO-EDGE - :CLAMP-TO-BORDER
 (deftype filter ()
   "Represents the enum [VkFilter](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFilter.html).
 
-Has the values: - :NEAREST - :LINEAR - :CUBIC-IMG"
+Has the values:
+ - :NEAREST
+ - :LINEAR
+ - :CUBIC-IMG"
   '(member nil 
     :nearest
     :linear
@@ -1666,7 +2912,9 @@ Has the values: - :NEAREST - :LINEAR - :CUBIC-IMG"
 (deftype sampler-mipmap-mode ()
   "Represents the enum [VkSamplerMipmapMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerMipmapMode.html).
 
-Has the values: - :NEAREST - :LINEAR"
+Has the values:
+ - :NEAREST
+ - :LINEAR"
   '(member nil 
     :nearest
     :linear))
@@ -1674,7 +2922,9 @@ Has the values: - :NEAREST - :LINEAR"
 (deftype vertex-input-rate ()
   "Represents the enum [VkVertexInputRate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVertexInputRate.html).
 
-Has the values: - :VERTEX - :INSTANCE"
+Has the values:
+ - :VERTEX
+ - :INSTANCE"
   '(member nil 
     :vertex
     :instance))
@@ -1682,7 +2932,34 @@ Has the values: - :VERTEX - :INSTANCE"
 (deftype pipeline-stage-flag-bits ()
   "Represents the enum [VkPipelineStageFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineStageFlagBits.html).
 
-Has the values: - :NONE-KHR - :TOP-OF-PIPE - :DRAW-INDIRECT - :VERTEX-INPUT - :VERTEX-SHADER - :TESSELLATION-CONTROL-SHADER - :TESSELLATION-EVALUATION-SHADER - :GEOMETRY-SHADER - :FRAGMENT-SHADER - :EARLY-FRAGMENT-TESTS - :LATE-FRAGMENT-TESTS - :COLOR-ATTACHMENT-OUTPUT - :COMPUTE-SHADER - :TRANSFER - :BOTTOM-OF-PIPE - :HOST - :ALL-GRAPHICS - :ALL-COMMANDS - :COMMAND-PREPROCESS - :CONDITIONAL-RENDERING - :TASK-SHADER - :MESH-SHADER - :RAY-TRACING-SHADER - :SHADING-RATE-IMAGE - :FRAGMENT-DENSITY-PROCESS - :TRANSFORM-FEEDBACK - :ACCELERATION-STRUCTURE-BUILD"
+Has the values:
+ - :NONE-KHR
+ - :TOP-OF-PIPE
+ - :DRAW-INDIRECT
+ - :VERTEX-INPUT
+ - :VERTEX-SHADER
+ - :TESSELLATION-CONTROL-SHADER
+ - :TESSELLATION-EVALUATION-SHADER
+ - :GEOMETRY-SHADER
+ - :FRAGMENT-SHADER
+ - :EARLY-FRAGMENT-TESTS
+ - :LATE-FRAGMENT-TESTS
+ - :COLOR-ATTACHMENT-OUTPUT
+ - :COMPUTE-SHADER
+ - :TRANSFER
+ - :BOTTOM-OF-PIPE
+ - :HOST
+ - :ALL-GRAPHICS
+ - :ALL-COMMANDS
+ - :COMMAND-PREPROCESS
+ - :CONDITIONAL-RENDERING
+ - :TASK-SHADER
+ - :MESH-SHADER
+ - :RAY-TRACING-SHADER
+ - :SHADING-RATE-IMAGE
+ - :FRAGMENT-DENSITY-PROCESS
+ - :TRANSFORM-FEEDBACK
+ - :ACCELERATION-STRUCTURE-BUILD"
   '(member nil 
     :none-khr
     :top-of-pipe
@@ -1715,7 +2992,10 @@ Has the values: - :NONE-KHR - :TOP-OF-PIPE - :DRAW-INDIRECT - :VERTEX-INPUT - :V
 (deftype sparse-image-format-flag-bits ()
   "Represents the enum [VkSparseImageFormatFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSparseImageFormatFlagBits.html).
 
-Has the values: - :SINGLE-MIPTAIL - :ALIGNED-MIP-SIZE - :NONSTANDARD-BLOCK-SIZE"
+Has the values:
+ - :SINGLE-MIPTAIL
+ - :ALIGNED-MIP-SIZE
+ - :NONSTANDARD-BLOCK-SIZE"
   '(member nil 
     :single-miptail
     :aligned-mip-size
@@ -1724,7 +3004,14 @@ Has the values: - :SINGLE-MIPTAIL - :ALIGNED-MIP-SIZE - :NONSTANDARD-BLOCK-SIZE"
 (deftype sample-count-flag-bits ()
   "Represents the enum [VkSampleCountFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSampleCountFlagBits.html).
 
-Has the values: - :1 - :2 - :4 - :8 - :16 - :32 - :64"
+Has the values:
+ - :1
+ - :2
+ - :4
+ - :8
+ - :16
+ - :32
+ - :64"
   '(member nil 
     :1
     :2
@@ -1737,14 +3024,18 @@ Has the values: - :1 - :2 - :4 - :8 - :16 - :32 - :64"
 (deftype attachment-description-flag-bits ()
   "Represents the enum [VkAttachmentDescriptionFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentDescriptionFlagBits.html).
 
-Has the values: - :MAY-ALIAS"
+Has the values:
+ - :MAY-ALIAS"
   '(member nil 
     :may-alias))
 
 (deftype descriptor-pool-create-flag-bits ()
   "Represents the enum [VkDescriptorPoolCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorPoolCreateFlagBits.html).
 
-Has the values: - :FREE-DESCRIPTOR-SET - :UPDATE-AFTER-BIND - :HOST-ONLY"
+Has the values:
+ - :FREE-DESCRIPTOR-SET
+ - :UPDATE-AFTER-BIND
+ - :HOST-ONLY"
   '(member nil 
     :free-descriptor-set
     :update-after-bind
@@ -1753,7 +3044,10 @@ Has the values: - :FREE-DESCRIPTOR-SET - :UPDATE-AFTER-BIND - :HOST-ONLY"
 (deftype dependency-flag-bits ()
   "Represents the enum [VkDependencyFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDependencyFlagBits.html).
 
-Has the values: - :BY-REGION - :VIEW-LOCAL - :DEVICE-GROUP"
+Has the values:
+ - :BY-REGION
+ - :VIEW-LOCAL
+ - :DEVICE-GROUP"
   '(member nil 
     :by-region
     :view-local
@@ -1762,7 +3056,48 @@ Has the values: - :BY-REGION - :VIEW-LOCAL - :DEVICE-GROUP"
 (deftype object-type ()
   "Represents the enum [VkObjectType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkObjectType.html).
 
-Has the values: - :UNKNOWN - :INSTANCE - :PHYSICAL-DEVICE - :DEVICE - :QUEUE - :SEMAPHORE - :COMMAND-BUFFER - :FENCE - :DEVICE-MEMORY - :BUFFER - :IMAGE - :EVENT - :QUERY-POOL - :BUFFER-VIEW - :IMAGE-VIEW - :SHADER-MODULE - :PIPELINE-CACHE - :PIPELINE-LAYOUT - :RENDER-PASS - :PIPELINE - :DESCRIPTOR-SET-LAYOUT - :SAMPLER - :DESCRIPTOR-POOL - :DESCRIPTOR-SET - :FRAMEBUFFER - :COMMAND-POOL - :SURFACE-KHR - :SWAPCHAIN-KHR - :DISPLAY-KHR - :DISPLAY-MODE-KHR - :DEBUG-REPORT-CALLBACK-EXT - :DESCRIPTOR-UPDATE-TEMPLATE - :DEBUG-UTILS-MESSENGER-EXT - :ACCELERATION-STRUCTURE-KHR - :SAMPLER-YCBCR-CONVERSION - :VALIDATION-CACHE-EXT - :ACCELERATION-STRUCTURE-NV - :PERFORMANCE-CONFIGURATION-INTEL - :DEFERRED-OPERATION-KHR - :INDIRECT-COMMANDS-LAYOUT-NV - :PRIVATE-DATA-SLOT-EXT"
+Has the values:
+ - :UNKNOWN
+ - :INSTANCE
+ - :PHYSICAL-DEVICE
+ - :DEVICE
+ - :QUEUE
+ - :SEMAPHORE
+ - :COMMAND-BUFFER
+ - :FENCE
+ - :DEVICE-MEMORY
+ - :BUFFER
+ - :IMAGE
+ - :EVENT
+ - :QUERY-POOL
+ - :BUFFER-VIEW
+ - :IMAGE-VIEW
+ - :SHADER-MODULE
+ - :PIPELINE-CACHE
+ - :PIPELINE-LAYOUT
+ - :RENDER-PASS
+ - :PIPELINE
+ - :DESCRIPTOR-SET-LAYOUT
+ - :SAMPLER
+ - :DESCRIPTOR-POOL
+ - :DESCRIPTOR-SET
+ - :FRAMEBUFFER
+ - :COMMAND-POOL
+ - :SURFACE-KHR
+ - :SWAPCHAIN-KHR
+ - :DISPLAY-KHR
+ - :DISPLAY-MODE-KHR
+ - :DEBUG-REPORT-CALLBACK-EXT
+ - :DESCRIPTOR-UPDATE-TEMPLATE
+ - :DEBUG-UTILS-MESSENGER-EXT
+ - :ACCELERATION-STRUCTURE-KHR
+ - :SAMPLER-YCBCR-CONVERSION
+ - :VALIDATION-CACHE-EXT
+ - :ACCELERATION-STRUCTURE-NV
+ - :PERFORMANCE-CONFIGURATION-INTEL
+ - :DEFERRED-OPERATION-KHR
+ - :INDIRECT-COMMANDS-LAYOUT-NV
+ - :PRIVATE-DATA-SLOT-EXT"
   '(member nil 
     :unknown
     :instance
@@ -1809,14 +3144,18 @@ Has the values: - :UNKNOWN - :INSTANCE - :PHYSICAL-DEVICE - :DEVICE - :QUEUE - :
 (deftype event-create-flag-bits ()
   "Represents the enum [VkEventCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkEventCreateFlagBits.html).
 
-Has the values: - :DEVICE-ONLY"
+Has the values:
+ - :DEVICE-ONLY"
   '(member nil 
     :device-only))
 
 (deftype indirect-commands-layout-usage-flag-bits-nv ()
   "Represents the enum [VkIndirectCommandsLayoutUsageFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html).
 
-Has the values: - :EXPLICIT-PREPROCESS - :INDEXED-SEQUENCES - :UNORDERED-SEQUENCES"
+Has the values:
+ - :EXPLICIT-PREPROCESS
+ - :INDEXED-SEQUENCES
+ - :UNORDERED-SEQUENCES"
   '(member nil 
     :explicit-preprocess
     :indexed-sequences
@@ -1825,7 +3164,15 @@ Has the values: - :EXPLICIT-PREPROCESS - :INDEXED-SEQUENCES - :UNORDERED-SEQUENC
 (deftype indirect-commands-token-type-nv ()
   "Represents the enum [VkIndirectCommandsTokenTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectCommandsTokenTypeNV.html).
 
-Has the values: - :SHADER-GROUP-NV - :STATE-FLAGS-NV - :INDEX-BUFFER-NV - :VERTEX-BUFFER-NV - :PUSH-CONSTANT-NV - :DRAW-INDEXED-NV - :DRAW-NV - :DRAW-TASKS-NV"
+Has the values:
+ - :SHADER-GROUP-NV
+ - :STATE-FLAGS-NV
+ - :INDEX-BUFFER-NV
+ - :VERTEX-BUFFER-NV
+ - :PUSH-CONSTANT-NV
+ - :DRAW-INDEXED-NV
+ - :DRAW-NV
+ - :DRAW-TASKS-NV"
   '(member nil 
     :shader-group-nv
     :state-flags-nv
@@ -1839,7 +3186,8 @@ Has the values: - :SHADER-GROUP-NV - :STATE-FLAGS-NV - :INDEX-BUFFER-NV - :VERTE
 (deftype indirect-state-flag-bits-nv ()
   "Represents the enum [VkIndirectStateFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkIndirectStateFlagBitsNV.html).
 
-Has the values: - :FRONTFACE"
+Has the values:
+ - :FRONTFACE"
   '(member nil 
     :frontface))
 
@@ -1850,7 +3198,9 @@ Has the values: - :FRONTFACE"
 (deftype descriptor-update-template-type ()
   "Represents the enum [VkDescriptorUpdateTemplateType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorUpdateTemplateType.html).
 
-Has the values: - :DESCRIPTOR-SET - :PUSH-DESCRIPTORS-KHR"
+Has the values:
+ - :DESCRIPTOR-SET
+ - :PUSH-DESCRIPTORS-KHR"
   '(member nil 
     :descriptor-set
     :push-descriptors-khr))
@@ -1858,7 +3208,15 @@ Has the values: - :DESCRIPTOR-SET - :PUSH-DESCRIPTORS-KHR"
 (deftype viewport-coordinate-swizzle-nv ()
   "Represents the enum [VkViewportCoordinateSwizzleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkViewportCoordinateSwizzleNV.html).
 
-Has the values: - :POSITIVE-X-NV - :NEGATIVE-X-NV - :POSITIVE-Y-NV - :NEGATIVE-Y-NV - :POSITIVE-Z-NV - :NEGATIVE-Z-NV - :POSITIVE-W-NV - :NEGATIVE-W-NV"
+Has the values:
+ - :POSITIVE-X-NV
+ - :NEGATIVE-X-NV
+ - :POSITIVE-Y-NV
+ - :NEGATIVE-Y-NV
+ - :POSITIVE-Z-NV
+ - :NEGATIVE-Z-NV
+ - :POSITIVE-W-NV
+ - :NEGATIVE-W-NV"
   '(member nil 
     :positive-x-nv
     :negative-x-nv
@@ -1872,7 +3230,9 @@ Has the values: - :POSITIVE-X-NV - :NEGATIVE-X-NV - :POSITIVE-Y-NV - :NEGATIVE-Y
 (deftype discard-rectangle-mode-ext ()
   "Represents the enum [VkDiscardRectangleModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDiscardRectangleModeEXT.html).
 
-Has the values: - :INCLUSIVE-EXT - :EXCLUSIVE-EXT"
+Has the values:
+ - :INCLUSIVE-EXT
+ - :EXCLUSIVE-EXT"
   '(member nil 
     :inclusive-ext
     :exclusive-ext))
@@ -1880,7 +3240,11 @@ Has the values: - :INCLUSIVE-EXT - :EXCLUSIVE-EXT"
 (deftype subpass-description-flag-bits ()
   "Represents the enum [VkSubpassDescriptionFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassDescriptionFlagBits.html).
 
-Has the values: - :PER-VIEW-ATTRIBUTES - :PER-VIEW-POSITION-X-ONLY - :FRAGMENT-REGION - :SHADER-RESOLVE"
+Has the values:
+ - :PER-VIEW-ATTRIBUTES
+ - :PER-VIEW-POSITION-X-ONLY
+ - :FRAGMENT-REGION
+ - :SHADER-RESOLVE"
   '(member nil 
     :per-view-attributes
     :per-view-position-x-only
@@ -1890,7 +3254,9 @@ Has the values: - :PER-VIEW-ATTRIBUTES - :PER-VIEW-POSITION-X-ONLY - :FRAGMENT-R
 (deftype point-clipping-behavior ()
   "Represents the enum [VkPointClippingBehavior](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPointClippingBehavior.html).
 
-Has the values: - :ALL-CLIP-PLANES - :USER-CLIP-PLANES-ONLY"
+Has the values:
+ - :ALL-CLIP-PLANES
+ - :USER-CLIP-PLANES-ONLY"
   '(member nil 
     :all-clip-planes
     :user-clip-planes-only))
@@ -1898,7 +3264,11 @@ Has the values: - :ALL-CLIP-PLANES - :USER-CLIP-PLANES-ONLY"
 (deftype coverage-modulation-mode-nv ()
   "Represents the enum [VkCoverageModulationModeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoverageModulationModeNV.html).
 
-Has the values: - :NONE-NV - :RGB-NV - :ALPHA-NV - :RGBA-NV"
+Has the values:
+ - :NONE-NV
+ - :RGB-NV
+ - :ALPHA-NV
+ - :RGBA-NV"
   '(member nil 
     :none-nv
     :rgb-nv
@@ -1908,7 +3278,9 @@ Has the values: - :NONE-NV - :RGB-NV - :ALPHA-NV - :RGBA-NV"
 (deftype coverage-reduction-mode-nv ()
   "Represents the enum [VkCoverageReductionModeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoverageReductionModeNV.html).
 
-Has the values: - :MERGE-NV - :TRUNCATE-NV"
+Has the values:
+ - :MERGE-NV
+ - :TRUNCATE-NV"
   '(member nil 
     :merge-nv
     :truncate-nv))
@@ -1916,14 +3288,18 @@ Has the values: - :MERGE-NV - :TRUNCATE-NV"
 (deftype validation-cache-header-version-ext ()
   "Represents the enum [VkValidationCacheHeaderVersionEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCacheHeaderVersionEXT.html).
 
-Has the values: - :ONE-EXT"
+Has the values:
+ - :ONE-EXT"
   '(member nil 
     :one-ext))
 
 (deftype shader-info-type-amd ()
   "Represents the enum [VkShaderInfoTypeAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderInfoTypeAMD.html).
 
-Has the values: - :STATISTICS-AMD - :BINARY-AMD - :DISASSEMBLY-AMD"
+Has the values:
+ - :STATISTICS-AMD
+ - :BINARY-AMD
+ - :DISASSEMBLY-AMD"
   '(member nil 
     :statistics-amd
     :binary-amd
@@ -1932,7 +3308,11 @@ Has the values: - :STATISTICS-AMD - :BINARY-AMD - :DISASSEMBLY-AMD"
 (deftype queue-global-priority-ext ()
   "Represents the enum [VkQueueGlobalPriorityEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueGlobalPriorityEXT.html).
 
-Has the values: - :LOW-EXT - :MEDIUM-EXT - :HIGH-EXT - :REALTIME-EXT"
+Has the values:
+ - :LOW-EXT
+ - :MEDIUM-EXT
+ - :HIGH-EXT
+ - :REALTIME-EXT"
   '(member nil 
     :low-ext
     :medium-ext
@@ -1942,7 +3322,11 @@ Has the values: - :LOW-EXT - :MEDIUM-EXT - :HIGH-EXT - :REALTIME-EXT"
 (deftype time-domain-ext ()
   "Represents the enum [VkTimeDomainEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTimeDomainEXT.html).
 
-Has the values: - :DEVICE-EXT - :CLOCK-MONOTONIC-EXT - :CLOCK-MONOTONIC-RAW-EXT - :QUERY-PERFORMANCE-COUNTER-EXT"
+Has the values:
+ - :DEVICE-EXT
+ - :CLOCK-MONOTONIC-EXT
+ - :CLOCK-MONOTONIC-RAW-EXT
+ - :QUERY-PERFORMANCE-COUNTER-EXT"
   '(member nil 
     :device-ext
     :clock-monotonic-ext
@@ -1952,7 +3336,10 @@ Has the values: - :DEVICE-EXT - :CLOCK-MONOTONIC-EXT - :CLOCK-MONOTONIC-RAW-EXT 
 (deftype conservative-rasterization-mode-ext ()
   "Represents the enum [VkConservativeRasterizationModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkConservativeRasterizationModeEXT.html).
 
-Has the values: - :DISABLED-EXT - :OVERESTIMATE-EXT - :UNDERESTIMATE-EXT"
+Has the values:
+ - :DISABLED-EXT
+ - :OVERESTIMATE-EXT
+ - :UNDERESTIMATE-EXT"
   '(member nil 
     :disabled-ext
     :overestimate-ext
@@ -1961,7 +3348,12 @@ Has the values: - :DISABLED-EXT - :OVERESTIMATE-EXT - :UNDERESTIMATE-EXT"
 (deftype resolve-mode-flag-bits ()
   "Represents the enum [VkResolveModeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkResolveModeFlagBits.html).
 
-Has the values: - :NONE - :SAMPLE-ZERO - :AVERAGE - :MIN - :MAX"
+Has the values:
+ - :NONE
+ - :SAMPLE-ZERO
+ - :AVERAGE
+ - :MIN
+ - :MAX"
   '(member nil 
     :none
     :sample-zero
@@ -1972,7 +3364,11 @@ Has the values: - :NONE - :SAMPLE-ZERO - :AVERAGE - :MIN - :MAX"
 (deftype descriptor-binding-flag-bits ()
   "Represents the enum [VkDescriptorBindingFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDescriptorBindingFlagBits.html).
 
-Has the values: - :UPDATE-AFTER-BIND - :UPDATE-UNUSED-WHILE-PENDING - :PARTIALLY-BOUND - :VARIABLE-DESCRIPTOR-COUNT"
+Has the values:
+ - :UPDATE-AFTER-BIND
+ - :UPDATE-UNUSED-WHILE-PENDING
+ - :PARTIALLY-BOUND
+ - :VARIABLE-DESCRIPTOR-COUNT"
   '(member nil 
     :update-after-bind
     :update-unused-while-pending
@@ -1982,14 +3378,17 @@ Has the values: - :UPDATE-AFTER-BIND - :UPDATE-UNUSED-WHILE-PENDING - :PARTIALLY
 (deftype conditional-rendering-flag-bits-ext ()
   "Represents the enum [VkConditionalRenderingFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkConditionalRenderingFlagBitsEXT.html).
 
-Has the values: - :INVERTED"
+Has the values:
+ - :INVERTED"
   '(member nil 
     :inverted))
 
 (deftype semaphore-type ()
   "Represents the enum [VkSemaphoreType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreType.html).
 
-Has the values: - :BINARY - :TIMELINE"
+Has the values:
+ - :BINARY
+ - :TIMELINE"
   '(member nil 
     :binary
     :timeline))
@@ -1997,7 +3396,9 @@ Has the values: - :BINARY - :TIMELINE"
 (deftype geometry-flag-bits-khr ()
   "Represents the enum [VkGeometryFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryFlagBitsKHR.html).
 
-Has the values: - :OPAQUE - :NO-DUPLICATE-ANY-HIT-INVOCATION"
+Has the values:
+ - :OPAQUE
+ - :NO-DUPLICATE-ANY-HIT-INVOCATION"
   '(member nil 
     :opaque
     :no-duplicate-any-hit-invocation))
@@ -2005,7 +3406,11 @@ Has the values: - :OPAQUE - :NO-DUPLICATE-ANY-HIT-INVOCATION"
 (deftype geometry-instance-flag-bits-khr ()
   "Represents the enum [VkGeometryInstanceFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryInstanceFlagBitsKHR.html).
 
-Has the values: - :TRIANGLE-FACING-CULL-DISABLE - :TRIANGLE-FRONT-COUNTERCLOCKWISE - :FORCE-OPAQUE - :FORCE-NO-OPAQUE"
+Has the values:
+ - :TRIANGLE-FACING-CULL-DISABLE
+ - :TRIANGLE-FRONT-COUNTERCLOCKWISE
+ - :FORCE-OPAQUE
+ - :FORCE-NO-OPAQUE"
   '(member nil 
     :triangle-facing-cull-disable
     :triangle-front-counterclockwise
@@ -2015,7 +3420,12 @@ Has the values: - :TRIANGLE-FACING-CULL-DISABLE - :TRIANGLE-FRONT-COUNTERCLOCKWI
 (deftype build-acceleration-structure-flag-bits-khr ()
   "Represents the enum [VkBuildAccelerationStructureFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuildAccelerationStructureFlagBitsKHR.html).
 
-Has the values: - :ALLOW-UPDATE - :ALLOW-COMPACTION - :PREFER-FAST-TRACE - :PREFER-FAST-BUILD - :LOW-MEMORY"
+Has the values:
+ - :ALLOW-UPDATE
+ - :ALLOW-COMPACTION
+ - :PREFER-FAST-TRACE
+ - :PREFER-FAST-BUILD
+ - :LOW-MEMORY"
   '(member nil 
     :allow-update
     :allow-compaction
@@ -2026,14 +3436,17 @@ Has the values: - :ALLOW-UPDATE - :ALLOW-COMPACTION - :PREFER-FAST-TRACE - :PREF
 (deftype acceleration-structure-create-flag-bits-khr ()
   "Represents the enum [VkAccelerationStructureCreateFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCreateFlagBitsKHR.html).
 
-Has the values: - :DEVICE-ADDRESS-CAPTURE-REPLAY"
+Has the values:
+ - :DEVICE-ADDRESS-CAPTURE-REPLAY"
   '(member nil 
     :device-address-capture-replay))
 
 (deftype build-acceleration-structure-mode-khr ()
   "Represents the enum [VkBuildAccelerationStructureModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBuildAccelerationStructureModeKHR.html).
 
-Has the values: - :BUILD-KHR - :UPDATE-KHR"
+Has the values:
+ - :BUILD-KHR
+ - :UPDATE-KHR"
   '(member nil 
     :build-khr
     :update-khr))
@@ -2041,7 +3454,11 @@ Has the values: - :BUILD-KHR - :UPDATE-KHR"
 (deftype copy-acceleration-structure-mode-khr ()
   "Represents the enum [VkCopyAccelerationStructureModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCopyAccelerationStructureModeKHR.html).
 
-Has the values: - :CLONE-KHR - :COMPACT-KHR - :SERIALIZE-KHR - :DESERIALIZE-KHR"
+Has the values:
+ - :CLONE-KHR
+ - :COMPACT-KHR
+ - :SERIALIZE-KHR
+ - :DESERIALIZE-KHR"
   '(member nil 
     :clone-khr
     :compact-khr
@@ -2051,7 +3468,10 @@ Has the values: - :CLONE-KHR - :COMPACT-KHR - :SERIALIZE-KHR - :DESERIALIZE-KHR"
 (deftype acceleration-structure-type-khr ()
   "Represents the enum [VkAccelerationStructureTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureTypeKHR.html).
 
-Has the values: - :TOP-LEVEL-KHR - :BOTTOM-LEVEL-KHR - :GENERIC-KHR"
+Has the values:
+ - :TOP-LEVEL-KHR
+ - :BOTTOM-LEVEL-KHR
+ - :GENERIC-KHR"
   '(member nil 
     :top-level-khr
     :bottom-level-khr
@@ -2060,7 +3480,10 @@ Has the values: - :TOP-LEVEL-KHR - :BOTTOM-LEVEL-KHR - :GENERIC-KHR"
 (deftype geometry-type-khr ()
   "Represents the enum [VkGeometryTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkGeometryTypeKHR.html).
 
-Has the values: - :TRIANGLES-KHR - :AABBS-KHR - :INSTANCES-KHR"
+Has the values:
+ - :TRIANGLES-KHR
+ - :AABBS-KHR
+ - :INSTANCES-KHR"
   '(member nil 
     :triangles-khr
     :aabbs-khr
@@ -2069,7 +3492,10 @@ Has the values: - :TRIANGLES-KHR - :AABBS-KHR - :INSTANCES-KHR"
 (deftype ray-tracing-shader-group-type-khr ()
   "Represents the enum [VkRayTracingShaderGroupTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRayTracingShaderGroupTypeKHR.html).
 
-Has the values: - :GENERAL-KHR - :TRIANGLES-HIT-GROUP-KHR - :PROCEDURAL-HIT-GROUP-KHR"
+Has the values:
+ - :GENERAL-KHR
+ - :TRIANGLES-HIT-GROUP-KHR
+ - :PROCEDURAL-HIT-GROUP-KHR"
   '(member nil 
     :general-khr
     :triangles-hit-group-khr
@@ -2078,7 +3504,10 @@ Has the values: - :GENERAL-KHR - :TRIANGLES-HIT-GROUP-KHR - :PROCEDURAL-HIT-GROU
 (deftype acceleration-structure-memory-requirements-type-nv ()
   "Represents the enum [VkAccelerationStructureMemoryRequirementsTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureMemoryRequirementsTypeNV.html).
 
-Has the values: - :OBJECT-NV - :BUILD-SCRATCH-NV - :UPDATE-SCRATCH-NV"
+Has the values:
+ - :OBJECT-NV
+ - :BUILD-SCRATCH-NV
+ - :UPDATE-SCRATCH-NV"
   '(member nil 
     :object-nv
     :build-scratch-nv
@@ -2087,7 +3516,10 @@ Has the values: - :OBJECT-NV - :BUILD-SCRATCH-NV - :UPDATE-SCRATCH-NV"
 (deftype acceleration-structure-build-type-khr ()
   "Represents the enum [VkAccelerationStructureBuildTypeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureBuildTypeKHR.html).
 
-Has the values: - :HOST-KHR - :DEVICE-KHR - :HOST-OR-DEVICE-KHR"
+Has the values:
+ - :HOST-KHR
+ - :DEVICE-KHR
+ - :HOST-OR-DEVICE-KHR"
   '(member nil 
     :host-khr
     :device-khr
@@ -2096,7 +3528,9 @@ Has the values: - :HOST-KHR - :DEVICE-KHR - :HOST-OR-DEVICE-KHR"
 (deftype acceleration-structure-compatibility-khr ()
   "Represents the enum [VkAccelerationStructureCompatibilityKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccelerationStructureCompatibilityKHR.html).
 
-Has the values: - :COMPATIBLE-KHR - :INCOMPATIBLE-KHR"
+Has the values:
+ - :COMPATIBLE-KHR
+ - :INCOMPATIBLE-KHR"
   '(member nil 
     :compatible-khr
     :incompatible-khr))
@@ -2104,7 +3538,11 @@ Has the values: - :COMPATIBLE-KHR - :INCOMPATIBLE-KHR"
 (deftype shader-group-shader-khr ()
   "Represents the enum [VkShaderGroupShaderKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderGroupShaderKHR.html).
 
-Has the values: - :GENERAL-KHR - :CLOSEST-HIT-KHR - :ANY-HIT-KHR - :INTERSECTION-KHR"
+Has the values:
+ - :GENERAL-KHR
+ - :CLOSEST-HIT-KHR
+ - :ANY-HIT-KHR
+ - :INTERSECTION-KHR"
   '(member nil 
     :general-khr
     :closest-hit-khr
@@ -2114,7 +3552,10 @@ Has the values: - :GENERAL-KHR - :CLOSEST-HIT-KHR - :ANY-HIT-KHR - :INTERSECTION
 (deftype memory-overallocation-behavior-amd ()
   "Represents the enum [VkMemoryOverallocationBehaviorAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryOverallocationBehaviorAMD.html).
 
-Has the values: - :DEFAULT-AMD - :ALLOWED-AMD - :DISALLOWED-AMD"
+Has the values:
+ - :DEFAULT-AMD
+ - :ALLOWED-AMD
+ - :DISALLOWED-AMD"
   '(member nil 
     :default-amd
     :allowed-amd
@@ -2123,7 +3564,11 @@ Has the values: - :DEFAULT-AMD - :ALLOWED-AMD - :DISALLOWED-AMD"
 (deftype scope-nv ()
   "Represents the enum [VkScopeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkScopeNV.html).
 
-Has the values: - :DEVICE-NV - :WORKGROUP-NV - :SUBGROUP-NV - :QUEUE-FAMILY-NV"
+Has the values:
+ - :DEVICE-NV
+ - :WORKGROUP-NV
+ - :SUBGROUP-NV
+ - :QUEUE-FAMILY-NV"
   '(member nil 
     :device-nv
     :workgroup-nv
@@ -2133,7 +3578,18 @@ Has the values: - :DEVICE-NV - :WORKGROUP-NV - :SUBGROUP-NV - :QUEUE-FAMILY-NV"
 (deftype component-type-nv ()
   "Represents the enum [VkComponentTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkComponentTypeNV.html).
 
-Has the values: - :FLOAT16-NV - :FLOAT32-NV - :FLOAT64-NV - :SINT8-NV - :SINT16-NV - :SINT32-NV - :SINT64-NV - :UINT8-NV - :UINT16-NV - :UINT32-NV - :UINT64-NV"
+Has the values:
+ - :FLOAT16-NV
+ - :FLOAT32-NV
+ - :FLOAT64-NV
+ - :SINT8-NV
+ - :SINT16-NV
+ - :SINT32-NV
+ - :SINT64-NV
+ - :UINT8-NV
+ - :UINT16-NV
+ - :UINT32-NV
+ - :UINT64-NV"
   '(member nil 
     :float16-nv
     :float32-nv
@@ -2150,7 +3606,10 @@ Has the values: - :FLOAT16-NV - :FLOAT32-NV - :FLOAT64-NV - :SINT8-NV - :SINT16-
 (deftype device-diagnostics-config-flag-bits-nv ()
   "Represents the enum [VkDeviceDiagnosticsConfigFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceDiagnosticsConfigFlagBitsNV.html).
 
-Has the values: - :ENABLE-SHADER-DEBUG-INFO - :ENABLE-RESOURCE-TRACKING - :ENABLE-AUTOMATIC-CHECKPOINTS"
+Has the values:
+ - :ENABLE-SHADER-DEBUG-INFO
+ - :ENABLE-RESOURCE-TRACKING
+ - :ENABLE-AUTOMATIC-CHECKPOINTS"
   '(member nil 
     :enable-shader-debug-info
     :enable-resource-tracking
@@ -2159,7 +3618,10 @@ Has the values: - :ENABLE-SHADER-DEBUG-INFO - :ENABLE-RESOURCE-TRACKING - :ENABL
 (deftype pipeline-creation-feedback-flag-bits-ext ()
   "Represents the enum [VkPipelineCreationFeedbackFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCreationFeedbackFlagBitsEXT.html).
 
-Has the values: - :VALID - :APPLICATION-PIPELINE-CACHE-HIT - :BASE-PIPELINE-ACCELERATION"
+Has the values:
+ - :VALID
+ - :APPLICATION-PIPELINE-CACHE-HIT
+ - :BASE-PIPELINE-ACCELERATION"
   '(member nil 
     :valid
     :application-pipeline-cache-hit
@@ -2168,7 +3630,10 @@ Has the values: - :VALID - :APPLICATION-PIPELINE-CACHE-HIT - :BASE-PIPELINE-ACCE
 (deftype performance-counter-scope-khr ()
   "Represents the enum [VkPerformanceCounterScopeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterScopeKHR.html).
 
-Has the values: - :COMMAND-BUFFER-KHR - :RENDER-PASS-KHR - :COMMAND-KHR"
+Has the values:
+ - :COMMAND-BUFFER-KHR
+ - :RENDER-PASS-KHR
+ - :COMMAND-KHR"
   '(member nil 
     :command-buffer-khr
     :render-pass-khr
@@ -2177,7 +3642,18 @@ Has the values: - :COMMAND-BUFFER-KHR - :RENDER-PASS-KHR - :COMMAND-KHR"
 (deftype performance-counter-unit-khr ()
   "Represents the enum [VkPerformanceCounterUnitKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterUnitKHR.html).
 
-Has the values: - :GENERIC-KHR - :PERCENTAGE-KHR - :NANOSECONDS-KHR - :BYTES-KHR - :BYTES-PER-SECOND-KHR - :KELVIN-KHR - :WATTS-KHR - :VOLTS-KHR - :AMPS-KHR - :HERTZ-KHR - :CYCLES-KHR"
+Has the values:
+ - :GENERIC-KHR
+ - :PERCENTAGE-KHR
+ - :NANOSECONDS-KHR
+ - :BYTES-KHR
+ - :BYTES-PER-SECOND-KHR
+ - :KELVIN-KHR
+ - :WATTS-KHR
+ - :VOLTS-KHR
+ - :AMPS-KHR
+ - :HERTZ-KHR
+ - :CYCLES-KHR"
   '(member nil 
     :generic-khr
     :percentage-khr
@@ -2194,7 +3670,13 @@ Has the values: - :GENERIC-KHR - :PERCENTAGE-KHR - :NANOSECONDS-KHR - :BYTES-KHR
 (deftype performance-counter-storage-khr ()
   "Represents the enum [VkPerformanceCounterStorageKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterStorageKHR.html).
 
-Has the values: - :INT32-KHR - :INT64-KHR - :UINT32-KHR - :UINT64-KHR - :FLOAT32-KHR - :FLOAT64-KHR"
+Has the values:
+ - :INT32-KHR
+ - :INT64-KHR
+ - :UINT32-KHR
+ - :UINT64-KHR
+ - :FLOAT32-KHR
+ - :FLOAT64-KHR"
   '(member nil 
     :int32-khr
     :int64-khr
@@ -2206,7 +3688,9 @@ Has the values: - :INT32-KHR - :INT64-KHR - :UINT32-KHR - :UINT64-KHR - :FLOAT32
 (deftype performance-counter-description-flag-bits-khr ()
   "Represents the enum [VkPerformanceCounterDescriptionFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html).
 
-Has the values: - :PERFORMANCE-IMPACTING - :CONCURRENTLY-IMPACTED"
+Has the values:
+ - :PERFORMANCE-IMPACTING
+ - :CONCURRENTLY-IMPACTED"
   '(member nil 
     :performance-impacting
     :concurrently-impacted))
@@ -2218,28 +3702,33 @@ Has the values: - :PERFORMANCE-IMPACTING - :CONCURRENTLY-IMPACTED"
 (deftype semaphore-wait-flag-bits ()
   "Represents the enum [VkSemaphoreWaitFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreWaitFlagBits.html).
 
-Has the values: - :ANY"
+Has the values:
+ - :ANY"
   '(member nil 
     :any))
 
 (deftype performance-configuration-type-intel ()
   "Represents the enum [VkPerformanceConfigurationTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceConfigurationTypeINTEL.html).
 
-Has the values: - :COMMAND-QUEUE-METRICS-DISCOVERY-ACTIVATED-INTEL"
+Has the values:
+ - :COMMAND-QUEUE-METRICS-DISCOVERY-ACTIVATED-INTEL"
   '(member nil 
     :command-queue-metrics-discovery-activated-intel))
 
 (deftype query-pool-sampling-mode-intel ()
   "Represents the enum [VkQueryPoolSamplingModeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryPoolSamplingModeINTEL.html).
 
-Has the values: - :MANUAL-INTEL"
+Has the values:
+ - :MANUAL-INTEL"
   '(member nil 
     :manual-intel))
 
 (deftype performance-override-type-intel ()
   "Represents the enum [VkPerformanceOverrideTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceOverrideTypeINTEL.html).
 
-Has the values: - :NULL-HARDWARE-INTEL - :FLUSH-GPU-CACHES-INTEL"
+Has the values:
+ - :NULL-HARDWARE-INTEL
+ - :FLUSH-GPU-CACHES-INTEL"
   '(member nil 
     :null-hardware-intel
     :flush-gpu-caches-intel))
@@ -2247,7 +3736,9 @@ Has the values: - :NULL-HARDWARE-INTEL - :FLUSH-GPU-CACHES-INTEL"
 (deftype performance-parameter-type-intel ()
   "Represents the enum [VkPerformanceParameterTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceParameterTypeINTEL.html).
 
-Has the values: - :HW-COUNTERS-SUPPORTED-INTEL - :STREAM-MARKER-VALID-BITS-INTEL"
+Has the values:
+ - :HW-COUNTERS-SUPPORTED-INTEL
+ - :STREAM-MARKER-VALID-BITS-INTEL"
   '(member nil 
     :hw-counters-supported-intel
     :stream-marker-valid-bits-intel))
@@ -2255,7 +3746,12 @@ Has the values: - :HW-COUNTERS-SUPPORTED-INTEL - :STREAM-MARKER-VALID-BITS-INTEL
 (deftype performance-value-type-intel ()
   "Represents the enum [VkPerformanceValueTypeINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPerformanceValueTypeINTEL.html).
 
-Has the values: - :UINT32-INTEL - :UINT64-INTEL - :FLOAT-INTEL - :BOOL-INTEL - :STRING-INTEL"
+Has the values:
+ - :UINT32-INTEL
+ - :UINT64-INTEL
+ - :FLOAT-INTEL
+ - :BOOL-INTEL
+ - :STRING-INTEL"
   '(member nil 
     :uint32-intel
     :uint64-intel
@@ -2266,7 +3762,11 @@ Has the values: - :UINT32-INTEL - :UINT64-INTEL - :FLOAT-INTEL - :BOOL-INTEL - :
 (deftype line-rasterization-mode-ext ()
   "Represents the enum [VkLineRasterizationModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkLineRasterizationModeEXT.html).
 
-Has the values: - :DEFAULT-EXT - :RECTANGULAR-EXT - :BRESENHAM-EXT - :RECTANGULAR-SMOOTH-EXT"
+Has the values:
+ - :DEFAULT-EXT
+ - :RECTANGULAR-EXT
+ - :BRESENHAM-EXT
+ - :RECTANGULAR-SMOOTH-EXT"
   '(member nil 
     :default-ext
     :rectangular-ext
@@ -2288,7 +3788,14 @@ Has the values: - :DEFAULT-EXT - :RECTANGULAR-EXT - :BRESENHAM-EXT - :RECTANGULA
 (deftype tool-purpose-flag-bits-ext ()
   "Represents the enum [VkToolPurposeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkToolPurposeFlagBitsEXT.html).
 
-Has the values: - :VALIDATION - :PROFILING - :TRACING - :ADDITIONAL-FEATURES - :MODIFYING-FEATURES - :DEBUG-REPORTING - :DEBUG-MARKERS"
+Has the values:
+ - :VALIDATION
+ - :PROFILING
+ - :TRACING
+ - :ADDITIONAL-FEATURES
+ - :MODIFYING-FEATURES
+ - :DEBUG-REPORTING
+ - :DEBUG-MARKERS"
   '(member nil 
     :validation
     :profiling
@@ -2301,7 +3808,19 @@ Has the values: - :VALIDATION - :PROFILING - :TRACING - :ADDITIONAL-FEATURES - :
 (deftype fragment-shading-rate-nv ()
   "Represents the enum [VkFragmentShadingRateNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateNV.html).
 
-Has the values: - :1-INVOCATION-PER-PIXEL-NV - :1-INVOCATION-PER-1X2-PIXELS-NV - :1-INVOCATION-PER-2X1-PIXELS-NV - :1-INVOCATION-PER-2X2-PIXELS-NV - :1-INVOCATION-PER-2X4-PIXELS-NV - :1-INVOCATION-PER-4X2-PIXELS-NV - :1-INVOCATION-PER-4X4-PIXELS-NV - :2-INVOCATIONS-PER-PIXEL-NV - :4-INVOCATIONS-PER-PIXEL-NV - :8-INVOCATIONS-PER-PIXEL-NV - :16-INVOCATIONS-PER-PIXEL-NV - :NO-INVOCATIONS-NV"
+Has the values:
+ - :1-INVOCATION-PER-PIXEL-NV
+ - :1-INVOCATION-PER-1X2-PIXELS-NV
+ - :1-INVOCATION-PER-2X1-PIXELS-NV
+ - :1-INVOCATION-PER-2X2-PIXELS-NV
+ - :1-INVOCATION-PER-2X4-PIXELS-NV
+ - :1-INVOCATION-PER-4X2-PIXELS-NV
+ - :1-INVOCATION-PER-4X4-PIXELS-NV
+ - :2-INVOCATIONS-PER-PIXEL-NV
+ - :4-INVOCATIONS-PER-PIXEL-NV
+ - :8-INVOCATIONS-PER-PIXEL-NV
+ - :16-INVOCATIONS-PER-PIXEL-NV
+ - :NO-INVOCATIONS-NV"
   '(member nil 
     :1-invocation-per-pixel-nv
     :1-invocation-per-1x2-pixels-nv
@@ -2319,7 +3838,9 @@ Has the values: - :1-INVOCATION-PER-PIXEL-NV - :1-INVOCATION-PER-1X2-PIXELS-NV -
 (deftype fragment-shading-rate-type-nv ()
   "Represents the enum [VkFragmentShadingRateTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateTypeNV.html).
 
-Has the values: - :FRAGMENT-SIZE-NV - :ENUMS-NV"
+Has the values:
+ - :FRAGMENT-SIZE-NV
+ - :ENUMS-NV"
   '(member nil 
     :fragment-size-nv
     :enums-nv))
@@ -2327,7 +3848,39 @@ Has the values: - :FRAGMENT-SIZE-NV - :ENUMS-NV"
 (deftype access-flag-bits-2-khr ()
   "Represents the enum [VkAccessFlagBits2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAccessFlagBits2KHR.html).
 
-Has the values: - :2-NONE-KHR - :2-INDIRECT-COMMAND-READ - :2-INDEX-READ - :2-VERTEX-ATTRIBUTE-READ - :2-UNIFORM-READ - :2-INPUT-ATTACHMENT-READ - :2-SHADER-READ - :2-SHADER-WRITE - :2-COLOR-ATTACHMENT-READ - :2-COLOR-ATTACHMENT-WRITE - :2-DEPTH-STENCIL-ATTACHMENT-READ - :2-DEPTH-STENCIL-ATTACHMENT-WRITE - :2-TRANSFER-READ - :2-TRANSFER-WRITE - :2-HOST-READ - :2-HOST-WRITE - :2-MEMORY-READ - :2-MEMORY-WRITE - :2-COMMAND-PREPROCESS-READ - :2-COMMAND-PREPROCESS-WRITE - :2-COLOR-ATTACHMENT-READ-NONCOHERENT - :2-CONDITIONAL-RENDERING-READ - :2-ACCELERATION-STRUCTURE-READ - :2-ACCELERATION-STRUCTURE-WRITE - :2-FRAGMENT-SHADING-RATE-ATTACHMENT-READ - :2-FRAGMENT-DENSITY-MAP-READ - :2-TRANSFORM-FEEDBACK-WRITE - :2-TRANSFORM-FEEDBACK-COUNTER-READ - :2-TRANSFORM-FEEDBACK-COUNTER-WRITE - :2-SHADER-SAMPLED-READ - :2-SHADER-STORAGE-READ - :2-SHADER-STORAGE-WRITE"
+Has the values:
+ - :2-NONE-KHR
+ - :2-INDIRECT-COMMAND-READ
+ - :2-INDEX-READ
+ - :2-VERTEX-ATTRIBUTE-READ
+ - :2-UNIFORM-READ
+ - :2-INPUT-ATTACHMENT-READ
+ - :2-SHADER-READ
+ - :2-SHADER-WRITE
+ - :2-COLOR-ATTACHMENT-READ
+ - :2-COLOR-ATTACHMENT-WRITE
+ - :2-DEPTH-STENCIL-ATTACHMENT-READ
+ - :2-DEPTH-STENCIL-ATTACHMENT-WRITE
+ - :2-TRANSFER-READ
+ - :2-TRANSFER-WRITE
+ - :2-HOST-READ
+ - :2-HOST-WRITE
+ - :2-MEMORY-READ
+ - :2-MEMORY-WRITE
+ - :2-COMMAND-PREPROCESS-READ
+ - :2-COMMAND-PREPROCESS-WRITE
+ - :2-COLOR-ATTACHMENT-READ-NONCOHERENT
+ - :2-CONDITIONAL-RENDERING-READ
+ - :2-ACCELERATION-STRUCTURE-READ
+ - :2-ACCELERATION-STRUCTURE-WRITE
+ - :2-FRAGMENT-SHADING-RATE-ATTACHMENT-READ
+ - :2-FRAGMENT-DENSITY-MAP-READ
+ - :2-TRANSFORM-FEEDBACK-WRITE
+ - :2-TRANSFORM-FEEDBACK-COUNTER-READ
+ - :2-TRANSFORM-FEEDBACK-COUNTER-WRITE
+ - :2-SHADER-SAMPLED-READ
+ - :2-SHADER-STORAGE-READ
+ - :2-SHADER-STORAGE-WRITE"
   '(member nil 
     :2-none-khr
     :2-indirect-command-read
@@ -2365,7 +3918,41 @@ Has the values: - :2-NONE-KHR - :2-INDIRECT-COMMAND-READ - :2-INDEX-READ - :2-VE
 (deftype pipeline-stage-flag-bits-2-khr ()
   "Represents the enum [VkPipelineStageFlagBits2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineStageFlagBits2KHR.html).
 
-Has the values: - :2-NONE-KHR - :2-TOP-OF-PIPE - :2-DRAW-INDIRECT - :2-VERTEX-INPUT - :2-VERTEX-SHADER - :2-TESSELLATION-CONTROL-SHADER - :2-TESSELLATION-EVALUATION-SHADER - :2-GEOMETRY-SHADER - :2-FRAGMENT-SHADER - :2-EARLY-FRAGMENT-TESTS - :2-LATE-FRAGMENT-TESTS - :2-COLOR-ATTACHMENT-OUTPUT - :2-COMPUTE-SHADER - :2-ALL-TRANSFER - :2-BOTTOM-OF-PIPE - :2-HOST - :2-ALL-GRAPHICS - :2-ALL-COMMANDS - :2-COMMAND-PREPROCESS - :2-CONDITIONAL-RENDERING - :2-TASK-SHADER - :2-MESH-SHADER - :2-RAY-TRACING-SHADER - :2-FRAGMENT-SHADING-RATE-ATTACHMENT - :2-FRAGMENT-DENSITY-PROCESS - :2-TRANSFORM-FEEDBACK - :2-ACCELERATION-STRUCTURE-BUILD - :2-COPY - :2-RESOLVE - :2-BLIT - :2-CLEAR - :2-INDEX-INPUT - :2-VERTEX-ATTRIBUTE-INPUT - :2-PRE-RASTERIZATION-SHADERS"
+Has the values:
+ - :2-NONE-KHR
+ - :2-TOP-OF-PIPE
+ - :2-DRAW-INDIRECT
+ - :2-VERTEX-INPUT
+ - :2-VERTEX-SHADER
+ - :2-TESSELLATION-CONTROL-SHADER
+ - :2-TESSELLATION-EVALUATION-SHADER
+ - :2-GEOMETRY-SHADER
+ - :2-FRAGMENT-SHADER
+ - :2-EARLY-FRAGMENT-TESTS
+ - :2-LATE-FRAGMENT-TESTS
+ - :2-COLOR-ATTACHMENT-OUTPUT
+ - :2-COMPUTE-SHADER
+ - :2-ALL-TRANSFER
+ - :2-BOTTOM-OF-PIPE
+ - :2-HOST
+ - :2-ALL-GRAPHICS
+ - :2-ALL-COMMANDS
+ - :2-COMMAND-PREPROCESS
+ - :2-CONDITIONAL-RENDERING
+ - :2-TASK-SHADER
+ - :2-MESH-SHADER
+ - :2-RAY-TRACING-SHADER
+ - :2-FRAGMENT-SHADING-RATE-ATTACHMENT
+ - :2-FRAGMENT-DENSITY-PROCESS
+ - :2-TRANSFORM-FEEDBACK
+ - :2-ACCELERATION-STRUCTURE-BUILD
+ - :2-COPY
+ - :2-RESOLVE
+ - :2-BLIT
+ - :2-CLEAR
+ - :2-INDEX-INPUT
+ - :2-VERTEX-ATTRIBUTE-INPUT
+ - :2-PRE-RASTERIZATION-SHADERS"
   '(member nil 
     :2-none-khr
     :2-top-of-pipe
@@ -2405,7 +3992,23 @@ Has the values: - :2-NONE-KHR - :2-TOP-OF-PIPE - :2-DRAW-INDIRECT - :2-VERTEX-IN
 (deftype color-space-khr ()
   "Represents the enum [VkColorSpaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorSpaceKHR.html).
 
-Has the values: - :SRGB-NONLINEAR-KHR - :DISPLAY-P3-NONLINEAR-EXT - :EXTENDED-SRGB-LINEAR-EXT - :DISPLAY-P3-LINEAR-EXT - :DCI-P3-NONLINEAR-EXT - :BT709-LINEAR-EXT - :BT709-NONLINEAR-EXT - :BT2020-LINEAR-EXT - :HDR10-ST2084-EXT - :DOLBYVISION-EXT - :HDR10-HLG-EXT - :ADOBERGB-LINEAR-EXT - :ADOBERGB-NONLINEAR-EXT - :PASS-THROUGH-EXT - :EXTENDED-SRGB-NONLINEAR-EXT - :DISPLAY-NATIVE-AMD"
+Has the values:
+ - :SRGB-NONLINEAR-KHR
+ - :DISPLAY-P3-NONLINEAR-EXT
+ - :EXTENDED-SRGB-LINEAR-EXT
+ - :DISPLAY-P3-LINEAR-EXT
+ - :DCI-P3-NONLINEAR-EXT
+ - :BT709-LINEAR-EXT
+ - :BT709-NONLINEAR-EXT
+ - :BT2020-LINEAR-EXT
+ - :HDR10-ST2084-EXT
+ - :DOLBYVISION-EXT
+ - :HDR10-HLG-EXT
+ - :ADOBERGB-LINEAR-EXT
+ - :ADOBERGB-NONLINEAR-EXT
+ - :PASS-THROUGH-EXT
+ - :EXTENDED-SRGB-NONLINEAR-EXT
+ - :DISPLAY-NATIVE-AMD"
   '(member nil 
     :srgb-nonlinear-khr
     :display-p3-nonlinear-ext
@@ -2427,7 +4030,11 @@ Has the values: - :SRGB-NONLINEAR-KHR - :DISPLAY-P3-NONLINEAR-EXT - :EXTENDED-SR
 (deftype composite-alpha-flag-bits-khr ()
   "Represents the enum [VkCompositeAlphaFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCompositeAlphaFlagBitsKHR.html).
 
-Has the values: - :OPAQUE - :PRE-MULTIPLIED - :POST-MULTIPLIED - :INHERIT"
+Has the values:
+ - :OPAQUE
+ - :PRE-MULTIPLIED
+ - :POST-MULTIPLIED
+ - :INHERIT"
   '(member nil 
     :opaque
     :pre-multiplied
@@ -2437,7 +4044,11 @@ Has the values: - :OPAQUE - :PRE-MULTIPLIED - :POST-MULTIPLIED - :INHERIT"
 (deftype display-plane-alpha-flag-bits-khr ()
   "Represents the enum [VkDisplayPlaneAlphaFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPlaneAlphaFlagBitsKHR.html).
 
-Has the values: - :OPAQUE - :GLOBAL - :PER-PIXEL - :PER-PIXEL-PREMULTIPLIED"
+Has the values:
+ - :OPAQUE
+ - :GLOBAL
+ - :PER-PIXEL
+ - :PER-PIXEL-PREMULTIPLIED"
   '(member nil 
     :opaque
     :global
@@ -2447,7 +4058,13 @@ Has the values: - :OPAQUE - :GLOBAL - :PER-PIXEL - :PER-PIXEL-PREMULTIPLIED"
 (deftype present-mode-khr ()
   "Represents the enum [VkPresentModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentModeKHR.html).
 
-Has the values: - :IMMEDIATE-KHR - :MAILBOX-KHR - :FIFO-KHR - :FIFO-RELAXED-KHR - :SHARED-DEMAND-REFRESH-KHR - :SHARED-CONTINUOUS-REFRESH-KHR"
+Has the values:
+ - :IMMEDIATE-KHR
+ - :MAILBOX-KHR
+ - :FIFO-KHR
+ - :FIFO-RELAXED-KHR
+ - :SHARED-DEMAND-REFRESH-KHR
+ - :SHARED-CONTINUOUS-REFRESH-KHR"
   '(member nil 
     :immediate-khr
     :mailbox-khr
@@ -2459,7 +4076,16 @@ Has the values: - :IMMEDIATE-KHR - :MAILBOX-KHR - :FIFO-KHR - :FIFO-RELAXED-KHR 
 (deftype surface-transform-flag-bits-khr ()
   "Represents the enum [VkSurfaceTransformFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceTransformFlagBitsKHR.html).
 
-Has the values: - :IDENTITY - :ROTATE-90 - :ROTATE-180 - :ROTATE-270 - :HORIZONTAL-MIRROR - :HORIZONTAL-MIRROR-ROTATE-90 - :HORIZONTAL-MIRROR-ROTATE-180 - :HORIZONTAL-MIRROR-ROTATE-270 - :INHERIT"
+Has the values:
+ - :IDENTITY
+ - :ROTATE-90
+ - :ROTATE-180
+ - :ROTATE-270
+ - :HORIZONTAL-MIRROR
+ - :HORIZONTAL-MIRROR-ROTATE-90
+ - :HORIZONTAL-MIRROR-ROTATE-180
+ - :HORIZONTAL-MIRROR-ROTATE-270
+ - :INHERIT"
   '(member nil 
     :identity
     :rotate-90
@@ -2474,7 +4100,12 @@ Has the values: - :IDENTITY - :ROTATE-90 - :ROTATE-180 - :ROTATE-270 - :HORIZONT
 (deftype debug-report-flag-bits-ext ()
   "Represents the enum [VkDebugReportFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportFlagBitsEXT.html).
 
-Has the values: - :INFORMATION - :WARNING - :PERFORMANCE-WARNING - :ERROR - :DEBUG"
+Has the values:
+ - :INFORMATION
+ - :WARNING
+ - :PERFORMANCE-WARNING
+ - :ERROR
+ - :DEBUG"
   '(member nil 
     :information
     :warning
@@ -2485,7 +4116,43 @@ Has the values: - :INFORMATION - :WARNING - :PERFORMANCE-WARNING - :ERROR - :DEB
 (deftype debug-report-object-type-ext ()
   "Represents the enum [VkDebugReportObjectTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugReportObjectTypeEXT.html).
 
-Has the values: - :UNKNOWN-EXT - :INSTANCE-EXT - :PHYSICAL-DEVICE-EXT - :DEVICE-EXT - :QUEUE-EXT - :SEMAPHORE-EXT - :COMMAND-BUFFER-EXT - :FENCE-EXT - :DEVICE-MEMORY-EXT - :BUFFER-EXT - :IMAGE-EXT - :EVENT-EXT - :QUERY-POOL-EXT - :BUFFER-VIEW-EXT - :IMAGE-VIEW-EXT - :SHADER-MODULE-EXT - :PIPELINE-CACHE-EXT - :PIPELINE-LAYOUT-EXT - :RENDER-PASS-EXT - :PIPELINE-EXT - :DESCRIPTOR-SET-LAYOUT-EXT - :SAMPLER-EXT - :DESCRIPTOR-POOL-EXT - :DESCRIPTOR-SET-EXT - :FRAMEBUFFER-EXT - :COMMAND-POOL-EXT - :SURFACE-KHR-EXT - :SWAPCHAIN-KHR-EXT - :DEBUG-REPORT-CALLBACK-EXT-EXT - :DISPLAY-KHR-EXT - :DISPLAY-MODE-KHR-EXT - :VALIDATION-CACHE-EXT-EXT - :DESCRIPTOR-UPDATE-TEMPLATE-EXT - :ACCELERATION-STRUCTURE-KHR-EXT - :SAMPLER-YCBCR-CONVERSION-EXT - :ACCELERATION-STRUCTURE-NV-EXT"
+Has the values:
+ - :UNKNOWN-EXT
+ - :INSTANCE-EXT
+ - :PHYSICAL-DEVICE-EXT
+ - :DEVICE-EXT
+ - :QUEUE-EXT
+ - :SEMAPHORE-EXT
+ - :COMMAND-BUFFER-EXT
+ - :FENCE-EXT
+ - :DEVICE-MEMORY-EXT
+ - :BUFFER-EXT
+ - :IMAGE-EXT
+ - :EVENT-EXT
+ - :QUERY-POOL-EXT
+ - :BUFFER-VIEW-EXT
+ - :IMAGE-VIEW-EXT
+ - :SHADER-MODULE-EXT
+ - :PIPELINE-CACHE-EXT
+ - :PIPELINE-LAYOUT-EXT
+ - :RENDER-PASS-EXT
+ - :PIPELINE-EXT
+ - :DESCRIPTOR-SET-LAYOUT-EXT
+ - :SAMPLER-EXT
+ - :DESCRIPTOR-POOL-EXT
+ - :DESCRIPTOR-SET-EXT
+ - :FRAMEBUFFER-EXT
+ - :COMMAND-POOL-EXT
+ - :SURFACE-KHR-EXT
+ - :SWAPCHAIN-KHR-EXT
+ - :DEBUG-REPORT-CALLBACK-EXT-EXT
+ - :DISPLAY-KHR-EXT
+ - :DISPLAY-MODE-KHR-EXT
+ - :VALIDATION-CACHE-EXT-EXT
+ - :DESCRIPTOR-UPDATE-TEMPLATE-EXT
+ - :ACCELERATION-STRUCTURE-KHR-EXT
+ - :SAMPLER-YCBCR-CONVERSION-EXT
+ - :ACCELERATION-STRUCTURE-NV-EXT"
   '(member nil 
     :unknown-ext
     :instance-ext
@@ -2527,7 +4194,12 @@ Has the values: - :UNKNOWN-EXT - :INSTANCE-EXT - :PHYSICAL-DEVICE-EXT - :DEVICE-
 (deftype device-memory-report-event-type-ext ()
   "Represents the enum [VkDeviceMemoryReportEventTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceMemoryReportEventTypeEXT.html).
 
-Has the values: - :ALLOCATE-EXT - :FREE-EXT - :IMPORT-EXT - :UNIMPORT-EXT - :ALLOCATION-FAILED-EXT"
+Has the values:
+ - :ALLOCATE-EXT
+ - :FREE-EXT
+ - :IMPORT-EXT
+ - :UNIMPORT-EXT
+ - :ALLOCATION-FAILED-EXT"
   '(member nil 
     :allocate-ext
     :free-ext
@@ -2538,7 +4210,9 @@ Has the values: - :ALLOCATE-EXT - :FREE-EXT - :IMPORT-EXT - :UNIMPORT-EXT - :ALL
 (deftype rasterization-order-amd ()
   "Represents the enum [VkRasterizationOrderAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkRasterizationOrderAMD.html).
 
-Has the values: - :STRICT-AMD - :RELAXED-AMD"
+Has the values:
+ - :STRICT-AMD
+ - :RELAXED-AMD"
   '(member nil 
     :strict-amd
     :relaxed-amd))
@@ -2546,7 +4220,11 @@ Has the values: - :STRICT-AMD - :RELAXED-AMD"
 (deftype external-memory-handle-type-flag-bits-nv ()
   "Represents the enum [VkExternalMemoryHandleTypeFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryHandleTypeFlagBitsNV.html).
 
-Has the values: - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :D3D11-IMAGE - :D3D11-IMAGE-KMT"
+Has the values:
+ - :OPAQUE-WIN32
+ - :OPAQUE-WIN32-KMT
+ - :D3D11-IMAGE
+ - :D3D11-IMAGE-KMT"
   '(member nil 
     :opaque-win32
     :opaque-win32-kmt
@@ -2556,7 +4234,10 @@ Has the values: - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :D3D11-IMAGE - :D3D11-IMAG
 (deftype external-memory-feature-flag-bits-nv ()
   "Represents the enum [VkExternalMemoryFeatureFlagBitsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryFeatureFlagBitsNV.html).
 
-Has the values: - :DEDICATED-ONLY - :EXPORTABLE - :IMPORTABLE"
+Has the values:
+ - :DEDICATED-ONLY
+ - :EXPORTABLE
+ - :IMPORTABLE"
   '(member nil 
     :dedicated-only
     :exportable
@@ -2565,7 +4246,9 @@ Has the values: - :DEDICATED-ONLY - :EXPORTABLE - :IMPORTABLE"
 (deftype validation-check-ext ()
   "Represents the enum [VkValidationCheckEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationCheckEXT.html).
 
-Has the values: - :ALL-EXT - :SHADERS-EXT"
+Has the values:
+ - :ALL-EXT
+ - :SHADERS-EXT"
   '(member nil 
     :all-ext
     :shaders-ext))
@@ -2573,7 +4256,12 @@ Has the values: - :ALL-EXT - :SHADERS-EXT"
 (deftype validation-feature-enable-ext ()
   "Represents the enum [VkValidationFeatureEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationFeatureEnableEXT.html).
 
-Has the values: - :GPU-ASSISTED-EXT - :GPU-ASSISTED-RESERVE-BINDING-SLOT-EXT - :BEST-PRACTICES-EXT - :DEBUG-PRINTF-EXT - :SYNCHRONIZATION-VALIDATION-EXT"
+Has the values:
+ - :GPU-ASSISTED-EXT
+ - :GPU-ASSISTED-RESERVE-BINDING-SLOT-EXT
+ - :BEST-PRACTICES-EXT
+ - :DEBUG-PRINTF-EXT
+ - :SYNCHRONIZATION-VALIDATION-EXT"
   '(member nil 
     :gpu-assisted-ext
     :gpu-assisted-reserve-binding-slot-ext
@@ -2584,7 +4272,14 @@ Has the values: - :GPU-ASSISTED-EXT - :GPU-ASSISTED-RESERVE-BINDING-SLOT-EXT - :
 (deftype validation-feature-disable-ext ()
   "Represents the enum [VkValidationFeatureDisableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkValidationFeatureDisableEXT.html).
 
-Has the values: - :ALL-EXT - :SHADERS-EXT - :THREAD-SAFETY-EXT - :API-PARAMETERS-EXT - :OBJECT-LIFETIMES-EXT - :CORE-CHECKS-EXT - :UNIQUE-HANDLES-EXT"
+Has the values:
+ - :ALL-EXT
+ - :SHADERS-EXT
+ - :THREAD-SAFETY-EXT
+ - :API-PARAMETERS-EXT
+ - :OBJECT-LIFETIMES-EXT
+ - :CORE-CHECKS-EXT
+ - :UNIQUE-HANDLES-EXT"
   '(member nil 
     :all-ext
     :shaders-ext
@@ -2597,7 +4292,19 @@ Has the values: - :ALL-EXT - :SHADERS-EXT - :THREAD-SAFETY-EXT - :API-PARAMETERS
 (deftype external-memory-handle-type-flag-bits ()
   "Represents the enum [VkExternalMemoryHandleTypeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryHandleTypeFlagBits.html).
 
-Has the values: - :OPAQUE-FD - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :D3D11-TEXTURE - :D3D11-TEXTURE-KMT - :D3D12-HEAP - :D3D12-RESOURCE - :HOST-ALLOCATION - :HOST-MAPPED-FOREIGN-MEMORY - :DMA-BUF - :ANDROID-HARDWARE-BUFFER - :ZIRCON-VMO"
+Has the values:
+ - :OPAQUE-FD
+ - :OPAQUE-WIN32
+ - :OPAQUE-WIN32-KMT
+ - :D3D11-TEXTURE
+ - :D3D11-TEXTURE-KMT
+ - :D3D12-HEAP
+ - :D3D12-RESOURCE
+ - :HOST-ALLOCATION
+ - :HOST-MAPPED-FOREIGN-MEMORY
+ - :DMA-BUF
+ - :ANDROID-HARDWARE-BUFFER
+ - :ZIRCON-VMO"
   '(member nil 
     :opaque-fd
     :opaque-win32
@@ -2615,7 +4322,10 @@ Has the values: - :OPAQUE-FD - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :D3D11-TEXTUR
 (deftype external-memory-feature-flag-bits ()
   "Represents the enum [VkExternalMemoryFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryFeatureFlagBits.html).
 
-Has the values: - :DEDICATED-ONLY - :EXPORTABLE - :IMPORTABLE"
+Has the values:
+ - :DEDICATED-ONLY
+ - :EXPORTABLE
+ - :IMPORTABLE"
   '(member nil 
     :dedicated-only
     :exportable
@@ -2624,7 +4334,13 @@ Has the values: - :DEDICATED-ONLY - :EXPORTABLE - :IMPORTABLE"
 (deftype external-semaphore-handle-type-flag-bits ()
   "Represents the enum [VkExternalSemaphoreHandleTypeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalSemaphoreHandleTypeFlagBits.html).
 
-Has the values: - :OPAQUE-FD - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :D3D12-FENCE - :SYNC-FD - :ZIRCON-EVENT"
+Has the values:
+ - :OPAQUE-FD
+ - :OPAQUE-WIN32
+ - :OPAQUE-WIN32-KMT
+ - :D3D12-FENCE
+ - :SYNC-FD
+ - :ZIRCON-EVENT"
   '(member nil 
     :opaque-fd
     :opaque-win32
@@ -2636,7 +4352,9 @@ Has the values: - :OPAQUE-FD - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :D3D12-FENCE 
 (deftype external-semaphore-feature-flag-bits ()
   "Represents the enum [VkExternalSemaphoreFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalSemaphoreFeatureFlagBits.html).
 
-Has the values: - :EXPORTABLE - :IMPORTABLE"
+Has the values:
+ - :EXPORTABLE
+ - :IMPORTABLE"
   '(member nil 
     :exportable
     :importable))
@@ -2644,14 +4362,19 @@ Has the values: - :EXPORTABLE - :IMPORTABLE"
 (deftype semaphore-import-flag-bits ()
   "Represents the enum [VkSemaphoreImportFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSemaphoreImportFlagBits.html).
 
-Has the values: - :TEMPORARY"
+Has the values:
+ - :TEMPORARY"
   '(member nil 
     :temporary))
 
 (deftype external-fence-handle-type-flag-bits ()
   "Represents the enum [VkExternalFenceHandleTypeFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFenceHandleTypeFlagBits.html).
 
-Has the values: - :OPAQUE-FD - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :SYNC-FD"
+Has the values:
+ - :OPAQUE-FD
+ - :OPAQUE-WIN32
+ - :OPAQUE-WIN32-KMT
+ - :SYNC-FD"
   '(member nil 
     :opaque-fd
     :opaque-win32
@@ -2661,7 +4384,9 @@ Has the values: - :OPAQUE-FD - :OPAQUE-WIN32 - :OPAQUE-WIN32-KMT - :SYNC-FD"
 (deftype external-fence-feature-flag-bits ()
   "Represents the enum [VkExternalFenceFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalFenceFeatureFlagBits.html).
 
-Has the values: - :EXPORTABLE - :IMPORTABLE"
+Has the values:
+ - :EXPORTABLE
+ - :IMPORTABLE"
   '(member nil 
     :exportable
     :importable))
@@ -2669,21 +4394,26 @@ Has the values: - :EXPORTABLE - :IMPORTABLE"
 (deftype fence-import-flag-bits ()
   "Represents the enum [VkFenceImportFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceImportFlagBits.html).
 
-Has the values: - :TEMPORARY"
+Has the values:
+ - :TEMPORARY"
   '(member nil 
     :temporary))
 
 (deftype surface-counter-flag-bits-ext ()
   "Represents the enum [VkSurfaceCounterFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSurfaceCounterFlagBitsEXT.html).
 
-Has the values: - :VBLANK"
+Has the values:
+ - :VBLANK"
   '(member nil 
     :vblank))
 
 (deftype display-power-state-ext ()
   "Represents the enum [VkDisplayPowerStateEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayPowerStateEXT.html).
 
-Has the values: - :OFF-EXT - :SUSPEND-EXT - :ON-EXT"
+Has the values:
+ - :OFF-EXT
+ - :SUSPEND-EXT
+ - :ON-EXT"
   '(member nil 
     :off-ext
     :suspend-ext
@@ -2692,21 +4422,27 @@ Has the values: - :OFF-EXT - :SUSPEND-EXT - :ON-EXT"
 (deftype device-event-type-ext ()
   "Represents the enum [VkDeviceEventTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceEventTypeEXT.html).
 
-Has the values: - :DISPLAY-HOTPLUG-EXT"
+Has the values:
+ - :DISPLAY-HOTPLUG-EXT"
   '(member nil 
     :display-hotplug-ext))
 
 (deftype display-event-type-ext ()
   "Represents the enum [VkDisplayEventTypeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDisplayEventTypeEXT.html).
 
-Has the values: - :FIRST-PIXEL-OUT-EXT"
+Has the values:
+ - :FIRST-PIXEL-OUT-EXT"
   '(member nil 
     :first-pixel-out-ext))
 
 (deftype peer-memory-feature-flag-bits ()
   "Represents the enum [VkPeerMemoryFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPeerMemoryFeatureFlagBits.html).
 
-Has the values: - :COPY-SRC - :COPY-DST - :GENERIC-SRC - :GENERIC-DST"
+Has the values:
+ - :COPY-SRC
+ - :COPY-DST
+ - :GENERIC-SRC
+ - :GENERIC-DST"
   '(member nil 
     :copy-src
     :copy-dst
@@ -2716,7 +4452,10 @@ Has the values: - :COPY-SRC - :COPY-DST - :GENERIC-SRC - :GENERIC-DST"
 (deftype memory-allocate-flag-bits ()
   "Represents the enum [VkMemoryAllocateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryAllocateFlagBits.html).
 
-Has the values: - :DEVICE-MASK - :DEVICE-ADDRESS - :DEVICE-ADDRESS-CAPTURE-REPLAY"
+Has the values:
+ - :DEVICE-MASK
+ - :DEVICE-ADDRESS
+ - :DEVICE-ADDRESS-CAPTURE-REPLAY"
   '(member nil 
     :device-mask
     :device-address
@@ -2725,7 +4464,11 @@ Has the values: - :DEVICE-MASK - :DEVICE-ADDRESS - :DEVICE-ADDRESS-CAPTURE-REPLA
 (deftype device-group-present-mode-flag-bits-khr ()
   "Represents the enum [VkDeviceGroupPresentModeFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDeviceGroupPresentModeFlagBitsKHR.html).
 
-Has the values: - :LOCAL - :REMOTE - :SUM - :LOCAL-MULTI-DEVICE"
+Has the values:
+ - :LOCAL
+ - :REMOTE
+ - :SUM
+ - :LOCAL-MULTI-DEVICE"
   '(member nil 
     :local
     :remote
@@ -2735,7 +4478,10 @@ Has the values: - :LOCAL - :REMOTE - :SUM - :LOCAL-MULTI-DEVICE"
 (deftype swapchain-create-flag-bits-khr ()
   "Represents the enum [VkSwapchainCreateFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSwapchainCreateFlagBitsKHR.html).
 
-Has the values: - :SPLIT-INSTANCE-BIND-REGIONS - :PROTECTED - :MUTABLE-FORMAT"
+Has the values:
+ - :SPLIT-INSTANCE-BIND-REGIONS
+ - :PROTECTED
+ - :MUTABLE-FORMAT"
   '(member nil 
     :split-instance-bind-regions
     :protected
@@ -2744,7 +4490,16 @@ Has the values: - :SPLIT-INSTANCE-BIND-REGIONS - :PROTECTED - :MUTABLE-FORMAT"
 (deftype subgroup-feature-flag-bits ()
   "Represents the enum [VkSubgroupFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubgroupFeatureFlagBits.html).
 
-Has the values: - :BASIC - :VOTE - :ARITHMETIC - :BALLOT - :SHUFFLE - :SHUFFLE-RELATIVE - :CLUSTERED - :QUAD - :PARTITIONED"
+Has the values:
+ - :BASIC
+ - :VOTE
+ - :ARITHMETIC
+ - :BALLOT
+ - :SHUFFLE
+ - :SHUFFLE-RELATIVE
+ - :CLUSTERED
+ - :QUAD
+ - :PARTITIONED"
   '(member nil 
     :basic
     :vote
@@ -2759,7 +4514,9 @@ Has the values: - :BASIC - :VOTE - :ARITHMETIC - :BALLOT - :SHUFFLE - :SHUFFLE-R
 (deftype tessellation-domain-origin ()
   "Represents the enum [VkTessellationDomainOrigin](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkTessellationDomainOrigin.html).
 
-Has the values: - :UPPER-LEFT - :LOWER-LEFT"
+Has the values:
+ - :UPPER-LEFT
+ - :LOWER-LEFT"
   '(member nil 
     :upper-left
     :lower-left))
@@ -2767,7 +4524,12 @@ Has the values: - :UPPER-LEFT - :LOWER-LEFT"
 (deftype sampler-ycbcr-model-conversion ()
   "Represents the enum [VkSamplerYcbcrModelConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrModelConversion.html).
 
-Has the values: - :RGB-IDENTITY - :YCBCR-IDENTITY - :YCBCR-709 - :YCBCR-601 - :YCBCR-2020"
+Has the values:
+ - :RGB-IDENTITY
+ - :YCBCR-IDENTITY
+ - :YCBCR-709
+ - :YCBCR-601
+ - :YCBCR-2020"
   '(member nil 
     :rgb-identity
     :ycbcr-identity
@@ -2778,7 +4540,9 @@ Has the values: - :RGB-IDENTITY - :YCBCR-IDENTITY - :YCBCR-709 - :YCBCR-601 - :Y
 (deftype sampler-ycbcr-range ()
   "Represents the enum [VkSamplerYcbcrRange](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerYcbcrRange.html).
 
-Has the values: - :ITU-FULL - :ITU-NARROW"
+Has the values:
+ - :ITU-FULL
+ - :ITU-NARROW"
   '(member nil 
     :itu-full
     :itu-narrow))
@@ -2786,7 +4550,9 @@ Has the values: - :ITU-FULL - :ITU-NARROW"
 (deftype chroma-location ()
   "Represents the enum [VkChromaLocation](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkChromaLocation.html).
 
-Has the values: - :COSITED-EVEN - :MIDPOINT"
+Has the values:
+ - :COSITED-EVEN
+ - :MIDPOINT"
   '(member nil 
     :cosited-even
     :midpoint))
@@ -2794,7 +4560,10 @@ Has the values: - :COSITED-EVEN - :MIDPOINT"
 (deftype sampler-reduction-mode ()
   "Represents the enum [VkSamplerReductionMode](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSamplerReductionMode.html).
 
-Has the values: - :WEIGHTED-AVERAGE - :MIN - :MAX"
+Has the values:
+ - :WEIGHTED-AVERAGE
+ - :MIN
+ - :MAX"
   '(member nil 
     :weighted-average
     :min
@@ -2803,7 +4572,10 @@ Has the values: - :WEIGHTED-AVERAGE - :MIN - :MAX"
 (deftype blend-overlap-ext ()
   "Represents the enum [VkBlendOverlapEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendOverlapEXT.html).
 
-Has the values: - :UNCORRELATED-EXT - :DISJOINT-EXT - :CONJOINT-EXT"
+Has the values:
+ - :UNCORRELATED-EXT
+ - :DISJOINT-EXT
+ - :CONJOINT-EXT"
   '(member nil 
     :uncorrelated-ext
     :disjoint-ext
@@ -2812,7 +4584,11 @@ Has the values: - :UNCORRELATED-EXT - :DISJOINT-EXT - :CONJOINT-EXT"
 (deftype debug-utils-message-severity-flag-bits-ext ()
   "Represents the enum [VkDebugUtilsMessageSeverityFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessageSeverityFlagBitsEXT.html).
 
-Has the values: - :VERBOSE - :INFO - :WARNING - :ERROR"
+Has the values:
+ - :VERBOSE
+ - :INFO
+ - :WARNING
+ - :ERROR"
   '(member nil 
     :verbose
     :info
@@ -2822,7 +4598,10 @@ Has the values: - :VERBOSE - :INFO - :WARNING - :ERROR"
 (deftype debug-utils-message-type-flag-bits-ext ()
   "Represents the enum [VkDebugUtilsMessageTypeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDebugUtilsMessageTypeFlagBitsEXT.html).
 
-Has the values: - :GENERAL - :VALIDATION - :PERFORMANCE"
+Has the values:
+ - :GENERAL
+ - :VALIDATION
+ - :PERFORMANCE"
   '(member nil 
     :general
     :validation
@@ -2831,7 +4610,11 @@ Has the values: - :GENERAL - :VALIDATION - :PERFORMANCE"
 (deftype full-screen-exclusive-ext ()
   "Represents the enum [VkFullScreenExclusiveEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFullScreenExclusiveEXT.html).
 
-Has the values: - :DEFAULT-EXT - :ALLOWED-EXT - :DISALLOWED-EXT - :APPLICATION-CONTROLLED-EXT"
+Has the values:
+ - :DEFAULT-EXT
+ - :ALLOWED-EXT
+ - :DISALLOWED-EXT
+ - :APPLICATION-CONTROLLED-EXT"
   '(member nil 
     :default-ext
     :allowed-ext
@@ -2841,7 +4624,10 @@ Has the values: - :DEFAULT-EXT - :ALLOWED-EXT - :DISALLOWED-EXT - :APPLICATION-C
 (deftype shader-float-controls-independence ()
   "Represents the enum [VkShaderFloatControlsIndependence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShaderFloatControlsIndependence.html).
 
-Has the values: - :32-BIT-ONLY - :ALL - :NONE"
+Has the values:
+ - :32-BIT-ONLY
+ - :ALL
+ - :NONE"
   '(member nil 
     :32-bit-only
     :all
@@ -2850,7 +4636,12 @@ Has the values: - :32-BIT-ONLY - :ALL - :NONE"
 (deftype fragment-shading-rate-combiner-op-khr ()
   "Represents the enum [VkFragmentShadingRateCombinerOpKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFragmentShadingRateCombinerOpKHR.html).
 
-Has the values: - :KEEP-KHR - :REPLACE-KHR - :MIN-KHR - :MAX-KHR - :MUL-KHR"
+Has the values:
+ - :KEEP-KHR
+ - :REPLACE-KHR
+ - :MIN-KHR
+ - :MAX-KHR
+ - :MUL-KHR"
   '(member nil 
     :keep-khr
     :replace-khr
@@ -2861,14 +4652,21 @@ Has the values: - :KEEP-KHR - :REPLACE-KHR - :MIN-KHR - :MAX-KHR - :MUL-KHR"
 (deftype submit-flag-bits-khr ()
   "Represents the enum [VkSubmitFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubmitFlagBitsKHR.html).
 
-Has the values: - :PROTECTED"
+Has the values:
+ - :PROTECTED"
   '(member nil 
     :protected))
 
 (deftype vendor-id ()
   "Represents the enum [VkVendorId](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVendorId.html).
 
-Has the values: - :VIV - :VSI - :KAZAN - :CODEPLAY - :MESA - :POCL"
+Has the values:
+ - :VIV
+ - :VSI
+ - :KAZAN
+ - :CODEPLAY
+ - :MESA
+ - :POCL"
   '(member nil 
     :viv
     :vsi
@@ -2880,7 +4678,21 @@ Has the values: - :VIV - :VSI - :KAZAN - :CODEPLAY - :MESA - :POCL"
 (deftype driver-id ()
   "Represents the enum [VkDriverId](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkDriverId.html).
 
-Has the values: - :AMD-PROPRIETARY - :AMD-OPEN-SOURCE - :MESA-RADV - :NVIDIA-PROPRIETARY - :INTEL-PROPRIETARY-WINDOWS - :INTEL-OPEN-SOURCE-MESA - :IMAGINATION-PROPRIETARY - :QUALCOMM-PROPRIETARY - :ARM-PROPRIETARY - :GOOGLE-SWIFTSHADER - :GGP-PROPRIETARY - :BROADCOM-PROPRIETARY - :MESA-LLVMPIPE - :MOLTENVK"
+Has the values:
+ - :AMD-PROPRIETARY
+ - :AMD-OPEN-SOURCE
+ - :MESA-RADV
+ - :NVIDIA-PROPRIETARY
+ - :INTEL-PROPRIETARY-WINDOWS
+ - :INTEL-OPEN-SOURCE-MESA
+ - :IMAGINATION-PROPRIETARY
+ - :QUALCOMM-PROPRIETARY
+ - :ARM-PROPRIETARY
+ - :GOOGLE-SWIFTSHADER
+ - :GGP-PROPRIETARY
+ - :BROADCOM-PROPRIETARY
+ - :MESA-LLVMPIPE
+ - :MOLTENVK"
   '(member nil 
     :amd-proprietary
     :amd-open-source
@@ -2900,7 +4712,19 @@ Has the values: - :AMD-PROPRIETARY - :AMD-OPEN-SOURCE - :MESA-RADV - :NVIDIA-PRO
 (deftype shading-rate-palette-entry-nv ()
   "Represents the enum [VkShadingRatePaletteEntryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShadingRatePaletteEntryNV.html).
 
-Has the values: - :NO-INVOCATIONS-NV - :16-INVOCATIONS-PER-PIXEL-NV - :8-INVOCATIONS-PER-PIXEL-NV - :4-INVOCATIONS-PER-PIXEL-NV - :2-INVOCATIONS-PER-PIXEL-NV - :1-INVOCATION-PER-PIXEL-NV - :1-INVOCATION-PER-2X1-PIXELS-NV - :1-INVOCATION-PER-1X2-PIXELS-NV - :1-INVOCATION-PER-2X2-PIXELS-NV - :1-INVOCATION-PER-4X2-PIXELS-NV - :1-INVOCATION-PER-2X4-PIXELS-NV - :1-INVOCATION-PER-4X4-PIXELS-NV"
+Has the values:
+ - :NO-INVOCATIONS-NV
+ - :16-INVOCATIONS-PER-PIXEL-NV
+ - :8-INVOCATIONS-PER-PIXEL-NV
+ - :4-INVOCATIONS-PER-PIXEL-NV
+ - :2-INVOCATIONS-PER-PIXEL-NV
+ - :1-INVOCATION-PER-PIXEL-NV
+ - :1-INVOCATION-PER-2X1-PIXELS-NV
+ - :1-INVOCATION-PER-1X2-PIXELS-NV
+ - :1-INVOCATION-PER-2X2-PIXELS-NV
+ - :1-INVOCATION-PER-4X2-PIXELS-NV
+ - :1-INVOCATION-PER-2X4-PIXELS-NV
+ - :1-INVOCATION-PER-4X4-PIXELS-NV"
   '(member nil 
     :no-invocations-nv
     :16-invocations-per-pixel-nv
@@ -2918,7 +4742,11 @@ Has the values: - :NO-INVOCATIONS-NV - :16-INVOCATIONS-PER-PIXEL-NV - :8-INVOCAT
 (deftype coarse-sample-order-type-nv ()
   "Represents the enum [VkCoarseSampleOrderTypeNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCoarseSampleOrderTypeNV.html).
 
-Has the values: - :DEFAULT-NV - :CUSTOM-NV - :PIXEL-MAJOR-NV - :SAMPLE-MAJOR-NV"
+Has the values:
+ - :DEFAULT-NV
+ - :CUSTOM-NV
+ - :PIXEL-MAJOR-NV
+ - :SAMPLE-MAJOR-NV"
   '(member nil 
     :default-nv
     :custom-nv
@@ -2928,7 +4756,11 @@ Has the values: - :DEFAULT-NV - :CUSTOM-NV - :PIXEL-MAJOR-NV - :SAMPLE-MAJOR-NV"
 (deftype pipeline-executable-statistic-format-khr ()
   "Represents the enum [VkPipelineExecutableStatisticFormatKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableStatisticFormatKHR.html).
 
-Has the values: - :BOOL32-KHR - :INT64-KHR - :UINT64-KHR - :FLOAT64-KHR"
+Has the values:
+ - :BOOL32-KHR
+ - :INT64-KHR
+ - :UINT64-KHR
+ - :FLOAT64-KHR"
   '(member nil 
     :bool32-khr
     :int64-khr
@@ -5670,12 +7502,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-FLAGS.
  - TOPOLOGY: an enum value of PRIMITIVE-TOPOLOGY.
- - PRIMITIVE-RESTART-ENABLE: a BOOL32.
+ - PRIMITIVE-RESTART-ENABLE: a boolean.
 
 Slot types:
 See PIPELINE-INPUT-ASSEMBLY-STATE-CREATE-FLAGS
 See PRIMITIVE-TOPOLOGY
-See BOOL32
 "))
 
 (defclass pipeline-tessellation-state-create-info ()
@@ -5797,12 +7628,12 @@ See PIPELINE-VIEWPORT-W-SCALING-STATE-CREATE-INFO-NV
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-STATE-CREATE-FLAGS.
- - DEPTH-CLAMP-ENABLE: a BOOL32.
- - RASTERIZER-DISCARD-ENABLE: a BOOL32.
+ - DEPTH-CLAMP-ENABLE: a boolean.
+ - RASTERIZER-DISCARD-ENABLE: a boolean.
  - POLYGON-MODE: an enum value of POLYGON-MODE.
  - CULL-MODE (optional): a list containing a valid combination of CULL-MODE-FLAGS.
  - FRONT-FACE: an enum value of FRONT-FACE.
- - DEPTH-BIAS-ENABLE: a BOOL32.
+ - DEPTH-BIAS-ENABLE: a boolean.
  - DEPTH-BIAS-CONSTANT-FACTOR: a single-float.
  - DEPTH-BIAS-CLAMP: a single-float.
  - DEPTH-BIAS-SLOPE-FACTOR: a single-float.
@@ -5813,7 +7644,6 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-FLAGS
 See POLYGON-MODE
 See CULL-MODE-FLAGS
 See FRONT-FACE
-See BOOL32
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
 See PIPELINE-RASTERIZATION-LINE-STATE-CREATE-INFO-EXT
@@ -5862,17 +7692,16 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-MULTISAMPLE-STATE-CREATE-FLAGS.
  - RASTERIZATION-SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
- - SAMPLE-SHADING-ENABLE: a BOOL32.
+ - SAMPLE-SHADING-ENABLE: a boolean.
  - MIN-SAMPLE-SHADING: a single-float.
  - SAMPLE-MASK (optional): a foreign pointer to a buffer of size LATEXMATH:[\\LCEIL{\\MATHIT{RASTERIZATION-SAMPLES} \\OVER -3-2}\\RCEIL].
- - ALPHA-TO-COVERAGE-ENABLE: a BOOL32.
- - ALPHA-TO-ONE-ENABLE: a BOOL32.
+ - ALPHA-TO-COVERAGE-ENABLE: a boolean.
+ - ALPHA-TO-ONE-ENABLE: a boolean.
 
 Slot types:
 See PIPELINE-MULTISAMPLE-STATE-CREATE-FLAGS
 See SAMPLE-COUNT-FLAG-BITS
 See SAMPLE-MASK
-See BOOL32
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
 See PIPELINE-COVERAGE-REDUCTION-STATE-CREATE-INFO-NV
@@ -5917,7 +7746,7 @@ See PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-INFO-NV
   (:documentation "Represents the struct [VkPipelineColorBlendAttachmentState](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorBlendAttachmentState.html).
 
 Slots:
- - BLEND-ENABLE: a BOOL32.
+ - BLEND-ENABLE: a boolean.
  - SRC-COLOR-BLEND-FACTOR: an enum value of BLEND-FACTOR.
  - DST-COLOR-BLEND-FACTOR: an enum value of BLEND-FACTOR.
  - COLOR-BLEND-OP: an enum value of BLEND-OP.
@@ -5927,7 +7756,6 @@ Slots:
  - COLOR-WRITE-MASK (optional): a list containing a valid combination of COLOR-COMPONENT-FLAGS.
 
 Slot types:
-See BOOL32
 See BLEND-FACTOR
 See BLEND-OP
 See COLOR-COMPONENT-FLAGS
@@ -5963,14 +7791,13 @@ See COLOR-COMPONENT-FLAGS
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COLOR-BLEND-STATE-CREATE-FLAGS.
- - LOGIC-OP-ENABLE: a BOOL32.
+ - LOGIC-OP-ENABLE: a boolean.
  - LOGIC-OP: an enum value of LOGIC-OP.
  - ATTACHMENTS: a list of foreign pointer to a buffer of size ATTACHMENT-COUNTs.
  - BLEND-CONSTANTS: a single-float.
 
 Slot types:
 See PIPELINE-COLOR-BLEND-STATE-CREATE-FLAGS
-See BOOL32
 See LOGIC-OP
 See PIPELINE-COLOR-BLEND-ATTACHMENT-STATE
 
@@ -6098,11 +7925,11 @@ See COMPARE-OP
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-DEPTH-STENCIL-STATE-CREATE-FLAGS.
- - DEPTH-TEST-ENABLE: a BOOL32.
- - DEPTH-WRITE-ENABLE: a BOOL32.
+ - DEPTH-TEST-ENABLE: a boolean.
+ - DEPTH-WRITE-ENABLE: a boolean.
  - DEPTH-COMPARE-OP: an enum value of COMPARE-OP.
- - DEPTH-BOUNDS-TEST-ENABLE: a BOOL32.
- - STENCIL-TEST-ENABLE: a BOOL32.
+ - DEPTH-BOUNDS-TEST-ENABLE: a boolean.
+ - STENCIL-TEST-ENABLE: a boolean.
  - FRONT: a STENCIL-OP-STATE.
  - BACK: a STENCIL-OP-STATE.
  - MIN-DEPTH-BOUNDS: a single-float.
@@ -6111,7 +7938,6 @@ Slots:
 Slot types:
 See PIPELINE-DEPTH-STENCIL-STATE-CREATE-FLAGS
 See COMPARE-OP
-See BOOL32
 See STENCIL-OP-STATE
 "))
 
@@ -6405,14 +8231,14 @@ Slots:
  - ADDRESS-MODE-V: an enum value of SAMPLER-ADDRESS-MODE.
  - ADDRESS-MODE-W: an enum value of SAMPLER-ADDRESS-MODE.
  - MIP-LOD-BIAS: a single-float.
- - ANISOTROPY-ENABLE: a BOOL32.
+ - ANISOTROPY-ENABLE: a boolean.
  - MAX-ANISOTROPY: a single-float.
- - COMPARE-ENABLE: a BOOL32.
+ - COMPARE-ENABLE: a boolean.
  - COMPARE-OP: an enum value of COMPARE-OP.
  - MIN-LOD: a single-float.
  - MAX-LOD: a single-float.
  - BORDER-COLOR: an enum value of BORDER-COLOR.
- - UNNORMALIZED-COORDINATES: a BOOL32.
+ - UNNORMALIZED-COORDINATES: a boolean.
 
 Slot types:
 See SAMPLER-CREATE-FLAGS
@@ -6421,7 +8247,6 @@ See SAMPLER-MIPMAP-MODE
 See SAMPLER-ADDRESS-MODE
 See COMPARE-OP
 See BORDER-COLOR
-See BOOL32
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
 See SAMPLER-CUSTOM-BORDER-COLOR-CREATE-INFO-EXT
@@ -6528,14 +8353,13 @@ Slots:
  - RENDER-PASS (optional): a RENDER-PASS.
  - SUBPASS: a positive (32-bit) integer.
  - FRAMEBUFFER (optional): a FRAMEBUFFER.
- - OCCLUSION-QUERY-ENABLE: a BOOL32.
+ - OCCLUSION-QUERY-ENABLE: a boolean.
  - QUERY-FLAGS (optional): a list containing a valid combination of QUERY-CONTROL-FLAGS.
  - PIPELINE-STATISTICS (optional): a list containing a valid combination of QUERY-PIPELINE-STATISTIC-FLAGS.
 
 Slot types:
 See RENDER-PASS
 See FRAMEBUFFER
-See BOOL32
 See QUERY-CONTROL-FLAGS
 See QUERY-PIPELINE-STATISTIC-FLAGS
 
@@ -7195,64 +9019,61 @@ See CREATE-FENCE
   (:documentation "Represents the struct [VkPhysicalDeviceFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceFeatures.html).
 
 Slots:
- - ROBUST-BUFFER-ACCESS: a BOOL32.
- - FULL-DRAW-INDEX-UINT-32: a BOOL32.
- - IMAGE-CUBE-ARRAY: a BOOL32.
- - INDEPENDENT-BLEND: a BOOL32.
- - GEOMETRY-SHADER: a BOOL32.
- - TESSELLATION-SHADER: a BOOL32.
- - SAMPLE-RATE-SHADING: a BOOL32.
- - DUAL-SRC-BLEND: a BOOL32.
- - LOGIC-OP: a BOOL32.
- - MULTI-DRAW-INDIRECT: a BOOL32.
- - DRAW-INDIRECT-FIRST-INSTANCE: a BOOL32.
- - DEPTH-CLAMP: a BOOL32.
- - DEPTH-BIAS-CLAMP: a BOOL32.
- - FILL-MODE-NON-SOLID: a BOOL32.
- - DEPTH-BOUNDS: a BOOL32.
- - WIDE-LINES: a BOOL32.
- - LARGE-POINTS: a BOOL32.
- - ALPHA-TO-ONE: a BOOL32.
- - MULTI-VIEWPORT: a BOOL32.
- - SAMPLER-ANISOTROPY: a BOOL32.
- - TEXTURE-COMPRESSION-ETC2: a BOOL32.
- - TEXTURE-COMPRESSION-ASTC_-LDR: a BOOL32.
- - TEXTURE-COMPRESSION-BC: a BOOL32.
- - OCCLUSION-QUERY-PRECISE: a BOOL32.
- - PIPELINE-STATISTICS-QUERY: a BOOL32.
- - VERTEX-PIPELINE-STORES-AND-ATOMICS: a BOOL32.
- - FRAGMENT-STORES-AND-ATOMICS: a BOOL32.
- - SHADER-TESSELLATION-AND-GEOMETRY-POINT-SIZE: a BOOL32.
- - SHADER-IMAGE-GATHER-EXTENDED: a BOOL32.
- - SHADER-STORAGE-IMAGE-EXTENDED-FORMATS: a BOOL32.
- - SHADER-STORAGE-IMAGE-MULTISAMPLE: a BOOL32.
- - SHADER-STORAGE-IMAGE-READ-WITHOUT-FORMAT: a BOOL32.
- - SHADER-STORAGE-IMAGE-WRITE-WITHOUT-FORMAT: a BOOL32.
- - SHADER-UNIFORM-BUFFER-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-SAMPLED-IMAGE-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-STORAGE-BUFFER-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-STORAGE-IMAGE-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-CLIP-DISTANCE: a BOOL32.
- - SHADER-CULL-DISTANCE: a BOOL32.
- - SHADER-FLOAT-64: a BOOL32.
- - SHADER-INT-64: a BOOL32.
- - SHADER-INT-16: a BOOL32.
- - SHADER-RESOURCE-RESIDENCY: a BOOL32.
- - SHADER-RESOURCE-MIN-LOD: a BOOL32.
- - SPARSE-BINDING: a BOOL32.
- - SPARSE-RESIDENCY-BUFFER: a BOOL32.
- - SPARSE-RESIDENCY-IMAGE-2D: a BOOL32.
- - SPARSE-RESIDENCY-IMAGE-3D: a BOOL32.
- - SPARSE-RESIDENCY-2-SAMPLES: a BOOL32.
- - SPARSE-RESIDENCY-4-SAMPLES: a BOOL32.
- - SPARSE-RESIDENCY-8-SAMPLES: a BOOL32.
- - SPARSE-RESIDENCY-16-SAMPLES: a BOOL32.
- - SPARSE-RESIDENCY-ALIASED: a BOOL32.
- - VARIABLE-MULTISAMPLE-RATE: a BOOL32.
- - INHERITED-QUERIES: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ROBUST-BUFFER-ACCESS: a boolean.
+ - FULL-DRAW-INDEX-UINT-32: a boolean.
+ - IMAGE-CUBE-ARRAY: a boolean.
+ - INDEPENDENT-BLEND: a boolean.
+ - GEOMETRY-SHADER: a boolean.
+ - TESSELLATION-SHADER: a boolean.
+ - SAMPLE-RATE-SHADING: a boolean.
+ - DUAL-SRC-BLEND: a boolean.
+ - LOGIC-OP: a boolean.
+ - MULTI-DRAW-INDIRECT: a boolean.
+ - DRAW-INDIRECT-FIRST-INSTANCE: a boolean.
+ - DEPTH-CLAMP: a boolean.
+ - DEPTH-BIAS-CLAMP: a boolean.
+ - FILL-MODE-NON-SOLID: a boolean.
+ - DEPTH-BOUNDS: a boolean.
+ - WIDE-LINES: a boolean.
+ - LARGE-POINTS: a boolean.
+ - ALPHA-TO-ONE: a boolean.
+ - MULTI-VIEWPORT: a boolean.
+ - SAMPLER-ANISOTROPY: a boolean.
+ - TEXTURE-COMPRESSION-ETC2: a boolean.
+ - TEXTURE-COMPRESSION-ASTC_-LDR: a boolean.
+ - TEXTURE-COMPRESSION-BC: a boolean.
+ - OCCLUSION-QUERY-PRECISE: a boolean.
+ - PIPELINE-STATISTICS-QUERY: a boolean.
+ - VERTEX-PIPELINE-STORES-AND-ATOMICS: a boolean.
+ - FRAGMENT-STORES-AND-ATOMICS: a boolean.
+ - SHADER-TESSELLATION-AND-GEOMETRY-POINT-SIZE: a boolean.
+ - SHADER-IMAGE-GATHER-EXTENDED: a boolean.
+ - SHADER-STORAGE-IMAGE-EXTENDED-FORMATS: a boolean.
+ - SHADER-STORAGE-IMAGE-MULTISAMPLE: a boolean.
+ - SHADER-STORAGE-IMAGE-READ-WITHOUT-FORMAT: a boolean.
+ - SHADER-STORAGE-IMAGE-WRITE-WITHOUT-FORMAT: a boolean.
+ - SHADER-UNIFORM-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-SAMPLED-IMAGE-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-STORAGE-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-STORAGE-IMAGE-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-CLIP-DISTANCE: a boolean.
+ - SHADER-CULL-DISTANCE: a boolean.
+ - SHADER-FLOAT-64: a boolean.
+ - SHADER-INT-64: a boolean.
+ - SHADER-INT-16: a boolean.
+ - SHADER-RESOURCE-RESIDENCY: a boolean.
+ - SHADER-RESOURCE-MIN-LOD: a boolean.
+ - SPARSE-BINDING: a boolean.
+ - SPARSE-RESIDENCY-BUFFER: a boolean.
+ - SPARSE-RESIDENCY-IMAGE-2D: a boolean.
+ - SPARSE-RESIDENCY-IMAGE-3D: a boolean.
+ - SPARSE-RESIDENCY-2-SAMPLES: a boolean.
+ - SPARSE-RESIDENCY-4-SAMPLES: a boolean.
+ - SPARSE-RESIDENCY-8-SAMPLES: a boolean.
+ - SPARSE-RESIDENCY-16-SAMPLES: a boolean.
+ - SPARSE-RESIDENCY-ALIASED: a boolean.
+ - VARIABLE-MULTISAMPLE-RATE: a boolean.
+ - INHERITED-QUERIES: a boolean.
 
 Instances of this class are used as parameters of the following functions:
 See GET-PHYSICAL-DEVICE-FEATURES
@@ -7282,14 +9103,11 @@ See GET-PHYSICAL-DEVICE-FEATURES
   (:documentation "Represents the struct [VkPhysicalDeviceSparseProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceSparseProperties.html).
 
 Slots:
- - RESIDENCY-STANDARD-2D-BLOCK-SHAPE: a BOOL32.
- - RESIDENCY-STANDARD-2D-MULTISAMPLE-BLOCK-SHAPE: a BOOL32.
- - RESIDENCY-STANDARD-3D-BLOCK-SHAPE: a BOOL32.
- - RESIDENCY-ALIGNED-MIP-SIZE: a BOOL32.
- - RESIDENCY-NON-RESIDENT-STRICT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - RESIDENCY-STANDARD-2D-BLOCK-SHAPE: a boolean.
+ - RESIDENCY-STANDARD-2D-MULTISAMPLE-BLOCK-SHAPE: a boolean.
+ - RESIDENCY-STANDARD-3D-BLOCK-SHAPE: a boolean.
+ - RESIDENCY-ALIGNED-MIP-SIZE: a boolean.
+ - RESIDENCY-NON-RESIDENT-STRICT: a boolean.
 "))
 
 (defclass physical-device-limits ()
@@ -7811,7 +9629,7 @@ Slots:
  - SAMPLED-IMAGE-STENCIL-SAMPLE-COUNTS (optional): a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - STORAGE-IMAGE-SAMPLE-COUNTS (optional): a list containing a valid combination of SAMPLE-COUNT-FLAGS.
  - MAX-SAMPLE-MASK-WORDS: a positive (32-bit) integer.
- - TIMESTAMP-COMPUTE-AND-GRAPHICS: a BOOL32.
+ - TIMESTAMP-COMPUTE-AND-GRAPHICS: a boolean.
  - TIMESTAMP-PERIOD: a single-float.
  - MAX-CLIP-DISTANCES: a positive (32-bit) integer.
  - MAX-CULL-DISTANCES: a positive (32-bit) integer.
@@ -7821,15 +9639,14 @@ Slots:
  - LINE-WIDTH-RANGE: a single-float.
  - POINT-SIZE-GRANULARITY: a single-float.
  - LINE-WIDTH-GRANULARITY: a single-float.
- - STRICT-LINES: a BOOL32.
- - STANDARD-SAMPLE-LOCATIONS: a BOOL32.
+ - STRICT-LINES: a boolean.
+ - STANDARD-SAMPLE-LOCATIONS: a boolean.
  - OPTIMAL-BUFFER-COPY-OFFSET-ALIGNMENT: a DEVICE-SIZE.
  - OPTIMAL-BUFFER-COPY-ROW-PITCH-ALIGNMENT: a DEVICE-SIZE.
  - NON-COHERENT-ATOM-SIZE: a DEVICE-SIZE.
 
 Slot types:
 See SAMPLE-COUNT-FLAGS
-See BOOL32
 See DEVICE-SIZE
 "))
 
@@ -8118,14 +9935,13 @@ Slots:
  - PHYSICAL-DIMENSIONS: an EXTENT-2D.
  - PHYSICAL-RESOLUTION: an EXTENT-2D.
  - SUPPORTED-TRANSFORMS (optional): a list containing a valid combination of SURFACE-TRANSFORM-FLAGS-KHR.
- - PLANE-REORDER-POSSIBLE: a BOOL32.
- - PERSISTENT-CONTENT: a BOOL32.
+ - PLANE-REORDER-POSSIBLE: a boolean.
+ - PERSISTENT-CONTENT: a boolean.
 
 Slot types:
 See DISPLAY-KHR
 See EXTENT-2D
 See SURFACE-TRANSFORM-FLAGS-KHR
-See BOOL32
 
 Instances of this class are used as parameters of the following functions:
 See GET-PHYSICAL-DEVICE-DISPLAY-PROPERTIES-KHR
@@ -8366,11 +10182,10 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SRC-RECT: a RECT-2D.
  - DST-RECT: a RECT-2D.
- - PERSISTENT: a BOOL32.
+ - PERSISTENT: a boolean.
 
 Slot types:
 See RECT-2D
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PRESENT-INFO-KHR
@@ -8862,7 +10677,7 @@ Slots:
  - PRE-TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
  - COMPOSITE-ALPHA: an enum value of COMPOSITE-ALPHA-FLAG-BITS-KHR.
  - PRESENT-MODE: an enum value of PRESENT-MODE-KHR.
- - CLIPPED: a BOOL32.
+ - CLIPPED: a boolean.
  - OLD-SWAPCHAIN (optional): a SWAPCHAIN-KHR.
 
 Slot types:
@@ -8876,7 +10691,6 @@ See SHARING-MODE
 See SURFACE-TRANSFORM-FLAG-BITS-KHR
 See COMPOSITE-ALPHA-FLAG-BITS-KHR
 See PRESENT-MODE-KHR
-See BOOL32
 See SWAPCHAIN-KHR
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
@@ -9158,10 +10972,7 @@ See CMD-DEBUG-MARKER-INSERT-EXT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEDICATED-ALLOCATION: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEDICATED-ALLOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See IMAGE-CREATE-INFO
@@ -9180,10 +10991,7 @@ See IMAGE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEDICATED-ALLOCATION: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEDICATED-ALLOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See BUFFER-CREATE-INFO
@@ -9407,10 +11215,7 @@ See SUBMIT-INFO-2-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEVICE-GENERATED-COMMANDS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEVICE-GENERATED-COMMANDS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -9471,10 +11276,7 @@ See CREATE-PRIVATE-DATA-SLOT-EXT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PRIVATE-DATA: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PRIVATE-DATA: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -9751,7 +11553,7 @@ Slots:
  - STREAM: a positive (32-bit) integer.
  - OFFSET: a positive (32-bit) integer.
  - VERTEX-BINDING-UNIT: a positive (32-bit) integer.
- - VERTEX-DYNAMIC-STRIDE: a BOOL32.
+ - VERTEX-DYNAMIC-STRIDE: a boolean.
  - PUSHCONSTANT-PIPELINE-LAYOUT (optional): a PIPELINE-LAYOUT.
  - PUSHCONSTANT-SHADER-STAGE-FLAGS (optional): a list containing a valid combination of SHADER-STAGE-FLAGS.
  - PUSHCONSTANT-OFFSET: a positive (32-bit) integer.
@@ -9762,7 +11564,6 @@ Slots:
 
 Slot types:
 See INDIRECT-COMMANDS-TOKEN-TYPE-NV
-See BOOL32
 See PIPELINE-LAYOUT
 See SHADER-STAGE-FLAGS
 See INDIRECT-STATE-FLAGS-NV
@@ -10499,11 +12300,8 @@ See EXTENT-2D
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - VARIABLE-POINTERS-STORAGE-BUFFER: a BOOL32.
- - VARIABLE-POINTERS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - VARIABLE-POINTERS-STORAGE-BUFFER: a boolean.
+ - VARIABLE-POINTERS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -10668,10 +12466,7 @@ Slots:
  - DRIVER-UUID: a positive (8-bit) integer.
  - DEVICE-LUID: a positive (8-bit) integer.
  - DEVICE-NODE-MASK: a positive (32-bit) integer.
- - DEVICE-LUID-VALID: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEVICE-LUID-VALID: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -11670,12 +13465,9 @@ See GET-FENCE-FD-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - MULTIVIEW: a BOOL32.
- - MULTIVIEW-GEOMETRY-SHADER: a BOOL32.
- - MULTIVIEW-TESSELLATION-SHADER: a BOOL32.
-
-Slot types:
-See BOOL32
+ - MULTIVIEW: a boolean.
+ - MULTIVIEW-GEOMETRY-SHADER: a boolean.
+ - MULTIVIEW-TESSELLATION-SHADER: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -11923,11 +13715,10 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - PHYSICAL-DEVICE-COUNT: a positive (32-bit) integer.
  - PHYSICAL-DEVICES: a PHYSICAL-DEVICE.
- - SUBSET-ALLOCATION: a BOOL32.
+ - SUBSET-ALLOCATION: a boolean.
 
 Slot types:
 See PHYSICAL-DEVICE
-See BOOL32
 
 Instances of this class are used as parameters of the following functions:
 See ENUMERATE-PHYSICAL-DEVICE-GROUPS
@@ -12554,10 +14345,7 @@ See SET-HDR-METADATA-EXT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - LOCAL-DIMMING-SUPPORT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - LOCAL-DIMMING-SUPPORT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SURFACE-CAPABILITIES-2-KHR
@@ -12576,10 +14364,7 @@ See SURFACE-CAPABILITIES-2-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - LOCAL-DIMMING-ENABLE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - LOCAL-DIMMING-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SWAPCHAIN-CREATE-INFO-KHR
@@ -12794,11 +14579,10 @@ See CMD-SET-VIEWPORT-W-SCALING-NV
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - VIEWPORT-W-SCALING-ENABLE: a BOOL32.
+ - VIEWPORT-W-SCALING-ENABLE: a boolean.
  - VIEWPORT-W-SCALINGS (optional): a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
 
 Slot types:
-See BOOL32
 See VIEWPORT-W-SCALING-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -12928,10 +14712,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PER-VIEW-POSITION-ALL-COMPONENTS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PER-VIEW-POSITION-ALL-COMPONENTS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -13224,13 +15005,10 @@ See SURFACE-CAPABILITIES-2-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - STORAGE-BUFFER-16-BIT-ACCESS: a BOOL32.
- - UNIFORM-AND-STORAGE-BUFFER-16-BIT-ACCESS: a BOOL32.
- - STORAGE-PUSH-CONSTANT-16: a BOOL32.
- - STORAGE-INPUT-OUTPUT-16: a BOOL32.
-
-Slot types:
-See BOOL32
+ - STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
+ - UNIFORM-AND-STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
+ - STORAGE-PUSH-CONSTANT-16: a boolean.
+ - STORAGE-INPUT-OUTPUT-16: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -13265,12 +15043,11 @@ Slots:
  - SUBGROUP-SIZE: a positive (32-bit) integer.
  - SUPPORTED-STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
  - SUPPORTED-OPERATIONS: a list containing a valid combination of SUBGROUP-FEATURE-FLAGS.
- - QUAD-OPERATIONS-IN-ALL-STAGES: a BOOL32.
+ - QUAD-OPERATIONS-IN-ALL-STAGES: a boolean.
 
 Slot types:
 See SHADER-STAGE-FLAGS
 See SUBGROUP-FEATURE-FLAGS
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -13289,10 +15066,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-SUBGROUP-EXTENDED-TYPES: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-SUBGROUP-EXTENDED-TYPES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -13456,11 +15230,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PREFERS-DEDICATED-ALLOCATION: a BOOL32.
- - REQUIRES-DEDICATED-ALLOCATION: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PREFERS-DEDICATED-ALLOCATION: a boolean.
+ - REQUIRES-DEDICATED-ALLOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See MEMORY-REQUIREMENTS-2
@@ -13609,7 +15380,7 @@ Slots:
  - X-CHROMA-OFFSET: an enum value of CHROMA-LOCATION.
  - Y-CHROMA-OFFSET: an enum value of CHROMA-LOCATION.
  - CHROMA-FILTER: an enum value of FILTER.
- - FORCE-EXPLICIT-RECONSTRUCTION: a BOOL32.
+ - FORCE-EXPLICIT-RECONSTRUCTION: a boolean.
 
 Slot types:
 See FORMAT
@@ -13618,7 +15389,6 @@ See SAMPLER-YCBCR-RANGE
 See COMPONENT-MAPPING
 See CHROMA-LOCATION
 See FILTER
-See BOOL32
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
 See EXTERNAL-FORMAT-ANDROID
@@ -13684,10 +15454,7 @@ See IMAGE-MEMORY-REQUIREMENTS-INFO-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SAMPLER-YCBCR-CONVERSION: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SAMPLER-YCBCR-CONVERSION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -13726,10 +15493,7 @@ See IMAGE-FORMAT-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SUPPORTS-TEXTURE-GATHER-L-O-D-BIAS-AMD: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SUPPORTS-TEXTURE-GATHER-L-O-D-BIAS-AMD: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See IMAGE-FORMAT-PROPERTIES-2
@@ -13782,10 +15546,7 @@ See CMD-BEGIN-CONDITIONAL-RENDERING-EXT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PROTECTED-SUBMIT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PROTECTED-SUBMIT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SUBMIT-INFO
@@ -13804,10 +15565,7 @@ See SUBMIT-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PROTECTED-MEMORY: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PROTECTED-MEMORY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -13827,10 +15585,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PROTECTED-NO-FAULT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PROTECTED-NO-FAULT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -13890,12 +15645,11 @@ See GET-DEVICE-QUEUE-2
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-FLAGS-NV.
- - COVERAGE-TO-COLOR-ENABLE: a BOOL32.
+ - COVERAGE-TO-COLOR-ENABLE: a boolean.
  - COVERAGE-TO-COLOR-LOCATION (optional): a positive (32-bit) integer.
 
 Slot types:
 See PIPELINE-COVERAGE-TO-COLOR-STATE-CREATE-FLAGS-NV
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
@@ -13918,11 +15672,8 @@ See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FILTER-MINMAX-SINGLE-COMPONENT-FORMATS: a BOOL32.
- - FILTER-MINMAX-IMAGE-COMPONENT-MAPPING: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FILTER-MINMAX-SINGLE-COMPONENT-FORMATS: a boolean.
+ - FILTER-MINMAX-IMAGE-COMPONENT-MAPPING: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -14065,11 +15816,10 @@ See RENDER-PASS-BEGIN-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SAMPLE-LOCATIONS-ENABLE: a BOOL32.
+ - SAMPLE-LOCATIONS-ENABLE: a boolean.
  - SAMPLE-LOCATIONS-INFO: a SAMPLE-LOCATIONS-INFO-EXT.
 
 Slot types:
-See BOOL32
 See SAMPLE-LOCATIONS-INFO-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14109,12 +15859,11 @@ Slots:
  - MAX-SAMPLE-LOCATION-GRID-SIZE: an EXTENT-2D.
  - SAMPLE-LOCATION-COORDINATE-RANGE: a single-float.
  - SAMPLE-LOCATION-SUB-PIXEL-BITS: a positive (32-bit) integer.
- - VARIABLE-SAMPLE-LOCATIONS: a BOOL32.
+ - VARIABLE-SAMPLE-LOCATIONS: a boolean.
 
 Slot types:
 See SAMPLE-COUNT-FLAGS
 See EXTENT-2D
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -14177,10 +15926,7 @@ See SAMPLER-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ADVANCED-BLEND-COHERENT-OPERATIONS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ADVANCED-BLEND-COHERENT-OPERATIONS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -14221,14 +15967,11 @@ See DEVICE-CREATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - ADVANCED-BLEND-MAX-COLOR-ATTACHMENTS: a positive (32-bit) integer.
- - ADVANCED-BLEND-INDEPENDENT-BLEND: a BOOL32.
- - ADVANCED-BLEND-NON-PREMULTIPLIED-SRC-COLOR: a BOOL32.
- - ADVANCED-BLEND-NON-PREMULTIPLIED-DST-COLOR: a BOOL32.
- - ADVANCED-BLEND-CORRELATED-OVERLAP: a BOOL32.
- - ADVANCED-BLEND-ALL-OPERATIONS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ADVANCED-BLEND-INDEPENDENT-BLEND: a boolean.
+ - ADVANCED-BLEND-NON-PREMULTIPLIED-SRC-COLOR: a boolean.
+ - ADVANCED-BLEND-NON-PREMULTIPLIED-DST-COLOR: a boolean.
+ - ADVANCED-BLEND-CORRELATED-OVERLAP: a boolean.
+ - ADVANCED-BLEND-ALL-OPERATIONS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -14255,12 +15998,11 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SRC-PREMULTIPLIED: a BOOL32.
- - DST-PREMULTIPLIED: a BOOL32.
+ - SRC-PREMULTIPLIED: a boolean.
+ - DST-PREMULTIPLIED: a boolean.
  - BLEND-OVERLAP: an enum value of BLEND-OVERLAP-EXT.
 
 Slot types:
-See BOOL32
 See BLEND-OVERLAP-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -14284,11 +16026,8 @@ See PIPELINE-COLOR-BLEND-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - INLINE-UNIFORM-BLOCK: a BOOL32.
- - DESCRIPTOR-BINDING-INLINE-UNIFORM-BLOCK-UPDATE-AFTER-BIND: a BOOL32.
-
-Slot types:
-See BOOL32
+ - INLINE-UNIFORM-BLOCK: a boolean.
+ - DESCRIPTOR-BINDING-INLINE-UNIFORM-BLOCK-UPDATE-AFTER-BIND: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -14404,13 +16143,12 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-COVERAGE-MODULATION-STATE-CREATE-FLAGS-NV.
  - COVERAGE-MODULATION-MODE: an enum value of COVERAGE-MODULATION-MODE-NV.
- - COVERAGE-MODULATION-TABLE-ENABLE: a BOOL32.
+ - COVERAGE-MODULATION-TABLE-ENABLE: a boolean.
  - COVERAGE-MODULATION-TABLE (optional): a list of foreign pointer to a buffer of size COVERAGE-MODULATION-TABLE-COUNTs.
 
 Slot types:
 See PIPELINE-COVERAGE-MODULATION-STATE-CREATE-FLAGS-NV
 See COVERAGE-MODULATION-MODE-NV
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PIPELINE-MULTISAMPLE-STATE-CREATE-INFO
@@ -14534,10 +16272,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SUPPORTED: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SUPPORTED: a boolean.
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
 See DESCRIPTOR-SET-VARIABLE-DESCRIPTOR-COUNT-LAYOUT-SUPPORT
@@ -14559,10 +16294,7 @@ See GET-DESCRIPTOR-SET-LAYOUT-SUPPORT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-DRAW-PARAMETERS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-DRAW-PARAMETERS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -14586,11 +16318,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-FLOAT-16: a BOOL32.
- - SHADER-INT-8: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-FLOAT-16: a boolean.
+ - SHADER-INT-8: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -14676,25 +16405,24 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - DENORM-BEHAVIOR-INDEPENDENCE: an enum value of SHADER-FLOAT-CONTROLS-INDEPENDENCE.
  - ROUNDING-MODE-INDEPENDENCE: an enum value of SHADER-FLOAT-CONTROLS-INDEPENDENCE.
- - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-16: a BOOL32.
- - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-32: a BOOL32.
- - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-64: a BOOL32.
- - SHADER-DENORM-PRESERVE-FLOAT-16: a BOOL32.
- - SHADER-DENORM-PRESERVE-FLOAT-32: a BOOL32.
- - SHADER-DENORM-PRESERVE-FLOAT-64: a BOOL32.
- - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-16: a BOOL32.
- - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-32: a BOOL32.
- - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-64: a BOOL32.
- - SHADER-ROUNDING-MODE-RTE-FLOAT-16: a BOOL32.
- - SHADER-ROUNDING-MODE-RTE-FLOAT-32: a BOOL32.
- - SHADER-ROUNDING-MODE-RTE-FLOAT-64: a BOOL32.
- - SHADER-ROUNDING-MODE-RTZ-FLOAT-16: a BOOL32.
- - SHADER-ROUNDING-MODE-RTZ-FLOAT-32: a BOOL32.
- - SHADER-ROUNDING-MODE-RTZ-FLOAT-64: a BOOL32.
+ - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-16: a boolean.
+ - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-32: a boolean.
+ - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-64: a boolean.
+ - SHADER-DENORM-PRESERVE-FLOAT-16: a boolean.
+ - SHADER-DENORM-PRESERVE-FLOAT-32: a boolean.
+ - SHADER-DENORM-PRESERVE-FLOAT-64: a boolean.
+ - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-16: a boolean.
+ - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-32: a boolean.
+ - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-64: a boolean.
+ - SHADER-ROUNDING-MODE-RTE-FLOAT-16: a boolean.
+ - SHADER-ROUNDING-MODE-RTE-FLOAT-32: a boolean.
+ - SHADER-ROUNDING-MODE-RTE-FLOAT-64: a boolean.
+ - SHADER-ROUNDING-MODE-RTZ-FLOAT-16: a boolean.
+ - SHADER-ROUNDING-MODE-RTZ-FLOAT-32: a boolean.
+ - SHADER-ROUNDING-MODE-RTZ-FLOAT-64: a boolean.
 
 Slot types:
 See SHADER-FLOAT-CONTROLS-INDEPENDENCE
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -14713,10 +16441,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - HOST-QUERY-RESET: a BOOL32.
-
-Slot types:
-See BOOL32
+ - HOST-QUERY-RESET: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -15037,10 +16762,7 @@ See SUBMIT-DEBUG-UTILS-MESSAGE-EXT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEVICE-MEMORY-REPORT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEVICE-MEMORY-REPORT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -15248,15 +16970,12 @@ Slots:
  - PRIMITIVE-OVERESTIMATION-SIZE: a single-float.
  - MAX-EXTRA-PRIMITIVE-OVERESTIMATION-SIZE: a single-float.
  - EXTRA-PRIMITIVE-OVERESTIMATION-SIZE-GRANULARITY: a single-float.
- - PRIMITIVE-UNDERESTIMATION: a BOOL32.
- - CONSERVATIVE-POINT-AND-LINE-RASTERIZATION: a BOOL32.
- - DEGENERATE-TRIANGLES-RASTERIZED: a BOOL32.
- - DEGENERATE-LINES-RASTERIZED: a BOOL32.
- - FULLY-COVERED-FRAGMENT-SHADER-INPUT-VARIABLE: a BOOL32.
- - CONSERVATIVE-RASTERIZATION-POST-DEPTH-COVERAGE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PRIMITIVE-UNDERESTIMATION: a boolean.
+ - CONSERVATIVE-POINT-AND-LINE-RASTERIZATION: a boolean.
+ - DEGENERATE-TRIANGLES-RASTERIZED: a boolean.
+ - DEGENERATE-LINES-RASTERIZED: a boolean.
+ - FULLY-COVERED-FRAGMENT-SHADER-INPUT-VARIABLE: a boolean.
+ - CONSERVATIVE-RASTERIZATION-POST-DEPTH-COVERAGE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -15517,29 +17236,26 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-INPUT-ATTACHMENT-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - DESCRIPTOR-BINDING-UNIFORM-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-SAMPLED-IMAGE-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-STORAGE-IMAGE-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-STORAGE-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-UNIFORM-TEXEL-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-STORAGE-TEXEL-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-UPDATE-UNUSED-WHILE-PENDING: a BOOL32.
- - DESCRIPTOR-BINDING-PARTIALLY-BOUND: a BOOL32.
- - DESCRIPTOR-BINDING-VARIABLE-DESCRIPTOR-COUNT: a BOOL32.
- - RUNTIME-DESCRIPTOR-ARRAY: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-INPUT-ATTACHMENT-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - DESCRIPTOR-BINDING-UNIFORM-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-SAMPLED-IMAGE-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-STORAGE-IMAGE-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-STORAGE-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-UNIFORM-TEXEL-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-STORAGE-TEXEL-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-UPDATE-UNUSED-WHILE-PENDING: a boolean.
+ - DESCRIPTOR-BINDING-PARTIALLY-BOUND: a boolean.
+ - DESCRIPTOR-BINDING-VARIABLE-DESCRIPTOR-COUNT: a boolean.
+ - RUNTIME-DESCRIPTOR-ARRAY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -15648,13 +17364,13 @@ See DEVICE-CREATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MAX-UPDATE-AFTER-BIND-DESCRIPTORS-IN-ALL-POOLS: a positive (32-bit) integer.
- - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - ROBUST-BUFFER-ACCESS-UPDATE-AFTER-BIND: a BOOL32.
- - QUAD-DIVERGENT-IMPLICIT-LOD: a BOOL32.
+ - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - ROBUST-BUFFER-ACCESS-UPDATE-AFTER-BIND: a boolean.
+ - QUAD-DIVERGENT-IMPLICIT-LOD: a boolean.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-SAMPLERS: a positive (32-bit) integer.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-UNIFORM-BUFFERS: a positive (32-bit) integer.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-STORAGE-BUFFERS: a positive (32-bit) integer.
@@ -15670,9 +17386,6 @@ Slots:
  - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-SAMPLED-IMAGES: a positive (32-bit) integer.
  - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-STORAGE-IMAGES: a positive (32-bit) integer.
  - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-INPUT-ATTACHMENTS: a positive (32-bit) integer.
-
-Slot types:
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -16056,10 +17769,7 @@ See CMD-NEXT-SUBPASS-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TIMELINE-SEMAPHORE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - TIMELINE-SEMAPHORE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16457,10 +18167,7 @@ See ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - CONDITIONAL-RENDERING-ENABLE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - CONDITIONAL-RENDERING-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See COMMAND-BUFFER-INHERITANCE-INFO
@@ -16507,12 +18214,9 @@ See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - STORAGE-BUFFER-8-BIT-ACCESS: a BOOL32.
- - UNIFORM-AND-STORAGE-BUFFER-8-BIT-ACCESS: a BOOL32.
- - STORAGE-PUSH-CONSTANT-8: a BOOL32.
-
-Slot types:
-See BOOL32
+ - STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
+ - UNIFORM-AND-STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
+ - STORAGE-PUSH-CONSTANT-8: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16536,11 +18240,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - CONDITIONAL-RENDERING: a BOOL32.
- - INHERITED-CONDITIONAL-RENDERING: a BOOL32.
-
-Slot types:
-See BOOL32
+ - CONDITIONAL-RENDERING: a boolean.
+ - INHERITED-CONDITIONAL-RENDERING: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16568,12 +18269,9 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - VULKAN-MEMORY-MODEL: a BOOL32.
- - VULKAN-MEMORY-MODEL-DEVICE-SCOPE: a BOOL32.
- - VULKAN-MEMORY-MODEL-AVAILABILITY-VISIBILITY-CHAINS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - VULKAN-MEMORY-MODEL: a boolean.
+ - VULKAN-MEMORY-MODEL-DEVICE-SCOPE: a boolean.
+ - VULKAN-MEMORY-MODEL-AVAILABILITY-VISIBILITY-CHAINS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16597,11 +18295,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-BUFFER-INT-64-ATOMICS: a BOOL32.
- - SHADER-SHARED-INT-64-ATOMICS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-BUFFER-INT-64-ATOMICS: a boolean.
+ - SHADER-SHARED-INT-64-ATOMICS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16665,21 +18360,18 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-BUFFER-FLOAT-32-ATOMICS: a BOOL32.
- - SHADER-BUFFER-FLOAT-32-ATOMIC-ADD: a BOOL32.
- - SHADER-BUFFER-FLOAT-64-ATOMICS: a BOOL32.
- - SHADER-BUFFER-FLOAT-64-ATOMIC-ADD: a BOOL32.
- - SHADER-SHARED-FLOAT-32-ATOMICS: a BOOL32.
- - SHADER-SHARED-FLOAT-32-ATOMIC-ADD: a BOOL32.
- - SHADER-SHARED-FLOAT-64-ATOMICS: a BOOL32.
- - SHADER-SHARED-FLOAT-64-ATOMIC-ADD: a BOOL32.
- - SHADER-IMAGE-FLOAT-32-ATOMICS: a BOOL32.
- - SHADER-IMAGE-FLOAT-32-ATOMIC-ADD: a BOOL32.
- - SPARSE-IMAGE-FLOAT-32-ATOMICS: a BOOL32.
- - SPARSE-IMAGE-FLOAT-32-ATOMIC-ADD: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-BUFFER-FLOAT-32-ATOMICS: a boolean.
+ - SHADER-BUFFER-FLOAT-32-ATOMIC-ADD: a boolean.
+ - SHADER-BUFFER-FLOAT-64-ATOMICS: a boolean.
+ - SHADER-BUFFER-FLOAT-64-ATOMIC-ADD: a boolean.
+ - SHADER-SHARED-FLOAT-32-ATOMICS: a boolean.
+ - SHADER-SHARED-FLOAT-32-ATOMIC-ADD: a boolean.
+ - SHADER-SHARED-FLOAT-64-ATOMICS: a boolean.
+ - SHADER-SHARED-FLOAT-64-ATOMIC-ADD: a boolean.
+ - SHADER-IMAGE-FLOAT-32-ATOMICS: a boolean.
+ - SHADER-IMAGE-FLOAT-32-ATOMIC-ADD: a boolean.
+ - SPARSE-IMAGE-FLOAT-32-ATOMICS: a boolean.
+ - SPARSE-IMAGE-FLOAT-32-ATOMIC-ADD: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16703,11 +18395,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - VERTEX-ATTRIBUTE-INSTANCE-RATE-DIVISOR: a BOOL32.
- - VERTEX-ATTRIBUTE-INSTANCE-RATE-ZERO-DIVISOR: a BOOL32.
-
-Slot types:
-See BOOL32
+ - VERTEX-ATTRIBUTE-INSTANCE-RATE-DIVISOR: a boolean.
+ - VERTEX-ATTRIBUTE-INSTANCE-RATE-ZERO-DIVISOR: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16790,12 +18479,11 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - SUPPORTED-DEPTH-RESOLVE-MODES: a list containing a valid combination of RESOLVE-MODE-FLAGS.
  - SUPPORTED-STENCIL-RESOLVE-MODES: a list containing a valid combination of RESOLVE-MODE-FLAGS.
- - INDEPENDENT-RESOLVE-NONE: a BOOL32.
- - INDEPENDENT-RESOLVE: a BOOL32.
+ - INDEPENDENT-RESOLVE-NONE: a boolean.
+ - INDEPENDENT-RESOLVE: a boolean.
 
 Slot types:
 See RESOLVE-MODE-FLAGS
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -16869,10 +18557,7 @@ See IMAGE-VIEW-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DECODE-MODE-SHARED-EXPONENT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DECODE-MODE-SHARED-EXPONENT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16896,11 +18581,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TRANSFORM-FEEDBACK: a BOOL32.
- - GEOMETRY-STREAMS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - TRANSFORM-FEEDBACK: a boolean.
+ - GEOMETRY-STREAMS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -16962,14 +18644,13 @@ Slots:
  - MAX-TRANSFORM-FEEDBACK-STREAM-DATA-SIZE: a positive (32-bit) integer.
  - MAX-TRANSFORM-FEEDBACK-BUFFER-DATA-SIZE: a positive (32-bit) integer.
  - MAX-TRANSFORM-FEEDBACK-BUFFER-DATA-STRIDE: a positive (32-bit) integer.
- - TRANSFORM-FEEDBACK-QUERIES: a BOOL32.
- - TRANSFORM-FEEDBACK-STREAMS-LINES-TRIANGLES: a BOOL32.
- - TRANSFORM-FEEDBACK-RASTERIZATION-STREAM-SELECT: a BOOL32.
- - TRANSFORM-FEEDBACK-DRAW: a BOOL32.
+ - TRANSFORM-FEEDBACK-QUERIES: a boolean.
+ - TRANSFORM-FEEDBACK-STREAMS-LINES-TRIANGLES: a boolean.
+ - TRANSFORM-FEEDBACK-RASTERIZATION-STREAM-SELECT: a boolean.
+ - TRANSFORM-FEEDBACK-DRAW: a boolean.
 
 Slot types:
 See DEVICE-SIZE
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -17015,10 +18696,7 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - REPRESENTATIVE-FRAGMENT-TEST: a BOOL32.
-
-Slot types:
-See BOOL32
+ - REPRESENTATIVE-FRAGMENT-TEST: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17038,10 +18716,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - REPRESENTATIVE-FRAGMENT-TEST-ENABLE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - REPRESENTATIVE-FRAGMENT-TEST-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See GRAPHICS-PIPELINE-CREATE-INFO
@@ -17060,10 +18735,7 @@ See GRAPHICS-PIPELINE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - EXCLUSIVE-SCISSOR: a BOOL32.
-
-Slot types:
-See BOOL32
+ - EXCLUSIVE-SCISSOR: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17105,10 +18777,7 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - CORNER-SAMPLED-IMAGE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - CORNER-SAMPLED-IMAGE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17132,11 +18801,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - COMPUTE-DERIVATIVE-GROUP-QUADS: a BOOL32.
- - COMPUTE-DERIVATIVE-GROUP-LINEAR: a BOOL32.
-
-Slot types:
-See BOOL32
+ - COMPUTE-DERIVATIVE-GROUP-QUADS: a boolean.
+ - COMPUTE-DERIVATIVE-GROUP-LINEAR: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17156,10 +18822,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FRAGMENT-SHADER-BARYCENTRIC: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FRAGMENT-SHADER-BARYCENTRIC: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17179,10 +18842,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - IMAGE-FOOTPRINT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - IMAGE-FOOTPRINT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17202,10 +18862,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEDICATED-ALLOCATION-IMAGE-ALIASING: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEDICATED-ALLOCATION-IMAGE-ALIASING: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17246,11 +18903,10 @@ See CMD-SET-VIEWPORT-SHADING-RATE-PALETTE-NV
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADING-RATE-IMAGE-ENABLE: a BOOL32.
+ - SHADING-RATE-IMAGE-ENABLE: a boolean.
  - SHADING-RATE-PALETTES: a list of foreign pointer to a buffer of size VIEWPORT-COUNTs.
 
 Slot types:
-See BOOL32
 See SHADING-RATE-PALETTE-NV
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -17274,11 +18930,8 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADING-RATE-IMAGE: a BOOL32.
- - SHADING-RATE-COARSE-SAMPLE-ORDER: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADING-RATE-IMAGE: a boolean.
+ - SHADING-RATE-COARSE-SAMPLE-ORDER: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -17411,11 +19064,8 @@ See PIPELINE-VIEWPORT-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TASK-SHADER: a BOOL32.
- - MESH-SHADER: a BOOL32.
-
-Slot types:
-See BOOL32
+ - TASK-SHADER: a boolean.
+ - MESH-SHADER: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18101,14 +19751,11 @@ See GET-ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-NV
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ACCELERATION-STRUCTURE: a BOOL32.
- - ACCELERATION-STRUCTURE-CAPTURE-REPLAY: a BOOL32.
- - ACCELERATION-STRUCTURE-INDIRECT-BUILD: a BOOL32.
- - ACCELERATION-STRUCTURE-HOST-COMMANDS: a BOOL32.
- - DESCRIPTOR-BINDING-ACCELERATION-STRUCTURE-UPDATE-AFTER-BIND: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ACCELERATION-STRUCTURE: a boolean.
+ - ACCELERATION-STRUCTURE-CAPTURE-REPLAY: a boolean.
+ - ACCELERATION-STRUCTURE-INDIRECT-BUILD: a boolean.
+ - ACCELERATION-STRUCTURE-HOST-COMMANDS: a boolean.
+ - DESCRIPTOR-BINDING-ACCELERATION-STRUCTURE-UPDATE-AFTER-BIND: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18144,14 +19791,11 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - RAY-TRACING-PIPELINE: a BOOL32.
- - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY: a BOOL32.
- - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY-MIXED: a BOOL32.
- - RAY-TRACING-PIPELINE-TRACE-RAYS-INDIRECT: a BOOL32.
- - RAY-TRAVERSAL-PRIMITIVE-CULLING: a BOOL32.
-
-Slot types:
-See BOOL32
+ - RAY-TRACING-PIPELINE: a boolean.
+ - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY: a boolean.
+ - RAY-TRACING-PIPELINE-SHADER-GROUP-HANDLE-CAPTURE-REPLAY-MIXED: a boolean.
+ - RAY-TRACING-PIPELINE-TRACE-RAYS-INDIRECT: a boolean.
+ - RAY-TRAVERSAL-PRIMITIVE-CULLING: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18171,10 +19815,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - RAY-QUERY: a BOOL32.
-
-Slot types:
-See BOOL32
+ - RAY-QUERY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18602,12 +20243,9 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FRAGMENT-DENSITY-MAP: a BOOL32.
- - FRAGMENT-DENSITY-MAP-DYNAMIC: a BOOL32.
- - FRAGMENT-DENSITY-MAP-NON-SUBSAMPLED-IMAGES: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FRAGMENT-DENSITY-MAP: a boolean.
+ - FRAGMENT-DENSITY-MAP-DYNAMIC: a boolean.
+ - FRAGMENT-DENSITY-MAP-NON-SUBSAMPLED-IMAGES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18627,10 +20265,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FRAGMENT-DENSITY-MAP-DEFERRED: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FRAGMENT-DENSITY-MAP-DEFERRED: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18660,11 +20295,10 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - MIN-FRAGMENT-DENSITY-TEXEL-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-DENSITY-TEXEL-SIZE: an EXTENT-2D.
- - FRAGMENT-DENSITY-INVOCATIONS: a BOOL32.
+ - FRAGMENT-DENSITY-INVOCATIONS: a boolean.
 
 Slot types:
 See EXTENT-2D
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -18695,13 +20329,10 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SUBSAMPLED-LOADS: a BOOL32.
- - SUBSAMPLED-COARSE-RECONSTRUCTION-EARLY-ACCESS: a BOOL32.
+ - SUBSAMPLED-LOADS: a boolean.
+ - SUBSAMPLED-COARSE-RECONSTRUCTION-EARLY-ACCESS: a boolean.
  - MAX-SUBSAMPLED-ARRAY-LAYERS: a positive (32-bit) integer.
  - MAX-DESCRIPTOR-SET-SUBSAMPLED-SAMPLERS: a positive (32-bit) integer.
-
-Slot types:
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -18743,10 +20374,7 @@ See RENDER-PASS-CREATE-INFO-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SCALAR-BLOCK-LAYOUT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SCALAR-BLOCK-LAYOUT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18766,10 +20394,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SUPPORTS-PROTECTED: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SUPPORTS-PROTECTED: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SURFACE-CAPABILITIES-2-KHR
@@ -18788,10 +20413,7 @@ See SURFACE-CAPABILITIES-2-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - UNIFORM-BUFFER-STANDARD-LAYOUT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - UNIFORM-BUFFER-STANDARD-LAYOUT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18811,10 +20433,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEPTH-CLIP-ENABLE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEPTH-CLIP-ENABLE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18839,11 +20458,10 @@ See DEVICE-CREATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - FLAGS (optional): a list containing a valid combination of PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-FLAGS-EXT.
- - DEPTH-CLIP-ENABLE: a BOOL32.
+ - DEPTH-CLIP-ENABLE: a boolean.
 
 Slot types:
 See PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-FLAGS-EXT
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
@@ -18889,10 +20507,7 @@ See PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - MEMORY-PRIORITY: a BOOL32.
-
-Slot types:
-See BOOL32
+ - MEMORY-PRIORITY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18939,12 +20554,9 @@ See MEMORY-ALLOCATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - BUFFER-DEVICE-ADDRESS: a BOOL32.
- - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a BOOL32.
- - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - BUFFER-DEVICE-ADDRESS: a boolean.
+ - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a boolean.
+ - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -18972,12 +20584,9 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - BUFFER-DEVICE-ADDRESS: a BOOL32.
- - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a BOOL32.
- - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - BUFFER-DEVICE-ADDRESS: a boolean.
+ - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a boolean.
+ - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19087,11 +20696,8 @@ See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FILTER-CUBIC: a BOOL32.
- - FILTER-CUBIC-MINMAX: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FILTER-CUBIC: a boolean.
+ - FILTER-CUBIC-MINMAX: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See IMAGE-FORMAT-PROPERTIES-2
@@ -19110,10 +20716,7 @@ See IMAGE-FORMAT-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - IMAGELESS-FRAMEBUFFER: a BOOL32.
-
-Slot types:
-See BOOL32
+ - IMAGELESS-FRAMEBUFFER: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19223,10 +20826,7 @@ See RENDER-PASS-BEGIN-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TEXTURE-COMPRESSION-ASTC_-H-D-R: a BOOL32.
-
-Slot types:
-See BOOL32
+ - TEXTURE-COMPRESSION-ASTC_-H-D-R: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19250,11 +20850,8 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - COOPERATIVE-MATRIX: a BOOL32.
- - COOPERATIVE-MATRIX-ROBUST-BUFFER-ACCESS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - COOPERATIVE-MATRIX: a boolean.
+ - COOPERATIVE-MATRIX-ROBUST-BUFFER-ACCESS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19354,10 +20951,7 @@ See GET-PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - YCBCR-IMAGE-ARRAYS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - YCBCR-IMAGE-ARRAYS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19556,10 +21150,7 @@ See SWAPCHAIN-CREATE-INFO-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FULL-SCREEN-EXCLUSIVE-SUPPORTED: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FULL-SCREEN-EXCLUSIVE-SUPPORTED: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See SURFACE-CAPABILITIES-2-KHR
@@ -19582,11 +21173,8 @@ See SURFACE-CAPABILITIES-2-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PERFORMANCE-COUNTER-QUERY-POOLS: a BOOL32.
- - PERFORMANCE-COUNTER-MULTIPLE-QUERY-POOLS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PERFORMANCE-COUNTER-QUERY-POOLS: a boolean.
+ - PERFORMANCE-COUNTER-MULTIPLE-QUERY-POOLS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19606,10 +21194,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ALLOW-COMMAND-BUFFER-QUERY-COPIES: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ALLOW-COMMAND-BUFFER-QUERY-COPIES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -19830,10 +21415,7 @@ See CREATE-HEADLESS-SURFACE-EXT
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - COVERAGE-REDUCTION-MODE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - COVERAGE-REDUCTION-MODE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19920,10 +21502,7 @@ See GET-PHYSICAL-DEVICE-SUPPORTED-FRAMEBUFFER-MIXED-SAMPLES-COMBINATIONS-NV
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-INTEGER-FUNCTIONS-2: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-INTEGER-FUNCTIONS-2: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -19952,11 +21531,8 @@ Slots:
  - VALUE-32: a positive (32-bit) integer.
  - VALUE-64: a positive (64-bit) integer.
  - VALUE-FLOAT: a single-float.
- - VALUE-BOOL: a BOOL32.
+ - VALUE-BOOL: a boolean.
  - VALUE-STRING: a foreign pointer to a buffer of size NULL-TERMINATED.
-
-Slot types:
-See BOOL32
 "))
 
 (defclass performance-value-intel ()
@@ -20083,12 +21659,11 @@ See CMD-SET-PERFORMANCE-STREAM-MARKER-INTEL
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - TYPE: an enum value of PERFORMANCE-OVERRIDE-TYPE-INTEL.
- - ENABLE: a BOOL32.
+ - ENABLE: a boolean.
  - PARAMETER: a positive (64-bit) integer.
 
 Slot types:
 See PERFORMANCE-OVERRIDE-TYPE-INTEL
-See BOOL32
 
 Instances of this class are used as parameters of the following functions:
 See CMD-SET-PERFORMANCE-OVERRIDE-INTEL
@@ -20133,11 +21708,8 @@ See ACQUIRE-PERFORMANCE-CONFIGURATION-INTEL
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-SUBGROUP-CLOCK: a BOOL32.
- - SHADER-DEVICE-CLOCK: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-SUBGROUP-CLOCK: a boolean.
+ - SHADER-DEVICE-CLOCK: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20157,10 +21729,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - INDEX-TYPE-UINT-8: a BOOL32.
-
-Slot types:
-See BOOL32
+ - INDEX-TYPE-UINT-8: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20204,10 +21773,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-S-M-BUILTINS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-S-M-BUILTINS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20235,12 +21801,9 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FRAGMENT-SHADER-SAMPLE-INTERLOCK: a BOOL32.
- - FRAGMENT-SHADER-PIXEL-INTERLOCK: a BOOL32.
- - FRAGMENT-SHADER-SHADING-RATE-INTERLOCK: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FRAGMENT-SHADER-SAMPLE-INTERLOCK: a boolean.
+ - FRAGMENT-SHADER-PIXEL-INTERLOCK: a boolean.
+ - FRAGMENT-SHADER-SHADING-RATE-INTERLOCK: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20260,10 +21823,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SEPARATE-DEPTH-STENCIL-LAYOUTS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SEPARATE-DEPTH-STENCIL-LAYOUTS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20332,10 +21892,7 @@ See ATTACHMENT-DESCRIPTION-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PIPELINE-EXECUTABLE-INFO: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PIPELINE-EXECUTABLE-INFO: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20445,13 +22002,10 @@ See GET-PIPELINE-EXECUTABLE-STATISTICS-KHR
   (:documentation "Represents the union [VkPipelineExecutableStatisticValueKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineExecutableStatisticValueKHR.html).
 
 Slots:
- - B32: a BOOL32.
+ - B32: a boolean.
  - I64: a (64-bit) integer.
  - U64: a positive (64-bit) integer.
  - F64: a double-float.
-
-Slot types:
-See BOOL32
 "))
 
 (defclass pipeline-executable-statistic-khr ()
@@ -20523,12 +22077,9 @@ Slots:
  - NEXT (optional): an instance of a class extending this class.
  - NAME: a string.
  - DESCRIPTION: a string.
- - IS-TEXT: a BOOL32.
+ - IS-TEXT: a boolean.
  - DATA-SIZE: a positive integer.
  - DATA (optional): a foreign pointer to a buffer of size DATA-SIZE.
-
-Slot types:
-See BOOL32
 
 Instances of this class are used as parameters of the following functions:
 See GET-PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATIONS-KHR
@@ -20547,10 +22098,7 @@ See GET-PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATIONS-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-DEMOTE-TO-HELPER-INVOCATION: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-DEMOTE-TO-HELPER-INVOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20570,10 +22118,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - TEXEL-BUFFER-ALIGNMENT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - TEXEL-BUFFER-ALIGNMENT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20606,13 +22151,12 @@ See DEVICE-CREATE-INFO
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - STORAGE-TEXEL-BUFFER-OFFSET-ALIGNMENT-BYTES: a DEVICE-SIZE.
- - STORAGE-TEXEL-BUFFER-OFFSET-SINGLE-TEXEL-ALIGNMENT: a BOOL32.
+ - STORAGE-TEXEL-BUFFER-OFFSET-SINGLE-TEXEL-ALIGNMENT: a boolean.
  - UNIFORM-TEXEL-BUFFER-OFFSET-ALIGNMENT-BYTES: a DEVICE-SIZE.
- - UNIFORM-TEXEL-BUFFER-OFFSET-SINGLE-TEXEL-ALIGNMENT: a BOOL32.
+ - UNIFORM-TEXEL-BUFFER-OFFSET-SINGLE-TEXEL-ALIGNMENT: a boolean.
 
 Slot types:
 See DEVICE-SIZE
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -20635,11 +22179,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SUBGROUP-SIZE-CONTROL: a BOOL32.
- - COMPUTE-FULL-SUBGROUPS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SUBGROUP-SIZE-CONTROL: a boolean.
+ - COMPUTE-FULL-SUBGROUPS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20776,15 +22317,12 @@ See GET-DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - RECTANGULAR-LINES: a BOOL32.
- - BRESENHAM-LINES: a BOOL32.
- - SMOOTH-LINES: a BOOL32.
- - STIPPLED-RECTANGULAR-LINES: a BOOL32.
- - STIPPLED-BRESENHAM-LINES: a BOOL32.
- - STIPPLED-SMOOTH-LINES: a BOOL32.
-
-Slot types:
-See BOOL32
+ - RECTANGULAR-LINES: a boolean.
+ - BRESENHAM-LINES: a boolean.
+ - SMOOTH-LINES: a boolean.
+ - STIPPLED-RECTANGULAR-LINES: a boolean.
+ - STIPPLED-BRESENHAM-LINES: a boolean.
+ - STIPPLED-SMOOTH-LINES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20836,13 +22374,12 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 Slots:
  - NEXT (optional): an instance of a class extending this class.
  - LINE-RASTERIZATION-MODE: an enum value of LINE-RASTERIZATION-MODE-EXT.
- - STIPPLED-LINE-ENABLE: a BOOL32.
+ - STIPPLED-LINE-ENABLE: a boolean.
  - LINE-STIPPLE-FACTOR: a positive (32-bit) integer.
  - LINE-STIPPLE-PATTERN: a positive (16-bit) integer.
 
 Slot types:
 See LINE-RASTERIZATION-MODE-EXT
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
@@ -20861,10 +22398,7 @@ See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PIPELINE-CREATION-CACHE-CONTROL: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PIPELINE-CREATION-CACHE-CONTROL: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -20928,21 +22462,18 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - STORAGE-BUFFER-16-BIT-ACCESS: a BOOL32.
- - UNIFORM-AND-STORAGE-BUFFER-16-BIT-ACCESS: a BOOL32.
- - STORAGE-PUSH-CONSTANT-16: a BOOL32.
- - STORAGE-INPUT-OUTPUT-16: a BOOL32.
- - MULTIVIEW: a BOOL32.
- - MULTIVIEW-GEOMETRY-SHADER: a BOOL32.
- - MULTIVIEW-TESSELLATION-SHADER: a BOOL32.
- - VARIABLE-POINTERS-STORAGE-BUFFER: a BOOL32.
- - VARIABLE-POINTERS: a BOOL32.
- - PROTECTED-MEMORY: a BOOL32.
- - SAMPLER-YCBCR-CONVERSION: a BOOL32.
- - SHADER-DRAW-PARAMETERS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
+ - UNIFORM-AND-STORAGE-BUFFER-16-BIT-ACCESS: a boolean.
+ - STORAGE-PUSH-CONSTANT-16: a boolean.
+ - STORAGE-INPUT-OUTPUT-16: a boolean.
+ - MULTIVIEW: a boolean.
+ - MULTIVIEW-GEOMETRY-SHADER: a boolean.
+ - MULTIVIEW-TESSELLATION-SHADER: a boolean.
+ - VARIABLE-POINTERS-STORAGE-BUFFER: a boolean.
+ - VARIABLE-POINTERS: a boolean.
+ - PROTECTED-MEMORY: a boolean.
+ - SAMPLER-YCBCR-CONVERSION: a boolean.
+ - SHADER-DRAW-PARAMETERS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -21022,15 +22553,15 @@ Slots:
  - DRIVER-UUID: a positive (8-bit) integer.
  - DEVICE-LUID: a positive (8-bit) integer.
  - DEVICE-NODE-MASK: a positive (32-bit) integer.
- - DEVICE-LUID-VALID: a BOOL32.
+ - DEVICE-LUID-VALID: a boolean.
  - SUBGROUP-SIZE: a positive (32-bit) integer.
  - SUBGROUP-SUPPORTED-STAGES: a list containing a valid combination of SHADER-STAGE-FLAGS.
  - SUBGROUP-SUPPORTED-OPERATIONS: a list containing a valid combination of SUBGROUP-FEATURE-FLAGS.
- - SUBGROUP-QUAD-OPERATIONS-IN-ALL-STAGES: a BOOL32.
+ - SUBGROUP-QUAD-OPERATIONS-IN-ALL-STAGES: a boolean.
  - POINT-CLIPPING-BEHAVIOR: an enum value of POINT-CLIPPING-BEHAVIOR.
  - MAX-MULTIVIEW-VIEW-COUNT: a positive (32-bit) integer.
  - MAX-MULTIVIEW-INSTANCE-INDEX: a positive (32-bit) integer.
- - PROTECTED-NO-FAULT: a BOOL32.
+ - PROTECTED-NO-FAULT: a boolean.
  - MAX-PER-SET-DESCRIPTORS: a positive (32-bit) integer.
  - MAX-MEMORY-ALLOCATION-SIZE: a DEVICE-SIZE.
 
@@ -21038,7 +22569,6 @@ Slot types:
 See SHADER-STAGE-FLAGS
 See SUBGROUP-FEATURE-FLAGS
 See POINT-CLIPPING-BEHAVIOR
-See BOOL32
 See DEVICE-SIZE
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21242,56 +22772,53 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SAMPLER-MIRROR-CLAMP-TO-EDGE: a BOOL32.
- - DRAW-INDIRECT-COUNT: a BOOL32.
- - STORAGE-BUFFER-8-BIT-ACCESS: a BOOL32.
- - UNIFORM-AND-STORAGE-BUFFER-8-BIT-ACCESS: a BOOL32.
- - STORAGE-PUSH-CONSTANT-8: a BOOL32.
- - SHADER-BUFFER-INT-64-ATOMICS: a BOOL32.
- - SHADER-SHARED-INT-64-ATOMICS: a BOOL32.
- - SHADER-FLOAT-16: a BOOL32.
- - SHADER-INT-8: a BOOL32.
- - DESCRIPTOR-INDEXING: a BOOL32.
- - SHADER-INPUT-ATTACHMENT-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a BOOL32.
- - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a BOOL32.
- - DESCRIPTOR-BINDING-UNIFORM-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-SAMPLED-IMAGE-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-STORAGE-IMAGE-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-STORAGE-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-UNIFORM-TEXEL-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-STORAGE-TEXEL-BUFFER-UPDATE-AFTER-BIND: a BOOL32.
- - DESCRIPTOR-BINDING-UPDATE-UNUSED-WHILE-PENDING: a BOOL32.
- - DESCRIPTOR-BINDING-PARTIALLY-BOUND: a BOOL32.
- - DESCRIPTOR-BINDING-VARIABLE-DESCRIPTOR-COUNT: a BOOL32.
- - RUNTIME-DESCRIPTOR-ARRAY: a BOOL32.
- - SAMPLER-FILTER-MINMAX: a BOOL32.
- - SCALAR-BLOCK-LAYOUT: a BOOL32.
- - IMAGELESS-FRAMEBUFFER: a BOOL32.
- - UNIFORM-BUFFER-STANDARD-LAYOUT: a BOOL32.
- - SHADER-SUBGROUP-EXTENDED-TYPES: a BOOL32.
- - SEPARATE-DEPTH-STENCIL-LAYOUTS: a BOOL32.
- - HOST-QUERY-RESET: a BOOL32.
- - TIMELINE-SEMAPHORE: a BOOL32.
- - BUFFER-DEVICE-ADDRESS: a BOOL32.
- - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a BOOL32.
- - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a BOOL32.
- - VULKAN-MEMORY-MODEL: a BOOL32.
- - VULKAN-MEMORY-MODEL-DEVICE-SCOPE: a BOOL32.
- - VULKAN-MEMORY-MODEL-AVAILABILITY-VISIBILITY-CHAINS: a BOOL32.
- - SHADER-OUTPUT-VIEWPORT-INDEX: a BOOL32.
- - SHADER-OUTPUT-LAYER: a BOOL32.
- - SUBGROUP-BROADCAST-DYNAMIC-ID: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SAMPLER-MIRROR-CLAMP-TO-EDGE: a boolean.
+ - DRAW-INDIRECT-COUNT: a boolean.
+ - STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
+ - UNIFORM-AND-STORAGE-BUFFER-8-BIT-ACCESS: a boolean.
+ - STORAGE-PUSH-CONSTANT-8: a boolean.
+ - SHADER-BUFFER-INT-64-ATOMICS: a boolean.
+ - SHADER-SHARED-INT-64-ATOMICS: a boolean.
+ - SHADER-FLOAT-16: a boolean.
+ - SHADER-INT-8: a boolean.
+ - DESCRIPTOR-INDEXING: a boolean.
+ - SHADER-INPUT-ATTACHMENT-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-DYNAMIC-INDEXING: a boolean.
+ - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-UNIFORM-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - SHADER-STORAGE-TEXEL-BUFFER-ARRAY-NON-UNIFORM-INDEXING: a boolean.
+ - DESCRIPTOR-BINDING-UNIFORM-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-SAMPLED-IMAGE-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-STORAGE-IMAGE-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-STORAGE-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-UNIFORM-TEXEL-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-STORAGE-TEXEL-BUFFER-UPDATE-AFTER-BIND: a boolean.
+ - DESCRIPTOR-BINDING-UPDATE-UNUSED-WHILE-PENDING: a boolean.
+ - DESCRIPTOR-BINDING-PARTIALLY-BOUND: a boolean.
+ - DESCRIPTOR-BINDING-VARIABLE-DESCRIPTOR-COUNT: a boolean.
+ - RUNTIME-DESCRIPTOR-ARRAY: a boolean.
+ - SAMPLER-FILTER-MINMAX: a boolean.
+ - SCALAR-BLOCK-LAYOUT: a boolean.
+ - IMAGELESS-FRAMEBUFFER: a boolean.
+ - UNIFORM-BUFFER-STANDARD-LAYOUT: a boolean.
+ - SHADER-SUBGROUP-EXTENDED-TYPES: a boolean.
+ - SEPARATE-DEPTH-STENCIL-LAYOUTS: a boolean.
+ - HOST-QUERY-RESET: a boolean.
+ - TIMELINE-SEMAPHORE: a boolean.
+ - BUFFER-DEVICE-ADDRESS: a boolean.
+ - BUFFER-DEVICE-ADDRESS-CAPTURE-REPLAY: a boolean.
+ - BUFFER-DEVICE-ADDRESS-MULTI-DEVICE: a boolean.
+ - VULKAN-MEMORY-MODEL: a boolean.
+ - VULKAN-MEMORY-MODEL-DEVICE-SCOPE: a boolean.
+ - VULKAN-MEMORY-MODEL-AVAILABILITY-VISIBILITY-CHAINS: a boolean.
+ - SHADER-OUTPUT-VIEWPORT-INDEX: a boolean.
+ - SHADER-OUTPUT-LAYER: a boolean.
+ - SUBGROUP-BROADCAST-DYNAMIC-ID: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -21521,29 +23048,29 @@ Slots:
  - CONFORMANCE-VERSION: a CONFORMANCE-VERSION.
  - DENORM-BEHAVIOR-INDEPENDENCE: an enum value of SHADER-FLOAT-CONTROLS-INDEPENDENCE.
  - ROUNDING-MODE-INDEPENDENCE: an enum value of SHADER-FLOAT-CONTROLS-INDEPENDENCE.
- - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-16: a BOOL32.
- - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-32: a BOOL32.
- - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-64: a BOOL32.
- - SHADER-DENORM-PRESERVE-FLOAT-16: a BOOL32.
- - SHADER-DENORM-PRESERVE-FLOAT-32: a BOOL32.
- - SHADER-DENORM-PRESERVE-FLOAT-64: a BOOL32.
- - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-16: a BOOL32.
- - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-32: a BOOL32.
- - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-64: a BOOL32.
- - SHADER-ROUNDING-MODE-RTE-FLOAT-16: a BOOL32.
- - SHADER-ROUNDING-MODE-RTE-FLOAT-32: a BOOL32.
- - SHADER-ROUNDING-MODE-RTE-FLOAT-64: a BOOL32.
- - SHADER-ROUNDING-MODE-RTZ-FLOAT-16: a BOOL32.
- - SHADER-ROUNDING-MODE-RTZ-FLOAT-32: a BOOL32.
- - SHADER-ROUNDING-MODE-RTZ-FLOAT-64: a BOOL32.
+ - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-16: a boolean.
+ - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-32: a boolean.
+ - SHADER-SIGNED-ZERO-INF-NAN-PRESERVE-FLOAT-64: a boolean.
+ - SHADER-DENORM-PRESERVE-FLOAT-16: a boolean.
+ - SHADER-DENORM-PRESERVE-FLOAT-32: a boolean.
+ - SHADER-DENORM-PRESERVE-FLOAT-64: a boolean.
+ - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-16: a boolean.
+ - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-32: a boolean.
+ - SHADER-DENORM-FLUSH-TO-ZERO-FLOAT-64: a boolean.
+ - SHADER-ROUNDING-MODE-RTE-FLOAT-16: a boolean.
+ - SHADER-ROUNDING-MODE-RTE-FLOAT-32: a boolean.
+ - SHADER-ROUNDING-MODE-RTE-FLOAT-64: a boolean.
+ - SHADER-ROUNDING-MODE-RTZ-FLOAT-16: a boolean.
+ - SHADER-ROUNDING-MODE-RTZ-FLOAT-32: a boolean.
+ - SHADER-ROUNDING-MODE-RTZ-FLOAT-64: a boolean.
  - MAX-UPDATE-AFTER-BIND-DESCRIPTORS-IN-ALL-POOLS: a positive (32-bit) integer.
- - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a BOOL32.
- - ROBUST-BUFFER-ACCESS-UPDATE-AFTER-BIND: a BOOL32.
- - QUAD-DIVERGENT-IMPLICIT-LOD: a BOOL32.
+ - SHADER-UNIFORM-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-SAMPLED-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-STORAGE-BUFFER-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-STORAGE-IMAGE-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - SHADER-INPUT-ATTACHMENT-ARRAY-NON-UNIFORM-INDEXING-NATIVE: a boolean.
+ - ROBUST-BUFFER-ACCESS-UPDATE-AFTER-BIND: a boolean.
+ - QUAD-DIVERGENT-IMPLICIT-LOD: a boolean.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-SAMPLERS: a positive (32-bit) integer.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-UNIFORM-BUFFERS: a positive (32-bit) integer.
  - MAX-PER-STAGE-DESCRIPTOR-UPDATE-AFTER-BIND-STORAGE-BUFFERS: a positive (32-bit) integer.
@@ -21561,10 +23088,10 @@ Slots:
  - MAX-DESCRIPTOR-SET-UPDATE-AFTER-BIND-INPUT-ATTACHMENTS: a positive (32-bit) integer.
  - SUPPORTED-DEPTH-RESOLVE-MODES: a list containing a valid combination of RESOLVE-MODE-FLAGS.
  - SUPPORTED-STENCIL-RESOLVE-MODES: a list containing a valid combination of RESOLVE-MODE-FLAGS.
- - INDEPENDENT-RESOLVE-NONE: a BOOL32.
- - INDEPENDENT-RESOLVE: a BOOL32.
- - FILTER-MINMAX-SINGLE-COMPONENT-FORMATS: a BOOL32.
- - FILTER-MINMAX-IMAGE-COMPONENT-MAPPING: a BOOL32.
+ - INDEPENDENT-RESOLVE-NONE: a boolean.
+ - INDEPENDENT-RESOLVE: a boolean.
+ - FILTER-MINMAX-SINGLE-COMPONENT-FORMATS: a boolean.
+ - FILTER-MINMAX-IMAGE-COMPONENT-MAPPING: a boolean.
  - MAX-TIMELINE-SEMAPHORE-VALUE-DIFFERENCE: a positive (64-bit) integer.
  - FRAMEBUFFER-INTEGER-COLOR-SAMPLE-COUNTS (optional): a list containing a valid combination of SAMPLE-COUNT-FLAGS.
 
@@ -21573,7 +23100,6 @@ See DRIVER-ID
 See CONFORMANCE-VERSION
 See SHADER-FLOAT-CONTROLS-INDEPENDENCE
 See RESOLVE-MODE-FLAGS
-See BOOL32
 See SAMPLE-COUNT-FLAGS
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
@@ -21616,10 +23142,7 @@ See COMPUTE-PIPELINE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DEVICE-COHERENT-MEMORY: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DEVICE-COHERENT-MEMORY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -21732,11 +23255,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - CUSTOM-BORDER-COLORS: a BOOL32.
- - CUSTOM-BORDER-COLOR-WITHOUT-FORMAT: a BOOL32.
-
-Slot types:
-See BOOL32
+ - CUSTOM-BORDER-COLORS: a boolean.
+ - CUSTOM-BORDER-COLOR-WITHOUT-FORMAT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -21871,11 +23391,10 @@ See DEVICE-SIZE
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ARRAY-OF-POINTERS: a BOOL32.
+ - ARRAY-OF-POINTERS: a boolean.
  - DATA: a DEVICE-OR-HOST-ADDRESS-CONST-KHR.
 
 Slot types:
-See BOOL32
 See DEVICE-OR-HOST-ADDRESS-CONST-KHR
 "))
 
@@ -22364,10 +23883,7 @@ See PIPELINE
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - EXTENDED-DYNAMIC-STATE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - EXTENDED-DYNAMIC-STATE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22460,10 +23976,7 @@ See COMMAND-BUFFER-INHERITANCE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - DIAGNOSTICS-CONFIG: a BOOL32.
-
-Slot types:
-See BOOL32
+ - DIAGNOSTICS-CONFIG: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22505,10 +24018,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-ZERO-INITIALIZE-WORKGROUP-MEMORY: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-ZERO-INITIALIZE-WORKGROUP-MEMORY: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22536,12 +24046,9 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ROBUST-BUFFER-ACCESS-2: a BOOL32.
- - ROBUST-IMAGE-ACCESS-2: a BOOL32.
- - NULL-DESCRIPTOR: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ROBUST-BUFFER-ACCESS-2: a boolean.
+ - ROBUST-IMAGE-ACCESS-2: a boolean.
+ - NULL-DESCRIPTOR: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22588,10 +24095,7 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - ROBUST-IMAGE-ACCESS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - ROBUST-IMAGE-ACCESS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22623,13 +24127,10 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - WORKGROUP-MEMORY-EXPLICIT-LAYOUT: a BOOL32.
- - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-SCALAR-BLOCK-LAYOUT: a BOOL32.
- - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-8-BIT-ACCESS: a BOOL32.
- - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-16-BIT-ACCESS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT: a boolean.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-SCALAR-BLOCK-LAYOUT: a boolean.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-8-BIT-ACCESS: a boolean.
+ - WORKGROUP-MEMORY-EXPLICIT-LAYOUT-16-BIT-ACCESS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22705,24 +24206,21 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - CONSTANT-ALPHA-COLOR-BLEND-FACTORS: a BOOL32.
- - EVENTS: a BOOL32.
- - IMAGE-VIEW-FORMAT-REINTERPRETATION: a BOOL32.
- - IMAGE-VIEW-FORMAT-SWIZZLE: a BOOL32.
- - IMAGE-VIEW-2D-ON-3D-IMAGE: a BOOL32.
- - MULTISAMPLE-ARRAY-IMAGE: a BOOL32.
- - MUTABLE-COMPARISON-SAMPLERS: a BOOL32.
- - POINT-POLYGONS: a BOOL32.
- - SAMPLER-MIP-LOD-BIAS: a BOOL32.
- - SEPARATE-STENCIL-MASK-REF: a BOOL32.
- - SHADER-SAMPLE-RATE-INTERPOLATION-FUNCTIONS: a BOOL32.
- - TESSELLATION-ISOLINES: a BOOL32.
- - TESSELLATION-POINT-MODE: a BOOL32.
- - TRIANGLE-FANS: a BOOL32.
- - VERTEX-ATTRIBUTE-ACCESS-BEYOND-STRIDE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - CONSTANT-ALPHA-COLOR-BLEND-FACTORS: a boolean.
+ - EVENTS: a boolean.
+ - IMAGE-VIEW-FORMAT-REINTERPRETATION: a boolean.
+ - IMAGE-VIEW-FORMAT-SWIZZLE: a boolean.
+ - IMAGE-VIEW-2D-ON-3D-IMAGE: a boolean.
+ - MULTISAMPLE-ARRAY-IMAGE: a boolean.
+ - MUTABLE-COMPARISON-SAMPLERS: a boolean.
+ - POINT-POLYGONS: a boolean.
+ - SAMPLER-MIP-LOD-BIAS: a boolean.
+ - SEPARATE-STENCIL-MASK-REF: a boolean.
+ - SHADER-SAMPLE-RATE-INTERPOLATION-FUNCTIONS: a boolean.
+ - TESSELLATION-ISOLINES: a boolean.
+ - TESSELLATION-POINT-MODE: a boolean.
+ - TRIANGLE-FANS: a boolean.
+ - VERTEX-ATTRIBUTE-ACCESS-BEYOND-STRIDE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -22765,11 +24263,8 @@ See PHYSICAL-DEVICE-PROPERTIES-2
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FORMAT-A4R4G4B4: a BOOL32.
- - FORMAT-A4B4G4R4: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FORMAT-A4R4G4B4: a boolean.
+ - FORMAT-A4B4G4R4: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -23243,11 +24738,8 @@ See CMD-RESOLVE-IMAGE-2-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-IMAGE-INT-64-ATOMICS: a BOOL32.
- - SPARSE-IMAGE-INT-64-ATOMICS: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-IMAGE-INT-64-ATOMICS: a boolean.
+ - SPARSE-IMAGE-INT-64-ATOMICS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -23331,12 +24823,9 @@ See GRAPHICS-PIPELINE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - PIPELINE-FRAGMENT-SHADING-RATE: a BOOL32.
- - PRIMITIVE-FRAGMENT-SHADING-RATE: a BOOL32.
- - ATTACHMENT-FRAGMENT-SHADING-RATE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - PIPELINE-FRAGMENT-SHADING-RATE: a boolean.
+ - PRIMITIVE-FRAGMENT-SHADING-RATE: a boolean.
+ - ATTACHMENT-FRAGMENT-SHADING-RATE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -23423,25 +24912,24 @@ Slots:
  - MIN-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-SHADING-RATE-ATTACHMENT-TEXEL-SIZE-ASPECT-RATIO: a positive (32-bit) integer.
- - PRIMITIVE-FRAGMENT-SHADING-RATE-WITH-MULTIPLE-VIEWPORTS: a BOOL32.
- - LAYERED-SHADING-RATE-ATTACHMENTS: a BOOL32.
- - FRAGMENT-SHADING-RATE-NON-TRIVIAL-COMBINER-OPS: a BOOL32.
+ - PRIMITIVE-FRAGMENT-SHADING-RATE-WITH-MULTIPLE-VIEWPORTS: a boolean.
+ - LAYERED-SHADING-RATE-ATTACHMENTS: a boolean.
+ - FRAGMENT-SHADING-RATE-NON-TRIVIAL-COMBINER-OPS: a boolean.
  - MAX-FRAGMENT-SIZE: an EXTENT-2D.
  - MAX-FRAGMENT-SIZE-ASPECT-RATIO: a positive (32-bit) integer.
  - MAX-FRAGMENT-SHADING-RATE-COVERAGE-SAMPLES: a positive (32-bit) integer.
  - MAX-FRAGMENT-SHADING-RATE-RASTERIZATION-SAMPLES: an enum value of SAMPLE-COUNT-FLAG-BITS.
- - FRAGMENT-SHADING-RATE-WITH-SHADER-DEPTH-STENCIL-WRITES: a BOOL32.
- - FRAGMENT-SHADING-RATE-WITH-SAMPLE-MASK: a BOOL32.
- - FRAGMENT-SHADING-RATE-WITH-SHADER-SAMPLE-MASK: a BOOL32.
- - FRAGMENT-SHADING-RATE-WITH-CONSERVATIVE-RASTERIZATION: a BOOL32.
- - FRAGMENT-SHADING-RATE-WITH-FRAGMENT-SHADER-INTERLOCK: a BOOL32.
- - FRAGMENT-SHADING-RATE-WITH-CUSTOM-SAMPLE-LOCATIONS: a BOOL32.
- - FRAGMENT-SHADING-RATE-STRICT-MULTIPLY-COMBINER: a BOOL32.
+ - FRAGMENT-SHADING-RATE-WITH-SHADER-DEPTH-STENCIL-WRITES: a boolean.
+ - FRAGMENT-SHADING-RATE-WITH-SAMPLE-MASK: a boolean.
+ - FRAGMENT-SHADING-RATE-WITH-SHADER-SAMPLE-MASK: a boolean.
+ - FRAGMENT-SHADING-RATE-WITH-CONSERVATIVE-RASTERIZATION: a boolean.
+ - FRAGMENT-SHADING-RATE-WITH-FRAGMENT-SHADER-INTERLOCK: a boolean.
+ - FRAGMENT-SHADING-RATE-WITH-CUSTOM-SAMPLE-LOCATIONS: a boolean.
+ - FRAGMENT-SHADING-RATE-STRICT-MULTIPLY-COMBINER: a boolean.
 
 Slot types:
 See EXTENT-2D
 See SAMPLE-COUNT-FLAG-BITS
-See BOOL32
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
@@ -23488,10 +24976,7 @@ See GET-PHYSICAL-DEVICE-FRAGMENT-SHADING-RATES-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SHADER-TERMINATE-INVOCATION: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SHADER-TERMINATE-INVOCATION: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -23519,12 +25004,9 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - FRAGMENT-SHADING-RATE-ENUMS: a BOOL32.
- - SUPERSAMPLE-FRAGMENT-SHADING-RATES: a BOOL32.
- - NO-INVOCATION-FRAGMENT-SHADING-RATES: a BOOL32.
-
-Slot types:
-See BOOL32
+ - FRAGMENT-SHADING-RATE-ENUMS: a boolean.
+ - SUPERSAMPLE-FRAGMENT-SHADING-RATES: a boolean.
+ - NO-INVOCATION-FRAGMENT-SHADING-RATES: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -23632,10 +25114,7 @@ See GET-ACCELERATION-STRUCTURE-BUILD-SIZES-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - MUTABLE-DESCRIPTOR-TYPE: a BOOL32.
-
-Slot types:
-See BOOL32
+ - MUTABLE-DESCRIPTOR-TYPE: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
@@ -24057,10 +25536,7 @@ See GET-QUEUE-CHECKPOINT-DATA-2-NV
 
 Slots:
  - NEXT (optional): an instance of a class extending this class.
- - SYNCHRONIZATION-2: a BOOL32.
-
-Slot types:
-See BOOL32
+ - SYNCHRONIZATION-2: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
