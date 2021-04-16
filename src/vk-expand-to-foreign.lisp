@@ -9413,6 +9413,75 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:mutable-descriptor-type-list-count (length (vk:mutable-descriptor-type-lists ,value))
           %vk:p-mutable-descriptor-type-lists (vk-alloc:foreign-allocate-and-fill '(:struct %vk:mutable-descriptor-type-list-valve) (vk:mutable-descriptor-type-lists ,value) ,ptr))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-vertex-input-dynamic-state-features-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:vertex-input-dynamic-state)
+       ,ptr
+       (:struct %vk:physical-device-vertex-input-dynamic-state-features-ext))
+    (setf %vk:s-type :physical-device-vertex-input-dynamic-state-features-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:vertex-input-dynamic-state (vk:vertex-input-dynamic-state ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-vertex-input-binding-description-2-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:binding
+        %vk:stride
+        %vk:input-rate
+        %vk:divisor)
+       ,ptr
+       (:struct %vk:vertex-input-binding-description-2-ext))
+    (setf %vk:s-type :vertex-input-binding-description-2-ext
+          %vk:p-next (cffi:null-pointer)
+          %vk:binding (vk:binding ,value)
+          %vk:stride (vk:stride ,value)
+          %vk:input-rate (vk:input-rate ,value)
+          %vk:divisor (vk:divisor ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-vertex-input-attribute-description-2-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:location
+        %vk:binding
+        %vk:format
+        %vk:offset)
+       ,ptr
+       (:struct %vk:vertex-input-attribute-description-2-ext))
+    (setf %vk:s-type :vertex-input-attribute-description-2-ext
+          %vk:p-next (cffi:null-pointer)
+          %vk:location (vk:location ,value)
+          %vk:binding (vk:binding ,value)
+          %vk:format (vk:format ,value)
+          %vk:offset (vk:offset ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-color-write-enable-features-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:color-write-enable)
+       ,ptr
+       (:struct %vk:physical-device-color-write-enable-features-ext))
+    (setf %vk:s-type :physical-device-color-write-enable-features-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:color-write-enable (vk:color-write-enable ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-pipeline-color-write-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:attachment-count
+        %vk:p-color-write-enables)
+       ,ptr
+       (:struct %vk:pipeline-color-write-create-info-ext))
+    (setf %vk:s-type :pipeline-color-write-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:attachment-count (length (vk:color-write-enables ,value))
+          %vk:p-color-write-enables (vk-alloc:foreign-allocate-and-fill '%vk:bool32 (vk:color-write-enables ,value) ,ptr))))
+
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-memory-barrier-2-khr) ptr)
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -9596,4 +9665,738 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :physical-device-synchronization-2-features-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:synchronization-2 (vk:synchronization-2 ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-queue-family-properties-2-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:video-codec-operations)
+       ,ptr
+       (:struct %vk:video-queue-family-properties-2-khr))
+    (setf %vk:s-type :video-queue-family-properties-2-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:video-codec-operations (vk:video-codec-operations ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-profiles-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:profile-count
+        %vk:p-profiles)
+       ,ptr
+       (:struct %vk:video-profiles-khr))
+    (setf %vk:s-type :video-profiles-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:profile-count (vk:profile-count ,value)
+          %vk:p-profiles (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-profile-khr) (vk:profiles ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-video-format-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:image-usage
+        %vk:p-video-profiles)
+       ,ptr
+       (:struct %vk:physical-device-video-format-info-khr))
+    (setf %vk:s-type :physical-device-video-format-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:image-usage (vk:image-usage ,value)
+          %vk:p-video-profiles (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-profiles-khr) (vk:video-profiles ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-format-properties-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:format)
+       ,ptr
+       (:struct %vk:video-format-properties-khr))
+    (setf %vk:s-type :video-format-properties-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:format (vk:format ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-profile-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:video-codec-operation
+        %vk:chroma-subsampling
+        %vk:luma-bit-depth
+        %vk:chroma-bit-depth)
+       ,ptr
+       (:struct %vk:video-profile-khr))
+    (setf %vk:s-type :video-profile-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:video-codec-operation (vk:video-codec-operation ,value)
+          %vk:chroma-subsampling (vk:chroma-subsampling ,value)
+          %vk:luma-bit-depth (vk:luma-bit-depth ,value)
+          %vk:chroma-bit-depth (vk:chroma-bit-depth ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-capabilities-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:capability-flags
+        %vk:min-bitstream-buffer-offset-alignment
+        %vk:min-bitstream-buffer-size-alignment
+        %vk:video-picture-extent-granularity
+        %vk:min-extent
+        %vk:max-extent
+        %vk:max-reference-pictures-slots-count
+        %vk:max-reference-pictures-active-count)
+       ,ptr
+       (:struct %vk:video-capabilities-khr))
+    (setf %vk:s-type :video-capabilities-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:capability-flags (vk:capability-flags ,value)
+          %vk:min-bitstream-buffer-offset-alignment (vk:min-bitstream-buffer-offset-alignment ,value)
+          %vk:min-bitstream-buffer-size-alignment (vk:min-bitstream-buffer-size-alignment ,value)
+          %vk:video-picture-extent-granularity (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:video-picture-extent-granularity ,value) ,ptr)
+          %vk:min-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:min-extent ,value) ,ptr)
+          %vk:max-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-extent ,value) ,ptr)
+          %vk:max-reference-pictures-slots-count (vk:max-reference-pictures-slots-count ,value)
+          %vk:max-reference-pictures-active-count (vk:max-reference-pictures-active-count ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-get-memory-properties-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-bind-index
+        %vk:p-memory-requirements)
+       ,ptr
+       (:struct %vk:video-get-memory-properties-khr))
+    (setf %vk:s-type :video-get-memory-properties-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:memory-bind-index (vk:memory-bind-index ,value)
+          %vk:p-memory-requirements (vk-alloc:foreign-allocate-and-fill '(:struct %vk:memory-requirements-2) (vk:memory-requirements ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-bind-memory-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-bind-index
+        %vk:memory
+        %vk:memory-offset
+        %vk:memory-size)
+       ,ptr
+       (:struct %vk:video-bind-memory-khr))
+    (setf %vk:s-type :video-bind-memory-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:memory-bind-index (vk:memory-bind-index ,value)
+          %vk:memory (if (vk:memory ,value) (vk:memory ,value) (cffi:null-pointer))
+          %vk:memory-offset (vk:memory-offset ,value)
+          %vk:memory-size (vk:memory-size ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-picture-resource-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:coded-offset
+        %vk:coded-extent
+        %vk:base-array-layer
+        %vk:image-view-binding)
+       ,ptr
+       (:struct %vk:video-picture-resource-khr))
+    (setf %vk:s-type :video-picture-resource-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:coded-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-2d) (vk:coded-offset ,value) ,ptr)
+          %vk:coded-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:coded-extent ,value) ,ptr)
+          %vk:base-array-layer (vk:base-array-layer ,value)
+          %vk:image-view-binding (if (vk:image-view-binding ,value) (vk:image-view-binding ,value) (cffi:null-pointer)))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-reference-slot-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:slot-index
+        %vk:p-picture-resource)
+       ,ptr
+       (:struct %vk:video-reference-slot-khr))
+    (setf %vk:s-type :video-reference-slot-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:slot-index (vk:slot-index ,value)
+          %vk:p-picture-resource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-picture-resource-khr) (vk:picture-resource ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:coded-offset
+        %vk:coded-extent
+        %vk:src-buffer
+        %vk:src-buffer-offset
+        %vk:src-buffer-range
+        %vk:dst-picture-resource
+        %vk:p-setup-reference-slot
+        %vk:reference-slot-count
+        %vk:p-reference-slots)
+       ,ptr
+       (:struct %vk:video-decode-info-khr))
+    (setf %vk:s-type :video-decode-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:coded-offset (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-2d) (vk:coded-offset ,value) ,ptr)
+          %vk:coded-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:coded-extent ,value) ,ptr)
+          %vk:src-buffer (if (vk:src-buffer ,value) (vk:src-buffer ,value) (cffi:null-pointer))
+          %vk:src-buffer-offset (vk:src-buffer-offset ,value)
+          %vk:src-buffer-range (vk:src-buffer-range ,value)
+          %vk:dst-picture-resource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-picture-resource-khr) (vk:dst-picture-resource ,value) ,ptr)
+          %vk:p-setup-reference-slot (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-reference-slot-khr) (vk:setup-reference-slot ,value) ,ptr)
+          %vk:reference-slot-count (length (vk:reference-slots ,value))
+          %vk:p-reference-slots (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-reference-slot-khr) (vk:reference-slots ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-profile-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc
+        %vk:field-layout)
+       ,ptr
+       (:struct %vk:video-decode-h264-profile-ext))
+    (setf %vk:s-type :video-decode-h264-profile-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:std-profile-idc (vk:std-profile-idc ,value)
+          %vk:field-layout (vk:field-layout ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-capabilities-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-level
+        %vk:field-offset-granularity
+        %vk:std-extension-version)
+       ,ptr
+       (:struct %vk:video-decode-h264-capabilities-ext))
+    (setf %vk:s-type :video-decode-h264-capabilities-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-level (vk:max-level ,value)
+          %vk:field-offset-granularity (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-2d) (vk:field-offset-granularity ,value) ,ptr)
+          %vk:std-extension-version (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extension-properties) (vk:std-extension-version ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-session-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:p-std-extension-version)
+       ,ptr
+       (:struct %vk:video-decode-h264-session-create-info-ext))
+    (setf %vk:s-type :video-decode-h264-session-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:p-std-extension-version (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extension-properties) (vk:std-extension-version ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-session-parameters-add-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ,ptr
+       (:struct %vk:video-decode-h264-session-parameters-add-info-ext))
+    (setf %vk:s-type :video-decode-h264-session-parameters-add-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:sps-std-count (length (vk:sps-std ,value))
+          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-sequence-parameter-set (vk:sps-std ,value) ,ptr)
+          %vk:pps-std-count (length (vk:pps-std ,value))
+          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-picture-parameter-set (vk:pps-std ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-session-parameters-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ,ptr
+       (:struct %vk:video-decode-h264-session-parameters-create-info-ext))
+    (setf %vk:s-type :video-decode-h264-session-parameters-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-sps-std-count (vk:max-sps-std-count ,value)
+          %vk:max-pps-std-count (vk:max-pps-std-count ,value)
+          %vk:p-parameters-add-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-decode-h264-session-parameters-add-info-ext) (vk:parameters-add-info ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-picture-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-picture-info
+        %vk:slices-count
+        %vk:p-slices-data-offsets)
+       ,ptr
+       (:struct %vk:video-decode-h264-picture-info-ext))
+    (setf %vk:s-type :video-decode-h264-picture-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:p-std-picture-info (vk:std-picture-info ,value)
+          %vk:slices-count (length (vk:slices-data-offsets ,value))
+          %vk:p-slices-data-offsets (vk-alloc:foreign-allocate-and-fill :uint32 (vk:slices-data-offsets ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-dpb-slot-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-reference-info)
+       ,ptr
+       (:struct %vk:video-decode-h264-dpb-slot-info-ext))
+    (setf %vk:s-type :video-decode-h264-dpb-slot-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:p-std-reference-info (vk:std-reference-info ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-mvc-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-mvc)
+       ,ptr
+       (:struct %vk:video-decode-h264-mvc-ext))
+    (setf %vk:s-type :video-decode-h264-mvc-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:p-std-mvc (vk:std-mvc ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-profile-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc)
+       ,ptr
+       (:struct %vk:video-decode-h265-profile-ext))
+    (setf %vk:s-type :video-decode-h265-profile-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:std-profile-idc (vk:std-profile-idc ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-capabilities-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-level
+        %vk:std-extension-version)
+       ,ptr
+       (:struct %vk:video-decode-h265-capabilities-ext))
+    (setf %vk:s-type :video-decode-h265-capabilities-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-level (vk:max-level ,value)
+          %vk:std-extension-version (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extension-properties) (vk:std-extension-version ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-session-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:p-std-extension-version)
+       ,ptr
+       (:struct %vk:video-decode-h265-session-create-info-ext))
+    (setf %vk:s-type :video-decode-h265-session-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:p-std-extension-version (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extension-properties) (vk:std-extension-version ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-session-parameters-add-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ,ptr
+       (:struct %vk:video-decode-h265-session-parameters-add-info-ext))
+    (setf %vk:s-type :video-decode-h265-session-parameters-add-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:sps-std-count (length (vk:sps-std ,value))
+          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h265-sequence-parameter-set (vk:sps-std ,value) ,ptr)
+          %vk:pps-std-count (length (vk:pps-std ,value))
+          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h265-picture-parameter-set (vk:pps-std ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-session-parameters-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ,ptr
+       (:struct %vk:video-decode-h265-session-parameters-create-info-ext))
+    (setf %vk:s-type :video-decode-h265-session-parameters-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-sps-std-count (vk:max-sps-std-count ,value)
+          %vk:max-pps-std-count (vk:max-pps-std-count ,value)
+          %vk:p-parameters-add-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-decode-h265-session-parameters-add-info-ext) (vk:parameters-add-info ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-picture-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-picture-info
+        %vk:slices-count
+        %vk:p-slices-data-offsets)
+       ,ptr
+       (:struct %vk:video-decode-h265-picture-info-ext))
+    (setf %vk:s-type :video-decode-h265-picture-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:p-std-picture-info (vk:std-picture-info ,value)
+          %vk:slices-count (length (vk:slices-data-offsets ,value))
+          %vk:p-slices-data-offsets (vk-alloc:foreign-allocate-and-fill :uint32 (vk:slices-data-offsets ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-dpb-slot-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-reference-info)
+       ,ptr
+       (:struct %vk:video-decode-h265-dpb-slot-info-ext))
+    (setf %vk:s-type :video-decode-h265-dpb-slot-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:p-std-reference-info (vk:std-reference-info ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-session-create-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:queue-family-index
+        %vk:flags
+        %vk:p-video-profile
+        %vk:picture-format
+        %vk:max-coded-extent
+        %vk:reference-pictures-format
+        %vk:max-reference-pictures-slots-count
+        %vk:max-reference-pictures-active-count)
+       ,ptr
+       (:struct %vk:video-session-create-info-khr))
+    (setf %vk:s-type :video-session-create-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:queue-family-index (vk:queue-family-index ,value)
+          %vk:flags (vk:flags ,value)
+          %vk:p-video-profile (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-profile-khr) (vk:video-profile ,value) ,ptr)
+          %vk:picture-format (vk:picture-format ,value)
+          %vk:max-coded-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-coded-extent ,value) ,ptr)
+          %vk:reference-pictures-format (vk:reference-pictures-format ,value)
+          %vk:max-reference-pictures-slots-count (vk:max-reference-pictures-slots-count ,value)
+          %vk:max-reference-pictures-active-count (vk:max-reference-pictures-active-count ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-session-parameters-create-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:video-session-parameters-template
+        %vk:video-session)
+       ,ptr
+       (:struct %vk:video-session-parameters-create-info-khr))
+    (setf %vk:s-type :video-session-parameters-create-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:video-session-parameters-template (if (vk:video-session-parameters-template ,value) (vk:video-session-parameters-template ,value) (cffi:null-pointer))
+          %vk:video-session (if (vk:video-session ,value) (vk:video-session ,value) (cffi:null-pointer)))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-session-parameters-update-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:update-sequence-count)
+       ,ptr
+       (:struct %vk:video-session-parameters-update-info-khr))
+    (setf %vk:s-type :video-session-parameters-update-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:update-sequence-count (vk:update-sequence-count ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-begin-coding-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:codec-quality-preset
+        %vk:video-session
+        %vk:video-session-parameters
+        %vk:reference-slot-count
+        %vk:p-reference-slots)
+       ,ptr
+       (:struct %vk:video-begin-coding-info-khr))
+    (setf %vk:s-type :video-begin-coding-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:flags (vk:flags ,value)
+          %vk:codec-quality-preset (vk:codec-quality-preset ,value)
+          %vk:video-session (if (vk:video-session ,value) (vk:video-session ,value) (cffi:null-pointer))
+          %vk:video-session-parameters (if (vk:video-session-parameters ,value) (vk:video-session-parameters ,value) (cffi:null-pointer))
+          %vk:reference-slot-count (length (vk:reference-slots ,value))
+          %vk:p-reference-slots (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-reference-slot-khr) (vk:reference-slots ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-end-coding-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags)
+       ,ptr
+       (:struct %vk:video-end-coding-info-khr))
+    (setf %vk:s-type :video-end-coding-info-khr
+          %vk:p-next (cffi:null-pointer)
+          %vk:flags (vk:flags ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-coding-control-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags)
+       ,ptr
+       (:struct %vk:video-coding-control-info-khr))
+    (setf %vk:s-type :video-coding-control-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:quality-level
+        %vk:coded-extent
+        %vk:dst-bitstream-buffer
+        %vk:dst-bitstream-buffer-offset
+        %vk:dst-bitstream-buffer-max-range
+        %vk:src-picture-resource
+        %vk:p-setup-reference-slot
+        %vk:reference-slot-count
+        %vk:p-reference-slots)
+       ,ptr
+       (:struct %vk:video-encode-info-khr))
+    (setf %vk:s-type :video-encode-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:quality-level (vk:quality-level ,value)
+          %vk:coded-extent (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:coded-extent ,value) ,ptr)
+          %vk:dst-bitstream-buffer (if (vk:dst-bitstream-buffer ,value) (vk:dst-bitstream-buffer ,value) (cffi:null-pointer))
+          %vk:dst-bitstream-buffer-offset (vk:dst-bitstream-buffer-offset ,value)
+          %vk:dst-bitstream-buffer-max-range (vk:dst-bitstream-buffer-max-range ,value)
+          %vk:src-picture-resource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-picture-resource-khr) (vk:src-picture-resource ,value) ,ptr)
+          %vk:p-setup-reference-slot (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-reference-slot-khr) (vk:setup-reference-slot ,value) ,ptr)
+          %vk:reference-slot-count (length (vk:reference-slots ,value))
+          %vk:p-reference-slots (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-reference-slot-khr) (vk:reference-slots ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-rate-control-info-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:rate-control-mode
+        %vk:average-bitrate
+        %vk:peak-to-average-bitrate-ratio
+        %vk:frame-rate-numerator
+        %vk:frame-rate-denominator
+        %vk:virtual-buffer-size-in-ms)
+       ,ptr
+       (:struct %vk:video-encode-rate-control-info-khr))
+    (setf %vk:s-type :video-encode-rate-control-info-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:rate-control-mode (vk:rate-control-mode ,value)
+          %vk:average-bitrate (vk:average-bitrate ,value)
+          %vk:peak-to-average-bitrate-ratio (vk:peak-to-average-bitrate-ratio ,value)
+          %vk:frame-rate-numerator (vk:frame-rate-numerator ,value)
+          %vk:frame-rate-denominator (vk:frame-rate-denominator ,value)
+          %vk:virtual-buffer-size-in-ms (vk:virtual-buffer-size-in-ms ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-capabilities-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:input-mode-flags
+        %vk:output-mode-flags
+        %vk:min-picture-size-in-mbs
+        %vk:max-picture-size-in-mbs
+        %vk:input-image-data-alignment
+        %vk:max-num-l-0-reference-for-p
+        %vk:max-num-l-0-reference-for-b
+        %vk:max-num-l-1-reference
+        %vk:quality-level-count
+        %vk:std-extension-version)
+       ,ptr
+       (:struct %vk:video-encode-h264-capabilities-ext))
+    (setf %vk:s-type :video-encode-h264-capabilities-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:input-mode-flags (vk:input-mode-flags ,value)
+          %vk:output-mode-flags (vk:output-mode-flags ,value)
+          %vk:min-picture-size-in-mbs (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:min-picture-size-in-mbs ,value) ,ptr)
+          %vk:max-picture-size-in-mbs (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-picture-size-in-mbs ,value) ,ptr)
+          %vk:input-image-data-alignment (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:input-image-data-alignment ,value) ,ptr)
+          %vk:max-num-l-0-reference-for-p (vk:max-num-l-0-reference-for-p ,value)
+          %vk:max-num-l-0-reference-for-b (vk:max-num-l-0-reference-for-b ,value)
+          %vk:max-num-l-1-reference (vk:max-num-l-1-reference ,value)
+          %vk:quality-level-count (vk:quality-level-count ,value)
+          %vk:std-extension-version (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extension-properties) (vk:std-extension-version ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-session-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:max-picture-size-in-mbs
+        %vk:p-std-extension-version)
+       ,ptr
+       (:struct %vk:video-encode-h264-session-create-info-ext))
+    (setf %vk:s-type :video-encode-h264-session-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:flags (vk:flags ,value)
+          %vk:max-picture-size-in-mbs (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:max-picture-size-in-mbs ,value) ,ptr)
+          %vk:p-std-extension-version (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extension-properties) (vk:std-extension-version ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-session-parameters-add-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ,ptr
+       (:struct %vk:video-encode-h264-session-parameters-add-info-ext))
+    (setf %vk:s-type :video-encode-h264-session-parameters-add-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:sps-std-count (length (vk:sps-std ,value))
+          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-sequence-parameter-set (vk:sps-std ,value) ,ptr)
+          %vk:pps-std-count (length (vk:pps-std ,value))
+          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-picture-parameter-set (vk:pps-std ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-session-parameters-create-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ,ptr
+       (:struct %vk:video-encode-h264-session-parameters-create-info-ext))
+    (setf %vk:s-type :video-encode-h264-session-parameters-create-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-sps-std-count (vk:max-sps-std-count ,value)
+          %vk:max-pps-std-count (vk:max-pps-std-count ,value)
+          %vk:p-parameters-add-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-session-parameters-add-info-ext) (vk:parameters-add-info ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-dpb-slot-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:slot-index
+        %vk:p-std-picture-info)
+       ,ptr
+       (:struct %vk:video-encode-h264-dpb-slot-info-ext))
+    (setf %vk:s-type :video-encode-h264-dpb-slot-info-ext
+          %vk:p-next (cffi:null-pointer)
+          %vk:slot-index (vk:slot-index ,value)
+          %vk:p-std-picture-info (vk:std-picture-info ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-vcl-frame-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ref-default-final-list-0-entry-count
+        %vk:p-ref-default-final-list-0-entries
+        %vk:ref-default-final-list-1-entry-count
+        %vk:p-ref-default-final-list-1-entries
+        %vk:nalu-slice-entry-count
+        %vk:p-nalu-slice-entries
+        %vk:p-current-picture-info)
+       ,ptr
+       (:struct %vk:video-encode-h264-vcl-frame-info-ext))
+    (setf %vk:s-type :video-encode-h264-vcl-frame-info-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:ref-default-final-list-0-entry-count (length (vk:ref-default-final-list-0-entries ,value))
+          %vk:p-ref-default-final-list-0-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-dpb-slot-info-ext) (vk:ref-default-final-list-0-entries ,value) ,ptr)
+          %vk:ref-default-final-list-1-entry-count (length (vk:ref-default-final-list-1-entries ,value))
+          %vk:p-ref-default-final-list-1-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-dpb-slot-info-ext) (vk:ref-default-final-list-1-entries ,value) ,ptr)
+          %vk:nalu-slice-entry-count (length (vk:nalu-slice-entries ,value))
+          %vk:p-nalu-slice-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-nalu-slice-ext) (vk:nalu-slice-entries ,value) ,ptr)
+          %vk:p-current-picture-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-dpb-slot-info-ext) (vk:current-picture-info ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-emit-picture-parameters-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-id
+        %vk:emit-sps-enable
+        %vk:pps-id-entry-count
+        %vk:pps-id-entries)
+       ,ptr
+       (:struct %vk:video-encode-h264-emit-picture-parameters-ext))
+    (setf %vk:s-type :video-encode-h264-emit-picture-parameters-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:sps-id (vk:sps-id ,value)
+          %vk:emit-sps-enable (vk:emit-sps-enable ,value)
+          %vk:pps-id-entry-count (length (vk:pps-id-entries ,value))
+          %vk:pps-id-entries (vk-alloc:foreign-allocate-and-fill :uint8 (vk:pps-id-entries ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-profile-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc)
+       ,ptr
+       (:struct %vk:video-encode-h264-profile-ext))
+    (setf %vk:s-type :video-encode-h264-profile-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:std-profile-idc (vk:std-profile-idc ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-nalu-slice-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-slice-header-std
+        %vk:mb-count
+        %vk:ref-final-list-0-entry-count
+        %vk:p-ref-final-list-0-entries
+        %vk:ref-final-list-1-entry-count
+        %vk:p-ref-final-list-1-entries
+        %vk:preceding-nalu-bytes
+        %vk:min-qp
+        %vk:max-qp)
+       ,ptr
+       (:struct %vk:video-encode-h264-nalu-slice-ext))
+    (setf %vk:s-type :video-encode-h264-nalu-slice-ext
+          %vk:p-next (cffi:null-pointer)
+          %vk:p-slice-header-std (vk:slice-header-std ,value)
+          %vk:mb-count (vk:mb-count ,value)
+          %vk:ref-final-list-0-entry-count (length (vk:ref-final-list-0-entries ,value))
+          %vk:p-ref-final-list-0-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-dpb-slot-info-ext) (vk:ref-final-list-0-entries ,value) ,ptr)
+          %vk:ref-final-list-1-entry-count (length (vk:ref-final-list-1-entries ,value))
+          %vk:p-ref-final-list-1-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-dpb-slot-info-ext) (vk:ref-final-list-1-entries ,value) ,ptr)
+          %vk:preceding-nalu-bytes (vk:preceding-nalu-bytes ,value)
+          %vk:min-qp (vk:min-qp ,value)
+          %vk:max-qp (vk:max-qp ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-inherited-viewport-scissor-features-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:inherited-viewport-scissor-2d)
+       ,ptr
+       (:struct %vk:physical-device-inherited-viewport-scissor-features-nv))
+    (setf %vk:s-type :physical-device-inherited-viewport-scissor-features-nv
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:inherited-viewport-scissor-2d (vk:inherited-viewport-scissor-2d ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-command-buffer-inheritance-viewport-scissor-info-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:viewport-scissor-2d
+        %vk:viewport-depth-count
+        %vk:p-viewport-depths)
+       ,ptr
+       (:struct %vk:command-buffer-inheritance-viewport-scissor-info-nv))
+    (setf %vk:s-type :command-buffer-inheritance-viewport-scissor-info-nv
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:viewport-scissor-2d (vk:viewport-scissor-2d ,value)
+          %vk:viewport-depth-count (vk:viewport-depth-count ,value)
+          %vk:p-viewport-depths (vk-alloc:foreign-allocate-and-fill '(:struct %vk:viewport) (vk:viewport-depths ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-ycbcr-2-plane-4-4-4-formats-features-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ycbcr-2plane-4-4-4-formats)
+       ,ptr
+       (:struct %vk:physical-device-ycbcr-2-plane-4-4-4-formats-features-ext))
+    (setf %vk:s-type :physical-device-ycbcr-2-plane-444-formats-features-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:ycbcr-2plane-4-4-4-formats (vk:ycbcr-2plane-4-4-4-formats ,value))))
 

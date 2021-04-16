@@ -35,3 +35,19 @@ See MAKE-API-VERSION"
                  (first split-version)
                  (second split-version)
                  (third split-version))))
+
+(defun read-shader-source (shader-path)
+  "Reads a compiled SPIR-V shader file located at SHADER-PATH into a vector of 32-bit integers.
+The result of this function is ready to use as :CODE in a VK:SHADER-MODULE-CREATE-INFO.
+
+See VK:SHADER-MODULE-CREATE-INFO
+"
+  (with-open-file (stream shader-path :element-type '(unsigned-byte 32))
+                 (let ((shader-code (make-array 1024
+                                                :element-type '(unsigned-byte 32)
+                                                :adjustable t
+                                                :fill-pointer 0)))
+                   (loop for b = (read-byte stream nil nil)
+                         while b
+                         do (vector-push-extend b shader-code)
+                         finally (return (adjust-array shader-code (length shader-code)))))))

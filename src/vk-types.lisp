@@ -326,6 +326,10 @@ Has the values:
  - :SHADER-BINDING-TABLE
  - :TRANSFORM-FEEDBACK-BUFFER
  - :TRANSFORM-FEEDBACK-COUNTER-BUFFER
+ - :VIDEO-DECODE-SRC
+ - :VIDEO-DECODE-DST
+ - :VIDEO-ENCODE-DST
+ - :VIDEO-ENCODE-SRC
  - :SHADER-DEVICE-ADDRESS
  - :ACCELERATION-STRUCTURE-BUILD-INPUT-READ-ONLY
  - :ACCELERATION-STRUCTURE-STORAGE"
@@ -343,6 +347,10 @@ Has the values:
     :shader-binding-table
     :transform-feedback-buffer
     :transform-feedback-counter-buffer
+    :video-decode-src
+    :video-decode-dst
+    :video-encode-dst
+    :video-encode-src
     :shader-device-address
     :acceleration-structure-build-input-read-only
     :acceleration-structure-storage))
@@ -540,7 +548,9 @@ Has the values:
  - :DEPTH-BOUNDS-TEST-ENABLE-EXT
  - :STENCIL-TEST-ENABLE-EXT
  - :STENCIL-OP-EXT
- - :RAY-TRACING-PIPELINE-STACK-SIZE-KHR"
+ - :RAY-TRACING-PIPELINE-STACK-SIZE-KHR
+ - :VERTEX-INPUT-EXT
+ - :COLOR-WRITE-ENABLE-EXT"
   '(member nil 
     :viewport
     :scissor
@@ -571,7 +581,9 @@ Has the values:
     :depth-bounds-test-enable-ext
     :stencil-test-enable-ext
     :stencil-op-ext
-    :ray-tracing-pipeline-stack-size-khr))
+    :ray-tracing-pipeline-stack-size-khr
+    :vertex-input-ext
+    :color-write-enable-ext))
 
 (deftype fence-create-flag-bits ()
   "Represents the enum [VkFenceCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkFenceCreateFlagBits.html).
@@ -840,6 +852,10 @@ Has the values:
  - :G16-B16-R16-3PLANE-422-UNORM
  - :G16-B16R16-2PLANE-422-UNORM
  - :G16-B16-R16-3PLANE-444-UNORM
+ - :G8-B8R8-2PLANE-444-UNORM-EXT
+ - :G10X6-B10X6R10X6-2PLANE-444-UNORM-3PACK16-EXT
+ - :G12X4-B12X4R12X4-2PLANE-444-UNORM-3PACK16-EXT
+ - :G16-B16R16-2PLANE-444-UNORM-EXT
  - :A4R4G4B4-UNORM-PACK16-EXT
  - :A4B4G4R4-UNORM-PACK16-EXT"
   '(member nil 
@@ -1084,6 +1100,10 @@ Has the values:
     :g16-b16-r16-3plane-422-unorm
     :g16-b16r16-2plane-422-unorm
     :g16-b16-r16-3plane-444-unorm
+    :g8-b8r8-2plane-444-unorm-ext
+    :g10x6-b10x6r10x6-2plane-444-unorm-3pack16-ext
+    :g12x4-b12x4r12x4-2plane-444-unorm-3pack16-ext
+    :g16-b16r16-2plane-444-unorm-ext
     :a4r4g4b4-unorm-pack16-ext
     :a4b4g4r4-unorm-pack16-ext))
 
@@ -1116,6 +1136,10 @@ Has the values:
  - :DISJOINT
  - :COSITED-CHROMA-SAMPLES
  - :FRAGMENT-DENSITY-MAP
+ - :VIDEO-DECODE-OUTPUT
+ - :VIDEO-DECODE-DPB
+ - :VIDEO-ENCODE-INPUT
+ - :VIDEO-ENCODE-DPB
  - :ACCELERATION-STRUCTURE-VERTEX-BUFFER
  - :FRAGMENT-SHADING-RATE-ATTACHMENT"
   '(member nil 
@@ -1144,6 +1168,10 @@ Has the values:
     :disjoint
     :cosited-chroma-samples
     :fragment-density-map
+    :video-decode-output
+    :video-decode-dpb
+    :video-encode-input
+    :video-encode-dpb
     :acceleration-structure-vertex-buffer
     :fragment-shading-rate-attachment))
 
@@ -1235,6 +1263,9 @@ Has the values:
  - :TRANSFER-DST-OPTIMAL
  - :PREINITIALIZED
  - :PRESENT-SRC-KHR
+ - :VIDEO-DECODE-DST-KHR
+ - :VIDEO-DECODE-SRC-KHR
+ - :VIDEO-DECODE-DPB-KHR
  - :SHARED-PRESENT-KHR
  - :DEPTH-READ-ONLY-STENCIL-ATTACHMENT-OPTIMAL
  - :DEPTH-ATTACHMENT-STENCIL-READ-ONLY-OPTIMAL
@@ -1244,6 +1275,9 @@ Has the values:
  - :DEPTH-READ-ONLY-OPTIMAL
  - :STENCIL-ATTACHMENT-OPTIMAL
  - :STENCIL-READ-ONLY-OPTIMAL
+ - :VIDEO-ENCODE-DST-KHR
+ - :VIDEO-ENCODE-SRC-KHR
+ - :VIDEO-ENCODE-DPB-KHR
  - :READ-ONLY-OPTIMAL-KHR
  - :ATTACHMENT-OPTIMAL-KHR"
   '(member nil 
@@ -1257,6 +1291,9 @@ Has the values:
     :transfer-dst-optimal
     :preinitialized
     :present-src-khr
+    :video-decode-dst-khr
+    :video-decode-src-khr
+    :video-decode-dpb-khr
     :shared-present-khr
     :depth-read-only-stencil-attachment-optimal
     :depth-attachment-stencil-read-only-optimal
@@ -1266,6 +1303,9 @@ Has the values:
     :depth-read-only-optimal
     :stencil-attachment-optimal
     :stencil-read-only-optimal
+    :video-encode-dst-khr
+    :video-encode-src-khr
+    :video-encode-dpb-khr
     :read-only-optimal-khr
     :attachment-optimal-khr))
 
@@ -1306,7 +1346,13 @@ Has the values:
  - :TRANSIENT-ATTACHMENT
  - :INPUT-ATTACHMENT
  - :SHADING-RATE-IMAGE
- - :FRAGMENT-DENSITY-MAP"
+ - :FRAGMENT-DENSITY-MAP
+ - :VIDEO-DECODE-DST
+ - :VIDEO-DECODE-SRC
+ - :VIDEO-DECODE-DPB
+ - :VIDEO-ENCODE-DST
+ - :VIDEO-ENCODE-SRC
+ - :VIDEO-ENCODE-DPB"
   '(member nil 
     :transfer-src
     :transfer-dst
@@ -1317,7 +1363,13 @@ Has the values:
     :transient-attachment
     :input-attachment
     :shading-rate-image
-    :fragment-density-map))
+    :fragment-density-map
+    :video-decode-dst
+    :video-decode-src
+    :video-decode-dpb
+    :video-encode-dst
+    :video-encode-src
+    :video-encode-dpb))
 
 (deftype image-view-create-flag-bits ()
   "Represents the enum [VkImageViewCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewCreateFlagBits.html).
@@ -1650,12 +1702,14 @@ Has the values:
  - :64
  - :WAIT
  - :WITH-AVAILABILITY
- - :PARTIAL"
+ - :PARTIAL
+ - :WITH-STATUS"
   '(member nil 
     :64
     :wait
     :with-availability
-    :partial))
+    :partial
+    :with-status))
 
 (deftype query-type ()
   "Represents the enum [VkQueryType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryType.html).
@@ -1664,22 +1718,26 @@ Has the values:
  - :OCCLUSION
  - :PIPELINE-STATISTICS
  - :TIMESTAMP
+ - :RESULT-STATUS-ONLY-KHR
  - :TRANSFORM-FEEDBACK-STREAM-EXT
  - :PERFORMANCE-QUERY-KHR
  - :ACCELERATION-STRUCTURE-COMPACTED-SIZE-KHR
  - :ACCELERATION-STRUCTURE-SERIALIZATION-SIZE-KHR
  - :ACCELERATION-STRUCTURE-COMPACTED-SIZE-NV
- - :PERFORMANCE-QUERY-INTEL"
+ - :PERFORMANCE-QUERY-INTEL
+ - :VIDEO-ENCODE-BITSTREAM-BUFFER-RANGE-KHR"
   '(member nil 
     :occlusion
     :pipeline-statistics
     :timestamp
+    :result-status-only-khr
     :transform-feedback-stream-ext
     :performance-query-khr
     :acceleration-structure-compacted-size-khr
     :acceleration-structure-serialization-size-khr
     :acceleration-structure-compacted-size-nv
-    :performance-query-intel))
+    :performance-query-intel
+    :video-encode-bitstream-buffer-range-khr))
 
 (deftype queue-flag-bits ()
   "Represents the enum [VkQueueFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueueFlagBits.html).
@@ -1689,13 +1747,17 @@ Has the values:
  - :COMPUTE
  - :TRANSFER
  - :SPARSE-BINDING
- - :PROTECTED"
+ - :PROTECTED
+ - :VIDEO-DECODE
+ - :VIDEO-ENCODE"
   '(member nil 
     :graphics
     :compute
     :transfer
     :sparse-binding
-    :protected))
+    :protected
+    :video-decode
+    :video-encode))
 
 (deftype subpass-contents ()
   "Represents the enum [VkSubpassContents](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSubpassContents.html).
@@ -1941,6 +2003,23 @@ Has the values:
  - :DEBUG-MARKER-OBJECT-NAME-INFO-EXT
  - :DEBUG-MARKER-OBJECT-TAG-INFO-EXT
  - :DEBUG-MARKER-MARKER-INFO-EXT
+ - :VIDEO-PROFILE-KHR
+ - :VIDEO-CAPABILITIES-KHR
+ - :VIDEO-PICTURE-RESOURCE-KHR
+ - :VIDEO-GET-MEMORY-PROPERTIES-KHR
+ - :VIDEO-BIND-MEMORY-KHR
+ - :VIDEO-SESSION-CREATE-INFO-KHR
+ - :VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR
+ - :VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR
+ - :VIDEO-BEGIN-CODING-INFO-KHR
+ - :VIDEO-END-CODING-INFO-KHR
+ - :VIDEO-CODING-CONTROL-INFO-KHR
+ - :VIDEO-REFERENCE-SLOT-KHR
+ - :VIDEO-QUEUE-FAMILY-PROPERTIES-2-KHR
+ - :VIDEO-PROFILES-KHR
+ - :PHYSICAL-DEVICE-VIDEO-FORMAT-INFO-KHR
+ - :VIDEO-FORMAT-PROPERTIES-KHR
+ - :VIDEO-DECODE-INFO-KHR
  - :DEDICATED-ALLOCATION-IMAGE-CREATE-INFO-NV
  - :DEDICATED-ALLOCATION-BUFFER-CREATE-INFO-NV
  - :DEDICATED-ALLOCATION-MEMORY-ALLOCATE-INFO-NV
@@ -1949,6 +2028,23 @@ Has the values:
  - :PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-INFO-EXT
  - :IMAGE-VIEW-HANDLE-INFO-NVX
  - :IMAGE-VIEW-ADDRESS-PROPERTIES-NVX
+ - :VIDEO-ENCODE-H264-CAPABILITIES-EXT
+ - :VIDEO-ENCODE-H264-SESSION-CREATE-INFO-EXT
+ - :VIDEO-ENCODE-H264-SESSION-PARAMETERS-CREATE-INFO-EXT
+ - :VIDEO-ENCODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT
+ - :VIDEO-ENCODE-H264-VCL-FRAME-INFO-EXT
+ - :VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXT
+ - :VIDEO-ENCODE-H264-NALU-SLICE-EXT
+ - :VIDEO-ENCODE-H264-EMIT-PICTURE-PARAMETERS-EXT
+ - :VIDEO-ENCODE-H264-PROFILE-EXT
+ - :VIDEO-DECODE-H264-CAPABILITIES-EXT
+ - :VIDEO-DECODE-H264-SESSION-CREATE-INFO-EXT
+ - :VIDEO-DECODE-H264-PICTURE-INFO-EXT
+ - :VIDEO-DECODE-H264-MVC-EXT
+ - :VIDEO-DECODE-H264-PROFILE-EXT
+ - :VIDEO-DECODE-H264-SESSION-PARAMETERS-CREATE-INFO-EXT
+ - :VIDEO-DECODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT
+ - :VIDEO-DECODE-H264-DPB-SLOT-INFO-EXT
  - :TEXTURE-LOD-GATHER-FORMAT-PROPERTIES-AMD
  - :STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
  - :PHYSICAL-DEVICE-CORNER-SAMPLED-IMAGE-FEATURES-NV
@@ -2195,6 +2291,13 @@ Has the values:
  - :PIPELINE-COMPILER-CONTROL-CREATE-INFO-AMD
  - :CALIBRATED-TIMESTAMP-INFO-EXT
  - :PHYSICAL-DEVICE-SHADER-CORE-PROPERTIES-AMD
+ - :VIDEO-DECODE-H265-CAPABILITIES-EXT
+ - :VIDEO-DECODE-H265-SESSION-CREATE-INFO-EXT
+ - :VIDEO-DECODE-H265-SESSION-PARAMETERS-CREATE-INFO-EXT
+ - :VIDEO-DECODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT
+ - :VIDEO-DECODE-H265-PROFILE-EXT
+ - :VIDEO-DECODE-H265-PICTURE-INFO-EXT
+ - :VIDEO-DECODE-H265-DPB-SLOT-INFO-EXT
  - :DEVICE-MEMORY-OVERALLOCATION-CREATE-INFO-AMD
  - :PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-PROPERTIES-EXT
  - :PIPELINE-VERTEX-INPUT-DIVISOR-STATE-CREATE-INFO-EXT
@@ -2302,6 +2405,8 @@ Has the values:
  - :GENERATED-COMMANDS-INFO-NV
  - :GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
  - :PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-FEATURES-NV
+ - :PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
+ - :COMMAND-BUFFER-INHERITANCE-VIEWPORT-SCISSOR-INFO-NV
  - :PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-FEATURES-EXT
  - :PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-PROPERTIES-EXT
  - :COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM
@@ -2319,6 +2424,8 @@ Has the values:
  - :DEVICE-PRIVATE-DATA-CREATE-INFO-EXT
  - :PRIVATE-DATA-SLOT-CREATE-INFO-EXT
  - :PHYSICAL-DEVICE-PIPELINE-CREATION-CACHE-CONTROL-FEATURES-EXT
+ - :VIDEO-ENCODE-INFO-KHR
+ - :VIDEO-ENCODE-RATE-CONTROL-INFO-KHR
  - :PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV
  - :DEVICE-DIAGNOSTICS-CONFIG-CREATE-INFO-NV
  - :MEMORY-BARRIER-2-KHR
@@ -2335,6 +2442,7 @@ Has the values:
  - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-PROPERTIES-NV
  - :PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
  - :PIPELINE-FRAGMENT-SHADING-RATE-ENUM-STATE-CREATE-INFO-NV
+ - :PHYSICAL-DEVICE-YCBCR-2-PLANE-444-FORMATS-FEATURES-EXT
  - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-FEATURES-EXT
  - :PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-PROPERTIES-EXT
  - :COPY-COMMAND-TRANSFORM-INFO-QCOM
@@ -2358,12 +2466,17 @@ Has the values:
  - :PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR
  - :PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
  - :MUTABLE-DESCRIPTOR-TYPE-CREATE-INFO-VALVE
+ - :PHYSICAL-DEVICE-VERTEX-INPUT-DYNAMIC-STATE-FEATURES-EXT
+ - :VERTEX-INPUT-BINDING-DESCRIPTION-2-EXT
+ - :VERTEX-INPUT-ATTRIBUTE-DESCRIPTION-2-EXT
  - :IMPORT-MEMORY-ZIRCON-HANDLE-INFO-FUCHSIA
  - :MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
  - :MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
  - :IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
  - :SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
- - :SCREEN-SURFACE-CREATE-INFO-QNX"
+ - :SCREEN-SURFACE-CREATE-INFO-QNX
+ - :PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
+ - :PIPELINE-COLOR-WRITE-CREATE-INFO-EXT"
   '(member nil 
     :application-info
     :instance-create-info
@@ -2433,6 +2546,23 @@ Has the values:
     :debug-marker-object-name-info-ext
     :debug-marker-object-tag-info-ext
     :debug-marker-marker-info-ext
+    :video-profile-khr
+    :video-capabilities-khr
+    :video-picture-resource-khr
+    :video-get-memory-properties-khr
+    :video-bind-memory-khr
+    :video-session-create-info-khr
+    :video-session-parameters-create-info-khr
+    :video-session-parameters-update-info-khr
+    :video-begin-coding-info-khr
+    :video-end-coding-info-khr
+    :video-coding-control-info-khr
+    :video-reference-slot-khr
+    :video-queue-family-properties-2-khr
+    :video-profiles-khr
+    :physical-device-video-format-info-khr
+    :video-format-properties-khr
+    :video-decode-info-khr
     :dedicated-allocation-image-create-info-nv
     :dedicated-allocation-buffer-create-info-nv
     :dedicated-allocation-memory-allocate-info-nv
@@ -2441,6 +2571,23 @@ Has the values:
     :pipeline-rasterization-state-stream-create-info-ext
     :image-view-handle-info-nvx
     :image-view-address-properties-nvx
+    :video-encode-h264-capabilities-ext
+    :video-encode-h264-session-create-info-ext
+    :video-encode-h264-session-parameters-create-info-ext
+    :video-encode-h264-session-parameters-add-info-ext
+    :video-encode-h264-vcl-frame-info-ext
+    :video-encode-h264-dpb-slot-info-ext
+    :video-encode-h264-nalu-slice-ext
+    :video-encode-h264-emit-picture-parameters-ext
+    :video-encode-h264-profile-ext
+    :video-decode-h264-capabilities-ext
+    :video-decode-h264-session-create-info-ext
+    :video-decode-h264-picture-info-ext
+    :video-decode-h264-mvc-ext
+    :video-decode-h264-profile-ext
+    :video-decode-h264-session-parameters-create-info-ext
+    :video-decode-h264-session-parameters-add-info-ext
+    :video-decode-h264-dpb-slot-info-ext
     :texture-lod-gather-format-properties-amd
     :stream-descriptor-surface-create-info-ggp
     :physical-device-corner-sampled-image-features-nv
@@ -2687,6 +2834,13 @@ Has the values:
     :pipeline-compiler-control-create-info-amd
     :calibrated-timestamp-info-ext
     :physical-device-shader-core-properties-amd
+    :video-decode-h265-capabilities-ext
+    :video-decode-h265-session-create-info-ext
+    :video-decode-h265-session-parameters-create-info-ext
+    :video-decode-h265-session-parameters-add-info-ext
+    :video-decode-h265-profile-ext
+    :video-decode-h265-picture-info-ext
+    :video-decode-h265-dpb-slot-info-ext
     :device-memory-overallocation-create-info-amd
     :physical-device-vertex-attribute-divisor-properties-ext
     :pipeline-vertex-input-divisor-state-create-info-ext
@@ -2794,6 +2948,8 @@ Has the values:
     :generated-commands-info-nv
     :generated-commands-memory-requirements-info-nv
     :physical-device-device-generated-commands-features-nv
+    :physical-device-inherited-viewport-scissor-features-nv
+    :command-buffer-inheritance-viewport-scissor-info-nv
     :physical-device-texel-buffer-alignment-features-ext
     :physical-device-texel-buffer-alignment-properties-ext
     :command-buffer-inheritance-render-pass-transform-info-qcom
@@ -2811,6 +2967,8 @@ Has the values:
     :device-private-data-create-info-ext
     :private-data-slot-create-info-ext
     :physical-device-pipeline-creation-cache-control-features-ext
+    :video-encode-info-khr
+    :video-encode-rate-control-info-khr
     :physical-device-diagnostics-config-features-nv
     :device-diagnostics-config-create-info-nv
     :memory-barrier-2-khr
@@ -2827,6 +2985,7 @@ Has the values:
     :physical-device-fragment-shading-rate-enums-properties-nv
     :physical-device-fragment-shading-rate-enums-features-nv
     :pipeline-fragment-shading-rate-enum-state-create-info-nv
+    :physical-device-ycbcr-2-plane-444-formats-features-ext
     :physical-device-fragment-density-map-2-features-ext
     :physical-device-fragment-density-map-2-properties-ext
     :copy-command-transform-info-qcom
@@ -2850,12 +3009,17 @@ Has the values:
     :physical-device-ray-query-features-khr
     :physical-device-mutable-descriptor-type-features-valve
     :mutable-descriptor-type-create-info-valve
+    :physical-device-vertex-input-dynamic-state-features-ext
+    :vertex-input-binding-description-2-ext
+    :vertex-input-attribute-description-2-ext
     :import-memory-zircon-handle-info-fuchsia
     :memory-zircon-handle-properties-fuchsia
     :memory-get-zircon-handle-info-fuchsia
     :import-semaphore-zircon-handle-info-fuchsia
     :semaphore-get-zircon-handle-info-fuchsia
-    :screen-surface-create-info-qnx))
+    :screen-surface-create-info-qnx
+    :physical-device-color-write-enable-features-ext
+    :pipeline-color-write-create-info-ext))
 
 (deftype system-allocation-scope ()
   "Represents the enum [VkSystemAllocationScope](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkSystemAllocationScope.html).
@@ -3088,6 +3252,8 @@ Has the values:
  - :DISPLAY-KHR
  - :DISPLAY-MODE-KHR
  - :DEBUG-REPORT-CALLBACK-EXT
+ - :VIDEO-SESSION-KHR
+ - :VIDEO-SESSION-PARAMETERS-KHR
  - :DESCRIPTOR-UPDATE-TEMPLATE
  - :DEBUG-UTILS-MESSENGER-EXT
  - :ACCELERATION-STRUCTURE-KHR
@@ -3130,6 +3296,8 @@ Has the values:
     :display-khr
     :display-mode-khr
     :debug-report-callback-ext
+    :video-session-khr
+    :video-session-parameters-khr
     :descriptor-update-template
     :debug-utils-messenger-ext
     :acceleration-structure-khr
@@ -3880,7 +4048,11 @@ Has the values:
  - :2-TRANSFORM-FEEDBACK-COUNTER-WRITE
  - :2-SHADER-SAMPLED-READ
  - :2-SHADER-STORAGE-READ
- - :2-SHADER-STORAGE-WRITE"
+ - :2-SHADER-STORAGE-WRITE
+ - :2-VIDEO-DECODE-READ
+ - :2-VIDEO-DECODE-WRITE
+ - :2-VIDEO-ENCODE-READ
+ - :2-VIDEO-ENCODE-WRITE"
   '(member nil 
     :2-none-khr
     :2-indirect-command-read
@@ -3913,7 +4085,11 @@ Has the values:
     :2-transform-feedback-counter-write
     :2-shader-sampled-read
     :2-shader-storage-read
-    :2-shader-storage-write))
+    :2-shader-storage-write
+    :2-video-decode-read
+    :2-video-decode-write
+    :2-video-encode-read
+    :2-video-encode-write))
 
 (deftype pipeline-stage-flag-bits-2-khr ()
   "Represents the enum [VkPipelineStageFlagBits2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineStageFlagBits2KHR.html).
@@ -3946,6 +4122,8 @@ Has the values:
  - :2-FRAGMENT-DENSITY-PROCESS
  - :2-TRANSFORM-FEEDBACK
  - :2-ACCELERATION-STRUCTURE-BUILD
+ - :2-VIDEO-DECODE
+ - :2-VIDEO-ENCODE
  - :2-COPY
  - :2-RESOLVE
  - :2-BLIT
@@ -3981,6 +4159,8 @@ Has the values:
     :2-fragment-density-process
     :2-transform-feedback
     :2-acceleration-structure-build
+    :2-video-decode
+    :2-video-encode
     :2-copy
     :2-resolve
     :2-blit
@@ -4692,7 +4872,8 @@ Has the values:
  - :GGP-PROPRIETARY
  - :BROADCOM-PROPRIETARY
  - :MESA-LLVMPIPE
- - :MOLTENVK"
+ - :MOLTENVK
+ - :COREAVI-PROPRIETARY"
   '(member nil 
     :amd-proprietary
     :amd-open-source
@@ -4707,7 +4888,8 @@ Has the values:
     :ggp-proprietary
     :broadcom-proprietary
     :mesa-llvmpipe
-    :moltenvk))
+    :moltenvk
+    :coreavi-proprietary))
 
 (deftype shading-rate-palette-entry-nv ()
   "Represents the enum [VkShadingRatePaletteEntryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShadingRatePaletteEntryNV.html).
@@ -4766,6 +4948,222 @@ Has the values:
     :int64-khr
     :uint64-khr
     :float64-khr))
+
+(deftype video-codec-operation-flag-bits-khr ()
+  "Represents the enum [VkVideoCodecOperationFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCodecOperationFlagBitsKHR.html).
+
+Has the values:
+ - :INVALID
+ - :DECODE-H264
+ - :DECODE-H265
+ - :ENCODE-H264"
+  '(member nil 
+    :invalid
+    :decode-h264
+    :decode-h265
+    :encode-h264))
+
+(deftype video-chroma-subsampling-flag-bits-khr ()
+  "Represents the enum [VkVideoChromaSubsamplingFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoChromaSubsamplingFlagBitsKHR.html).
+
+Has the values:
+ - :INVALID
+ - :MONOCHROME
+ - :420
+ - :422
+ - :444"
+  '(member nil 
+    :invalid
+    :monochrome
+    :420
+    :422
+    :444))
+
+(deftype video-component-bit-depth-flag-bits-khr ()
+  "Represents the enum [VkVideoComponentBitDepthFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoComponentBitDepthFlagBitsKHR.html).
+
+Has the values:
+ - :INVALID-KHR
+ - :8
+ - :10
+ - :12"
+  '(member nil 
+    :invalid-khr
+    :8
+    :10
+    :12))
+
+(deftype video-capabilities-flag-bits-khr ()
+  "Represents the enum [VkVideoCapabilitiesFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCapabilitiesFlagBitsKHR.html).
+
+Has the values:
+ - :PROTECTED-CONTENT
+ - :SEPARATE-REFERENCE-IMAGES"
+  '(member nil 
+    :protected-content
+    :separate-reference-images))
+
+(deftype video-session-create-flag-bits-khr ()
+  "Represents the enum [VkVideoSessionCreateFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoSessionCreateFlagBitsKHR.html).
+
+Has the values:
+ - :DEFAULT-KHR
+ - :PROTECTED-CONTENT"
+  '(member nil 
+    :default-khr
+    :protected-content))
+
+(deftype video-coding-quality-preset-flag-bits-khr ()
+  "Represents the enum [VkVideoCodingQualityPresetFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCodingQualityPresetFlagBitsKHR.html).
+
+Has the values:
+ - :DEFAULT
+ - :NORMAL
+ - :POWER
+ - :QUALITY"
+  '(member nil 
+    :default
+    :normal
+    :power
+    :quality))
+
+(deftype video-coding-control-flag-bits-khr ()
+  "Represents the enum [VkVideoCodingControlFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCodingControlFlagBitsKHR.html).
+
+Has the values:
+ - :DEFAULT-KHR
+ - :RESET"
+  '(member nil 
+    :default-khr
+    :reset))
+
+(deftype query-result-status-khr ()
+  "Represents the enum [VkQueryResultStatusKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkQueryResultStatusKHR.html).
+
+Has the values:
+ - :ERROR-KHR
+ - :NOT-READY-KHR
+ - :COMPLETE-KHR"
+  '(member nil 
+    :error-khr
+    :not-ready-khr
+    :complete-khr))
+
+(deftype video-decode-flag-bits-khr ()
+  "Represents the enum [VkVideoDecodeFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeFlagBitsKHR.html).
+
+Has the values:
+ - :DEFAULT-KHR
+ - :RESERVED-0"
+  '(member nil 
+    :default-khr
+    :reserved-0))
+
+(deftype video-decode-h264-field-layout-flag-bits-ext ()
+  "Represents the enum [VkVideoDecodeH264FieldLayoutFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264FieldLayoutFlagBitsEXT.html).
+
+Has the values:
+ - :PROGRESSIVE-PICTURES-ONLY-EXT
+ - :FIELD-LAYOUT-LINE-INTERLACED-PLANE
+ - :FIELD-LAYOUT-SEPARATE-INTERLACED-PLANE"
+  '(member nil 
+    :progressive-pictures-only-ext
+    :field-layout-line-interlaced-plane
+    :field-layout-separate-interlaced-plane))
+
+(deftype video-encode-flag-bits-khr ()
+  "Represents the enum [VkVideoEncodeFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeFlagBitsKHR.html).
+
+Has the values:
+ - :DEFAULT-KHR
+ - :RESERVED-0"
+  '(member nil 
+    :default-khr
+    :reserved-0))
+
+(deftype video-encode-rate-control-flag-bits-khr ()
+  "Represents the enum [VkVideoEncodeRateControlFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeRateControlFlagBitsKHR.html).
+
+Has the values:
+ - :DEFAULT-KHR
+ - :RESET"
+  '(member nil 
+    :default-khr
+    :reset))
+
+(deftype video-encode-rate-control-mode-flag-bits-khr ()
+  "Represents the enum [VkVideoEncodeRateControlModeFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeRateControlModeFlagBitsKHR.html).
+
+Has the values:
+ - :NONE
+ - :CBR
+ - :VBR"
+  '(member nil 
+    :none
+    :cbr
+    :vbr))
+
+(deftype video-encode-h264-capabilities-flag-bits-ext ()
+  "Represents the enum [VkVideoEncodeH264CapabilitiesFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264CapabilitiesFlagBitsEXT.html).
+
+Has the values:
+ - :Y-CABAC
+ - :Y-CAVLC
+ - :Y-WEIGHTED-BI-PRED-IMPLICIT
+ - :Y-TRANSFORM-8X8
+ - :Y-CHROMA-QP-OFFSET
+ - :Y-SECOND-CHROMA-QP-OFFSET
+ - :Y-DEBLOCKING-FILTER-DISABLED
+ - :Y-DEBLOCKING-FILTER-ENABLED
+ - :Y-DEBLOCKING-FILTER-PARTIAL
+ - :Y-MULTIPLE-SLICE-PER-FRAME
+ - :Y-EVENLY-DISTRIBUTED-SLICE-SIZE"
+  '(member nil 
+    :y-cabac
+    :y-cavlc
+    :y-weighted-bi-pred-implicit
+    :y-transform-8x8
+    :y-chroma-qp-offset
+    :y-second-chroma-qp-offset
+    :y-deblocking-filter-disabled
+    :y-deblocking-filter-enabled
+    :y-deblocking-filter-partial
+    :y-multiple-slice-per-frame
+    :y-evenly-distributed-slice-size))
+
+(deftype video-encode-h264-input-mode-flag-bits-ext ()
+  "Represents the enum [VkVideoEncodeH264InputModeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264InputModeFlagBitsEXT.html).
+
+Has the values:
+ - :FRAME
+ - :SLICE
+ - :NON-VCL"
+  '(member nil 
+    :frame
+    :slice
+    :non-vcl))
+
+(deftype video-encode-h264-output-mode-flag-bits-ext ()
+  "Represents the enum [VkVideoEncodeH264OutputModeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264OutputModeFlagBitsEXT.html).
+
+Has the values:
+ - :FRAME
+ - :SLICE
+ - :NON-VCL"
+  '(member nil 
+    :frame
+    :slice
+    :non-vcl))
+
+(deftype video-encode-h264-create-flag-bits-ext ()
+  "Represents the enum [VkVideoEncodeH264CreateFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264CreateFlagBitsEXT.html).
+
+Has the values:
+ - :DEFAULT-EXT
+ - :RESERVED-0"
+  '(member nil 
+    :default-ext
+    :reserved-0))
 
 
 
@@ -4867,6 +5265,8 @@ See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-2-EXT
 See GET-PHYSICAL-DEVICE-SURFACE-PRESENT-MODES-KHR
 See GET-PHYSICAL-DEVICE-SURFACE-SUPPORT-KHR
 See GET-PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
+See GET-PHYSICAL-DEVICE-VIDEO-CAPABILITIES-KHR
+See GET-PHYSICAL-DEVICE-VIDEO-FORMAT-PROPERTIES-KHR
 See GET-PHYSICAL-DEVICE-WAYLAND-PRESENTATION-SUPPORT-KHR
 See GET-PHYSICAL-DEVICE-WIN32-PRESENTATION-SUPPORT-KHR
 See GET-PHYSICAL-DEVICE-XCB-PRESENTATION-SUPPORT-KHR
@@ -4913,6 +5313,8 @@ See SEMAPHORE
 See SHADER-MODULE
 See SWAPCHAIN-KHR
 See VALIDATION-CACHE-EXT
+See VIDEO-SESSION-KHR
+See VIDEO-SESSION-PARAMETERS-KHR
 
 Related functions:
 See ACQUIRE-FULL-SCREEN-EXCLUSIVE-MODE-EXT
@@ -4928,6 +5330,7 @@ See BIND-BUFFER-MEMORY
 See BIND-BUFFER-MEMORY-2
 See BIND-IMAGE-MEMORY
 See BIND-IMAGE-MEMORY-2
+See BIND-VIDEO-SESSION-MEMORY-KHR
 See BUILD-ACCELERATION-STRUCTURES-KHR
 See COMPILE-DEFERRED-NV
 See COPY-ACCELERATION-STRUCTURE-KHR
@@ -4966,6 +5369,8 @@ See CREATE-SHADER-MODULE
 See CREATE-SHARED-SWAPCHAINS-KHR
 See CREATE-SWAPCHAIN-KHR
 See CREATE-VALIDATION-CACHE-EXT
+See CREATE-VIDEO-SESSION-KHR
+See CREATE-VIDEO-SESSION-PARAMETERS-KHR
 See DEBUG-MARKER-SET-OBJECT-NAME-EXT
 See DEBUG-MARKER-SET-OBJECT-TAG-EXT
 See DEFERRED-OPERATION-JOIN-KHR
@@ -4997,6 +5402,8 @@ See DESTROY-SEMAPHORE
 See DESTROY-SHADER-MODULE
 See DESTROY-SWAPCHAIN-KHR
 See DESTROY-VALIDATION-CACHE-EXT
+See DESTROY-VIDEO-SESSION-KHR
+See DESTROY-VIDEO-SESSION-PARAMETERS-KHR
 See DEVICE-WAIT-IDLE
 See DISPLAY-POWER-CONTROL-EXT
 See FLUSH-MAPPED-MEMORY-RANGES
@@ -5070,6 +5477,7 @@ See GET-SWAPCHAIN-COUNTER-EXT
 See GET-SWAPCHAIN-IMAGES-KHR
 See GET-SWAPCHAIN-STATUS-KHR
 See GET-VALIDATION-CACHE-DATA-EXT
+See GET-VIDEO-SESSION-MEMORY-REQUIREMENTS-KHR
 See IMPORT-FENCE-FD-KHR
 See IMPORT-FENCE-WIN32-HANDLE-KHR
 See IMPORT-SEMAPHORE-FD-KHR
@@ -5102,6 +5510,7 @@ See UNINITIALIZE-PERFORMANCE-API-INTEL
 See UNMAP-MEMORY
 See UPDATE-DESCRIPTOR-SET-WITH-TEMPLATE
 See UPDATE-DESCRIPTOR-SETS
+See UPDATE-VIDEO-SESSION-PARAMETERS-KHR
 See WAIT-FOR-FENCES
 See WAIT-SEMAPHORES
 See WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR"
@@ -5145,6 +5554,7 @@ See CMD-BEGIN-QUERY-INDEXED-EXT
 See CMD-BEGIN-RENDER-PASS
 See CMD-BEGIN-RENDER-PASS-2
 See CMD-BEGIN-TRANSFORM-FEEDBACK-EXT
+See CMD-BEGIN-VIDEO-CODING-KHR
 See CMD-BIND-DESCRIPTOR-SETS
 See CMD-BIND-INDEX-BUFFER
 See CMD-BIND-PIPELINE
@@ -5161,6 +5571,7 @@ See CMD-BUILD-ACCELERATION-STRUCTURES-KHR
 See CMD-CLEAR-ATTACHMENTS
 See CMD-CLEAR-COLOR-IMAGE
 See CMD-CLEAR-DEPTH-STENCIL-IMAGE
+See CMD-CONTROL-VIDEO-CODING-KHR
 See CMD-COPY-ACCELERATION-STRUCTURE-KHR
 See CMD-COPY-ACCELERATION-STRUCTURE-NV
 See CMD-COPY-ACCELERATION-STRUCTURE-TO-MEMORY-KHR
@@ -5177,6 +5588,7 @@ See CMD-COPY-QUERY-POOL-RESULTS
 See CMD-DEBUG-MARKER-BEGIN-EXT
 See CMD-DEBUG-MARKER-END-EXT
 See CMD-DEBUG-MARKER-INSERT-EXT
+See CMD-DECODE-VIDEO-KHR
 See CMD-DISPATCH
 See CMD-DISPATCH-BASE
 See CMD-DISPATCH-INDIRECT
@@ -5190,6 +5602,7 @@ See CMD-DRAW-INDIRECT-COUNT
 See CMD-DRAW-MESH-TASKS-INDIRECT-COUNT-NV
 See CMD-DRAW-MESH-TASKS-INDIRECT-NV
 See CMD-DRAW-MESH-TASKS-NV
+See CMD-ENCODE-VIDEO-KHR
 See CMD-END-CONDITIONAL-RENDERING-EXT
 See CMD-END-DEBUG-UTILS-LABEL-EXT
 See CMD-END-QUERY
@@ -5197,6 +5610,7 @@ See CMD-END-QUERY-INDEXED-EXT
 See CMD-END-RENDER-PASS
 See CMD-END-RENDER-PASS-2
 See CMD-END-TRANSFORM-FEEDBACK-EXT
+See CMD-END-VIDEO-CODING-KHR
 See CMD-EXECUTE-COMMANDS
 See CMD-EXECUTE-GENERATED-COMMANDS-NV
 See CMD-FILL-BUFFER
@@ -5217,6 +5631,7 @@ See CMD-RESOLVE-IMAGE-2-KHR
 See CMD-SET-BLEND-CONSTANTS
 See CMD-SET-CHECKPOINT-NV
 See CMD-SET-COARSE-SAMPLE-ORDER-NV
+See CMD-SET-COLOR-WRITE-ENABLE-EXT
 See CMD-SET-CULL-MODE-EXT
 See CMD-SET-DEPTH-BIAS
 See CMD-SET-DEPTH-BOUNDS
@@ -5247,6 +5662,7 @@ See CMD-SET-STENCIL-OP-EXT
 See CMD-SET-STENCIL-REFERENCE
 See CMD-SET-STENCIL-TEST-ENABLE-EXT
 See CMD-SET-STENCIL-WRITE-MASK
+See CMD-SET-VERTEX-INPUT-EXT
 See CMD-SET-VIEWPORT
 See CMD-SET-VIEWPORT-SHADING-RATE-PALETTE-NV
 See CMD-SET-VIEWPORT-W-SCALING-NV
@@ -5823,6 +6239,31 @@ See CREATE-DEBUG-UTILS-MESSENGER-EXT
 See DESTROY-DEBUG-UTILS-MESSENGER-EXT"
   'cffi:foreign-pointer)
 
+(deftype video-session-khr ()
+  "Represents the (non-dispatchable) handle [VkVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoSessionKHR.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See BIND-VIDEO-SESSION-MEMORY-KHR
+See CREATE-VIDEO-SESSION-KHR
+See DESTROY-VIDEO-SESSION-KHR
+See GET-VIDEO-SESSION-MEMORY-REQUIREMENTS-KHR"
+  'cffi:foreign-pointer)
+
+(deftype video-session-parameters-khr ()
+  "Represents the (non-dispatchable) handle [VkVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoSessionParametersKHR.html).
+
+Parents:
+See VIDEO-SESSION-KHR
+
+Related functions:
+See CREATE-VIDEO-SESSION-PARAMETERS-KHR
+See DESTROY-VIDEO-SESSION-PARAMETERS-KHR
+See UPDATE-VIDEO-SESSION-PARAMETERS-KHR"
+  'cffi:foreign-pointer)
+
 
 
 (defclass base-out-structure ()
@@ -6303,6 +6744,8 @@ See CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
 See CREATE-SWAPCHAIN-KHR
 See CREATE-VALIDATION-CACHE-EXT
 See CREATE-VI-SURFACE-NN
+See CREATE-VIDEO-SESSION-KHR
+See CREATE-VIDEO-SESSION-PARAMETERS-KHR
 See CREATE-WAYLAND-SURFACE-KHR
 See CREATE-WIN32-SURFACE-KHR
 See CREATE-XCB-SURFACE-KHR
@@ -6339,6 +6782,8 @@ See DESTROY-SHADER-MODULE
 See DESTROY-SURFACE-KHR
 See DESTROY-SWAPCHAIN-KHR
 See DESTROY-VALIDATION-CACHE-EXT
+See DESTROY-VIDEO-SESSION-KHR
+See DESTROY-VIDEO-SESSION-PARAMETERS-KHR
 See FREE-MEMORY
 See REGISTER-DEVICE-EVENT-EXT
 See REGISTER-DISPLAY-EVENT-EXT
@@ -6417,7 +6862,11 @@ See DEVICE-QUEUE-CREATE-INFO
 See PHYSICAL-DEVICE-FEATURES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PHYSICAL-DEVICE-YCBCR-2-PLANE-4-4-4-FORMATS-FEATURES-EXT
+See PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
 See PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
+See PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
+See PHYSICAL-DEVICE-VERTEX-INPUT-DYNAMIC-STATE-FEATURES-EXT
 See PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
 See PHYSICAL-DEVICE-SHADER-TERMINATE-INVOCATION-FEATURES-KHR
@@ -7103,6 +7552,8 @@ See BUFFER-USAGE-FLAGS
 See SHARING-MODE
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-PROFILE-KHR
+See VIDEO-PROFILES-KHR
 See BUFFER-DEVICE-ADDRESS-CREATE-INFO-EXT
 See BUFFER-OPAQUE-CAPTURE-ADDRESS-CREATE-INFO
 See EXTERNAL-MEMORY-BUFFER-CREATE-INFO
@@ -7480,6 +7931,8 @@ See SHARING-MODE
 See IMAGE-LAYOUT
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-PROFILE-KHR
+See VIDEO-PROFILES-KHR
 See IMAGE-STENCIL-USAGE-CREATE-INFO
 See IMAGE-DRM-FORMAT-MODIFIER-EXPLICIT-CREATE-INFO-EXT
 See IMAGE-DRM-FORMAT-MODIFIER-LIST-CREATE-INFO-EXT
@@ -7580,6 +8033,8 @@ See COMPONENT-MAPPING
 See IMAGE-SUBRESOURCE-RANGE
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-PROFILE-KHR
+See VIDEO-PROFILES-KHR
 See IMAGE-VIEW-ASTC-DECODE-MODE-EXT
 See SAMPLER-YCBCR-CONVERSION-INFO
 See IMAGE-VIEW-USAGE-CREATE-INFO
@@ -8696,6 +9151,7 @@ See LOGIC-OP
 See PIPELINE-COLOR-BLEND-ATTACHMENT-STATE
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PIPELINE-COLOR-WRITE-CREATE-INFO-EXT
 See PIPELINE-COLOR-BLEND-ADVANCED-STATE-CREATE-INFO-EXT
 "))
 
@@ -9258,6 +9714,7 @@ See QUERY-CONTROL-FLAGS
 See QUERY-PIPELINE-STATISTIC-FLAGS
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See COMMAND-BUFFER-INHERITANCE-VIEWPORT-SCISSOR-INFO-NV
 See COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM
 See COMMAND-BUFFER-INHERITANCE-CONDITIONAL-RENDERING-INFO-EXT
 "))
@@ -10607,6 +11064,7 @@ See QUERY-TYPE
 See QUERY-PIPELINE-STATISTIC-FLAGS
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-PROFILE-KHR
 See QUERY-POOL-PERFORMANCE-QUERY-CREATE-INFO-INTEL
 See QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
 
@@ -12644,7 +13102,11 @@ Slot types:
 See PHYSICAL-DEVICE-FEATURES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PHYSICAL-DEVICE-YCBCR-2-PLANE-4-4-4-FORMATS-FEATURES-EXT
+See PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
 See PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
+See PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
+See PHYSICAL-DEVICE-VERTEX-INPUT-DYNAMIC-STATE-FEATURES-EXT
 See PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
 See PHYSICAL-DEVICE-SHADER-TERMINATE-INVOCATION-FEATURES-KHR
@@ -12821,6 +13283,8 @@ Slot types:
 See FORMAT-PROPERTIES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-PROFILE-KHR
+See VIDEO-PROFILES-KHR
 See DRM-FORMAT-MODIFIER-PROPERTIES-LIST-EXT
 
 Instances of this class are used as parameters of the following functions:
@@ -12928,6 +13392,7 @@ Slot types:
 See QUEUE-FAMILY-PROPERTIES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-QUEUE-FAMILY-PROPERTIES-2-KHR
 See QUEUE-FAMILY-CHECKPOINT-PROPERTIES-2-NV
 See QUEUE-FAMILY-CHECKPOINT-PROPERTIES-NV
 
@@ -26052,6 +26517,139 @@ See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
 See DESCRIPTOR-POOL-CREATE-INFO
 "))
 
+(defclass physical-device-vertex-input-dynamic-state-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (vertex-input-dynamic-state
+     :initarg :vertex-input-dynamic-state
+     :initform nil
+     :accessor vertex-input-dynamic-state))
+  (:documentation "Represents the struct [VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VERTEX-INPUT-DYNAMIC-STATE: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass vertex-input-binding-description-2-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (binding
+     :initarg :binding
+     :initform 0
+     :accessor binding)
+   (stride
+     :initarg :stride
+     :initform 0
+     :accessor stride)
+   (input-rate
+     :initarg :input-rate
+     :initform nil
+     :accessor input-rate)
+   (divisor
+     :initarg :divisor
+     :initform 0
+     :accessor divisor))
+  (:documentation "Represents the struct [VkVertexInputBindingDescription2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVertexInputBindingDescription2EXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - BINDING: a positive (32-bit) integer.
+ - STRIDE: a positive (32-bit) integer.
+ - INPUT-RATE: an enum value of VERTEX-INPUT-RATE.
+ - DIVISOR: a positive (32-bit) integer.
+
+Slot types:
+See VERTEX-INPUT-RATE
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-VERTEX-INPUT-EXT
+"))
+
+(defclass vertex-input-attribute-description-2-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (location
+     :initarg :location
+     :initform 0
+     :accessor location)
+   (binding
+     :initarg :binding
+     :initform 0
+     :accessor binding)
+   (format
+     :initarg :format
+     :initform nil
+     :accessor format)
+   (offset
+     :initarg :offset
+     :initform 0
+     :accessor offset))
+  (:documentation "Represents the struct [VkVertexInputAttributeDescription2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVertexInputAttributeDescription2EXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - LOCATION: a positive (32-bit) integer.
+ - BINDING: a positive (32-bit) integer.
+ - FORMAT: an enum value of FORMAT.
+ - OFFSET: a positive (32-bit) integer.
+
+Slot types:
+See FORMAT
+
+Instances of this class are used as parameters of the following functions:
+See CMD-SET-VERTEX-INPUT-EXT
+"))
+
+(defclass physical-device-color-write-enable-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (color-write-enable
+     :initarg :color-write-enable
+     :initform nil
+     :accessor color-write-enable))
+  (:documentation "Represents the struct [VkPhysicalDeviceColorWriteEnableFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceColorWriteEnableFeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - COLOR-WRITE-ENABLE: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass pipeline-color-write-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (color-write-enables
+     :initarg :color-write-enables
+     :initform nil
+     :accessor color-write-enables))
+  (:documentation "Represents the struct [VkPipelineColorWriteCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineColorWriteCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - COLOR-WRITE-ENABLES: a list of booleans.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PIPELINE-COLOR-BLEND-STATE-CREATE-INFO
+"))
+
 (defclass memory-barrier-2-khr ()
   ((next
      :initarg :next
@@ -26431,6 +27029,1577 @@ See GET-QUEUE-CHECKPOINT-DATA-2-NV
 Slots:
  - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - SYNCHRONIZATION-2: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass video-queue-family-properties-2-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (video-codec-operations
+     :initarg :video-codec-operations
+     :initform nil
+     :accessor video-codec-operations))
+  (:documentation "Represents the struct [VkVideoQueueFamilyProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoQueueFamilyProperties2KHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VIDEO-CODEC-OPERATIONS: a list containing a valid combination of VIDEO-CODEC-OPERATION-FLAGS-KHR.
+
+Slot types:
+See VIDEO-CODEC-OPERATION-FLAGS-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See QUEUE-FAMILY-PROPERTIES-2
+"))
+
+(defclass video-profiles-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (profile-count
+     :initarg :profile-count
+     :initform 0
+     :accessor profile-count)
+   (profiles
+     :initarg :profiles
+     :initform nil
+     :accessor profiles))
+  (:documentation "Represents the struct [VkVideoProfilesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoProfilesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PROFILE-COUNT: a positive (32-bit) integer.
+ - PROFILES: a VIDEO-PROFILE-KHR.
+
+Slot types:
+See VIDEO-PROFILE-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See FORMAT-PROPERTIES-2
+See IMAGE-CREATE-INFO
+See IMAGE-VIEW-CREATE-INFO
+See BUFFER-CREATE-INFO
+"))
+
+(defclass physical-device-video-format-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (image-usage
+     :initarg :image-usage
+     :initform nil
+     :accessor image-usage)
+   (video-profiles
+     :initarg :video-profiles
+     :initform nil
+     :accessor video-profiles))
+  (:documentation "Represents the struct [VkPhysicalDeviceVideoFormatInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceVideoFormatInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - IMAGE-USAGE: a list containing a valid combination of IMAGE-USAGE-FLAGS.
+ - VIDEO-PROFILES: a VIDEO-PROFILES-KHR.
+
+Slot types:
+See IMAGE-USAGE-FLAGS
+See VIDEO-PROFILES-KHR
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-VIDEO-FORMAT-PROPERTIES-KHR
+"))
+
+(defclass video-format-properties-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (format
+     :initarg :format
+     :initform nil
+     :accessor format))
+  (:documentation "Represents the struct [VkVideoFormatPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoFormatPropertiesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FORMAT: an enum value of FORMAT.
+
+Slot types:
+See FORMAT
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-VIDEO-FORMAT-PROPERTIES-KHR
+"))
+
+(defclass video-profile-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (video-codec-operation
+     :initarg :video-codec-operation
+     :initform nil
+     :accessor video-codec-operation)
+   (chroma-subsampling
+     :initarg :chroma-subsampling
+     :initform nil
+     :accessor chroma-subsampling)
+   (luma-bit-depth
+     :initarg :luma-bit-depth
+     :initform nil
+     :accessor luma-bit-depth)
+   (chroma-bit-depth
+     :initarg :chroma-bit-depth
+     :initform nil
+     :accessor chroma-bit-depth))
+  (:documentation "Represents the struct [VkVideoProfileKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoProfileKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VIDEO-CODEC-OPERATION: an enum value of VIDEO-CODEC-OPERATION-FLAG-BITS-KHR.
+ - CHROMA-SUBSAMPLING: a list containing a valid combination of VIDEO-CHROMA-SUBSAMPLING-FLAGS-KHR.
+ - LUMA-BIT-DEPTH: a list containing a valid combination of VIDEO-COMPONENT-BIT-DEPTH-FLAGS-KHR.
+ - CHROMA-BIT-DEPTH: a list containing a valid combination of VIDEO-COMPONENT-BIT-DEPTH-FLAGS-KHR.
+
+Slot types:
+See VIDEO-CODEC-OPERATION-FLAG-BITS-KHR
+See VIDEO-CHROMA-SUBSAMPLING-FLAGS-KHR
+See VIDEO-COMPONENT-BIT-DEPTH-FLAGS-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-H264-PROFILE-EXT
+See VIDEO-DECODE-H265-PROFILE-EXT
+See VIDEO-DECODE-H264-PROFILE-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See QUERY-POOL-CREATE-INFO
+See FORMAT-PROPERTIES-2
+See IMAGE-CREATE-INFO
+See IMAGE-VIEW-CREATE-INFO
+See BUFFER-CREATE-INFO
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-VIDEO-CAPABILITIES-KHR
+"))
+
+(defclass video-capabilities-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (capability-flags
+     :initarg :capability-flags
+     :initform nil
+     :accessor capability-flags)
+   (min-bitstream-buffer-offset-alignment
+     :initarg :min-bitstream-buffer-offset-alignment
+     :initform nil
+     :accessor min-bitstream-buffer-offset-alignment)
+   (min-bitstream-buffer-size-alignment
+     :initarg :min-bitstream-buffer-size-alignment
+     :initform nil
+     :accessor min-bitstream-buffer-size-alignment)
+   (video-picture-extent-granularity
+     :initarg :video-picture-extent-granularity
+     :initform nil
+     :accessor video-picture-extent-granularity)
+   (min-extent
+     :initarg :min-extent
+     :initform nil
+     :accessor min-extent)
+   (max-extent
+     :initarg :max-extent
+     :initform nil
+     :accessor max-extent)
+   (max-reference-pictures-slots-count
+     :initarg :max-reference-pictures-slots-count
+     :initform 0
+     :accessor max-reference-pictures-slots-count)
+   (max-reference-pictures-active-count
+     :initarg :max-reference-pictures-active-count
+     :initform 0
+     :accessor max-reference-pictures-active-count))
+  (:documentation "Represents the struct [VkVideoCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCapabilitiesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - CAPABILITY-FLAGS: a list containing a valid combination of VIDEO-CAPABILITIES-FLAGS-KHR.
+ - MIN-BITSTREAM-BUFFER-OFFSET-ALIGNMENT: a DEVICE-SIZE.
+ - MIN-BITSTREAM-BUFFER-SIZE-ALIGNMENT: a DEVICE-SIZE.
+ - VIDEO-PICTURE-EXTENT-GRANULARITY: an EXTENT-2D.
+ - MIN-EXTENT: an EXTENT-2D.
+ - MAX-EXTENT: an EXTENT-2D.
+ - MAX-REFERENCE-PICTURES-SLOTS-COUNT: a positive (32-bit) integer.
+ - MAX-REFERENCE-PICTURES-ACTIVE-COUNT: a positive (32-bit) integer.
+
+Slot types:
+See VIDEO-CAPABILITIES-FLAGS-KHR
+See DEVICE-SIZE
+See EXTENT-2D
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-H264-CAPABILITIES-EXT
+See VIDEO-DECODE-H265-CAPABILITIES-EXT
+See VIDEO-DECODE-H264-CAPABILITIES-EXT
+
+Instances of this class are used as parameters of the following functions:
+See GET-PHYSICAL-DEVICE-VIDEO-CAPABILITIES-KHR
+"))
+
+(defclass video-get-memory-properties-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (memory-bind-index
+     :initarg :memory-bind-index
+     :initform 0
+     :accessor memory-bind-index)
+   (memory-requirements
+     :initarg :memory-requirements
+     :initform nil
+     :accessor memory-requirements))
+  (:documentation "Represents the struct [VkVideoGetMemoryPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoGetMemoryPropertiesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MEMORY-BIND-INDEX: a positive (32-bit) integer.
+ - MEMORY-REQUIREMENTS: a MEMORY-REQUIREMENTS-2.
+
+Slot types:
+See MEMORY-REQUIREMENTS-2
+
+Instances of this class are used as parameters of the following functions:
+See GET-VIDEO-SESSION-MEMORY-REQUIREMENTS-KHR
+"))
+
+(defclass video-bind-memory-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (memory-bind-index
+     :initarg :memory-bind-index
+     :initform 0
+     :accessor memory-bind-index)
+   (memory
+     :initarg :memory
+     :initform nil
+     :accessor memory)
+   (memory-offset
+     :initarg :memory-offset
+     :initform nil
+     :accessor memory-offset)
+   (memory-size
+     :initarg :memory-size
+     :initform nil
+     :accessor memory-size))
+  (:documentation "Represents the struct [VkVideoBindMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoBindMemoryKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MEMORY-BIND-INDEX: a positive (32-bit) integer.
+ - MEMORY: a DEVICE-MEMORY.
+ - MEMORY-OFFSET: a DEVICE-SIZE.
+ - MEMORY-SIZE: a DEVICE-SIZE.
+
+Slot types:
+See DEVICE-MEMORY
+See DEVICE-SIZE
+
+Instances of this class are used as parameters of the following functions:
+See BIND-VIDEO-SESSION-MEMORY-KHR
+"))
+
+(defclass video-picture-resource-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (coded-offset
+     :initarg :coded-offset
+     :initform nil
+     :accessor coded-offset)
+   (coded-extent
+     :initarg :coded-extent
+     :initform nil
+     :accessor coded-extent)
+   (base-array-layer
+     :initarg :base-array-layer
+     :initform 0
+     :accessor base-array-layer)
+   (image-view-binding
+     :initarg :image-view-binding
+     :initform nil
+     :accessor image-view-binding))
+  (:documentation "Represents the struct [VkVideoPictureResourceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoPictureResourceKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - CODED-OFFSET: an OFFSET-2D.
+ - CODED-EXTENT: an EXTENT-2D.
+ - BASE-ARRAY-LAYER: a positive (32-bit) integer.
+ - IMAGE-VIEW-BINDING: an IMAGE-VIEW.
+
+Slot types:
+See OFFSET-2D
+See EXTENT-2D
+See IMAGE-VIEW
+"))
+
+(defclass video-reference-slot-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (slot-index
+     :initarg :slot-index
+     :initform 0
+     :accessor slot-index)
+   (picture-resource
+     :initarg :picture-resource
+     :initform nil
+     :accessor picture-resource))
+  (:documentation "Represents the struct [VkVideoReferenceSlotKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoReferenceSlotKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SLOT-INDEX: a (8-bit) integer.
+ - PICTURE-RESOURCE: a VIDEO-PICTURE-RESOURCE-KHR.
+
+Slot types:
+See VIDEO-PICTURE-RESOURCE-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-DECODE-H265-DPB-SLOT-INFO-EXT
+See VIDEO-DECODE-H264-DPB-SLOT-INFO-EXT
+"))
+
+(defclass video-decode-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (coded-offset
+     :initarg :coded-offset
+     :initform nil
+     :accessor coded-offset)
+   (coded-extent
+     :initarg :coded-extent
+     :initform nil
+     :accessor coded-extent)
+   (src-buffer
+     :initarg :src-buffer
+     :initform nil
+     :accessor src-buffer)
+   (src-buffer-offset
+     :initarg :src-buffer-offset
+     :initform nil
+     :accessor src-buffer-offset)
+   (src-buffer-range
+     :initarg :src-buffer-range
+     :initform nil
+     :accessor src-buffer-range)
+   (dst-picture-resource
+     :initarg :dst-picture-resource
+     :initform nil
+     :accessor dst-picture-resource)
+   (setup-reference-slot
+     :initarg :setup-reference-slot
+     :initform nil
+     :accessor setup-reference-slot)
+   (reference-slots
+     :initarg :reference-slots
+     :initform nil
+     :accessor reference-slots))
+  (:documentation "Represents the struct [VkVideoDecodeInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS (optional): a list containing a valid combination of VIDEO-DECODE-FLAGS-KHR.
+ - CODED-OFFSET: an OFFSET-2D.
+ - CODED-EXTENT: an EXTENT-2D.
+ - SRC-BUFFER: a BUFFER.
+ - SRC-BUFFER-OFFSET: a DEVICE-SIZE.
+ - SRC-BUFFER-RANGE: a DEVICE-SIZE.
+ - DST-PICTURE-RESOURCE: a VIDEO-PICTURE-RESOURCE-KHR.
+ - SETUP-REFERENCE-SLOT: a VIDEO-REFERENCE-SLOT-KHR.
+ - REFERENCE-SLOTS: a list of VIDEO-REFERENCE-SLOT-KHRs.
+
+Slot types:
+See VIDEO-DECODE-FLAGS-KHR
+See OFFSET-2D
+See EXTENT-2D
+See BUFFER
+See DEVICE-SIZE
+See VIDEO-PICTURE-RESOURCE-KHR
+See VIDEO-REFERENCE-SLOT-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-DECODE-H265-PICTURE-INFO-EXT
+See VIDEO-DECODE-H264-PICTURE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CMD-DECODE-VIDEO-KHR
+"))
+
+(defclass video-decode-h264-profile-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-profile-idc
+     :initarg :std-profile-idc
+     :initform nil
+     :accessor std-profile-idc)
+   (field-layout
+     :initarg :field-layout
+     :initform nil
+     :accessor field-layout))
+  (:documentation "Represents the struct [VkVideoDecodeH264ProfileEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264ProfileEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-PROFILE-IDC: a STD-VIDEO-H264-PROFILE-IDC.
+ - FIELD-LAYOUT: a list containing a valid combination of VIDEO-DECODE-H264-FIELD-LAYOUT-FLAGS-EXT.
+
+Slot types:
+See STD-VIDEO-H264-PROFILE-IDC
+See VIDEO-DECODE-H264-FIELD-LAYOUT-FLAGS-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-PROFILE-KHR
+"))
+
+(defclass video-decode-h264-capabilities-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (max-level
+     :initarg :max-level
+     :initform 0
+     :accessor max-level)
+   (field-offset-granularity
+     :initarg :field-offset-granularity
+     :initform nil
+     :accessor field-offset-granularity)
+   (std-extension-version
+     :initarg :std-extension-version
+     :initform nil
+     :accessor std-extension-version))
+  (:documentation "Represents the struct [VkVideoDecodeH264CapabilitiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264CapabilitiesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MAX-LEVEL: a positive (32-bit) integer.
+ - FIELD-OFFSET-GRANULARITY: an OFFSET-2D.
+ - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
+
+Slot types:
+See OFFSET-2D
+See EXTENSION-PROPERTIES
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-CAPABILITIES-KHR
+"))
+
+(defclass video-decode-h264-session-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (std-extension-version
+     :initarg :std-extension-version
+     :initform nil
+     :accessor std-extension-version))
+  (:documentation "Represents the struct [VkVideoDecodeH264SessionCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264SessionCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS: a list containing a valid combination of VIDEO-DECODE-H264-CREATE-FLAGS-EXT.
+ - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
+
+Slot types:
+See VIDEO-DECODE-H264-CREATE-FLAGS-EXT
+See EXTENSION-PROPERTIES
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-CREATE-INFO-KHR
+"))
+
+(defclass video-decode-h264-session-parameters-add-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (sps-std
+     :initarg :sps-std
+     :initform nil
+     :accessor sps-std)
+   (pps-std
+     :initarg :pps-std
+     :initform nil
+     :accessor pps-std))
+  (:documentation "Represents the struct [VkVideoDecodeH264SessionParametersAddInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264SessionParametersAddInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SPS-STD (optional): a list of STD-VIDEO-H264-SEQUENCE-PARAMETER-SETs.
+ - PPS-STD (optional): a list of STD-VIDEO-H264-PICTURE-PARAMETER-SETs.
+
+Slot types:
+See STD-VIDEO-H264-SEQUENCE-PARAMETER-SET
+See STD-VIDEO-H264-PICTURE-PARAMETER-SET
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR
+"))
+
+(defclass video-decode-h264-session-parameters-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (max-sps-std-count
+     :initarg :max-sps-std-count
+     :initform 0
+     :accessor max-sps-std-count)
+   (max-pps-std-count
+     :initarg :max-pps-std-count
+     :initform 0
+     :accessor max-pps-std-count)
+   (parameters-add-info
+     :initarg :parameters-add-info
+     :initform nil
+     :accessor parameters-add-info))
+  (:documentation "Represents the struct [VkVideoDecodeH264SessionParametersCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264SessionParametersCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MAX-SPS-STD-COUNT: a positive (32-bit) integer.
+ - MAX-PPS-STD-COUNT: a positive (32-bit) integer.
+ - PARAMETERS-ADD-INFO (optional): a VIDEO-DECODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT.
+
+Slot types:
+See VIDEO-DECODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR
+"))
+
+(defclass video-decode-h264-picture-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-picture-info
+     :initarg :std-picture-info
+     :initform nil
+     :accessor std-picture-info)
+   (slices-data-offsets
+     :initarg :slices-data-offsets
+     :initform nil
+     :accessor slices-data-offsets))
+  (:documentation "Represents the struct [VkVideoDecodeH264PictureInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264PictureInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-PICTURE-INFO: a STD-VIDEO-DECODE-H264-PICTURE-INFO.
+ - SLICES-DATA-OFFSETS: a list of positive (32-bit) integers.
+
+Slot types:
+See STD-VIDEO-DECODE-H264-PICTURE-INFO
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-DECODE-H264-MVC-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-DECODE-INFO-KHR
+"))
+
+(defclass video-decode-h264-dpb-slot-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-reference-info
+     :initarg :std-reference-info
+     :initform nil
+     :accessor std-reference-info))
+  (:documentation "Represents the struct [VkVideoDecodeH264DpbSlotInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264DpbSlotInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-REFERENCE-INFO: a STD-VIDEO-DECODE-H264-REFERENCE-INFO.
+
+Slot types:
+See STD-VIDEO-DECODE-H264-REFERENCE-INFO
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-REFERENCE-SLOT-KHR
+"))
+
+(defclass video-decode-h264-mvc-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-mvc
+     :initarg :std-mvc
+     :initform nil
+     :accessor std-mvc))
+  (:documentation "Represents the struct [VkVideoDecodeH264MvcEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264MvcEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-MVC: a STD-VIDEO-DECODE-H264-MVC.
+
+Slot types:
+See STD-VIDEO-DECODE-H264-MVC
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-DECODE-H264-PICTURE-INFO-EXT
+"))
+
+(defclass video-decode-h265-profile-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-profile-idc
+     :initarg :std-profile-idc
+     :initform nil
+     :accessor std-profile-idc))
+  (:documentation "Represents the struct [VkVideoDecodeH265ProfileEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265ProfileEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-PROFILE-IDC: a STD-VIDEO-H265-PROFILE-IDC.
+
+Slot types:
+See STD-VIDEO-H265-PROFILE-IDC
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-PROFILE-KHR
+"))
+
+(defclass video-decode-h265-capabilities-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (max-level
+     :initarg :max-level
+     :initform 0
+     :accessor max-level)
+   (std-extension-version
+     :initarg :std-extension-version
+     :initform nil
+     :accessor std-extension-version))
+  (:documentation "Represents the struct [VkVideoDecodeH265CapabilitiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265CapabilitiesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MAX-LEVEL: a positive (32-bit) integer.
+ - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
+
+Slot types:
+See EXTENSION-PROPERTIES
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-CAPABILITIES-KHR
+"))
+
+(defclass video-decode-h265-session-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (std-extension-version
+     :initarg :std-extension-version
+     :initform nil
+     :accessor std-extension-version))
+  (:documentation "Represents the struct [VkVideoDecodeH265SessionCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265SessionCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS: a list containing a valid combination of VIDEO-DECODE-H265-CREATE-FLAGS-EXT.
+ - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
+
+Slot types:
+See VIDEO-DECODE-H265-CREATE-FLAGS-EXT
+See EXTENSION-PROPERTIES
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-CREATE-INFO-KHR
+"))
+
+(defclass video-decode-h265-session-parameters-add-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (sps-std
+     :initarg :sps-std
+     :initform nil
+     :accessor sps-std)
+   (pps-std
+     :initarg :pps-std
+     :initform nil
+     :accessor pps-std))
+  (:documentation "Represents the struct [VkVideoDecodeH265SessionParametersAddInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265SessionParametersAddInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SPS-STD (optional): a list of STD-VIDEO-H265-SEQUENCE-PARAMETER-SETs.
+ - PPS-STD (optional): a list of STD-VIDEO-H265-PICTURE-PARAMETER-SETs.
+
+Slot types:
+See STD-VIDEO-H265-SEQUENCE-PARAMETER-SET
+See STD-VIDEO-H265-PICTURE-PARAMETER-SET
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR
+"))
+
+(defclass video-decode-h265-session-parameters-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (max-sps-std-count
+     :initarg :max-sps-std-count
+     :initform 0
+     :accessor max-sps-std-count)
+   (max-pps-std-count
+     :initarg :max-pps-std-count
+     :initform 0
+     :accessor max-pps-std-count)
+   (parameters-add-info
+     :initarg :parameters-add-info
+     :initform nil
+     :accessor parameters-add-info))
+  (:documentation "Represents the struct [VkVideoDecodeH265SessionParametersCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265SessionParametersCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MAX-SPS-STD-COUNT: a positive (32-bit) integer.
+ - MAX-PPS-STD-COUNT: a positive (32-bit) integer.
+ - PARAMETERS-ADD-INFO (optional): a VIDEO-DECODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT.
+
+Slot types:
+See VIDEO-DECODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR
+"))
+
+(defclass video-decode-h265-picture-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-picture-info
+     :initarg :std-picture-info
+     :initform nil
+     :accessor std-picture-info)
+   (slices-data-offsets
+     :initarg :slices-data-offsets
+     :initform nil
+     :accessor slices-data-offsets))
+  (:documentation "Represents the struct [VkVideoDecodeH265PictureInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265PictureInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-PICTURE-INFO: a STD-VIDEO-DECODE-H265-PICTURE-INFO.
+ - SLICES-DATA-OFFSETS: a list of positive (32-bit) integers.
+
+Slot types:
+See STD-VIDEO-DECODE-H265-PICTURE-INFO
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-DECODE-INFO-KHR
+"))
+
+(defclass video-decode-h265-dpb-slot-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-reference-info
+     :initarg :std-reference-info
+     :initform nil
+     :accessor std-reference-info))
+  (:documentation "Represents the struct [VkVideoDecodeH265DpbSlotInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH265DpbSlotInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-REFERENCE-INFO: a STD-VIDEO-DECODE-H265-REFERENCE-INFO.
+
+Slot types:
+See STD-VIDEO-DECODE-H265-REFERENCE-INFO
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-REFERENCE-SLOT-KHR
+"))
+
+(defclass video-session-create-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (queue-family-index
+     :initarg :queue-family-index
+     :initform 0
+     :accessor queue-family-index)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (video-profile
+     :initarg :video-profile
+     :initform nil
+     :accessor video-profile)
+   (picture-format
+     :initarg :picture-format
+     :initform nil
+     :accessor picture-format)
+   (max-coded-extent
+     :initarg :max-coded-extent
+     :initform nil
+     :accessor max-coded-extent)
+   (reference-pictures-format
+     :initarg :reference-pictures-format
+     :initform nil
+     :accessor reference-pictures-format)
+   (max-reference-pictures-slots-count
+     :initarg :max-reference-pictures-slots-count
+     :initform 0
+     :accessor max-reference-pictures-slots-count)
+   (max-reference-pictures-active-count
+     :initarg :max-reference-pictures-active-count
+     :initform 0
+     :accessor max-reference-pictures-active-count))
+  (:documentation "Represents the struct [VkVideoSessionCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoSessionCreateInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - QUEUE-FAMILY-INDEX: a positive (32-bit) integer.
+ - FLAGS (optional): a list containing a valid combination of VIDEO-SESSION-CREATE-FLAGS-KHR.
+ - VIDEO-PROFILE: a VIDEO-PROFILE-KHR.
+ - PICTURE-FORMAT: an enum value of FORMAT.
+ - MAX-CODED-EXTENT: an EXTENT-2D.
+ - REFERENCE-PICTURES-FORMAT: an enum value of FORMAT.
+ - MAX-REFERENCE-PICTURES-SLOTS-COUNT: a positive (32-bit) integer.
+ - MAX-REFERENCE-PICTURES-ACTIVE-COUNT: a positive (32-bit) integer.
+
+Slot types:
+See VIDEO-SESSION-CREATE-FLAGS-KHR
+See VIDEO-PROFILE-KHR
+See EXTENT-2D
+See FORMAT
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-H264-SESSION-CREATE-INFO-EXT
+See VIDEO-DECODE-H265-SESSION-CREATE-INFO-EXT
+See VIDEO-DECODE-H264-SESSION-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-VIDEO-SESSION-KHR
+"))
+
+(defclass video-session-parameters-create-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (video-session-parameters-template
+     :initarg :video-session-parameters-template
+     :initform nil
+     :accessor video-session-parameters-template)
+   (video-session
+     :initarg :video-session
+     :initform nil
+     :accessor video-session))
+  (:documentation "Represents the struct [VkVideoSessionParametersCreateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoSessionParametersCreateInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VIDEO-SESSION-PARAMETERS-TEMPLATE: a VIDEO-SESSION-PARAMETERS-KHR.
+ - VIDEO-SESSION: a VIDEO-SESSION-KHR.
+
+Slot types:
+See VIDEO-SESSION-PARAMETERS-KHR
+See VIDEO-SESSION-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-H264-SESSION-PARAMETERS-CREATE-INFO-EXT
+See VIDEO-DECODE-H265-SESSION-PARAMETERS-CREATE-INFO-EXT
+See VIDEO-DECODE-H264-SESSION-PARAMETERS-CREATE-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-VIDEO-SESSION-PARAMETERS-KHR
+"))
+
+(defclass video-session-parameters-update-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (update-sequence-count
+     :initarg :update-sequence-count
+     :initform 0
+     :accessor update-sequence-count))
+  (:documentation "Represents the struct [VkVideoSessionParametersUpdateInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoSessionParametersUpdateInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - UPDATE-SEQUENCE-COUNT: a positive (32-bit) integer.
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT
+See VIDEO-DECODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT
+See VIDEO-DECODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See UPDATE-VIDEO-SESSION-PARAMETERS-KHR
+"))
+
+(defclass video-begin-coding-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (codec-quality-preset
+     :initarg :codec-quality-preset
+     :initform nil
+     :accessor codec-quality-preset)
+   (video-session
+     :initarg :video-session
+     :initform nil
+     :accessor video-session)
+   (video-session-parameters
+     :initarg :video-session-parameters
+     :initform nil
+     :accessor video-session-parameters)
+   (reference-slots
+     :initarg :reference-slots
+     :initform nil
+     :accessor reference-slots))
+  (:documentation "Represents the struct [VkVideoBeginCodingInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoBeginCodingInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS (optional): a list containing a valid combination of VIDEO-BEGIN-CODING-FLAGS-KHR.
+ - CODEC-QUALITY-PRESET: a list containing a valid combination of VIDEO-CODING-QUALITY-PRESET-FLAGS-KHR.
+ - VIDEO-SESSION: a VIDEO-SESSION-KHR.
+ - VIDEO-SESSION-PARAMETERS (optional): a VIDEO-SESSION-PARAMETERS-KHR.
+ - REFERENCE-SLOTS: a list of VIDEO-REFERENCE-SLOT-KHRs.
+
+Slot types:
+See VIDEO-BEGIN-CODING-FLAGS-KHR
+See VIDEO-CODING-QUALITY-PRESET-FLAGS-KHR
+See VIDEO-SESSION-KHR
+See VIDEO-SESSION-PARAMETERS-KHR
+See VIDEO-REFERENCE-SLOT-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-BEGIN-VIDEO-CODING-KHR
+"))
+
+(defclass video-end-coding-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags))
+  (:documentation "Represents the struct [VkVideoEndCodingInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEndCodingInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS (optional): a list containing a valid combination of VIDEO-END-CODING-FLAGS-KHR.
+
+Slot types:
+See VIDEO-END-CODING-FLAGS-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-END-VIDEO-CODING-KHR
+"))
+
+(defclass video-coding-control-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags))
+  (:documentation "Represents the struct [VkVideoCodingControlInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCodingControlInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS (optional): a list containing a valid combination of VIDEO-CODING-CONTROL-FLAGS-KHR.
+
+Slot types:
+See VIDEO-CODING-CONTROL-FLAGS-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-RATE-CONTROL-INFO-KHR
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CONTROL-VIDEO-CODING-KHR
+"))
+
+(defclass video-encode-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (quality-level
+     :initarg :quality-level
+     :initform 0
+     :accessor quality-level)
+   (coded-extent
+     :initarg :coded-extent
+     :initform nil
+     :accessor coded-extent)
+   (dst-bitstream-buffer
+     :initarg :dst-bitstream-buffer
+     :initform nil
+     :accessor dst-bitstream-buffer)
+   (dst-bitstream-buffer-offset
+     :initarg :dst-bitstream-buffer-offset
+     :initform nil
+     :accessor dst-bitstream-buffer-offset)
+   (dst-bitstream-buffer-max-range
+     :initarg :dst-bitstream-buffer-max-range
+     :initform nil
+     :accessor dst-bitstream-buffer-max-range)
+   (src-picture-resource
+     :initarg :src-picture-resource
+     :initform nil
+     :accessor src-picture-resource)
+   (setup-reference-slot
+     :initarg :setup-reference-slot
+     :initform nil
+     :accessor setup-reference-slot)
+   (reference-slots
+     :initarg :reference-slots
+     :initform nil
+     :accessor reference-slots))
+  (:documentation "Represents the struct [VkVideoEncodeInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS (optional): a list containing a valid combination of VIDEO-ENCODE-FLAGS-KHR.
+ - QUALITY-LEVEL: a positive (32-bit) integer.
+ - CODED-EXTENT: an EXTENT-2D.
+ - DST-BITSTREAM-BUFFER: a BUFFER.
+ - DST-BITSTREAM-BUFFER-OFFSET: a DEVICE-SIZE.
+ - DST-BITSTREAM-BUFFER-MAX-RANGE: a DEVICE-SIZE.
+ - SRC-PICTURE-RESOURCE: a VIDEO-PICTURE-RESOURCE-KHR.
+ - SETUP-REFERENCE-SLOT: a VIDEO-REFERENCE-SLOT-KHR.
+ - REFERENCE-SLOTS: a list of VIDEO-REFERENCE-SLOT-KHRs.
+
+Slot types:
+See VIDEO-ENCODE-FLAGS-KHR
+See EXTENT-2D
+See BUFFER
+See DEVICE-SIZE
+See VIDEO-PICTURE-RESOURCE-KHR
+See VIDEO-REFERENCE-SLOT-KHR
+
+Instances of this class can be extended by the following classes (using the NEXT slot):
+See VIDEO-ENCODE-H264-EMIT-PICTURE-PARAMETERS-EXT
+See VIDEO-ENCODE-H264-VCL-FRAME-INFO-EXT
+
+Instances of this class are used as parameters of the following functions:
+See CMD-ENCODE-VIDEO-KHR
+"))
+
+(defclass video-encode-rate-control-info-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (rate-control-mode
+     :initarg :rate-control-mode
+     :initform nil
+     :accessor rate-control-mode)
+   (average-bitrate
+     :initarg :average-bitrate
+     :initform 0
+     :accessor average-bitrate)
+   (peak-to-average-bitrate-ratio
+     :initarg :peak-to-average-bitrate-ratio
+     :initform 0
+     :accessor peak-to-average-bitrate-ratio)
+   (frame-rate-numerator
+     :initarg :frame-rate-numerator
+     :initform 0
+     :accessor frame-rate-numerator)
+   (frame-rate-denominator
+     :initarg :frame-rate-denominator
+     :initform 0
+     :accessor frame-rate-denominator)
+   (virtual-buffer-size-in-ms
+     :initarg :virtual-buffer-size-in-ms
+     :initform 0
+     :accessor virtual-buffer-size-in-ms))
+  (:documentation "Represents the struct [VkVideoEncodeRateControlInfoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeRateControlInfoKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS: a list containing a valid combination of VIDEO-ENCODE-RATE-CONTROL-FLAGS-KHR.
+ - RATE-CONTROL-MODE: an enum value of VIDEO-ENCODE-RATE-CONTROL-MODE-FLAG-BITS-KHR.
+ - AVERAGE-BITRATE: a positive (32-bit) integer.
+ - PEAK-TO-AVERAGE-BITRATE-RATIO: a positive (16-bit) integer.
+ - FRAME-RATE-NUMERATOR: a positive (16-bit) integer.
+ - FRAME-RATE-DENOMINATOR: a positive (16-bit) integer.
+ - VIRTUAL-BUFFER-SIZE-IN-MS: a positive (32-bit) integer.
+
+Slot types:
+See VIDEO-ENCODE-RATE-CONTROL-FLAGS-KHR
+See VIDEO-ENCODE-RATE-CONTROL-MODE-FLAG-BITS-KHR
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-CODING-CONTROL-INFO-KHR
+"))
+
+(defclass video-encode-h264-capabilities-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (input-mode-flags
+     :initarg :input-mode-flags
+     :initform nil
+     :accessor input-mode-flags)
+   (output-mode-flags
+     :initarg :output-mode-flags
+     :initform nil
+     :accessor output-mode-flags)
+   (min-picture-size-in-mbs
+     :initarg :min-picture-size-in-mbs
+     :initform nil
+     :accessor min-picture-size-in-mbs)
+   (max-picture-size-in-mbs
+     :initarg :max-picture-size-in-mbs
+     :initform nil
+     :accessor max-picture-size-in-mbs)
+   (input-image-data-alignment
+     :initarg :input-image-data-alignment
+     :initform nil
+     :accessor input-image-data-alignment)
+   (max-num-l-0-reference-for-p
+     :initarg :max-num-l-0-reference-for-p
+     :initform 0
+     :accessor max-num-l-0-reference-for-p)
+   (max-num-l-0-reference-for-b
+     :initarg :max-num-l-0-reference-for-b
+     :initform 0
+     :accessor max-num-l-0-reference-for-b)
+   (max-num-l-1-reference
+     :initarg :max-num-l-1-reference
+     :initform 0
+     :accessor max-num-l-1-reference)
+   (quality-level-count
+     :initarg :quality-level-count
+     :initform 0
+     :accessor quality-level-count)
+   (std-extension-version
+     :initarg :std-extension-version
+     :initform nil
+     :accessor std-extension-version))
+  (:documentation "Represents the struct [VkVideoEncodeH264CapabilitiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264CapabilitiesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-CAPABILITIES-FLAGS-EXT.
+ - INPUT-MODE-FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-INPUT-MODE-FLAGS-EXT.
+ - OUTPUT-MODE-FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-OUTPUT-MODE-FLAGS-EXT.
+ - MIN-PICTURE-SIZE-IN-MBS: an EXTENT-2D.
+ - MAX-PICTURE-SIZE-IN-MBS: an EXTENT-2D.
+ - INPUT-IMAGE-DATA-ALIGNMENT: an EXTENT-2D.
+ - MAX-NUM-L-0-REFERENCE-FOR-P: a positive (8-bit) integer.
+ - MAX-NUM-L-0-REFERENCE-FOR-B: a positive (8-bit) integer.
+ - MAX-NUM-L-1-REFERENCE: a positive (8-bit) integer.
+ - QUALITY-LEVEL-COUNT: a positive (8-bit) integer.
+ - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
+
+Slot types:
+See VIDEO-ENCODE-H264-CAPABILITIES-FLAGS-EXT
+See VIDEO-ENCODE-H264-INPUT-MODE-FLAGS-EXT
+See VIDEO-ENCODE-H264-OUTPUT-MODE-FLAGS-EXT
+See EXTENT-2D
+See EXTENSION-PROPERTIES
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-CAPABILITIES-KHR
+"))
+
+(defclass video-encode-h264-session-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (flags
+     :initarg :flags
+     :initform nil
+     :accessor flags)
+   (max-picture-size-in-mbs
+     :initarg :max-picture-size-in-mbs
+     :initform nil
+     :accessor max-picture-size-in-mbs)
+   (std-extension-version
+     :initarg :std-extension-version
+     :initform nil
+     :accessor std-extension-version))
+  (:documentation "Represents the struct [VkVideoEncodeH264SessionCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264SessionCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-CREATE-FLAGS-EXT.
+ - MAX-PICTURE-SIZE-IN-MBS: an EXTENT-2D.
+ - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
+
+Slot types:
+See VIDEO-ENCODE-H264-CREATE-FLAGS-EXT
+See EXTENT-2D
+See EXTENSION-PROPERTIES
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-CREATE-INFO-KHR
+"))
+
+(defclass video-encode-h264-session-parameters-add-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (sps-std
+     :initarg :sps-std
+     :initform nil
+     :accessor sps-std)
+   (pps-std
+     :initarg :pps-std
+     :initform nil
+     :accessor pps-std))
+  (:documentation "Represents the struct [VkVideoEncodeH264SessionParametersAddInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264SessionParametersAddInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SPS-STD (optional): a list of STD-VIDEO-H264-SEQUENCE-PARAMETER-SETs.
+ - PPS-STD (optional): a list of STD-VIDEO-H264-PICTURE-PARAMETER-SETs.
+
+Slot types:
+See STD-VIDEO-H264-SEQUENCE-PARAMETER-SET
+See STD-VIDEO-H264-PICTURE-PARAMETER-SET
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR
+"))
+
+(defclass video-encode-h264-session-parameters-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (max-sps-std-count
+     :initarg :max-sps-std-count
+     :initform 0
+     :accessor max-sps-std-count)
+   (max-pps-std-count
+     :initarg :max-pps-std-count
+     :initform 0
+     :accessor max-pps-std-count)
+   (parameters-add-info
+     :initarg :parameters-add-info
+     :initform nil
+     :accessor parameters-add-info))
+  (:documentation "Represents the struct [VkVideoEncodeH264SessionParametersCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264SessionParametersCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MAX-SPS-STD-COUNT: a positive (32-bit) integer.
+ - MAX-PPS-STD-COUNT: a positive (32-bit) integer.
+ - PARAMETERS-ADD-INFO (optional): a VIDEO-ENCODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT.
+
+Slot types:
+See VIDEO-ENCODE-H264-SESSION-PARAMETERS-ADD-INFO-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR
+"))
+
+(defclass video-encode-h264-dpb-slot-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (slot-index
+     :initarg :slot-index
+     :initform 0
+     :accessor slot-index)
+   (std-picture-info
+     :initarg :std-picture-info
+     :initform nil
+     :accessor std-picture-info))
+  (:documentation "Represents the struct [VkVideoEncodeH264DpbSlotInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264DpbSlotInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SLOT-INDEX: a (8-bit) integer.
+ - STD-PICTURE-INFO: a STD-VIDEO-ENCODE-H264-PICTURE-INFO.
+
+Slot types:
+See STD-VIDEO-ENCODE-H264-PICTURE-INFO
+"))
+
+(defclass video-encode-h264-vcl-frame-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (ref-default-final-list-0-entries
+     :initarg :ref-default-final-list-0-entries
+     :initform nil
+     :accessor ref-default-final-list-0-entries)
+   (ref-default-final-list-1-entries
+     :initarg :ref-default-final-list-1-entries
+     :initform nil
+     :accessor ref-default-final-list-1-entries)
+   (nalu-slice-entries
+     :initarg :nalu-slice-entries
+     :initform nil
+     :accessor nalu-slice-entries)
+   (current-picture-info
+     :initarg :current-picture-info
+     :initform nil
+     :accessor current-picture-info))
+  (:documentation "Represents the struct [VkVideoEncodeH264VclFrameInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264VclFrameInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - REF-DEFAULT-FINAL-LIST-0-ENTRIES: a list of VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXTs.
+ - REF-DEFAULT-FINAL-LIST-1-ENTRIES: a list of VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXTs.
+ - NALU-SLICE-ENTRIES: a list of VIDEO-ENCODE-H264-NALU-SLICE-EXTs.
+ - CURRENT-PICTURE-INFO: a VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXT.
+
+Slot types:
+See VIDEO-ENCODE-H264-NALU-SLICE-EXT
+See VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-ENCODE-INFO-KHR
+"))
+
+(defclass video-encode-h264-emit-picture-parameters-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (sps-id
+     :initarg :sps-id
+     :initform 0
+     :accessor sps-id)
+   (emit-sps-enable
+     :initarg :emit-sps-enable
+     :initform nil
+     :accessor emit-sps-enable)
+   (pps-id-entries
+     :initarg :pps-id-entries
+     :initform nil
+     :accessor pps-id-entries))
+  (:documentation "Represents the struct [VkVideoEncodeH264EmitPictureParametersEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264EmitPictureParametersEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SPS-ID: a positive (8-bit) integer.
+ - EMIT-SPS-ENABLE: a boolean.
+ - PPS-ID-ENTRIES: a list of positive (8-bit) integers.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-ENCODE-INFO-KHR
+"))
+
+(defclass video-encode-h264-profile-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (std-profile-idc
+     :initarg :std-profile-idc
+     :initform nil
+     :accessor std-profile-idc))
+  (:documentation "Represents the struct [VkVideoEncodeH264ProfileEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264ProfileEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - STD-PROFILE-IDC: a STD-VIDEO-H264-PROFILE-IDC.
+
+Slot types:
+See STD-VIDEO-H264-PROFILE-IDC
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See VIDEO-PROFILE-KHR
+"))
+
+(defclass video-encode-h264-nalu-slice-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (slice-header-std
+     :initarg :slice-header-std
+     :initform nil
+     :accessor slice-header-std)
+   (mb-count
+     :initarg :mb-count
+     :initform 0
+     :accessor mb-count)
+   (ref-final-list-0-entries
+     :initarg :ref-final-list-0-entries
+     :initform nil
+     :accessor ref-final-list-0-entries)
+   (ref-final-list-1-entries
+     :initarg :ref-final-list-1-entries
+     :initform nil
+     :accessor ref-final-list-1-entries)
+   (preceding-nalu-bytes
+     :initarg :preceding-nalu-bytes
+     :initform 0
+     :accessor preceding-nalu-bytes)
+   (min-qp
+     :initarg :min-qp
+     :initform 0
+     :accessor min-qp)
+   (max-qp
+     :initarg :max-qp
+     :initform 0
+     :accessor max-qp))
+  (:documentation "Represents the struct [VkVideoEncodeH264NaluSliceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264NaluSliceEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SLICE-HEADER-STD: a STD-VIDEO-ENCODE-H264-SLICE-HEADER.
+ - MB-COUNT: a positive (32-bit) integer.
+ - REF-FINAL-LIST-0-ENTRIES: a list of VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXTs.
+ - REF-FINAL-LIST-1-ENTRIES: a list of VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXTs.
+ - PRECEDING-NALU-BYTES: a positive (32-bit) integer.
+ - MIN-QP: a positive (8-bit) integer.
+ - MAX-QP: a positive (8-bit) integer.
+
+Slot types:
+See STD-VIDEO-ENCODE-H264-SLICE-HEADER
+See VIDEO-ENCODE-H264-DPB-SLOT-INFO-EXT
+"))
+
+(defclass physical-device-inherited-viewport-scissor-features-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (inherited-viewport-scissor-2d
+     :initarg :inherited-viewport-scissor-2d
+     :initform nil
+     :accessor inherited-viewport-scissor-2d))
+  (:documentation "Represents the struct [VkPhysicalDeviceInheritedViewportScissorFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceInheritedViewportScissorFeaturesNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - INHERITED-VIEWPORT-SCISSOR-2D: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass command-buffer-inheritance-viewport-scissor-info-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (viewport-scissor-2d
+     :initarg :viewport-scissor-2d
+     :initform nil
+     :accessor viewport-scissor-2d)
+   (viewport-depth-count
+     :initarg :viewport-depth-count
+     :initform 0
+     :accessor viewport-depth-count)
+   (viewport-depths
+     :initarg :viewport-depths
+     :initform nil
+     :accessor viewport-depths))
+  (:documentation "Represents the struct [VkCommandBufferInheritanceViewportScissorInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCommandBufferInheritanceViewportScissorInfoNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - VIEWPORT-SCISSOR-2D: a boolean.
+ - VIEWPORT-DEPTH-COUNT: a positive (32-bit) integer.
+ - VIEWPORT-DEPTHS: a VIEWPORT.
+
+Slot types:
+See VIEWPORT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See COMMAND-BUFFER-INHERITANCE-INFO
+"))
+
+(defclass physical-device-ycbcr-2-plane-4-4-4-formats-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (ycbcr-2plane-4-4-4-formats
+     :initarg :ycbcr-2plane-4-4-4-formats
+     :initform nil
+     :accessor ycbcr-2plane-4-4-4-formats))
+  (:documentation "Represents the struct [VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - YCBCR-2PLANE-4-4-4-FORMATS: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2

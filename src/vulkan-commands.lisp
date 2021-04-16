@@ -2524,6 +2524,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-max-primitive-counts (:pointer :uint32))
   (p-size-info (:pointer (:pointer (:struct acceleration-structure-build-sizes-info-khr)))))
 
+(defvkextfun ("vkCmdSetVertexInputEXT" cmd-set-vertex-input-ext) :void
+  (command-buffer command-buffer)
+  (vertex-binding-description-count :uint32)
+  (p-vertex-binding-descriptions (:pointer (:pointer (:struct vertex-input-binding-description-2-ext))))
+  (vertex-attribute-description-count :uint32)
+  (p-vertex-attribute-descriptions (:pointer (:pointer (:struct vertex-input-attribute-description-2-ext)))))
+
+(defvkextfun ("vkCmdSetColorWriteEnableEXT" cmd-set-color-write-enable-ext) :void
+  (command-buffer command-buffer)
+  (attachment-count :uint32)
+  (p-color-write-enables (:pointer bool32)))
+
 (defvkfun ("vkCmdSetEvent2KHR" cmd-set-event-2-khr) :void
   (command-buffer command-buffer)
   (event event)
@@ -2567,4 +2579,74 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (queue queue)
   (p-checkpoint-data-count (:pointer :uint32))
   (p-checkpoint-data (:pointer (:pointer (:struct checkpoint-data-2-nv)))))
+
+(defvkfun ("vkGetPhysicalDeviceVideoCapabilitiesKHR" get-physical-device-video-capabilities-khr) checked-result
+  (physical-device physical-device)
+  (p-video-profile (:pointer (:pointer (:struct video-profile-khr))))
+  (p-capabilities (:pointer (:pointer (:struct video-capabilities-khr)))))
+
+(defvkfun ("vkGetPhysicalDeviceVideoFormatPropertiesKHR" get-physical-device-video-format-properties-khr) checked-result
+  (physical-device physical-device)
+  (p-video-format-info (:pointer (:pointer (:struct physical-device-video-format-info-khr))))
+  (p-video-format-property-count (:pointer :uint32))
+  (p-video-format-properties (:pointer (:pointer (:struct video-format-properties-khr)))))
+
+(defvkfun ("vkCreateVideoSessionKHR" create-video-session-khr) checked-result
+  (device device)
+  (p-create-info (:pointer (:pointer (:struct video-session-create-info-khr))))
+  (p-allocator (:pointer (:pointer (:struct allocation-callbacks))))
+  (p-video-session (:pointer video-session-khr)))
+
+(defvkfun ("vkDestroyVideoSessionKHR" destroy-video-session-khr) :void
+  (device device)
+  (video-session video-session-khr)
+  (p-allocator (:pointer (:pointer (:struct allocation-callbacks)))))
+
+(defvkfun ("vkCreateVideoSessionParametersKHR" create-video-session-parameters-khr) checked-result
+  (device device)
+  (p-create-info (:pointer (:pointer (:struct video-session-parameters-create-info-khr))))
+  (p-allocator (:pointer (:pointer (:struct allocation-callbacks))))
+  (p-video-session-parameters (:pointer video-session-parameters-khr)))
+
+(defvkfun ("vkUpdateVideoSessionParametersKHR" update-video-session-parameters-khr) checked-result
+  (device device)
+  (video-session-parameters video-session-parameters-khr)
+  (p-update-info (:pointer (:pointer (:struct video-session-parameters-update-info-khr)))))
+
+(defvkfun ("vkDestroyVideoSessionParametersKHR" destroy-video-session-parameters-khr) :void
+  (device device)
+  (video-session-parameters video-session-parameters-khr)
+  (p-allocator (:pointer (:pointer (:struct allocation-callbacks)))))
+
+(defvkfun ("vkGetVideoSessionMemoryRequirementsKHR" get-video-session-memory-requirements-khr) checked-result
+  (device device)
+  (video-session video-session-khr)
+  (p-video-session-memory-requirements-count (:pointer :uint32))
+  (p-video-session-memory-requirements (:pointer (:pointer (:struct video-get-memory-properties-khr)))))
+
+(defvkfun ("vkBindVideoSessionMemoryKHR" bind-video-session-memory-khr) checked-result
+  (device device)
+  (video-session video-session-khr)
+  (video-session-bind-memory-count :uint32)
+  (p-video-session-bind-memories (:pointer (:pointer (:struct video-bind-memory-khr)))))
+
+(defvkfun ("vkCmdDecodeVideoKHR" cmd-decode-video-khr) :void
+  (command-buffer command-buffer)
+  (p-frame-info (:pointer (:pointer (:struct video-decode-info-khr)))))
+
+(defvkfun ("vkCmdBeginVideoCodingKHR" cmd-begin-video-coding-khr) :void
+  (command-buffer command-buffer)
+  (p-begin-info (:pointer (:pointer (:struct video-begin-coding-info-khr)))))
+
+(defvkfun ("vkCmdControlVideoCodingKHR" cmd-control-video-coding-khr) :void
+  (command-buffer command-buffer)
+  (p-coding-control-info (:pointer (:pointer (:struct video-coding-control-info-khr)))))
+
+(defvkfun ("vkCmdEndVideoCodingKHR" cmd-end-video-coding-khr) :void
+  (command-buffer command-buffer)
+  (p-end-coding-info (:pointer (:pointer (:struct video-end-coding-info-khr)))))
+
+(defvkfun ("vkCmdEncodeVideoKHR" cmd-encode-video-khr) :void
+  (command-buffer command-buffer)
+  (p-encode-info (:pointer (:pointer (:struct video-encode-info-khr)))))
 

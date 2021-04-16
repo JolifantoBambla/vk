@@ -9224,6 +9224,74 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :mutable-descriptor-type-lists (loop for i from 0 below %vk:mutable-descriptor-type-list-count collect (cffi:mem-aref %vk:p-mutable-descriptor-type-lists '(:struct %vk:mutable-descriptor-type-list-valve) i)))))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-vertex-input-dynamic-state-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:vertex-input-dynamic-state)
+       ptr
+       (:struct %vk:physical-device-vertex-input-dynamic-state-features-ext))
+    (make-instance 'vk:physical-device-vertex-input-dynamic-state-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :vertex-input-dynamic-state %vk:vertex-input-dynamic-state)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-vertex-input-binding-description-2-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:binding
+        %vk:stride
+        %vk:input-rate
+        %vk:divisor)
+       ptr
+       (:struct %vk:vertex-input-binding-description-2-ext))
+    (make-instance 'vk:vertex-input-binding-description-2-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :binding %vk:binding
+                   :stride %vk:stride
+                   :input-rate %vk:input-rate
+                   :divisor %vk:divisor)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-vertex-input-attribute-description-2-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:location
+        %vk:binding
+        %vk:format
+        %vk:offset)
+       ptr
+       (:struct %vk:vertex-input-attribute-description-2-ext))
+    (make-instance 'vk:vertex-input-attribute-description-2-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :location %vk:location
+                   :binding %vk:binding
+                   :format %vk:format
+                   :offset %vk:offset)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-color-write-enable-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:color-write-enable)
+       ptr
+       (:struct %vk:physical-device-color-write-enable-features-ext))
+    (make-instance 'vk:physical-device-color-write-enable-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :color-write-enable %vk:color-write-enable)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-color-write-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:attachment-count
+        %vk:p-color-write-enables)
+       ptr
+       (:struct %vk:pipeline-color-write-create-info-ext))
+    (make-instance 'vk:pipeline-color-write-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :color-write-enables (loop for i from 0 below %vk:attachment-count collect (cffi:mem-aref %vk:p-color-write-enables '%vk:bool32 i)))))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-barrier-2-khr))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -9401,4 +9469,721 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:physical-device-synchronization-2-features-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :synchronization-2 %vk:synchronization-2)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-queue-family-properties-2-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:video-codec-operations)
+       ptr
+       (:struct %vk:video-queue-family-properties-2-khr))
+    (make-instance 'vk:video-queue-family-properties-2-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :video-codec-operations %vk:video-codec-operations)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-profiles-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:profile-count
+        %vk:p-profiles)
+       ptr
+       (:struct %vk:video-profiles-khr))
+    (make-instance 'vk:video-profiles-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :profile-count %vk:profile-count
+                   :profiles %vk:p-profiles)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-video-format-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:image-usage
+        %vk:p-video-profiles)
+       ptr
+       (:struct %vk:physical-device-video-format-info-khr))
+    (make-instance 'vk:physical-device-video-format-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :image-usage %vk:image-usage
+                   :video-profiles %vk:p-video-profiles)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-format-properties-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:format)
+       ptr
+       (:struct %vk:video-format-properties-khr))
+    (make-instance 'vk:video-format-properties-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :format %vk:format)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-profile-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:video-codec-operation
+        %vk:chroma-subsampling
+        %vk:luma-bit-depth
+        %vk:chroma-bit-depth)
+       ptr
+       (:struct %vk:video-profile-khr))
+    (make-instance 'vk:video-profile-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :video-codec-operation %vk:video-codec-operation
+                   :chroma-subsampling %vk:chroma-subsampling
+                   :luma-bit-depth %vk:luma-bit-depth
+                   :chroma-bit-depth %vk:chroma-bit-depth)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-capabilities-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:capability-flags
+        %vk:min-bitstream-buffer-offset-alignment
+        %vk:min-bitstream-buffer-size-alignment
+        %vk:video-picture-extent-granularity
+        %vk:min-extent
+        %vk:max-extent
+        %vk:max-reference-pictures-slots-count
+        %vk:max-reference-pictures-active-count)
+       ptr
+       (:struct %vk:video-capabilities-khr))
+    (make-instance 'vk:video-capabilities-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :capability-flags %vk:capability-flags
+                   :min-bitstream-buffer-offset-alignment %vk:min-bitstream-buffer-offset-alignment
+                   :min-bitstream-buffer-size-alignment %vk:min-bitstream-buffer-size-alignment
+                   :video-picture-extent-granularity %vk:video-picture-extent-granularity
+                   :min-extent %vk:min-extent
+                   :max-extent %vk:max-extent
+                   :max-reference-pictures-slots-count %vk:max-reference-pictures-slots-count
+                   :max-reference-pictures-active-count %vk:max-reference-pictures-active-count)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-get-memory-properties-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-bind-index
+        %vk:p-memory-requirements)
+       ptr
+       (:struct %vk:video-get-memory-properties-khr))
+    (make-instance 'vk:video-get-memory-properties-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :memory-bind-index %vk:memory-bind-index
+                   :memory-requirements %vk:p-memory-requirements)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-bind-memory-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-bind-index
+        %vk:memory
+        %vk:memory-offset
+        %vk:memory-size)
+       ptr
+       (:struct %vk:video-bind-memory-khr))
+    (make-instance 'vk:video-bind-memory-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :memory-bind-index %vk:memory-bind-index
+                   :memory %vk:memory
+                   :memory-offset %vk:memory-offset
+                   :memory-size %vk:memory-size)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-picture-resource-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:coded-offset
+        %vk:coded-extent
+        %vk:base-array-layer
+        %vk:image-view-binding)
+       ptr
+       (:struct %vk:video-picture-resource-khr))
+    (make-instance 'vk:video-picture-resource-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :coded-offset %vk:coded-offset
+                   :coded-extent %vk:coded-extent
+                   :base-array-layer %vk:base-array-layer
+                   :image-view-binding %vk:image-view-binding)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-reference-slot-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:slot-index
+        %vk:p-picture-resource)
+       ptr
+       (:struct %vk:video-reference-slot-khr))
+    (make-instance 'vk:video-reference-slot-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :slot-index %vk:slot-index
+                   :picture-resource %vk:p-picture-resource)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:coded-offset
+        %vk:coded-extent
+        %vk:src-buffer
+        %vk:src-buffer-offset
+        %vk:src-buffer-range
+        %vk:dst-picture-resource
+        %vk:p-setup-reference-slot
+        %vk:reference-slot-count
+        %vk:p-reference-slots)
+       ptr
+       (:struct %vk:video-decode-info-khr))
+    (make-instance 'vk:video-decode-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :coded-offset %vk:coded-offset
+                   :coded-extent %vk:coded-extent
+                   :src-buffer %vk:src-buffer
+                   :src-buffer-offset %vk:src-buffer-offset
+                   :src-buffer-range %vk:src-buffer-range
+                   :dst-picture-resource %vk:dst-picture-resource
+                   :setup-reference-slot %vk:p-setup-reference-slot
+                   :reference-slots (loop for i from 0 below %vk:reference-slot-count collect (cffi:mem-aref %vk:p-reference-slots '(:struct %vk:video-reference-slot-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-profile-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc
+        %vk:field-layout)
+       ptr
+       (:struct %vk:video-decode-h264-profile-ext))
+    (make-instance 'vk:video-decode-h264-profile-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-profile-idc %vk:std-profile-idc
+                   :field-layout %vk:field-layout)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-capabilities-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-level
+        %vk:field-offset-granularity
+        %vk:std-extension-version)
+       ptr
+       (:struct %vk:video-decode-h264-capabilities-ext))
+    (make-instance 'vk:video-decode-h264-capabilities-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-level %vk:max-level
+                   :field-offset-granularity %vk:field-offset-granularity
+                   :std-extension-version %vk:std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-session-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:p-std-extension-version)
+       ptr
+       (:struct %vk:video-decode-h264-session-create-info-ext))
+    (make-instance 'vk:video-decode-h264-session-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :std-extension-version %vk:p-std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-session-parameters-add-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ptr
+       (:struct %vk:video-decode-h264-session-parameters-add-info-ext))
+    (make-instance 'vk:video-decode-h264-session-parameters-add-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '%vk:std-video-h264-sequence-parameter-set i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '%vk:std-video-h264-picture-parameter-set i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-session-parameters-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ptr
+       (:struct %vk:video-decode-h264-session-parameters-create-info-ext))
+    (make-instance 'vk:video-decode-h264-session-parameters-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-sps-std-count %vk:max-sps-std-count
+                   :max-pps-std-count %vk:max-pps-std-count
+                   :parameters-add-info %vk:p-parameters-add-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-picture-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-picture-info
+        %vk:slices-count
+        %vk:p-slices-data-offsets)
+       ptr
+       (:struct %vk:video-decode-h264-picture-info-ext))
+    (make-instance 'vk:video-decode-h264-picture-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-picture-info %vk:p-std-picture-info
+                   :slices-data-offsets (loop for i from 0 below %vk:slices-count collect (cffi:mem-aref %vk:p-slices-data-offsets :uint32 i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-dpb-slot-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-reference-info)
+       ptr
+       (:struct %vk:video-decode-h264-dpb-slot-info-ext))
+    (make-instance 'vk:video-decode-h264-dpb-slot-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-reference-info %vk:p-std-reference-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-mvc-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-mvc)
+       ptr
+       (:struct %vk:video-decode-h264-mvc-ext))
+    (make-instance 'vk:video-decode-h264-mvc-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-mvc %vk:p-std-mvc)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-profile-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc)
+       ptr
+       (:struct %vk:video-decode-h265-profile-ext))
+    (make-instance 'vk:video-decode-h265-profile-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-profile-idc %vk:std-profile-idc)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-capabilities-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-level
+        %vk:std-extension-version)
+       ptr
+       (:struct %vk:video-decode-h265-capabilities-ext))
+    (make-instance 'vk:video-decode-h265-capabilities-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-level %vk:max-level
+                   :std-extension-version %vk:std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-session-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:p-std-extension-version)
+       ptr
+       (:struct %vk:video-decode-h265-session-create-info-ext))
+    (make-instance 'vk:video-decode-h265-session-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :std-extension-version %vk:p-std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-session-parameters-add-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ptr
+       (:struct %vk:video-decode-h265-session-parameters-add-info-ext))
+    (make-instance 'vk:video-decode-h265-session-parameters-add-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '%vk:std-video-h265-sequence-parameter-set i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '%vk:std-video-h265-picture-parameter-set i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-session-parameters-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ptr
+       (:struct %vk:video-decode-h265-session-parameters-create-info-ext))
+    (make-instance 'vk:video-decode-h265-session-parameters-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-sps-std-count %vk:max-sps-std-count
+                   :max-pps-std-count %vk:max-pps-std-count
+                   :parameters-add-info %vk:p-parameters-add-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-picture-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-picture-info
+        %vk:slices-count
+        %vk:p-slices-data-offsets)
+       ptr
+       (:struct %vk:video-decode-h265-picture-info-ext))
+    (make-instance 'vk:video-decode-h265-picture-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-picture-info %vk:p-std-picture-info
+                   :slices-data-offsets (loop for i from 0 below %vk:slices-count collect (cffi:mem-aref %vk:p-slices-data-offsets :uint32 i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-dpb-slot-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-std-reference-info)
+       ptr
+       (:struct %vk:video-decode-h265-dpb-slot-info-ext))
+    (make-instance 'vk:video-decode-h265-dpb-slot-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-reference-info %vk:p-std-reference-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-session-create-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:queue-family-index
+        %vk:flags
+        %vk:p-video-profile
+        %vk:picture-format
+        %vk:max-coded-extent
+        %vk:reference-pictures-format
+        %vk:max-reference-pictures-slots-count
+        %vk:max-reference-pictures-active-count)
+       ptr
+       (:struct %vk:video-session-create-info-khr))
+    (make-instance 'vk:video-session-create-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :queue-family-index %vk:queue-family-index
+                   :flags %vk:flags
+                   :video-profile %vk:p-video-profile
+                   :picture-format %vk:picture-format
+                   :max-coded-extent %vk:max-coded-extent
+                   :reference-pictures-format %vk:reference-pictures-format
+                   :max-reference-pictures-slots-count %vk:max-reference-pictures-slots-count
+                   :max-reference-pictures-active-count %vk:max-reference-pictures-active-count)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-session-parameters-create-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:video-session-parameters-template
+        %vk:video-session)
+       ptr
+       (:struct %vk:video-session-parameters-create-info-khr))
+    (make-instance 'vk:video-session-parameters-create-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :video-session-parameters-template %vk:video-session-parameters-template
+                   :video-session %vk:video-session)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-session-parameters-update-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:update-sequence-count)
+       ptr
+       (:struct %vk:video-session-parameters-update-info-khr))
+    (make-instance 'vk:video-session-parameters-update-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :update-sequence-count %vk:update-sequence-count)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-begin-coding-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:codec-quality-preset
+        %vk:video-session
+        %vk:video-session-parameters
+        %vk:reference-slot-count
+        %vk:p-reference-slots)
+       ptr
+       (:struct %vk:video-begin-coding-info-khr))
+    (make-instance 'vk:video-begin-coding-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :codec-quality-preset %vk:codec-quality-preset
+                   :video-session %vk:video-session
+                   :video-session-parameters %vk:video-session-parameters
+                   :reference-slots (loop for i from 0 below %vk:reference-slot-count collect (cffi:mem-aref %vk:p-reference-slots '(:struct %vk:video-reference-slot-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-end-coding-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags)
+       ptr
+       (:struct %vk:video-end-coding-info-khr))
+    (make-instance 'vk:video-end-coding-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-coding-control-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags)
+       ptr
+       (:struct %vk:video-coding-control-info-khr))
+    (make-instance 'vk:video-coding-control-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:quality-level
+        %vk:coded-extent
+        %vk:dst-bitstream-buffer
+        %vk:dst-bitstream-buffer-offset
+        %vk:dst-bitstream-buffer-max-range
+        %vk:src-picture-resource
+        %vk:p-setup-reference-slot
+        %vk:reference-slot-count
+        %vk:p-reference-slots)
+       ptr
+       (:struct %vk:video-encode-info-khr))
+    (make-instance 'vk:video-encode-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :quality-level %vk:quality-level
+                   :coded-extent %vk:coded-extent
+                   :dst-bitstream-buffer %vk:dst-bitstream-buffer
+                   :dst-bitstream-buffer-offset %vk:dst-bitstream-buffer-offset
+                   :dst-bitstream-buffer-max-range %vk:dst-bitstream-buffer-max-range
+                   :src-picture-resource %vk:src-picture-resource
+                   :setup-reference-slot %vk:p-setup-reference-slot
+                   :reference-slots (loop for i from 0 below %vk:reference-slot-count collect (cffi:mem-aref %vk:p-reference-slots '(:struct %vk:video-reference-slot-khr) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-rate-control-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:rate-control-mode
+        %vk:average-bitrate
+        %vk:peak-to-average-bitrate-ratio
+        %vk:frame-rate-numerator
+        %vk:frame-rate-denominator
+        %vk:virtual-buffer-size-in-ms)
+       ptr
+       (:struct %vk:video-encode-rate-control-info-khr))
+    (make-instance 'vk:video-encode-rate-control-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :rate-control-mode %vk:rate-control-mode
+                   :average-bitrate %vk:average-bitrate
+                   :peak-to-average-bitrate-ratio %vk:peak-to-average-bitrate-ratio
+                   :frame-rate-numerator %vk:frame-rate-numerator
+                   :frame-rate-denominator %vk:frame-rate-denominator
+                   :virtual-buffer-size-in-ms %vk:virtual-buffer-size-in-ms)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-capabilities-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:input-mode-flags
+        %vk:output-mode-flags
+        %vk:min-picture-size-in-mbs
+        %vk:max-picture-size-in-mbs
+        %vk:input-image-data-alignment
+        %vk:max-num-l-0-reference-for-p
+        %vk:max-num-l-0-reference-for-b
+        %vk:max-num-l-1-reference
+        %vk:quality-level-count
+        %vk:std-extension-version)
+       ptr
+       (:struct %vk:video-encode-h264-capabilities-ext))
+    (make-instance 'vk:video-encode-h264-capabilities-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :input-mode-flags %vk:input-mode-flags
+                   :output-mode-flags %vk:output-mode-flags
+                   :min-picture-size-in-mbs %vk:min-picture-size-in-mbs
+                   :max-picture-size-in-mbs %vk:max-picture-size-in-mbs
+                   :input-image-data-alignment %vk:input-image-data-alignment
+                   :max-num-l-0-reference-for-p %vk:max-num-l-0-reference-for-p
+                   :max-num-l-0-reference-for-b %vk:max-num-l-0-reference-for-b
+                   :max-num-l-1-reference %vk:max-num-l-1-reference
+                   :quality-level-count %vk:quality-level-count
+                   :std-extension-version %vk:std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-session-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:max-picture-size-in-mbs
+        %vk:p-std-extension-version)
+       ptr
+       (:struct %vk:video-encode-h264-session-create-info-ext))
+    (make-instance 'vk:video-encode-h264-session-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :max-picture-size-in-mbs %vk:max-picture-size-in-mbs
+                   :std-extension-version %vk:p-std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-session-parameters-add-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ptr
+       (:struct %vk:video-encode-h264-session-parameters-add-info-ext))
+    (make-instance 'vk:video-encode-h264-session-parameters-add-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '%vk:std-video-h264-sequence-parameter-set i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '%vk:std-video-h264-picture-parameter-set i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-session-parameters-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ptr
+       (:struct %vk:video-encode-h264-session-parameters-create-info-ext))
+    (make-instance 'vk:video-encode-h264-session-parameters-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-sps-std-count %vk:max-sps-std-count
+                   :max-pps-std-count %vk:max-pps-std-count
+                   :parameters-add-info %vk:p-parameters-add-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-dpb-slot-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:slot-index
+        %vk:p-std-picture-info)
+       ptr
+       (:struct %vk:video-encode-h264-dpb-slot-info-ext))
+    (make-instance 'vk:video-encode-h264-dpb-slot-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :slot-index %vk:slot-index
+                   :std-picture-info %vk:p-std-picture-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-vcl-frame-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ref-default-final-list-0-entry-count
+        %vk:p-ref-default-final-list-0-entries
+        %vk:ref-default-final-list-1-entry-count
+        %vk:p-ref-default-final-list-1-entries
+        %vk:nalu-slice-entry-count
+        %vk:p-nalu-slice-entries
+        %vk:p-current-picture-info)
+       ptr
+       (:struct %vk:video-encode-h264-vcl-frame-info-ext))
+    (make-instance 'vk:video-encode-h264-vcl-frame-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :ref-default-final-list-0-entries (loop for i from 0 below %vk:ref-default-final-list-0-entry-count collect (cffi:mem-aref %vk:p-ref-default-final-list-0-entries '(:struct %vk:video-encode-h264-dpb-slot-info-ext) i))
+                   :ref-default-final-list-1-entries (loop for i from 0 below %vk:ref-default-final-list-1-entry-count collect (cffi:mem-aref %vk:p-ref-default-final-list-1-entries '(:struct %vk:video-encode-h264-dpb-slot-info-ext) i))
+                   :nalu-slice-entries (loop for i from 0 below %vk:nalu-slice-entry-count collect (cffi:mem-aref %vk:p-nalu-slice-entries '(:struct %vk:video-encode-h264-nalu-slice-ext) i))
+                   :current-picture-info %vk:p-current-picture-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-emit-picture-parameters-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:sps-id
+        %vk:emit-sps-enable
+        %vk:pps-id-entry-count
+        %vk:pps-id-entries)
+       ptr
+       (:struct %vk:video-encode-h264-emit-picture-parameters-ext))
+    (make-instance 'vk:video-encode-h264-emit-picture-parameters-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :sps-id %vk:sps-id
+                   :emit-sps-enable %vk:emit-sps-enable
+                   :pps-id-entries (loop for i from 0 below %vk:pps-id-entry-count collect (cffi:mem-aref %vk:pps-id-entries :uint8 i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-profile-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc)
+       ptr
+       (:struct %vk:video-encode-h264-profile-ext))
+    (make-instance 'vk:video-encode-h264-profile-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-profile-idc %vk:std-profile-idc)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-nalu-slice-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-slice-header-std
+        %vk:mb-count
+        %vk:ref-final-list-0-entry-count
+        %vk:p-ref-final-list-0-entries
+        %vk:ref-final-list-1-entry-count
+        %vk:p-ref-final-list-1-entries
+        %vk:preceding-nalu-bytes
+        %vk:min-qp
+        %vk:max-qp)
+       ptr
+       (:struct %vk:video-encode-h264-nalu-slice-ext))
+    (make-instance 'vk:video-encode-h264-nalu-slice-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :slice-header-std %vk:p-slice-header-std
+                   :mb-count %vk:mb-count
+                   :ref-final-list-0-entries (loop for i from 0 below %vk:ref-final-list-0-entry-count collect (cffi:mem-aref %vk:p-ref-final-list-0-entries '(:struct %vk:video-encode-h264-dpb-slot-info-ext) i))
+                   :ref-final-list-1-entries (loop for i from 0 below %vk:ref-final-list-1-entry-count collect (cffi:mem-aref %vk:p-ref-final-list-1-entries '(:struct %vk:video-encode-h264-dpb-slot-info-ext) i))
+                   :preceding-nalu-bytes %vk:preceding-nalu-bytes
+                   :min-qp %vk:min-qp
+                   :max-qp %vk:max-qp)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-inherited-viewport-scissor-features-nv))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:inherited-viewport-scissor-2d)
+       ptr
+       (:struct %vk:physical-device-inherited-viewport-scissor-features-nv))
+    (make-instance 'vk:physical-device-inherited-viewport-scissor-features-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :inherited-viewport-scissor-2d %vk:inherited-viewport-scissor-2d)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-command-buffer-inheritance-viewport-scissor-info-nv))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:viewport-scissor-2d
+        %vk:viewport-depth-count
+        %vk:p-viewport-depths)
+       ptr
+       (:struct %vk:command-buffer-inheritance-viewport-scissor-info-nv))
+    (make-instance 'vk:command-buffer-inheritance-viewport-scissor-info-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :viewport-scissor-2d %vk:viewport-scissor-2d
+                   :viewport-depth-count %vk:viewport-depth-count
+                   :viewport-depths %vk:p-viewport-depths)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-ycbcr-2-plane-4-4-4-formats-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ycbcr-2plane-4-4-4-formats)
+       ptr
+       (:struct %vk:physical-device-ycbcr-2-plane-4-4-4-formats-features-ext))
+    (make-instance 'vk:physical-device-ycbcr-2-plane-4-4-4-formats-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :ycbcr-2plane-4-4-4-formats %vk:ycbcr-2plane-4-4-4-formats)))
 

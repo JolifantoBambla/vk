@@ -12885,6 +12885,54 @@ See DEVICE
   (max-primitive-counts :uint32 max-primitive-counts :in :list :optional)
   (size-info '(:struct %vk:acceleration-structure-build-sizes-info-khr) size-info :out))
 
+(defvk-simple-fun (cmd-set-vertex-input-ext
+                   %vk:cmd-set-vertex-input-ext
+                   "Represents [vkCmdSetVertexInputEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetVertexInputEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - VERTEX-BINDING-DESCRIPTIONS: a (OR LIST VECTOR) of (OR VERTEX-INPUT-BINDING-DESCRIPTION-2-EXT CFFI:FOREIGN-POINTER) instances
+ - VERTEX-ATTRIBUTE-DESCRIPTIONS: a (OR LIST VECTOR) of (OR VERTEX-INPUT-ATTRIBUTE-DESCRIPTION-2-EXT CFFI:FOREIGN-POINTER) instances
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See VERTEX-INPUT-ATTRIBUTE-DESCRIPTION-2-EXT
+See VERTEX-INPUT-BINDING-DESCRIPTION-2-EXT
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (vertex-binding-descriptions (or list vector)) (vertex-attribute-descriptions (or list vector)))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (vertex-binding-description-count :uint32 (length vertex-binding-descriptions) :in :raw)
+  (vertex-binding-descriptions '(:struct %vk:vertex-input-binding-description-2-ext) vertex-binding-descriptions :in :list)
+  (vertex-attribute-description-count :uint32 (length vertex-attribute-descriptions) :in :raw)
+  (vertex-attribute-descriptions '(:struct %vk:vertex-input-attribute-description-2-ext) vertex-attribute-descriptions :in :list))
+
+(defvk-simple-fun (cmd-set-color-write-enable-ext
+                   %vk:cmd-set-color-write-enable-ext
+                   "Represents [vkCmdSetColorWriteEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetColorWriteEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - COLOR-WRITE-ENABLES: a (OR LIST VECTOR) of BOOL32s
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See BOOL32
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (color-write-enables (or list vector)))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (attachment-count :uint32 (length color-write-enables) :in :raw)
+  (color-write-enables '%vk:bool32 color-write-enables :in :list))
+
 (defvk-simple-fun (cmd-set-event-2-khr
                    %vk:cmd-set-event-2-khr
                    "Represents [vkCmdSetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent2KHR.html).
@@ -13075,4 +13123,380 @@ See *EXTENSION-LOADER*
   (queue '%vk:queue queue :in :handle)
   (checkpoint-data-count :uint32 checkpoint-data-count :out)
   (checkpoint-data '(:struct %vk:checkpoint-data-2-nv) checkpoint-data :out :list))
+
+(defvk-get-struct-fun (get-physical-device-video-capabilities-khr
+                       %vk:get-physical-device-video-capabilities-khr
+                       "Represents [vkGetPhysicalDeviceVideoCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - VIDEO-PROFILE: a (OR VIDEO-PROFILE-KHR CFFI:FOREIGN-POINTER)
+
+Returns:
+  (CL:VALUES
+    VIDEO-CAPABILITIES-KHRNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-EXTENSION-NOT-PRESENT
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-FEATURE-NOT-PRESENT
+ - ERROR-FORMAT-NOT-SUPPORTED
+
+See PHYSICAL-DEVICE
+See RESULT
+See VIDEO-CAPABILITIES-KHR
+See VIDEO-PROFILE-KHR
+"
+                       ((physical-device cffi:foreign-pointer) (video-profile (or vk:video-profile-khr cffi:foreign-pointer)))
+                       ())
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (video-profile '(:struct %vk:video-profile-khr) video-profile :in)
+  (capabilities '(:struct %vk:video-capabilities-khr) capabilities :out))
+
+(defvk-enumerate-fun (get-physical-device-video-format-properties-khr
+                      %vk:get-physical-device-video-format-properties-khr
+                      "Represents [vkGetPhysicalDeviceVideoFormatPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html).
+
+Args:
+ - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - VIDEO-FORMAT-INFO: a (OR PHYSICAL-DEVICE-VIDEO-FORMAT-INFO-KHR CFFI:FOREIGN-POINTER)
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTENIL
+    VIDEO-FORMAT-PROPERTIES-KHRs
+    RESULT)
+
+Success codes:
+ - SUCCESS
+ - INCOMPLETE
+
+Errors signalled on codes:
+ - ERROR-EXTENSION-NOT-PRESENT
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-FORMAT-NOT-SUPPORTED
+
+See PHYSICAL-DEVICE
+See PHYSICAL-DEVICE-VIDEO-FORMAT-INFO-KHR
+See RESULT
+See VIDEO-FORMAT-PROPERTIES-KHR
+"
+                      ((physical-device cffi:foreign-pointer) (video-format-info (or vk:physical-device-video-format-info-khr cffi:foreign-pointer)))
+                      ()
+                      video-format-property-count
+                      video-format-properties
+                      nil)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (video-format-info '(:struct %vk:physical-device-video-format-info-khr) video-format-info :in)
+  (video-format-property-count :uint32 video-format-property-count :out)
+  (video-format-properties '(:struct %vk:video-format-properties-khr) video-format-properties :out :list))
+
+(defvk-create-handle-fun (create-video-session-khr
+                          %vk:create-video-session-khr
+                          "Represents [vkCreateVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateVideoSessionKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - CREATE-INFO: a (OR VIDEO-SESSION-CREATE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+
+Returns:
+  (CL:VALUES
+    VIDEO-SESSION-KHRNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-INCOMPATIBLE-DRIVER
+ - ERROR-FEATURE-NOT-PRESENT
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See RESULT
+See VIDEO-SESSION-CREATE-INFO-KHR
+See VIDEO-SESSION-KHR
+See *DEFAULT-ALLOCATOR*
+"
+                          ((device cffi:foreign-pointer) (create-info (or vk:video-session-create-info-khr cffi:foreign-pointer)))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
+  (device '%vk:device device :in :handle)
+  (create-info '(:struct %vk:video-session-create-info-khr) create-info :in)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
+  (video-session '%vk:video-session-khr video-session :out :handle))
+
+(defvk-simple-fun (destroy-video-session-khr
+                   %vk:destroy-video-session-khr
+                   "Represents [vkDestroyVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyVideoSessionKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - VIDEO-SESSION: a VIDEO-SESSION-KHR
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See VIDEO-SESSION-KHR
+See *DEFAULT-ALLOCATOR*
+"
+                   ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer))
+                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
+  (device '%vk:device device :in :handle)
+  (video-session '%vk:video-session-khr video-session :in :handle)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvk-create-handle-fun (create-video-session-parameters-khr
+                          %vk:create-video-session-parameters-khr
+                          "Represents [vkCreateVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateVideoSessionParametersKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - CREATE-INFO: a (OR VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+
+Returns:
+  (CL:VALUES
+    VIDEO-SESSION-PARAMETERS-KHRNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+ - ERROR-TOO-MANY-OBJECTS
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See RESULT
+See VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR
+See VIDEO-SESSION-PARAMETERS-KHR
+See *DEFAULT-ALLOCATOR*
+"
+                          ((device cffi:foreign-pointer) (create-info (or vk:video-session-parameters-create-info-khr cffi:foreign-pointer)))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil)
+  (device '%vk:device device :in :handle)
+  (create-info '(:struct %vk:video-session-parameters-create-info-khr) create-info :in)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
+  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :out :handle))
+
+(defvk-simple-fun (update-video-session-parameters-khr
+                   %vk:update-video-session-parameters-khr
+                   "Represents [vkUpdateVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateVideoSessionParametersKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - VIDEO-SESSION-PARAMETERS: a VIDEO-SESSION-PARAMETERS-KHR
+ - UPDATE-INFO: a (OR VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR CFFI:FOREIGN-POINTER)
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-TOO-MANY-OBJECTS
+
+See DEVICE
+See RESULT
+See VIDEO-SESSION-PARAMETERS-KHR
+See VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR
+"
+                   ((device cffi:foreign-pointer) (video-session-parameters cffi:foreign-pointer) (update-info (or vk:video-session-parameters-update-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (device '%vk:device device :in :handle)
+  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :handle)
+  (update-info '(:struct %vk:video-session-parameters-update-info-khr) update-info :in))
+
+(defvk-simple-fun (destroy-video-session-parameters-khr
+                   %vk:destroy-video-session-parameters-khr
+                   "Represents [vkDestroyVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyVideoSessionParametersKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - VIDEO-SESSION-PARAMETERS: a VIDEO-SESSION-PARAMETERS-KHR
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See VIDEO-SESSION-PARAMETERS-KHR
+See *DEFAULT-ALLOCATOR*
+"
+                   ((device cffi:foreign-pointer) (video-session-parameters cffi:foreign-pointer))
+                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil)
+  (device '%vk:device device :in :handle)
+  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :handle)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvk-enumerate-fun (get-video-session-memory-requirements-khr
+                      %vk:get-video-session-memory-requirements-khr
+                      "Represents [vkGetVideoSessionMemoryRequirementsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - VIDEO-SESSION: a VIDEO-SESSION-KHR
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTENIL
+    VIDEO-GET-MEMORY-PROPERTIES-KHRs
+    RESULT)
+
+Success codes:
+ - SUCCESS
+ - INCOMPLETE
+
+Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
+
+See DEVICE
+See RESULT
+See VIDEO-GET-MEMORY-PROPERTIES-KHR
+See VIDEO-SESSION-KHR
+"
+                      ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer))
+                      ()
+                      video-session-memory-requirements-count
+                      video-session-memory-requirements
+                      nil)
+  (device '%vk:device device :in :handle)
+  (video-session '%vk:video-session-khr video-session :in :handle)
+  (video-session-memory-requirements-count :uint32 video-session-memory-requirements-count :out)
+  (video-session-memory-requirements '(:struct %vk:video-get-memory-properties-khr) video-session-memory-requirements :out :list))
+
+(defvk-simple-fun (bind-video-session-memory-khr
+                   %vk:bind-video-session-memory-khr
+                   "Represents [vkBindVideoSessionMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindVideoSessionMemoryKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - VIDEO-SESSION: a VIDEO-SESSION-KHR
+ - VIDEO-SESSION-BIND-MEMORIES: a (OR LIST VECTOR) of (OR VIDEO-BIND-MEMORY-KHR CFFI:FOREIGN-POINTER) instances
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+ - ERROR-INITIALIZATION-FAILED
+
+See DEVICE
+See RESULT
+See VIDEO-BIND-MEMORY-KHR
+See VIDEO-SESSION-KHR
+"
+                   ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer) (video-session-bind-memories (or list vector)))
+                   ()
+                  nil)
+  (device '%vk:device device :in :handle)
+  (video-session '%vk:video-session-khr video-session :in :handle)
+  (video-session-bind-memory-count :uint32 (length video-session-bind-memories) :in :raw)
+  (video-session-bind-memories '(:struct %vk:video-bind-memory-khr) video-session-bind-memories :in :list))
+
+(defvk-simple-fun (cmd-decode-video-khr
+                   %vk:cmd-decode-video-khr
+                   "Represents [vkCmdDecodeVideoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDecodeVideoKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - FRAME-INFO: a (OR VIDEO-DECODE-INFO-KHR CFFI:FOREIGN-POINTER)
+
+See COMMAND-BUFFER
+See VIDEO-DECODE-INFO-KHR
+"
+                   ((command-buffer cffi:foreign-pointer) (frame-info (or vk:video-decode-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (frame-info '(:struct %vk:video-decode-info-khr) frame-info :in))
+
+(defvk-simple-fun (cmd-begin-video-coding-khr
+                   %vk:cmd-begin-video-coding-khr
+                   "Represents [vkCmdBeginVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginVideoCodingKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - BEGIN-INFO: a (OR VIDEO-BEGIN-CODING-INFO-KHR CFFI:FOREIGN-POINTER)
+
+See COMMAND-BUFFER
+See VIDEO-BEGIN-CODING-INFO-KHR
+"
+                   ((command-buffer cffi:foreign-pointer) (begin-info (or vk:video-begin-coding-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (begin-info '(:struct %vk:video-begin-coding-info-khr) begin-info :in))
+
+(defvk-simple-fun (cmd-control-video-coding-khr
+                   %vk:cmd-control-video-coding-khr
+                   "Represents [vkCmdControlVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdControlVideoCodingKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - CODING-CONTROL-INFO: a (OR VIDEO-CODING-CONTROL-INFO-KHR CFFI:FOREIGN-POINTER)
+
+See COMMAND-BUFFER
+See VIDEO-CODING-CONTROL-INFO-KHR
+"
+                   ((command-buffer cffi:foreign-pointer) (coding-control-info (or vk:video-coding-control-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (coding-control-info '(:struct %vk:video-coding-control-info-khr) coding-control-info :in))
+
+(defvk-simple-fun (cmd-end-video-coding-khr
+                   %vk:cmd-end-video-coding-khr
+                   "Represents [vkCmdEndVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndVideoCodingKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - END-CODING-INFO: a (OR VIDEO-END-CODING-INFO-KHR CFFI:FOREIGN-POINTER)
+
+See COMMAND-BUFFER
+See VIDEO-END-CODING-INFO-KHR
+"
+                   ((command-buffer cffi:foreign-pointer) (end-coding-info (or vk:video-end-coding-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (end-coding-info '(:struct %vk:video-end-coding-info-khr) end-coding-info :in))
+
+(defvk-simple-fun (cmd-encode-video-khr
+                   %vk:cmd-encode-video-khr
+                   "Represents [vkCmdEncodeVideoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEncodeVideoKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - ENCODE-INFO: a (OR VIDEO-ENCODE-INFO-KHR CFFI:FOREIGN-POINTER)
+
+See COMMAND-BUFFER
+See VIDEO-ENCODE-INFO-KHR
+"
+                   ((command-buffer cffi:foreign-pointer) (encode-info (or vk:video-encode-info-khr cffi:foreign-pointer)))
+                   ()
+                  nil)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (encode-info '(:struct %vk:video-encode-info-khr) encode-info :in))
 

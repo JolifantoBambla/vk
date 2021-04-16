@@ -92,6 +92,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-calibrated-timestamps-extension-name+ "VK_EXT_calibrated_timestamps"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_calibrated_timestamps](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_calibrated_timestamps.html).")
+(alexandria:define-constant +ext-color-write-enable-extension-name+ "VK_EXT_color_write_enable"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_color_write_enable](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_color_write_enable.html).")
 (alexandria:define-constant +ext-conditional-rendering-extension-name+ "VK_EXT_conditional_rendering"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_conditional_rendering](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_conditional_rendering.html).")
@@ -281,6 +284,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-vertex-attribute-divisor-extension-name+ "VK_EXT_vertex_attribute_divisor"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_vertex_attribute_divisor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_vertex_attribute_divisor.html).")
+(alexandria:define-constant +ext-vertex-input-dynamic-state-extension-name+ "VK_EXT_vertex_input_dynamic_state"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_vertex_input_dynamic_state](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_vertex_input_dynamic_state.html).")
+(alexandria:define-constant +ext-video-decode-h264-extension-name+ "VK_EXT_video_decode_h264"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_video_decode_h264](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_video_decode_h264.html).")
+(alexandria:define-constant +ext-video-decode-h265-extension-name+ "VK_EXT_video_decode_h265"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_video_decode_h265](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_video_decode_h265.html).")
+(alexandria:define-constant +ext-video-encode-h264-extension-name+ "VK_EXT_video_encode_h264"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_video_encode_h264](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_video_encode_h264.html).")
+(alexandria:define-constant +ext-ycbcr-2plane-444-formats-extension-name+ "VK_EXT_ycbcr_2plane_444_formats"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_ycbcr_2plane_444_formats](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_ycbcr_2plane_444_formats.html).")
 (alexandria:define-constant +ext-ycbcr-image-arrays-extension-name+ "VK_EXT_ycbcr_image_arrays"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_ycbcr_image_arrays](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_ycbcr_image_arrays.html).")
@@ -539,6 +557,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +khr-variable-pointers-extension-name+ "VK_KHR_variable_pointers"
   :test #'string=
   :documentation "The name of the extension [VK_KHR_variable_pointers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_variable_pointers.html).")
+(alexandria:define-constant +khr-video-decode-queue-extension-name+ "VK_KHR_video_decode_queue"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_video_decode_queue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_video_decode_queue.html).")
+(alexandria:define-constant +khr-video-encode-queue-extension-name+ "VK_KHR_video_encode_queue"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_video_encode_queue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_video_encode_queue.html).")
+(alexandria:define-constant +khr-video-queue-extension-name+ "VK_KHR_video_queue"
+  :test #'string=
+  :documentation "The name of the extension [VK_KHR_video_queue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_video_queue.html).")
 (alexandria:define-constant +khr-vulkan-memory-model-extension-name+ "VK_KHR_vulkan_memory_model"
   :test #'string=
   :documentation "The name of the extension [VK_KHR_vulkan_memory_model](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_vulkan_memory_model.html).")
@@ -641,6 +668,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +nv-glsl-shader-extension-name+ "VK_NV_glsl_shader"
   :test #'string=
   :documentation "The name of the extension [VK_NV_glsl_shader](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_glsl_shader.html).")
+(alexandria:define-constant +nv-inherited-viewport-scissor-extension-name+ "VK_NV_inherited_viewport_scissor"
+  :test #'string=
+  :documentation "The name of the extension [VK_NV_inherited_viewport_scissor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_inherited_viewport_scissor.html).")
 (alexandria:define-constant +nv-mesh-shader-extension-name+ "VK_NV_mesh_shader"
   :test #'string=
   :documentation "The name of the extension [VK_NV_mesh_shader](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NV_mesh_shader.html).")
@@ -759,6 +789,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defctype visual-id :ulong)
 
+(defctype std-video-h264-profile-idc :uint32)
+
+(defctype std-video-h265-profile-idc :uint32)
+
 (defcstruct wl_display)
 
 (defcstruct wl_surface)
@@ -768,6 +802,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct _screen_context)
 
 (defcstruct _screen_window)
+
+(defcstruct std-video-decode-h264-picture-info)
+
+(defcstruct std-video-decode-h264-reference-info)
+
+(defcstruct std-video-decode-h264-mvc)
+
+(defcstruct std-video-h264-sequence-parameter-set)
+
+(defcstruct std-video-h264-picture-parameter-set)
+
+(defcstruct std-video-encode-h264-slice-header)
+
+(defcstruct std-video-encode-h264-picture-info)
+
+(defcstruct std-video-decode-h265-picture-info)
+
+(defcstruct std-video-decode-h265-reference-info)
+
+(defcstruct std-video-h265-video-parameter-set)
+
+(defcstruct std-video-h265-sequence-parameter-set)
+
+(defcstruct std-video-h265-picture-parameter-set)
 
 (defctype instance handle)
 
@@ -853,6 +911,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defctype debug-utils-messenger-ext non-dispatch-handle)
 
+(defctype video-session-khr non-dispatch-handle)
+
+(defctype video-session-parameters-khr non-dispatch-handle)
+
 (defbitfield (framebuffer-create-flags flags)
   (:imageless #x1)) ;; 
 
@@ -911,7 +973,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:compute #x2) ;; Queue supports compute operations
   (:transfer #x4) ;; Queue supports transfer operations
   (:sparse-binding #x8) ;; Queue supports sparse resource memory management operations
-  (:protected #x10)) ;; 
+  (:protected #x10) ;; 
+  (:video-decode #x20) ;; 
+  (:video-encode #x40)) ;; 
 
 (defbitfield (memory-property-flags flags)
   (:device-local #x1) ;; If otherwise stated, then allocate memory on device
@@ -972,6 +1036,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:shader-binding-table #x400) ;; 
   (:transform-feedback-buffer #x800) ;; 
   (:transform-feedback-counter-buffer #x1000) ;; 
+  (:video-decode-src #x2000) ;; 
+  (:video-decode-dst #x4000) ;; 
+  (:video-encode-dst #x8000) ;; 
+  (:video-encode-src #x10000) ;; 
   (:shader-device-address #x20000) ;; 
   (:acceleration-structure-build-input-read-only #x80000) ;; 
   (:acceleration-structure-storage #x100000)) ;; 
@@ -1011,7 +1079,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:transient-attachment #x40) ;; Image data not needed outside of rendering
   (:input-attachment #x80) ;; Can be used as framebuffer input attachment
   (:shading-rate-image #x100) ;; 
-  (:fragment-density-map #x200)) ;; 
+  (:fragment-density-map #x200) ;; 
+  (:video-decode-dst #x400) ;; 
+  (:video-decode-src #x800) ;; 
+  (:video-decode-dpb #x1000) ;; 
+  (:video-encode-dst #x2000) ;; 
+  (:video-encode-src #x4000) ;; 
+  (:video-encode-dpb #x8000)) ;; 
 
 (defbitfield (image-create-flags flags)
   (:sparse-binding #x1) ;; Image should support sparse backing
@@ -1092,6 +1166,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:disjoint #x400000) ;; 
   (:cosited-chroma-samples #x800000) ;; 
   (:fragment-density-map #x1000000) ;; 
+  (:video-decode-output #x2000000) ;; 
+  (:video-decode-dpb #x4000000) ;; 
+  (:video-encode-input #x8000000) ;; 
+  (:video-encode-dpb #x10000000) ;; 
   (:acceleration-structure-vertex-buffer #x20000000) ;; 
   (:fragment-shading-rate-attachment #x40000000)) ;; 
 
@@ -1102,7 +1180,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:64 #x1) ;; Results of the queries are written to the destination buffer as 64-bit values
   (:wait #x2) ;; Results of the queries are waited on before proceeding with the result copy
   (:with-availability #x4) ;; Besides the results of the query, the availability of the results is also written
-  (:partial #x8)) ;; Copy the partial results of the query even if the final results are not available
+  (:partial #x8) ;; Copy the partial results of the query even if the final results are not available
+  (:with-status #x10)) ;; 
 
 (defbitfield (shader-module-create-flags flags))
 
@@ -1351,7 +1430,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:2-transform-feedback-counter-write #x8000000) ;; 
   (:2-shader-sampled-read #x100000000)
   (:2-shader-storage-read #x200000000)
-  (:2-shader-storage-write #x400000000))
+  (:2-shader-storage-write #x400000000)
+  (:2-video-decode-read #x800000000) ;; 
+  (:2-video-decode-write #x1000000000) ;; 
+  (:2-video-encode-read #x2000000000) ;; 
+  (:2-video-encode-write #x4000000000)) ;; 
 
 (defbitfield (pipeline-stage-flags-2-khr flags-64)
   (:2-none-khr #x0)
@@ -1381,6 +1464,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:2-fragment-density-process #x800000) ;; 
   (:2-transform-feedback #x1000000) ;; 
   (:2-acceleration-structure-build #x2000000) ;; 
+  (:2-video-decode #x4000000) ;; 
+  (:2-video-encode #x8000000) ;; 
   (:2-copy #x100000000)
   (:2-resolve #x200000000)
   (:2-blit #x400000000)
@@ -1672,6 +1757,100 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defbitfield (submit-flags-khr flags)
   (:protected #x1))
 
+(defbitfield (video-codec-operation-flags-khr flags)
+  (:invalid #x0)
+  (:decode-h264 #x1) ;; 
+  (:decode-h265 #x2) ;; 
+  (:encode-h264 #x10000)) ;; 
+
+(defbitfield (video-capabilities-flags-khr flags)
+  (:protected-content #x1)
+  (:separate-reference-images #x2))
+
+(defbitfield (video-session-create-flags-khr flags)
+  (:default-khr #x0)
+  (:protected-content #x1))
+
+(defbitfield (video-begin-coding-flags-khr flags))
+
+(defbitfield (video-end-coding-flags-khr flags))
+
+(defbitfield (video-coding-quality-preset-flags-khr flags)
+  (:default #x0)
+  (:normal #x1)
+  (:power #x2)
+  (:quality #x4))
+
+(defbitfield (video-coding-control-flags-khr flags)
+  (:default-khr #x0)
+  (:reset #x1))
+
+(defbitfield (video-decode-flags-khr flags)
+  (:default-khr #x0)
+  (:reserved-0 #x1))
+
+(defbitfield (video-decode-h264-field-layout-flags-ext flags)
+  (:vk-video-decode-h264-progressive-pictures-only-ext #x0)
+  (:line-interlaced-plane #x1)
+  (:separate-interlaced-plane #x2))
+
+(defbitfield (video-decode-h264-create-flags-ext flags))
+
+(defbitfield (video-decode-h265-create-flags-ext flags))
+
+(defbitfield (video-encode-flags-khr flags)
+  (:default-khr #x0)
+  (:reserved-0 #x1))
+
+(defbitfield (video-encode-rate-control-flags-khr flags)
+  (:default-khr #x0)
+  (:reset #x1))
+
+(defbitfield (video-encode-rate-control-mode-flags-khr flags)
+  (:none #x0)
+  (:cbr #x1)
+  (:vbr #x2))
+
+(defbitfield (video-chroma-subsampling-flags-khr flags)
+  (:invalid #x0)
+  (:monochrome #x1)
+  (:420 #x2)
+  (:422 #x4)
+  (:444 #x8))
+
+(defbitfield (video-component-bit-depth-flags-khr flags)
+  (:invalid-khr #x0)
+  (:8 #x1)
+  (:10 #x4)
+  (:12 #x10))
+
+(defbitfield (video-encode-h264-capabilities-flags-ext flags)
+  (:vk-video-encode-h264-capability-cabac #x1)
+  (:vk-video-encode-h264-capability-cavlc #x2)
+  (:vk-video-encode-h264-capability-weighted-bi-pred-implicit #x4)
+  (:vk-video-encode-h264-capability-transform-8x8 #x8)
+  (:vk-video-encode-h264-capability-chroma-qp-offset #x10)
+  (:vk-video-encode-h264-capability-second-chroma-qp-offset #x20)
+  (:vk-video-encode-h264-capability-deblocking-filter-disabled #x40)
+  (:vk-video-encode-h264-capability-deblocking-filter-enabled #x80)
+  (:vk-video-encode-h264-capability-deblocking-filter-partial #x100)
+  (:vk-video-encode-h264-capability-multiple-slice-per-frame #x200)
+  (:vk-video-encode-h264-capability-evenly-distributed-slice-size #x400))
+
+(defbitfield (video-encode-h264-input-mode-flags-ext flags)
+  (:frame #x1)
+  (:slice #x2)
+  (:non-vcl #x4))
+
+(defbitfield (video-encode-h264-output-mode-flags-ext flags)
+  (:frame #x1)
+  (:slice #x2)
+  (:non-vcl #x4))
+
+(defbitfield (video-encode-h264-create-flags-ext flags)
+  (:default-ext #x0)
+  (:reserved-0 #x1))
+
 (defcenum (attachment-load-op)
   (:load #x0)
   (:clear #x1)
@@ -1819,6 +1998,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:shader-binding-table #x400) ;; 
   (:transform-feedback-buffer #x800) ;; 
   (:transform-feedback-counter-buffer #x1000) ;; 
+  (:video-decode-src #x2000) ;; 
+  (:video-decode-dst #x4000) ;; 
+  (:video-encode-dst #x8000) ;; 
+  (:video-encode-src #x10000) ;; 
   (:shader-device-address #x20000) ;; 
   (:acceleration-structure-build-input-read-only #x80000) ;; 
   (:acceleration-structure-storage #x100000)) ;; 
@@ -1923,7 +2106,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:depth-bounds-test-enable-ext #x3B9EDD01) ;; 
   (:stencil-test-enable-ext #x3B9EDD02) ;; 
   (:stencil-op-ext #x3B9EDD03) ;; 
-  (:ray-tracing-pipeline-stack-size-khr #x3BA01578)) ;; 
+  (:ray-tracing-pipeline-stack-size-khr #x3BA01578) ;; 
+  (:vertex-input-ext #x3BA02900) ;; 
+  (:color-write-enable-ext #x3BA09A48)) ;; 
 
 (defcenum (fence-create-flag-bits)
   (:signaled #x1))
@@ -2176,6 +2361,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:g16-b16-r16-3plane-422-unorm #x3B9D2B7F) ;; 
   (:g16-b16r16-2plane-422-unorm #x3B9D2B80) ;; 
   (:g16-b16-r16-3plane-444-unorm #x3B9D2B81) ;; 
+  (:g8-b8r8-2plane-444-unorm-ext #x3B9FD310) ;; 
+  (:g10x6-b10x6r10x6-2plane-444-unorm-3pack16-ext #x3B9FD311) ;; 
+  (:g12x4-b12x4r12x4-2plane-444-unorm-3pack16-ext #x3B9FD312) ;; 
+  (:g16-b16r16-2plane-444-unorm-ext #x3B9FD313) ;; 
   (:a4r4g4b4-unorm-pack16-ext #x3B9FFA20) ;; 
   (:a4b4g4r4-unorm-pack16-ext #x3B9FFA21)) ;; 
 
@@ -2205,6 +2394,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:disjoint #x400000) ;; 
   (:cosited-chroma-samples #x800000) ;; 
   (:fragment-density-map #x1000000) ;; 
+  (:video-decode-output #x2000000) ;; 
+  (:video-decode-dpb #x4000000) ;; 
+  (:video-encode-input #x8000000) ;; 
+  (:video-encode-dpb #x10000000) ;; 
   (:acceleration-structure-vertex-buffer #x20000000) ;; 
   (:fragment-shading-rate-attachment #x40000000)) ;; 
 
@@ -2253,6 +2446,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:transfer-dst-optimal #x7) ;; Optimal layout when image is used only as destination of transfer operations
   (:preinitialized #x8) ;; Initial layout used when the data is populated by the CPU
   (:present-src-khr #x3B9ACDEA) ;; 
+  (:video-decode-dst-khr #x3B9B27C0) ;; 
+  (:video-decode-src-khr #x3B9B27C1) ;; 
+  (:video-decode-dpb-khr #x3B9B27C2) ;; 
   (:shared-present-khr #x3B9C7B98) ;; 
   (:depth-read-only-stencil-attachment-optimal #x3B9C9308) ;; 
   (:depth-attachment-stencil-read-only-optimal #x3B9C9309) ;; 
@@ -2262,6 +2458,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:depth-read-only-optimal #x3B9E7769) ;; 
   (:stencil-attachment-optimal #x3B9E776A) ;; 
   (:stencil-read-only-optimal #x3B9E776B) ;; 
+  (:video-encode-dst-khr #x3B9F59F8) ;; 
+  (:video-encode-src-khr #x3B9F59F9) ;; 
+  (:video-encode-dpb-khr #x3B9F59FA) ;; 
   (:read-only-optimal-khr #x3B9F9490) ;; 
   (:attachment-optimal-khr #x3B9F9491)) ;; 
 
@@ -2285,7 +2484,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:transient-attachment #x40) ;; Image data not needed outside of rendering
   (:input-attachment #x80) ;; Can be used as framebuffer input attachment
   (:shading-rate-image #x100) ;; 
-  (:fragment-density-map #x200)) ;; 
+  (:fragment-density-map #x200) ;; 
+  (:video-decode-dst #x400) ;; 
+  (:video-decode-src #x800) ;; 
+  (:video-decode-dpb #x1000) ;; 
+  (:video-encode-dst #x2000) ;; 
+  (:video-encode-src #x4000) ;; 
+  (:video-encode-dpb #x8000)) ;; 
 
 (defcenum (image-view-create-flag-bits)
   (:ragment-density-map-dynamic #x1) ;; 
@@ -2439,25 +2644,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:64 #x1) ;; Results of the queries are written to the destination buffer as 64-bit values
   (:wait #x2) ;; Results of the queries are waited on before proceeding with the result copy
   (:with-availability #x4) ;; Besides the results of the query, the availability of the results is also written
-  (:partial #x8)) ;; Copy the partial results of the query even if the final results are not available
+  (:partial #x8) ;; Copy the partial results of the query even if the final results are not available
+  (:with-status #x10)) ;; 
 
 (defcenum (query-type)
   (:occlusion #x0)
   (:pipeline-statistics #x1) ;; Optional
   (:timestamp #x2)
+  (:result-status-only-khr #x3B9B23D8) ;; 
   (:transform-feedback-stream-ext #x3B9B3764) ;; 
   (:performance-query-khr #x3B9C8F20) ;; 
   (:acceleration-structure-compacted-size-khr #x3B9D13F0) ;; 
   (:acceleration-structure-serialization-size-khr #x3B9D13F1) ;; 
   (:acceleration-structure-compacted-size-nv #x3B9D4E88) ;; 
-  (:performance-query-intel #x3B9DFE50)) ;; 
+  (:performance-query-intel #x3B9DFE50) ;; 
+  (:video-encode-bitstream-buffer-range-khr #x3B9F59F8)) ;; 
 
 (defcenum (queue-flag-bits)
   (:graphics #x1) ;; Queue supports graphics operations
   (:compute #x2) ;; Queue supports compute operations
   (:transfer #x4) ;; Queue supports transfer operations
   (:sparse-binding #x8) ;; Queue supports sparse resource memory management operations
-  (:protected #x10)) ;; 
+  (:protected #x10) ;; 
+  (:video-decode #x20) ;; 
+  (:video-encode #x40)) ;; 
 
 (defcenum (subpass-contents)
   (:inline #x0)
@@ -2649,6 +2859,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:debug-marker-object-name-info-ext #x3B9B1FF0) ;; 
   (:debug-marker-object-tag-info-ext #x3B9B1FF1) ;; 
   (:debug-marker-marker-info-ext #x3B9B1FF2) ;; 
+  (:video-profile-khr #x3B9B23D8) ;; 
+  (:video-capabilities-khr #x3B9B23D9) ;; 
+  (:video-picture-resource-khr #x3B9B23DA) ;; 
+  (:video-get-memory-properties-khr #x3B9B23DB) ;; 
+  (:video-bind-memory-khr #x3B9B23DC) ;; 
+  (:video-session-create-info-khr #x3B9B23DD) ;; 
+  (:video-session-parameters-create-info-khr #x3B9B23DE) ;; 
+  (:video-session-parameters-update-info-khr #x3B9B23DF) ;; 
+  (:video-begin-coding-info-khr #x3B9B23E0) ;; 
+  (:video-end-coding-info-khr #x3B9B23E1) ;; 
+  (:video-coding-control-info-khr #x3B9B23E2) ;; 
+  (:video-reference-slot-khr #x3B9B23E3) ;; 
+  (:video-queue-family-properties-2-khr #x3B9B23E4) ;; 
+  (:video-profiles-khr #x3B9B23E5) ;; 
+  (:physical-device-video-format-info-khr #x3B9B23E6) ;; 
+  (:video-format-properties-khr #x3B9B23E7) ;; 
+  (:video-decode-info-khr #x3B9B27C0) ;; 
   (:dedicated-allocation-image-create-info-nv #x3B9B2F90) ;; 
   (:dedicated-allocation-buffer-create-info-nv #x3B9B2F91) ;; 
   (:dedicated-allocation-memory-allocate-info-nv #x3B9B2F92) ;; 
@@ -2657,6 +2884,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:pipeline-rasterization-state-stream-create-info-ext #x3B9B3762) ;; 
   (:image-view-handle-info-nvx #x3B9B3F30) ;; 
   (:image-view-address-properties-nvx #x3B9B3F31) ;; 
+  (:video-encode-h264-capabilities-ext #x3B9B5E70) ;; 
+  (:video-encode-h264-session-create-info-ext #x3B9B5E71) ;; 
+  (:video-encode-h264-session-parameters-create-info-ext #x3B9B5E72) ;; 
+  (:video-encode-h264-session-parameters-add-info-ext #x3B9B5E73) ;; 
+  (:video-encode-h264-vcl-frame-info-ext #x3B9B5E74) ;; 
+  (:video-encode-h264-dpb-slot-info-ext #x3B9B5E75) ;; 
+  (:video-encode-h264-nalu-slice-ext #x3B9B5E76) ;; 
+  (:video-encode-h264-emit-picture-parameters-ext #x3B9B5E77) ;; 
+  (:video-encode-h264-profile-ext #x3B9B5E78) ;; 
+  (:video-decode-h264-capabilities-ext #x3B9B6640) ;; 
+  (:video-decode-h264-session-create-info-ext #x3B9B6641) ;; 
+  (:video-decode-h264-picture-info-ext #x3B9B6642) ;; 
+  (:video-decode-h264-mvc-ext #x3B9B6643) ;; 
+  (:video-decode-h264-profile-ext #x3B9B6644) ;; 
+  (:video-decode-h264-session-parameters-create-info-ext #x3B9B6645) ;; 
+  (:video-decode-h264-session-parameters-add-info-ext #x3B9B6646) ;; 
+  (:video-decode-h264-dpb-slot-info-ext #x3B9B6647) ;; 
   (:texture-lod-gather-format-properties-amd #x3B9B6A28) ;; 
   (:stream-descriptor-surface-create-info-ggp #x3B9B8968) ;; 
   (:physical-device-corner-sampled-image-features-nv #x3B9B8D50) ;; 
@@ -2903,6 +3147,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:pipeline-compiler-control-create-info-amd #x3B9D94D8) ;; 
   (:calibrated-timestamp-info-ext #x3B9D98C0) ;; 
   (:physical-device-shader-core-properties-amd #x3B9D9CA8) ;; 
+  (:video-decode-h265-capabilities-ext #x3B9DA478) ;; 
+  (:video-decode-h265-session-create-info-ext #x3B9DA479) ;; 
+  (:video-decode-h265-session-parameters-create-info-ext #x3B9DA47A) ;; 
+  (:video-decode-h265-session-parameters-add-info-ext #x3B9DA47B) ;; 
+  (:video-decode-h265-profile-ext #x3B9DA47C) ;; 
+  (:video-decode-h265-picture-info-ext #x3B9DA47D) ;; 
+  (:video-decode-h265-dpb-slot-info-ext #x3B9DA47E) ;; 
   (:device-memory-overallocation-create-info-amd #x3B9DAC48) ;; 
   (:physical-device-vertex-attribute-divisor-properties-ext #x3B9DB030) ;; 
   (:pipeline-vertex-input-divisor-state-create-info-ext #x3B9DB031) ;; 
@@ -3010,6 +3261,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:generated-commands-info-nv #x3B9F040D) ;; 
   (:generated-commands-memory-requirements-info-nv #x3B9F040E) ;; 
   (:physical-device-device-generated-commands-features-nv #x3B9F040F) ;; 
+  (:physical-device-inherited-viewport-scissor-features-nv #x3B9F07F0) ;; 
+  (:command-buffer-inheritance-viewport-scissor-info-nv #x3B9F07F1) ;; 
   (:physical-device-texel-buffer-alignment-features-ext #x3B9F13A8) ;; 
   (:physical-device-texel-buffer-alignment-properties-ext #x3B9F13A9) ;; 
   (:command-buffer-inheritance-render-pass-transform-info-qcom #x3B9F1790) ;; 
@@ -3027,6 +3280,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:device-private-data-create-info-ext #x3B9F4A59) ;; 
   (:private-data-slot-create-info-ext #x3B9F4A5A) ;; 
   (:physical-device-pipeline-creation-cache-control-features-ext #x3B9F5228) ;; 
+  (:video-encode-info-khr #x3B9F59F8) ;; 
+  (:video-encode-rate-control-info-khr #x3B9F59F9) ;; 
   (:physical-device-diagnostics-config-features-nv #x3B9F5DE0) ;; 
   (:device-diagnostics-config-create-info-nv #x3B9F5DE1) ;; 
   (:memory-barrier-2-khr #x3B9F9490) ;; 
@@ -3043,6 +3298,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-fragment-shading-rate-enums-properties-nv #x3B9FC370) ;; 
   (:physical-device-fragment-shading-rate-enums-features-nv #x3B9FC371) ;; 
   (:pipeline-fragment-shading-rate-enum-state-create-info-nv #x3B9FC372) ;; 
+  (:physical-device-ycbcr-2-plane-444-formats-features-ext #x3B9FD310) ;; 
   (:physical-device-fragment-density-map-2-features-ext #x3B9FDAE0) ;; 
   (:physical-device-fragment-density-map-2-properties-ext #x3B9FDAE1) ;; 
   (:copy-command-transform-info-qcom #x3B9FDEC8) ;; 
@@ -3066,12 +3322,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-ray-query-features-khr #x3BA0196D) ;; 
   (:physical-device-mutable-descriptor-type-features-valve #x3BA02518) ;; 
   (:mutable-descriptor-type-create-info-valve #x3BA0251A) ;; 
+  (:physical-device-vertex-input-dynamic-state-features-ext #x3BA02900) ;; 
+  (:vertex-input-binding-description-2-ext #x3BA02901) ;; 
+  (:vertex-input-attribute-description-2-ext #x3BA02902) ;; 
   (:import-memory-zircon-handle-info-fuchsia #x3BA057E0) ;; 
   (:memory-zircon-handle-properties-fuchsia #x3BA057E1) ;; 
   (:memory-get-zircon-handle-info-fuchsia #x3BA057E2) ;; 
   (:import-semaphore-zircon-handle-info-fuchsia #x3BA05BC8) ;; 
   (:semaphore-get-zircon-handle-info-fuchsia #x3BA05BC9) ;; 
-  (:screen-surface-create-info-qnx #x3BA08E90)) ;; 
+  (:screen-surface-create-info-qnx #x3BA08E90) ;; 
+  (:physical-device-color-write-enable-features-ext #x3BA09A48) ;; 
+  (:pipeline-color-write-create-info-ext #x3BA09A49)) ;; 
 
 (defcenum (system-allocation-scope)
   (:command #x0)
@@ -3191,6 +3452,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:display-khr #x3B9AD1D0) ;; 
   (:display-mode-khr #x3B9AD1D1) ;; 
   (:debug-report-callback-ext #x3B9AF4F8) ;; 
+  (:video-session-khr #x3B9B23D8) ;; 
+  (:video-session-parameters-khr #x3B9B23D9) ;; 
   (:descriptor-update-template #x3B9C1608) ;; 
   (:debug-utils-messenger-ext #x3B9CBE00) ;; 
   (:acceleration-structure-khr #x3B9D13F0) ;; 
@@ -3600,7 +3863,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:2-transform-feedback-counter-write #x8000000) ;; 
   (:2-shader-sampled-read #x100000000)
   (:2-shader-storage-read #x200000000)
-  (:2-shader-storage-write #x400000000))
+  (:2-shader-storage-write #x400000000)
+  (:2-video-decode-read #x800000000) ;; 
+  (:2-video-decode-write #x1000000000) ;; 
+  (:2-video-encode-read #x2000000000) ;; 
+  (:2-video-encode-write #x4000000000)) ;; 
 
 (defcenum (pipeline-stage-flag-bits-2-khr)
   (:2-none-khr #x0)
@@ -3630,6 +3897,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:2-fragment-density-process #x800000) ;; 
   (:2-transform-feedback #x1000000) ;; 
   (:2-acceleration-structure-build #x2000000) ;; 
+  (:2-video-decode #x4000000) ;; 
+  (:2-video-encode #x8000000) ;; 
   (:2-copy #x100000000)
   (:2-resolve #x200000000)
   (:2-blit #x400000000)
@@ -4038,7 +4307,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:ggp-proprietary #xB) ;; Google LLC
   (:broadcom-proprietary #xC) ;; Broadcom Inc.
   (:mesa-llvmpipe #xD) ;; Mesa
-  (:moltenvk #xE)) ;; MoltenVK
+  (:moltenvk #xE) ;; MoltenVK
+  (:coreavi-proprietary #xF)) ;; Core Avionics & Industrial Inc.
 
 (defcenum (driver-id-khr)
   (:amd-proprietary #x1) ;; Advanced Micro Devices, Inc.
@@ -4054,7 +4324,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:ggp-proprietary #xB) ;; Google LLC
   (:broadcom-proprietary #xC) ;; Broadcom Inc.
   (:mesa-llvmpipe #xD) ;; Mesa
-  (:moltenvk #xE)) ;; MoltenVK
+  (:moltenvk #xE) ;; MoltenVK
+  (:coreavi-proprietary #xF)) ;; Core Avionics & Industrial Inc.
 
 (defcenum (shading-rate-palette-entry-nv)
   (:no-invocations-nv #x0)
@@ -4081,6 +4352,97 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:int64-khr #x1)
   (:uint64-khr #x2)
   (:float64-khr #x3))
+
+(defcenum (video-codec-operation-flag-bits-khr)
+  (:invalid #x0)
+  (:decode-h264 #x1) ;; 
+  (:decode-h265 #x2) ;; 
+  (:encode-h264 #x10000)) ;; 
+
+(defcenum (video-chroma-subsampling-flag-bits-khr)
+  (:invalid #x0)
+  (:monochrome #x1)
+  (:420 #x2)
+  (:422 #x4)
+  (:444 #x8))
+
+(defcenum (video-component-bit-depth-flag-bits-khr)
+  (:invalid-khr #x0)
+  (:8 #x1)
+  (:10 #x4)
+  (:12 #x10))
+
+(defcenum (video-capabilities-flag-bits-khr)
+  (:protected-content #x1)
+  (:separate-reference-images #x2))
+
+(defcenum (video-session-create-flag-bits-khr)
+  (:default-khr #x0)
+  (:protected-content #x1))
+
+(defcenum (video-coding-quality-preset-flag-bits-khr)
+  (:default #x0)
+  (:normal #x1)
+  (:power #x2)
+  (:quality #x4))
+
+(defcenum (video-coding-control-flag-bits-khr)
+  (:default-khr #x0)
+  (:reset #x1))
+
+(defcenum (query-result-status-khr)
+  (:error-khr -1)
+  (:not-ready-khr #x0)
+  (:complete-khr #x1))
+
+(defcenum (video-decode-flag-bits-khr)
+  (:default-khr #x0)
+  (:reserved-0 #x1))
+
+(defcenum (video-decode-h264-field-layout-flag-bits-ext)
+  (:progressive-pictures-only-ext #x0)
+  (:field-layout-line-interlaced-plane #x1)
+  (:field-layout-separate-interlaced-plane #x2))
+
+(defcenum (video-encode-flag-bits-khr)
+  (:default-khr #x0)
+  (:reserved-0 #x1))
+
+(defcenum (video-encode-rate-control-flag-bits-khr)
+  (:default-khr #x0)
+  (:reset #x1))
+
+(defcenum (video-encode-rate-control-mode-flag-bits-khr)
+  (:none #x0)
+  (:cbr #x1)
+  (:vbr #x2))
+
+(defcenum (video-encode-h264-capabilities-flag-bits-ext)
+  (:y-cabac #x1)
+  (:y-cavlc #x2)
+  (:y-weighted-bi-pred-implicit #x4)
+  (:y-transform-8x8 #x8)
+  (:y-chroma-qp-offset #x10)
+  (:y-second-chroma-qp-offset #x20)
+  (:y-deblocking-filter-disabled #x40)
+  (:y-deblocking-filter-enabled #x80)
+  (:y-deblocking-filter-partial #x100)
+  (:y-multiple-slice-per-frame #x200)
+  (:y-evenly-distributed-slice-size #x400))
+
+(defcenum (video-encode-h264-input-mode-flag-bits-ext)
+  (:frame #x1)
+  (:slice #x2)
+  (:non-vcl #x4))
+
+(defcenum (video-encode-h264-output-mode-flag-bits-ext)
+  (:frame #x1)
+  (:slice #x2)
+  (:non-vcl #x4))
+
+(defcenum (video-encode-h264-create-flag-bits-ext)
+  (:default-ext #x0)
+  (:reserved-0 #x1))
 
 (defctype pfn-internal-allocation-notification :pointer)
 
@@ -9345,6 +9707,38 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                                      (:struct
                                       mutable-descriptor-type-list-valve)))))
 
+(defcstruct (physical-device-vertex-input-dynamic-state-features-ext :class c-physical-device-vertex-input-dynamic-state-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (vertex-input-dynamic-state bool32))
+
+(defcstruct (vertex-input-binding-description-2-ext :class c-vertex-input-binding-description-2-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (binding :uint32)
+  (stride :uint32)
+  (input-rate vertex-input-rate)
+  (divisor :uint32))
+
+(defcstruct (vertex-input-attribute-description-2-ext :class c-vertex-input-attribute-description-2-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (location :uint32)
+  (binding :uint32)
+  (format format)
+  (offset :uint32))
+
+(defcstruct (physical-device-color-write-enable-features-ext :class c-physical-device-color-write-enable-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (color-write-enable bool32))
+
+(defcstruct (pipeline-color-write-create-info-ext :class c-pipeline-color-write-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (attachment-count :uint32)
+  (p-color-write-enables (:pointer bool32)))
+
 (defcstruct (memory-barrier-2-khr :class c-memory-barrier-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
@@ -9436,4 +9830,372 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (synchronization-2 bool32))
+
+(defcstruct (video-queue-family-properties-2-khr :class c-video-queue-family-properties-2-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (video-codec-operations video-codec-operation-flags-khr))
+
+(defcstruct (video-profile-khr :class c-video-profile-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (video-codec-operation video-codec-operation-flag-bits-khr)
+  (chroma-subsampling video-chroma-subsampling-flags-khr)
+  (luma-bit-depth video-component-bit-depth-flags-khr)
+  (chroma-bit-depth video-component-bit-depth-flags-khr))
+
+(defcstruct (video-profiles-khr :class c-video-profiles-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (profile-count :uint32)
+  (p-profiles (:pointer (:pointer (:struct video-profile-khr)))))
+
+(defcstruct (physical-device-video-format-info-khr :class c-physical-device-video-format-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (image-usage image-usage-flags)
+  (p-video-profiles (:pointer (:pointer (:struct video-profiles-khr)))))
+
+(defcstruct (video-format-properties-khr :class c-video-format-properties-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (format format))
+
+(defcstruct (video-capabilities-khr :class c-video-capabilities-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (capability-flags video-capabilities-flags-khr)
+  (min-bitstream-buffer-offset-alignment device-size)
+  (min-bitstream-buffer-size-alignment device-size)
+  (video-picture-extent-granularity extent-2d)
+  (min-extent extent-2d)
+  (max-extent extent-2d)
+  (max-reference-pictures-slots-count :uint32)
+  (max-reference-pictures-active-count :uint32))
+
+(defcstruct (video-get-memory-properties-khr :class c-video-get-memory-properties-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (memory-bind-index :uint32)
+  (p-memory-requirements (:pointer (:pointer (:struct memory-requirements-2)))))
+
+(defcstruct (video-bind-memory-khr :class c-video-bind-memory-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (memory-bind-index :uint32)
+  (memory device-memory)
+  (memory-offset device-size)
+  (memory-size device-size))
+
+(defcstruct (video-picture-resource-khr :class c-video-picture-resource-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (coded-offset offset-2d)
+  (coded-extent extent-2d)
+  (base-array-layer :uint32)
+  (image-view-binding image-view))
+
+(defcstruct (video-reference-slot-khr :class c-video-reference-slot-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (slot-index :int8)
+  (p-picture-resource (:pointer (:pointer (:struct video-picture-resource-khr)))))
+
+(defcstruct (video-decode-info-khr :class c-video-decode-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-decode-flags-khr)
+  (coded-offset offset-2d)
+  (coded-extent extent-2d)
+  (src-buffer buffer)
+  (src-buffer-offset device-size)
+  (src-buffer-range device-size)
+  (dst-picture-resource video-picture-resource-khr)
+  (p-setup-reference-slot (:pointer
+                           (:pointer (:struct video-reference-slot-khr))))
+  (reference-slot-count :uint32)
+  (p-reference-slots (:pointer (:pointer (:struct video-reference-slot-khr)))))
+
+(defcstruct (video-decode-h264-profile-ext :class c-video-decode-h264-profile-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (std-profile-idc std-video-h264-profile-idc)
+  (field-layout video-decode-h264-field-layout-flags-ext))
+
+(defcstruct (video-decode-h264-capabilities-ext :class c-video-decode-h264-capabilities-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (max-level :uint32)
+  (field-offset-granularity offset-2d)
+  (std-extension-version extension-properties))
+
+(defcstruct (video-decode-h264-session-create-info-ext :class c-video-decode-h264-session-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-decode-h264-create-flags-ext)
+  (p-std-extension-version (:pointer (:pointer (:struct extension-properties)))))
+
+(defcstruct (video-decode-h264-session-parameters-add-info-ext :class c-video-decode-h264-session-parameters-add-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (sps-std-count :uint32)
+  (p-sps-std (:pointer std-video-h264-sequence-parameter-set))
+  (pps-std-count :uint32)
+  (p-pps-std (:pointer std-video-h264-picture-parameter-set)))
+
+(defcstruct (video-decode-h264-session-parameters-create-info-ext :class c-video-decode-h264-session-parameters-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (max-sps-std-count :uint32)
+  (max-pps-std-count :uint32)
+  (p-parameters-add-info (:pointer
+                          (:pointer
+                           (:struct
+                            video-decode-h264-session-parameters-add-info-ext)))))
+
+(defcstruct (video-decode-h264-picture-info-ext :class c-video-decode-h264-picture-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-std-picture-info (:pointer std-video-decode-h264-picture-info))
+  (slices-count :uint32)
+  (p-slices-data-offsets (:pointer :uint32)))
+
+(defcstruct (video-decode-h264-dpb-slot-info-ext :class c-video-decode-h264-dpb-slot-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-std-reference-info (:pointer std-video-decode-h264-reference-info)))
+
+(defcstruct (video-decode-h264-mvc-ext :class c-video-decode-h264-mvc-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-std-mvc (:pointer std-video-decode-h264-mvc)))
+
+(defcstruct (video-decode-h265-profile-ext :class c-video-decode-h265-profile-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (std-profile-idc std-video-h265-profile-idc))
+
+(defcstruct (video-decode-h265-capabilities-ext :class c-video-decode-h265-capabilities-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (max-level :uint32)
+  (std-extension-version extension-properties))
+
+(defcstruct (video-decode-h265-session-create-info-ext :class c-video-decode-h265-session-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-decode-h265-create-flags-ext)
+  (p-std-extension-version (:pointer (:pointer (:struct extension-properties)))))
+
+(defcstruct (video-decode-h265-session-parameters-add-info-ext :class c-video-decode-h265-session-parameters-add-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (sps-std-count :uint32)
+  (p-sps-std (:pointer std-video-h265-sequence-parameter-set))
+  (pps-std-count :uint32)
+  (p-pps-std (:pointer std-video-h265-picture-parameter-set)))
+
+(defcstruct (video-decode-h265-session-parameters-create-info-ext :class c-video-decode-h265-session-parameters-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (max-sps-std-count :uint32)
+  (max-pps-std-count :uint32)
+  (p-parameters-add-info (:pointer
+                          (:pointer
+                           (:struct
+                            video-decode-h265-session-parameters-add-info-ext)))))
+
+(defcstruct (video-decode-h265-picture-info-ext :class c-video-decode-h265-picture-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-std-picture-info (:pointer std-video-decode-h265-picture-info))
+  (slices-count :uint32)
+  (p-slices-data-offsets (:pointer :uint32)))
+
+(defcstruct (video-decode-h265-dpb-slot-info-ext :class c-video-decode-h265-dpb-slot-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-std-reference-info (:pointer std-video-decode-h265-reference-info)))
+
+(defcstruct (video-session-create-info-khr :class c-video-session-create-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (queue-family-index :uint32)
+  (flags video-session-create-flags-khr)
+  (p-video-profile (:pointer (:pointer (:struct video-profile-khr))))
+  (picture-format format)
+  (max-coded-extent extent-2d)
+  (reference-pictures-format format)
+  (max-reference-pictures-slots-count :uint32)
+  (max-reference-pictures-active-count :uint32))
+
+(defcstruct (video-session-parameters-create-info-khr :class c-video-session-parameters-create-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (video-session-parameters-template video-session-parameters-khr)
+  (video-session video-session-khr))
+
+(defcstruct (video-session-parameters-update-info-khr :class c-video-session-parameters-update-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (update-sequence-count :uint32))
+
+(defcstruct (video-begin-coding-info-khr :class c-video-begin-coding-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-begin-coding-flags-khr)
+  (codec-quality-preset video-coding-quality-preset-flags-khr)
+  (video-session video-session-khr)
+  (video-session-parameters video-session-parameters-khr)
+  (reference-slot-count :uint32)
+  (p-reference-slots (:pointer (:pointer (:struct video-reference-slot-khr)))))
+
+(defcstruct (video-end-coding-info-khr :class c-video-end-coding-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-end-coding-flags-khr))
+
+(defcstruct (video-coding-control-info-khr :class c-video-coding-control-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-coding-control-flags-khr))
+
+(defcstruct (video-encode-info-khr :class c-video-encode-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-encode-flags-khr)
+  (quality-level :uint32)
+  (coded-extent extent-2d)
+  (dst-bitstream-buffer buffer)
+  (dst-bitstream-buffer-offset device-size)
+  (dst-bitstream-buffer-max-range device-size)
+  (src-picture-resource video-picture-resource-khr)
+  (p-setup-reference-slot (:pointer
+                           (:pointer (:struct video-reference-slot-khr))))
+  (reference-slot-count :uint32)
+  (p-reference-slots (:pointer (:pointer (:struct video-reference-slot-khr)))))
+
+(defcstruct (video-encode-rate-control-info-khr :class c-video-encode-rate-control-info-khr)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-encode-rate-control-flags-khr)
+  (rate-control-mode video-encode-rate-control-mode-flag-bits-khr)
+  (average-bitrate :uint32)
+  (peak-to-average-bitrate-ratio :uint16)
+  (frame-rate-numerator :uint16)
+  (frame-rate-denominator :uint16)
+  (virtual-buffer-size-in-ms :uint32))
+
+(defcstruct (video-encode-h264-capabilities-ext :class c-video-encode-h264-capabilities-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-encode-h264-capabilities-flags-ext)
+  (input-mode-flags video-encode-h264-input-mode-flags-ext)
+  (output-mode-flags video-encode-h264-output-mode-flags-ext)
+  (min-picture-size-in-mbs extent-2d)
+  (max-picture-size-in-mbs extent-2d)
+  (input-image-data-alignment extent-2d)
+  (max-num-l-0-reference-for-p :uint8)
+  (max-num-l-0-reference-for-b :uint8)
+  (max-num-l-1-reference :uint8)
+  (quality-level-count :uint8)
+  (std-extension-version extension-properties))
+
+(defcstruct (video-encode-h264-session-create-info-ext :class c-video-encode-h264-session-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (flags video-encode-h264-create-flags-ext)
+  (max-picture-size-in-mbs extent-2d)
+  (p-std-extension-version (:pointer (:pointer (:struct extension-properties)))))
+
+(defcstruct (video-encode-h264-session-parameters-add-info-ext :class c-video-encode-h264-session-parameters-add-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (sps-std-count :uint32)
+  (p-sps-std (:pointer std-video-h264-sequence-parameter-set))
+  (pps-std-count :uint32)
+  (p-pps-std (:pointer std-video-h264-picture-parameter-set)))
+
+(defcstruct (video-encode-h264-session-parameters-create-info-ext :class c-video-encode-h264-session-parameters-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (max-sps-std-count :uint32)
+  (max-pps-std-count :uint32)
+  (p-parameters-add-info (:pointer
+                          (:pointer
+                           (:struct
+                            video-encode-h264-session-parameters-add-info-ext)))))
+
+(defcstruct (video-encode-h264-dpb-slot-info-ext :class c-video-encode-h264-dpb-slot-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (slot-index :int8)
+  (p-std-picture-info (:pointer std-video-encode-h264-picture-info)))
+
+(defcstruct (video-encode-h264-nalu-slice-ext :class c-video-encode-h264-nalu-slice-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (p-slice-header-std (:pointer std-video-encode-h264-slice-header))
+  (mb-count :uint32)
+  (ref-final-list-0-entry-count :uint8)
+  (p-ref-final-list-0-entries (:pointer
+                               (:pointer
+                                (:struct video-encode-h264-dpb-slot-info-ext))))
+  (ref-final-list-1-entry-count :uint8)
+  (p-ref-final-list-1-entries (:pointer
+                               (:pointer
+                                (:struct video-encode-h264-dpb-slot-info-ext))))
+  (preceding-nalu-bytes :uint32)
+  (min-qp :uint8)
+  (max-qp :uint8))
+
+(defcstruct (video-encode-h264-vcl-frame-info-ext :class c-video-encode-h264-vcl-frame-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (ref-default-final-list-0-entry-count :uint8)
+  (p-ref-default-final-list-0-entries (:pointer
+                                       (:pointer
+                                        (:struct
+                                         video-encode-h264-dpb-slot-info-ext))))
+  (ref-default-final-list-1-entry-count :uint8)
+  (p-ref-default-final-list-1-entries (:pointer
+                                       (:pointer
+                                        (:struct
+                                         video-encode-h264-dpb-slot-info-ext))))
+  (nalu-slice-entry-count :uint32)
+  (p-nalu-slice-entries (:pointer
+                         (:pointer (:struct video-encode-h264-nalu-slice-ext))))
+  (p-current-picture-info (:pointer
+                           (:pointer
+                            (:struct video-encode-h264-dpb-slot-info-ext)))))
+
+(defcstruct (video-encode-h264-emit-picture-parameters-ext :class c-video-encode-h264-emit-picture-parameters-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (sps-id :uint8)
+  (emit-sps-enable bool32)
+  (pps-id-entry-count :uint32)
+  (pps-id-entries (:pointer :uint8)))
+
+(defcstruct (video-encode-h264-profile-ext :class c-video-encode-h264-profile-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (std-profile-idc std-video-h264-profile-idc))
+
+(defcstruct (physical-device-inherited-viewport-scissor-features-nv :class c-physical-device-inherited-viewport-scissor-features-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (inherited-viewport-scissor-2d bool32))
+
+(defcstruct (command-buffer-inheritance-viewport-scissor-info-nv :class c-command-buffer-inheritance-viewport-scissor-info-nv)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (viewport-scissor-2d bool32)
+  (viewport-depth-count :uint32)
+  (p-viewport-depths (:pointer (:pointer (:struct viewport)))))
+
+(defcstruct (physical-device-ycbcr-2-plane-4-4-4-formats-features-ext :class c-physical-device-ycbcr-2-plane-4-4-4-formats-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (ycbcr-2plane-4-4-4-formats bool32))
 
