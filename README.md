@@ -173,7 +173,7 @@ This should not be a problem however, since there is almost no use for instances
 ### VkShaderModule
 The `VkShaderModule` struct has a member called `codeSize` which is the number of bytes in its `code` member.
 You might be tempted to read your shaders byte by byte, but `VkShaderModule` actually expects an array of `uint32_t`.
-As with other `*Count`-members in the Vulkan API, `vk` also automatically determines the value to set for `codeSize` automatically.
+As with other `*Count`-members in the Vulkan API, `vk` determines the value to set for `codeSize` automatically.
 For this to work properly, the `code` slot of a `vk:shader-module` also needs to be a sequence of 32-bit integers.
 
 `vk-utils:read-shader-source` exists exactly for this purpose: it reads a SPIR-V binary and spits out a vector of 32-bit integers.
