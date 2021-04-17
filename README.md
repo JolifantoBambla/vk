@@ -8,6 +8,7 @@ This is achieved by adding a thin layer of CLOS wrappers and functions atop CFFI
 of redundant struct members and output parameters of functions as much as possible.
 
 E.g. where you would have to write the following in C++ (without VulkanHpp) to get all GPUs on a computer:
+
 ```cpp
 std::vector<VkPhysicalDevice> devices;
 uint32_t count = 0;
@@ -21,8 +22,9 @@ res = vkEnumeratePhysicalDevices(instance, &count, devices.data());
 ```
 
 You can just write the following with `vk`:
+
 ```cl
-(let ((devices (vk:enumerate-physical-device instance)))
+(let ((devices (vk:enumerate-physical-devices instance)))
   ;; do something with your devices
   )
 ```
