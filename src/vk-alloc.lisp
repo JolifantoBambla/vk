@@ -78,8 +78,7 @@ See *ALLOCATE-FOREIGN-OBJECT-FUNC*"
   (if content
       (let ((p-resource nil))
         (if (arrayp content)
-            (let ((array-type (alexandria:flatten (list :array type (array-dimensions content))))
-                  (array-size ()))
+            (let ((array-type (alexandria:flatten (list :array type (array-dimensions content)))))
               (setf p-resource (funcall *allocate-foreign-object-func* array-type :count (array-total-size content)))
               (cffi:lisp-array-to-foreign content p-resource array-type))
             (if (listp content)
@@ -98,44 +97,44 @@ If the supplied CONTENT satisfies CFFI:POINTER-P the CONTENT is bound to VAR as 
 
 See CFFI:WITH-FOREIGN-OBJECT
 See CFFI:NULL-POINTER-P"
-  (let ((iterator (gensym))
-        (element (gensym)))
+  (let ((contents (gensym "CONTENT-LIST"))
+        (iterator (gensym "LOOP-INDEX"))
+        (element (gensym "ELEMENT")))
     `(if (or (cffi:pointerp ,content)
              (not ,content))
         (let ((,var (if (not ,content)
                         (cffi:null-pointer)
                         ,content)))
           ,@body)
-        ;; this could be further optimized by branching on more types at compile time (e.g. in case of heap exhaustion during compilation)
-        ,(if (eq type :string)
-             ;; cffi:with-foreign-object seems to do something different with strings than cffi:with-foreign-string does
-             ;; (kinda obvious given there are two distinct macros?)
-             `(if (listp ,content)
-                  ;; not exactly sure why this works for lists of strings but not single strings - encoding?
-                  (cffi:with-foreign-object (,var ,type (length ,content))
-                    (loop for ,iterator from 0 below (length ,content)
-                          for ,element in ,content
-                          do (setf (cffi:mem-aref ,var ,type ,iterator) ,element))
-                    ,@body)
-                  (cffi:with-foreign-string (,var ,content)
-                    ,@body))
-             `(cffi:with-foreign-object (,var
-                                         ,type
-                                         ;; VkFlags might come in as lists of keywords but should be translated within a single cffi:mem-aref
-                                         (if (and (listp ,content)
-                                                  (not (keywordp (first ,content))))
-                                             (length ,content)
-                                             1))
-                (unwind-protect
-                     (progn
-                       (if (and (listp ,content)
-                                (not (keywordp (first ,content))))
-                           (loop for ,iterator from 0 below (length ,content)
-                                 for ,element in ,content
-                                 do (setf (cffi:mem-aref ,var ,type ,iterator) ,element))
-                           (setf (cffi:mem-aref ,var ,type) ,content))
-                       ,@body)
-                  (free-allocated-children ,var)))))))
+        ,(cond
+           ((eq type :string)
+            ;; cffi:with-foreign-object seems to do something different with strings than cffi:with-foreign-string does
+            ;; (kinda obvious given there are two distinct macros?)
+            `(if (listp ,content)
+                 ;; not exactly sure why this works for lists of strings but not single strings - encoding?
+                 (cffi:with-foreign-object (,var ,type (length ,content))
+                   (loop for ,iterator from 0 below (length ,content)
+                         for ,element in ,content
+                         do (setf (cffi:mem-aref ,var ,type ,iterator) ,element))
+                   ,@body)
+                 (cffi:with-foreign-string (,var ,content)
+                   ,@body)))
+           (t
+            `(let ((,contents (if (or (vectorp ,content)
+                                      (and (listp ,content)
+                                           (not (keywordp (first ,content)))))
+                                  ,content
+                                  (list ,content))))
+               (cffi:with-foreign-object (,var
+                                          ,type
+                                          (length ,contents))
+                 (unwind-protect
+                      (progn
+                        (loop for ,iterator from 0 below (length ,contents)
+                              for ,element in ,contents
+                              do (setf (cffi:mem-aref ,var ,type ,iterator) ,element))
+                        ,@body)
+                   (free-allocated-children ,var)))))))))
 
 (defmacro with-foreign-allocated-objects (bindings &rest body)
   "Behaves like WITH-FOREIGN-ALLOCATED-OBJECT but for multiple BINDINGS instead of just one.

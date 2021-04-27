@@ -4464,11 +4464,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (base-out-structure :class c-base-out-structure)
   (s-type structure-type)
-  (p-next (:pointer (:pointer (:struct base-out-structure)))))
+  (p-next (:pointer (:struct base-out-structure))))
 
 (defcstruct (base-in-structure :class c-base-in-structure)
   (s-type structure-type)
-  (p-next (:pointer (:pointer (:struct base-in-structure)))))
+  (p-next (:pointer (:struct base-in-structure))))
 
 (defcstruct (offset-2d :class c-offset-2d)
   (x :int32)
@@ -4497,11 +4497,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-depth :float))
 
 (defcstruct (rect-2d :class c-rect-2d)
-  (offset offset-2d)
-  (extent extent-2d))
+  (offset (:struct offset-2d))
+  (extent (:struct extent-2d)))
 
 (defcstruct (clear-rect :class c-clear-rect)
-  (rect rect-2d)
+  (rect (:struct rect-2d))
   (base-array-layer :uint32)
   (layer-count :uint32))
 
@@ -4634,8 +4634,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device-type physical-device-type)
   (device-name :char :count 256)
   (pipeline-cache-uuid :uint8 :count 16)
-  (limits physical-device-limits)
-  (sparse-properties physical-device-sparse-properties))
+  (limits (:struct physical-device-limits))
+  (sparse-properties (:struct physical-device-sparse-properties)))
 
 (defcstruct (extension-properties :class c-extension-properties)
   (extension-name :char :count 256)
@@ -4734,18 +4734,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags device-create-flags)
   (queue-create-info-count :uint32)
-  (p-queue-create-infos (:pointer (:pointer (:struct device-queue-create-info))))
+  (p-queue-create-infos (:pointer (:struct device-queue-create-info)))
   (enabled-layer-count :uint32)
   (pp-enabled-layer-names (:pointer (:pointer :char)))
   (enabled-extension-count :uint32)
   (pp-enabled-extension-names (:pointer (:pointer :char)))
-  (p-enabled-features (:pointer (:pointer (:struct physical-device-features)))))
+  (p-enabled-features (:pointer (:struct physical-device-features))))
 
 (defcstruct (instance-create-info :class c-instance-create-info)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags instance-create-flags)
-  (p-application-info (:pointer (:pointer (:struct application-info))))
+  (p-application-info (:pointer (:struct application-info)))
   (enabled-layer-count :uint32)
   (pp-enabled-layer-names (:pointer (:pointer :char)))
   (enabled-extension-count :uint32)
@@ -4755,7 +4755,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (queue-flags queue-flags)
   (queue-count :uint32)
   (timestamp-valid-bits :uint32)
-  (min-image-transfer-granularity extent-3d))
+  (min-image-transfer-granularity (:struct extent-3d)))
 
 (defcstruct (memory-type :class c-memory-type)
   (property-flags memory-property-flags)
@@ -4767,9 +4767,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (physical-device-memory-properties :class c-physical-device-memory-properties)
   (memory-type-count :uint32)
-  (memory-types memory-type :count 32)
+  (memory-types (:struct memory-type) :count 32)
   (memory-heap-count :uint32)
-  (memory-heaps memory-heap :count 16))
+  (memory-heaps (:struct memory-heap) :count 16))
 
 (defcstruct (memory-allocate-info :class c-memory-allocate-info)
   (s-type structure-type)
@@ -4784,11 +4784,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (sparse-image-format-properties :class c-sparse-image-format-properties)
   (aspect-mask image-aspect-flags)
-  (image-granularity extent-3d)
+  (image-granularity (:struct extent-3d))
   (flags sparse-image-format-flags))
 
 (defcstruct (sparse-image-memory-requirements :class c-sparse-image-memory-requirements)
-  (format-properties sparse-image-format-properties)
+  (format-properties (:struct sparse-image-format-properties))
   (image-mip-tail-first-lod :uint32)
   (image-mip-tail-size device-size)
   (image-mip-tail-offset device-size)
@@ -4807,7 +4807,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (buffer-features format-feature-flags))
 
 (defcstruct (image-format-properties :class c-image-format-properties)
-  (max-extent extent-3d)
+  (max-extent (:struct extent-3d))
   (max-mip-levels :uint32)
   (max-array-layers :uint32)
   (sample-counts sample-count-flags)
@@ -4831,8 +4831,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-array-element :uint32)
   (descriptor-count :uint32)
   (descriptor-type descriptor-type)
-  (p-image-info (:pointer (:pointer (:struct descriptor-image-info))))
-  (p-buffer-info (:pointer (:pointer (:struct descriptor-buffer-info))))
+  (p-image-info (:pointer (:struct descriptor-image-info)))
+  (p-buffer-info (:pointer (:struct descriptor-buffer-info)))
   (p-texel-buffer-view (:pointer buffer-view)))
 
 (defcstruct (copy-descriptor-set :class c-copy-descriptor-set)
@@ -4910,7 +4910,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-queue-family-index :uint32)
   (dst-queue-family-index :uint32)
   (image image)
-  (subresource-range image-subresource-range))
+  (subresource-range (:struct image-subresource-range)))
 
 (defcstruct (image-create-info :class c-image-create-info)
   (s-type structure-type)
@@ -4918,7 +4918,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags image-create-flags)
   (image-type image-type)
   (format format)
-  (extent extent-3d)
+  (extent (:struct extent-3d))
   (mip-levels :uint32)
   (array-layers :uint32)
   (samples sample-count-flag-bits)
@@ -4943,8 +4943,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (image image)
   (view-type image-view-type)
   (format format)
-  (components component-mapping)
-  (subresource-range image-subresource-range))
+  (components (:struct component-mapping))
+  (subresource-range (:struct image-subresource-range)))
 
 (defcstruct (buffer-copy :class c-buffer-copy)
   (src-offset device-size)
@@ -4959,9 +4959,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags sparse-memory-bind-flags))
 
 (defcstruct (sparse-image-memory-bind :class c-sparse-image-memory-bind)
-  (subresource image-subresource)
-  (offset offset-3d)
-  (extent extent-3d)
+  (subresource (:struct image-subresource))
+  (offset (:struct offset-3d))
+  (extent (:struct extent-3d))
   (memory device-memory)
   (memory-offset device-size)
   (flags sparse-memory-bind-flags))
@@ -4969,17 +4969,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (sparse-buffer-memory-bind-info :class c-sparse-buffer-memory-bind-info)
   (buffer buffer)
   (bind-count :uint32)
-  (p-binds (:pointer (:pointer (:struct sparse-memory-bind)))))
+  (p-binds (:pointer (:struct sparse-memory-bind))))
 
 (defcstruct (sparse-image-opaque-memory-bind-info :class c-sparse-image-opaque-memory-bind-info)
   (image image)
   (bind-count :uint32)
-  (p-binds (:pointer (:pointer (:struct sparse-memory-bind)))))
+  (p-binds (:pointer (:struct sparse-memory-bind))))
 
 (defcstruct (sparse-image-memory-bind-info :class c-sparse-image-memory-bind-info)
   (image image)
   (bind-count :uint32)
-  (p-binds (:pointer (:pointer (:struct sparse-image-memory-bind)))))
+  (p-binds (:pointer (:struct sparse-image-memory-bind))))
 
 (defcstruct (bind-sparse-info :class c-bind-sparse-info)
   (s-type structure-type)
@@ -4987,43 +4987,42 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (wait-semaphore-count :uint32)
   (p-wait-semaphores (:pointer semaphore))
   (buffer-bind-count :uint32)
-  (p-buffer-binds (:pointer (:pointer (:struct sparse-buffer-memory-bind-info))))
+  (p-buffer-binds (:pointer (:struct sparse-buffer-memory-bind-info)))
   (image-opaque-bind-count :uint32)
   (p-image-opaque-binds (:pointer
-                         (:pointer
-                          (:struct sparse-image-opaque-memory-bind-info))))
+                         (:struct sparse-image-opaque-memory-bind-info)))
   (image-bind-count :uint32)
-  (p-image-binds (:pointer (:pointer (:struct sparse-image-memory-bind-info))))
+  (p-image-binds (:pointer (:struct sparse-image-memory-bind-info)))
   (signal-semaphore-count :uint32)
   (p-signal-semaphores (:pointer semaphore)))
 
 (defcstruct (image-copy :class c-image-copy)
-  (src-subresource image-subresource-layers)
-  (src-offset offset-3d)
-  (dst-subresource image-subresource-layers)
-  (dst-offset offset-3d)
-  (extent extent-3d))
+  (src-subresource (:struct image-subresource-layers))
+  (src-offset (:struct offset-3d))
+  (dst-subresource (:struct image-subresource-layers))
+  (dst-offset (:struct offset-3d))
+  (extent (:struct extent-3d)))
 
 (defcstruct (image-blit :class c-image-blit)
-  (src-subresource image-subresource-layers)
-  (src-offsets offset-3d :count 2)
-  (dst-subresource image-subresource-layers)
-  (dst-offsets offset-3d :count 2))
+  (src-subresource (:struct image-subresource-layers))
+  (src-offsets (:struct offset-3d) :count 2)
+  (dst-subresource (:struct image-subresource-layers))
+  (dst-offsets (:struct offset-3d) :count 2))
 
 (defcstruct (buffer-image-copy :class c-buffer-image-copy)
   (buffer-offset device-size)
   (buffer-row-length :uint32)
   (buffer-image-height :uint32)
-  (image-subresource image-subresource-layers)
-  (image-offset offset-3d)
-  (image-extent extent-3d))
+  (image-subresource (:struct image-subresource-layers))
+  (image-offset (:struct offset-3d))
+  (image-extent (:struct extent-3d)))
 
 (defcstruct (image-resolve :class c-image-resolve)
-  (src-subresource image-subresource-layers)
-  (src-offset offset-3d)
-  (dst-subresource image-subresource-layers)
-  (dst-offset offset-3d)
-  (extent extent-3d))
+  (src-subresource (:struct image-subresource-layers))
+  (src-offset (:struct offset-3d))
+  (dst-subresource (:struct image-subresource-layers))
+  (dst-offset (:struct offset-3d))
+  (extent (:struct extent-3d)))
 
 (defcstruct (shader-module-create-info :class c-shader-module-create-info)
   (s-type structure-type)
@@ -5044,7 +5043,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags descriptor-set-layout-create-flags)
   (binding-count :uint32)
-  (p-bindings (:pointer (:pointer (:struct descriptor-set-layout-binding)))))
+  (p-bindings (:pointer (:struct descriptor-set-layout-binding))))
 
 (defcstruct (descriptor-pool-size :class c-descriptor-pool-size)
   (type descriptor-type)
@@ -5056,7 +5055,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags descriptor-pool-create-flags)
   (max-sets :uint32)
   (pool-size-count :uint32)
-  (p-pool-sizes (:pointer (:pointer (:struct descriptor-pool-size)))))
+  (p-pool-sizes (:pointer (:struct descriptor-pool-size))))
 
 (defcstruct (descriptor-set-allocate-info :class c-descriptor-set-allocate-info)
   (s-type structure-type)
@@ -5072,7 +5071,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (specialization-info :class c-specialization-info)
   (map-entry-count :uint32)
-  (p-map-entries (:pointer (:pointer (:struct specialization-map-entry))))
+  (p-map-entries (:pointer (:struct specialization-map-entry)))
   (data-size size-t)
   (p-data (:pointer :void)))
 
@@ -5083,13 +5082,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (stage shader-stage-flag-bits)
   (module shader-module)
   (p-name :string)
-  (p-specialization-info (:pointer (:pointer (:struct specialization-info)))))
+  (p-specialization-info (:pointer (:struct specialization-info))))
 
 (defcstruct (compute-pipeline-create-info :class c-compute-pipeline-create-info)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags pipeline-create-flags)
-  (stage pipeline-shader-stage-create-info)
+  (stage (:struct pipeline-shader-stage-create-info))
   (layout pipeline-layout)
   (base-pipeline-handle pipeline)
   (base-pipeline-index :int32))
@@ -5111,13 +5110,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags pipeline-vertex-input-state-create-flags)
   (vertex-binding-description-count :uint32)
   (p-vertex-binding-descriptions (:pointer
-                                  (:pointer
-                                   (:struct vertex-input-binding-description))))
+                                  (:struct vertex-input-binding-description)))
   (vertex-attribute-description-count :uint32)
   (p-vertex-attribute-descriptions (:pointer
-                                    (:pointer
-                                     (:struct
-                                      vertex-input-attribute-description)))))
+                                    (:struct
+                                     vertex-input-attribute-description))))
 
 (defcstruct (pipeline-input-assembly-state-create-info :class c-pipeline-input-assembly-state-create-info)
   (s-type structure-type)
@@ -5137,9 +5134,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags pipeline-viewport-state-create-flags)
   (viewport-count :uint32)
-  (p-viewports (:pointer (:pointer (:struct viewport))))
+  (p-viewports (:pointer (:struct viewport)))
   (scissor-count :uint32)
-  (p-scissors (:pointer (:pointer (:struct rect-2d)))))
+  (p-scissors (:pointer (:struct rect-2d))))
 
 (defcstruct (pipeline-rasterization-state-create-info :class c-pipeline-rasterization-state-create-info)
   (s-type structure-type)
@@ -5184,8 +5181,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (logic-op-enable bool32)
   (logic-op logic-op)
   (attachment-count :uint32)
-  (p-attachments (:pointer
-                  (:pointer (:struct pipeline-color-blend-attachment-state))))
+  (p-attachments (:pointer (:struct pipeline-color-blend-attachment-state)))
   (blend-constants :float :count 4))
 
 (defcstruct (pipeline-dynamic-state-create-info :class c-pipeline-dynamic-state-create-info)
@@ -5213,8 +5209,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (depth-compare-op compare-op)
   (depth-bounds-test-enable bool32)
   (stencil-test-enable bool32)
-  (front stencil-op-state)
-  (back stencil-op-state)
+  (front (:struct stencil-op-state))
+  (back (:struct stencil-op-state))
   (min-depth-bounds :float)
   (max-depth-bounds :float))
 
@@ -5223,33 +5219,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags pipeline-create-flags)
   (stage-count :uint32)
-  (p-stages (:pointer (:pointer (:struct pipeline-shader-stage-create-info))))
+  (p-stages (:pointer (:struct pipeline-shader-stage-create-info)))
   (p-vertex-input-state (:pointer
-                         (:pointer
-                          (:struct pipeline-vertex-input-state-create-info))))
+                         (:struct pipeline-vertex-input-state-create-info)))
   (p-input-assembly-state (:pointer
-                           (:pointer
-                            (:struct
-                             pipeline-input-assembly-state-create-info))))
+                           (:struct pipeline-input-assembly-state-create-info)))
   (p-tessellation-state (:pointer
-                         (:pointer
-                          (:struct pipeline-tessellation-state-create-info))))
-  (p-viewport-state (:pointer
-                     (:pointer (:struct pipeline-viewport-state-create-info))))
+                         (:struct pipeline-tessellation-state-create-info)))
+  (p-viewport-state (:pointer (:struct pipeline-viewport-state-create-info)))
   (p-rasterization-state (:pointer
-                          (:pointer
-                           (:struct pipeline-rasterization-state-create-info))))
+                          (:struct pipeline-rasterization-state-create-info)))
   (p-multisample-state (:pointer
-                        (:pointer
-                         (:struct pipeline-multisample-state-create-info))))
+                        (:struct pipeline-multisample-state-create-info)))
   (p-depth-stencil-state (:pointer
-                          (:pointer
-                           (:struct pipeline-depth-stencil-state-create-info))))
+                          (:struct pipeline-depth-stencil-state-create-info)))
   (p-color-blend-state (:pointer
-                        (:pointer
-                         (:struct pipeline-color-blend-state-create-info))))
-  (p-dynamic-state (:pointer
-                    (:pointer (:struct pipeline-dynamic-state-create-info))))
+                        (:struct pipeline-color-blend-state-create-info)))
+  (p-dynamic-state (:pointer (:struct pipeline-dynamic-state-create-info)))
   (layout pipeline-layout)
   (render-pass render-pass)
   (subpass :uint32)
@@ -5275,7 +5261,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (set-layout-count :uint32)
   (p-set-layouts (:pointer descriptor-set-layout))
   (push-constant-range-count :uint32)
-  (p-push-constant-ranges (:pointer (:pointer (:struct push-constant-range)))))
+  (p-push-constant-ranges (:pointer (:struct push-constant-range))))
 
 (defcstruct (sampler-create-info :class c-sampler-create-info)
   (s-type structure-type)
@@ -5324,8 +5310,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags command-buffer-usage-flags)
-  (p-inheritance-info (:pointer
-                       (:pointer (:struct command-buffer-inheritance-info)))))
+  (p-inheritance-info (:pointer (:struct command-buffer-inheritance-info))))
 
 (defcunion clear-color-value
   (float-32 :float :count 4)
@@ -5337,22 +5322,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (stencil :uint32))
 
 (defcunion clear-value
-  (color clear-color-value)
-  (depth-stencil clear-depth-stencil-value))
+  (color (:union clear-color-value))
+  (depth-stencil (:struct clear-depth-stencil-value)))
 
 (defcstruct (render-pass-begin-info :class c-render-pass-begin-info)
   (s-type structure-type)
   (p-next (:pointer :void))
   (render-pass render-pass)
   (framebuffer framebuffer)
-  (render-area rect-2d)
+  (render-area (:struct rect-2d))
   (clear-value-count :uint32)
-  (p-clear-values (:pointer (:pointer (:union clear-value)))))
+  (p-clear-values (:pointer (:union clear-value))))
 
 (defcstruct (clear-attachment :class c-clear-attachment)
   (aspect-mask image-aspect-flags)
   (color-attachment :uint32)
-  (clear-value clear-value))
+  (clear-value (:union clear-value)))
 
 (defcstruct (attachment-description :class c-attachment-description)
   (flags attachment-description-flags)
@@ -5373,12 +5358,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags subpass-description-flags)
   (pipeline-bind-point pipeline-bind-point)
   (input-attachment-count :uint32)
-  (p-input-attachments (:pointer (:pointer (:struct attachment-reference))))
+  (p-input-attachments (:pointer (:struct attachment-reference)))
   (color-attachment-count :uint32)
-  (p-color-attachments (:pointer (:pointer (:struct attachment-reference))))
-  (p-resolve-attachments (:pointer (:pointer (:struct attachment-reference))))
-  (p-depth-stencil-attachment (:pointer
-                               (:pointer (:struct attachment-reference))))
+  (p-color-attachments (:pointer (:struct attachment-reference)))
+  (p-resolve-attachments (:pointer (:struct attachment-reference)))
+  (p-depth-stencil-attachment (:pointer (:struct attachment-reference)))
   (preserve-attachment-count :uint32)
   (p-preserve-attachments (:pointer :uint32)))
 
@@ -5396,11 +5380,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags render-pass-create-flags)
   (attachment-count :uint32)
-  (p-attachments (:pointer (:pointer (:struct attachment-description))))
+  (p-attachments (:pointer (:struct attachment-description)))
   (subpass-count :uint32)
-  (p-subpasses (:pointer (:pointer (:struct subpass-description))))
+  (p-subpasses (:pointer (:struct subpass-description)))
   (dependency-count :uint32)
-  (p-dependencies (:pointer (:pointer (:struct subpass-dependency)))))
+  (p-dependencies (:pointer (:struct subpass-dependency))))
 
 (defcstruct (event-create-info :class c-event-create-info)
   (s-type structure-type)
@@ -5468,8 +5452,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (display-properties-khr :class c-display-properties-khr)
   (display display-khr)
   (display-name :string)
-  (physical-dimensions extent-2d)
-  (physical-resolution extent-2d)
+  (physical-dimensions (:struct extent-2d))
+  (physical-resolution (:struct extent-2d))
   (supported-transforms surface-transform-flags-khr)
   (plane-reorder-possible bool32)
   (persistent-content bool32))
@@ -5479,29 +5463,29 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (current-stack-index :uint32))
 
 (defcstruct (display-mode-parameters-khr :class c-display-mode-parameters-khr)
-  (visible-region extent-2d)
+  (visible-region (:struct extent-2d))
   (refresh-rate :uint32))
 
 (defcstruct (display-mode-properties-khr :class c-display-mode-properties-khr)
   (display-mode display-mode-khr)
-  (parameters display-mode-parameters-khr))
+  (parameters (:struct display-mode-parameters-khr)))
 
 (defcstruct (display-mode-create-info-khr :class c-display-mode-create-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags display-mode-create-flags-khr)
-  (parameters display-mode-parameters-khr))
+  (parameters (:struct display-mode-parameters-khr)))
 
 (defcstruct (display-plane-capabilities-khr :class c-display-plane-capabilities-khr)
   (supported-alpha display-plane-alpha-flags-khr)
-  (min-src-position offset-2d)
-  (max-src-position offset-2d)
-  (min-src-extent extent-2d)
-  (max-src-extent extent-2d)
-  (min-dst-position offset-2d)
-  (max-dst-position offset-2d)
-  (min-dst-extent extent-2d)
-  (max-dst-extent extent-2d))
+  (min-src-position (:struct offset-2d))
+  (max-src-position (:struct offset-2d))
+  (min-src-extent (:struct extent-2d))
+  (max-src-extent (:struct extent-2d))
+  (min-dst-position (:struct offset-2d))
+  (max-dst-position (:struct offset-2d))
+  (min-dst-extent (:struct extent-2d))
+  (max-dst-extent (:struct extent-2d)))
 
 (defcstruct (display-surface-create-info-khr :class c-display-surface-create-info-khr)
   (s-type structure-type)
@@ -5513,21 +5497,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (transform surface-transform-flag-bits-khr)
   (global-alpha :float)
   (alpha-mode display-plane-alpha-flag-bits-khr)
-  (image-extent extent-2d))
+  (image-extent (:struct extent-2d)))
 
 (defcstruct (display-present-info-khr :class c-display-present-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (src-rect rect-2d)
-  (dst-rect rect-2d)
+  (src-rect (:struct rect-2d))
+  (dst-rect (:struct rect-2d))
   (persistent bool32))
 
 (defcstruct (surface-capabilities-khr :class c-surface-capabilities-khr)
   (min-image-count :uint32)
   (max-image-count :uint32)
-  (current-extent extent-2d)
-  (min-image-extent extent-2d)
-  (max-image-extent extent-2d)
+  (current-extent (:struct extent-2d))
+  (min-image-extent (:struct extent-2d))
+  (max-image-extent (:struct extent-2d))
   (max-image-array-layers :uint32)
   (supported-transforms surface-transform-flags-khr)
   (current-transform surface-transform-flag-bits-khr)
@@ -5550,8 +5534,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags wayland-surface-create-flags-khr)
-  (display (:pointer wl_display))
-  (surface (:pointer wl_surface)))
+  (display (:pointer (:struct wl_display)))
+  (surface (:pointer (:struct wl_surface))))
 
 (defcstruct (win32-surface-create-info-khr :class c-win32-surface-create-info-khr)
   (s-type structure-type)
@@ -5597,8 +5581,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags screen-surface-create-flags-qnx)
-  (context (:pointer _screen_context))
-  (window (:pointer _screen_window)))
+  (context (:pointer (:struct _screen_context)))
+  (window (:pointer (:struct _screen_window))))
 
 (defcstruct (surface-format-khr :class c-surface-format-khr)
   (format format)
@@ -5612,7 +5596,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (min-image-count :uint32)
   (image-format format)
   (image-color-space color-space-khr)
-  (image-extent extent-2d)
+  (image-extent (:struct extent-2d))
   (image-array-layers :uint32)
   (image-usage image-usage-flags)
   (image-sharing-mode sharing-mode)
@@ -5699,7 +5683,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (buffer buffer))
 
 (defcstruct (external-image-format-properties-nv :class c-external-image-format-properties-nv)
-  (image-format-properties image-format-properties)
+  (image-format-properties (:struct image-format-properties))
   (external-memory-features external-memory-feature-flags-nv)
   (export-from-imported-handle-types external-memory-handle-type-flags-nv)
   (compatible-handle-types external-memory-handle-type-flags-nv))
@@ -5723,7 +5707,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (export-memory-win32-handle-info-nv :class c-export-memory-win32-handle-info-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-attributes (:pointer security_attributes))
+  (p-attributes (:pointer (:struct security_attributes)))
   (dw-access dword))
 
 (defcstruct (win32-keyed-mutex-acquire-release-info-nv :class c-win32-keyed-mutex-acquire-release-info-nv)
@@ -5774,19 +5758,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (stage-count :uint32)
-  (p-stages (:pointer (:pointer (:struct pipeline-shader-stage-create-info))))
+  (p-stages (:pointer (:struct pipeline-shader-stage-create-info)))
   (p-vertex-input-state (:pointer
-                         (:pointer
-                          (:struct pipeline-vertex-input-state-create-info))))
+                         (:struct pipeline-vertex-input-state-create-info)))
   (p-tessellation-state (:pointer
-                         (:pointer
-                          (:struct pipeline-tessellation-state-create-info)))))
+                         (:struct pipeline-tessellation-state-create-info))))
 
 (defcstruct (graphics-pipeline-shader-groups-create-info-nv :class c-graphics-pipeline-shader-groups-create-info-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
   (group-count :uint32)
-  (p-groups (:pointer (:pointer (:struct graphics-shader-group-create-info-nv))))
+  (p-groups (:pointer (:struct graphics-shader-group-create-info-nv)))
   (pipeline-count :uint32)
   (p-pipelines (:pointer pipeline)))
 
@@ -5833,7 +5815,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags indirect-commands-layout-usage-flags-nv)
   (pipeline-bind-point pipeline-bind-point)
   (token-count :uint32)
-  (p-tokens (:pointer (:pointer (:struct indirect-commands-layout-token-nv))))
+  (p-tokens (:pointer (:struct indirect-commands-layout-token-nv)))
   (stream-count :uint32)
   (p-stream-strides (:pointer :uint32)))
 
@@ -5844,7 +5826,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline pipeline)
   (indirect-commands-layout indirect-commands-layout-nv)
   (stream-count :uint32)
-  (p-streams (:pointer (:pointer (:struct indirect-commands-stream-nv))))
+  (p-streams (:pointer (:struct indirect-commands-stream-nv)))
   (sequences-count :uint32)
   (preprocess-buffer buffer)
   (preprocess-offset device-size)
@@ -5865,42 +5847,42 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (physical-device-features-2 :class c-physical-device-features-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (features physical-device-features))
+  (features (:struct physical-device-features)))
 
 (defcstruct (physical-device-features-2-khr :class c-physical-device-features-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (features physical-device-features))
+  (features (:struct physical-device-features)))
 
 (defcstruct (physical-device-properties-2 :class c-physical-device-properties-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (properties physical-device-properties))
+  (properties (:struct physical-device-properties)))
 
 (defcstruct (physical-device-properties-2-khr :class c-physical-device-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (properties physical-device-properties))
+  (properties (:struct physical-device-properties)))
 
 (defcstruct (format-properties-2 :class c-format-properties-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (format-properties format-properties))
+  (format-properties (:struct format-properties)))
 
 (defcstruct (format-properties-2-khr :class c-format-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (format-properties format-properties))
+  (format-properties (:struct format-properties)))
 
 (defcstruct (image-format-properties-2 :class c-image-format-properties-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (image-format-properties image-format-properties))
+  (image-format-properties (:struct image-format-properties)))
 
 (defcstruct (image-format-properties-2-khr :class c-image-format-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (image-format-properties image-format-properties))
+  (image-format-properties (:struct image-format-properties)))
 
 (defcstruct (physical-device-image-format-info-2 :class c-physical-device-image-format-info-2)
   (s-type structure-type)
@@ -5923,32 +5905,32 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (queue-family-properties-2 :class c-queue-family-properties-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (queue-family-properties queue-family-properties))
+  (queue-family-properties (:struct queue-family-properties)))
 
 (defcstruct (queue-family-properties-2-khr :class c-queue-family-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (queue-family-properties queue-family-properties))
+  (queue-family-properties (:struct queue-family-properties)))
 
 (defcstruct (physical-device-memory-properties-2 :class c-physical-device-memory-properties-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (memory-properties physical-device-memory-properties))
+  (memory-properties (:struct physical-device-memory-properties)))
 
 (defcstruct (physical-device-memory-properties-2-khr :class c-physical-device-memory-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (memory-properties physical-device-memory-properties))
+  (memory-properties (:struct physical-device-memory-properties)))
 
 (defcstruct (sparse-image-format-properties-2 :class c-sparse-image-format-properties-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (properties sparse-image-format-properties))
+  (properties (:struct sparse-image-format-properties)))
 
 (defcstruct (sparse-image-format-properties-2-khr :class c-sparse-image-format-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (properties sparse-image-format-properties))
+  (properties (:struct sparse-image-format-properties)))
 
 (defcstruct (physical-device-sparse-image-format-info-2 :class c-physical-device-sparse-image-format-info-2)
   (s-type structure-type)
@@ -5991,7 +5973,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (driver-id driver-id)
   (driver-name :char :count 256)
   (driver-info :char :count 256)
-  (conformance-version conformance-version))
+  (conformance-version (:struct conformance-version)))
 
 (defcstruct (physical-device-driver-properties-khr :class c-physical-device-driver-properties-khr)
   (s-type structure-type)
@@ -5999,22 +5981,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (driver-id driver-id)
   (driver-name :char :count 256)
   (driver-info :char :count 256)
-  (conformance-version conformance-version))
+  (conformance-version (:struct conformance-version)))
 
 (defcstruct (rect-layer-khr :class c-rect-layer-khr)
-  (offset offset-2d)
-  (extent extent-2d)
+  (offset (:struct offset-2d))
+  (extent (:struct extent-2d))
   (layer :uint32))
 
 (defcstruct (present-region-khr :class c-present-region-khr)
   (rectangle-count :uint32)
-  (p-rectangles (:pointer (:pointer (:struct rect-layer-khr)))))
+  (p-rectangles (:pointer (:struct rect-layer-khr))))
 
 (defcstruct (present-regions-khr :class c-present-regions-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (swapchain-count :uint32)
-  (p-regions (:pointer (:pointer (:struct present-region-khr)))))
+  (p-regions (:pointer (:struct present-region-khr))))
 
 (defcstruct (physical-device-variable-pointers-features :class c-physical-device-variable-pointers-features)
   (s-type structure-type)
@@ -6063,12 +6045,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (external-image-format-properties :class c-external-image-format-properties)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (external-memory-properties external-memory-properties))
+  (external-memory-properties (:struct external-memory-properties)))
 
 (defcstruct (external-image-format-properties-khr :class c-external-image-format-properties-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (external-memory-properties external-memory-properties))
+  (external-memory-properties (:struct external-memory-properties)))
 
 (defcstruct (physical-device-external-buffer-info :class c-physical-device-external-buffer-info)
   (s-type structure-type)
@@ -6087,12 +6069,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (external-buffer-properties :class c-external-buffer-properties)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (external-memory-properties external-memory-properties))
+  (external-memory-properties (:struct external-memory-properties)))
 
 (defcstruct (external-buffer-properties-khr :class c-external-buffer-properties-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (external-memory-properties external-memory-properties))
+  (external-memory-properties (:struct external-memory-properties)))
 
 (defcstruct (physical-device-id-properties :class c-physical-device-id-properties)
   (s-type structure-type)
@@ -6152,7 +6134,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (export-memory-win32-handle-info-khr :class c-export-memory-win32-handle-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-attributes (:pointer security_attributes))
+  (p-attributes (:pointer (:struct security_attributes)))
   (dw-access dword)
   (name lpcwstr))
 
@@ -6258,7 +6240,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (export-semaphore-win32-handle-info-khr :class c-export-semaphore-win32-handle-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-attributes (:pointer security_attributes))
+  (p-attributes (:pointer (:struct security_attributes)))
   (dw-access dword)
   (name lpcwstr))
 
@@ -6350,7 +6332,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (export-fence-win32-handle-info-khr :class c-export-fence-win32-handle-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-attributes (:pointer security_attributes))
+  (p-attributes (:pointer (:struct security_attributes)))
   (dw-access dword)
   (name lpcwstr))
 
@@ -6425,9 +6407,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (min-image-count :uint32)
   (max-image-count :uint32)
-  (current-extent extent-2d)
-  (min-image-extent extent-2d)
-  (max-image-extent extent-2d)
+  (current-extent (:struct extent-2d))
+  (min-image-extent (:struct extent-2d))
+  (max-image-extent (:struct extent-2d))
   (max-image-array-layers :uint32)
   (supported-transforms surface-transform-flags-khr)
   (current-transform surface-transform-flag-bits-khr)
@@ -6527,7 +6509,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device-index-count :uint32)
   (p-device-indices (:pointer :uint32))
   (split-instance-bind-region-count :uint32)
-  (p-split-instance-bind-regions (:pointer (:pointer (:struct rect-2d)))))
+  (p-split-instance-bind-regions (:pointer (:struct rect-2d))))
 
 (defcstruct (bind-image-memory-device-group-info-khr :class c-bind-image-memory-device-group-info-khr)
   (s-type structure-type)
@@ -6535,21 +6517,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device-index-count :uint32)
   (p-device-indices (:pointer :uint32))
   (split-instance-bind-region-count :uint32)
-  (p-split-instance-bind-regions (:pointer (:pointer (:struct rect-2d)))))
+  (p-split-instance-bind-regions (:pointer (:struct rect-2d))))
 
 (defcstruct (device-group-render-pass-begin-info :class c-device-group-render-pass-begin-info)
   (s-type structure-type)
   (p-next (:pointer :void))
   (device-mask :uint32)
   (device-render-area-count :uint32)
-  (p-device-render-areas (:pointer (:pointer (:struct rect-2d)))))
+  (p-device-render-areas (:pointer (:struct rect-2d))))
 
 (defcstruct (device-group-render-pass-begin-info-khr :class c-device-group-render-pass-begin-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (device-mask :uint32)
   (device-render-area-count :uint32)
-  (p-device-render-areas (:pointer (:pointer (:struct rect-2d)))))
+  (p-device-render-areas (:pointer (:struct rect-2d))))
 
 (defcstruct (device-group-command-buffer-begin-info :class c-device-group-command-buffer-begin-info)
   (s-type structure-type)
@@ -6665,8 +6647,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags descriptor-update-template-create-flags)
   (descriptor-update-entry-count :uint32)
   (p-descriptor-update-entries (:pointer
-                                (:pointer
-                                 (:struct descriptor-update-template-entry))))
+                                (:struct descriptor-update-template-entry)))
   (template-type descriptor-update-template-type)
   (descriptor-set-layout descriptor-set-layout)
   (pipeline-bind-point pipeline-bind-point)
@@ -6679,8 +6660,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags descriptor-update-template-create-flags)
   (descriptor-update-entry-count :uint32)
   (p-descriptor-update-entries (:pointer
-                                (:pointer
-                                 (:struct descriptor-update-template-entry))))
+                                (:struct descriptor-update-template-entry)))
   (template-type descriptor-update-template-type)
   (descriptor-set-layout descriptor-set-layout)
   (pipeline-bind-point pipeline-bind-point)
@@ -6694,10 +6674,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (hdr-metadata-ext :class c-hdr-metadata-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (display-primary-red x-y-color-ext)
-  (display-primary-green x-y-color-ext)
-  (display-primary-blue x-y-color-ext)
-  (white-point x-y-color-ext)
+  (display-primary-red (:struct x-y-color-ext))
+  (display-primary-green (:struct x-y-color-ext))
+  (display-primary-blue (:struct x-y-color-ext))
+  (white-point (:struct x-y-color-ext))
   (max-luminance :float)
   (min-luminance :float)
   (max-content-light-level :float)
@@ -6731,7 +6711,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (swapchain-count :uint32)
-  (p-times (:pointer (:pointer (:struct present-time-google)))))
+  (p-times (:pointer (:struct present-time-google))))
 
 (defcstruct (i-os-surface-create-info-mvk :class c-i-os-surface-create-info-mvk)
   (s-type structure-type)
@@ -6760,7 +6740,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (viewport-w-scaling-enable bool32)
   (viewport-count :uint32)
-  (p-viewport-w-scalings (:pointer (:pointer (:struct viewport-w-scaling-nv)))))
+  (p-viewport-w-scalings (:pointer (:struct viewport-w-scaling-nv))))
 
 (defcstruct (viewport-swizzle-nv :class c-viewport-swizzle-nv)
   (x viewport-coordinate-swizzle-nv)
@@ -6773,7 +6753,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags pipeline-viewport-swizzle-state-create-flags-nv)
   (viewport-count :uint32)
-  (p-viewport-swizzles (:pointer (:pointer (:struct viewport-swizzle-nv)))))
+  (p-viewport-swizzles (:pointer (:struct viewport-swizzle-nv))))
 
 (defcstruct (physical-device-discard-rectangle-properties-ext :class c-physical-device-discard-rectangle-properties-ext)
   (s-type structure-type)
@@ -6786,7 +6766,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags pipeline-discard-rectangle-state-create-flags-ext)
   (discard-rectangle-mode discard-rectangle-mode-ext)
   (discard-rectangle-count :uint32)
-  (p-discard-rectangles (:pointer (:pointer (:struct rect-2d)))))
+  (p-discard-rectangles (:pointer (:struct rect-2d))))
 
 (defcstruct (physical-device-multiview-per-view-attributes-properties-nv-x :class c-physical-device-multiview-per-view-attributes-properties-nv-x)
   (s-type structure-type)
@@ -6807,15 +6787,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (aspect-reference-count :uint32)
-  (p-aspect-references (:pointer
-                        (:pointer (:struct input-attachment-aspect-reference)))))
+  (p-aspect-references (:pointer (:struct input-attachment-aspect-reference))))
 
 (defcstruct (render-pass-input-attachment-aspect-create-info-khr :class c-render-pass-input-attachment-aspect-create-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (aspect-reference-count :uint32)
-  (p-aspect-references (:pointer
-                        (:pointer (:struct input-attachment-aspect-reference)))))
+  (p-aspect-references (:pointer (:struct input-attachment-aspect-reference))))
 
 (defcstruct (physical-device-surface-info-2-khr :class c-physical-device-surface-info-2-khr)
   (s-type structure-type)
@@ -6825,27 +6803,27 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (surface-capabilities-2-khr :class c-surface-capabilities-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (surface-capabilities surface-capabilities-khr))
+  (surface-capabilities (:struct surface-capabilities-khr)))
 
 (defcstruct (surface-format-2-khr :class c-surface-format-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (surface-format surface-format-khr))
+  (surface-format (:struct surface-format-khr)))
 
 (defcstruct (display-properties-2-khr :class c-display-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (display-properties display-properties-khr))
+  (display-properties (:struct display-properties-khr)))
 
 (defcstruct (display-plane-properties-2-khr :class c-display-plane-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (display-plane-properties display-plane-properties-khr))
+  (display-plane-properties (:struct display-plane-properties-khr)))
 
 (defcstruct (display-mode-properties-2-khr :class c-display-mode-properties-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (display-mode-properties display-mode-properties-khr))
+  (display-mode-properties (:struct display-mode-properties-khr)))
 
 (defcstruct (display-plane-info-2-khr :class c-display-plane-info-2-khr)
   (s-type structure-type)
@@ -6856,7 +6834,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (display-plane-capabilities-2-khr :class c-display-plane-capabilities-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (capabilities display-plane-capabilities-khr))
+  (capabilities (:struct display-plane-capabilities-khr)))
 
 (defcstruct (shared-present-surface-capabilities-khr :class c-shared-present-surface-capabilities-khr)
   (s-type structure-type)
@@ -6930,22 +6908,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (memory-requirements-2 :class c-memory-requirements-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (memory-requirements memory-requirements))
+  (memory-requirements (:struct memory-requirements)))
 
 (defcstruct (memory-requirements-2-khr :class c-memory-requirements-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (memory-requirements memory-requirements))
+  (memory-requirements (:struct memory-requirements)))
 
 (defcstruct (sparse-image-memory-requirements-2 :class c-sparse-image-memory-requirements-2)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (memory-requirements sparse-image-memory-requirements))
+  (memory-requirements (:struct sparse-image-memory-requirements)))
 
 (defcstruct (sparse-image-memory-requirements-2-khr :class c-sparse-image-memory-requirements-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (memory-requirements sparse-image-memory-requirements))
+  (memory-requirements (:struct sparse-image-memory-requirements)))
 
 (defcstruct (physical-device-point-clipping-properties :class c-physical-device-point-clipping-properties)
   (s-type structure-type)
@@ -7017,7 +6995,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (format format)
   (ycbcr-model sampler-ycbcr-model-conversion)
   (ycbcr-range sampler-ycbcr-range)
-  (components component-mapping)
+  (components (:struct component-mapping))
   (x-chroma-offset chroma-location)
   (y-chroma-offset chroma-location)
   (chroma-filter filter)
@@ -7029,7 +7007,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (format format)
   (ycbcr-model sampler-ycbcr-model-conversion)
   (ycbcr-range sampler-ycbcr-range)
-  (components component-mapping)
+  (components (:struct component-mapping))
   (x-chroma-offset chroma-location)
   (y-chroma-offset chroma-location)
   (chroma-filter filter)
@@ -7136,42 +7114,40 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (sample-locations-per-pixel sample-count-flag-bits)
-  (sample-location-grid-size extent-2d)
+  (sample-location-grid-size (:struct extent-2d))
   (sample-locations-count :uint32)
-  (p-sample-locations (:pointer (:pointer (:struct sample-location-ext)))))
+  (p-sample-locations (:pointer (:struct sample-location-ext))))
 
 (defcstruct (attachment-sample-locations-ext :class c-attachment-sample-locations-ext)
   (attachment-index :uint32)
-  (sample-locations-info sample-locations-info-ext))
+  (sample-locations-info (:struct sample-locations-info-ext)))
 
 (defcstruct (subpass-sample-locations-ext :class c-subpass-sample-locations-ext)
   (subpass-index :uint32)
-  (sample-locations-info sample-locations-info-ext))
+  (sample-locations-info (:struct sample-locations-info-ext)))
 
 (defcstruct (render-pass-sample-locations-begin-info-ext :class c-render-pass-sample-locations-begin-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (attachment-initial-sample-locations-count :uint32)
   (p-attachment-initial-sample-locations (:pointer
-                                          (:pointer
-                                           (:struct
-                                            attachment-sample-locations-ext))))
+                                          (:struct
+                                           attachment-sample-locations-ext)))
   (post-subpass-sample-locations-count :uint32)
   (p-post-subpass-sample-locations (:pointer
-                                    (:pointer
-                                     (:struct subpass-sample-locations-ext)))))
+                                    (:struct subpass-sample-locations-ext))))
 
 (defcstruct (pipeline-sample-locations-state-create-info-ext :class c-pipeline-sample-locations-state-create-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (sample-locations-enable bool32)
-  (sample-locations-info sample-locations-info-ext))
+  (sample-locations-info (:struct sample-locations-info-ext)))
 
 (defcstruct (physical-device-sample-locations-properties-ext :class c-physical-device-sample-locations-properties-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (sample-location-sample-counts sample-count-flags)
-  (max-sample-location-grid-size extent-2d)
+  (max-sample-location-grid-size (:struct extent-2d))
   (sample-location-coordinate-range :float :count 2)
   (sample-location-sub-pixel-bits :uint32)
   (variable-sample-locations bool32))
@@ -7179,7 +7155,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (multisample-properties-ext :class c-multisample-properties-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (max-sample-location-grid-size extent-2d))
+  (max-sample-location-grid-size (:struct extent-2d)))
 
 (defcstruct (sampler-reduction-mode-create-info :class c-sampler-reduction-mode-create-info)
   (s-type structure-type)
@@ -7383,7 +7359,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (shader-statistics-info-amd :class c-shader-statistics-info-amd)
   (shader-stage-mask shader-stage-flags)
-  (resource-usage shader-resource-usage-amd)
+  (resource-usage (:struct shader-resource-usage-amd))
   (num-physical-vgprs :uint32)
   (num-physical-sgprs :uint32)
   (num-available-vgprs :uint32)
@@ -7434,11 +7410,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (message-id-number :int32)
   (p-message :string)
   (queue-label-count :uint32)
-  (p-queue-labels (:pointer (:pointer (:struct debug-utils-label-ext))))
+  (p-queue-labels (:pointer (:struct debug-utils-label-ext)))
   (cmd-buf-label-count :uint32)
-  (p-cmd-buf-labels (:pointer (:pointer (:struct debug-utils-label-ext))))
+  (p-cmd-buf-labels (:pointer (:struct debug-utils-label-ext)))
   (object-count :uint32)
-  (p-objects (:pointer (:pointer (:struct debug-utils-object-name-info-ext)))))
+  (p-objects (:pointer (:struct debug-utils-object-name-info-ext))))
 
 (defcstruct (physical-device-device-memory-report-features-ext :class c-physical-device-device-memory-report-features-ext)
   (s-type structure-type)
@@ -7711,12 +7687,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline-bind-point pipeline-bind-point)
   (view-mask :uint32)
   (input-attachment-count :uint32)
-  (p-input-attachments (:pointer (:pointer (:struct attachment-reference-2))))
+  (p-input-attachments (:pointer (:struct attachment-reference-2)))
   (color-attachment-count :uint32)
-  (p-color-attachments (:pointer (:pointer (:struct attachment-reference-2))))
-  (p-resolve-attachments (:pointer (:pointer (:struct attachment-reference-2))))
-  (p-depth-stencil-attachment (:pointer
-                               (:pointer (:struct attachment-reference-2))))
+  (p-color-attachments (:pointer (:struct attachment-reference-2)))
+  (p-resolve-attachments (:pointer (:struct attachment-reference-2)))
+  (p-depth-stencil-attachment (:pointer (:struct attachment-reference-2)))
   (preserve-attachment-count :uint32)
   (p-preserve-attachments (:pointer :uint32)))
 
@@ -7727,12 +7702,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline-bind-point pipeline-bind-point)
   (view-mask :uint32)
   (input-attachment-count :uint32)
-  (p-input-attachments (:pointer (:pointer (:struct attachment-reference-2))))
+  (p-input-attachments (:pointer (:struct attachment-reference-2)))
   (color-attachment-count :uint32)
-  (p-color-attachments (:pointer (:pointer (:struct attachment-reference-2))))
-  (p-resolve-attachments (:pointer (:pointer (:struct attachment-reference-2))))
-  (p-depth-stencil-attachment (:pointer
-                               (:pointer (:struct attachment-reference-2))))
+  (p-color-attachments (:pointer (:struct attachment-reference-2)))
+  (p-resolve-attachments (:pointer (:struct attachment-reference-2)))
+  (p-depth-stencil-attachment (:pointer (:struct attachment-reference-2)))
   (preserve-attachment-count :uint32)
   (p-preserve-attachments (:pointer :uint32)))
 
@@ -7765,11 +7739,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags render-pass-create-flags)
   (attachment-count :uint32)
-  (p-attachments (:pointer (:pointer (:struct attachment-description-2))))
+  (p-attachments (:pointer (:struct attachment-description-2)))
   (subpass-count :uint32)
-  (p-subpasses (:pointer (:pointer (:struct subpass-description-2))))
+  (p-subpasses (:pointer (:struct subpass-description-2)))
   (dependency-count :uint32)
-  (p-dependencies (:pointer (:pointer (:struct subpass-dependency-2))))
+  (p-dependencies (:pointer (:struct subpass-dependency-2)))
   (correlated-view-mask-count :uint32)
   (p-correlated-view-masks (:pointer :uint32)))
 
@@ -7778,11 +7752,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags render-pass-create-flags)
   (attachment-count :uint32)
-  (p-attachments (:pointer (:pointer (:struct attachment-description-2))))
+  (p-attachments (:pointer (:struct attachment-description-2)))
   (subpass-count :uint32)
-  (p-subpasses (:pointer (:pointer (:struct subpass-description-2))))
+  (p-subpasses (:pointer (:struct subpass-description-2)))
   (dependency-count :uint32)
-  (p-dependencies (:pointer (:pointer (:struct subpass-dependency-2))))
+  (p-dependencies (:pointer (:struct subpass-dependency-2)))
   (correlated-view-mask-count :uint32)
   (p-correlated-view-masks (:pointer :uint32)))
 
@@ -7889,9 +7863,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (vertex-binding-divisor-count :uint32)
   (p-vertex-binding-divisors (:pointer
-                              (:pointer
-                               (:struct
-                                vertex-input-binding-divisor-description-ext)))))
+                              (:struct
+                               vertex-input-binding-divisor-description-ext))))
 
 (defcstruct (physical-device-vertex-attribute-divisor-properties-ext :class c-physical-device-vertex-attribute-divisor-properties-ext)
   (s-type structure-type)
@@ -7933,7 +7906,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (format format)
   (external-format :uint64)
   (format-features format-feature-flags)
-  (sampler-ycbcr-conversion-components component-mapping)
+  (sampler-ycbcr-conversion-components (:struct component-mapping))
   (suggested-ycbcr-model sampler-ycbcr-model-conversion)
   (suggested-ycbcr-range sampler-ycbcr-range)
   (suggested-x-chroma-offset chroma-location)
@@ -8050,8 +8023,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (depth-resolve-mode resolve-mode-flag-bits)
   (stencil-resolve-mode resolve-mode-flag-bits)
   (p-depth-stencil-resolve-attachment (:pointer
-                                       (:pointer
-                                        (:struct attachment-reference-2)))))
+                                       (:struct attachment-reference-2))))
 
 (defcstruct (subpass-description-depth-stencil-resolve-khr :class c-subpass-description-depth-stencil-resolve-khr)
   (s-type structure-type)
@@ -8059,8 +8031,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (depth-resolve-mode resolve-mode-flag-bits)
   (stencil-resolve-mode resolve-mode-flag-bits)
   (p-depth-stencil-resolve-attachment (:pointer
-                                       (:pointer
-                                        (:struct attachment-reference-2)))))
+                                       (:struct attachment-reference-2))))
 
 (defcstruct (image-view-astc-decode-mode-ext :class c-image-view-astc-decode-mode-ext)
   (s-type structure-type)
@@ -8117,7 +8088,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (exclusive-scissor-count :uint32)
-  (p-exclusive-scissors (:pointer (:pointer (:struct rect-2d)))))
+  (p-exclusive-scissors (:pointer (:struct rect-2d))))
 
 (defcstruct (physical-device-corner-sampled-image-features-nv :class c-physical-device-corner-sampled-image-features-nv)
   (s-type structure-type)
@@ -8154,8 +8125,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (shading-rate-image-enable bool32)
   (viewport-count :uint32)
-  (p-shading-rate-palettes (:pointer
-                            (:pointer (:struct shading-rate-palette-nv)))))
+  (p-shading-rate-palettes (:pointer (:struct shading-rate-palette-nv))))
 
 (defcstruct (physical-device-shading-rate-image-features-nv :class c-physical-device-shading-rate-image-features-nv)
   (s-type structure-type)
@@ -8166,7 +8136,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (physical-device-shading-rate-image-properties-nv :class c-physical-device-shading-rate-image-properties-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (shading-rate-texel-size extent-2d)
+  (shading-rate-texel-size (:struct extent-2d))
   (shading-rate-palette-size :uint32)
   (shading-rate-max-coarse-samples :uint32))
 
@@ -8179,15 +8149,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (shading-rate shading-rate-palette-entry-nv)
   (sample-count :uint32)
   (sample-location-count :uint32)
-  (p-sample-locations (:pointer (:pointer (:struct coarse-sample-location-nv)))))
+  (p-sample-locations (:pointer (:struct coarse-sample-location-nv))))
 
 (defcstruct (pipeline-viewport-coarse-sample-order-state-create-info-nv :class c-pipeline-viewport-coarse-sample-order-state-create-info-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
   (sample-order-type coarse-sample-order-type-nv)
   (custom-sample-order-count :uint32)
-  (p-custom-sample-orders (:pointer
-                           (:pointer (:struct coarse-sample-order-custom-nv)))))
+  (p-custom-sample-orders (:pointer (:struct coarse-sample-order-custom-nv))))
 
 (defcstruct (physical-device-mesh-shader-features-nv :class c-physical-device-mesh-shader-features-nv)
   (s-type structure-type)
@@ -8240,10 +8209,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags pipeline-create-flags)
   (stage-count :uint32)
-  (p-stages (:pointer (:pointer (:struct pipeline-shader-stage-create-info))))
+  (p-stages (:pointer (:struct pipeline-shader-stage-create-info)))
   (group-count :uint32)
-  (p-groups (:pointer
-             (:pointer (:struct ray-tracing-shader-group-create-info-nv))))
+  (p-groups (:pointer (:struct ray-tracing-shader-group-create-info-nv)))
   (max-recursion-depth :uint32)
   (layout pipeline-layout)
   (base-pipeline-handle pipeline)
@@ -8266,19 +8234,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags pipeline-create-flags)
   (stage-count :uint32)
-  (p-stages (:pointer (:pointer (:struct pipeline-shader-stage-create-info))))
+  (p-stages (:pointer (:struct pipeline-shader-stage-create-info)))
   (group-count :uint32)
-  (p-groups (:pointer
-             (:pointer (:struct ray-tracing-shader-group-create-info-khr))))
+  (p-groups (:pointer (:struct ray-tracing-shader-group-create-info-khr)))
   (max-pipeline-ray-recursion-depth :uint32)
-  (p-library-info (:pointer
-                   (:pointer (:struct pipeline-library-create-info-khr))))
+  (p-library-info (:pointer (:struct pipeline-library-create-info-khr)))
   (p-library-interface (:pointer
-                        (:pointer
-                         (:struct
-                          ray-tracing-pipeline-interface-create-info-khr))))
-  (p-dynamic-state (:pointer
-                    (:pointer (:struct pipeline-dynamic-state-create-info))))
+                        (:struct
+                         ray-tracing-pipeline-interface-create-info-khr)))
+  (p-dynamic-state (:pointer (:struct pipeline-dynamic-state-create-info)))
   (layout pipeline-layout)
   (base-pipeline-handle pipeline)
   (base-pipeline-index :int32))
@@ -8307,14 +8271,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (offset device-size))
 
 (defcstruct (geometry-data-nv :class c-geometry-data-nv)
-  (triangles geometry-triangles-nv)
-  (aabbs geometry-aabb-nv))
+  (triangles (:struct geometry-triangles-nv))
+  (aabbs (:struct geometry-aabb-nv)))
 
 (defcstruct (geometry-nv :class c-geometry-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
   (geometry-type geometry-type-khr)
-  (geometry geometry-data-nv)
+  (geometry (:struct geometry-data-nv))
   (flags geometry-flags-khr))
 
 (defcstruct (acceleration-structure-info-nv :class c-acceleration-structure-info-nv)
@@ -8324,13 +8288,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags build-acceleration-structure-flags-nv)
   (instance-count :uint32)
   (geometry-count :uint32)
-  (p-geometries (:pointer (:pointer (:struct geometry-nv)))))
+  (p-geometries (:pointer (:struct geometry-nv))))
 
 (defcstruct (acceleration-structure-create-info-nv :class c-acceleration-structure-create-info-nv)
   (s-type structure-type)
   (p-next (:pointer :void))
   (compacted-size device-size)
-  (info acceleration-structure-info-nv))
+  (info (:struct acceleration-structure-info-nv)))
 
 (defcstruct (bind-acceleration-structure-memory-info-nv :class c-bind-acceleration-structure-memory-info-nv)
   (s-type structure-type)
@@ -8438,9 +8402,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (drm-format-modifier-count :uint32)
   (p-drm-format-modifier-properties (:pointer
-                                     (:pointer
-                                      (:struct
-                                       drm-format-modifier-properties-ext)))))
+                                     (:struct
+                                      drm-format-modifier-properties-ext))))
 
 (defcstruct (physical-device-image-drm-format-modifier-info-ext :class c-physical-device-image-drm-format-modifier-info-ext)
   (s-type structure-type)
@@ -8461,7 +8424,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (drm-format-modifier :uint64)
   (drm-format-modifier-plane-count :uint32)
-  (p-plane-layouts (:pointer (:pointer (:struct subresource-layout)))))
+  (p-plane-layouts (:pointer (:struct subresource-layout))))
 
 (defcstruct (image-drm-format-modifier-properties-ext :class c-image-drm-format-modifier-properties-ext)
   (s-type structure-type)
@@ -8498,8 +8461,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (physical-device-fragment-density-map-properties-ext :class c-physical-device-fragment-density-map-properties-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (min-fragment-density-texel-size extent-2d)
-  (max-fragment-density-texel-size extent-2d)
+  (min-fragment-density-texel-size (:struct extent-2d))
+  (max-fragment-density-texel-size (:struct extent-2d))
   (fragment-density-invocations bool32))
 
 (defcstruct (physical-device-fragment-density-map-2-properties-ext :class c-physical-device-fragment-density-map-2-properties-ext)
@@ -8513,7 +8476,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (render-pass-fragment-density-map-create-info-ext :class c-render-pass-fragment-density-map-create-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (fragment-density-map-attachment attachment-reference))
+  (fragment-density-map-attachment (:struct attachment-reference)))
 
 (defcstruct (physical-device-scalar-block-layout-features :class c-physical-device-scalar-block-layout-features)
   (s-type structure-type)
@@ -8662,16 +8625,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (attachment-image-info-count :uint32)
   (p-attachment-image-infos (:pointer
-                             (:pointer
-                              (:struct framebuffer-attachment-image-info)))))
+                             (:struct framebuffer-attachment-image-info))))
 
 (defcstruct (framebuffer-attachments-create-info :class c-framebuffer-attachments-create-info)
   (s-type structure-type)
   (p-next (:pointer :void))
   (attachment-image-info-count :uint32)
   (p-attachment-image-infos (:pointer
-                             (:pointer
-                              (:struct framebuffer-attachment-image-info)))))
+                             (:struct framebuffer-attachment-image-info))))
 
 (defcstruct (render-pass-attachment-begin-info :class c-render-pass-attachment-begin-info)
   (s-type structure-type)
@@ -8744,13 +8705,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (p-pipeline-creation-feedback (:pointer
-                                 (:pointer
-                                  (:struct pipeline-creation-feedback-ext))))
+                                 (:struct pipeline-creation-feedback-ext)))
   (pipeline-stage-creation-feedback-count :uint32)
   (p-pipeline-stage-creation-feedbacks (:pointer
-                                        (:pointer
-                                         (:struct
-                                          pipeline-creation-feedback-ext)))))
+                                        (:struct
+                                         pipeline-creation-feedback-ext))))
 
 (defcstruct (surface-full-screen-exclusive-info-ext :class c-surface-full-screen-exclusive-info-ext)
   (s-type structure-type)
@@ -8858,7 +8817,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defcstruct (performance-value-intel :class c-performance-value-intel)
   (type performance-value-type-intel)
-  (data performance-value-data-intel))
+  (data (:union performance-value-data-intel)))
 
 (defcstruct (initialize-performance-api-info-intel :class c-initialize-performance-api-info-intel)
   (s-type structure-type)
@@ -8994,7 +8953,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (name :char :count 256)
   (description :char :count 256)
   (format pipeline-executable-statistic-format-khr)
-  (value pipeline-executable-statistic-value-khr))
+  (value (:union pipeline-executable-statistic-value-khr)))
 
 (defcstruct (pipeline-executable-internal-representation-khr :class c-pipeline-executable-internal-representation-khr)
   (s-type structure-type)
@@ -9182,7 +9141,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (driver-id driver-id)
   (driver-name :char :count 256)
   (driver-info :char :count 256)
-  (conformance-version conformance-version)
+  (conformance-version (:struct conformance-version))
   (denorm-behavior-independence shader-float-controls-independence)
   (rounding-mode-independence shader-float-controls-independence)
   (shader-signed-zero-inf-nan-preserve-float-16 bool32)
@@ -9254,7 +9213,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (sampler-custom-border-color-create-info-ext :class c-sampler-custom-border-color-create-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (custom-border-color clear-color-value)
+  (custom-border-color (:union clear-color-value))
   (format format))
 
 (defcstruct (physical-device-custom-border-color-properties-ext :class c-physical-device-custom-border-color-properties-ext)
@@ -9280,35 +9239,35 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (vertex-format format)
-  (vertex-data device-or-host-address-const-khr)
+  (vertex-data (:union device-or-host-address-const-khr))
   (vertex-stride device-size)
   (max-vertex :uint32)
   (index-type index-type)
-  (index-data device-or-host-address-const-khr)
-  (transform-data device-or-host-address-const-khr))
+  (index-data (:union device-or-host-address-const-khr))
+  (transform-data (:union device-or-host-address-const-khr)))
 
 (defcstruct (acceleration-structure-geometry-aabbs-data-khr :class c-acceleration-structure-geometry-aabbs-data-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (data device-or-host-address-const-khr)
+  (data (:union device-or-host-address-const-khr))
   (stride device-size))
 
 (defcstruct (acceleration-structure-geometry-instances-data-khr :class c-acceleration-structure-geometry-instances-data-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (array-of-pointers bool32)
-  (data device-or-host-address-const-khr))
+  (data (:union device-or-host-address-const-khr)))
 
 (defcunion acceleration-structure-geometry-data-khr
-  (triangles acceleration-structure-geometry-triangles-data-khr)
-  (aabbs acceleration-structure-geometry-aabbs-data-khr)
-  (instances acceleration-structure-geometry-instances-data-khr))
+  (triangles (:struct acceleration-structure-geometry-triangles-data-khr))
+  (aabbs (:struct acceleration-structure-geometry-aabbs-data-khr))
+  (instances (:struct acceleration-structure-geometry-instances-data-khr)))
 
 (defcstruct (acceleration-structure-geometry-khr :class c-acceleration-structure-geometry-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (geometry-type geometry-type-khr)
-  (geometry acceleration-structure-geometry-data-khr)
+  (geometry (:union acceleration-structure-geometry-data-khr))
   (flags geometry-flags-khr))
 
 (defcstruct (acceleration-structure-build-geometry-info-khr :class c-acceleration-structure-build-geometry-info-khr)
@@ -9320,12 +9279,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-acceleration-structure acceleration-structure-khr)
   (dst-acceleration-structure acceleration-structure-khr)
   (geometry-count :uint32)
-  (p-geometries (:pointer
-                 (:pointer (:struct acceleration-structure-geometry-khr))))
+  (p-geometries (:pointer (:struct acceleration-structure-geometry-khr)))
   (pp-geometries (:pointer
-                  (:pointer
-                   (:pointer (:struct acceleration-structure-geometry-khr)))))
-  (scratch-data device-or-host-address-khr))
+                  (:pointer (:struct acceleration-structure-geometry-khr))))
+  (scratch-data (:union device-or-host-address-khr)))
 
 (defcstruct (acceleration-structure-build-range-info-khr :class c-acceleration-structure-build-range-info-khr)
   (primitive-count :uint32)
@@ -9366,7 +9323,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (matrix :float :count 12))
 
 (defcstruct (acceleration-structure-instance-khr :class c-acceleration-structure-instance-khr)
-  (transform transform-matrix-khr)
+  (transform (:struct transform-matrix-khr))
   (instance-custom-index :uint32)
   (mask :uint32)
   (instance-shader-binding-table-record-offset :uint32)
@@ -9374,7 +9331,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (acceleration-structure-reference :uint64))
 
 (defcstruct (acceleration-structure-instance-nv :class c-acceleration-structure-instance-nv)
-  (transform transform-matrix-khr)
+  (transform (:struct transform-matrix-khr))
   (instance-custom-index :uint32)
   (mask :uint32)
   (instance-shader-binding-table-record-offset :uint32)
@@ -9402,13 +9359,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (src acceleration-structure-khr)
-  (dst device-or-host-address-khr)
+  (dst (:union device-or-host-address-khr))
   (mode copy-acceleration-structure-mode-khr))
 
 (defcstruct (copy-memory-to-acceleration-structure-info-khr :class c-copy-memory-to-acceleration-structure-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (src device-or-host-address-const-khr)
+  (src (:union device-or-host-address-const-khr))
   (dst acceleration-structure-khr)
   (mode copy-acceleration-structure-mode-khr))
 
@@ -9431,7 +9388,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (transform surface-transform-flag-bits-khr)
-  (render-area rect-2d))
+  (render-area (:struct rect-2d)))
 
 (defcstruct (physical-device-diagnostics-config-features-nv :class c-physical-device-diagnostics-config-features-nv)
   (s-type structure-type)
@@ -9514,19 +9471,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (image-copy-2-khr :class c-image-copy-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (src-subresource image-subresource-layers)
-  (src-offset offset-3d)
-  (dst-subresource image-subresource-layers)
-  (dst-offset offset-3d)
-  (extent extent-3d))
+  (src-subresource (:struct image-subresource-layers))
+  (src-offset (:struct offset-3d))
+  (dst-subresource (:struct image-subresource-layers))
+  (dst-offset (:struct offset-3d))
+  (extent (:struct extent-3d)))
 
 (defcstruct (image-blit-2-khr :class c-image-blit-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (src-subresource image-subresource-layers)
-  (src-offsets offset-3d :count 2)
-  (dst-subresource image-subresource-layers)
-  (dst-offsets offset-3d :count 2))
+  (src-subresource (:struct image-subresource-layers))
+  (src-offsets (:struct offset-3d) :count 2)
+  (dst-subresource (:struct image-subresource-layers))
+  (dst-offsets (:struct offset-3d) :count 2))
 
 (defcstruct (buffer-image-copy-2-khr :class c-buffer-image-copy-2-khr)
   (s-type structure-type)
@@ -9534,18 +9491,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (buffer-offset device-size)
   (buffer-row-length :uint32)
   (buffer-image-height :uint32)
-  (image-subresource image-subresource-layers)
-  (image-offset offset-3d)
-  (image-extent extent-3d))
+  (image-subresource (:struct image-subresource-layers))
+  (image-offset (:struct offset-3d))
+  (image-extent (:struct extent-3d)))
 
 (defcstruct (image-resolve-2-khr :class c-image-resolve-2-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (src-subresource image-subresource-layers)
-  (src-offset offset-3d)
-  (dst-subresource image-subresource-layers)
-  (dst-offset offset-3d)
-  (extent extent-3d))
+  (src-subresource (:struct image-subresource-layers))
+  (src-offset (:struct offset-3d))
+  (dst-subresource (:struct image-subresource-layers))
+  (dst-offset (:struct offset-3d))
+  (extent (:struct extent-3d)))
 
 (defcstruct (copy-buffer-info-2-khr :class c-copy-buffer-info-2-khr)
   (s-type structure-type)
@@ -9553,7 +9510,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-buffer buffer)
   (dst-buffer buffer)
   (region-count :uint32)
-  (p-regions (:pointer (:pointer (:struct buffer-copy-2-khr)))))
+  (p-regions (:pointer (:struct buffer-copy-2-khr))))
 
 (defcstruct (copy-image-info-2-khr :class c-copy-image-info-2-khr)
   (s-type structure-type)
@@ -9563,7 +9520,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-image image)
   (dst-image-layout image-layout)
   (region-count :uint32)
-  (p-regions (:pointer (:pointer (:struct image-copy-2-khr)))))
+  (p-regions (:pointer (:struct image-copy-2-khr))))
 
 (defcstruct (blit-image-info-2-khr :class c-blit-image-info-2-khr)
   (s-type structure-type)
@@ -9573,7 +9530,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-image image)
   (dst-image-layout image-layout)
   (region-count :uint32)
-  (p-regions (:pointer (:pointer (:struct image-blit-2-khr))))
+  (p-regions (:pointer (:struct image-blit-2-khr)))
   (filter filter))
 
 (defcstruct (copy-buffer-to-image-info-2-khr :class c-copy-buffer-to-image-info-2-khr)
@@ -9583,7 +9540,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-image image)
   (dst-image-layout image-layout)
   (region-count :uint32)
-  (p-regions (:pointer (:pointer (:struct buffer-image-copy-2-khr)))))
+  (p-regions (:pointer (:struct buffer-image-copy-2-khr))))
 
 (defcstruct (copy-image-to-buffer-info-2-khr :class c-copy-image-to-buffer-info-2-khr)
   (s-type structure-type)
@@ -9592,7 +9549,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-image-layout image-layout)
   (dst-buffer buffer)
   (region-count :uint32)
-  (p-regions (:pointer (:pointer (:struct buffer-image-copy-2-khr)))))
+  (p-regions (:pointer (:struct buffer-image-copy-2-khr))))
 
 (defcstruct (resolve-image-info-2-khr :class c-resolve-image-info-2-khr)
   (s-type structure-type)
@@ -9602,7 +9559,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (dst-image image)
   (dst-image-layout image-layout)
   (region-count :uint32)
-  (p-regions (:pointer (:pointer (:struct image-resolve-2-khr)))))
+  (p-regions (:pointer (:struct image-resolve-2-khr))))
 
 (defcstruct (physical-device-shader-image-atomic-int-64-features-ext :class c-physical-device-shader-image-atomic-int-64-features-ext)
   (s-type structure-type)
@@ -9614,14 +9571,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (p-fragment-shading-rate-attachment (:pointer
-                                       (:pointer
-                                        (:struct attachment-reference-2))))
-  (shading-rate-attachment-texel-size extent-2d))
+                                       (:struct attachment-reference-2)))
+  (shading-rate-attachment-texel-size (:struct extent-2d)))
 
 (defcstruct (pipeline-fragment-shading-rate-state-create-info-khr :class c-pipeline-fragment-shading-rate-state-create-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (fragment-size extent-2d)
+  (fragment-size (:struct extent-2d))
   (combiner-ops fragment-shading-rate-combiner-op-khr :count 2))
 
 (defcstruct (physical-device-fragment-shading-rate-features-khr :class c-physical-device-fragment-shading-rate-features-khr)
@@ -9634,13 +9590,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (physical-device-fragment-shading-rate-properties-khr :class c-physical-device-fragment-shading-rate-properties-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (min-fragment-shading-rate-attachment-texel-size extent-2d)
-  (max-fragment-shading-rate-attachment-texel-size extent-2d)
+  (min-fragment-shading-rate-attachment-texel-size (:struct extent-2d))
+  (max-fragment-shading-rate-attachment-texel-size (:struct extent-2d))
   (max-fragment-shading-rate-attachment-texel-size-aspect-ratio :uint32)
   (primitive-fragment-shading-rate-with-multiple-viewports bool32)
   (layered-shading-rate-attachments bool32)
   (fragment-shading-rate-non-trivial-combiner-ops bool32)
-  (max-fragment-size extent-2d)
+  (max-fragment-size (:struct extent-2d))
   (max-fragment-size-aspect-ratio :uint32)
   (max-fragment-shading-rate-coverage-samples :uint32)
   (max-fragment-shading-rate-rasterization-samples sample-count-flag-bits)
@@ -9656,7 +9612,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (sample-counts sample-count-flags)
-  (fragment-size extent-2d))
+  (fragment-size (:struct extent-2d)))
 
 (defcstruct (physical-device-shader-terminate-invocation-features-khr :class c-physical-device-shader-terminate-invocation-features-khr)
   (s-type structure-type)
@@ -9703,9 +9659,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (mutable-descriptor-type-list-count :uint32)
   (p-mutable-descriptor-type-lists (:pointer
-                                    (:pointer
-                                     (:struct
-                                      mutable-descriptor-type-list-valve)))))
+                                    (:struct
+                                     mutable-descriptor-type-list-valve))))
 
 (defcstruct (physical-device-vertex-input-dynamic-state-features-ext :class c-physical-device-vertex-input-dynamic-state-features-ext)
   (s-type structure-type)
@@ -9759,7 +9714,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (src-queue-family-index :uint32)
   (dst-queue-family-index :uint32)
   (image image)
-  (subresource-range image-subresource-range))
+  (subresource-range (:struct image-subresource-range)))
 
 (defcstruct (buffer-memory-barrier-2-khr :class c-buffer-memory-barrier-2-khr)
   (s-type structure-type)
@@ -9779,13 +9734,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (dependency-flags dependency-flags)
   (memory-barrier-count :uint32)
-  (p-memory-barriers (:pointer (:pointer (:struct memory-barrier-2-khr))))
+  (p-memory-barriers (:pointer (:struct memory-barrier-2-khr)))
   (buffer-memory-barrier-count :uint32)
-  (p-buffer-memory-barriers (:pointer
-                             (:pointer (:struct buffer-memory-barrier-2-khr))))
+  (p-buffer-memory-barriers (:pointer (:struct buffer-memory-barrier-2-khr)))
   (image-memory-barrier-count :uint32)
-  (p-image-memory-barriers (:pointer
-                            (:pointer (:struct image-memory-barrier-2-khr)))))
+  (p-image-memory-barriers (:pointer (:struct image-memory-barrier-2-khr))))
 
 (defcstruct (semaphore-submit-info-khr :class c-semaphore-submit-info-khr)
   (s-type structure-type)
@@ -9806,14 +9759,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags submit-flags-khr)
   (wait-semaphore-info-count :uint32)
-  (p-wait-semaphore-infos (:pointer
-                           (:pointer (:struct semaphore-submit-info-khr))))
+  (p-wait-semaphore-infos (:pointer (:struct semaphore-submit-info-khr)))
   (command-buffer-info-count :uint32)
-  (p-command-buffer-infos (:pointer
-                           (:pointer (:struct command-buffer-submit-info-khr))))
+  (p-command-buffer-infos (:pointer (:struct command-buffer-submit-info-khr)))
   (signal-semaphore-info-count :uint32)
-  (p-signal-semaphore-infos (:pointer
-                             (:pointer (:struct semaphore-submit-info-khr)))))
+  (p-signal-semaphore-infos (:pointer (:struct semaphore-submit-info-khr))))
 
 (defcstruct (queue-family-checkpoint-properties-2-nv :class c-queue-family-checkpoint-properties-2-nv)
   (s-type structure-type)
@@ -9848,13 +9798,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (profile-count :uint32)
-  (p-profiles (:pointer (:pointer (:struct video-profile-khr)))))
+  (p-profiles (:pointer (:struct video-profile-khr))))
 
 (defcstruct (physical-device-video-format-info-khr :class c-physical-device-video-format-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (image-usage image-usage-flags)
-  (p-video-profiles (:pointer (:pointer (:struct video-profiles-khr)))))
+  (p-video-profiles (:pointer (:struct video-profiles-khr))))
 
 (defcstruct (video-format-properties-khr :class c-video-format-properties-khr)
   (s-type structure-type)
@@ -9867,9 +9817,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (capability-flags video-capabilities-flags-khr)
   (min-bitstream-buffer-offset-alignment device-size)
   (min-bitstream-buffer-size-alignment device-size)
-  (video-picture-extent-granularity extent-2d)
-  (min-extent extent-2d)
-  (max-extent extent-2d)
+  (video-picture-extent-granularity (:struct extent-2d))
+  (min-extent (:struct extent-2d))
+  (max-extent (:struct extent-2d))
   (max-reference-pictures-slots-count :uint32)
   (max-reference-pictures-active-count :uint32))
 
@@ -9877,7 +9827,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (memory-bind-index :uint32)
-  (p-memory-requirements (:pointer (:pointer (:struct memory-requirements-2)))))
+  (p-memory-requirements (:pointer (:struct memory-requirements-2))))
 
 (defcstruct (video-bind-memory-khr :class c-video-bind-memory-khr)
   (s-type structure-type)
@@ -9890,8 +9840,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defcstruct (video-picture-resource-khr :class c-video-picture-resource-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (coded-offset offset-2d)
-  (coded-extent extent-2d)
+  (coded-offset (:struct offset-2d))
+  (coded-extent (:struct extent-2d))
   (base-array-layer :uint32)
   (image-view-binding image-view))
 
@@ -9899,22 +9849,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (slot-index :int8)
-  (p-picture-resource (:pointer (:pointer (:struct video-picture-resource-khr)))))
+  (p-picture-resource (:pointer (:struct video-picture-resource-khr))))
 
 (defcstruct (video-decode-info-khr :class c-video-decode-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags video-decode-flags-khr)
-  (coded-offset offset-2d)
-  (coded-extent extent-2d)
+  (coded-offset (:struct offset-2d))
+  (coded-extent (:struct extent-2d))
   (src-buffer buffer)
   (src-buffer-offset device-size)
   (src-buffer-range device-size)
-  (dst-picture-resource video-picture-resource-khr)
-  (p-setup-reference-slot (:pointer
-                           (:pointer (:struct video-reference-slot-khr))))
+  (dst-picture-resource (:struct video-picture-resource-khr))
+  (p-setup-reference-slot (:pointer (:struct video-reference-slot-khr)))
   (reference-slot-count :uint32)
-  (p-reference-slots (:pointer (:pointer (:struct video-reference-slot-khr)))))
+  (p-reference-slots (:pointer (:struct video-reference-slot-khr))))
 
 (defcstruct (video-decode-h264-profile-ext :class c-video-decode-h264-profile-ext)
   (s-type structure-type)
@@ -9926,22 +9875,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (max-level :uint32)
-  (field-offset-granularity offset-2d)
-  (std-extension-version extension-properties))
+  (field-offset-granularity (:struct offset-2d))
+  (std-extension-version (:struct extension-properties)))
 
 (defcstruct (video-decode-h264-session-create-info-ext :class c-video-decode-h264-session-create-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags video-decode-h264-create-flags-ext)
-  (p-std-extension-version (:pointer (:pointer (:struct extension-properties)))))
+  (p-std-extension-version (:pointer (:struct extension-properties))))
 
 (defcstruct (video-decode-h264-session-parameters-add-info-ext :class c-video-decode-h264-session-parameters-add-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (sps-std-count :uint32)
-  (p-sps-std (:pointer std-video-h264-sequence-parameter-set))
+  (p-sps-std (:pointer (:struct std-video-h264-sequence-parameter-set)))
   (pps-std-count :uint32)
-  (p-pps-std (:pointer std-video-h264-picture-parameter-set)))
+  (p-pps-std (:pointer (:struct std-video-h264-picture-parameter-set))))
 
 (defcstruct (video-decode-h264-session-parameters-create-info-ext :class c-video-decode-h264-session-parameters-create-info-ext)
   (s-type structure-type)
@@ -9949,26 +9898,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-sps-std-count :uint32)
   (max-pps-std-count :uint32)
   (p-parameters-add-info (:pointer
-                          (:pointer
-                           (:struct
-                            video-decode-h264-session-parameters-add-info-ext)))))
+                          (:struct
+                           video-decode-h264-session-parameters-add-info-ext))))
 
 (defcstruct (video-decode-h264-picture-info-ext :class c-video-decode-h264-picture-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-std-picture-info (:pointer std-video-decode-h264-picture-info))
+  (p-std-picture-info (:pointer (:struct std-video-decode-h264-picture-info)))
   (slices-count :uint32)
   (p-slices-data-offsets (:pointer :uint32)))
 
 (defcstruct (video-decode-h264-dpb-slot-info-ext :class c-video-decode-h264-dpb-slot-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-std-reference-info (:pointer std-video-decode-h264-reference-info)))
+  (p-std-reference-info (:pointer
+                         (:struct std-video-decode-h264-reference-info))))
 
 (defcstruct (video-decode-h264-mvc-ext :class c-video-decode-h264-mvc-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-std-mvc (:pointer std-video-decode-h264-mvc)))
+  (p-std-mvc (:pointer (:struct std-video-decode-h264-mvc))))
 
 (defcstruct (video-decode-h265-profile-ext :class c-video-decode-h265-profile-ext)
   (s-type structure-type)
@@ -9979,21 +9928,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (max-level :uint32)
-  (std-extension-version extension-properties))
+  (std-extension-version (:struct extension-properties)))
 
 (defcstruct (video-decode-h265-session-create-info-ext :class c-video-decode-h265-session-create-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags video-decode-h265-create-flags-ext)
-  (p-std-extension-version (:pointer (:pointer (:struct extension-properties)))))
+  (p-std-extension-version (:pointer (:struct extension-properties))))
 
 (defcstruct (video-decode-h265-session-parameters-add-info-ext :class c-video-decode-h265-session-parameters-add-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (sps-std-count :uint32)
-  (p-sps-std (:pointer std-video-h265-sequence-parameter-set))
+  (p-sps-std (:pointer (:struct std-video-h265-sequence-parameter-set)))
   (pps-std-count :uint32)
-  (p-pps-std (:pointer std-video-h265-picture-parameter-set)))
+  (p-pps-std (:pointer (:struct std-video-h265-picture-parameter-set))))
 
 (defcstruct (video-decode-h265-session-parameters-create-info-ext :class c-video-decode-h265-session-parameters-create-info-ext)
   (s-type structure-type)
@@ -10001,30 +9950,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-sps-std-count :uint32)
   (max-pps-std-count :uint32)
   (p-parameters-add-info (:pointer
-                          (:pointer
-                           (:struct
-                            video-decode-h265-session-parameters-add-info-ext)))))
+                          (:struct
+                           video-decode-h265-session-parameters-add-info-ext))))
 
 (defcstruct (video-decode-h265-picture-info-ext :class c-video-decode-h265-picture-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-std-picture-info (:pointer std-video-decode-h265-picture-info))
+  (p-std-picture-info (:pointer (:struct std-video-decode-h265-picture-info)))
   (slices-count :uint32)
   (p-slices-data-offsets (:pointer :uint32)))
 
 (defcstruct (video-decode-h265-dpb-slot-info-ext :class c-video-decode-h265-dpb-slot-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-std-reference-info (:pointer std-video-decode-h265-reference-info)))
+  (p-std-reference-info (:pointer
+                         (:struct std-video-decode-h265-reference-info))))
 
 (defcstruct (video-session-create-info-khr :class c-video-session-create-info-khr)
   (s-type structure-type)
   (p-next (:pointer :void))
   (queue-family-index :uint32)
   (flags video-session-create-flags-khr)
-  (p-video-profile (:pointer (:pointer (:struct video-profile-khr))))
+  (p-video-profile (:pointer (:struct video-profile-khr)))
   (picture-format format)
-  (max-coded-extent extent-2d)
+  (max-coded-extent (:struct extent-2d))
   (reference-pictures-format format)
   (max-reference-pictures-slots-count :uint32)
   (max-reference-pictures-active-count :uint32))
@@ -10048,7 +9997,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (video-session video-session-khr)
   (video-session-parameters video-session-parameters-khr)
   (reference-slot-count :uint32)
-  (p-reference-slots (:pointer (:pointer (:struct video-reference-slot-khr)))))
+  (p-reference-slots (:pointer (:struct video-reference-slot-khr))))
 
 (defcstruct (video-end-coding-info-khr :class c-video-end-coding-info-khr)
   (s-type structure-type)
@@ -10065,15 +10014,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (flags video-encode-flags-khr)
   (quality-level :uint32)
-  (coded-extent extent-2d)
+  (coded-extent (:struct extent-2d))
   (dst-bitstream-buffer buffer)
   (dst-bitstream-buffer-offset device-size)
   (dst-bitstream-buffer-max-range device-size)
-  (src-picture-resource video-picture-resource-khr)
-  (p-setup-reference-slot (:pointer
-                           (:pointer (:struct video-reference-slot-khr))))
+  (src-picture-resource (:struct video-picture-resource-khr))
+  (p-setup-reference-slot (:pointer (:struct video-reference-slot-khr)))
   (reference-slot-count :uint32)
-  (p-reference-slots (:pointer (:pointer (:struct video-reference-slot-khr)))))
+  (p-reference-slots (:pointer (:struct video-reference-slot-khr))))
 
 (defcstruct (video-encode-rate-control-info-khr :class c-video-encode-rate-control-info-khr)
   (s-type structure-type)
@@ -10092,29 +10040,29 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags video-encode-h264-capabilities-flags-ext)
   (input-mode-flags video-encode-h264-input-mode-flags-ext)
   (output-mode-flags video-encode-h264-output-mode-flags-ext)
-  (min-picture-size-in-mbs extent-2d)
-  (max-picture-size-in-mbs extent-2d)
-  (input-image-data-alignment extent-2d)
+  (min-picture-size-in-mbs (:struct extent-2d))
+  (max-picture-size-in-mbs (:struct extent-2d))
+  (input-image-data-alignment (:struct extent-2d))
   (max-num-l-0-reference-for-p :uint8)
   (max-num-l-0-reference-for-b :uint8)
   (max-num-l-1-reference :uint8)
   (quality-level-count :uint8)
-  (std-extension-version extension-properties))
+  (std-extension-version (:struct extension-properties)))
 
 (defcstruct (video-encode-h264-session-create-info-ext :class c-video-encode-h264-session-create-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags video-encode-h264-create-flags-ext)
-  (max-picture-size-in-mbs extent-2d)
-  (p-std-extension-version (:pointer (:pointer (:struct extension-properties)))))
+  (max-picture-size-in-mbs (:struct extent-2d))
+  (p-std-extension-version (:pointer (:struct extension-properties))))
 
 (defcstruct (video-encode-h264-session-parameters-add-info-ext :class c-video-encode-h264-session-parameters-add-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (sps-std-count :uint32)
-  (p-sps-std (:pointer std-video-h264-sequence-parameter-set))
+  (p-sps-std (:pointer (:struct std-video-h264-sequence-parameter-set)))
   (pps-std-count :uint32)
-  (p-pps-std (:pointer std-video-h264-picture-parameter-set)))
+  (p-pps-std (:pointer (:struct std-video-h264-picture-parameter-set))))
 
 (defcstruct (video-encode-h264-session-parameters-create-info-ext :class c-video-encode-h264-session-parameters-create-info-ext)
   (s-type structure-type)
@@ -10122,29 +10070,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-sps-std-count :uint32)
   (max-pps-std-count :uint32)
   (p-parameters-add-info (:pointer
-                          (:pointer
-                           (:struct
-                            video-encode-h264-session-parameters-add-info-ext)))))
+                          (:struct
+                           video-encode-h264-session-parameters-add-info-ext))))
 
 (defcstruct (video-encode-h264-dpb-slot-info-ext :class c-video-encode-h264-dpb-slot-info-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
   (slot-index :int8)
-  (p-std-picture-info (:pointer std-video-encode-h264-picture-info)))
+  (p-std-picture-info (:pointer (:struct std-video-encode-h264-picture-info))))
 
 (defcstruct (video-encode-h264-nalu-slice-ext :class c-video-encode-h264-nalu-slice-ext)
   (s-type structure-type)
   (p-next (:pointer :void))
-  (p-slice-header-std (:pointer std-video-encode-h264-slice-header))
+  (p-slice-header-std (:pointer (:struct std-video-encode-h264-slice-header)))
   (mb-count :uint32)
   (ref-final-list-0-entry-count :uint8)
   (p-ref-final-list-0-entries (:pointer
-                               (:pointer
-                                (:struct video-encode-h264-dpb-slot-info-ext))))
+                               (:struct video-encode-h264-dpb-slot-info-ext)))
   (ref-final-list-1-entry-count :uint8)
   (p-ref-final-list-1-entries (:pointer
-                               (:pointer
-                                (:struct video-encode-h264-dpb-slot-info-ext))))
+                               (:struct video-encode-h264-dpb-slot-info-ext)))
   (preceding-nalu-bytes :uint32)
   (min-qp :uint8)
   (max-qp :uint8))
@@ -10154,20 +10099,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (ref-default-final-list-0-entry-count :uint8)
   (p-ref-default-final-list-0-entries (:pointer
-                                       (:pointer
-                                        (:struct
-                                         video-encode-h264-dpb-slot-info-ext))))
+                                       (:struct
+                                        video-encode-h264-dpb-slot-info-ext)))
   (ref-default-final-list-1-entry-count :uint8)
   (p-ref-default-final-list-1-entries (:pointer
-                                       (:pointer
-                                        (:struct
-                                         video-encode-h264-dpb-slot-info-ext))))
+                                       (:struct
+                                        video-encode-h264-dpb-slot-info-ext)))
   (nalu-slice-entry-count :uint32)
-  (p-nalu-slice-entries (:pointer
-                         (:pointer (:struct video-encode-h264-nalu-slice-ext))))
+  (p-nalu-slice-entries (:pointer (:struct video-encode-h264-nalu-slice-ext)))
   (p-current-picture-info (:pointer
-                           (:pointer
-                            (:struct video-encode-h264-dpb-slot-info-ext)))))
+                           (:struct video-encode-h264-dpb-slot-info-ext))))
 
 (defcstruct (video-encode-h264-emit-picture-parameters-ext :class c-video-encode-h264-emit-picture-parameters-ext)
   (s-type structure-type)
@@ -10192,7 +10133,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (viewport-scissor-2d bool32)
   (viewport-depth-count :uint32)
-  (p-viewport-depths (:pointer (:pointer (:struct viewport)))))
+  (p-viewport-depths (:pointer (:struct viewport))))
 
 (defcstruct (physical-device-ycbcr-2-plane-4-4-4-formats-features-ext :class c-physical-device-ycbcr-2-plane-4-4-4-formats-features-ext)
   (s-type structure-type)

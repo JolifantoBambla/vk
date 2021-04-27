@@ -1448,19 +1448,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-clear-values (vk-alloc:foreign-allocate-and-fill '(:union %vk:clear-value) (vk:clear-values ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory ((value vk:clear-color-value) type ptr)
-  `(cffi:with-foreign-slots
-      ((%vk:float-32
-        %vk:int-32
-        %vk:uint-32)
-       ,ptr
-       (:union %vk:clear-color-value))
-     (cond
-      ((slot-boundp ,value 'vk:float-32)
-       (cffi:lisp-array-to-foreign (vk:float-32 ,value) ,ptr '(:array :float 4)))
-      ((slot-boundp ,value 'vk:int-32)
-       (cffi:lisp-array-to-foreign (vk:int-32 ,value) ,ptr '(:array :int32 4)))
-      ((slot-boundp ,value 'vk:uint-32)
-       (cffi:lisp-array-to-foreign (vk:uint-32 ,value) ,ptr '(:array :uint32 4))))))
+  `(cond
+    ((slot-boundp ,value 'vk:float-32)
+     (cffi:lisp-array-to-foreign (vk:float-32 ,value) ,ptr '(:array :float 4)))
+    ((slot-boundp ,value 'vk:int-32)
+     (cffi:lisp-array-to-foreign (vk:int-32 ,value) ,ptr '(:array :int32 4)))
+    ((slot-boundp ,value 'vk:uint-32)
+     (cffi:lisp-array-to-foreign (vk:uint-32 ,value) ,ptr '(:array :uint32 4)))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-clear-depth-stencil-value) ptr)
   `(cffi:with-foreign-slots
@@ -2266,8 +2260,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :wayland-surface-create-info-khr
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:display (vk:display ,value)
-          %vk:surface (vk:surface ,value))))
+          %vk:display (vk-alloc:foreign-allocate-and-fill '(:struct %vk:wl_display) (vk:display ,value) ,ptr)
+          %vk:surface (vk-alloc:foreign-allocate-and-fill '(:struct %vk:wl_surface) (vk:surface ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-win32-surface-create-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -2367,8 +2361,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :screen-surface-create-info-qnx
           %vk:p-next (cffi:null-pointer)
           %vk:flags (vk:flags ,value)
-          %vk:context (vk:context ,value)
-          %vk:window (vk:window ,value))))
+          %vk:context (vk-alloc:foreign-allocate-and-fill '(:struct %vk:_screen_context) (vk:context ,value) ,ptr)
+          %vk:window (vk-alloc:foreign-allocate-and-fill '(:struct %vk:_screen_window) (vk:window ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-surface-format-khr) ptr)
   `(cffi:with-foreign-slots
@@ -2637,7 +2631,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:export-memory-win32-handle-info-nv))
     (setf %vk:s-type :export-memory-win32-handle-info-nv
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-attributes (vk:attributes ,value)
+          %vk:p-attributes (vk-alloc:foreign-allocate-and-fill '(:struct %vk:security_attributes) (vk:attributes ,value) ,ptr)
           %vk:dw-access (vk:dw-access ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-win32-keyed-mutex-acquire-release-info-nv) ptr)
@@ -3260,7 +3254,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:export-memory-win32-handle-info-khr))
     (setf %vk:s-type :export-memory-win32-handle-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-attributes (vk:attributes ,value)
+          %vk:p-attributes (vk-alloc:foreign-allocate-and-fill '(:struct %vk:security_attributes) (vk:attributes ,value) ,ptr)
           %vk:dw-access (vk:dw-access ,value)
           %vk:name (vk:name ,value))))
 
@@ -3452,7 +3446,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:export-semaphore-win32-handle-info-khr))
     (setf %vk:s-type :export-semaphore-win32-handle-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-attributes (vk:attributes ,value)
+          %vk:p-attributes (vk-alloc:foreign-allocate-and-fill '(:struct %vk:security_attributes) (vk:attributes ,value) ,ptr)
           %vk:dw-access (vk:dw-access ,value)
           %vk:name (vk:name ,value))))
 
@@ -3613,7 +3607,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:export-fence-win32-handle-info-khr))
     (setf %vk:s-type :export-fence-win32-handle-info-khr
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-attributes (vk:attributes ,value)
+          %vk:p-attributes (vk-alloc:foreign-allocate-and-fill '(:struct %vk:security_attributes) (vk:attributes ,value) ,ptr)
           %vk:dw-access (vk:dw-access ,value)
           %vk:name (vk:name ,value))))
 
@@ -9899,9 +9893,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :video-decode-h264-session-parameters-add-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:sps-std-count (length (vk:sps-std ,value))
-          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-sequence-parameter-set (vk:sps-std ,value) ,ptr)
+          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-h264-sequence-parameter-set) (vk:sps-std ,value) ,ptr)
           %vk:pps-std-count (length (vk:pps-std ,value))
-          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-picture-parameter-set (vk:pps-std ,value) ,ptr))))
+          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-h264-picture-parameter-set) (vk:pps-std ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-session-parameters-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -9929,7 +9923,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h264-picture-info-ext))
     (setf %vk:s-type :video-decode-h264-picture-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-std-picture-info (vk:std-picture-info ,value)
+          %vk:p-std-picture-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-decode-h264-picture-info) (vk:std-picture-info ,value) ,ptr)
           %vk:slices-count (length (vk:slices-data-offsets ,value))
           %vk:p-slices-data-offsets (vk-alloc:foreign-allocate-and-fill :uint32 (vk:slices-data-offsets ,value) ,ptr))))
 
@@ -9942,7 +9936,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h264-dpb-slot-info-ext))
     (setf %vk:s-type :video-decode-h264-dpb-slot-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-std-reference-info (vk:std-reference-info ,value))))
+          %vk:p-std-reference-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-decode-h264-reference-info) (vk:std-reference-info ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h264-mvc-ext) ptr)
   `(cffi:with-foreign-slots
@@ -9953,7 +9947,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h264-mvc-ext))
     (setf %vk:s-type :video-decode-h264-mvc-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-std-mvc (vk:std-mvc ,value))))
+          %vk:p-std-mvc (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-decode-h264-mvc) (vk:std-mvc ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-profile-ext) ptr)
   `(cffi:with-foreign-slots
@@ -10005,9 +9999,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :video-decode-h265-session-parameters-add-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:sps-std-count (length (vk:sps-std ,value))
-          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h265-sequence-parameter-set (vk:sps-std ,value) ,ptr)
+          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-h265-sequence-parameter-set) (vk:sps-std ,value) ,ptr)
           %vk:pps-std-count (length (vk:pps-std ,value))
-          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h265-picture-parameter-set (vk:pps-std ,value) ,ptr))))
+          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-h265-picture-parameter-set) (vk:pps-std ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-decode-h265-session-parameters-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -10035,7 +10029,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h265-picture-info-ext))
     (setf %vk:s-type :video-decode-h265-picture-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-std-picture-info (vk:std-picture-info ,value)
+          %vk:p-std-picture-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-decode-h265-picture-info) (vk:std-picture-info ,value) ,ptr)
           %vk:slices-count (length (vk:slices-data-offsets ,value))
           %vk:p-slices-data-offsets (vk-alloc:foreign-allocate-and-fill :uint32 (vk:slices-data-offsets ,value) ,ptr))))
 
@@ -10048,7 +10042,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h265-dpb-slot-info-ext))
     (setf %vk:s-type :video-decode-h265-dpb-slot-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
-          %vk:p-std-reference-info (vk:std-reference-info ,value))))
+          %vk:p-std-reference-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-decode-h265-reference-info) (vk:std-reference-info ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-session-create-info-khr) ptr)
   `(cffi:with-foreign-slots
@@ -10253,9 +10247,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :video-encode-h264-session-parameters-add-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:sps-std-count (length (vk:sps-std ,value))
-          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-sequence-parameter-set (vk:sps-std ,value) ,ptr)
+          %vk:p-sps-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-h264-sequence-parameter-set) (vk:sps-std ,value) ,ptr)
           %vk:pps-std-count (length (vk:pps-std ,value))
-          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '%vk:std-video-h264-picture-parameter-set (vk:pps-std ,value) ,ptr))))
+          %vk:p-pps-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-h264-picture-parameter-set) (vk:pps-std ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-session-parameters-create-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -10283,7 +10277,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :video-encode-h264-dpb-slot-info-ext
           %vk:p-next (cffi:null-pointer)
           %vk:slot-index (vk:slot-index ,value)
-          %vk:p-std-picture-info (vk:std-picture-info ,value))))
+          %vk:p-std-picture-info (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-encode-h264-picture-info) (vk:std-picture-info ,value) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-video-encode-h264-vcl-frame-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -10353,7 +10347,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-encode-h264-nalu-slice-ext))
     (setf %vk:s-type :video-encode-h264-nalu-slice-ext
           %vk:p-next (cffi:null-pointer)
-          %vk:p-slice-header-std (vk:slice-header-std ,value)
+          %vk:p-slice-header-std (vk-alloc:foreign-allocate-and-fill '(:struct %vk:std-video-encode-h264-slice-header) (vk:slice-header-std ,value) ,ptr)
           %vk:mb-count (vk:mb-count ,value)
           %vk:ref-final-list-0-entry-count (length (vk:ref-final-list-0-entries ,value))
           %vk:p-ref-final-list-0-entries (vk-alloc:foreign-allocate-and-fill '(:struct %vk:video-encode-h264-dpb-slot-info-ext) (vk:ref-final-list-0-entries ,value) ,ptr)

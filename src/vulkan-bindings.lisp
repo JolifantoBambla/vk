@@ -72,8 +72,8 @@ See CREATE-DEVICE")
   `(defcfun (,cname ,lname :library vulkan) ,result-type ,@body))
 
 (defmacro defvkextfun ((cname lname) result-type &body args)
-  (let ((extension-loader (gensym))
-        (func-pointer (gensym)))
+  (let ((extension-loader (gensym "EXTENSION-LOADER"))
+        (func-pointer (gensym "FUNC-POINTER")))
     `(defun ,lname (,@ (mapcar 'car args) &optional (,extension-loader *default-extension-loader*))
        (assert (and ,extension-loader
                     (or (extension-loader-device ,extension-loader)

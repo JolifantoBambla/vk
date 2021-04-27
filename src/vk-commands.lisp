@@ -91,8 +91,7 @@ See RESULT
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-count
-                      physical-devices
-                      nil)
+                      physical-devices)
   (instance '%vk:instance instance :in :handle)
   (physical-device-count :uint32 physical-device-count :out)
   (physical-devices '%vk:physical-device physical-devices :out :handle :list))
@@ -393,8 +392,7 @@ See RESULT
                       ()
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:layer-properties) properties :out :list))
 
@@ -426,8 +424,7 @@ See RESULT
                       ()
                       (((layer-name "") string))
                       property-count
-                      properties
-                      nil)
+                      properties)
   (layer-name :string layer-name :in :raw :optional)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:extension-properties) properties :out :list))
@@ -460,8 +457,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:layer-properties) properties :out :list))
@@ -496,8 +492,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       (((layer-name "") string))
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (layer-name :string layer-name :in :raw :optional)
   (property-count :uint32 property-count :out)
@@ -3882,8 +3877,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-properties-khr) properties :out :list))
@@ -3916,8 +3910,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-plane-properties-khr) properties :out :list))
@@ -3951,8 +3944,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer) (plane-index unsigned-byte))
                       ()
                       display-count
-                      displays
-                      nil)
+                      displays)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (plane-index :uint32 plane-index :in :raw)
   (display-count :uint32 display-count :out)
@@ -3988,8 +3980,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (property-count :uint32 property-count :out)
@@ -4263,8 +4254,7 @@ See SURFACE-KHR
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       surface-format-count
-                      surface-formats
-                      nil)
+                      surface-formats)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (surface-format-count :uint32 surface-format-count :out)
@@ -4301,8 +4291,7 @@ See SURFACE-KHR
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       present-mode-count
-                      present-modes
-                      nil)
+                      present-modes)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (present-mode-count :uint32 present-mode-count :out)
@@ -4399,8 +4388,7 @@ See SWAPCHAIN-KHR
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                       ()
                       swapchain-image-count
-                      swapchain-images
-                      nil)
+                      swapchain-images)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
   (swapchain-image-count :uint32 swapchain-image-count :out)
@@ -4584,7 +4572,7 @@ See WL_DISPLAY
                   nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
-  (display '(:pointer :void) display :in :handle))
+  (display '(:struct %vk:wl_display) display :in :handle))
 
 (defvk-create-handle-fun (create-win32-surface-khr
                           %vk:create-win32-surface-khr
@@ -4978,7 +4966,7 @@ See *EXTENSION-LOADER*
                        t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
-  (window '(:pointer :void) window :out :handle))
+  (window '(:struct %vk:_screen_window) window :out :handle))
 
 (defvk-create-handle-fun (create-debug-report-callback-ext
                           %vk:create-debug-report-callback-ext
@@ -6879,8 +6867,7 @@ See RESULT
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-group-count
-                      physical-device-group-properties
-                      nil)
+                      physical-device-group-properties)
   (instance '%vk:instance instance :in :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
   (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
@@ -6914,8 +6901,7 @@ See RESULT
                       ((instance cffi:foreign-pointer))
                       ()
                       physical-device-group-count
-                      physical-device-group-properties
-                      nil)
+                      physical-device-group-properties)
   (instance '%vk:instance instance :in :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
   (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
@@ -7304,8 +7290,7 @@ See SURFACE-KHR
                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                       ()
                       rect-count
-                      rects
-                      nil)
+                      rects)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface '%vk:surface-khr surface :in :handle)
   (rect-count :uint32 rect-count :out)
@@ -7624,7 +7609,6 @@ See *EXTENSION-LOADER*
                       ()
                       presentation-timing-count
                       presentation-timings
-                      nil
                       t)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle)
@@ -7912,8 +7896,7 @@ See SURFACE-FORMAT-2-KHR
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
                       surface-format-count
-                      surface-formats
-                      nil)
+                      surface-formats)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (surface-format-count :uint32 surface-format-count :out)
@@ -7947,8 +7930,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-properties-2-khr) properties :out :list))
@@ -7981,8 +7963,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-plane-properties-2-khr) properties :out :list))
@@ -8017,8 +7998,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                       ()
                       property-count
-                      properties
-                      nil)
+                      properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
   (property-count :uint32 property-count :out)
@@ -8616,7 +8596,6 @@ See *EXTENSION-LOADER*
                       ()
                       time-domain-count
                       time-domains
-                      nil
                       t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (time-domain-count :uint32 time-domain-count :out)
@@ -10163,7 +10142,7 @@ See *EXTENSION-LOADER*
                        t)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:acceleration-structure-memory-requirements-info-nv) info :in)
-  (memory-requirements '%vk:memory-requirements-2-khr memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2-khr) memory-requirements :out))
 
 (defvk-simple-fun (bind-acceleration-structure-memory-nv
                    %vk:bind-acceleration-structure-memory-nv
@@ -10866,7 +10845,6 @@ See *EXTENSION-LOADER*
                       ()
                       property-count
                       properties
-                      nil
                       t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (property-count :uint32 property-count :out)
@@ -11058,7 +11036,6 @@ See *EXTENSION-LOADER*
                       ()
                       present-mode-count
                       present-modes
-                      nil
                       t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
@@ -11202,8 +11179,7 @@ See RESULT
                                  ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                                  ()
                                  counter-count
-                                 (counters counter-descriptions)
-                                 nil)
+                                 (counters counter-descriptions))
   (physical-device '%vk:physical-device physical-device :in :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (counter-count :uint32 counter-count :out)
@@ -11493,7 +11469,6 @@ See *EXTENSION-LOADER*
                       ()
                       combination-count
                       combinations
-                      nil
                       t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (combination-count :uint32 combination-count :out)
@@ -11858,8 +11833,7 @@ See RESULT
                       ((device cffi:foreign-pointer) (pipeline-info (or vk:pipeline-info-khr cffi:foreign-pointer)))
                       ()
                       executable-count
-                      properties
-                      nil)
+                      properties)
   (device '%vk:device device :in :handle)
   (pipeline-info '(:struct %vk:pipeline-info-khr) pipeline-info :in)
   (executable-count :uint32 executable-count :out)
@@ -11895,8 +11869,7 @@ See RESULT
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
                       statistic-count
-                      statistics
-                      nil)
+                      statistics)
   (device '%vk:device device :in :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (statistic-count :uint32 statistic-count :out)
@@ -11932,8 +11905,7 @@ See RESULT
                       ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
                       ()
                       internal-representation-count
-                      internal-representations
-                      nil)
+                      internal-representations)
   (device '%vk:device device :in :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (internal-representation-count :uint32 internal-representation-count :out)
@@ -11992,7 +11964,6 @@ See *EXTENSION-LOADER*
                       ()
                       tool-count
                       tool-properties
-                      nil
                       t)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (tool-count :uint32 tool-count :out)
@@ -12828,8 +12799,7 @@ See RESULT
                       ((physical-device cffi:foreign-pointer))
                       ()
                       fragment-shading-rate-count
-                      fragment-shading-rates
-                      nil)
+                      fragment-shading-rates)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (fragment-shading-rate-count :uint32 fragment-shading-rate-count :out)
   (fragment-shading-rates '(:struct %vk:physical-device-fragment-shading-rate-khr) fragment-shading-rates :out :list))
@@ -13188,8 +13158,7 @@ See VIDEO-FORMAT-PROPERTIES-KHR
                       ((physical-device cffi:foreign-pointer) (video-format-info (or vk:physical-device-video-format-info-khr cffi:foreign-pointer)))
                       ()
                       video-format-property-count
-                      video-format-properties
-                      nil)
+                      video-format-properties)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (video-format-info '(:struct %vk:physical-device-video-format-info-khr) video-format-info :in)
   (video-format-property-count :uint32 video-format-property-count :out)
@@ -13374,8 +13343,7 @@ See VIDEO-SESSION-KHR
                       ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer))
                       ()
                       video-session-memory-requirements-count
-                      video-session-memory-requirements
-                      nil)
+                      video-session-memory-requirements)
   (device '%vk:device device :in :handle)
   (video-session '%vk:video-session-khr video-session :in :handle)
   (video-session-memory-requirements-count :uint32 video-session-memory-requirements-count :out)

@@ -9701,8 +9701,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h264-session-parameters-add-info-ext))
     (make-instance 'vk:video-decode-h264-session-parameters-add-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '%vk:std-video-h264-sequence-parameter-set i))
-                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '%vk:std-video-h264-picture-parameter-set i)))))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '(:struct %vk:std-video-h264-sequence-parameter-set) i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '(:struct %vk:std-video-h264-picture-parameter-set) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h264-session-parameters-create-info-ext))
   (cffi:with-foreign-slots
@@ -9804,8 +9804,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-decode-h265-session-parameters-add-info-ext))
     (make-instance 'vk:video-decode-h265-session-parameters-add-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '%vk:std-video-h265-sequence-parameter-set i))
-                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '%vk:std-video-h265-picture-parameter-set i)))))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '(:struct %vk:std-video-h265-sequence-parameter-set) i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '(:struct %vk:std-video-h265-picture-parameter-set) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-decode-h265-session-parameters-create-info-ext))
   (cffi:with-foreign-slots
@@ -10047,8 +10047,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-encode-h264-session-parameters-add-info-ext))
     (make-instance 'vk:video-encode-h264-session-parameters-add-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '%vk:std-video-h264-sequence-parameter-set i))
-                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '%vk:std-video-h264-picture-parameter-set i)))))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '(:struct %vk:std-video-h264-sequence-parameter-set) i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '(:struct %vk:std-video-h264-picture-parameter-set) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h264-session-parameters-create-info-ext))
   (cffi:with-foreign-slots
