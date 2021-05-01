@@ -140,6 +140,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-display-surface-counter-extension-name+ "VK_EXT_display_surface_counter"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_display_surface_counter](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_display_surface_counter.html).")
+(alexandria:define-constant +ext-extended-dynamic-state-2-extension-name+ "VK_EXT_extended_dynamic_state2"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_extended_dynamic_state2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_extended_dynamic_state2.html).")
 (alexandria:define-constant +ext-extended-dynamic-state-extension-name+ "VK_EXT_extended_dynamic_state"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_extended_dynamic_state](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_extended_dynamic_state.html).")
@@ -215,6 +218,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +ext-private-data-extension-name+ "VK_EXT_private_data"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_private_data](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_private_data.html).")
+(alexandria:define-constant +ext-provoking-vertex-extension-name+ "VK_EXT_provoking_vertex"
+  :test #'string=
+  :documentation "The name of the extension [VK_EXT_provoking_vertex](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_provoking_vertex.html).")
 (alexandria:define-constant +ext-queue-family-foreign-extension-name+ "VK_EXT_queue_family_foreign"
   :test #'string=
   :documentation "The name of the extension [VK_EXT_queue_family_foreign](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_queue_family_foreign.html).")
@@ -710,15 +716,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +qcom-render-pass-shader-resolve-extension-name+ "VK_QCOM_render_pass_shader_resolve"
   :test #'string=
   :documentation "The name of the extension [VK_QCOM_render_pass_shader_resolve](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_shader_resolve.html).")
+(alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops"
+  :test #'string=
+  :documentation "The name of the extension [VK_QCOM_render_pass_store_ops](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_store_ops.html).")
 (alexandria:define-constant +qcom-render-pass-transform-extension-name+ "VK_QCOM_render_pass_transform"
   :test #'string=
   :documentation "The name of the extension [VK_QCOM_render_pass_transform](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_transform.html).")
 (alexandria:define-constant +qcom-rotated-copy-commands-extension-name+ "VK_QCOM_rotated_copy_commands"
   :test #'string=
   :documentation "The name of the extension [VK_QCOM_rotated_copy_commands](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_rotated_copy_commands.html).")
-(alexandria:define-constant +qcom-render-pass-store-ops-extension-name+ "VK_QCOM_render_pass_store_ops"
-  :test #'string=
-  :documentation "The name of the extension [VK_QCOM_render_pass_store_ops](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QCOM_render_pass_store_ops.html).")
 (alexandria:define-constant +qnx-screen-surface-extension-name+ "VK_QNX_screen_surface"
   :test #'string=
   :documentation "The name of the extension [VK_QNX_screen_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_QNX_screen_surface.html).")
@@ -2108,6 +2114,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:stencil-op-ext #x3B9EDD03) ;; 
   (:ray-tracing-pipeline-stack-size-khr #x3BA01578) ;; 
   (:vertex-input-ext #x3BA02900) ;; 
+  (:patch-control-points-ext #x3BA08AA8) ;; 
+  (:rasterizer-discard-enable-ext #x3BA08AA9) ;; 
+  (:depth-bias-enable-ext #x3BA08AAA) ;; 
+  (:logic-op-ext #x3BA08AAB) ;; 
+  (:primitive-restart-enable-ext #x3BA08AAC) ;; 
   (:color-write-enable-ext #x3BA09A48)) ;; 
 
 (defcenum (fence-create-flag-bits)
@@ -3231,6 +3242,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-fragment-shader-interlock-features-ext #x3B9E9E78) ;; 
   (:physical-device-ycbcr-image-arrays-features-ext #x3B9EA260) ;; 
   (:physical-device-uniform-buffer-standard-layout-features #x3B9EA648) ;; 
+  (:physical-device-provoking-vertex-features-ext #x3B9EAA30) ;; 
+  (:pipeline-rasterization-provoking-vertex-state-create-info-ext #x3B9EAA31) ;; 
+  (:physical-device-provoking-vertex-properties-ext #x3B9EAA32) ;; 
   (:surface-full-screen-exclusive-info-ext #x3B9EAE18) ;; 
   (:surface-full-screen-exclusive-win32-info-ext #x3B9EAE19) ;; 
   (:surface-capabilities-full-screen-exclusive-ext #x3B9EAE1A) ;; 
@@ -3330,6 +3344,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:memory-get-zircon-handle-info-fuchsia #x3BA057E2) ;; 
   (:import-semaphore-zircon-handle-info-fuchsia #x3BA05BC8) ;; 
   (:semaphore-get-zircon-handle-info-fuchsia #x3BA05BC9) ;; 
+  (:physical-device-extended-dynamic-state-2-features-ext #x3BA08AA8) ;; 
   (:screen-surface-create-info-qnx #x3BA08E90) ;; 
   (:physical-device-color-write-enable-features-ext #x3BA09A48) ;; 
   (:pipeline-color-write-create-info-ext #x3BA09A49)) ;; 
@@ -3906,6 +3921,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:2-index-input #x1000000000)
   (:2-vertex-attribute-input #x2000000000)
   (:2-pre-rasterization-shaders #x4000000000))
+
+(defcenum (provoking-vertex-mode-ext)
+  (:first-vertex-ext #x0)
+  (:last-vertex-ext #x1))
 
 (defcenum (color-space-khr)
   (:srgb-nonlinear-khr #x0)
@@ -9374,6 +9393,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (extended-dynamic-state bool32))
 
+(defcstruct (physical-device-extended-dynamic-state-2-features-ext :class c-physical-device-extended-dynamic-state-2-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (extended-dynamic-state-2 bool32)
+  (extended-dynamic-state-2-logic-op bool32)
+  (extended-dynamic-state-2-patch-control-points bool32))
+
 (defcstruct (render-pass-transform-begin-info-qcom :class c-render-pass-transform-begin-info-qcom)
   (s-type structure-type)
   (p-next (:pointer :void))
@@ -10139,4 +10165,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (ycbcr-2plane-4-4-4-formats bool32))
+
+(defcstruct (physical-device-provoking-vertex-features-ext :class c-physical-device-provoking-vertex-features-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (provoking-vertex-last bool32)
+  (transform-feedback-preserves-provoking-vertex bool32))
+
+(defcstruct (physical-device-provoking-vertex-properties-ext :class c-physical-device-provoking-vertex-properties-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (provoking-vertex-mode-per-pipeline bool32)
+  (transform-feedback-preserves-triangle-fan-provoking-vertex bool32))
+
+(defcstruct (pipeline-rasterization-provoking-vertex-state-create-info-ext :class c-pipeline-rasterization-provoking-vertex-state-create-info-ext)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (provoking-vertex-mode provoking-vertex-mode-ext))
 

@@ -12516,6 +12516,110 @@ See *EXTENSION-LOADER*
   (depth-fail-op '%vk:stencil-op depth-fail-op :in :raw)
   (compare-op '%vk:compare-op compare-op :in :raw))
 
+(defvk-simple-fun (cmd-set-patch-control-points-ext
+                   %vk:cmd-set-patch-control-points-ext
+                   "Represents [vkCmdSetPatchControlPointsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPatchControlPointsEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - PATCH-CONTROL-POINTS: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (patch-control-points unsigned-byte))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (patch-control-points :uint32 patch-control-points :in :raw))
+
+(defvk-simple-fun (cmd-set-rasterizer-discard-enable-ext
+                   %vk:cmd-set-rasterizer-discard-enable-ext
+                   "Represents [vkCmdSetRasterizerDiscardEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetRasterizerDiscardEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - RASTERIZER-DISCARD-ENABLE: a BOOL32
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See BOOL32
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (rasterizer-discard-enable boolean))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (rasterizer-discard-enable '%vk:bool32 rasterizer-discard-enable :in :raw))
+
+(defvk-simple-fun (cmd-set-depth-bias-enable-ext
+                   %vk:cmd-set-depth-bias-enable-ext
+                   "Represents [vkCmdSetDepthBiasEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBiasEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - DEPTH-BIAS-ENABLE: a BOOL32
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See BOOL32
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (depth-bias-enable boolean))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (depth-bias-enable '%vk:bool32 depth-bias-enable :in :raw))
+
+(defvk-simple-fun (cmd-set-logic-op-ext
+                   %vk:cmd-set-logic-op-ext
+                   "Represents [vkCmdSetLogicOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLogicOpEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - LOGIC-OP: a LOGIC-OP
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See LOGIC-OP
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (logic-op keyword))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (logic-op '%vk:logic-op logic-op :in :raw))
+
+(defvk-simple-fun (cmd-set-primitive-restart-enable-ext
+                   %vk:cmd-set-primitive-restart-enable-ext
+                   "Represents [vkCmdSetPrimitiveRestartEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPrimitiveRestartEnableEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - PRIMITIVE-RESTART-ENABLE: a BOOL32
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See BOOL32
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (primitive-restart-enable boolean))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (primitive-restart-enable '%vk:bool32 primitive-restart-enable :in :raw))
+
 (defvk-create-handle-fun (create-private-data-slot-ext
                           %vk:create-private-data-slot-ext
                           "Represents [vkCreatePrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePrivateDataSlotEXT.html).

@@ -148,6 +148,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-discard-rectangles-extension-name+
     #:+ext-display-control-extension-name+
     #:+ext-display-surface-counter-extension-name+
+    #:+ext-extended-dynamic-state-2-extension-name+
     #:+ext-extended-dynamic-state-extension-name+
     #:+ext-external-memory-dma-buf-extension-name+
     #:+ext-external-memory-host-extension-name+
@@ -173,6 +174,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-pipeline-creation-feedback-extension-name+
     #:+ext-post-depth-coverage-extension-name+
     #:+ext-private-data-extension-name+
+    #:+ext-provoking-vertex-extension-name+
     #:+ext-queue-family-foreign-extension-name+
     #:+ext-robustness-2-extension-name+
     #:+ext-sampler-filter-minmax-extension-name+
@@ -338,9 +340,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-viewport-swizzle-extension-name+
     #:+nv-win32-keyed-mutex-extension-name+
     #:+qcom-render-pass-shader-resolve-extension-name+
+    #:+qcom-render-pass-store-ops-extension-name+
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
-    #:+qcom-render-pass-store-ops-extension-name+
     #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+
 
@@ -1378,6 +1380,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-driver-properties-khr
     #:physical-device-exclusive-scissor-features-nv
     #:c-physical-device-exclusive-scissor-features-nv
+    #:physical-device-extended-dynamic-state-2-features-ext
+    #:c-physical-device-extended-dynamic-state-2-features-ext
     #:physical-device-extended-dynamic-state-features-ext
     #:c-physical-device-extended-dynamic-state-features-ext
     #:physical-device-external-buffer-info
@@ -1534,6 +1538,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-protected-memory-features
     #:physical-device-protected-memory-properties
     #:c-physical-device-protected-memory-properties
+    #:physical-device-provoking-vertex-features-ext
+    #:c-physical-device-provoking-vertex-features-ext
+    #:physical-device-provoking-vertex-properties-ext
+    #:c-physical-device-provoking-vertex-properties-ext
     #:physical-device-push-descriptor-properties-khr
     #:c-physical-device-push-descriptor-properties-khr
     #:physical-device-ray-query-features-khr
@@ -1770,6 +1778,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-rasterization-depth-clip-state-create-info-ext
     #:pipeline-rasterization-line-state-create-info-ext
     #:c-pipeline-rasterization-line-state-create-info-ext
+    #:pipeline-rasterization-provoking-vertex-state-create-info-ext
+    #:c-pipeline-rasterization-provoking-vertex-state-create-info-ext
     #:pipeline-rasterization-state-create-flags
     #:pipeline-rasterization-state-create-info
     #:c-pipeline-rasterization-state-create-info
@@ -1842,6 +1852,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:private-data-slot-ext
     #:protected-submit-info
     #:c-protected-submit-info
+    #:provoking-vertex-mode-ext
     #:push-constant-range
     #:c-push-constant-range
     #:query-control-flag-bits
@@ -2470,6 +2481,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-color-write-enable-ext
     #:cmd-set-cull-mode-ext
     #:cmd-set-depth-bias
+    #:cmd-set-depth-bias-enable-ext
     #:cmd-set-depth-bounds
     #:cmd-set-depth-bounds-test-enable-ext
     #:cmd-set-depth-compare-op-ext
@@ -2486,10 +2498,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-front-face-ext
     #:cmd-set-line-stipple-ext
     #:cmd-set-line-width
+    #:cmd-set-logic-op-ext
+    #:cmd-set-patch-control-points-ext
     #:cmd-set-performance-marker-intel
     #:cmd-set-performance-override-intel
     #:cmd-set-performance-stream-marker-intel
+    #:cmd-set-primitive-restart-enable-ext
     #:cmd-set-primitive-topology-ext
+    #:cmd-set-rasterizer-discard-enable-ext
     #:cmd-set-ray-tracing-pipeline-stack-size-khr
     #:cmd-set-sample-locations-ext
     #:cmd-set-scissor
@@ -3132,6 +3148,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:executable-index
     #:export-from-imported-handle-types
     #:extended-dynamic-state
+    #:extended-dynamic-state-2
+    #:extended-dynamic-state-2-logic-op
+    #:extended-dynamic-state-2-patch-control-points
     #:extension-name
     #:extent
     #:external-fence-features
@@ -3885,6 +3904,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:protected-memory
     #:protected-no-fault
     #:protected-submit
+    #:provoking-vertex-last
+    #:provoking-vertex-mode
+    #:provoking-vertex-mode-per-pipeline
     #:purposes
     #:push-constant-range-count
     #:pushconstant-offset
@@ -4256,6 +4278,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:transform-data
     #:transform-feedback
     #:transform-feedback-draw
+    #:transform-feedback-preserves-provoking-vertex
+    #:transform-feedback-preserves-triangle-fan-provoking-vertex
     #:transform-feedback-queries
     #:transform-feedback-rasterization-stream-select
     #:transform-feedback-streams-lines-triangles
@@ -4441,6 +4465,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-discard-rectangles-extension-name+
     #:+ext-display-control-extension-name+
     #:+ext-display-surface-counter-extension-name+
+    #:+ext-extended-dynamic-state-2-extension-name+
     #:+ext-extended-dynamic-state-extension-name+
     #:+ext-external-memory-dma-buf-extension-name+
     #:+ext-external-memory-host-extension-name+
@@ -4466,6 +4491,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-pipeline-creation-feedback-extension-name+
     #:+ext-post-depth-coverage-extension-name+
     #:+ext-private-data-extension-name+
+    #:+ext-provoking-vertex-extension-name+
     #:+ext-queue-family-foreign-extension-name+
     #:+ext-robustness-2-extension-name+
     #:+ext-sampler-filter-minmax-extension-name+
@@ -4631,9 +4657,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-viewport-swizzle-extension-name+
     #:+nv-win32-keyed-mutex-extension-name+
     #:+qcom-render-pass-shader-resolve-extension-name+
+    #:+qcom-render-pass-store-ops-extension-name+
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
-    #:+qcom-render-pass-store-ops-extension-name+
     #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+)
   (:export
@@ -4714,6 +4740,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-discard-rectangles-extension-name+
     #:+ext-display-control-extension-name+
     #:+ext-display-surface-counter-extension-name+
+    #:+ext-extended-dynamic-state-2-extension-name+
     #:+ext-extended-dynamic-state-extension-name+
     #:+ext-external-memory-dma-buf-extension-name+
     #:+ext-external-memory-host-extension-name+
@@ -4739,6 +4766,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-pipeline-creation-feedback-extension-name+
     #:+ext-post-depth-coverage-extension-name+
     #:+ext-private-data-extension-name+
+    #:+ext-provoking-vertex-extension-name+
     #:+ext-queue-family-foreign-extension-name+
     #:+ext-robustness-2-extension-name+
     #:+ext-sampler-filter-minmax-extension-name+
@@ -4904,9 +4932,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-viewport-swizzle-extension-name+
     #:+nv-win32-keyed-mutex-extension-name+
     #:+qcom-render-pass-shader-resolve-extension-name+
+    #:+qcom-render-pass-store-ops-extension-name+
     #:+qcom-render-pass-transform-extension-name+
     #:+qcom-rotated-copy-commands-extension-name+
-    #:+qcom-render-pass-store-ops-extension-name+
     #:+qnx-screen-surface-extension-name+
     #:+valve-mutable-descriptor-type-extension-name+
 
@@ -5235,6 +5263,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-discard-rectangle-properties-ext
     #:physical-device-driver-properties
     #:physical-device-exclusive-scissor-features-nv
+    #:physical-device-extended-dynamic-state-2-features-ext
     #:physical-device-extended-dynamic-state-features-ext
     #:physical-device-external-buffer-info
     #:physical-device-external-fence-info
@@ -5294,6 +5323,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-properties-2
     #:physical-device-protected-memory-features
     #:physical-device-protected-memory-properties
+    #:physical-device-provoking-vertex-features-ext
+    #:physical-device-provoking-vertex-properties-ext
     #:physical-device-push-descriptor-properties-khr
     #:physical-device-ray-query-features-khr
     #:physical-device-ray-tracing-pipeline-features-khr
@@ -5383,6 +5414,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-rasterization-conservative-state-create-info-ext
     #:pipeline-rasterization-depth-clip-state-create-info-ext
     #:pipeline-rasterization-line-state-create-info-ext
+    #:pipeline-rasterization-provoking-vertex-state-create-info-ext
     #:pipeline-rasterization-state-create-info
     #:pipeline-rasterization-state-rasterization-order-amd
     #:pipeline-rasterization-state-stream-create-info-ext
@@ -5864,6 +5896,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:executable-index
     #:export-from-imported-handle-types
     #:extended-dynamic-state
+    #:extended-dynamic-state-2
+    #:extended-dynamic-state-2-logic-op
+    #:extended-dynamic-state-2-patch-control-points
     #:extension-name
     #:extent
     #:external-fence-features
@@ -6611,6 +6646,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:protected-memory
     #:protected-no-fault
     #:protected-submit
+    #:provoking-vertex-last
+    #:provoking-vertex-mode
+    #:provoking-vertex-mode-per-pipeline
     #:purposes
     #:push-constant-range-count
     #:pushconstant-offset
@@ -6982,6 +7020,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:transform-data
     #:transform-feedback
     #:transform-feedback-draw
+    #:transform-feedback-preserves-provoking-vertex
+    #:transform-feedback-preserves-triangle-fan-provoking-vertex
     #:transform-feedback-queries
     #:transform-feedback-rasterization-stream-select
     #:transform-feedback-streams-lines-triangles
@@ -7198,6 +7238,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-color-write-enable-ext
     #:cmd-set-cull-mode-ext
     #:cmd-set-depth-bias
+    #:cmd-set-depth-bias-enable-ext
     #:cmd-set-depth-bounds
     #:cmd-set-depth-bounds-test-enable-ext
     #:cmd-set-depth-compare-op-ext
@@ -7214,10 +7255,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-front-face-ext
     #:cmd-set-line-stipple-ext
     #:cmd-set-line-width
+    #:cmd-set-logic-op-ext
+    #:cmd-set-patch-control-points-ext
     #:cmd-set-performance-marker-intel
     #:cmd-set-performance-override-intel
     #:cmd-set-performance-stream-marker-intel
+    #:cmd-set-primitive-restart-enable-ext
     #:cmd-set-primitive-topology-ext
+    #:cmd-set-rasterizer-discard-enable-ext
     #:cmd-set-ray-tracing-pipeline-stack-size-khr
     #:cmd-set-sample-locations-ext
     #:cmd-set-scissor
@@ -7689,6 +7734,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:present-mode-khr
     #:primitive-topology
     #:private-data-slot-create-flag-bits-ext
+    #:provoking-vertex-mode-ext
     #:query-control-flag-bits
     #:query-pipeline-statistic-flag-bits
     #:query-pool-create-flag-bits

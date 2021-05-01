@@ -8799,6 +8799,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:extended-dynamic-state (vk:extended-dynamic-state value))))
 
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-extended-dynamic-state-2-features-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:extended-dynamic-state-2
+        %vk:extended-dynamic-state-2-logic-op
+        %vk:extended-dynamic-state-2-patch-control-points)
+       ptr
+       (:struct %vk:physical-device-extended-dynamic-state-2-features-ext))
+    (setf %vk:s-type :physical-device-extended-dynamic-state-2-features-ext
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:extended-dynamic-state-2 (vk:extended-dynamic-state-2 value)
+          %vk:extended-dynamic-state-2-logic-op (vk:extended-dynamic-state-2-logic-op value)
+          %vk:extended-dynamic-state-2-patch-control-points (vk:extended-dynamic-state-2-patch-control-points value))))
+
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-render-pass-transform-begin-info-qcom) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -10393,4 +10408,41 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :physical-device-ycbcr-2-plane-444-formats-features-ext
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:ycbcr-2plane-4-4-4-formats (vk:ycbcr-2plane-4-4-4-formats value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-provoking-vertex-features-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:provoking-vertex-last
+        %vk:transform-feedback-preserves-provoking-vertex)
+       ptr
+       (:struct %vk:physical-device-provoking-vertex-features-ext))
+    (setf %vk:s-type :physical-device-provoking-vertex-features-ext
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:provoking-vertex-last (vk:provoking-vertex-last value)
+          %vk:transform-feedback-preserves-provoking-vertex (vk:transform-feedback-preserves-provoking-vertex value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-provoking-vertex-properties-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:provoking-vertex-mode-per-pipeline
+        %vk:transform-feedback-preserves-triangle-fan-provoking-vertex)
+       ptr
+       (:struct %vk:physical-device-provoking-vertex-properties-ext))
+    (setf %vk:s-type :physical-device-provoking-vertex-properties-ext
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:provoking-vertex-mode-per-pipeline (vk:provoking-vertex-mode-per-pipeline value)
+          %vk:transform-feedback-preserves-triangle-fan-provoking-vertex (vk:transform-feedback-preserves-triangle-fan-provoking-vertex value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-pipeline-rasterization-provoking-vertex-state-create-info-ext) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:provoking-vertex-mode)
+       ptr
+       (:struct %vk:pipeline-rasterization-provoking-vertex-state-create-info-ext))
+    (setf %vk:s-type :pipeline-rasterization-provoking-vertex-state-create-info-ext
+          %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
+          %vk:provoking-vertex-mode (vk:provoking-vertex-mode value))))
 

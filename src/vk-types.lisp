@@ -550,6 +550,11 @@ Has the values:
  - :STENCIL-OP-EXT
  - :RAY-TRACING-PIPELINE-STACK-SIZE-KHR
  - :VERTEX-INPUT-EXT
+ - :PATCH-CONTROL-POINTS-EXT
+ - :RASTERIZER-DISCARD-ENABLE-EXT
+ - :DEPTH-BIAS-ENABLE-EXT
+ - :LOGIC-OP-EXT
+ - :PRIMITIVE-RESTART-ENABLE-EXT
  - :COLOR-WRITE-ENABLE-EXT"
   '(member nil 
     :viewport
@@ -583,6 +588,11 @@ Has the values:
     :stencil-op-ext
     :ray-tracing-pipeline-stack-size-khr
     :vertex-input-ext
+    :patch-control-points-ext
+    :rasterizer-discard-enable-ext
+    :depth-bias-enable-ext
+    :logic-op-ext
+    :primitive-restart-enable-ext
     :color-write-enable-ext))
 
 (deftype fence-create-flag-bits ()
@@ -2375,6 +2385,9 @@ Has the values:
  - :PHYSICAL-DEVICE-FRAGMENT-SHADER-INTERLOCK-FEATURES-EXT
  - :PHYSICAL-DEVICE-YCBCR-IMAGE-ARRAYS-FEATURES-EXT
  - :PHYSICAL-DEVICE-UNIFORM-BUFFER-STANDARD-LAYOUT-FEATURES
+ - :PHYSICAL-DEVICE-PROVOKING-VERTEX-FEATURES-EXT
+ - :PIPELINE-RASTERIZATION-PROVOKING-VERTEX-STATE-CREATE-INFO-EXT
+ - :PHYSICAL-DEVICE-PROVOKING-VERTEX-PROPERTIES-EXT
  - :SURFACE-FULL-SCREEN-EXCLUSIVE-INFO-EXT
  - :SURFACE-FULL-SCREEN-EXCLUSIVE-WIN32-INFO-EXT
  - :SURFACE-CAPABILITIES-FULL-SCREEN-EXCLUSIVE-EXT
@@ -2474,6 +2487,7 @@ Has the values:
  - :MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
  - :IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
  - :SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
+ - :PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-2-FEATURES-EXT
  - :SCREEN-SURFACE-CREATE-INFO-QNX
  - :PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
  - :PIPELINE-COLOR-WRITE-CREATE-INFO-EXT"
@@ -2918,6 +2932,9 @@ Has the values:
     :physical-device-fragment-shader-interlock-features-ext
     :physical-device-ycbcr-image-arrays-features-ext
     :physical-device-uniform-buffer-standard-layout-features
+    :physical-device-provoking-vertex-features-ext
+    :pipeline-rasterization-provoking-vertex-state-create-info-ext
+    :physical-device-provoking-vertex-properties-ext
     :surface-full-screen-exclusive-info-ext
     :surface-full-screen-exclusive-win32-info-ext
     :surface-capabilities-full-screen-exclusive-ext
@@ -3017,6 +3034,7 @@ Has the values:
     :memory-get-zircon-handle-info-fuchsia
     :import-semaphore-zircon-handle-info-fuchsia
     :semaphore-get-zircon-handle-info-fuchsia
+    :physical-device-extended-dynamic-state-2-features-ext
     :screen-surface-create-info-qnx
     :physical-device-color-write-enable-features-ext
     :pipeline-color-write-create-info-ext))
@@ -4168,6 +4186,16 @@ Has the values:
     :2-index-input
     :2-vertex-attribute-input
     :2-pre-rasterization-shaders))
+
+(deftype provoking-vertex-mode-ext ()
+  "Represents the enum [VkProvokingVertexModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkProvokingVertexModeEXT.html).
+
+Has the values:
+ - :FIRST-VERTEX-EXT
+ - :LAST-VERTEX-EXT"
+  '(member nil 
+    :first-vertex-ext
+    :last-vertex-ext))
 
 (deftype color-space-khr ()
   "Represents the enum [VkColorSpaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkColorSpaceKHR.html).
@@ -5634,6 +5662,7 @@ See CMD-SET-COARSE-SAMPLE-ORDER-NV
 See CMD-SET-COLOR-WRITE-ENABLE-EXT
 See CMD-SET-CULL-MODE-EXT
 See CMD-SET-DEPTH-BIAS
+See CMD-SET-DEPTH-BIAS-ENABLE-EXT
 See CMD-SET-DEPTH-BOUNDS
 See CMD-SET-DEPTH-BOUNDS-TEST-ENABLE-EXT
 See CMD-SET-DEPTH-COMPARE-OP-EXT
@@ -5649,10 +5678,14 @@ See CMD-SET-FRAGMENT-SHADING-RATE-KHR
 See CMD-SET-FRONT-FACE-EXT
 See CMD-SET-LINE-STIPPLE-EXT
 See CMD-SET-LINE-WIDTH
+See CMD-SET-LOGIC-OP-EXT
+See CMD-SET-PATCH-CONTROL-POINTS-EXT
 See CMD-SET-PERFORMANCE-MARKER-INTEL
 See CMD-SET-PERFORMANCE-OVERRIDE-INTEL
 See CMD-SET-PERFORMANCE-STREAM-MARKER-INTEL
+See CMD-SET-PRIMITIVE-RESTART-ENABLE-EXT
 See CMD-SET-PRIMITIVE-TOPOLOGY-EXT
+See CMD-SET-RASTERIZER-DISCARD-ENABLE-EXT
 See CMD-SET-RAY-TRACING-PIPELINE-STACK-SIZE-KHR
 See CMD-SET-SAMPLE-LOCATIONS-EXT
 See CMD-SET-SCISSOR
@@ -6862,6 +6895,7 @@ See DEVICE-QUEUE-CREATE-INFO
 See PHYSICAL-DEVICE-FEATURES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PHYSICAL-DEVICE-PROVOKING-VERTEX-FEATURES-EXT
 See PHYSICAL-DEVICE-YCBCR-2-PLANE-4-4-4-FORMATS-FEATURES-EXT
 See PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
 See PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
@@ -6880,6 +6914,7 @@ See PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT
 See PHYSICAL-DEVICE-ZERO-INITIALIZE-WORKGROUP-MEMORY-FEATURES-KHR
 See DEVICE-DIAGNOSTICS-CONFIG-CREATE-INFO-NV
 See PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV
+See PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-2-FEATURES-EXT
 See PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-FEATURES-EXT
 See PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT
 See PHYSICAL-DEVICE-COHERENT-MEMORY-FEATURES-AMD
@@ -8995,6 +9030,7 @@ See CULL-MODE-FLAGS
 See FRONT-FACE
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PIPELINE-RASTERIZATION-PROVOKING-VERTEX-STATE-CREATE-INFO-EXT
 See PIPELINE-RASTERIZATION-LINE-STATE-CREATE-INFO-EXT
 See PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-INFO-EXT
 See PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-INFO-EXT
@@ -12947,7 +12983,7 @@ See INDEX-TYPE
 
 Slots:
  - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
- - FLAGS: a list containing a valid combination of INDIRECT-COMMANDS-LAYOUT-USAGE-FLAGS-NV.
+ - FLAGS (optional): a list containing a valid combination of INDIRECT-COMMANDS-LAYOUT-USAGE-FLAGS-NV.
  - PIPELINE-BIND-POINT: an enum value of PIPELINE-BIND-POINT.
  - TOKENS: a list of INDIRECT-COMMANDS-LAYOUT-TOKEN-NVs.
  - STREAM-STRIDES: a list of positive (32-bit) integers.
@@ -13102,6 +13138,7 @@ Slot types:
 See PHYSICAL-DEVICE-FEATURES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PHYSICAL-DEVICE-PROVOKING-VERTEX-FEATURES-EXT
 See PHYSICAL-DEVICE-YCBCR-2-PLANE-4-4-4-FORMATS-FEATURES-EXT
 See PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
 See PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
@@ -13119,6 +13156,7 @@ See PHYSICAL-DEVICE-IMAGE-ROBUSTNESS-FEATURES-EXT
 See PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT
 See PHYSICAL-DEVICE-ZERO-INITIALIZE-WORKGROUP-MEMORY-FEATURES-KHR
 See PHYSICAL-DEVICE-DIAGNOSTICS-CONFIG-FEATURES-NV
+See PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-2-FEATURES-EXT
 See PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-FEATURES-EXT
 See PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT
 See PHYSICAL-DEVICE-COHERENT-MEMORY-FEATURES-AMD
@@ -13213,6 +13251,7 @@ Slot types:
 See PHYSICAL-DEVICE-PROPERTIES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PHYSICAL-DEVICE-PROVOKING-VERTEX-PROPERTIES-EXT
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-PROPERTIES-NV
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-PROPERTIES-KHR
 See PHYSICAL-DEVICE-PORTABILITY-SUBSET-PROPERTIES-KHR
@@ -25249,6 +25288,36 @@ See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
+(defclass physical-device-extended-dynamic-state-2-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (extended-dynamic-state-2
+     :initarg :extended-dynamic-state-2
+     :initform nil
+     :accessor extended-dynamic-state-2)
+   (extended-dynamic-state-2-logic-op
+     :initarg :extended-dynamic-state-2-logic-op
+     :initform nil
+     :accessor extended-dynamic-state-2-logic-op)
+   (extended-dynamic-state-2-patch-control-points
+     :initarg :extended-dynamic-state-2-patch-control-points
+     :initform nil
+     :accessor extended-dynamic-state-2-patch-control-points))
+  (:documentation "Represents the struct [VkPhysicalDeviceExtendedDynamicState2FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - EXTENDED-DYNAMIC-STATE-2: a boolean.
+ - EXTENDED-DYNAMIC-STATE-2-LOGIC-OP: a boolean.
+ - EXTENDED-DYNAMIC-STATE-2-PATCH-CONTROL-POINTS: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
 (defclass render-pass-transform-begin-info-qcom ()
   ((next
      :initarg :next
@@ -28604,4 +28673,75 @@ Slots:
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-provoking-vertex-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (provoking-vertex-last
+     :initarg :provoking-vertex-last
+     :initform nil
+     :accessor provoking-vertex-last)
+   (transform-feedback-preserves-provoking-vertex
+     :initarg :transform-feedback-preserves-provoking-vertex
+     :initform nil
+     :accessor transform-feedback-preserves-provoking-vertex))
+  (:documentation "Represents the struct [VkPhysicalDeviceProvokingVertexFeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceProvokingVertexFeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PROVOKING-VERTEX-LAST: a boolean.
+ - TRANSFORM-FEEDBACK-PRESERVES-PROVOKING-VERTEX: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass physical-device-provoking-vertex-properties-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (provoking-vertex-mode-per-pipeline
+     :initarg :provoking-vertex-mode-per-pipeline
+     :initform nil
+     :accessor provoking-vertex-mode-per-pipeline)
+   (transform-feedback-preserves-triangle-fan-provoking-vertex
+     :initarg :transform-feedback-preserves-triangle-fan-provoking-vertex
+     :initform nil
+     :accessor transform-feedback-preserves-triangle-fan-provoking-vertex))
+  (:documentation "Represents the struct [VkPhysicalDeviceProvokingVertexPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceProvokingVertexPropertiesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PROVOKING-VERTEX-MODE-PER-PIPELINE: a boolean.
+ - TRANSFORM-FEEDBACK-PRESERVES-TRIANGLE-FAN-PROVOKING-VERTEX: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-PROPERTIES-2
+"))
+
+(defclass pipeline-rasterization-provoking-vertex-state-create-info-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (provoking-vertex-mode
+     :initarg :provoking-vertex-mode
+     :initform nil
+     :accessor provoking-vertex-mode))
+  (:documentation "Represents the struct [VkPipelineRasterizationProvokingVertexStateCreateInfoEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineRasterizationProvokingVertexStateCreateInfoEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PROVOKING-VERTEX-MODE: an enum value of PROVOKING-VERTEX-MODE-EXT.
+
+Slot types:
+See PROVOKING-VERTEX-MODE-EXT
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
 "))

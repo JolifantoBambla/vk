@@ -2453,6 +2453,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (depth-fail-op stencil-op)
   (compare-op compare-op))
 
+(defvkextfun ("vkCmdSetPatchControlPointsEXT" cmd-set-patch-control-points-ext) :void
+  (command-buffer command-buffer)
+  (patch-control-points :uint32))
+
+(defvkextfun ("vkCmdSetRasterizerDiscardEnableEXT" cmd-set-rasterizer-discard-enable-ext) :void
+  (command-buffer command-buffer)
+  (rasterizer-discard-enable bool32))
+
+(defvkextfun ("vkCmdSetDepthBiasEnableEXT" cmd-set-depth-bias-enable-ext) :void
+  (command-buffer command-buffer)
+  (depth-bias-enable bool32))
+
+(defvkextfun ("vkCmdSetLogicOpEXT" cmd-set-logic-op-ext) :void
+  (command-buffer command-buffer)
+  (logic-op logic-op))
+
+(defvkextfun ("vkCmdSetPrimitiveRestartEnableEXT" cmd-set-primitive-restart-enable-ext) :void
+  (command-buffer command-buffer)
+  (primitive-restart-enable bool32))
+
 (defvkextfun ("vkCreatePrivateDataSlotEXT" create-private-data-slot-ext) checked-result
   (device device)
   (p-create-info (:pointer (:struct private-data-slot-create-info-ext)))

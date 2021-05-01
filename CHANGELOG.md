@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1-v1.2.177] - 2021-05-01 [vk](https://github.com/JolifantoBambla/vk/releases/tag/1.0.1-v1.2.177)
+
 ### Fixed
 - Fixed typos in README.
 - Fixed `extension-loader` argument for extension functions without other optional arguments.

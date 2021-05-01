@@ -8623,6 +8623,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :extended-dynamic-state %vk:extended-dynamic-state)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-extended-dynamic-state-2-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:extended-dynamic-state-2
+        %vk:extended-dynamic-state-2-logic-op
+        %vk:extended-dynamic-state-2-patch-control-points)
+       ptr
+       (:struct %vk:physical-device-extended-dynamic-state-2-features-ext))
+    (make-instance 'vk:physical-device-extended-dynamic-state-2-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :extended-dynamic-state-2 %vk:extended-dynamic-state-2
+                   :extended-dynamic-state-2-logic-op %vk:extended-dynamic-state-2-logic-op
+                   :extended-dynamic-state-2-patch-control-points %vk:extended-dynamic-state-2-patch-control-points)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-render-pass-transform-begin-info-qcom))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -10186,4 +10201,41 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:physical-device-ycbcr-2-plane-4-4-4-formats-features-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :ycbcr-2plane-4-4-4-formats %vk:ycbcr-2plane-4-4-4-formats)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-provoking-vertex-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:provoking-vertex-last
+        %vk:transform-feedback-preserves-provoking-vertex)
+       ptr
+       (:struct %vk:physical-device-provoking-vertex-features-ext))
+    (make-instance 'vk:physical-device-provoking-vertex-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :provoking-vertex-last %vk:provoking-vertex-last
+                   :transform-feedback-preserves-provoking-vertex %vk:transform-feedback-preserves-provoking-vertex)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-provoking-vertex-properties-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:provoking-vertex-mode-per-pipeline
+        %vk:transform-feedback-preserves-triangle-fan-provoking-vertex)
+       ptr
+       (:struct %vk:physical-device-provoking-vertex-properties-ext))
+    (make-instance 'vk:physical-device-provoking-vertex-properties-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :provoking-vertex-mode-per-pipeline %vk:provoking-vertex-mode-per-pipeline
+                   :transform-feedback-preserves-triangle-fan-provoking-vertex %vk:transform-feedback-preserves-triangle-fan-provoking-vertex)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-rasterization-provoking-vertex-state-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:provoking-vertex-mode)
+       ptr
+       (:struct %vk:pipeline-rasterization-provoking-vertex-state-create-info-ext))
+    (make-instance 'vk:pipeline-rasterization-provoking-vertex-state-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :provoking-vertex-mode %vk:provoking-vertex-mode)))
 
