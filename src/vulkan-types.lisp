@@ -605,6 +605,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (alexandria:define-constant +nn-vi-surface-extension-name+ "VK_NN_vi_surface"
   :test #'string=
   :documentation "The name of the extension [VK_NN_vi_surface](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NN_vi_surface.html).")
+(alexandria:define-constant +nvx-binary-import-extension-name+ "VK_NVX_binary_import"
+  :test #'string=
+  :documentation "The name of the extension [VK_NVX_binary_import](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NVX_binary_import.html).")
 (alexandria:define-constant +nvx-image-view-handle-extension-name+ "VK_NVX_image_view_handle"
   :test #'string=
   :documentation "The name of the extension [VK_NVX_image_view_handle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_NVX_image_view_handle.html).")
@@ -904,6 +907,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defctype deferred-operation-khr non-dispatch-handle)
 
 (defctype private-data-slot-ext non-dispatch-handle)
+
+(defctype cu-module-nvx non-dispatch-handle)
+
+(defctype cu-function-nvx non-dispatch-handle)
 
 (defctype display-khr non-dispatch-handle)
 
@@ -2893,6 +2900,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:physical-device-transform-feedback-features-ext #x3B9B3760) ;; 
   (:physical-device-transform-feedback-properties-ext #x3B9B3761) ;; 
   (:pipeline-rasterization-state-stream-create-info-ext #x3B9B3762) ;; 
+  (:cu-module-create-info-nvx #x3B9B3B48) ;; 
+  (:cu-function-create-info-nvx #x3B9B3B49) ;; 
+  (:cu-launch-info-nvx #x3B9B3B4A) ;; 
   (:image-view-handle-info-nvx #x3B9B3F30) ;; 
   (:image-view-address-properties-nvx #x3B9B3F31) ;; 
   (:video-encode-h264-capabilities-ext #x3B9B5E70) ;; 
@@ -3469,6 +3479,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:debug-report-callback-ext #x3B9AF4F8) ;; 
   (:video-session-khr #x3B9B23D8) ;; 
   (:video-session-parameters-khr #x3B9B23D9) ;; 
+  (:cu-module-nvx #x3B9B3B48) ;; 
+  (:cu-function-nvx #x3B9B3B49) ;; 
   (:descriptor-update-template #x3B9C1608) ;; 
   (:debug-utils-messenger-ext #x3B9CBE00) ;; 
   (:acceleration-structure-khr #x3B9D13F0) ;; 
@@ -4015,6 +4027,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:display-khr-ext #x1D)
   (:display-mode-khr-ext #x1E)
   (:validation-cache-ext-ext #x21)
+  (:cu-module-nvx-ext #x3B9B3B48) ;; 
+  (:cu-function-nvx-ext #x3B9B3B49) ;; 
   (:descriptor-update-template-ext #x3B9C1608) ;; 
   (:acceleration-structure-khr-ext #x3B9D13F0) ;; 
   (:sampler-ycbcr-conversion-ext #x3B9D2B60) ;; 
@@ -4327,7 +4341,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:broadcom-proprietary #xC) ;; Broadcom Inc.
   (:mesa-llvmpipe #xD) ;; Mesa
   (:moltenvk #xE) ;; MoltenVK
-  (:coreavi-proprietary #xF)) ;; Core Avionics & Industrial Inc.
+  (:coreavi-proprietary #xF) ;; Core Avionics & Industrial Inc.
+  (:juice-proprietary #x10)) ;; Juice Technologies, Inc.
 
 (defcenum (driver-id-khr)
   (:amd-proprietary #x1) ;; Advanced Micro Devices, Inc.
@@ -4344,7 +4359,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:broadcom-proprietary #xC) ;; Broadcom Inc.
   (:mesa-llvmpipe #xD) ;; Mesa
   (:moltenvk #xE) ;; MoltenVK
-  (:coreavi-proprietary #xF)) ;; Core Avionics & Industrial Inc.
+  (:coreavi-proprietary #xF) ;; Core Avionics & Industrial Inc.
+  (:juice-proprietary #x10)) ;; Juice Technologies, Inc.
 
 (defcenum (shading-rate-palette-entry-nv)
   (:no-invocations-nv #x0)
@@ -6787,7 +6803,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (discard-rectangle-count :uint32)
   (p-discard-rectangles (:pointer (:struct rect-2d))))
 
-(defcstruct (physical-device-multiview-per-view-attributes-properties-nv-x :class c-physical-device-multiview-per-view-attributes-properties-nv-x)
+(defcstruct (physical-device-multiview-per-view-attributes-properties-nvx :class c-physical-device-multiview-per-view-attributes-properties-nvx)
   (s-type structure-type)
   (p-next (:pointer :void))
   (per-view-position-all-components bool32))
@@ -8698,14 +8714,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-next (:pointer :void))
   (ycbcr-image-arrays bool32))
 
-(defcstruct (image-view-handle-info-nv-x :class c-image-view-handle-info-nv-x)
+(defcstruct (image-view-handle-info-nvx :class c-image-view-handle-info-nvx)
   (s-type structure-type)
   (p-next (:pointer :void))
   (image-view image-view)
   (descriptor-type descriptor-type)
   (sampler sampler))
 
-(defcstruct (image-view-address-properties-nv-x :class c-image-view-address-properties-nv-x)
+(defcstruct (image-view-address-properties-nvx :class c-image-view-address-properties-nvx)
   (s-type structure-type)
   (p-next (:pointer :void))
   (device-address device-address)
@@ -10182,4 +10198,32 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (provoking-vertex-mode provoking-vertex-mode-ext))
+
+(defcstruct (cu-module-create-info-nvx :class c-cu-module-create-info-nvx)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (data-size size-t)
+  (p-data (:pointer :void)))
+
+(defcstruct (cu-function-create-info-nvx :class c-cu-function-create-info-nvx)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (module cu-module-nvx)
+  (p-name :string))
+
+(defcstruct (cu-launch-info-nvx :class c-cu-launch-info-nvx)
+  (s-type structure-type)
+  (p-next (:pointer :void))
+  (function-handle cu-function-nvx)
+  (grid-dim-x :uint32)
+  (grid-dim-y :uint32)
+  (grid-dim-z :uint32)
+  (block-dim-x :uint32)
+  (block-dim-y :uint32)
+  (block-dim-z :uint32)
+  (shared-mem-bytes :uint32)
+  (param-count size-t)
+  (p-params (:pointer (:pointer :void)))
+  (extra-count size-t)
+  (p-extras (:pointer (:pointer :void))))
 

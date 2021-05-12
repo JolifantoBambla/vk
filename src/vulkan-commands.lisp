@@ -2185,14 +2185,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer command-buffer)
   (pipeline-stack-size :uint32))
 
-(defvkextfun ("vkGetImageViewHandleNVX" get-image-view-handle-nv-x) :uint32
+(defvkextfun ("vkGetImageViewHandleNVX" get-image-view-handle-nvx) :uint32
   (device device)
-  (p-info (:pointer (:struct image-view-handle-info-nv-x))))
+  (p-info (:pointer (:struct image-view-handle-info-nvx))))
 
-(defvkextfun ("vkGetImageViewAddressNVX" get-image-view-address-nv-x) checked-result
+(defvkextfun ("vkGetImageViewAddressNVX" get-image-view-address-nvx) checked-result
   (device device)
   (image-view image-view)
-  (p-properties (:pointer (:struct image-view-address-properties-nv-x))))
+  (p-properties (:pointer (:struct image-view-address-properties-nvx))))
 
 (defvkextfun ("vkGetPhysicalDeviceSurfacePresentModes2EXT" get-physical-device-surface-present-modes-2-ext) checked-result
   (physical-device physical-device)
@@ -2669,4 +2669,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkfun ("vkCmdEncodeVideoKHR" cmd-encode-video-khr) :void
   (command-buffer command-buffer)
   (p-encode-info (:pointer (:struct video-encode-info-khr))))
+
+(defvkextfun ("vkCreateCuModuleNVX" create-cu-module-nvx) checked-result
+  (device device)
+  (p-create-info (:pointer (:struct cu-module-create-info-nvx)))
+  (p-allocator (:pointer (:struct allocation-callbacks)))
+  (p-module (:pointer cu-module-nvx)))
+
+(defvkextfun ("vkCreateCuFunctionNVX" create-cu-function-nvx) checked-result
+  (device device)
+  (p-create-info (:pointer (:struct cu-function-create-info-nvx)))
+  (p-allocator (:pointer (:struct allocation-callbacks)))
+  (p-function (:pointer cu-function-nvx)))
+
+(defvkextfun ("vkDestroyCuModuleNVX" destroy-cu-module-nvx) :void
+  (device device)
+  (module cu-module-nvx)
+  (p-allocator (:pointer (:struct allocation-callbacks))))
+
+(defvkextfun ("vkDestroyCuFunctionNVX" destroy-cu-function-nvx) :void
+  (device device)
+  (function-handle cu-function-nvx)
+  (p-allocator (:pointer (:struct allocation-callbacks))))
+
+(defvkextfun ("vkCmdCuLaunchKernelNVX" cmd-cu-launch-kernel-nvx) :void
+  (command-buffer command-buffer)
+  (p-launch-info (:pointer (:struct cu-launch-info-nvx))))
 

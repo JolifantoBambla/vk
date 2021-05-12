@@ -2036,6 +2036,9 @@ Has the values:
  - :PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT
  - :PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-PROPERTIES-EXT
  - :PIPELINE-RASTERIZATION-STATE-STREAM-CREATE-INFO-EXT
+ - :CU-MODULE-CREATE-INFO-NVX
+ - :CU-FUNCTION-CREATE-INFO-NVX
+ - :CU-LAUNCH-INFO-NVX
  - :IMAGE-VIEW-HANDLE-INFO-NVX
  - :IMAGE-VIEW-ADDRESS-PROPERTIES-NVX
  - :VIDEO-ENCODE-H264-CAPABILITIES-EXT
@@ -2583,6 +2586,9 @@ Has the values:
     :physical-device-transform-feedback-features-ext
     :physical-device-transform-feedback-properties-ext
     :pipeline-rasterization-state-stream-create-info-ext
+    :cu-module-create-info-nvx
+    :cu-function-create-info-nvx
+    :cu-launch-info-nvx
     :image-view-handle-info-nvx
     :image-view-address-properties-nvx
     :video-encode-h264-capabilities-ext
@@ -3272,6 +3278,8 @@ Has the values:
  - :DEBUG-REPORT-CALLBACK-EXT
  - :VIDEO-SESSION-KHR
  - :VIDEO-SESSION-PARAMETERS-KHR
+ - :CU-MODULE-NVX
+ - :CU-FUNCTION-NVX
  - :DESCRIPTOR-UPDATE-TEMPLATE
  - :DEBUG-UTILS-MESSENGER-EXT
  - :ACCELERATION-STRUCTURE-KHR
@@ -3316,6 +3324,8 @@ Has the values:
     :debug-report-callback-ext
     :video-session-khr
     :video-session-parameters-khr
+    :cu-module-nvx
+    :cu-function-nvx
     :descriptor-update-template
     :debug-utils-messenger-ext
     :acceleration-structure-khr
@@ -4357,6 +4367,8 @@ Has the values:
  - :DISPLAY-KHR-EXT
  - :DISPLAY-MODE-KHR-EXT
  - :VALIDATION-CACHE-EXT-EXT
+ - :CU-MODULE-NVX-EXT
+ - :CU-FUNCTION-NVX-EXT
  - :DESCRIPTOR-UPDATE-TEMPLATE-EXT
  - :ACCELERATION-STRUCTURE-KHR-EXT
  - :SAMPLER-YCBCR-CONVERSION-EXT
@@ -4394,6 +4406,8 @@ Has the values:
     :display-khr-ext
     :display-mode-khr-ext
     :validation-cache-ext-ext
+    :cu-module-nvx-ext
+    :cu-function-nvx-ext
     :descriptor-update-template-ext
     :acceleration-structure-khr-ext
     :sampler-ycbcr-conversion-ext
@@ -4901,7 +4915,8 @@ Has the values:
  - :BROADCOM-PROPRIETARY
  - :MESA-LLVMPIPE
  - :MOLTENVK
- - :COREAVI-PROPRIETARY"
+ - :COREAVI-PROPRIETARY
+ - :JUICE-PROPRIETARY"
   '(member nil 
     :amd-proprietary
     :amd-open-source
@@ -4917,7 +4932,8 @@ Has the values:
     :broadcom-proprietary
     :mesa-llvmpipe
     :moltenvk
-    :coreavi-proprietary))
+    :coreavi-proprietary
+    :juice-proprietary))
 
 (deftype shading-rate-palette-entry-nv ()
   "Represents the enum [VkShadingRatePaletteEntryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShadingRatePaletteEntryNV.html).
@@ -5317,6 +5333,8 @@ See BUFFER
 See BUFFER-VIEW
 See COMMAND-BUFFER
 See COMMAND-POOL
+See CU-FUNCTION-NVX
+See CU-MODULE-NVX
 See DEFERRED-OPERATION-KHR
 See DESCRIPTOR-POOL
 See DESCRIPTOR-SET
@@ -5370,6 +5388,8 @@ See CREATE-BUFFER
 See CREATE-BUFFER-VIEW
 See CREATE-COMMAND-POOL
 See CREATE-COMPUTE-PIPELINES
+See CREATE-CU-FUNCTION-NVX
+See CREATE-CU-MODULE-NVX
 See CREATE-DEFERRED-OPERATION-KHR
 See CREATE-DESCRIPTOR-POOL
 See CREATE-DESCRIPTOR-SET-LAYOUT
@@ -5407,6 +5427,8 @@ See DESTROY-ACCELERATION-STRUCTURE-NV
 See DESTROY-BUFFER
 See DESTROY-BUFFER-VIEW
 See DESTROY-COMMAND-POOL
+See DESTROY-CU-FUNCTION-NVX
+See DESTROY-CU-MODULE-NVX
 See DESTROY-DEFERRED-OPERATION-KHR
 See DESTROY-DESCRIPTOR-POOL
 See DESTROY-DESCRIPTOR-SET-LAYOUT
@@ -5472,8 +5494,8 @@ See GET-IMAGE-MEMORY-REQUIREMENTS-2
 See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS
 See GET-IMAGE-SPARSE-MEMORY-REQUIREMENTS-2
 See GET-IMAGE-SUBRESOURCE-LAYOUT
-See GET-IMAGE-VIEW-ADDRESS-NV-X
-See GET-IMAGE-VIEW-HANDLE-NV-X
+See GET-IMAGE-VIEW-ADDRESS-NVX
+See GET-IMAGE-VIEW-HANDLE-NVX
 See GET-MEMORY-ANDROID-HARDWARE-BUFFER-ANDROID
 See GET-MEMORY-FD-KHR
 See GET-MEMORY-FD-PROPERTIES-KHR
@@ -5613,6 +5635,7 @@ See CMD-COPY-IMAGE-TO-BUFFER
 See CMD-COPY-IMAGE-TO-BUFFER-2-KHR
 See CMD-COPY-MEMORY-TO-ACCELERATION-STRUCTURE-KHR
 See CMD-COPY-QUERY-POOL-RESULTS
+See CMD-CU-LAUNCH-KERNEL-NVX
 See CMD-DEBUG-MARKER-BEGIN-EXT
 See CMD-DEBUG-MARKER-END-EXT
 See CMD-DEBUG-MARKER-INSERT-EXT
@@ -5830,7 +5853,7 @@ Related functions:
 See CMD-BIND-SHADING-RATE-IMAGE-NV
 See CREATE-IMAGE-VIEW
 See DESTROY-IMAGE-VIEW
-See GET-IMAGE-VIEW-ADDRESS-NV-X"
+See GET-IMAGE-VIEW-ADDRESS-NVX"
   'cffi:foreign-pointer)
 
 (deftype shader-module ()
@@ -6163,6 +6186,28 @@ See CREATE-PRIVATE-DATA-SLOT-EXT
 See DESTROY-PRIVATE-DATA-SLOT-EXT
 See GET-PRIVATE-DATA-EXT
 See SET-PRIVATE-DATA-EXT"
+  'cffi:foreign-pointer)
+
+(deftype cu-module-nvx ()
+  "Represents the (non-dispatchable) handle [VkCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCuModuleNVX.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-CU-MODULE-NVX
+See DESTROY-CU-MODULE-NVX"
+  'cffi:foreign-pointer)
+
+(deftype cu-function-nvx ()
+  "Represents the (non-dispatchable) handle [VkCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCuFunctionNVX.html).
+
+Parents:
+See DEVICE
+
+Related functions:
+See CREATE-CU-FUNCTION-NVX
+See DESTROY-CU-FUNCTION-NVX"
   'cffi:foreign-pointer)
 
 (deftype display-khr ()
@@ -6736,6 +6781,8 @@ See CREATE-BUFFER
 See CREATE-BUFFER-VIEW
 See CREATE-COMMAND-POOL
 See CREATE-COMPUTE-PIPELINES
+See CREATE-CU-FUNCTION-NVX
+See CREATE-CU-MODULE-NVX
 See CREATE-DEBUG-REPORT-CALLBACK-EXT
 See CREATE-DEBUG-UTILS-MESSENGER-EXT
 See CREATE-DEFERRED-OPERATION-KHR
@@ -6788,6 +6835,8 @@ See DESTROY-ACCELERATION-STRUCTURE-NV
 See DESTROY-BUFFER
 See DESTROY-BUFFER-VIEW
 See DESTROY-COMMAND-POOL
+See DESTROY-CU-FUNCTION-NVX
+See DESTROY-CU-MODULE-NVX
 See DESTROY-DEBUG-REPORT-CALLBACK-EXT
 See DESTROY-DEBUG-UTILS-MESSENGER-EXT
 See DESTROY-DEFERRED-OPERATION-KHR
@@ -13291,7 +13340,7 @@ See PHYSICAL-DEVICE-SAMPLER-FILTER-MINMAX-PROPERTIES
 See PHYSICAL-DEVICE-PROTECTED-MEMORY-PROPERTIES
 See PHYSICAL-DEVICE-POINT-CLIPPING-PROPERTIES
 See PHYSICAL-DEVICE-SUBGROUP-PROPERTIES
-See PHYSICAL-DEVICE-MULTIVIEW-PER-VIEW-ATTRIBUTES-PROPERTIES-NV-X
+See PHYSICAL-DEVICE-MULTIVIEW-PER-VIEW-ATTRIBUTES-PROPERTIES-NVX
 See PHYSICAL-DEVICE-DISCARD-RECTANGLE-PROPERTIES-EXT
 See PHYSICAL-DEVICE-MULTIVIEW-PROPERTIES
 See PHYSICAL-DEVICE-ID-PROPERTIES
@@ -16097,7 +16146,7 @@ Instances of this class can be used to extend the following classes (using their
 See GRAPHICS-PIPELINE-CREATE-INFO
 "))
 
-(defclass physical-device-multiview-per-view-attributes-properties-nv-x ()
+(defclass physical-device-multiview-per-view-attributes-properties-nvx ()
   ((next
      :initarg :next
      :initform nil
@@ -22356,7 +22405,7 @@ See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
-(defclass image-view-handle-info-nv-x ()
+(defclass image-view-handle-info-nvx ()
   ((next
      :initarg :next
      :initform nil
@@ -22387,10 +22436,10 @@ See DESCRIPTOR-TYPE
 See SAMPLER
 
 Instances of this class are used as parameters of the following functions:
-See GET-IMAGE-VIEW-HANDLE-NV-X
+See GET-IMAGE-VIEW-HANDLE-NVX
 "))
 
-(defclass image-view-address-properties-nv-x ()
+(defclass image-view-address-properties-nvx ()
   ((next
      :initarg :next
      :initform nil
@@ -22415,7 +22464,7 @@ See DEVICE-ADDRESS
 See DEVICE-SIZE
 
 Instances of this class are used as parameters of the following functions:
-See GET-IMAGE-VIEW-ADDRESS-NV-X
+See GET-IMAGE-VIEW-ADDRESS-NVX
 "))
 
 (defclass present-frame-token-ggp ()
@@ -26191,7 +26240,7 @@ See DEVICE-CREATE-INFO
 
 Slots:
  - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
- - FRAGMENT-SHADING-RATE-ATTACHMENT: an ATTACHMENT-REFERENCE-2.
+ - FRAGMENT-SHADING-RATE-ATTACHMENT (optional): an ATTACHMENT-REFERENCE-2.
  - SHADING-RATE-ATTACHMENT-TEXEL-SIZE: an EXTENT-2D.
 
 Slot types:
@@ -28744,4 +28793,132 @@ See PROVOKING-VERTEX-MODE-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PIPELINE-RASTERIZATION-STATE-CREATE-INFO
+"))
+
+(defclass cu-module-create-info-nvx ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (data-size
+     :initarg :data-size
+     :initform 0
+     :accessor data-size)
+   (data
+     :initarg :data
+     :initform nil
+     :accessor data))
+  (:documentation "Represents the struct [VkCuModuleCreateInfoNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCuModuleCreateInfoNVX.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - DATA-SIZE: a positive integer.
+ - DATA: a foreign pointer.
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-CU-MODULE-NVX
+"))
+
+(defclass cu-function-create-info-nvx ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (module
+     :initarg :module
+     :initform nil
+     :accessor module)
+   (name
+     :initarg :name
+     :initform ""
+     :accessor name))
+  (:documentation "Represents the struct [VkCuFunctionCreateInfoNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCuFunctionCreateInfoNVX.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MODULE: a CU-MODULE-NVX.
+ - NAME: a string.
+
+Slot types:
+See CU-MODULE-NVX
+
+Instances of this class are used as parameters of the following functions:
+See CREATE-CU-FUNCTION-NVX
+"))
+
+(defclass cu-launch-info-nvx ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (function-handle
+     :initarg :function-handle
+     :initform nil
+     :accessor function-handle)
+   (grid-dim-x
+     :initarg :grid-dim-x
+     :initform 0
+     :accessor grid-dim-x)
+   (grid-dim-y
+     :initarg :grid-dim-y
+     :initform 0
+     :accessor grid-dim-y)
+   (grid-dim-z
+     :initarg :grid-dim-z
+     :initform 0
+     :accessor grid-dim-z)
+   (block-dim-x
+     :initarg :block-dim-x
+     :initform 0
+     :accessor block-dim-x)
+   (block-dim-y
+     :initarg :block-dim-y
+     :initform 0
+     :accessor block-dim-y)
+   (block-dim-z
+     :initarg :block-dim-z
+     :initform 0
+     :accessor block-dim-z)
+   (shared-mem-bytes
+     :initarg :shared-mem-bytes
+     :initform 0
+     :accessor shared-mem-bytes)
+   (param-count
+     :initarg :param-count
+     :initform 0
+     :accessor param-count)
+   (params
+     :initarg :params
+     :initform nil
+     :accessor params)
+   (extra-count
+     :initarg :extra-count
+     :initform 0
+     :accessor extra-count)
+   (extras
+     :initarg :extras
+     :initform nil
+     :accessor extras))
+  (:documentation "Represents the struct [VkCuLaunchInfoNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkCuLaunchInfoNVX.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - function-handle: a CU-FUNCTION-NVX.
+ - GRID-DIM-X: a positive (32-bit) integer.
+ - GRID-DIM-Y: a positive (32-bit) integer.
+ - GRID-DIM-Z: a positive (32-bit) integer.
+ - BLOCK-DIM-X: a positive (32-bit) integer.
+ - BLOCK-DIM-Y: a positive (32-bit) integer.
+ - BLOCK-DIM-Z: a positive (32-bit) integer.
+ - SHARED-MEM-BYTES: a positive (32-bit) integer.
+ - PARAM-COUNT: a positive integer.
+ - PARAMS: a foreign pointer.
+ - EXTRA-COUNT: a positive integer.
+ - EXTRAS: a foreign pointer.
+
+Slot types:
+See CU-FUNCTION-NVX
+
+Instances of this class are used as parameters of the following functions:
+See CMD-CU-LAUNCH-KERNEL-NVX
 "))

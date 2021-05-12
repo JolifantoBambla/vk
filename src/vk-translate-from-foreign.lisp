@@ -4261,14 +4261,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :discard-rectangle-mode %vk:discard-rectangle-mode
                    :discard-rectangles (loop for i from 0 below %vk:discard-rectangle-count collect (cffi:mem-aref %vk:p-discard-rectangles '(:struct %vk:rect-2d) i)))))
 
-(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-multiview-per-view-attributes-properties-nv-x))
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-multiview-per-view-attributes-properties-nvx))
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
         %vk:per-view-position-all-components)
        ptr
-       (:struct %vk:physical-device-multiview-per-view-attributes-properties-nv-x))
-    (make-instance 'vk:physical-device-multiview-per-view-attributes-properties-nv-x
+       (:struct %vk:physical-device-multiview-per-view-attributes-properties-nvx))
+    (make-instance 'vk:physical-device-multiview-per-view-attributes-properties-nvx
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :per-view-position-all-components %vk:per-view-position-all-components)))
 
@@ -7302,7 +7302,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :ycbcr-image-arrays %vk:ycbcr-image-arrays)))
 
-(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-view-handle-info-nv-x))
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-view-handle-info-nvx))
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
@@ -7310,22 +7310,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:descriptor-type
         %vk:sampler)
        ptr
-       (:struct %vk:image-view-handle-info-nv-x))
-    (make-instance 'vk:image-view-handle-info-nv-x
+       (:struct %vk:image-view-handle-info-nvx))
+    (make-instance 'vk:image-view-handle-info-nvx
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :image-view %vk:image-view
                    :descriptor-type %vk:descriptor-type
                    :sampler %vk:sampler)))
 
-(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-view-address-properties-nv-x))
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-view-address-properties-nvx))
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
         %vk:device-address
         %vk:size)
        ptr
-       (:struct %vk:image-view-address-properties-nv-x))
-    (make-instance 'vk:image-view-address-properties-nv-x
+       (:struct %vk:image-view-address-properties-nvx))
+    (make-instance 'vk:image-view-address-properties-nvx
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :device-address %vk:device-address
                    :size %vk:size)))
@@ -10238,4 +10238,63 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:pipeline-rasterization-provoking-vertex-state-create-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :provoking-vertex-mode %vk:provoking-vertex-mode)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-cu-module-create-info-nvx))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:data-size
+        %vk:p-data)
+       ptr
+       (:struct %vk:cu-module-create-info-nvx))
+    (make-instance 'vk:cu-module-create-info-nvx
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :data-size %vk:data-size
+                   :data %vk:p-data)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-cu-function-create-info-nvx))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:module
+        %vk:p-name)
+       ptr
+       (:struct %vk:cu-function-create-info-nvx))
+    (make-instance 'vk:cu-function-create-info-nvx
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :module %vk:module
+                   :name %vk:p-name)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-cu-launch-info-nvx))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:function-handle
+        %vk:grid-dim-x
+        %vk:grid-dim-y
+        %vk:grid-dim-z
+        %vk:block-dim-x
+        %vk:block-dim-y
+        %vk:block-dim-z
+        %vk:shared-mem-bytes
+        %vk:param-count
+        %vk:p-params
+        %vk:extra-count
+        %vk:p-extras)
+       ptr
+       (:struct %vk:cu-launch-info-nvx))
+    (make-instance 'vk:cu-launch-info-nvx
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :function-handle %vk:function-handle
+                   :grid-dim-x %vk:grid-dim-x
+                   :grid-dim-y %vk:grid-dim-y
+                   :grid-dim-z %vk:grid-dim-z
+                   :block-dim-x %vk:block-dim-x
+                   :block-dim-y %vk:block-dim-y
+                   :block-dim-z %vk:block-dim-z
+                   :shared-mem-bytes %vk:shared-mem-bytes
+                   :param-count %vk:param-count
+                   :params %vk:p-params
+                   :extra-count %vk:extra-count
+                   :extras %vk:p-extras)))
 

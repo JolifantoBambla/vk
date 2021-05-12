@@ -56,7 +56,7 @@ CMUCL fails to find `libvulkan.so` in the test action.
 MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
 
 ### Supported Vulkan API versions
-**The current version of `vk` is based on version `v1.2.175`.**
+**The current version of `vk` is based on version `v1.2.178`.**
 
 `vk` targets Vulkan 1.2, so all versions support the core API of version 1.2.x.
 The main branch is always generated from the most recent version of the [Vulkan API XML registry](https://github.com/KhronosGroup/Vulkan-Docs)
@@ -80,6 +80,9 @@ open an issue in the GitHub repository.
 ### CL dependencies
 * `alexandria`
 * `cffi`
+
+#### Test dependencies
+* `rove`
 
 ### Other dependencies
 * [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)
@@ -136,6 +139,7 @@ Slots and their `:initarg`s still have the same name, but the accessors use the 
 
 * The accessors to all slots named `wait-semaphores` are named `p-wait-semaphores` because it clashes with the name of the function `vk:wait-semaphores`.
 * Types from external headers (e.g. OS specific types) are not modified.
+* Slots and accessors with the name `function` or `pFunction` in the C API are called `function-handle`. 
 
 ### vulkan (Nickname: %vk)
 Contains the actual `cffi` bindings for the Vulkan API.

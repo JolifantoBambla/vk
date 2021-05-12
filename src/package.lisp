@@ -303,6 +303,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+mvk-ios-surface-extension-name+
     #:+mvk-macos-surface-extension-name+
     #:+nn-vi-surface-extension-name+
+    #:+nvx-binary-import-extension-name+
     #:+nvx-image-view-handle-extension-name+
     #:+nvx-multiview-per-view-attributes-extension-name+
     #:+nv-acquire-winrt-display-extension-name+
@@ -633,6 +634,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-copy-memory-to-acceleration-structure-info-khr
     #:coverage-modulation-mode-nv
     #:coverage-reduction-mode-nv
+    #:cu-function-create-info-nvx
+    #:c-cu-function-create-info-nvx
+    #:cu-function-nvx
+    #:cu-launch-info-nvx
+    #:c-cu-launch-info-nvx
+    #:cu-module-create-info-nvx
+    #:c-cu-module-create-info-nvx
+    #:cu-module-nvx
     #:cull-mode-flag-bits
     #:cull-mode-flags
     #:d-3d-1-2-fence-submit-info-khr
@@ -1116,14 +1125,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-view
     #:image-view-astc-decode-mode-ext
     #:c-image-view-astc-decode-mode-ext
-    #:image-view-address-properties-nv-x
-    #:c-image-view-address-properties-nv-x
+    #:image-view-address-properties-nvx
+    #:c-image-view-address-properties-nvx
     #:image-view-create-flag-bits
     #:image-view-create-flags
     #:image-view-create-info
     #:c-image-view-create-info
-    #:image-view-handle-info-nv-x
-    #:c-image-view-handle-info-nv-x
+    #:image-view-handle-info-nvx
+    #:c-image-view-handle-info-nvx
     #:image-view-type
     #:image-view-usage-create-info
     #:c-image-view-usage-create-info
@@ -1498,8 +1507,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-multiview-features
     #:physical-device-multiview-features-khr
     #:c-physical-device-multiview-features-khr
-    #:physical-device-multiview-per-view-attributes-properties-nv-x
-    #:c-physical-device-multiview-per-view-attributes-properties-nv-x
+    #:physical-device-multiview-per-view-attributes-properties-nvx
+    #:c-physical-device-multiview-per-view-attributes-properties-nvx
     #:physical-device-multiview-properties
     #:c-physical-device-multiview-properties
     #:physical-device-multiview-properties-khr
@@ -2425,6 +2434,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-copy-image-to-buffer-2-khr
     #:cmd-copy-memory-to-acceleration-structure-khr
     #:cmd-copy-query-pool-results
+    #:cmd-cu-launch-kernel-nvx
     #:cmd-debug-marker-begin-ext
     #:cmd-debug-marker-end-ext
     #:cmd-debug-marker-insert-ext
@@ -2543,6 +2553,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:create-buffer-view
     #:create-command-pool
     #:create-compute-pipelines
+    #:create-cu-function-nvx
+    #:create-cu-module-nvx
     #:create-debug-report-callback-ext
     #:create-debug-utils-messenger-ext
     #:create-deferred-operation-khr
@@ -2602,6 +2614,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:destroy-buffer
     #:destroy-buffer-view
     #:destroy-command-pool
+    #:destroy-cu-function-nvx
+    #:destroy-cu-module-nvx
     #:destroy-debug-report-callback-ext
     #:destroy-debug-utils-messenger-ext
     #:destroy-deferred-operation-khr
@@ -2697,8 +2711,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-image-sparse-memory-requirements-2
     #:get-image-sparse-memory-requirements-2-khr
     #:get-image-subresource-layout
-    #:get-image-view-address-nv-x
-    #:get-image-view-handle-nv-x
+    #:get-image-view-address-nvx
+    #:get-image-view-handle-nvx
     #:get-instance-proc-addr
     #:get-memory-android-hardware-buffer-android
     #:get-memory-fd-khr
@@ -2917,6 +2931,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:blend-constants
     #:blend-enable
     #:blend-overlap
+    #:block-dim-x
+    #:block-dim-y
+    #:block-dim-z
     #:border-color
     #:bresenham-lines
     #:buffer
@@ -3158,6 +3175,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:external-memory-features
     #:external-memory-properties
     #:external-semaphore-features
+    #:extra-count
     #:extra-primitive-overestimation-size
     #:extra-primitive-overestimation-size-granularity
     #:f64
@@ -3223,6 +3241,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:full-screen-exclusive
     #:full-screen-exclusive-supported
     #:fully-covered-fragment-shader-input-variable
+    #:function-handle
     #:g
     #:general-shader
     #:geometry
@@ -3232,6 +3251,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:geometry-type
     #:global-alpha
     #:global-priority
+    #:grid-dim-x
+    #:grid-dim-y
+    #:grid-dim-z
     #:group-count
     #:group-index
     #:handle
@@ -3700,6 +3722,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-enabled-validation-features
     #:p-engine-name
     #:p-exclusive-scissors
+    #:p-extras
     #:p-fragment-shading-rate-attachment
     #:p-geometries
     #:p-groups
@@ -3735,6 +3758,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-object-name
     #:p-objects
     #:p-parameters-add-info
+    #:p-params
     #:p-physical-devices
     #:p-picture-resource
     #:p-pipeline-creation-feedback
@@ -3818,6 +3842,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:p-wait-semaphore-infos
     #:p-wait-semaphore-values
     #:p-wait-semaphores
+    #:param-count
     #:parameter
     #:parameters
     #:pass-op
@@ -4122,6 +4147,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shading-rate-palette-size
     #:shading-rate-texel-size
     #:shading-rate-type
+    #:shared-mem-bytes
     #:shared-present-supported-usage-flags
     #:sharing-mode
     #:signal-semaphore-count
@@ -4620,6 +4646,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+mvk-ios-surface-extension-name+
     #:+mvk-macos-surface-extension-name+
     #:+nn-vi-surface-extension-name+
+    #:+nvx-binary-import-extension-name+
     #:+nvx-image-view-handle-extension-name+
     #:+nvx-multiview-per-view-attributes-extension-name+
     #:+nv-acquire-winrt-display-extension-name+
@@ -4895,6 +4922,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+mvk-ios-surface-extension-name+
     #:+mvk-macos-surface-extension-name+
     #:+nn-vi-surface-extension-name+
+    #:+nvx-binary-import-extension-name+
     #:+nvx-image-view-handle-extension-name+
     #:+nvx-multiview-per-view-attributes-extension-name+
     #:+nv-acquire-winrt-display-extension-name+
@@ -5027,6 +5055,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:copy-image-info-2-khr
     #:copy-image-to-buffer-info-2-khr
     #:copy-memory-to-acceleration-structure-info-khr
+    #:cu-function-create-info-nvx
+    #:cu-launch-info-nvx
+    #:cu-module-create-info-nvx
     #:d-3d-1-2-fence-submit-info-khr
     #:debug-marker-marker-info-ext
     #:debug-marker-object-name-info-ext
@@ -5169,9 +5200,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:image-subresource-range
     #:image-swapchain-create-info-khr
     #:image-view-astc-decode-mode-ext
-    #:image-view-address-properties-nv-x
+    #:image-view-address-properties-nvx
     #:image-view-create-info
-    #:image-view-handle-info-nv-x
+    #:image-view-handle-info-nvx
     #:image-view-usage-create-info
     #:import-android-hardware-buffer-info-android
     #:import-fence-fd-info-khr
@@ -5307,7 +5338,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-mesh-shader-features-nv
     #:physical-device-mesh-shader-properties-nv
     #:physical-device-multiview-features
-    #:physical-device-multiview-per-view-attributes-properties-nv-x
+    #:physical-device-multiview-per-view-attributes-properties-nvx
     #:physical-device-multiview-properties
     #:physical-device-mutable-descriptor-type-features-valve
     #:physical-device-p-c-i-bus-info-properties-ext
@@ -5666,6 +5697,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:blend-constants
     #:blend-enable
     #:blend-overlap
+    #:block-dim-x
+    #:block-dim-y
+    #:block-dim-z
     #:border-color
     #:bresenham-lines
     #:buffer
@@ -5906,6 +5940,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:external-memory-features
     #:external-memory-properties
     #:external-semaphore-features
+    #:extra-count
     #:extra-primitive-overestimation-size
     #:extra-primitive-overestimation-size-granularity
     #:f64
@@ -5971,6 +6006,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:full-screen-exclusive
     #:full-screen-exclusive-supported
     #:fully-covered-fragment-shader-input-variable
+    #:function-handle
     #:g
     #:general-shader
     #:geometry
@@ -5980,6 +6016,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:geometry-type
     #:global-alpha
     #:global-priority
+    #:grid-dim-x
+    #:grid-dim-y
+    #:grid-dim-z
     #:group-count
     #:group-index
     #:handle
@@ -6445,6 +6484,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:enabled-validation-features
     #:engine-name
     #:exclusive-scissors
+    #:extras
     #:fragment-shading-rate-attachment
     #:geometries
     #:groups
@@ -6480,6 +6520,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:object-name
     #:objects
     #:parameters-add-info
+    #:params
     #:picture-resource
     #:pipeline-creation-feedback
     #:pipeline-stage-creation-feedbacks
@@ -6560,6 +6601,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:wait-semaphore-infos
     #:wait-semaphore-values
     #:p-wait-semaphores
+    #:param-count
     #:parameter
     #:parameters
     #:pass-op
@@ -6864,6 +6906,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shading-rate-palette-size
     #:shading-rate-texel-size
     #:shading-rate-type
+    #:shared-mem-bytes
     #:shared-present-supported-usage-flags
     #:sharing-mode
     #:signal-semaphore-count
@@ -7182,6 +7225,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-copy-image-to-buffer-2-khr
     #:cmd-copy-memory-to-acceleration-structure-khr
     #:cmd-copy-query-pool-results
+    #:cmd-cu-launch-kernel-nvx
     #:cmd-debug-marker-begin-ext
     #:cmd-debug-marker-end-ext
     #:cmd-debug-marker-insert-ext
@@ -7300,6 +7344,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:create-buffer-view
     #:create-command-pool
     #:create-compute-pipelines
+    #:create-cu-function-nvx
+    #:create-cu-module-nvx
     #:create-debug-report-callback-ext
     #:create-debug-utils-messenger-ext
     #:create-deferred-operation-khr
@@ -7359,6 +7405,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:destroy-buffer
     #:destroy-buffer-view
     #:destroy-command-pool
+    #:destroy-cu-function-nvx
+    #:destroy-cu-module-nvx
     #:destroy-debug-report-callback-ext
     #:destroy-debug-utils-messenger-ext
     #:destroy-deferred-operation-khr
@@ -7454,8 +7502,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-image-sparse-memory-requirements-2
     #:get-image-sparse-memory-requirements-2-khr
     #:get-image-subresource-layout
-    #:get-image-view-address-nv-x
-    #:get-image-view-handle-nv-x
+    #:get-image-view-address-nvx
+    #:get-image-view-handle-nvx
     #:get-instance-proc-addr
     #:get-memory-android-hardware-buffer-android
     #:get-memory-fd-khr
@@ -7814,6 +7862,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-view
     #:command-buffer
     #:command-pool
+    #:cu-function-nvx
+    #:cu-module-nvx
     #:debug-report-callback-ext
     #:debug-utils-messenger-ext
     #:deferred-operation-khr

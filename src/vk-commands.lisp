@@ -10941,13 +10941,13 @@ See COMMAND-BUFFER
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (pipeline-stack-size :uint32 pipeline-stack-size :in :raw))
 
-(defvk-simple-fun (get-image-view-handle-nv-x
-                   %vk:get-image-view-handle-nv-x
+(defvk-simple-fun (get-image-view-handle-nvx
+                   %vk:get-image-view-handle-nvx
                    "Represents [vkGetImageViewHandleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewHandleNVX.html).
 
 Args:
  - DEVICE: a DEVICE
- - INFO: a (OR IMAGE-VIEW-HANDLE-INFO-NV-X CFFI:FOREIGN-POINTER)
+ - INFO: a (OR IMAGE-VIEW-HANDLE-INFO-NVX CFFI:FOREIGN-POINTER)
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -10956,18 +10956,18 @@ Returns:
 
 See DEVICE
 See EXTENSION-LOADER
-See IMAGE-VIEW-HANDLE-INFO-NV-X
+See IMAGE-VIEW-HANDLE-INFO-NVX
 See *EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:image-view-handle-info-nv-x cffi:foreign-pointer)))
+                   ((device cffi:foreign-pointer) (info (or vk:image-view-handle-info-nvx cffi:foreign-pointer)))
                    ()
                   :uint32
                   t)
   (device '%vk:device device :in :handle)
-  (info '(:struct %vk:image-view-handle-info-nv-x) info :in))
+  (info '(:struct %vk:image-view-handle-info-nvx) info :in))
 
-(defvk-get-struct-fun (get-image-view-address-nv-x
-                       %vk:get-image-view-address-nv-x
+(defvk-get-struct-fun (get-image-view-address-nvx
+                       %vk:get-image-view-address-nvx
                        "Represents [vkGetImageViewAddressNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewAddressNVX.html).
 
 Args:
@@ -10977,7 +10977,7 @@ Args:
 
 Returns:
   (CL:VALUES
-    IMAGE-VIEW-ADDRESS-PROPERTIES-NV-XNIL
+    IMAGE-VIEW-ADDRESS-PROPERTIES-NVXNIL
     RESULT)
 
 Success codes:
@@ -10990,7 +10990,7 @@ Errors signalled on codes:
 See DEVICE
 See EXTENSION-LOADER
 See IMAGE-VIEW
-See IMAGE-VIEW-ADDRESS-PROPERTIES-NV-X
+See IMAGE-VIEW-ADDRESS-PROPERTIES-NVX
 See RESULT
 See *EXTENSION-LOADER*
 "
@@ -10999,7 +10999,7 @@ See *EXTENSION-LOADER*
                        t)
   (device '%vk:device device :in :handle)
   (image-view '%vk:image-view image-view :in :handle)
-  (properties '(:struct %vk:image-view-address-properties-nv-x) properties :out))
+  (properties '(:struct %vk:image-view-address-properties-nvx) properties :out))
 
 (defvk-enumerate-fun (get-physical-device-surface-present-modes-2-ext
                       %vk:get-physical-device-surface-present-modes-2-ext
@@ -13571,4 +13571,155 @@ See VIDEO-ENCODE-INFO-KHR
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (encode-info '(:struct %vk:video-encode-info-khr) encode-info :in))
+
+(defvk-create-handle-fun (create-cu-module-nvx
+                          %vk:create-cu-module-nvx
+                          "Represents [vkCreateCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCuModuleNVX.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - CREATE-INFO: a (OR CU-MODULE-CREATE-INFO-NVX CFFI:FOREIGN-POINTER)
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    CU-MODULE-NVXNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-INITIALIZATION-FAILED
+
+See ALLOCATION-CALLBACKS
+See CU-MODULE-CREATE-INFO-NVX
+See CU-MODULE-NVX
+See DEVICE
+See EXTENSION-LOADER
+See RESULT
+See *DEFAULT-ALLOCATOR*
+See *EXTENSION-LOADER*
+"
+                          ((device cffi:foreign-pointer) (create-info (or vk:cu-module-create-info-nvx cffi:foreign-pointer)))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil
+                          t)
+  (device '%vk:device device :in :handle)
+  (create-info '(:struct %vk:cu-module-create-info-nvx) create-info :in)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
+  (module '%vk:cu-module-nvx module :out :handle))
+
+(defvk-create-handle-fun (create-cu-function-nvx
+                          %vk:create-cu-function-nvx
+                          "Represents [vkCreateCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCuFunctionNVX.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - CREATE-INFO: a (OR CU-FUNCTION-CREATE-INFO-NVX CFFI:FOREIGN-POINTER)
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    CU-FUNCTION-NVXNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-INITIALIZATION-FAILED
+
+See ALLOCATION-CALLBACKS
+See CU-FUNCTION-CREATE-INFO-NVX
+See CU-FUNCTION-NVX
+See DEVICE
+See EXTENSION-LOADER
+See RESULT
+See *DEFAULT-ALLOCATOR*
+See *EXTENSION-LOADER*
+"
+                          ((device cffi:foreign-pointer) (create-info (or vk:cu-function-create-info-nvx cffi:foreign-pointer)))
+                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          nil
+                          t)
+  (device '%vk:device device :in :handle)
+  (create-info '(:struct %vk:cu-function-create-info-nvx) create-info :in)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
+  (function-handle '%vk:cu-function-nvx function-handle :out :handle))
+
+(defvk-simple-fun (destroy-cu-module-nvx
+                   %vk:destroy-cu-module-nvx
+                   "Represents [vkDestroyCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCuModuleNVX.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - MODULE: a CU-MODULE-NVX
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See ALLOCATION-CALLBACKS
+See CU-MODULE-NVX
+See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-ALLOCATOR*
+See *EXTENSION-LOADER*
+"
+                   ((device cffi:foreign-pointer) (module cffi:foreign-pointer))
+                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil
+                  t)
+  (device '%vk:device device :in :handle)
+  (module '%vk:cu-module-nvx module :in :handle)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvk-simple-fun (destroy-cu-function-nvx
+                   %vk:destroy-cu-function-nvx
+                   "Represents [vkDestroyCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCuFunctionNVX.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - function-handle: a CU-FUNCTION-NVX
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See ALLOCATION-CALLBACKS
+See CU-FUNCTION-NVX
+See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-ALLOCATOR*
+See *EXTENSION-LOADER*
+"
+                   ((device cffi:foreign-pointer) (function-handle cffi:foreign-pointer))
+                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                  nil
+                  t)
+  (device '%vk:device device :in :handle)
+  (function-handle '%vk:cu-function-nvx function-handle :in :handle)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvk-simple-fun (cmd-cu-launch-kernel-nvx
+                   %vk:cmd-cu-launch-kernel-nvx
+                   "Represents [vkCmdCuLaunchKernelNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCuLaunchKernelNVX.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - LAUNCH-INFO: a (OR CU-LAUNCH-INFO-NVX CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See CU-LAUNCH-INFO-NVX
+See EXTENSION-LOADER
+See *EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (launch-info (or vk:cu-launch-info-nvx cffi:foreign-pointer)))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (launch-info '(:struct %vk:cu-launch-info-nvx) launch-info :in))
 

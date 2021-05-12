@@ -1,5 +1,5 @@
 (defsystem vk
-  :version "1.0.1"
+  :version "2.0.0"
   :license "MIT"
   :description "Common Lisp bindings for the Vulkan API."
   :author "Lukas Herzberger <herzberger.lukas at gmail.com>"

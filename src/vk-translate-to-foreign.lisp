@@ -4282,13 +4282,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:discard-rectangle-count (length (vk:discard-rectangles value))
           %vk:p-discard-rectangles (vk-alloc:foreign-allocate-and-fill '(:struct %vk:rect-2d) (vk:discard-rectangles value) ptr))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-multiview-per-view-attributes-properties-nv-x) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-multiview-per-view-attributes-properties-nvx) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
         %vk:per-view-position-all-components)
        ptr
-       (:struct %vk:physical-device-multiview-per-view-attributes-properties-nv-x))
+       (:struct %vk:physical-device-multiview-per-view-attributes-properties-nvx))
     (setf %vk:s-type :physical-device-multiview-per-view-attributes-properties-nvx
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:per-view-position-all-components (vk:per-view-position-all-components value))))
@@ -7350,7 +7350,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:ycbcr-image-arrays (vk:ycbcr-image-arrays value))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-view-handle-info-nv-x) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-view-handle-info-nvx) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
@@ -7358,21 +7358,21 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:descriptor-type
         %vk:sampler)
        ptr
-       (:struct %vk:image-view-handle-info-nv-x))
+       (:struct %vk:image-view-handle-info-nvx))
     (setf %vk:s-type :image-view-handle-info-nvx
           %vk:p-next (cffi:null-pointer)
           %vk:image-view (if (vk:image-view value) (vk:image-view value) (cffi:null-pointer))
           %vk:descriptor-type (vk:descriptor-type value)
           %vk:sampler (if (vk:sampler value) (vk:sampler value) (cffi:null-pointer)))))
 
-(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-view-address-properties-nv-x) ptr)
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-view-address-properties-nvx) ptr)
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
         %vk:device-address
         %vk:size)
        ptr
-       (:struct %vk:image-view-address-properties-nv-x))
+       (:struct %vk:image-view-address-properties-nvx))
     (setf %vk:s-type :image-view-address-properties-nvx
           %vk:p-next (cffi:null-pointer)
           %vk:device-address (vk:device-address value)
@@ -10445,4 +10445,63 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :pipeline-rasterization-provoking-vertex-state-create-info-ext
           %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer))
           %vk:provoking-vertex-mode (vk:provoking-vertex-mode value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-cu-module-create-info-nvx) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:data-size
+        %vk:p-data)
+       ptr
+       (:struct %vk:cu-module-create-info-nvx))
+    (setf %vk:s-type :cu-module-create-info-nvx
+          %vk:p-next (cffi:null-pointer)
+          %vk:data-size (vk:data-size value)
+          %vk:p-data (if (vk:data value) (vk:data value) (cffi:null-pointer)))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-cu-function-create-info-nvx) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:module
+        %vk:p-name)
+       ptr
+       (:struct %vk:cu-function-create-info-nvx))
+    (setf %vk:s-type :cu-function-create-info-nvx
+          %vk:p-next (cffi:null-pointer)
+          %vk:module (if (vk:module value) (vk:module value) (cffi:null-pointer))
+          %vk:p-name (vk:name value))))
+
+(defmethod cffi:translate-into-foreign-memory (value (type %vk:c-cu-launch-info-nvx) ptr)
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:function-handle
+        %vk:grid-dim-x
+        %vk:grid-dim-y
+        %vk:grid-dim-z
+        %vk:block-dim-x
+        %vk:block-dim-y
+        %vk:block-dim-z
+        %vk:shared-mem-bytes
+        %vk:param-count
+        %vk:p-params
+        %vk:extra-count
+        %vk:p-extras)
+       ptr
+       (:struct %vk:cu-launch-info-nvx))
+    (setf %vk:s-type :cu-launch-info-nvx
+          %vk:p-next (cffi:null-pointer)
+          %vk:function-handle (if (vk:function-handle value) (vk:function-handle value) (cffi:null-pointer))
+          %vk:grid-dim-x (vk:grid-dim-x value)
+          %vk:grid-dim-y (vk:grid-dim-y value)
+          %vk:grid-dim-z (vk:grid-dim-z value)
+          %vk:block-dim-x (vk:block-dim-x value)
+          %vk:block-dim-y (vk:block-dim-y value)
+          %vk:block-dim-z (vk:block-dim-z value)
+          %vk:shared-mem-bytes (vk:shared-mem-bytes value)
+          %vk:param-count (vk:param-count value)
+          %vk:p-params (if (vk:params value) (vk:params value) (cffi:null-pointer))
+          %vk:extra-count (vk:extra-count value)
+          %vk:p-extras (if (vk:extras value) (vk:extras value) (cffi:null-pointer)))))
 
