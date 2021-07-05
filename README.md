@@ -101,7 +101,12 @@ open an issue in the GitHub repository.
 
 
 ## Installation
-*This project is not on quicklisp yet - a quicklisp release will be requested with version 1.0.0* 
+As of the may 2021 dist update `vk` is available on Quicklisp.
+Just make sure to have Vulkan installed (see [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)), and then run 
+
+```cl
+(ql:quickload :vk)
+```
 
 ### Samples and Usage
 Check out the [documentation](https://jolifantobambla.github.io/vk).
