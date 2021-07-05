@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1-v1.2.179] - 2021-06-05 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.0.1-v1.2.179)
+
+### Fixed
+- Fixed translation of unions when used as function arguments directly.
+
 ## [2.0.0-v1.2.178] - 2021-05-12 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.0.0-v1.2.178)
 
 ### Changed

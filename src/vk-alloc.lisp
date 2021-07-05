@@ -84,7 +84,8 @@ See *ALLOCATE-FOREIGN-OBJECT-FUNC*"
             (if (listp content)
                 (setf p-resource (funcall *allocate-foreign-object-func* type :initial-contents content))
                 (setf p-resource (funcall *allocate-foreign-object-func* type :initial-element content))))
-        (push p-resource (gethash parent-ptr *allocated-foreign-objects*))
+        (unless (cffi:null-pointer-p parent-ptr)
+          (push p-resource (gethash parent-ptr *allocated-foreign-objects*)))
         p-resource)
       (cffi:null-pointer)))
 
@@ -119,6 +120,15 @@ See CFFI:NULL-POINTER-P"
                    ,@body)
                  (cffi:with-foreign-string (,var ,content)
                    ,@body)))
+           ;; unions need special care: https://github.com/JolifantoBambla/vk/issues/5
+           ((and (listp type)
+                 (listp (second type))
+                 (member :union (second type)))
+            `(let ((,var (foreign-allocate-and-fill ,type ,content (cffi:null-pointer))))
+               (unless (cffi:null-pointer-p ,var)
+                 (unwind-protect
+                      (progn ,@body)
+                   (free-allocated-foreign-chain ,var)))))
            (t
             `(let ((,contents (if (or (vectorp ,content)
                                       (and (listp ,content)

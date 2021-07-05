@@ -29,6 +29,15 @@ You can just write the following with `vk`:
   )
 ```
 
+`vk` provides a class and function for each of the structs/unions and functions in the Vulkan API.
+Whenever a function in the C API takes a (pointer to a) struct/union as an argument the corresponding
+function in `vk` takes an instance of the corresponding class instead.
+Class instances are automatically translated by CFFI such that you should never have to deal with type translation yourself.
+Note however, that there is no validation done by `vk`, so you still need to enable validation layers in the driver yourself when creating a `vk:instance` (i.e. a `VkInstance`).
+
+Other important elements of the C API are handles, enums and bitmaps.
+While the former are either CFFI pointers or integers (a `VK_NON_DISPATCHABLE_HANDLE` might be an integer, depending on the system), the latter two are represented as keywords.
+
 
 ## Requirements
 
@@ -56,7 +65,7 @@ CMUCL fails to find `libvulkan.so` in the test action.
 MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
 
 ### Supported Vulkan API versions
-**The current version of `vk` is based on version `v1.2.178`.**
+**The current version of `vk` is based on version `v1.2.179`.**
 
 `vk` targets Vulkan 1.2, so all versions support the core API of version 1.2.x.
 The main branch is always generated from the most recent version of the [Vulkan API XML registry](https://github.com/KhronosGroup/Vulkan-Docs)
@@ -131,6 +140,23 @@ Struct and union member names as well as command arguments designating pointers 
 
 Enum and bitmask value names have been stripped of any redundant prefixes denoting the enum or bitmask they belong to and are represented as keywords in `vk` (e.g. `VK_FORMAT_R4G4_UNORM_PACK8` is just `:r4g4-unorm-pack8`).
 
+#### pNext
+Many structs in the Vulkan API can be extended by one or more other structs using their `pNext` member (a `void` pointer).
+In `vk` you can bind the `next` slot of such an instance to an instance of the class you'd like to extend it with.
+Like all other slots the data bound to a `next` slot will be automatically translated to foreign memory along side with the class instance when it is used as an argument for a function.
+Note however, that there is no validation for bound `next` slots on the `vk` side.
+E.g. to register a debug messenger to a `vk:instance` during creation, you can write:
+
+```cl
+(make-instance 'vk:instance-create-info
+               :next (make-instance 'vk:debug-utils-messenger-create-info-ext
+                                    :message-type '(:validation)
+                                    :message-severity '(:info :warning :error)
+                                    :pfn-user-callback ... ;; some CFFI callback
+                                    :user-data ...) ;; whatever user data you want to pass
+               :application-info ...) ;; whatever you want to enable for your Vulkan instance
+```
+
 ##### Exceptions
 There are a few name clashes in the C API which break the naming conventions.
 Currently, they all are between functions and slot accessors of the same name.
@@ -181,6 +207,9 @@ As with other `*Count`-members in the Vulkan API, `vk` determines the value to s
 For this to work properly, the `code` slot of a `vk:shader-module` also needs to be a sequence of 32-bit integers.
 
 `vk-utils:read-shader-source` exists exactly for this purpose: it reads a SPIR-V binary and spits out a vector of 32-bit integers.
+
+### No specializing on handles
+Since handles are represented either by CFFI pointers or by integers, it's not possible to specialize methods on handle types.
 
 
 ## Contributing

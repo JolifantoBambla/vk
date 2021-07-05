@@ -1029,7 +1029,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:conditional-rendering-read #x100000) ;; 
   (:acceleration-structure-read #x200000) ;; 
   (:acceleration-structure-write #x400000) ;; 
-  (:shading-rate-image-read #x800000) ;; 
+  (:fragment-shading-rate-attachment-read #x800000) ;; 
   (:fragment-density-map-read #x1000000) ;; 
   (:transform-feedback-write #x2000000) ;; 
   (:transform-feedback-counter-read #x4000000) ;; 
@@ -1091,7 +1091,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:depth-stencil-attachment #x20) ;; Can be used as framebuffer depth/stencil attachment
   (:transient-attachment #x40) ;; Image data not needed outside of rendering
   (:input-attachment #x80) ;; Can be used as framebuffer input attachment
-  (:shading-rate-image #x100) ;; 
+  (:fragment-shading-rate-attachment #x100) ;; 
   (:fragment-density-map #x200) ;; 
   (:video-decode-dst #x400) ;; 
   (:video-decode-src #x800) ;; 
@@ -1283,7 +1283,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:task-shader #x80000) ;; 
   (:mesh-shader #x100000) ;; 
   (:ray-tracing-shader #x200000) ;; 
-  (:shading-rate-image #x400000) ;; 
+  (:fragment-shading-rate-attachment #x400000) ;; 
   (:fragment-density-process #x800000) ;; 
   (:transform-feedback #x1000000) ;; 
   (:acceleration-structure-build #x2000000)) ;; 
@@ -2470,7 +2470,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:shared-present-khr #x3B9C7B98) ;; 
   (:depth-read-only-stencil-attachment-optimal #x3B9C9308) ;; 
   (:depth-attachment-stencil-read-only-optimal #x3B9C9309) ;; 
-  (:shading-rate-optimal-nv #x3B9D4AA3) ;; 
+  (:fragment-shading-rate-attachment-optimal-khr #x3B9D4AA3) ;; 
   (:fragment-density-map-optimal-ext #x3B9E1D90) ;; 
   (:depth-attachment-optimal #x3B9E7768) ;; 
   (:depth-read-only-optimal #x3B9E7769) ;; 
@@ -2501,7 +2501,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:depth-stencil-attachment #x20) ;; Can be used as framebuffer depth/stencil attachment
   (:transient-attachment #x40) ;; Image data not needed outside of rendering
   (:input-attachment #x80) ;; Can be used as framebuffer input attachment
-  (:shading-rate-image #x100) ;; 
+  (:fragment-shading-rate-attachment #x100) ;; 
   (:fragment-density-map #x200) ;; 
   (:video-decode-dst #x400) ;; 
   (:video-decode-src #x800) ;; 
@@ -2580,7 +2580,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:conditional-rendering-read #x100000) ;; 
   (:acceleration-structure-read #x200000) ;; 
   (:acceleration-structure-write #x400000) ;; 
-  (:shading-rate-image-read #x800000) ;; 
+  (:fragment-shading-rate-attachment-read #x800000) ;; 
   (:fragment-density-map-read #x1000000) ;; 
   (:transform-feedback-write #x2000000) ;; 
   (:transform-feedback-counter-read #x4000000) ;; 
@@ -3413,7 +3413,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (:task-shader #x80000) ;; 
   (:mesh-shader #x100000) ;; 
   (:ray-tracing-shader #x200000) ;; 
-  (:shading-rate-image #x400000) ;; 
+  (:fragment-shading-rate-attachment #x400000) ;; 
   (:fragment-density-process #x800000) ;; 
   (:transform-feedback #x1000000) ;; 
   (:acceleration-structure-build #x2000000)) ;; 

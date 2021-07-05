@@ -1279,7 +1279,7 @@ Has the values:
  - :SHARED-PRESENT-KHR
  - :DEPTH-READ-ONLY-STENCIL-ATTACHMENT-OPTIMAL
  - :DEPTH-ATTACHMENT-STENCIL-READ-ONLY-OPTIMAL
- - :SHADING-RATE-OPTIMAL-NV
+ - :FRAGMENT-SHADING-RATE-ATTACHMENT-OPTIMAL-KHR
  - :FRAGMENT-DENSITY-MAP-OPTIMAL-EXT
  - :DEPTH-ATTACHMENT-OPTIMAL
  - :DEPTH-READ-ONLY-OPTIMAL
@@ -1307,7 +1307,7 @@ Has the values:
     :shared-present-khr
     :depth-read-only-stencil-attachment-optimal
     :depth-attachment-stencil-read-only-optimal
-    :shading-rate-optimal-nv
+    :fragment-shading-rate-attachment-optimal-khr
     :fragment-density-map-optimal-ext
     :depth-attachment-optimal
     :depth-read-only-optimal
@@ -1355,7 +1355,7 @@ Has the values:
  - :DEPTH-STENCIL-ATTACHMENT
  - :TRANSIENT-ATTACHMENT
  - :INPUT-ATTACHMENT
- - :SHADING-RATE-IMAGE
+ - :FRAGMENT-SHADING-RATE-ATTACHMENT
  - :FRAGMENT-DENSITY-MAP
  - :VIDEO-DECODE-DST
  - :VIDEO-DECODE-SRC
@@ -1372,7 +1372,7 @@ Has the values:
     :depth-stencil-attachment
     :transient-attachment
     :input-attachment
-    :shading-rate-image
+    :fragment-shading-rate-attachment
     :fragment-density-map
     :video-decode-dst
     :video-decode-src
@@ -1511,7 +1511,7 @@ Has the values:
  - :CONDITIONAL-RENDERING-READ
  - :ACCELERATION-STRUCTURE-READ
  - :ACCELERATION-STRUCTURE-WRITE
- - :SHADING-RATE-IMAGE-READ
+ - :FRAGMENT-SHADING-RATE-ATTACHMENT-READ
  - :FRAGMENT-DENSITY-MAP-READ
  - :TRANSFORM-FEEDBACK-WRITE
  - :TRANSFORM-FEEDBACK-COUNTER-READ
@@ -1541,7 +1541,7 @@ Has the values:
     :conditional-rendering-read
     :acceleration-structure-read
     :acceleration-structure-write
-    :shading-rate-image-read
+    :fragment-shading-rate-attachment-read
     :fragment-density-map-read
     :transform-feedback-write
     :transform-feedback-counter-read
@@ -3144,7 +3144,7 @@ Has the values:
  - :TASK-SHADER
  - :MESH-SHADER
  - :RAY-TRACING-SHADER
- - :SHADING-RATE-IMAGE
+ - :FRAGMENT-SHADING-RATE-ATTACHMENT
  - :FRAGMENT-DENSITY-PROCESS
  - :TRANSFORM-FEEDBACK
  - :ACCELERATION-STRUCTURE-BUILD"
@@ -3172,7 +3172,7 @@ Has the values:
     :task-shader
     :mesh-shader
     :ray-tracing-shader
-    :shading-rate-image
+    :fragment-shading-rate-attachment
     :fragment-density-process
     :transform-feedback
     :acceleration-structure-build))
@@ -11678,10 +11678,10 @@ Slots:
  - MIN-IMAGE-EXTENT: an EXTENT-2D.
  - MAX-IMAGE-EXTENT: an EXTENT-2D.
  - MAX-IMAGE-ARRAY-LAYERS: a positive (32-bit) integer.
- - SUPPORTED-TRANSFORMS (optional): a list containing a valid combination of SURFACE-TRANSFORM-FLAGS-KHR.
+ - SUPPORTED-TRANSFORMS: a list containing a valid combination of SURFACE-TRANSFORM-FLAGS-KHR.
  - CURRENT-TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
- - SUPPORTED-COMPOSITE-ALPHA (optional): a list containing a valid combination of COMPOSITE-ALPHA-FLAGS-KHR.
- - SUPPORTED-USAGE-FLAGS (optional): a list containing a valid combination of IMAGE-USAGE-FLAGS.
+ - SUPPORTED-COMPOSITE-ALPHA: a list containing a valid combination of COMPOSITE-ALPHA-FLAGS-KHR.
+ - SUPPORTED-USAGE-FLAGS: a list containing a valid combination of IMAGE-USAGE-FLAGS.
 
 Slot types:
 See EXTENT-2D
@@ -15033,10 +15033,10 @@ Slots:
  - MIN-IMAGE-EXTENT: an EXTENT-2D.
  - MAX-IMAGE-EXTENT: an EXTENT-2D.
  - MAX-IMAGE-ARRAY-LAYERS: a positive (32-bit) integer.
- - SUPPORTED-TRANSFORMS (optional): a list containing a valid combination of SURFACE-TRANSFORM-FLAGS-KHR.
+ - SUPPORTED-TRANSFORMS: a list containing a valid combination of SURFACE-TRANSFORM-FLAGS-KHR.
  - CURRENT-TRANSFORM: an enum value of SURFACE-TRANSFORM-FLAG-BITS-KHR.
- - SUPPORTED-COMPOSITE-ALPHA (optional): a list containing a valid combination of COMPOSITE-ALPHA-FLAGS-KHR.
- - SUPPORTED-USAGE-FLAGS (optional): a list containing a valid combination of IMAGE-USAGE-FLAGS.
+ - SUPPORTED-COMPOSITE-ALPHA: a list containing a valid combination of COMPOSITE-ALPHA-FLAGS-KHR.
+ - SUPPORTED-USAGE-FLAGS: a list containing a valid combination of IMAGE-USAGE-FLAGS.
  - SUPPORTED-SURFACE-COUNTERS (optional): a list containing a valid combination of SURFACE-COUNTER-FLAGS-EXT.
 
 Slot types:
