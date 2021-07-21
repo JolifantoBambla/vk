@@ -29,16 +29,6 @@ You can just write the following with `vk`:
   )
 ```
 
-`vk` provides a class and function for each of the structs/unions and functions in the Vulkan API.
-Whenever a function in the C API takes a (pointer to a) struct/union as an argument the corresponding
-function in `vk` takes an instance of the corresponding class instead.
-Class instances are automatically translated by CFFI such that you should never have to deal with type translation yourself.
-Note however, that there is no validation done by `vk`, so you still need to enable validation layers in the driver yourself when creating a `vk:instance` (i.e. a `VkInstance`).
-
-Other important elements of the C API are handles, enums and bitmaps.
-While the former are either CFFI pointers or integers (a `VK_NON_DISPATCHABLE_HANDLE` might be an integer, depending on the system), the latter two are represented as keywords.
-
-
 ## Requirements
 
 ### Supported CL implementations
@@ -94,7 +84,7 @@ open an issue in the GitHub repository.
 * `rove`
 
 ### Other dependencies
-* [Vulkan SDK](https://vulkan.lunarg.com/sdk/home)
+* The `vulkan` shared library. The easiest way of getting it is by installing the [Vulkan SDK](https://vulkan.lunarg.com/sdk/home).
 
 #### MacOS only
 * [MoltenVK](https://github.com/KhronosGroup/MoltenVK)
@@ -108,29 +98,16 @@ Just make sure to have Vulkan installed (see [Vulkan SDK](https://vulkan.lunarg.
 (ql:quickload :vk)
 ```
 
-### Samples and Usage
-Check out the [documentation](https://jolifantobambla.github.io/vk).
+## Packages
 
-Check out the project [vk-samples](https://github.com/JolifantoBambla/vk-samples) for sample usage of `vk` as well as `vk-utils`.
-
-
-## Packages and Subsystems
 ### vk
-Contains class wrappers around all structs and unions defined in the Vulkan API as well as all functions getting rid of redundancy in class slots/function parameters and hiding all usages of `cffi` as much as possible.
+The main package of this system is `vk`.
+It provides class and function wrappers over the lower level bindings in the `vulkan` package.
 
-Wherever a slot or parameter of a function specifies the length of a list or array of another slot or parameter it is omitted from the respective class or function.
-The exception to this are `void` pointers to arbitrary data, for which the size can not be determined without any knowledge about the type and number of elements in the array/buffer the pointer points to (e.g. the slot `initial-data` of the class `vk:pipeline-cache-create-info` which wraps `VkPipelineCacheCreateInfo`).
-Another exception are cases where a slot specifies the length of an optional array (which can be null) but is not optional itself (e.g. `descriptor-count` in `vk:descriptor-set-layout-binding` and `swapchain-count` in `vk:present-regions-khr` or `vk:present-times-info-google`).
-
-Parameters of wrapped functions that are only used as output parameters in the C API (and the bindings in the `vulkan` package) are omitted from the lambda list of the wrapper function. Instead wrapper functions will return the output as `cl:values`, where the output parameters are in order of their appearence in the lambda list of the wrapped function followed by its return value (e.g. a wrapped/translated `VkResult`) if it returns a value (e.g. `vk:create-instance` returns `(cl:values <the created instance> <a translated VkResult value>)`). 
-The exception to this are again `void` pointers (e.g. the parameter `data` in `vk:get-query-pool-results` which wraps `vkGetQueryPoolResults` in the C API).
-
-For some of the mentioned exceptions making assumptions based on the XML API registry are probably possible, so this might change in the future.
+Note that there is no validation done by `vk` whatsoever, so you still need to enable validation layers in the driver yourself when creating a `vk:instance` (i.e. a `VkInstance`) just as you would have to in every other language.
 
 #### Shadowed Symbols
-`vk` is not meant do be `:use`d by packages directly, since it shadows symbols from `cl` that clash with function and/or slot names from the Vulkan API.
-
-`vk` shadows the following symbols:
+It is **not meant do be `:use`d** by packages directly, since **it shadows symbols from `cl`** that clash with function and/or slot names from the Vulkan API:
 
 * `format`
 * `set`
@@ -139,16 +116,88 @@ For some of the mentioned exceptions making assumptions based on the XML API reg
 * `values`
 
 #### Naming conventions
-All names in the Vulkan API have been stripped of their prefixes (i.e. `Vk` for types and `vk` for commands) and lispified (e.g. `VkInstanceCreateInfo` is `vk:instance-create-info`).
+In `vk` all names in the Vulkan API have been stripped of their prefixes (i.e. `Vk` for types and `vk` for commands) and lispified (e.g. `VkInstanceCreateInfo` is `vk:instance-create-info`).
 
-Struct and union member names as well as command arguments designating pointers in the C API by being prefixes with either `p` or `pp` have also been stripped of those.
+Struct and union member names as well as command arguments designating pointers in the C API by being prefixes with either `p` or `pp` have also been stripped of those (e.g. `pNext` is just `next`). 
 
 Enum and bitmask value names have been stripped of any redundant prefixes denoting the enum or bitmask they belong to and are represented as keywords in `vk` (e.g. `VK_FORMAT_R4G4_UNORM_PACK8` is just `:r4g4-unorm-pack8`).
 
-#### pNext
+##### Exceptions
+There are a few name clashes in the C API which break the naming conventions.
+Currently, they all are between functions and slot accessors of the same name.
+As a general rule, function names take precedence over slot accessors.
+Slots and their `:initarg`s still have the same name, but the accessors use the lispified names of their corresponding struct members in the C API.
+
+* The accessors to all slots named `wait-semaphores` are named `p-wait-semaphores` because they clash with the name of the function `vk:wait-semaphores`.
+* Types from external headers (e.g. OS specific types) are not modified.
+* Slots and accessors with the name `function` or `pFunction` in the C API are called `function-handle`. 
+
+### vulkan (%vk)
+`vulkan` (or `%vk`) contains the lower level `cffi` bindings to the C API.
+
+The naming conventions are the same as in `vk` except for struct/union member names and command arguments.
+
+### vk-alloc
+Contains utilities for allocating resources and translating classes/structs to/from foreign memory.
+
+#### Multithreading
+When translating class instances the pointers to all translated struct members which are non-primitive types (e.g of `vk:instance-create-info` if it is bound to an instance of `vk:debug-utils-messenger-create-info-ext`) are stored in the hash table `vk-alloc:*allocated-foreign-objects*` and are freed before the pointer to the translated class instance is freed.
+Since hash tables are not thread-safe and there should be no case where type translation needs to span multiple threads, each thread can and should have its own `vk-alloc:*allocated-foreign-objects*` that is independent of those of other threads.
+
+### vk-utils
+Contains utils for `vk`.
+
+Aside from utilities for `vk`, this package also contains the function `memcpy`.
+
+*The following is not yet generated, but a roadmap:*
+
+* `vk-utils` will provide autogenerated `with-` style wrappers for allocated resources (e.g. `with-instance`) as well as other utilites that make `vk` more lispy.
+* `vk-utils` will also provide `make`-style constructors for all classes defined in `vk`.
+
+## Samples and Usage
+Check out the [API reference](https://jolifantobambla.github.io/vk).
+
+Check out the project [vk-samples](https://github.com/JolifantoBambla/vk-samples) for sample usage of `vk` as well as `vk-utils`.
+
+### Structs
+The Vulkan C API contains loads of structs and unions which each have a corresponding CLOS class in `vk`.
+All these classes come with `cffi` translators, which automatically translate instances to and from foreign memory whenever they are needed.
+This also goes for nested structs, so whenever a struct has a pointer to another struct as a member, you can just bind the slot to an instance of the corresponding class.
+
+E.g. the `pInputAssemblyState` member of a `VkGraphicsPipelineCreateInfo` could be set like this in `vk`:
+
+```cl
+(make-instance 'vk:graphics-pipeline-create-info
+               ...
+               :input-assembly-state (make-instance 'vk:pipeline-input-assembly-state-create-info
+                                                    :topology :triangle-list
+                                                    :primitive-restart-enable nil)
+               ...
+               )
+```
+
+Note that whenever a class instance is used (as a slot value or a function argument), you can also use a `cffi:foreign-pointer` as well, which might save you computation time, if you store translated objects yourself somewhere.
+
+In the C API structs and unions often contain members which specify the length of another member (e.g. of a `const char*`).
+Since those are redundant they are not included in the class wrappers and are set automatically during translation.
+
+E.g. during translation, the `queueCreateInfoCount` member of a `VkDeviceCreateInfo` is automatically set to the length of the `queue-create-info` slot of the corresponding `vk:device-create-info` instance:
+
+```cl
+(make-instance 'vk:device-create-info
+               :queue-create-infos (list (make-instance 'vk:device-queue-create-info
+                                                        ...
+                                                        )))
+```
+
+The exception to this are `void` pointers to arbitrary data, for which the size can not be determined without any knowledge about the type and number of elements in the array/buffer the pointer points to (e.g. the slot `initial-data` of the class `vk:pipeline-cache-create-info` which wraps `VkPipelineCacheCreateInfo`).
+
+Another exception are cases where a slot specifies the length of an optional array (which can be null) but is not optional itself (e.g. `descriptor-count` in `vk:descriptor-set-layout-binding` and `swapchain-count` in `vk:present-regions-khr` or `vk:present-times-info-google`).
+
+#### Extending Structs: pNext
 Many structs in the Vulkan API can be extended by one or more other structs using their `pNext` member (a `void` pointer).
 In `vk` you can bind the `next` slot of such an instance to an instance of the class you'd like to extend it with.
-Like all other slots the data bound to a `next` slot will be automatically translated to foreign memory along side with the class instance when it is used as an argument for a function.
+Like all other slots the data bound to a `next` slot will be automatically translated to foreign memory along with the class instance when it is used as an argument for a function.
 Note however, that there is no validation for bound `next` slots on the `vk` side.
 E.g. to register a debug messenger to a `vk:instance` during creation, you can write:
 
@@ -162,38 +211,80 @@ E.g. to register a debug messenger to a `vk:instance` during creation, you can w
                :application-info ...) ;; whatever you want to enable for your Vulkan instance
 ```
 
-##### Exceptions
-There are a few name clashes in the C API which break the naming conventions.
-Currently, they all are between functions and slot accessors of the same name.
-As a general rule, function names take precedence over slot accessors.
-Slots and their `:initarg`s still have the same name, but the accessors use the lispified names of their corresponding struct members in the C API.
+### Handles
+Handles are either `cffi:foreign-pointer`s or integers (a `VK_NON_DISPATCHABLE_HANDLE` might be an integer, depending on the system).
+They are created and destroyed by the respective wrappers of those functions which inilialize or destroy/free them in the C API.
 
-* The accessors to all slots named `wait-semaphores` are named `p-wait-semaphores` because it clashes with the name of the function `vk:wait-semaphores`.
-* Types from external headers (e.g. OS specific types) are not modified.
-* Slots and accessors with the name `function` or `pFunction` in the C API are called `function-handle`. 
+### Enums & Bitmasks
+Enums and bitmasks are represented by keywords, just as with all other `cffi` bindings.
 
-### vulkan (Nickname: %vk)
-Contains the actual `cffi` bindings for the Vulkan API.
+### Functions
+Almost all functions in the C API return a `VkResult` which indicates if its execution was successful or not.
+So when a function should initialize a handle, it will take a pointer to the handle as an argument and by checking the `VkResult` you would be sure if the handle is valid or not.
+Since this doesn't feel very lispy, `vk` wraps all functions omitting these output parameters from the lamda lists of the wrapper functions and instead returns them as `cl:values` together with the `VkResult`.
+In the `cl:values`, the output parameters are in order of their appearence in the lambda list of the wrapped function followed by its return value (e.g. a wrapped/translated `VkResult`) if it returns a value (e.g. `vk:create-instance` returns `(cl:values <the created instance> <a translated VkResult value>)`).
 
-The naming conventions are the same as in `vk` except for struct/union member names and command arguments.
+As with classes, `vk` also omits arguments which specify the length of another argument from the wrapper functions lambda list.
+The same goes for return values.
+E.g. where `vkEnumeratePhysicalDevices` has two output parameters (`pPhysicalDeviceCount` and `pPhysicalDevices`), `vk:enumerate-physical-devices` only returns the found `physical-device` handles (and the result code, i.e. `:success`):
 
-### vk-alloc
-Contains utilities for allocating resources and translating classes/structs to/from foreign memory.
+```cl
+(let ((devices (vk:enumerate-physical-devices instance)))
+  ;; do something with your devices
+  )
+```
 
-#### Multithreading
-When translating class instances the pointers to all translated struct members which are non-primitive types (e.g of `vk:instance-create-info` if it is bound to an instance of `vk:debug-utils-messenger-create-info-ext`) are stored in the hash table `vk-alloc:*allocated-foreign-objects*` and are freed before the pointer to the translated class instance is freed.
-Since hash tables are not thread-safe and there should be no case where type translation needs to span multiple threads, each thread can and should have its own `vk-alloc:*allocated-foreign-objects*` that is independent of those of other threads.
+The exception to this are again `void` pointers (e.g. the parameter `data` in `vk:get-query-pool-results` which wraps `vkGetQueryPoolResults` in the C API) which would require some knowledge about the exact type, etc.
 
-### vk-utils
-Contains utils for `vk`.
-This package doesn't shadow any symbols.
+#### VkResult
+`VkResult` is an enum with positive and negative values, where negative values encode errors, zero encodes the success of a function and positive values encode the (partial) success of a function.
+If a function returns a negative `VkResult` `vk` signals a `vk-error` with the error code as a keyword.
 
-Aside from utilities for `vk`, this package also contains the function `memcpy`.
+#### VkAllocationCallbacks
+All functions which allocate resources and initialize handles take an intance of `vk:allocation-callbacks` (i.e. `VkAllocationCallbacks`) as an optional argument.
+Since most of the time, this will be the same instance, `vk` provides the parameter `vk:*default-allocator*` which is used as the default value wherever an instance of `vk:allocation-callbacks` is used.
+It defaults to a `cffi:null-pointer`.
 
-*The following is not yet generated, but a roadmap:*
+### Using Extensions
+The Vulkan API offers loads of extensions.
+To use them, you need to enable them when creating your `vk:instance` or `vk:device` (depending on the type of the extension) by passing their names via the `enabled-extension-names` slot of their respective `*-create-info`s.
+For this purpose `vk` provides the names of all extensions as constants with the following naming scheme `+-*-extension-name+`.
 
-* `vk-utils` will provide autogenerated `with-` style wrappers for allocated resources (e.g. `with-instance`) as well as other utilites that make `vk` more lispy.
-* `vk-utils` will also provide `make`-style constructors for all classes defined in `vk`.
+E.g. the name of the `VK_EXT_debug_utils` extension is `vk:+ext-debug-utils-extension-name+`:
+
+```cl
+(make-instance 'vk:instance-create-info
+               :application-info ...
+               ;; we need to enable the debug utils extension during instance creation
+               :enabled-extension-names (list vk:+ext-debug-utils-extension-name+))
+```
+
+Apart from being enabled, functions belonging to an extension also need to be loaded for the `vk:instance` or `vk:device` which used them.
+For this purpose every extension function has an additional optional argument at the very end of its lambda list: `extension-loader`.
+This always defaults to the parameter `vk:*default-extension-loader*` and must be an instance of the struct `extension-loader`.
+
+In order for the an `extension-loader` to work, it needs to be supplied with a `vk:instance` and/or a `vk:device`.
+E.g. via creation:
+
+```cl
+(setf vk:*default-extension-loader* (vk:make-extension-loader :instance instance
+                                                              :device device))
+```
+
+When calling an extension function the passed `extension-loader` is searched for the function pointer of the extension function.
+If it is the first call of the function using this `extension-loader` instance, the function pointer is fetched using `vk:get-instance-proc-addr` or `vk:get-device-proc-addr` and stored in an internal hash map of the `extension-loader` instance.
+Then and in every subsequent call of the extension function this function pointer is used to call the function.
+
+So after having initialized the `vk:*default-extension-loader*` you can call extension functions like every other function in `vk`:
+
+```cl
+(vk:create-debug-utils-messenger-ext instance
+                                     create-info)
+```
+
+Note that function pointers fetched for a `vk:device` are favored over `vk:instance` function pointers, so if an `extension-loader` has a `vk:device` and a `vk:instance` and has already loaded the function pointer on a `vk:instance` level, it will fetch and use the `vk:device` level function pointers instead.
+The reason for this is that `vk:device` level function pointers avoid the overhead of possible dispatch mechanisms in the driver because the exact `vk:device` is already known.
+(This is also true for all other functions in the Vulkan API, so if you really care for performance then you might want to fetch function pointers for all functions via `vk:get-device-proc-addr` and use only those.)
 
 ## Caveats
 ### Validation Errors & Slime
@@ -205,13 +296,15 @@ See [this stackoverflow answer](https://stackoverflow.com/a/40180199) for more i
 Due to how foreign structs with `pNext` members are translated from foreign memory, a translated `vk:base-out-structure` will always have a foreign pointer or `nil` bound to its `next`-slot.
 This should not be a problem however, since there is almost no use for instances of `vk:base-out-structure` aside from determining the actual type of the instance by reading its `s-type`-slot.
 
-### VkShaderModule
-The `VkShaderModule` struct has a member called `codeSize` which is the number of bytes in its `code` member.
-You might be tempted to read your shaders byte by byte, but `VkShaderModule` actually expects an array of `uint32_t`.
+### VkShaderModuleCreateInfo
+The `VkShaderModuleCreateInfo` struct has a member called `codeSize` which is the number of bytes in its `code` member.
+You might be tempted to read your shaders byte by byte, but `VkShaderModuleCreateInfo` actually expects an array of `uint32_t`.
 As with other `*Count`-members in the Vulkan API, `vk` determines the value to set for `codeSize` automatically.
 For this to work properly, the `code` slot of a `vk:shader-module` also needs to be a sequence of 32-bit integers.
 
 `vk-utils:read-shader-source` exists exactly for this purpose: it reads a SPIR-V binary and spits out a vector of 32-bit integers.
+
+Another option is to use the package [shaderc](https://github.com/JolifantoBambla/shadercl) to compile shaders into a vector of 32-bit integers directly from your REPL.
 
 ### No specializing on handles
 Since handles are represented either by CFFI pointers or by integers, it's not possible to specialize methods on handle types.
