@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1-v1.2.182] - 2021-08-27 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.1.1-v1.2.182)
+
+### Fixed
+- Fixed default arguments in `with`-style wrapper in `vk-utils` such that they can be dumped into `.fasl` files.
+
 ## [2.1.0-v1.2.182] - 2021-08-27 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.1.0-v1.2.182)
 
 ### Added
