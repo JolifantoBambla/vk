@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `vk-utils` now exports `with`-style wrappers for most handles in the Vulkan API.
+
+### Fixed
+- Fixed translation of VkPipelineMultisampleCreateInfo.pSampleMask.
+
 ## [2.0.1-v1.2.179] - 2021-06-05 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.0.1-v1.2.179)
 
 ### Fixed

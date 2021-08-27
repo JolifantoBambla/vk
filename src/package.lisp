@@ -88,6 +88,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+max-driver-name-size+
     #:+max-driver-name-size-khr+
     #:+max-extension-name-size+
+    #:+max-global-priority-size-ext+
     #:+max-memory-heaps+
     #:+max-memory-types+
     #:+max-physical-device-name-size+
@@ -127,6 +128,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+amd-texture-gather-bias-lod-extension-name+
     #:+android-external-memory-android-hardware-buffer-extension-name+
     #:+ext-4444-formats-extension-name+
+    #:+ext-acquire-drm-display-extension-name+
     #:+ext-acquire-xlib-display-extension-name+
     #:+ext-astc-decode-mode-extension-name+
     #:+ext-blend-operation-advanced-extension-name+
@@ -158,6 +160,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-fragment-shader-interlock-extension-name+
     #:+ext-full-screen-exclusive-extension-name+
     #:+ext-global-priority-extension-name+
+    #:+ext-global-priority-query-extension-name+
     #:+ext-hdr-metadata-extension-name+
     #:+ext-headless-surface-extension-name+
     #:+ext-host-query-reset-extension-name+
@@ -169,7 +172,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-memory-budget-extension-name+
     #:+ext-memory-priority-extension-name+
     #:+ext-metal-surface-extension-name+
+    #:+ext-multi-draw-extension-name+
     #:+ext-pci-bus-info-extension-name+
+    #:+ext-physical-device-drm-extension-name+
     #:+ext-pipeline-creation-cache-control-extension-name+
     #:+ext-pipeline-creation-feedback-extension-name+
     #:+ext-post-depth-coverage-extension-name+
@@ -213,6 +218,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+google-display-timing-extension-name+
     #:+google-hlsl-functionality1-extension-name+
     #:+google-user-type-extension-name+
+    #:+huawei-subpass-shading-extension-name+
     #:+img-filter-cubic-extension-name+
     #:+img-format-pvrtc-extension-name+
     #:+intel-performance-query-extension-name+
@@ -277,6 +283,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-shader-float-controls-extension-name+
     #:+khr-shader-non-semantic-info-extension-name+
     #:+khr-shader-subgroup-extended-types-extension-name+
+    #:+khr-shader-subgroup-uniform-control-flow-extension-name+
     #:+khr-shader-terminate-invocation-extension-name+
     #:+khr-shared-presentable-image-extension-name+
     #:+khr-spirv-1-4-extension-name+
@@ -330,6 +337,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-inherited-viewport-scissor-extension-name+
     #:+nv-mesh-shader-extension-name+
     #:+nv-ray-tracing-extension-name+
+    #:+nv-ray-tracing-motion-blur-extension-name+
     #:+nv-representative-fragment-test-extension-name+
     #:+nv-sample-mask-override-coverage-extension-name+
     #:+nv-scissor-exclusive-extension-name+
@@ -386,6 +394,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-acceleration-structure-geometry-instances-data-khr
     #:acceleration-structure-geometry-khr
     #:c-acceleration-structure-geometry-khr
+    #:acceleration-structure-geometry-motion-triangles-data-nv
+    #:c-acceleration-structure-geometry-motion-triangles-data-nv
     #:acceleration-structure-geometry-triangles-data-khr
     #:c-acceleration-structure-geometry-triangles-data-khr
     #:acceleration-structure-info-nv
@@ -395,10 +405,24 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acceleration-structure-instance-nv
     #:c-acceleration-structure-instance-nv
     #:acceleration-structure-khr
+    #:acceleration-structure-matrix-motion-instance-nv
+    #:c-acceleration-structure-matrix-motion-instance-nv
     #:acceleration-structure-memory-requirements-info-nv
     #:c-acceleration-structure-memory-requirements-info-nv
     #:acceleration-structure-memory-requirements-type-nv
+    #:acceleration-structure-motion-info-flag-bits-nv
+    #:acceleration-structure-motion-info-flags-nv
+    #:acceleration-structure-motion-info-nv
+    #:c-acceleration-structure-motion-info-nv
+    #:acceleration-structure-motion-instance-data-nv
+    #:acceleration-structure-motion-instance-flag-bits-nv
+    #:acceleration-structure-motion-instance-flags-nv
+    #:acceleration-structure-motion-instance-nv
+    #:c-acceleration-structure-motion-instance-nv
+    #:acceleration-structure-motion-instance-type-nv
     #:acceleration-structure-nv
+    #:acceleration-structure-s-r-t-motion-instance-nv
+    #:c-acceleration-structure-s-r-t-motion-instance-nv
     #:acceleration-structure-type-khr
     #:acceleration-structure-type-nv
     #:acceleration-structure-version-info-khr
@@ -421,6 +445,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-android-hardware-buffer-properties-android
     #:android-hardware-buffer-usage-android
     #:c-android-hardware-buffer-usage-android
+    #:android-surface-create-flag-bits-khr
     #:android-surface-create-flags-khr
     #:android-surface-create-info-khr
     #:c-android-surface-create-info-khr
@@ -531,6 +556,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-usage-flag-bits
     #:buffer-usage-flags
     #:buffer-view
+    #:buffer-view-create-flag-bits
     #:buffer-view-create-flags
     #:buffer-view-create-info
     #:c-buffer-view-create-info
@@ -590,6 +616,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-command-pool-create-info
     #:command-pool-reset-flag-bits
     #:command-pool-reset-flags
+    #:command-pool-trim-flag-bits
     #:command-pool-trim-flags
     #:command-pool-trim-flags-khr
     #:compare-op
@@ -666,7 +693,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:debug-utils-message-type-flags-ext
     #:debug-utils-messenger-callback-data-ext
     #:c-debug-utils-messenger-callback-data-ext
+    #:debug-utils-messenger-callback-data-flag-bits-ext
     #:debug-utils-messenger-callback-data-flags-ext
+    #:debug-utils-messenger-create-flag-bits-ext
     #:debug-utils-messenger-create-flags-ext
     #:debug-utils-messenger-create-info-ext
     #:c-debug-utils-messenger-create-info-ext
@@ -701,6 +730,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-descriptor-pool-create-info
     #:descriptor-pool-inline-uniform-block-create-info-ext
     #:c-descriptor-pool-inline-uniform-block-create-info-ext
+    #:descriptor-pool-reset-flag-bits
     #:descriptor-pool-reset-flags
     #:descriptor-pool-size
     #:c-descriptor-pool-size
@@ -732,6 +762,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-descriptor-set-variable-descriptor-count-layout-support-ext
     #:descriptor-type
     #:descriptor-update-template
+    #:descriptor-update-template-create-flag-bits
     #:descriptor-update-template-create-flags
     #:descriptor-update-template-create-flags-khr
     #:descriptor-update-template-create-info
@@ -798,6 +829,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-memory-report-callback-data-ext
     #:c-device-memory-report-callback-data-ext
     #:device-memory-report-event-type-ext
+    #:device-memory-report-flag-bits-ext
     #:device-memory-report-flags-ext
     #:device-or-host-address-const-khr
     #:device-or-host-address-khr
@@ -812,6 +844,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:device-queue-info-2
     #:c-device-queue-info-2
     #:device-size
+    #:direct-fb-surface-create-flag-bits-ext
     #:direct-fb-surface-create-flags-ext
     #:direct-fb-surface-create-info-ext
     #:c-direct-fb-surface-create-info-ext
@@ -822,6 +855,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-display-event-info-ext
     #:display-event-type-ext
     #:display-khr
+    #:display-mode-create-flag-bits-khr
     #:display-mode-create-flags-khr
     #:display-mode-create-info-khr
     #:c-display-mode-create-info-khr
@@ -855,6 +889,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-display-properties-2-khr
     #:display-properties-khr
     #:c-display-properties-khr
+    #:display-surface-create-flag-bits-khr
     #:display-surface-create-flags-khr
     #:display-surface-create-info-khr
     #:c-display-surface-create-info-khr
@@ -1045,9 +1080,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-graphics-shader-group-create-info-nv
     #:hdr-metadata-ext
     #:c-hdr-metadata-ext
+    #:headless-surface-create-flag-bits-ext
     #:headless-surface-create-flags-ext
     #:headless-surface-create-info-ext
     #:c-headless-surface-create-info-ext
+    #:i-os-surface-create-flag-bits-mvk
     #:i-os-surface-create-flags-mvk
     #:i-os-surface-create-info-mvk
     #:c-i-os-surface-create-info-mvk
@@ -1091,6 +1128,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-image-memory-requirements-info-2
     #:image-memory-requirements-info-2-khr
     #:c-image-memory-requirements-info-2-khr
+    #:image-pipe-surface-create-flag-bits-fuchsia
     #:image-pipe-surface-create-flags-fuchsia
     #:image-pipe-surface-create-info-fuchsia
     #:c-image-pipe-surface-create-info-fuchsia
@@ -1189,6 +1227,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-layer-properties
     #:line-rasterization-mode-ext
     #:logic-op
+    #:mac-os-surface-create-flag-bits-mvk
     #:mac-os-surface-create-flags-mvk
     #:mac-os-surface-create-info-mvk
     #:c-mac-os-surface-create-info-mvk
@@ -1232,6 +1271,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-heap-flags
     #:memory-host-pointer-properties-ext
     #:c-memory-host-pointer-properties-ext
+    #:memory-map-flag-bits
     #:memory-map-flags
     #:memory-opaque-capture-address-allocate-info
     #:c-memory-opaque-capture-address-allocate-info
@@ -1254,9 +1294,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-memory-win32-handle-properties-khr
     #:memory-zircon-handle-properties-fuchsia
     #:c-memory-zircon-handle-properties-fuchsia
+    #:metal-surface-create-flag-bits-ext
     #:metal-surface-create-flags-ext
     #:metal-surface-create-info-ext
     #:c-metal-surface-create-info-ext
+    #:multi-draw-indexed-info-ext
+    #:c-multi-draw-indexed-info-ext
+    #:multi-draw-info-ext
+    #:c-multi-draw-info-ext
     #:multisample-properties-ext
     #:c-multisample-properties-ext
     #:mutable-descriptor-type-create-info-valve
@@ -1387,6 +1432,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-driver-properties
     #:physical-device-driver-properties-khr
     #:c-physical-device-driver-properties-khr
+    #:physical-device-drm-properties-ext
+    #:c-physical-device-drm-properties-ext
     #:physical-device-exclusive-scissor-features-nv
     #:c-physical-device-exclusive-scissor-features-nv
     #:physical-device-extended-dynamic-state-2-features-ext
@@ -1445,6 +1492,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-fragment-shading-rate-khr
     #:physical-device-fragment-shading-rate-properties-khr
     #:c-physical-device-fragment-shading-rate-properties-khr
+    #:physical-device-global-priority-query-features-ext
+    #:c-physical-device-global-priority-query-features-ext
     #:physical-device-group-properties
     #:c-physical-device-group-properties
     #:physical-device-group-properties-khr
@@ -1503,6 +1552,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-mesh-shader-features-nv
     #:physical-device-mesh-shader-properties-nv
     #:c-physical-device-mesh-shader-properties-nv
+    #:physical-device-multi-draw-features-ext
+    #:c-physical-device-multi-draw-features-ext
+    #:physical-device-multi-draw-properties-ext
+    #:c-physical-device-multi-draw-properties-ext
     #:physical-device-multiview-features
     #:c-physical-device-multiview-features
     #:physical-device-multiview-features-khr
@@ -1555,6 +1608,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-push-descriptor-properties-khr
     #:physical-device-ray-query-features-khr
     #:c-physical-device-ray-query-features-khr
+    #:physical-device-ray-tracing-motion-blur-features-nv
+    #:c-physical-device-ray-tracing-motion-blur-features-nv
     #:physical-device-ray-tracing-pipeline-features-khr
     #:c-physical-device-ray-tracing-pipeline-features-khr
     #:physical-device-ray-tracing-pipeline-properties-khr
@@ -1621,6 +1676,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-shader-subgroup-extended-types-features
     #:physical-device-shader-subgroup-extended-types-features-khr
     #:c-physical-device-shader-subgroup-extended-types-features-khr
+    #:physical-device-shader-subgroup-uniform-control-flow-features-khr
+    #:c-physical-device-shader-subgroup-uniform-control-flow-features-khr
     #:physical-device-shader-terminate-invocation-features-khr
     #:c-physical-device-shader-terminate-invocation-features-khr
     #:physical-device-shading-rate-image-features-nv
@@ -1639,6 +1696,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-physical-device-subgroup-size-control-features-ext
     #:physical-device-subgroup-size-control-properties-ext
     #:c-physical-device-subgroup-size-control-properties-ext
+    #:physical-device-subpass-shading-features-huawei
+    #:c-physical-device-subpass-shading-features-huawei
+    #:physical-device-subpass-shading-properties-huawei
+    #:c-physical-device-subpass-shading-properties-huawei
     #:physical-device-surface-info-2-khr
     #:c-physical-device-surface-info-2-khr
     #:physical-device-synchronization-2-features-khr
@@ -1716,6 +1777,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-color-blend-advanced-state-create-info-ext
     #:pipeline-color-blend-attachment-state
     #:c-pipeline-color-blend-attachment-state
+    #:pipeline-color-blend-state-create-flag-bits
     #:pipeline-color-blend-state-create-flags
     #:pipeline-color-blend-state-create-info
     #:c-pipeline-color-blend-state-create-info
@@ -1725,12 +1787,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-compiler-control-create-info-amd
     #:pipeline-compiler-control-flag-bits-amd
     #:pipeline-compiler-control-flags-amd
+    #:pipeline-coverage-modulation-state-create-flag-bits-nv
     #:pipeline-coverage-modulation-state-create-flags-nv
     #:pipeline-coverage-modulation-state-create-info-nv
     #:c-pipeline-coverage-modulation-state-create-info-nv
+    #:pipeline-coverage-reduction-state-create-flag-bits-nv
     #:pipeline-coverage-reduction-state-create-flags-nv
     #:pipeline-coverage-reduction-state-create-info-nv
     #:c-pipeline-coverage-reduction-state-create-info-nv
+    #:pipeline-coverage-to-color-state-create-flag-bits-nv
     #:pipeline-coverage-to-color-state-create-flags-nv
     #:pipeline-coverage-to-color-state-create-info-nv
     #:c-pipeline-coverage-to-color-state-create-info-nv
@@ -1742,12 +1807,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-creation-feedback-ext
     #:pipeline-creation-feedback-flag-bits-ext
     #:pipeline-creation-feedback-flags-ext
+    #:pipeline-depth-stencil-state-create-flag-bits
     #:pipeline-depth-stencil-state-create-flags
     #:pipeline-depth-stencil-state-create-info
     #:c-pipeline-depth-stencil-state-create-info
+    #:pipeline-discard-rectangle-state-create-flag-bits-ext
     #:pipeline-discard-rectangle-state-create-flags-ext
     #:pipeline-discard-rectangle-state-create-info-ext
     #:c-pipeline-discard-rectangle-state-create-info-ext
+    #:pipeline-dynamic-state-create-flag-bits
     #:pipeline-dynamic-state-create-flags
     #:pipeline-dynamic-state-create-info
     #:c-pipeline-dynamic-state-create-info
@@ -1767,21 +1835,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-fragment-shading-rate-state-create-info-khr
     #:pipeline-info-khr
     #:c-pipeline-info-khr
+    #:pipeline-input-assembly-state-create-flag-bits
     #:pipeline-input-assembly-state-create-flags
     #:pipeline-input-assembly-state-create-info
     #:c-pipeline-input-assembly-state-create-info
     #:pipeline-layout
+    #:pipeline-layout-create-flag-bits
     #:pipeline-layout-create-flags
     #:pipeline-layout-create-info
     #:c-pipeline-layout-create-info
     #:pipeline-library-create-info-khr
     #:c-pipeline-library-create-info-khr
+    #:pipeline-multisample-state-create-flag-bits
     #:pipeline-multisample-state-create-flags
     #:pipeline-multisample-state-create-info
     #:c-pipeline-multisample-state-create-info
+    #:pipeline-rasterization-conservative-state-create-flag-bits-ext
     #:pipeline-rasterization-conservative-state-create-flags-ext
     #:pipeline-rasterization-conservative-state-create-info-ext
     #:c-pipeline-rasterization-conservative-state-create-info-ext
+    #:pipeline-rasterization-depth-clip-state-create-flag-bits-ext
     #:pipeline-rasterization-depth-clip-state-create-flags-ext
     #:pipeline-rasterization-depth-clip-state-create-info-ext
     #:c-pipeline-rasterization-depth-clip-state-create-info-ext
@@ -1789,11 +1862,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-rasterization-line-state-create-info-ext
     #:pipeline-rasterization-provoking-vertex-state-create-info-ext
     #:c-pipeline-rasterization-provoking-vertex-state-create-info-ext
+    #:pipeline-rasterization-state-create-flag-bits
     #:pipeline-rasterization-state-create-flags
     #:pipeline-rasterization-state-create-info
     #:c-pipeline-rasterization-state-create-info
     #:pipeline-rasterization-state-rasterization-order-amd
     #:c-pipeline-rasterization-state-rasterization-order-amd
+    #:pipeline-rasterization-state-stream-create-flag-bits-ext
     #:pipeline-rasterization-state-stream-create-flags-ext
     #:pipeline-rasterization-state-stream-create-info-ext
     #:c-pipeline-rasterization-state-stream-create-info-ext
@@ -1815,11 +1890,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-tessellation-domain-origin-state-create-info
     #:pipeline-tessellation-domain-origin-state-create-info-khr
     #:c-pipeline-tessellation-domain-origin-state-create-info-khr
+    #:pipeline-tessellation-state-create-flag-bits
     #:pipeline-tessellation-state-create-flags
     #:pipeline-tessellation-state-create-info
     #:c-pipeline-tessellation-state-create-info
     #:pipeline-vertex-input-divisor-state-create-info-ext
     #:c-pipeline-vertex-input-divisor-state-create-info-ext
+    #:pipeline-vertex-input-state-create-flag-bits
     #:pipeline-vertex-input-state-create-flags
     #:pipeline-vertex-input-state-create-info
     #:c-pipeline-vertex-input-state-create-info
@@ -1829,9 +1906,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-pipeline-viewport-exclusive-scissor-state-create-info-nv
     #:pipeline-viewport-shading-rate-image-state-create-info-nv
     #:c-pipeline-viewport-shading-rate-image-state-create-info-nv
+    #:pipeline-viewport-state-create-flag-bits
     #:pipeline-viewport-state-create-flags
     #:pipeline-viewport-state-create-info
     #:c-pipeline-viewport-state-create-info
+    #:pipeline-viewport-swizzle-state-create-flag-bits-nv
     #:pipeline-viewport-swizzle-state-create-flags-nv
     #:pipeline-viewport-swizzle-state-create-info-nv
     #:c-pipeline-viewport-swizzle-state-create-info-nv
@@ -1889,6 +1968,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-queue-family-checkpoint-properties-2-nv
     #:queue-family-checkpoint-properties-nv
     #:c-queue-family-checkpoint-properties-nv
+    #:queue-family-global-priority-properties-ext
+    #:c-queue-family-global-priority-properties-ext
     #:queue-family-properties
     #:c-queue-family-properties
     #:queue-family-properties-2
@@ -1953,6 +2034,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:resolve-mode-flags
     #:resolve-mode-flags-khr
     #:result
+    #:s-r-t-data-nv
+    #:c-s-r-t-data-nv
     #:sample-count-flag-bits
     #:sample-count-flags
     #:sample-location-ext
@@ -1994,10 +2077,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sampler-ycbcr-range
     #:sampler-ycbcr-range-khr
     #:scope-nv
+    #:screen-surface-create-flag-bits-qnx
     #:screen-surface-create-flags-qnx
     #:screen-surface-create-info-qnx
     #:c-screen-surface-create-info-qnx
     #:semaphore
+    #:semaphore-create-flag-bits
     #:semaphore-create-flags
     #:semaphore-create-info
     #:c-semaphore-create-info
@@ -2093,6 +2178,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:stencil-op
     #:stencil-op-state
     #:c-stencil-op-state
+    #:stream-descriptor-surface-create-flag-bits-ggp
     #:stream-descriptor-surface-create-flags-ggp
     #:stream-descriptor-surface-create-info-ggp
     #:c-stream-descriptor-surface-create-info-ggp
@@ -2136,6 +2222,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-subpass-end-info-khr
     #:subpass-sample-locations-ext
     #:c-subpass-sample-locations-ext
+    #:subpass-shading-pipeline-create-info-huawei
+    #:c-subpass-shading-pipeline-create-info-huawei
     #:subresource-layout
     #:c-subresource-layout
     #:surface-capabilities-2-ext
@@ -2192,6 +2280,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-transform-matrix-khr
     #:transform-matrix-nv
     #:c-transform-matrix-nv
+    #:validation-cache-create-flag-bits-ext
     #:validation-cache-create-flags-ext
     #:validation-cache-create-info-ext
     #:c-validation-cache-create-info-ext
@@ -2216,9 +2305,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:vertex-input-binding-divisor-description-ext
     #:c-vertex-input-binding-divisor-description-ext
     #:vertex-input-rate
+    #:vi-surface-create-flag-bits-nn
     #:vi-surface-create-flags-nn
     #:vi-surface-create-info-nn
     #:c-vi-surface-create-info-nn
+    #:video-begin-coding-flag-bits-khr
     #:video-begin-coding-flags-khr
     #:video-begin-coding-info-khr
     #:c-video-begin-coding-info-khr
@@ -2244,6 +2335,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:video-decode-flags-khr
     #:video-decode-h264-capabilities-ext
     #:c-video-decode-h264-capabilities-ext
+    #:video-decode-h264-create-flag-bits-ext
     #:video-decode-h264-create-flags-ext
     #:video-decode-h264-dpb-slot-info-ext
     #:c-video-decode-h264-dpb-slot-info-ext
@@ -2263,6 +2355,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-video-decode-h264-session-parameters-create-info-ext
     #:video-decode-h265-capabilities-ext
     #:c-video-decode-h265-capabilities-ext
+    #:video-decode-h265-create-flag-bits-ext
     #:video-decode-h265-create-flags-ext
     #:video-decode-h265-dpb-slot-info-ext
     #:c-video-decode-h265-dpb-slot-info-ext
@@ -2314,6 +2407,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-video-encode-rate-control-info-khr
     #:video-encode-rate-control-mode-flag-bits-khr
     #:video-encode-rate-control-mode-flags-khr
+    #:video-end-coding-flag-bits-khr
     #:video-end-coding-flags-khr
     #:video-end-coding-info-khr
     #:c-video-end-coding-info-khr
@@ -2348,6 +2442,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-viewport-swizzle-nv
     #:viewport-w-scaling-nv
     #:c-viewport-w-scaling-nv
+    #:wayland-surface-create-flag-bits-khr
     #:wayland-surface-create-flags-khr
     #:wayland-surface-create-info-khr
     #:c-wayland-surface-create-info-khr
@@ -2355,6 +2450,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-win32-keyed-mutex-acquire-release-info-khr
     #:win32-keyed-mutex-acquire-release-info-nv
     #:c-win32-keyed-mutex-acquire-release-info-nv
+    #:win32-surface-create-flag-bits-khr
     #:win32-surface-create-flags-khr
     #:win32-surface-create-info-khr
     #:c-win32-surface-create-info-khr
@@ -2368,13 +2464,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:c-write-descriptor-set-inline-uniform-block-ext
     #:x-y-color-ext
     #:c-x-y-color-ext
+    #:xcb-surface-create-flag-bits-khr
     #:xcb-surface-create-flags-khr
     #:xcb-surface-create-info-khr
     #:c-xcb-surface-create-info-khr
+    #:xlib-surface-create-flag-bits-khr
     #:xlib-surface-create-flags-khr
     #:xlib-surface-create-info-khr
     #:c-xlib-surface-create-info-khr
 
+    #:acquire-drm-display-ext
     #:acquire-full-screen-exclusive-mode-ext
     #:acquire-next-image-2-khr
     #:acquire-next-image-khr
@@ -2457,6 +2556,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-draw-mesh-tasks-indirect-count-nv
     #:cmd-draw-mesh-tasks-indirect-nv
     #:cmd-draw-mesh-tasks-nv
+    #:cmd-draw-multi-ext
+    #:cmd-draw-multi-indexed-ext
     #:cmd-encode-video-khr
     #:cmd-end-conditional-rendering-ext
     #:cmd-end-debug-utils-label-ext
@@ -2530,6 +2631,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-viewport-shading-rate-palette-nv
     #:cmd-set-viewport-w-scaling-nv
     #:cmd-set-viewport-with-count-ext
+    #:cmd-subpass-shading-huawei
     #:cmd-trace-rays-indirect-khr
     #:cmd-trace-rays-khr
     #:cmd-trace-rays-nv
@@ -2698,6 +2800,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-display-plane-capabilities-2-khr
     #:get-display-plane-capabilities-khr
     #:get-display-plane-supported-displays-khr
+    #:get-drm-display-ext
     #:get-event-status
     #:get-fence-fd-khr
     #:get-fence-status
@@ -2802,6 +2905,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-semaphore-win32-handle-khr
     #:get-semaphore-zircon-handle-fuchsia
     #:get-shader-info-amd
+    #:get-subpass-shading-max-workgroup-size-huawei
     #:get-swapchain-counter-ext
     #:get-swapchain-images-khr
     #:get-swapchain-status-khr
@@ -2949,6 +3053,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-offset
     #:buffer-row-length
     #:build-scratch-size
+    #:c
     #:capabilities
     #:capability-flags
     #:category
@@ -3251,6 +3356,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:geometry-type
     #:global-alpha
     #:global-priority
+    #:global-priority-query
     #:grid-dim-x
     #:grid-dim-y
     #:grid-dim-z
@@ -3259,6 +3365,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:handle
     #:handle-type
     #:handle-types
+    #:has-primary
+    #:has-render
     #:heap-budget
     #:heap-index
     #:heap-usage
@@ -3367,6 +3475,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:marker
     #:mask
     #:matrix
+    #:matrix-motion-instance
     #:max-anisotropy
     #:max-array-layers
     #:max-bound-descriptor-sets
@@ -3451,6 +3560,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-inline-uniform-block-bindings
     #:max-inline-uniform-block-size
     #:max-instance-count
+    #:max-instances
     #:max-interpolation-offset
     #:max-level
     #:max-lod
@@ -3464,6 +3574,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-mesh-work-group-invocations
     #:max-mesh-work-group-size
     #:max-mip-levels
+    #:max-multi-draw-count
     #:max-multiview-instance-index
     #:max-multiview-view-count
     #:max-num-l-0-reference-for-b
@@ -3518,6 +3629,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-src-position
     #:max-storage-buffer-range
     #:max-subgroup-size
+    #:max-subpass-shading-workgroup-size-aspect-ratio
     #:max-subsampled-array-layers
     #:max-task-output-count
     #:max-task-total-memory-size
@@ -3629,6 +3741,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:mode
     #:modes
     #:module
+    #:multi-draw
     #:multi-draw-indirect
     #:multi-viewport
     #:multisample-array-image
@@ -3913,6 +4026,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:present-mask
     #:present-mode
     #:preserve-attachment-count
+    #:primary-major
+    #:primary-minor
     #:primitive-count
     #:primitive-fragment-shading-rate
     #:primitive-fragment-shading-rate-with-multiple-viewports
@@ -3920,7 +4035,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:primitive-overestimation-size
     #:primitive-restart-enable
     #:primitive-underestimation
+    #:priorities
     #:priority
+    #:priority-count
     #:private-data
     #:private-data-slot-request-count
     #:profile-count
@@ -3938,6 +4055,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pushconstant-pipeline-layout
     #:pushconstant-shader-stage-flags
     #:pushconstant-size
+    #:pvx
+    #:pvy
+    #:pvz
     #:quad-divergent-implicit-lod
     #:quad-operations-in-all-stages
     #:quality-level
@@ -3953,6 +4073,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:queue-flags
     #:queue-index
     #:queue-label-count
+    #:qw
+    #:qx
+    #:qy
+    #:qz
     #:r
     #:range
     #:rasterization-order
@@ -3961,6 +4085,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:rasterizer-discard-enable
     #:rate-control-mode
     #:ray-query
+    #:ray-tracing-motion-blur
+    #:ray-tracing-motion-blur-pipeline-trace-rays-indirect
     #:ray-tracing-pipeline
     #:ray-tracing-pipeline-shader-group-handle-capture-replay
     #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
@@ -3982,6 +4108,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:region-count
     #:release-count
     #:render-area
+    #:render-major
+    #:render-minor
     #:render-pass
     #:representative-fragment-test
     #:representative-fragment-test-enable
@@ -4128,6 +4256,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-storage-texel-buffer-array-non-uniform-indexing
     #:shader-subgroup-clock
     #:shader-subgroup-extended-types
+    #:shader-subgroup-uniform-control-flow
     #:shader-terminate-invocation
     #:shader-tessellation-and-geometry-point-size
     #:shader-uniform-buffer-array-dynamic-indexing
@@ -4199,12 +4328,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:src-stage-mask
     #:src-subpass
     #:src-subresource
+    #:srt-motion-instance
     #:stage
     #:stage-count
     #:stage-flags
     #:stage-mask
     #:stages
     #:standard-sample-locations
+    #:static-instance
     #:std-extension-version
     #:std-profile-idc
     #:stencil
@@ -4248,6 +4379,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:subpass
     #:subpass-count
     #:subpass-index
+    #:subpass-shading
     #:subresource
     #:subresource-range
     #:subsampled-coarse-reconstruction-early-access
@@ -4276,7 +4408,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:surface-format
     #:swapchain
     #:swapchain-count
+    #:sx
+    #:sy
     #:synchronization-2
+    #:sz
     #:tag-name
     #:tag-size
     #:task-count
@@ -4310,9 +4445,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:transform-feedback-rasterization-stream-select
     #:transform-feedback-streams-lines-triangles
     #:transform-offset
+    #:transform-t-0
+    #:transform-t-1
     #:triangle-fans
     #:triangles
+    #:tx
+    #:ty
     #:type
+    #:tz
     #:u64
     #:uint-32
     #:uint-64
@@ -4432,6 +4572,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+max-driver-name-size+
     #:+max-driver-name-size-khr+
     #:+max-extension-name-size+
+    #:+max-global-priority-size-ext+
     #:+max-memory-heaps+
     #:+max-memory-types+
     #:+max-physical-device-name-size+
@@ -4470,6 +4611,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+amd-texture-gather-bias-lod-extension-name+
     #:+android-external-memory-android-hardware-buffer-extension-name+
     #:+ext-4444-formats-extension-name+
+    #:+ext-acquire-drm-display-extension-name+
     #:+ext-acquire-xlib-display-extension-name+
     #:+ext-astc-decode-mode-extension-name+
     #:+ext-blend-operation-advanced-extension-name+
@@ -4501,6 +4643,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-fragment-shader-interlock-extension-name+
     #:+ext-full-screen-exclusive-extension-name+
     #:+ext-global-priority-extension-name+
+    #:+ext-global-priority-query-extension-name+
     #:+ext-hdr-metadata-extension-name+
     #:+ext-headless-surface-extension-name+
     #:+ext-host-query-reset-extension-name+
@@ -4512,7 +4655,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-memory-budget-extension-name+
     #:+ext-memory-priority-extension-name+
     #:+ext-metal-surface-extension-name+
+    #:+ext-multi-draw-extension-name+
     #:+ext-pci-bus-info-extension-name+
+    #:+ext-physical-device-drm-extension-name+
     #:+ext-pipeline-creation-cache-control-extension-name+
     #:+ext-pipeline-creation-feedback-extension-name+
     #:+ext-post-depth-coverage-extension-name+
@@ -4556,6 +4701,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+google-display-timing-extension-name+
     #:+google-hlsl-functionality1-extension-name+
     #:+google-user-type-extension-name+
+    #:+huawei-subpass-shading-extension-name+
     #:+img-filter-cubic-extension-name+
     #:+img-format-pvrtc-extension-name+
     #:+intel-performance-query-extension-name+
@@ -4620,6 +4766,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-shader-float-controls-extension-name+
     #:+khr-shader-non-semantic-info-extension-name+
     #:+khr-shader-subgroup-extended-types-extension-name+
+    #:+khr-shader-subgroup-uniform-control-flow-extension-name+
     #:+khr-shader-terminate-invocation-extension-name+
     #:+khr-shared-presentable-image-extension-name+
     #:+khr-spirv-1-4-extension-name+
@@ -4673,6 +4820,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-inherited-viewport-scissor-extension-name+
     #:+nv-mesh-shader-extension-name+
     #:+nv-ray-tracing-extension-name+
+    #:+nv-ray-tracing-motion-blur-extension-name+
     #:+nv-representative-fragment-test-extension-name+
     #:+nv-sample-mask-override-coverage-extension-name+
     #:+nv-scissor-exclusive-extension-name+
@@ -4708,6 +4856,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+max-driver-name-size+
     #:+max-driver-name-size-khr+
     #:+max-extension-name-size+
+    #:+max-global-priority-size-ext+
     #:+max-memory-heaps+
     #:+max-memory-types+
     #:+max-physical-device-name-size+
@@ -4746,6 +4895,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+amd-texture-gather-bias-lod-extension-name+
     #:+android-external-memory-android-hardware-buffer-extension-name+
     #:+ext-4444-formats-extension-name+
+    #:+ext-acquire-drm-display-extension-name+
     #:+ext-acquire-xlib-display-extension-name+
     #:+ext-astc-decode-mode-extension-name+
     #:+ext-blend-operation-advanced-extension-name+
@@ -4777,6 +4927,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-fragment-shader-interlock-extension-name+
     #:+ext-full-screen-exclusive-extension-name+
     #:+ext-global-priority-extension-name+
+    #:+ext-global-priority-query-extension-name+
     #:+ext-hdr-metadata-extension-name+
     #:+ext-headless-surface-extension-name+
     #:+ext-host-query-reset-extension-name+
@@ -4788,7 +4939,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+ext-memory-budget-extension-name+
     #:+ext-memory-priority-extension-name+
     #:+ext-metal-surface-extension-name+
+    #:+ext-multi-draw-extension-name+
     #:+ext-pci-bus-info-extension-name+
+    #:+ext-physical-device-drm-extension-name+
     #:+ext-pipeline-creation-cache-control-extension-name+
     #:+ext-pipeline-creation-feedback-extension-name+
     #:+ext-post-depth-coverage-extension-name+
@@ -4832,6 +4985,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+google-display-timing-extension-name+
     #:+google-hlsl-functionality1-extension-name+
     #:+google-user-type-extension-name+
+    #:+huawei-subpass-shading-extension-name+
     #:+img-filter-cubic-extension-name+
     #:+img-format-pvrtc-extension-name+
     #:+intel-performance-query-extension-name+
@@ -4896,6 +5050,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+khr-shader-float-controls-extension-name+
     #:+khr-shader-non-semantic-info-extension-name+
     #:+khr-shader-subgroup-extended-types-extension-name+
+    #:+khr-shader-subgroup-uniform-control-flow-extension-name+
     #:+khr-shader-terminate-invocation-extension-name+
     #:+khr-shared-presentable-image-extension-name+
     #:+khr-spirv-1-4-extension-name+
@@ -4949,6 +5104,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:+nv-inherited-viewport-scissor-extension-name+
     #:+nv-mesh-shader-extension-name+
     #:+nv-ray-tracing-extension-name+
+    #:+nv-ray-tracing-motion-blur-extension-name+
     #:+nv-representative-fragment-test-extension-name+
     #:+nv-sample-mask-override-coverage-extension-name+
     #:+nv-scissor-exclusive-extension-name+
@@ -4977,10 +5133,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acceleration-structure-geometry-data-khr
     #:acceleration-structure-geometry-instances-data-khr
     #:acceleration-structure-geometry-khr
+    #:acceleration-structure-geometry-motion-triangles-data-nv
     #:acceleration-structure-geometry-triangles-data-khr
     #:acceleration-structure-info-nv
     #:acceleration-structure-instance-khr
+    #:acceleration-structure-matrix-motion-instance-nv
     #:acceleration-structure-memory-requirements-info-nv
+    #:acceleration-structure-motion-info-nv
+    #:acceleration-structure-motion-instance-data-nv
+    #:acceleration-structure-motion-instance-nv
+    #:acceleration-structure-s-r-t-motion-instance-nv
     #:acceleration-structure-version-info-khr
     #:acquire-next-image-info-khr
     #:acquire-profiling-lock-info-khr
@@ -5245,6 +5407,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memory-win32-handle-properties-khr
     #:memory-zircon-handle-properties-fuchsia
     #:metal-surface-create-info-ext
+    #:multi-draw-indexed-info-ext
+    #:multi-draw-info-ext
     #:multisample-properties-ext
     #:mutable-descriptor-type-create-info-valve
     #:mutable-descriptor-type-list-valve
@@ -5293,6 +5457,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-diagnostics-config-features-nv
     #:physical-device-discard-rectangle-properties-ext
     #:physical-device-driver-properties
+    #:physical-device-drm-properties-ext
     #:physical-device-exclusive-scissor-features-nv
     #:physical-device-extended-dynamic-state-2-features-ext
     #:physical-device-extended-dynamic-state-features-ext
@@ -5315,6 +5480,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-fragment-shading-rate-features-khr
     #:physical-device-fragment-shading-rate-khr
     #:physical-device-fragment-shading-rate-properties-khr
+    #:physical-device-global-priority-query-features-ext
     #:physical-device-group-properties
     #:physical-device-host-query-reset-features
     #:physical-device-id-properties
@@ -5337,6 +5503,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-memory-properties-2
     #:physical-device-mesh-shader-features-nv
     #:physical-device-mesh-shader-properties-nv
+    #:physical-device-multi-draw-features-ext
+    #:physical-device-multi-draw-properties-ext
     #:physical-device-multiview-features
     #:physical-device-multiview-per-view-attributes-properties-nvx
     #:physical-device-multiview-properties
@@ -5358,6 +5526,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-provoking-vertex-properties-ext
     #:physical-device-push-descriptor-properties-khr
     #:physical-device-ray-query-features-khr
+    #:physical-device-ray-tracing-motion-blur-features-nv
     #:physical-device-ray-tracing-pipeline-features-khr
     #:physical-device-ray-tracing-pipeline-properties-khr
     #:physical-device-ray-tracing-properties-nv
@@ -5383,6 +5552,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-shader-s-m-builtins-features-nv
     #:physical-device-shader-s-m-builtins-properties-nv
     #:physical-device-shader-subgroup-extended-types-features
+    #:physical-device-shader-subgroup-uniform-control-flow-features-khr
     #:physical-device-shader-terminate-invocation-features-khr
     #:physical-device-shading-rate-image-features-nv
     #:physical-device-shading-rate-image-properties-nv
@@ -5391,6 +5561,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:physical-device-subgroup-properties
     #:physical-device-subgroup-size-control-features-ext
     #:physical-device-subgroup-size-control-properties-ext
+    #:physical-device-subpass-shading-features-huawei
+    #:physical-device-subpass-shading-properties-huawei
     #:physical-device-surface-info-2-khr
     #:physical-device-synchronization-2-features-khr
     #:physical-device-texel-buffer-alignment-features-ext
@@ -5477,6 +5649,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:query-pool-performance-query-create-info-intel
     #:queue-family-checkpoint-properties-2-nv
     #:queue-family-checkpoint-properties-nv
+    #:queue-family-global-priority-properties-ext
     #:queue-family-properties
     #:queue-family-properties-2
     #:ray-tracing-pipeline-create-info-khr
@@ -5497,6 +5670,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:render-pass-sample-locations-begin-info-ext
     #:render-pass-transform-begin-info-qcom
     #:resolve-image-info-2-khr
+    #:s-r-t-data-nv
     #:sample-location-ext
     #:sample-locations-info-ext
     #:sampler-create-info
@@ -5545,6 +5719,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:subpass-description-depth-stencil-resolve
     #:subpass-end-info
     #:subpass-sample-locations-ext
+    #:subpass-shading-pipeline-create-info-huawei
     #:subresource-layout
     #:surface-capabilities-2-ext
     #:surface-capabilities-2-khr
@@ -5715,6 +5890,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:buffer-offset
     #:buffer-row-length
     #:build-scratch-size
+    #:c
     #:capabilities
     #:capability-flags
     #:category
@@ -6016,6 +6192,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:geometry-type
     #:global-alpha
     #:global-priority
+    #:global-priority-query
     #:grid-dim-x
     #:grid-dim-y
     #:grid-dim-z
@@ -6024,6 +6201,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:handle
     #:handle-type
     #:handle-types
+    #:has-primary
+    #:has-render
     #:heap-budget
     #:heap-index
     #:heap-usage
@@ -6131,6 +6310,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:marker
     #:mask
     #:matrix
+    #:matrix-motion-instance
     #:max-anisotropy
     #:max-array-layers
     #:max-bound-descriptor-sets
@@ -6215,6 +6395,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-inline-uniform-block-bindings
     #:max-inline-uniform-block-size
     #:max-instance-count
+    #:max-instances
     #:max-interpolation-offset
     #:max-level
     #:max-lod
@@ -6228,6 +6409,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-mesh-work-group-invocations
     #:max-mesh-work-group-size
     #:max-mip-levels
+    #:max-multi-draw-count
     #:max-multiview-instance-index
     #:max-multiview-view-count
     #:max-num-l-0-reference-for-b
@@ -6282,6 +6464,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:max-src-position
     #:max-storage-buffer-range
     #:max-subgroup-size
+    #:max-subpass-shading-workgroup-size-aspect-ratio
     #:max-subsampled-array-layers
     #:max-task-output-count
     #:max-task-total-memory-size
@@ -6392,6 +6575,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:mode
     #:modes
     #:module
+    #:multi-draw
     #:multi-draw-indirect
     #:multi-viewport
     #:multisample-array-image
@@ -6672,6 +6856,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:present-mask
     #:present-mode
     #:preserve-attachment-count
+    #:primary-major
+    #:primary-minor
     #:primitive-count
     #:primitive-fragment-shading-rate
     #:primitive-fragment-shading-rate-with-multiple-viewports
@@ -6679,7 +6865,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:primitive-overestimation-size
     #:primitive-restart-enable
     #:primitive-underestimation
+    #:priorities
     #:priority
+    #:priority-count
     #:private-data
     #:private-data-slot-request-count
     #:profile-count
@@ -6697,6 +6885,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pushconstant-pipeline-layout
     #:pushconstant-shader-stage-flags
     #:pushconstant-size
+    #:pvx
+    #:pvy
+    #:pvz
     #:quad-divergent-implicit-lod
     #:quad-operations-in-all-stages
     #:quality-level
@@ -6712,6 +6903,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:queue-flags
     #:queue-index
     #:queue-label-count
+    #:qw
+    #:qx
+    #:qy
+    #:qz
     #:r
     #:range
     #:rasterization-order
@@ -6720,6 +6915,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:rasterizer-discard-enable
     #:rate-control-mode
     #:ray-query
+    #:ray-tracing-motion-blur
+    #:ray-tracing-motion-blur-pipeline-trace-rays-indirect
     #:ray-tracing-pipeline
     #:ray-tracing-pipeline-shader-group-handle-capture-replay
     #:ray-tracing-pipeline-shader-group-handle-capture-replay-mixed
@@ -6741,6 +6938,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:region-count
     #:release-count
     #:render-area
+    #:render-major
+    #:render-minor
     #:render-pass
     #:representative-fragment-test
     #:representative-fragment-test-enable
@@ -6887,6 +7086,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:shader-storage-texel-buffer-array-non-uniform-indexing
     #:shader-subgroup-clock
     #:shader-subgroup-extended-types
+    #:shader-subgroup-uniform-control-flow
     #:shader-terminate-invocation
     #:shader-tessellation-and-geometry-point-size
     #:shader-uniform-buffer-array-dynamic-indexing
@@ -6958,12 +7158,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:src-stage-mask
     #:src-subpass
     #:src-subresource
+    #:srt-motion-instance
     #:stage
     #:stage-count
     #:stage-flags
     #:stage-mask
     #:stages
     #:standard-sample-locations
+    #:static-instance
     #:std-extension-version
     #:std-profile-idc
     #:stencil
@@ -7007,6 +7209,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:subpass
     #:subpass-count
     #:subpass-index
+    #:subpass-shading
     #:subresource
     #:subresource-range
     #:subsampled-coarse-reconstruction-early-access
@@ -7035,7 +7238,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:surface-format
     #:swapchain
     #:swapchain-count
+    #:sx
+    #:sy
     #:synchronization-2
+    #:sz
     #:tag-name
     #:tag-size
     #:task-count
@@ -7069,9 +7275,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:transform-feedback-rasterization-stream-select
     #:transform-feedback-streams-lines-triangles
     #:transform-offset
+    #:transform-t-0
+    #:transform-t-1
     #:triangle-fans
     #:triangles
+    #:tx
+    #:ty
     #:type
+    #:tz
     #:u64
     #:uint-32
     #:uint-64
@@ -7166,6 +7377,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:z
     #:zircon-handle
 
+    #:acquire-drm-display-ext
     #:acquire-full-screen-exclusive-mode-ext
     #:acquire-next-image-2-khr
     #:acquire-next-image-khr
@@ -7248,6 +7460,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-draw-mesh-tasks-indirect-count-nv
     #:cmd-draw-mesh-tasks-indirect-nv
     #:cmd-draw-mesh-tasks-nv
+    #:cmd-draw-multi-ext
+    #:cmd-draw-multi-indexed-ext
     #:cmd-encode-video-khr
     #:cmd-end-conditional-rendering-ext
     #:cmd-end-debug-utils-label-ext
@@ -7321,6 +7535,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:cmd-set-viewport-shading-rate-palette-nv
     #:cmd-set-viewport-w-scaling-nv
     #:cmd-set-viewport-with-count-ext
+    #:cmd-subpass-shading-huawei
     #:cmd-trace-rays-indirect-khr
     #:cmd-trace-rays-khr
     #:cmd-trace-rays-nv
@@ -7489,6 +7704,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-display-plane-capabilities-2-khr
     #:get-display-plane-capabilities-khr
     #:get-display-plane-supported-displays-khr
+    #:get-drm-display-ext
     #:get-event-status
     #:get-fence-fd-khr
     #:get-fence-status
@@ -7593,6 +7809,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:get-semaphore-win32-handle-khr
     #:get-semaphore-zircon-handle-fuchsia
     #:get-shader-info-amd
+    #:get-subpass-shading-max-workgroup-size-huawei
     #:get-swapchain-counter-ext
     #:get-swapchain-images-khr
     #:get-swapchain-status-khr
@@ -7657,10 +7874,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:acceleration-structure-compatibility-khr
     #:acceleration-structure-create-flag-bits-khr
     #:acceleration-structure-memory-requirements-type-nv
+    #:acceleration-structure-motion-info-flag-bits-nv
+    #:acceleration-structure-motion-instance-flag-bits-nv
+    #:acceleration-structure-motion-instance-type-nv
     #:acceleration-structure-type-khr
     #:access-flag-bits
     #:access-flag-bits-2-khr
     #:acquire-profiling-lock-flag-bits-khr
+    #:android-surface-create-flag-bits-khr
     #:attachment-description-flag-bits
     #:attachment-load-op
     #:attachment-store-op
@@ -7670,6 +7891,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:border-color
     #:buffer-create-flag-bits
     #:buffer-usage-flag-bits
+    #:buffer-view-create-flag-bits
     #:build-acceleration-structure-flag-bits-khr
     #:build-acceleration-structure-mode-khr
     #:chroma-location
@@ -7681,6 +7903,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:command-buffer-usage-flag-bits
     #:command-pool-create-flag-bits
     #:command-pool-reset-flag-bits
+    #:command-pool-trim-flag-bits
     #:compare-op
     #:component-swizzle
     #:component-type-nv
@@ -7695,22 +7918,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:debug-report-object-type-ext
     #:debug-utils-message-severity-flag-bits-ext
     #:debug-utils-message-type-flag-bits-ext
+    #:debug-utils-messenger-callback-data-flag-bits-ext
+    #:debug-utils-messenger-create-flag-bits-ext
     #:dependency-flag-bits
     #:descriptor-binding-flag-bits
     #:descriptor-pool-create-flag-bits
+    #:descriptor-pool-reset-flag-bits
     #:descriptor-set-layout-create-flag-bits
     #:descriptor-type
+    #:descriptor-update-template-create-flag-bits
     #:descriptor-update-template-type
     #:device-create-flag-bits
     #:device-diagnostics-config-flag-bits-nv
     #:device-event-type-ext
     #:device-group-present-mode-flag-bits-khr
     #:device-memory-report-event-type-ext
+    #:device-memory-report-flag-bits-ext
     #:device-queue-create-flag-bits
+    #:direct-fb-surface-create-flag-bits-ext
     #:discard-rectangle-mode-ext
     #:display-event-type-ext
+    #:display-mode-create-flag-bits-khr
     #:display-plane-alpha-flag-bits-khr
     #:display-power-state-ext
+    #:display-surface-create-flag-bits-khr
     #:driver-id
     #:dynamic-state
     #:event-create-flag-bits
@@ -7736,9 +7967,12 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:geometry-flag-bits-khr
     #:geometry-instance-flag-bits-khr
     #:geometry-type-khr
+    #:headless-surface-create-flag-bits-ext
+    #:i-os-surface-create-flag-bits-mvk
     #:image-aspect-flag-bits
     #:image-create-flag-bits
     #:image-layout
+    #:image-pipe-surface-create-flag-bits-fuchsia
     #:image-tiling
     #:image-type
     #:image-usage-flag-bits
@@ -7752,10 +7986,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:internal-allocation-type
     #:line-rasterization-mode-ext
     #:logic-op
+    #:mac-os-surface-create-flag-bits-mvk
     #:memory-allocate-flag-bits
     #:memory-heap-flag-bits
+    #:memory-map-flag-bits
     #:memory-overallocation-behavior-amd
     #:memory-property-flag-bits
+    #:metal-surface-create-flag-bits-ext
     #:object-type
     #:peer-memory-feature-flag-bits
     #:performance-configuration-type-intel
@@ -7770,13 +8007,31 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:pipeline-bind-point
     #:pipeline-cache-create-flag-bits
     #:pipeline-cache-header-version
+    #:pipeline-color-blend-state-create-flag-bits
     #:pipeline-compiler-control-flag-bits-amd
+    #:pipeline-coverage-modulation-state-create-flag-bits-nv
+    #:pipeline-coverage-reduction-state-create-flag-bits-nv
+    #:pipeline-coverage-to-color-state-create-flag-bits-nv
     #:pipeline-create-flag-bits
     #:pipeline-creation-feedback-flag-bits-ext
+    #:pipeline-depth-stencil-state-create-flag-bits
+    #:pipeline-discard-rectangle-state-create-flag-bits-ext
+    #:pipeline-dynamic-state-create-flag-bits
     #:pipeline-executable-statistic-format-khr
+    #:pipeline-input-assembly-state-create-flag-bits
+    #:pipeline-layout-create-flag-bits
+    #:pipeline-multisample-state-create-flag-bits
+    #:pipeline-rasterization-conservative-state-create-flag-bits-ext
+    #:pipeline-rasterization-depth-clip-state-create-flag-bits-ext
+    #:pipeline-rasterization-state-create-flag-bits
+    #:pipeline-rasterization-state-stream-create-flag-bits-ext
     #:pipeline-shader-stage-create-flag-bits
     #:pipeline-stage-flag-bits
     #:pipeline-stage-flag-bits-2-khr
+    #:pipeline-tessellation-state-create-flag-bits
+    #:pipeline-vertex-input-state-create-flag-bits
+    #:pipeline-viewport-state-create-flag-bits
+    #:pipeline-viewport-swizzle-state-create-flag-bits-nv
     #:point-clipping-behavior
     #:polygon-mode
     #:present-mode-khr
@@ -7805,6 +8060,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sampler-ycbcr-model-conversion
     #:sampler-ycbcr-range
     #:scope-nv
+    #:screen-surface-create-flag-bits-qnx
+    #:semaphore-create-flag-bits
     #:semaphore-import-flag-bits
     #:semaphore-type
     #:semaphore-wait-flag-bits
@@ -7820,6 +8077,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:sparse-memory-bind-flag-bits
     #:stencil-face-flag-bits
     #:stencil-op
+    #:stream-descriptor-surface-create-flag-bits-ggp
     #:structure-type
     #:subgroup-feature-flag-bits
     #:submit-flag-bits-khr
@@ -7832,12 +8090,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:tessellation-domain-origin
     #:time-domain-ext
     #:tool-purpose-flag-bits-ext
+    #:validation-cache-create-flag-bits-ext
     #:validation-cache-header-version-ext
     #:validation-check-ext
     #:validation-feature-disable-ext
     #:validation-feature-enable-ext
     #:vendor-id
     #:vertex-input-rate
+    #:vi-surface-create-flag-bits-nn
+    #:video-begin-coding-flag-bits-khr
     #:video-capabilities-flag-bits-khr
     #:video-chroma-subsampling-flag-bits-khr
     #:video-codec-operation-flag-bits-khr
@@ -7845,7 +8106,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:video-coding-quality-preset-flag-bits-khr
     #:video-component-bit-depth-flag-bits-khr
     #:video-decode-flag-bits-khr
+    #:video-decode-h264-create-flag-bits-ext
     #:video-decode-h264-field-layout-flag-bits-ext
+    #:video-decode-h265-create-flag-bits-ext
     #:video-encode-flag-bits-khr
     #:video-encode-h264-capabilities-flag-bits-ext
     #:video-encode-h264-create-flag-bits-ext
@@ -7853,8 +8116,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:video-encode-h264-output-mode-flag-bits-ext
     #:video-encode-rate-control-flag-bits-khr
     #:video-encode-rate-control-mode-flag-bits-khr
+    #:video-end-coding-flag-bits-khr
     #:video-session-create-flag-bits-khr
     #:viewport-coordinate-swizzle-nv
+    #:wayland-surface-create-flag-bits-khr
+    #:win32-surface-create-flag-bits-khr
+    #:xcb-surface-create-flag-bits-khr
+    #:xlib-surface-create-flag-bits-khr
 
     #:acceleration-structure-khr
     #:acceleration-structure-nv
@@ -7912,4 +8180,62 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:memcpy
     #:split-api-version
     #:format-api-version
-    #:read-shader-source))
+    #:read-shader-source
+    #:with-instance
+    #:with-device
+    #:with-command-buffers
+    #:with-memory
+    #:with-command-pool
+    #:with-buffer
+    #:with-buffer-view
+    #:with-image
+    #:with-image-view
+    #:with-shader-module
+    #:with-ray-tracing-pipelines-khr
+    #:with-ray-tracing-pipelines-nv
+    #:with-compute-pipelines
+    #:with-graphics-pipelines
+    #:with-pipeline-layout
+    #:with-sampler
+    #:with-descriptor-sets
+    #:with-descriptor-set-layout
+    #:with-descriptor-pool
+    #:with-fence
+    #:with-semaphore
+    #:with-event
+    #:with-query-pool
+    #:with-framebuffer
+    #:with-render-pass-2
+    #:with-render-pass
+    #:with-pipeline-cache
+    #:with-indirect-commands-layout-nv
+    #:with-descriptor-update-template
+    #:with-sampler-ycbcr-conversion
+    #:with-validation-cache-ext
+    #:with-acceleration-structure-khr
+    #:with-acceleration-structure-nv
+    #:with-deferred-operation-khr
+    #:with-private-data-slot-ext
+    #:with-cu-module-nvx
+    #:with-cu-function-nvx
+    #:with-headless-surface-ext
+    #:with-metal-surface-ext
+    #:with-mac-os-surface-mvk
+    #:with-i-os-surface-mvk
+    #:with-screen-surface-qnx
+    #:with-stream-descriptor-surface-ggp
+    #:with-image-pipe-surface-fuchsia
+    #:with-direct-fb-surface-ext
+    #:with-xcb-surface-khr
+    #:with-xlib-surface-khr
+    #:with-win32-surface-khr
+    #:with-wayland-surface-khr
+    #:with-vi-surface-nn
+    #:with-display-plane-surface-khr
+    #:with-android-surface-khr
+    #:with-swapchain-khr
+    #:with-shared-swapchains-khr
+    #:with-debug-report-callback-ext
+    #:with-debug-utils-messenger-ext
+    #:with-video-session-khr
+    #:with-video-session-parameters-khr))

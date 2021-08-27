@@ -1128,7 +1128,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:rasterization-samples (vk:rasterization-samples ,value)
           %vk:sample-shading-enable (vk:sample-shading-enable ,value)
           %vk:min-sample-shading (vk:min-sample-shading ,value)
-          %vk:p-sample-mask (if (vk:sample-mask ,value) (vk:sample-mask ,value) (cffi:null-pointer))
+          %vk:p-sample-mask (vk-alloc:foreign-allocate-and-fill '%vk:sample-mask (vk:sample-mask ,value) ,ptr)
           %vk:alpha-to-coverage-enable (vk:alpha-to-coverage-enable ,value)
           %vk:alpha-to-one-enable (vk:alpha-to-one-enable ,value))))
 
@@ -2052,6 +2052,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:y (vk:y ,value)
           %vk:z (vk:z ,value))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-multi-draw-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:first-vertex
+        %vk:vertex-count)
+       ,ptr
+       (:struct %vk:multi-draw-info-ext))
+    (setf %vk:first-vertex (vk:first-vertex ,value)
+          %vk:vertex-count (vk:vertex-count ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-multi-draw-indexed-info-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:first-index
+        %vk:index-count
+        %vk:vertex-offset)
+       ,ptr
+       (:struct %vk:multi-draw-indexed-info-ext))
+    (setf %vk:first-index (vk:first-index ,value)
+          %vk:index-count (vk:index-count ,value)
+          %vk:vertex-offset (vk:vertex-offset ,value))))
+
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-submit-info) ptr)
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -2727,6 +2747,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:min-sequences-count-buffer-offset-alignment (vk:min-sequences-count-buffer-offset-alignment ,value)
           %vk:min-sequences-index-buffer-offset-alignment (vk:min-sequences-index-buffer-offset-alignment ,value)
           %vk:min-indirect-commands-buffer-offset-alignment (vk:min-indirect-commands-buffer-offset-alignment ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-multi-draw-properties-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-multi-draw-count)
+       ,ptr
+       (:struct %vk:physical-device-multi-draw-properties-ext))
+    (setf %vk:s-type :physical-device-multi-draw-properties-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-multi-draw-count (vk:max-multi-draw-count ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-graphics-shader-group-create-info-nv) ptr)
   `(cffi:with-foreign-slots
@@ -4885,6 +4916,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:advanced-blend-coherent-operations (vk:advanced-blend-coherent-operations ,value))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-multi-draw-features-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:multi-draw)
+       ,ptr
+       (:struct %vk:physical-device-multi-draw-features-ext))
+    (setf %vk:s-type :physical-device-multi-draw-features-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:multi-draw (vk:multi-draw ,value))))
+
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-blend-operation-advanced-properties-ext) ptr)
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -5181,6 +5223,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :device-queue-global-priority-create-info-ext
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:global-priority (vk:global-priority ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-global-priority-query-features-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:global-priority-query)
+       ,ptr
+       (:struct %vk:physical-device-global-priority-query-features-ext))
+    (setf %vk:s-type :physical-device-global-priority-query-features-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:global-priority-query (vk:global-priority-query ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-queue-family-global-priority-properties-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:priority-count
+        %vk:priorities)
+       ,ptr
+       (:struct %vk:queue-family-global-priority-properties-ext))
+    (setf %vk:s-type :queue-family-global-priority-properties-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:priority-count (vk:priority-count ,value)
+          %vk:priorities (vk:priorities ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-debug-utils-object-name-info-ext) ptr)
   `(cffi:with-foreign-slots
@@ -8029,6 +8095,30 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:required-subgroup-size (vk:required-subgroup-size ,value))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-subpass-shading-pipeline-create-info-huawei) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:render-pass
+        %vk:subpass)
+       ,ptr
+       (:struct %vk:subpass-shading-pipeline-create-info-huawei))
+    (setf %vk:s-type :subpasss-shading-pipeline-create-info-huawei
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:render-pass (if (vk:render-pass ,value) (vk:render-pass ,value) (cffi:null-pointer))
+          %vk:subpass (vk:subpass ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-subpass-shading-properties-huawei) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-subpass-shading-workgroup-size-aspect-ratio)
+       ,ptr
+       (:struct %vk:physical-device-subpass-shading-properties-huawei))
+    (setf %vk:s-type :physical-device-subpass-shading-properties-huawei
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-subpass-shading-workgroup-size-aspect-ratio (vk:max-subpass-shading-workgroup-size-aspect-ratio ,value))))
+
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-memory-opaque-capture-address-allocate-info) ptr)
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -8519,7 +8609,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ,ptr
        (:struct %vk:acceleration-structure-geometry-triangles-data-khr))
     (setf %vk:s-type :acceleration-structure-geometry-triangles-data-khr
-          %vk:p-next (cffi:null-pointer)
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:vertex-format (vk:vertex-format ,value)
           %vk:vertex-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:vertex-data ,value) ,ptr)
           %vk:vertex-stride (vk:vertex-stride ,value)
@@ -8646,7 +8736,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ,ptr
        (:struct %vk:acceleration-structure-create-info-khr))
     (setf %vk:s-type :acceleration-structure-create-info-khr
-          %vk:p-next (cffi:null-pointer)
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:create-flags (vk:create-flags ,value)
           %vk:buffer (if (vk:buffer ,value) (vk:buffer ,value) (cffi:null-pointer))
           %vk:offset (vk:offset ,value)
@@ -8882,6 +8972,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:shader-zero-initialize-workgroup-memory (vk:shader-zero-initialize-workgroup-memory ,value))))
 
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-shader-subgroup-uniform-control-flow-features-khr) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-subgroup-uniform-control-flow)
+       ,ptr
+       (:struct %vk:physical-device-shader-subgroup-uniform-control-flow-features-khr))
+    (setf %vk:s-type :physical-device-shader-subgroup-uniform-control-flow-features-khr
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:shader-subgroup-uniform-control-flow (vk:shader-subgroup-uniform-control-flow ,value))))
+
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-robustness-2-features-ext) ptr)
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -9000,6 +9101,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
           %vk:format-a4r4g4b4 (vk:format-a4r4g4b4 ,value)
           %vk:format-a4b4g4r4 (vk:format-a4b4g4r4 ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-subpass-shading-features-huawei) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:subpass-shading)
+       ,ptr
+       (:struct %vk:physical-device-subpass-shading-features-huawei))
+    (setf %vk:s-type :physical-device-subpass-shading-features-huawei
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:subpass-shading (vk:subpass-shading ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-buffer-copy-2-khr) ptr)
   `(cffi:with-foreign-slots
@@ -10504,4 +10616,172 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
           %vk:p-params (if (vk:params ,value) (vk:params ,value) (cffi:null-pointer))
           %vk:extra-count (vk:extra-count ,value)
           %vk:p-extras (if (vk:extras ,value) (vk:extras ,value) (cffi:null-pointer)))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-drm-properties-ext) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:has-primary
+        %vk:has-render
+        %vk:primary-major
+        %vk:primary-minor
+        %vk:render-major
+        %vk:render-minor)
+       ,ptr
+       (:struct %vk:physical-device-drm-properties-ext))
+    (setf %vk:s-type :physical-device-drm-properties-ext
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:has-primary (vk:has-primary ,value)
+          %vk:has-render (vk:has-render ,value)
+          %vk:primary-major (vk:primary-major ,value)
+          %vk:primary-minor (vk:primary-minor ,value)
+          %vk:render-major (vk:render-major ,value)
+          %vk:render-minor (vk:render-minor ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-physical-device-ray-tracing-motion-blur-features-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ray-tracing-motion-blur
+        %vk:ray-tracing-motion-blur-pipeline-trace-rays-indirect)
+       ,ptr
+       (:struct %vk:physical-device-ray-tracing-motion-blur-features-nv))
+    (setf %vk:s-type :physical-device-ray-tracing-motion-blur-features-nv
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:ray-tracing-motion-blur (vk:ray-tracing-motion-blur ,value)
+          %vk:ray-tracing-motion-blur-pipeline-trace-rays-indirect (vk:ray-tracing-motion-blur-pipeline-trace-rays-indirect ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-geometry-motion-triangles-data-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:vertex-data)
+       ,ptr
+       (:struct %vk:acceleration-structure-geometry-motion-triangles-data-nv))
+    (setf %vk:s-type :acceleration-structure-geometry-motion-triangles-data-nv
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:vertex-data (vk-alloc:foreign-allocate-and-fill '(:union %vk:device-or-host-address-const-khr) (vk:vertex-data ,value) ,ptr))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-motion-info-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-instances
+        %vk:flags)
+       ,ptr
+       (:struct %vk:acceleration-structure-motion-info-nv))
+    (setf %vk:s-type :acceleration-structure-motion-info-nv
+          %vk:p-next (if (vk:next ,value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next ,value)))) :%vk)) (vk:next ,value) ,ptr) (cffi:null-pointer))
+          %vk:max-instances (vk:max-instances ,value)
+          %vk:flags (vk:flags ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-s-r-t-data-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:sx
+        %vk:a
+        %vk:b
+        %vk:pvx
+        %vk:sy
+        %vk:c
+        %vk:pvy
+        %vk:sz
+        %vk:pvz
+        %vk:qx
+        %vk:qy
+        %vk:qz
+        %vk:qw
+        %vk:tx
+        %vk:ty
+        %vk:tz)
+       ,ptr
+       (:struct %vk:s-r-t-data-nv))
+    (setf %vk:sx (vk:sx ,value)
+          %vk:a (vk:a ,value)
+          %vk:b (vk:b ,value)
+          %vk:pvx (vk:pvx ,value)
+          %vk:sy (vk:sy ,value)
+          %vk:c (vk:c ,value)
+          %vk:pvy (vk:pvy ,value)
+          %vk:sz (vk:sz ,value)
+          %vk:pvz (vk:pvz ,value)
+          %vk:qx (vk:qx ,value)
+          %vk:qy (vk:qy ,value)
+          %vk:qz (vk:qz ,value)
+          %vk:qw (vk:qw ,value)
+          %vk:tx (vk:tx ,value)
+          %vk:ty (vk:ty ,value)
+          %vk:tz (vk:tz ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-s-r-t-motion-instance-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:transform-t-0
+        %vk:transform-t-1
+        %vk:instance-custom-index
+        %vk:mask
+        %vk:instance-shader-binding-table-record-offset
+        %vk:flags
+        %vk:acceleration-structure-reference)
+       ,ptr
+       (:struct %vk:acceleration-structure-s-r-t-motion-instance-nv))
+    (setf %vk:transform-t-0 (vk-alloc:foreign-allocate-and-fill '(:struct %vk:s-r-t-data-nv) (vk:transform-t-0 ,value) ,ptr)
+          %vk:transform-t-1 (vk-alloc:foreign-allocate-and-fill '(:struct %vk:s-r-t-data-nv) (vk:transform-t-1 ,value) ,ptr)
+          %vk:instance-custom-index (vk:instance-custom-index ,value)
+          %vk:mask (vk:mask ,value)
+          %vk:instance-shader-binding-table-record-offset (vk:instance-shader-binding-table-record-offset ,value)
+          %vk:flags (vk:flags ,value)
+          %vk:acceleration-structure-reference (vk:acceleration-structure-reference ,value))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-matrix-motion-instance-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:transform-t-0
+        %vk:transform-t-1
+        %vk:instance-custom-index
+        %vk:mask
+        %vk:instance-shader-binding-table-record-offset
+        %vk:flags
+        %vk:acceleration-structure-reference)
+       ,ptr
+       (:struct %vk:acceleration-structure-matrix-motion-instance-nv))
+    (setf %vk:transform-t-0 (vk-alloc:foreign-allocate-and-fill '(:struct %vk:transform-matrix-khr) (vk:transform-t-0 ,value) ,ptr)
+          %vk:transform-t-1 (vk-alloc:foreign-allocate-and-fill '(:struct %vk:transform-matrix-khr) (vk:transform-t-1 ,value) ,ptr)
+          %vk:instance-custom-index (vk:instance-custom-index ,value)
+          %vk:mask (vk:mask ,value)
+          %vk:instance-shader-binding-table-record-offset (vk:instance-shader-binding-table-record-offset ,value)
+          %vk:flags (vk:flags ,value)
+          %vk:acceleration-structure-reference (vk:acceleration-structure-reference ,value))))
+
+(defmethod cffi:expand-into-foreign-memory ((value vk:acceleration-structure-motion-instance-data-nv) type ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:static-instance
+        %vk:matrix-motion-instance
+        %vk:srt-motion-instance)
+       ,ptr
+       (:union %vk:acceleration-structure-motion-instance-data-nv))
+     (cond
+      ((slot-boundp ,value 'vk:static-instance)
+       (setf %vk:static-instance
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-instance-khr)
+                                                  (vk:static-instance ,value)
+                                                  ,ptr)))
+      ((slot-boundp ,value 'vk:matrix-motion-instance)
+       (setf %vk:matrix-motion-instance
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-matrix-motion-instance-nv)
+                                                  (vk:matrix-motion-instance ,value)
+                                                  ,ptr)))
+      ((slot-boundp ,value 'vk:srt-motion-instance)
+       (setf %vk:srt-motion-instance
+             (vk-alloc:foreign-allocate-and-fill '(:struct %vk:acceleration-structure-s-r-t-motion-instance-nv)
+                                                  (vk:srt-motion-instance ,value)
+                                                  ,ptr))))))
+
+(defmethod cffi:expand-into-foreign-memory (value (type %vk:c-acceleration-structure-motion-instance-nv) ptr)
+  `(cffi:with-foreign-slots
+      ((%vk:type
+        %vk:flags
+        %vk:data)
+       ,ptr
+       (:struct %vk:acceleration-structure-motion-instance-nv))
+    (setf %vk:type (vk:type ,value)
+          %vk:flags (vk:flags ,value)
+          %vk:data (vk-alloc:foreign-allocate-and-fill '(:union %vk:acceleration-structure-motion-instance-data-nv) (vk:data ,value) ,ptr))))
 

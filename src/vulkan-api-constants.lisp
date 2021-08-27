@@ -91,3 +91,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defconstant +shader-unused-nv+ +shader-unused-khr+
   "Represents VK_SHADER_UNUSED_NV.") 
 
+(defconstant +max-global-priority-size-ext+ 16
+  "Represents VK_MAX_GLOBAL_PRIORITY_SIZE_EXT.") 
+

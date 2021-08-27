@@ -117,7 +117,7 @@
             
             <!-- VK has no macros, todo: add vk-utils as soon as there are with-wrappers -->
             <!-- MACROS -->
-            <c:when test="(member name '(vk-alloc) :test #'string=)">
+            <c:when test="(member name '(vk-alloc vk-utils) :test #'string=)">
               <button class="dropdown-btn">Macros
                 <i class="fa fa-caret-down"></i>
               </button>

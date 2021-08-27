@@ -1512,17 +1512,13 @@ Args:
  - QUERY-POOL: a QUERY-POOL
  - FIRST-QUERY: a UNSIGNED-BYTE
  - QUERY-COUNT: a UNSIGNED-BYTE
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See DEVICE
-See EXTENSION-LOADER
 See QUERY-POOL
-See *EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
                    ()
-                  nil
-                  t)
+                  nil)
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle)
   (first-query :uint32 first-query :in :raw)
@@ -2046,6 +2042,40 @@ See *DEFAULT-ALLOCATOR*
   (create-infos '(:struct %vk:compute-pipeline-create-info) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (pipelines '%vk:pipeline pipelines :out :handle :list))
+
+(defvk-get-struct-fun (get-subpass-shading-max-workgroup-size-huawei
+                       %vk:get-subpass-shading-max-workgroup-size-huawei
+                       "Represents [vkGetSubpassShadingMaxWorkgroupSizeHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSubpassShadingMaxWorkgroupSizeHUAWEI.html).
+
+Args:
+ - RENDERPASS: a RENDER-PASS
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    EXTENT-2DNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+ - INCOMPLETE
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+ - ERROR-SURFACE-LOST-KHR
+
+See EXTENSION-LOADER
+See EXTENT-2D
+See RENDER-PASS
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+                       ((renderpass cffi:foreign-pointer))
+                       ()
+                       t)
+  (renderpass '%vk:render-pass renderpass :in :handle)
+  (max-workgroup-size '(:struct %vk:extent-2d) max-workgroup-size :out))
 
 (defvk-simple-fun (destroy-pipeline
                    %vk:destroy-pipeline
@@ -3078,6 +3108,64 @@ See COMMAND-BUFFER
   (vertex-offset :int32 vertex-offset :in :raw)
   (first-instance :uint32 first-instance :in :raw))
 
+(defvk-simple-fun (cmd-draw-multi-ext
+                   %vk:cmd-draw-multi-ext
+                   "Represents [vkCmdDrawMultiEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMultiEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - VERTEX-INFO: a (OR LIST VECTOR) of (OR MULTI-DRAW-INFO-EXT CFFI:FOREIGN-POINTER) instances
+ - INSTANCE-COUNT: a UNSIGNED-BYTE
+ - FIRST-INSTANCE: a UNSIGNED-BYTE
+ - STRIDE: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See MULTI-DRAW-INFO-EXT
+See *DEFAULT-EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (vertex-info (or list vector)) (instance-count unsigned-byte) (first-instance unsigned-byte) (stride unsigned-byte))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (draw-count :uint32 (length vertex-info) :in :raw)
+  (vertex-info '(:struct %vk:multi-draw-info-ext) vertex-info :in :list)
+  (instance-count :uint32 instance-count :in :raw)
+  (first-instance :uint32 first-instance :in :raw)
+  (stride :uint32 stride :in :raw))
+
+(defvk-simple-fun (cmd-draw-multi-indexed-ext
+                   %vk:cmd-draw-multi-indexed-ext
+                   "Represents [vkCmdDrawMultiIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMultiIndexedEXT.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - INDEX-INFO: a (OR LIST VECTOR) of (OR MULTI-DRAW-INDEXED-INFO-EXT CFFI:FOREIGN-POINTER) instances
+ - INSTANCE-COUNT: a UNSIGNED-BYTE
+ - FIRST-INSTANCE: a UNSIGNED-BYTE
+ - STRIDE: a UNSIGNED-BYTE
+ - VERTEX-OFFSET (optional): a INTEGER, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See MULTI-DRAW-INDEXED-INFO-EXT
+See *DEFAULT-EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (index-info (or list vector)) (instance-count unsigned-byte) (first-instance unsigned-byte) (stride unsigned-byte))
+                   (((vertex-offset nil) integer))
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (draw-count :uint32 (length index-info) :in :raw)
+  (index-info '(:struct %vk:multi-draw-indexed-info-ext) index-info :in :list)
+  (instance-count :uint32 instance-count :in :raw)
+  (first-instance :uint32 first-instance :in :raw)
+  (stride :uint32 stride :in :raw)
+  (vertex-offset :int32 vertex-offset :in :optional))
+
 (defvk-simple-fun (cmd-draw-indirect
                    %vk:cmd-draw-indirect
                    "Represents [vkCmdDrawIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirect.html).
@@ -3165,6 +3253,24 @@ See DEVICE-SIZE
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in :raw))
+
+(defvk-simple-fun (cmd-subpass-shading-huawei
+                   %vk:cmd-subpass-shading-huawei
+                   "Represents [vkCmdSubpassShadingHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSubpassShadingHUAWEI.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer))
+                   ()
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle))
 
 (defvk-simple-fun (cmd-copy-buffer
                    %vk:cmd-copy-buffer
@@ -3616,7 +3722,7 @@ Args:
 See COMMAND-BUFFER
 See CONDITIONAL-RENDERING-BEGIN-INFO-EXT
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (conditional-rendering-begin (or vk:conditional-rendering-begin-info-ext cffi:foreign-pointer)))
                    ()
@@ -3635,7 +3741,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer))
                    ()
@@ -4504,7 +4610,7 @@ See RESULT
 See SURFACE-KHR
 See VI-SURFACE-CREATE-INFO-NN
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -4783,7 +4889,7 @@ See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -4811,7 +4917,7 @@ Returns:
 See EXTENSION-LOADER
 See I-DIRECT-FB
 See PHYSICAL-DEVICE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (dfb cffi:foreign-pointer))
                    ()
@@ -4850,7 +4956,7 @@ See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -4891,7 +4997,7 @@ See RESULT
 See STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -4931,7 +5037,7 @@ See RESULT
 See SCREEN-SURFACE-CREATE-INFO-QNX
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -4959,7 +5065,7 @@ Returns:
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See _SCREEN_WINDOW
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
                        ()
@@ -4996,7 +5102,7 @@ See EXTENSION-LOADER
 See INSTANCE
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5022,7 +5128,7 @@ See DEBUG-REPORT-CALLBACK-EXT
 See EXTENSION-LOADER
 See INSTANCE
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((instance cffi:foreign-pointer))
                    (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5051,7 +5157,7 @@ See DEBUG-REPORT-FLAGS-EXT
 See DEBUG-REPORT-OBJECT-TYPE-EXT
 See EXTENSION-LOADER
 See INSTANCE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((instance cffi:foreign-pointer) (flags (or unsigned-byte list)) (object-type keyword) (object unsigned-byte) (location unsigned-byte) (message-code integer) (layer-prefix string) (message string))
                    ()
@@ -5090,7 +5196,7 @@ See DEBUG-MARKER-OBJECT-NAME-INFO-EXT
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-marker-object-name-info-ext cffi:foreign-pointer)))
                    ()
@@ -5123,7 +5229,7 @@ See DEBUG-MARKER-OBJECT-TAG-INFO-EXT
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-marker-object-tag-info-ext cffi:foreign-pointer)))
                    ()
@@ -5144,7 +5250,7 @@ Args:
 See COMMAND-BUFFER
 See DEBUG-MARKER-MARKER-INFO-EXT
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
                    ()
@@ -5163,7 +5269,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer))
                    ()
@@ -5183,7 +5289,7 @@ Args:
 See COMMAND-BUFFER
 See DEBUG-MARKER-MARKER-INFO-EXT
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
                    ()
@@ -5229,7 +5335,7 @@ See IMAGE-TYPE
 See IMAGE-USAGE-FLAGS
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
                        (((flags nil) (or unsigned-byte list)) ((external-handle-type nil) (or unsigned-byte list)))
@@ -5271,7 +5377,7 @@ See EXTENSION-LOADER
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAGS-NV
 See HANDLE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (handle-type (or unsigned-byte list)))
                        ()
@@ -5295,7 +5401,7 @@ See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See GENERATED-COMMANDS-INFO-NV
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (is-preprocessed boolean) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
                    ()
@@ -5317,7 +5423,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See GENERATED-COMMANDS-INFO-NV
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
                    ()
@@ -5341,7 +5447,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See PIPELINE
 See PIPELINE-BIND-POINT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer) (group-index unsigned-byte))
                    ()
@@ -5369,7 +5475,7 @@ See DEVICE
 See EXTENSION-LOADER
 See GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
 See MEMORY-REQUIREMENTS-2
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (info (or vk:generated-commands-memory-requirements-info-nv cffi:foreign-pointer)))
                        ()
@@ -5407,7 +5513,7 @@ See INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV
 See INDIRECT-COMMANDS-LAYOUT-NV
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -5433,7 +5539,7 @@ See DEVICE
 See EXTENSION-LOADER
 See INDIRECT-COMMANDS-LAYOUT-NV
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
                    (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6032,7 +6138,7 @@ See EXTENSION-LOADER
 See MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
 See RESULT
 See ZX_HANDLE_T
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:memory-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                        ()
@@ -6068,7 +6174,7 @@ See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA
 See RESULT
 See ZX_HANDLE_T
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (handle-type keyword) (zircon-handle cffi:foreign-pointer))
                        ()
@@ -6268,7 +6374,7 @@ See EXTENSION-LOADER
 See RESULT
 See SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
 See ZX_HANDLE_T
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:semaphore-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                        ()
@@ -6301,7 +6407,7 @@ See DEVICE
 See EXTENSION-LOADER
 See IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (import-semaphore-zircon-handle-info (or vk:import-semaphore-zircon-handle-info-fuchsia cffi:foreign-pointer)))
                    ()
@@ -6494,7 +6600,7 @@ See DISPLAY-KHR
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
@@ -6529,7 +6635,7 @@ See DISPLAY-KHR
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
@@ -6566,7 +6672,7 @@ See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
 See RR-OUTPUT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (rr-output cffi:foreign-pointer))
                           ()
@@ -6602,7 +6708,7 @@ See DISPLAY-KHR
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
                    ()
@@ -6637,7 +6743,7 @@ See DISPLAY-KHR
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((physical-device cffi:foreign-pointer) (device-relative-id unsigned-byte))
                           ()
@@ -6672,7 +6778,7 @@ See DISPLAY-KHR
 See DISPLAY-POWER-INFO-EXT
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-power-info (or vk:display-power-info-ext cffi:foreign-pointer)))
                    ()
@@ -6710,7 +6816,7 @@ See EXTENSION-LOADER
 See FENCE
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6751,7 +6857,7 @@ See EXTENSION-LOADER
 See FENCE
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -6791,7 +6897,7 @@ See EXTENSION-LOADER
 See RESULT
 See SURFACE-COUNTER-FLAG-BITS-EXT
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (counter keyword))
                           ()
@@ -6829,7 +6935,7 @@ See PHYSICAL-DEVICE
 See RESULT
 See SURFACE-CAPABILITIES-2-EXT
 See SURFACE-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
                        ()
@@ -7492,7 +7598,7 @@ See DEVICE
 See EXTENSION-LOADER
 See HDR-METADATA-EXT
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (swapchains (or list vector)) (metadata (or list vector)))
                    ()
@@ -7564,7 +7670,7 @@ See EXTENSION-LOADER
 See REFRESH-CYCLE-DURATION-GOOGLE
 See RESULT
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                        ()
@@ -7603,7 +7709,7 @@ See EXTENSION-LOADER
 See PAST-PRESENTATION-TIMING-GOOGLE
 See RESULT
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                       ()
@@ -7645,7 +7751,7 @@ See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:i-os-surface-create-info-mvk cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -7686,7 +7792,7 @@ See MAC-OS-SURFACE-CREATE-INFO-MVK
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -7727,7 +7833,7 @@ See METAL-SURFACE-CREATE-INFO-EXT
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -7751,7 +7857,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See VIEWPORT-W-SCALING-NV
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (viewport-w-scalings (or list vector)))
                    ()
@@ -7775,7 +7881,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See RECT-2D
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-discard-rectangle unsigned-byte) (discard-rectangles (or list vector)))
                    ()
@@ -7798,7 +7904,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See SAMPLE-LOCATIONS-INFO-EXT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (sample-locations-info (or vk:sample-locations-info-ext cffi:foreign-pointer)))
                    ()
@@ -7824,7 +7930,7 @@ See EXTENSION-LOADER
 See MULTISAMPLE-PROPERTIES-EXT
 See PHYSICAL-DEVICE
 See SAMPLE-COUNT-FLAG-BITS
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((physical-device cffi:foreign-pointer) (samples keyword))
                        ()
@@ -8342,7 +8448,7 @@ See RESULT
 See VALIDATION-CACHE-CREATE-INFO-EXT
 See VALIDATION-CACHE-EXT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8368,7 +8474,7 @@ See DEVICE
 See EXTENSION-LOADER
 See VALIDATION-CACHE-EXT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
                    (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8405,7 +8511,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See VALIDATION-CACHE-EXT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (validation-cache cffi:foreign-pointer))
                           (((data nil) cffi:foreign-pointer))
@@ -8441,7 +8547,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See VALIDATION-CACHE-EXT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches (or list vector)))
                    ()
@@ -8527,7 +8633,7 @@ See PIPELINE
 See RESULT
 See SHADER-INFO-TYPE-AMD
 See SHADER-STAGE-FLAG-BITS
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader-stage keyword) (info-type keyword))
                           (((info nil) cffi:foreign-pointer))
@@ -8554,7 +8660,7 @@ See BOOL32
 See DEVICE
 See EXTENSION-LOADER
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (swap-chain cffi:foreign-pointer) (local-dimming-enable boolean))
                    ()
@@ -8590,7 +8696,7 @@ See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
 See TIME-DOMAIN-EXT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -8627,7 +8733,7 @@ See CALIBRATED-TIMESTAMP-INFO-EXT
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                                    ((device cffi:foreign-pointer) (timestamp-infos (or list vector)))
                                    ()
@@ -8664,7 +8770,7 @@ See DEBUG-UTILS-OBJECT-NAME-INFO-EXT
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (name-info (or vk:debug-utils-object-name-info-ext cffi:foreign-pointer)))
                    ()
@@ -8697,7 +8803,7 @@ See DEBUG-UTILS-OBJECT-TAG-INFO-EXT
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (tag-info (or vk:debug-utils-object-tag-info-ext cffi:foreign-pointer)))
                    ()
@@ -8718,7 +8824,7 @@ Args:
 See DEBUG-UTILS-LABEL-EXT
 See EXTENSION-LOADER
 See QUEUE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
@@ -8737,7 +8843,7 @@ Args:
 
 See EXTENSION-LOADER
 See QUEUE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((queue cffi:foreign-pointer))
                    ()
@@ -8757,7 +8863,7 @@ Args:
 See DEBUG-UTILS-LABEL-EXT
 See EXTENSION-LOADER
 See QUEUE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
@@ -8778,7 +8884,7 @@ Args:
 See COMMAND-BUFFER
 See DEBUG-UTILS-LABEL-EXT
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
@@ -8797,7 +8903,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer))
                    ()
@@ -8817,7 +8923,7 @@ Args:
 See COMMAND-BUFFER
 See DEBUG-UTILS-LABEL-EXT
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
                    ()
@@ -8854,7 +8960,7 @@ See EXTENSION-LOADER
 See INSTANCE
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8880,7 +8986,7 @@ See DEBUG-UTILS-MESSENGER-EXT
 See EXTENSION-LOADER
 See INSTANCE
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((instance cffi:foreign-pointer))
                    (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -8906,7 +9012,7 @@ See DEBUG-UTILS-MESSAGE-TYPE-FLAGS-EXT
 See DEBUG-UTILS-MESSENGER-CALLBACK-DATA-EXT
 See EXTENSION-LOADER
 See INSTANCE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((instance cffi:foreign-pointer) (message-severity keyword) (message-types (or unsigned-byte list)) (callback-data (or vk:debug-utils-messenger-callback-data-ext cffi:foreign-pointer)))
                    ()
@@ -8944,7 +9050,7 @@ See EXTENSION-LOADER
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See MEMORY-HOST-POINTER-PROPERTIES-EXT
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (handle-type keyword) (host-pointer cffi:foreign-pointer))
                        ()
@@ -8971,7 +9077,7 @@ See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
 See PIPELINE-STAGE-FLAG-BITS
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
                    ()
@@ -9383,7 +9489,7 @@ See ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
                        ()
@@ -9418,7 +9524,7 @@ See DEVICE
 See EXTENSION-LOADER
 See MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (info (or vk:memory-get-android-hardware-buffer-info-android cffi:foreign-pointer)))
                        ()
@@ -9467,18 +9573,14 @@ Args:
  - COUNT-BUFFER-OFFSET: a DEVICE-SIZE
  - MAX-DRAW-COUNT: a UNSIGNED-BYTE
  - STRIDE: a UNSIGNED-BYTE
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
-See EXTENSION-LOADER
-See *EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
-                  nil
-                  t)
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in :raw)
@@ -9555,18 +9657,14 @@ Args:
  - COUNT-BUFFER-OFFSET: a DEVICE-SIZE
  - MAX-DRAW-COUNT: a UNSIGNED-BYTE
  - STRIDE: a UNSIGNED-BYTE
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
-See EXTENSION-LOADER
-See *EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
-                  nil
-                  t)
+                  nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (buffer '%vk:buffer buffer :in :handle)
   (offset '%vk:device-size offset :in :raw)
@@ -9614,7 +9712,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (checkpoint-marker cffi:foreign-pointer))
                    ()
@@ -9639,7 +9737,7 @@ Returns:
 See CHECKPOINT-DATA-NV
 See EXTENSION-LOADER
 See QUEUE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                         ((queue cffi:foreign-pointer))
                         ()
@@ -9667,7 +9765,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
                    (((sizes nil) (or list vector)))
@@ -9695,7 +9793,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers (or list vector)))
                    (((counter-buffer-offsets nil) (or list vector)))
@@ -9722,7 +9820,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers (or list vector)))
                    (((counter-buffer-offsets nil) (or list vector)))
@@ -9750,7 +9848,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See QUERY-CONTROL-FLAGS
 See QUERY-POOL
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte) (index unsigned-byte))
                    (((flags nil) (or unsigned-byte list)))
@@ -9776,7 +9874,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See QUERY-POOL
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte) (index unsigned-byte))
                    ()
@@ -9805,7 +9903,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (instance-count unsigned-byte) (first-instance unsigned-byte) (counter-buffer cffi:foreign-pointer) (counter-buffer-offset unsigned-byte) (counter-offset unsigned-byte) (vertex-stride unsigned-byte))
                    ()
@@ -9832,7 +9930,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See RECT-2D
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-exclusive-scissor unsigned-byte) (exclusive-scissors (or list vector)))
                    ()
@@ -9857,7 +9955,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See IMAGE-LAYOUT
 See IMAGE-VIEW
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (image-layout keyword))
                    (((image-view (cffi:null-pointer)) cffi:foreign-pointer))
@@ -9880,7 +9978,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See SHADING-RATE-PALETTE-NV
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (shading-rate-palettes (or list vector)))
                    ()
@@ -9905,7 +10003,7 @@ See COARSE-SAMPLE-ORDER-CUSTOM-NV
 See COARSE-SAMPLE-ORDER-TYPE-NV
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (sample-order-type keyword) (custom-sample-orders (or list vector)))
                    ()
@@ -9928,7 +10026,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (task-count unsigned-byte) (first-task unsigned-byte))
                    ()
@@ -9954,7 +10052,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
                    ()
@@ -9984,7 +10082,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
                    ()
@@ -10023,7 +10121,7 @@ See DEVICE
 See EXTENSION-LOADER
 See PIPELINE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader unsigned-byte))
                    ()
@@ -10061,7 +10159,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -10108,7 +10206,7 @@ See ALLOCATION-CALLBACKS
 See DEVICE
 See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
                    (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -10135,7 +10233,7 @@ See ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-INFO-NV
 See DEVICE
 See EXTENSION-LOADER
 See MEMORY-REQUIREMENTS-2-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-memory-requirements-info-nv cffi:foreign-pointer)))
                        ()
@@ -10168,7 +10266,7 @@ See BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (bind-infos (or list vector)))
                    ()
@@ -10193,7 +10291,7 @@ See ACCELERATION-STRUCTURE-NV
 See COMMAND-BUFFER
 See COPY-ACCELERATION-STRUCTURE-MODE-KHR
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (src cffi:foreign-pointer) (mode keyword))
                    ()
@@ -10400,7 +10498,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See QUERY-POOL
 See QUERY-TYPE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (acceleration-structures (or list vector)) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
                    ()
@@ -10436,7 +10534,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)) (instance-offset unsigned-byte) (update boolean) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (scratch-offset unsigned-byte))
                    (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer))
@@ -10546,7 +10644,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table-buffer cffi:foreign-pointer) (raygen-shader-binding-offset unsigned-byte) (miss-shader-binding-offset unsigned-byte) (miss-shader-binding-stride unsigned-byte) (hit-shader-binding-offset unsigned-byte) (hit-shader-binding-stride unsigned-byte) (callable-shader-binding-offset unsigned-byte) (callable-shader-binding-stride unsigned-byte) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
                    (((miss-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((hit-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((callable-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer))
@@ -10616,7 +10714,6 @@ Args:
  - GROUP-COUNT: a UNSIGNED-BYTE
  - DATA-SIZE: a UNSIGNED-BYTE
  - DATA: a CFFI:FOREIGN-POINTER
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10630,15 +10727,12 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See DEVICE
-See EXTENSION-LOADER
 See PIPELINE
 See RESULT
-See *EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
-                  nil
-                  t)
+                  nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle)
   (first-group :uint32 first-group :in :raw)
@@ -10709,7 +10803,7 @@ See ACCELERATION-STRUCTURE-NV
 See DEVICE
 See EXTENSION-LOADER
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (acceleration-structure cffi:foreign-pointer) (data-size unsigned-byte) (data cffi:foreign-pointer))
                    ()
@@ -10753,7 +10847,7 @@ See PIPELINE-CACHE
 See RAY-TRACING-PIPELINE-CREATE-INFO-NV
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                            ((device cffi:foreign-pointer) (create-infos (or list vector)))
                            (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -10839,7 +10933,7 @@ See COOPERATIVE-MATRIX-PROPERTIES-NV
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -10957,7 +11051,7 @@ Returns:
 See DEVICE
 See EXTENSION-LOADER
 See IMAGE-VIEW-HANDLE-INFO-NVX
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (info (or vk:image-view-handle-info-nvx cffi:foreign-pointer)))
                    ()
@@ -10992,7 +11086,7 @@ See EXTENSION-LOADER
 See IMAGE-VIEW
 See IMAGE-VIEW-ADDRESS-PROPERTIES-NVX
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (image-view cffi:foreign-pointer))
                        ()
@@ -11030,7 +11124,7 @@ See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 See PRESENT-MODE-KHR
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                       ()
@@ -11069,7 +11163,7 @@ See DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
 See EXTENSION-LOADER
 See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
                        ()
@@ -11104,7 +11198,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                    ()
@@ -11138,7 +11232,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See SWAPCHAIN-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
                    ()
@@ -11276,7 +11370,7 @@ See EXTENSION-LOADER
 See IMAGE
 See IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
                        ()
@@ -11356,7 +11450,6 @@ See DEVICE-ADDRESS
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR BUFFER-DEVICE-ADDRESS-INFO CFFI:FOREIGN-POINTER)
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -11365,13 +11458,10 @@ Returns:
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
 See DEVICE-ADDRESS
-See EXTENSION-LOADER
-See *EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
                    ()
-                  '%vk:device-address
-                  t)
+                  '%vk:device-address)
   (device '%vk:device device :in :handle)
   (info '(:struct %vk:buffer-device-address-info) info :in))
 
@@ -11426,7 +11516,7 @@ See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -11463,7 +11553,7 @@ See EXTENSION-LOADER
 See FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NV
 See PHYSICAL-DEVICE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -11498,7 +11588,7 @@ See DEVICE
 See EXTENSION-LOADER
 See INITIALIZE-PERFORMANCE-API-INFO-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (initialize-info (or vk:initialize-performance-api-info-intel cffi:foreign-pointer)))
                    ()
@@ -11517,7 +11607,7 @@ Args:
 
 See DEVICE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
                    ()
@@ -11549,7 +11639,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See PERFORMANCE-MARKER-INFO-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-marker-info-intel cffi:foreign-pointer)))
                    ()
@@ -11582,7 +11672,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See PERFORMANCE-STREAM-MARKER-INFO-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-stream-marker-info-intel cffi:foreign-pointer)))
                    ()
@@ -11615,7 +11705,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See PERFORMANCE-OVERRIDE-INFO-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (override-info (or vk:performance-override-info-intel cffi:foreign-pointer)))
                    ()
@@ -11650,7 +11740,7 @@ See EXTENSION-LOADER
 See PERFORMANCE-CONFIGURATION-ACQUIRE-INFO-INTEL
 See PERFORMANCE-CONFIGURATION-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (acquire-info (or vk:performance-configuration-acquire-info-intel cffi:foreign-pointer)))
                           ()
@@ -11684,7 +11774,7 @@ See DEVICE
 See EXTENSION-LOADER
 See PERFORMANCE-CONFIGURATION-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
                    (((configuration (cffi:null-pointer)) cffi:foreign-pointer))
@@ -11717,7 +11807,7 @@ See EXTENSION-LOADER
 See PERFORMANCE-CONFIGURATION-INTEL
 See QUEUE
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((queue cffi:foreign-pointer) (configuration cffi:foreign-pointer))
                    ()
@@ -11752,7 +11842,7 @@ See EXTENSION-LOADER
 See PERFORMANCE-PARAMETER-TYPE-INTEL
 See PERFORMANCE-VALUE-INTEL
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                        ((device cffi:foreign-pointer) (parameter keyword))
                        ()
@@ -11923,7 +12013,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (line-stipple-factor unsigned-byte) (line-stipple-pattern unsigned-byte))
                    ()
@@ -11958,7 +12048,7 @@ See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                       ((physical-device cffi:foreign-pointer))
                       ()
@@ -12254,7 +12344,7 @@ Args:
 See COMMAND-BUFFER
 See CULL-MODE-FLAGS
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer))
                    (((cull-mode nil) (or unsigned-byte list)))
@@ -12275,7 +12365,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See FRONT-FACE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (front-face keyword))
                    ()
@@ -12296,7 +12386,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See PRIMITIVE-TOPOLOGY
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (primitive-topology keyword))
                    ()
@@ -12317,7 +12407,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See VIEWPORT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (viewports (or list vector)))
                    ()
@@ -12339,7 +12429,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See RECT-2D
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (scissors (or list vector)))
                    ()
@@ -12366,7 +12456,7 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
                    (((sizes nil) (or list vector)) ((strides nil) (or list vector)))
@@ -12392,7 +12482,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (depth-test-enable boolean))
                    ()
@@ -12413,7 +12503,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (depth-write-enable boolean))
                    ()
@@ -12434,7 +12524,7 @@ Args:
 See COMMAND-BUFFER
 See COMPARE-OP
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (depth-compare-op keyword))
                    ()
@@ -12455,7 +12545,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (depth-bounds-test-enable boolean))
                    ()
@@ -12476,7 +12566,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (stencil-test-enable boolean))
                    ()
@@ -12503,7 +12593,7 @@ See COMPARE-OP
 See EXTENSION-LOADER
 See STENCIL-FACE-FLAGS
 See STENCIL-OP
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (fail-op keyword) (pass-op keyword) (depth-fail-op keyword) (compare-op keyword))
                    ()
@@ -12527,7 +12617,7 @@ Args:
 
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (patch-control-points unsigned-byte))
                    ()
@@ -12548,7 +12638,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (rasterizer-discard-enable boolean))
                    ()
@@ -12569,7 +12659,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (depth-bias-enable boolean))
                    ()
@@ -12590,7 +12680,7 @@ Args:
 See COMMAND-BUFFER
 See EXTENSION-LOADER
 See LOGIC-OP
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (logic-op keyword))
                    ()
@@ -12611,7 +12701,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (primitive-restart-enable boolean))
                    ()
@@ -12648,7 +12738,7 @@ See PRIVATE-DATA-SLOT-CREATE-INFO-EXT
 See PRIVATE-DATA-SLOT-EXT
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -12674,7 +12764,7 @@ See DEVICE
 See EXTENSION-LOADER
 See PRIVATE-DATA-SLOT-EXT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
                    (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -12711,7 +12801,7 @@ See EXTENSION-LOADER
 See OBJECT-TYPE
 See PRIVATE-DATA-SLOT-EXT
 See RESULT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer) (data unsigned-byte))
                    ()
@@ -12742,7 +12832,7 @@ See DEVICE
 See EXTENSION-LOADER
 See OBJECT-TYPE
 See PRIVATE-DATA-SLOT-EXT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer))
                           ()
@@ -12922,7 +13012,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
 See FRAGMENT-SHADING-RATE-NV
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (shading-rate keyword) (combiner-ops keyword))
                    ()
@@ -12973,7 +13063,7 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See VERTEX-INPUT-ATTRIBUTE-DESCRIPTION-2-EXT
 See VERTEX-INPUT-BINDING-DESCRIPTION-2-EXT
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (vertex-binding-descriptions (or list vector)) (vertex-attribute-descriptions (or list vector)))
                    ()
@@ -12997,7 +13087,7 @@ Args:
 See BOOL32
 See COMMAND-BUFFER
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (color-write-enables (or list vector)))
                    ()
@@ -13158,7 +13248,7 @@ See COMMAND-BUFFER
 See DEVICE-SIZE
 See EXTENSION-LOADER
 See PIPELINE-STAGE-FLAGS-2-KHR
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
                    ()
@@ -13186,7 +13276,7 @@ Returns:
 See CHECKPOINT-DATA-2-NV
 See EXTENSION-LOADER
 See QUEUE
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                         ((queue cffi:foreign-pointer))
                         ()
@@ -13601,7 +13691,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:cu-module-create-info-nvx cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -13641,7 +13731,7 @@ See DEVICE
 See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:cu-function-create-info-nvx cffi:foreign-pointer)))
                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -13667,7 +13757,7 @@ See CU-MODULE-NVX
 See DEVICE
 See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (module cffi:foreign-pointer))
                    (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -13692,7 +13782,7 @@ See CU-FUNCTION-NVX
 See DEVICE
 See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (function-handle cffi:foreign-pointer))
                    (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
@@ -13714,7 +13804,7 @@ Args:
 See COMMAND-BUFFER
 See CU-LAUNCH-INFO-NVX
 See EXTENSION-LOADER
-See *EXTENSION-LOADER*
+See *DEFAULT-EXTENSION-LOADER*
 "
                    ((command-buffer cffi:foreign-pointer) (launch-info (or vk:cu-launch-info-nvx cffi:foreign-pointer)))
                    ()
@@ -13722,4 +13812,75 @@ See *EXTENSION-LOADER*
                   t)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (launch-info '(:struct %vk:cu-launch-info-nvx) launch-info :in))
+
+(defvk-simple-fun (acquire-drm-display-ext
+                   %vk:acquire-drm-display-ext
+                   "Represents [vkAcquireDrmDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireDrmDisplayEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - DRM-FD: a INTEGER
+ - DISPLAY: a DISPLAY-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
+
+See DISPLAY-KHR
+See EXTENSION-LOADER
+See PHYSICAL-DEVICE
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+                   ((physical-device cffi:foreign-pointer) (drm-fd integer) (display cffi:foreign-pointer))
+                   ()
+                  nil
+                  t)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (drm-fd :int32 drm-fd :in :raw)
+  (display '%vk:display-khr display :in :handle))
+
+(defvk-create-handle-fun (get-drm-display-ext
+                          %vk:get-drm-display-ext
+                          "Represents [vkGetDrmDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDrmDisplayEXT.html).
+
+Args:
+ - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - DRM-FD: a INTEGER
+ - CONNECTOR-ID: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    DISPLAY-KHRNIL
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-OUT-OF-HOST-MEMORY
+
+See DISPLAY-KHR
+See EXTENSION-LOADER
+See PHYSICAL-DEVICE
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+                          ((physical-device cffi:foreign-pointer) (drm-fd integer) (connector-id unsigned-byte))
+                          ()
+                          nil
+                          t)
+  (physical-device '%vk:physical-device physical-device :in :handle)
+  (drm-fd :int32 drm-fd :in :raw)
+  (connector-id :uint32 connector-id :in :raw)
+  (display '%vk:display-khr display :out :handle))
 

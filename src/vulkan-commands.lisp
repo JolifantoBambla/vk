@@ -270,7 +270,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (query-pool query-pool)
   (first-query :uint32)
   (query-count :uint32)
-  (data-size size-t)
+  (data-size :size)
   (p-data (:pointer :void))
   (stride device-size)
   (flags query-result-flags))
@@ -281,7 +281,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (first-query :uint32)
   (query-count :uint32))
 
-(defvkextfun ("vkResetQueryPoolEXT" reset-query-pool-ext) :void
+(defvkfun ("vkResetQueryPoolEXT" reset-query-pool-ext) :void
   (device device)
   (query-pool query-pool)
   (first-query :uint32)
@@ -362,7 +362,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkfun ("vkGetPipelineCacheData" get-pipeline-cache-data) checked-result
   (device device)
   (pipeline-cache pipeline-cache)
-  (p-data-size (:pointer size-t))
+  (p-data-size (:pointer :size))
   (p-data (:pointer :void)))
 
 (defvkfun ("vkMergePipelineCaches" merge-pipeline-caches) checked-result
@@ -386,6 +386,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-create-infos (:pointer (:struct compute-pipeline-create-info)))
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-pipelines (:pointer pipeline)))
+
+(defvkextfun ("vkGetSubpassShadingMaxWorkgroupSizeHUAWEI" get-subpass-shading-max-workgroup-size-huawei) checked-result
+  (renderpass render-pass)
+  (p-max-workgroup-size (:pointer (:struct extent-2d))))
 
 (defvkfun ("vkDestroyPipeline" destroy-pipeline) :void
   (device device)
@@ -613,6 +617,23 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (vertex-offset :int32)
   (first-instance :uint32))
 
+(defvkextfun ("vkCmdDrawMultiEXT" cmd-draw-multi-ext) :void
+  (command-buffer command-buffer)
+  (draw-count :uint32)
+  (p-vertex-info (:pointer (:struct multi-draw-info-ext)))
+  (instance-count :uint32)
+  (first-instance :uint32)
+  (stride :uint32))
+
+(defvkextfun ("vkCmdDrawMultiIndexedEXT" cmd-draw-multi-indexed-ext) :void
+  (command-buffer command-buffer)
+  (draw-count :uint32)
+  (p-index-info (:pointer (:struct multi-draw-indexed-info-ext)))
+  (instance-count :uint32)
+  (first-instance :uint32)
+  (stride :uint32)
+  (p-vertex-offset (:pointer :int32)))
+
 (defvkfun ("vkCmdDrawIndirect" cmd-draw-indirect) :void
   (command-buffer command-buffer)
   (buffer buffer)
@@ -637,6 +658,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size))
+
+(defvkextfun ("vkCmdSubpassShadingHUAWEI" cmd-subpass-shading-huawei) :void
+  (command-buffer command-buffer))
 
 (defvkfun ("vkCmdCopyBuffer" cmd-copy-buffer) :void
   (command-buffer command-buffer)
@@ -1038,7 +1062,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (flags debug-report-flags-ext)
   (object-type debug-report-object-type-ext)
   (object :uint64)
-  (location size-t)
+  (location :size)
   (message-code :int32)
   (p-layer-prefix :string)
   (p-message :string))
@@ -1650,7 +1674,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkextfun ("vkGetValidationCacheDataEXT" get-validation-cache-data-ext) checked-result
   (device device)
   (validation-cache validation-cache-ext)
-  (p-data-size (:pointer size-t))
+  (p-data-size (:pointer :size))
   (p-data (:pointer :void)))
 
 (defvkextfun ("vkMergeValidationCachesEXT" merge-validation-caches-ext) checked-result
@@ -1674,7 +1698,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline pipeline)
   (shader-stage shader-stage-flag-bits)
   (info-type shader-info-type-amd)
-  (p-info-size (:pointer size-t))
+  (p-info-size (:pointer :size))
   (p-info (:pointer :void)))
 
 (defvkextfun ("vkSetLocalDimmingAMD" set-local-dimming-amd) :void
@@ -1841,7 +1865,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-draw-count :uint32)
   (stride :uint32))
 
-(defvkextfun ("vkCmdDrawIndirectCountAMD" cmd-draw-indirect-count-amd) :void
+(defvkfun ("vkCmdDrawIndirectCountAMD" cmd-draw-indirect-count-amd) :void
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size)
@@ -1868,7 +1892,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (max-draw-count :uint32)
   (stride :uint32))
 
-(defvkextfun ("vkCmdDrawIndexedIndirectCountAMD" cmd-draw-indexed-indirect-count-amd) :void
+(defvkfun ("vkCmdDrawIndexedIndirectCountAMD" cmd-draw-indexed-indirect-count-amd) :void
   (command-buffer command-buffer)
   (buffer buffer)
   (offset device-size)
@@ -2079,9 +2103,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (acceleration-structure-count :uint32)
   (p-acceleration-structures (:pointer acceleration-structure-khr))
   (query-type query-type)
-  (data-size size-t)
+  (data-size :size)
   (p-data (:pointer :void))
-  (stride size-t))
+  (stride :size))
 
 (defvkfun ("vkCmdTraceRaysKHR" cmd-trace-rays-khr) :void
   (command-buffer command-buffer)
@@ -2115,15 +2139,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline pipeline)
   (first-group :uint32)
   (group-count :uint32)
-  (data-size size-t)
+  (data-size :size)
   (p-data (:pointer :void)))
 
-(defvkextfun ("vkGetRayTracingShaderGroupHandlesNV" get-ray-tracing-shader-group-handles-nv) checked-result
+(defvkfun ("vkGetRayTracingShaderGroupHandlesNV" get-ray-tracing-shader-group-handles-nv) checked-result
   (device device)
   (pipeline pipeline)
   (first-group :uint32)
   (group-count :uint32)
-  (data-size size-t)
+  (data-size :size)
   (p-data (:pointer :void)))
 
 (defvkfun ("vkGetRayTracingCaptureReplayShaderGroupHandlesKHR" get-ray-tracing-capture-replay-shader-group-handles-khr) checked-result
@@ -2131,13 +2155,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (pipeline pipeline)
   (first-group :uint32)
   (group-count :uint32)
-  (data-size size-t)
+  (data-size :size)
   (p-data (:pointer :void)))
 
 (defvkextfun ("vkGetAccelerationStructureHandleNV" get-acceleration-structure-handle-nv) checked-result
   (device device)
   (acceleration-structure acceleration-structure-nv)
-  (data-size size-t)
+  (data-size :size)
   (p-data (:pointer :void)))
 
 (defvkextfun ("vkCreateRayTracingPipelinesNV" create-ray-tracing-pipelines-nv) checked-result
@@ -2249,7 +2273,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (device device)
   (p-info (:pointer (:struct buffer-device-address-info))))
 
-(defvkextfun ("vkGetBufferDeviceAddressEXT" get-buffer-device-address-ext) device-address
+(defvkfun ("vkGetBufferDeviceAddressEXT" get-buffer-device-address-ext) device-address
   (device device)
   (p-info (:pointer (:struct buffer-device-address-info))))
 
@@ -2695,4 +2719,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkextfun ("vkCmdCuLaunchKernelNVX" cmd-cu-launch-kernel-nvx) :void
   (command-buffer command-buffer)
   (p-launch-info (:pointer (:struct cu-launch-info-nvx))))
+
+(defvkextfun ("vkAcquireDrmDisplayEXT" acquire-drm-display-ext) checked-result
+  (physical-device physical-device)
+  (drm-fd :int32)
+  (display display-khr))
+
+(defvkextfun ("vkGetDrmDisplayEXT" get-drm-display-ext) checked-result
+  (physical-device physical-device)
+  (drm-fd :int32)
+  (connector-id :uint32)
+  (display (:pointer display-khr)))
 
