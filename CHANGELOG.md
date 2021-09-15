@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0-v1.2.189] - 2021-09-15 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.2.0-v1.2.189)
+
+### Added
+- `vk` now has `make`-style constructors for all its classes.
+- `%vk` and `vk` now expose `extension-loader-instance` and `extension-loader-device`.
+
+### Fixed
+- Fixed `with`-style wrappers which call `vk` functions (`with-descriptor-sets` & `with-command-buffers`).
+
 ## [2.1.1-v1.2.182] - 2021-08-27 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.1.1-v1.2.182)
 
 ### Fixed

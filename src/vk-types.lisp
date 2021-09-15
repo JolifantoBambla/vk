@@ -21,11 +21,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 Has the values:
  - :LOAD
  - :CLEAR
- - :DONT-CARE"
+ - :DONT-CARE
+ - :NONE-EXT"
   '(member nil 
     :load
     :clear
-    :dont-care))
+    :dont-care
+    :none-ext))
 
 (deftype attachment-store-op ()
   "Represents the enum [VkAttachmentStoreOp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkAttachmentStoreOp.html).
@@ -33,11 +35,11 @@ Has the values:
 Has the values:
  - :STORE
  - :DONT-CARE
- - :NONE-QCOM"
+ - :NONE-EXT"
   '(member nil 
     :store
     :dont-care
-    :none-qcom))
+    :none-ext))
 
 (deftype blend-factor ()
   "Represents the enum [VkBlendFactor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkBlendFactor.html).
@@ -1362,7 +1364,8 @@ Has the values:
  - :VIDEO-DECODE-DPB
  - :VIDEO-ENCODE-DST
  - :VIDEO-ENCODE-SRC
- - :VIDEO-ENCODE-DPB"
+ - :VIDEO-ENCODE-DPB
+ - :INVOCATION-MASK"
   '(member nil 
     :transfer-src
     :transfer-dst
@@ -1379,7 +1382,8 @@ Has the values:
     :video-decode-dpb
     :video-encode-dst
     :video-encode-src
-    :video-encode-dpb))
+    :video-encode-dpb
+    :invocation-mask))
 
 (deftype image-view-create-flag-bits ()
   "Represents the enum [VkImageViewCreateFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkImageViewCreateFlagBits.html).
@@ -1558,7 +1562,8 @@ Has the values:
  - :LAZILY-ALLOCATED
  - :PROTECTED
  - :DEVICE-COHERENT
- - :DEVICE-UNCACHED"
+ - :DEVICE-UNCACHED
+ - :RDMA-CAPABLE"
   '(member nil 
     :device-local
     :host-visible
@@ -1567,7 +1572,8 @@ Has the values:
     :lazily-allocated
     :protected
     :device-coherent
-    :device-uncached))
+    :device-uncached
+    :rdma-capable))
 
 (deftype physical-device-type ()
   "Represents the enum [VkPhysicalDeviceType](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceType.html).
@@ -2385,6 +2391,7 @@ Has the values:
  - :PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
  - :IMAGE-STENCIL-USAGE-CREATE-INFO
  - :VALIDATION-FEATURES-EXT
+ - :PHYSICAL-DEVICE-PRESENT-WAIT-FEATURES-KHR
  - :PHYSICAL-DEVICE-COOPERATIVE-MATRIX-FEATURES-NV
  - :COOPERATIVE-MATRIX-PROPERTIES-NV
  - :PHYSICAL-DEVICE-COOPERATIVE-MATRIX-PROPERTIES-NV
@@ -2418,6 +2425,7 @@ Has the values:
  - :PIPELINE-EXECUTABLE-INFO-KHR
  - :PIPELINE-EXECUTABLE-STATISTIC-KHR
  - :PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR
+ - :PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-2-FEATURES-EXT
  - :PHYSICAL-DEVICE-SHADER-DEMOTE-TO-HELPER-INVOCATION-FEATURES-EXT
  - :PHYSICAL-DEVICE-DEVICE-GENERATED-COMMANDS-PROPERTIES-NV
  - :GRAPHICS-SHADER-GROUP-CREATE-INFO-NV
@@ -2442,6 +2450,8 @@ Has the values:
  - :PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-PROPERTIES-EXT
  - :PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT
  - :PIPELINE-LIBRARY-CREATE-INFO-KHR
+ - :PRESENT-ID-KHR
+ - :PHYSICAL-DEVICE-PRESENT-ID-FEATURES-KHR
  - :PHYSICAL-DEVICE-PRIVATE-DATA-FEATURES-EXT
  - :DEVICE-PRIVATE-DATA-CREATE-INFO-EXT
  - :PRIVATE-DATA-SLOT-CREATE-INFO-EXT
@@ -2501,9 +2511,12 @@ Has the values:
  - :MEMORY-GET-ZIRCON-HANDLE-INFO-FUCHSIA
  - :IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
  - :SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
- - :SUBPASSS-SHADING-PIPELINE-CREATE-INFO-HUAWEI
+ - :SUBPASS-SHADING-PIPELINE-CREATE-INFO-HUAWEI
  - :PHYSICAL-DEVICE-SUBPASS-SHADING-FEATURES-HUAWEI
  - :PHYSICAL-DEVICE-SUBPASS-SHADING-PROPERTIES-HUAWEI
+ - :PHYSICAL-DEVICE-INVOCATION-MASK-FEATURES-HUAWEI
+ - :MEMORY-GET-REMOTE-ADDRESS-INFO-NV
+ - :PHYSICAL-DEVICE-EXTERNAL-MEMORY-RDMA-FEATURES-NV
  - :PHYSICAL-DEVICE-EXTENDED-DYNAMIC-STATE-2-FEATURES-EXT
  - :SCREEN-SURFACE-CREATE-INFO-QNX
  - :PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
@@ -2947,6 +2960,7 @@ Has the values:
     :physical-device-tool-properties-ext
     :image-stencil-usage-create-info
     :validation-features-ext
+    :physical-device-present-wait-features-khr
     :physical-device-cooperative-matrix-features-nv
     :cooperative-matrix-properties-nv
     :physical-device-cooperative-matrix-properties-nv
@@ -2980,6 +2994,7 @@ Has the values:
     :pipeline-executable-info-khr
     :pipeline-executable-statistic-khr
     :pipeline-executable-internal-representation-khr
+    :physical-device-shader-atomic-float-2-features-ext
     :physical-device-shader-demote-to-helper-invocation-features-ext
     :physical-device-device-generated-commands-properties-nv
     :graphics-shader-group-create-info-nv
@@ -3004,6 +3019,8 @@ Has the values:
     :physical-device-custom-border-color-properties-ext
     :physical-device-custom-border-color-features-ext
     :pipeline-library-create-info-khr
+    :present-id-khr
+    :physical-device-present-id-features-khr
     :physical-device-private-data-features-ext
     :device-private-data-create-info-ext
     :private-data-slot-create-info-ext
@@ -3063,9 +3080,12 @@ Has the values:
     :memory-get-zircon-handle-info-fuchsia
     :import-semaphore-zircon-handle-info-fuchsia
     :semaphore-get-zircon-handle-info-fuchsia
-    :subpasss-shading-pipeline-create-info-huawei
+    :subpass-shading-pipeline-create-info-huawei
     :physical-device-subpass-shading-features-huawei
     :physical-device-subpass-shading-properties-huawei
+    :physical-device-invocation-mask-features-huawei
+    :memory-get-remote-address-info-nv
+    :physical-device-external-memory-rdma-features-nv
     :physical-device-extended-dynamic-state-2-features-ext
     :screen-surface-create-info-qnx
     :physical-device-color-write-enable-features-ext
@@ -3638,12 +3658,12 @@ Has the values:
 
 Has the values:
  - :TRIANGLE-FACING-CULL-DISABLE
- - :TRIANGLE-FRONT-COUNTERCLOCKWISE
+ - :TRIANGLE-FLIP-FACING
  - :FORCE-OPAQUE
  - :FORCE-NO-OPAQUE"
   '(member nil 
     :triangle-facing-cull-disable
-    :triangle-front-counterclockwise
+    :triangle-flip-facing
     :force-opaque
     :force-no-opaque))
 
@@ -4118,7 +4138,8 @@ Has the values:
  - :2-VIDEO-DECODE-READ
  - :2-VIDEO-DECODE-WRITE
  - :2-VIDEO-ENCODE-READ
- - :2-VIDEO-ENCODE-WRITE"
+ - :2-VIDEO-ENCODE-WRITE
+ - :2-INVOCATION-MASK-READ"
   '(member nil 
     :2-none-khr
     :2-indirect-command-read
@@ -4155,7 +4176,8 @@ Has the values:
     :2-video-decode-read
     :2-video-decode-write
     :2-video-encode-read
-    :2-video-encode-write))
+    :2-video-encode-write
+    :2-invocation-mask-read))
 
 (deftype pipeline-stage-flag-bits-2-khr ()
   "Represents the enum [VkPipelineStageFlagBits2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineStageFlagBits2KHR.html).
@@ -4197,7 +4219,8 @@ Has the values:
  - :2-INDEX-INPUT
  - :2-VERTEX-ATTRIBUTE-INPUT
  - :2-PRE-RASTERIZATION-SHADERS
- - :2-SUBPASS-SHADING"
+ - :2-SUBPASS-SHADING
+ - :2-INVOCATION-MASK"
   '(member nil 
     :2-none-khr
     :2-top-of-pipe
@@ -4235,7 +4258,8 @@ Has the values:
     :2-index-input
     :2-vertex-attribute-input
     :2-pre-rasterization-shaders
-    :2-subpass-shading))
+    :2-subpass-shading
+    :2-invocation-mask))
 
 (deftype provoking-vertex-mode-ext ()
   "Represents the enum [VkProvokingVertexModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkProvokingVertexModeEXT.html).
@@ -4568,7 +4592,8 @@ Has the values:
  - :HOST-MAPPED-FOREIGN-MEMORY
  - :DMA-BUF
  - :ANDROID-HARDWARE-BUFFER
- - :ZIRCON-VMO"
+ - :ZIRCON-VMO
+ - :RDMA-ADDRESS"
   '(member nil 
     :opaque-fd
     :opaque-win32
@@ -4581,7 +4606,8 @@ Has the values:
     :host-mapped-foreign-memory
     :dma-buf
     :android-hardware-buffer
-    :zircon-vmo))
+    :zircon-vmo
+    :rdma-address))
 
 (deftype external-memory-feature-flag-bits ()
   "Represents the enum [VkExternalMemoryFeatureFlagBits](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkExternalMemoryFeatureFlagBits.html).
@@ -4958,7 +4984,8 @@ Has the values:
  - :MESA-LLVMPIPE
  - :MOLTENVK
  - :COREAVI-PROPRIETARY
- - :JUICE-PROPRIETARY"
+ - :JUICE-PROPRIETARY
+ - :VERISILICON-PROPRIETARY"
   '(member nil 
     :amd-proprietary
     :amd-open-source
@@ -4975,7 +5002,8 @@ Has the values:
     :mesa-llvmpipe
     :moltenvk
     :coreavi-proprietary
-    :juice-proprietary))
+    :juice-proprietary
+    :verisilicon-proprietary))
 
 (deftype shading-rate-palette-entry-nv ()
   "Represents the enum [VkShadingRatePaletteEntryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkShadingRatePaletteEntryNV.html).
@@ -5079,8 +5107,8 @@ Has the values:
     :10
     :12))
 
-(deftype video-capabilities-flag-bits-khr ()
-  "Represents the enum [VkVideoCapabilitiesFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCapabilitiesFlagBitsKHR.html).
+(deftype video-capability-flag-bits-khr ()
+  "Represents the enum [VkVideoCapabilityFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoCapabilityFlagBitsKHR.html).
 
 Has the values:
  - :PROTECTED-CONTENT
@@ -5145,17 +5173,17 @@ Has the values:
     :default-khr
     :reserved-0))
 
-(deftype video-decode-h264-field-layout-flag-bits-ext ()
-  "Represents the enum [VkVideoDecodeH264FieldLayoutFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264FieldLayoutFlagBitsEXT.html).
+(deftype video-decode-h264-picture-layout-flag-bits-ext ()
+  "Represents the enum [VkVideoDecodeH264PictureLayoutFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264PictureLayoutFlagBitsEXT.html).
 
 Has the values:
- - :PROGRESSIVE-PICTURES-ONLY-EXT
- - :FIELD-LAYOUT-LINE-INTERLACED-PLANE
- - :FIELD-LAYOUT-SEPARATE-INTERLACED-PLANE"
+ - :PROGRESSIVE-EXT
+ - :INTERLACED-INTERLEAVED-LINES
+ - :INTERLACED-SEPARATE-PLANES"
   '(member nil 
-    :progressive-pictures-only-ext
-    :field-layout-line-interlaced-plane
-    :field-layout-separate-interlaced-plane))
+    :progressive-ext
+    :interlaced-interleaved-lines
+    :interlaced-separate-planes))
 
 (deftype video-encode-flag-bits-khr ()
   "Represents the enum [VkVideoEncodeFlagBitsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeFlagBitsKHR.html).
@@ -5189,33 +5217,33 @@ Has the values:
     :cbr
     :vbr))
 
-(deftype video-encode-h264-capabilities-flag-bits-ext ()
-  "Represents the enum [VkVideoEncodeH264CapabilitiesFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264CapabilitiesFlagBitsEXT.html).
+(deftype video-encode-h264-capability-flag-bits-ext ()
+  "Represents the enum [VkVideoEncodeH264CapabilityFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264CapabilityFlagBitsEXT.html).
 
 Has the values:
- - :Y-CABAC
- - :Y-CAVLC
- - :Y-WEIGHTED-BI-PRED-IMPLICIT
- - :Y-TRANSFORM-8X8
- - :Y-CHROMA-QP-OFFSET
- - :Y-SECOND-CHROMA-QP-OFFSET
- - :Y-DEBLOCKING-FILTER-DISABLED
- - :Y-DEBLOCKING-FILTER-ENABLED
- - :Y-DEBLOCKING-FILTER-PARTIAL
- - :Y-MULTIPLE-SLICE-PER-FRAME
- - :Y-EVENLY-DISTRIBUTED-SLICE-SIZE"
+ - :CABAC
+ - :CAVLC
+ - :WEIGHTED-BI-PRED-IMPLICIT
+ - :TRANSFORM-8X8
+ - :CHROMA-QP-OFFSET
+ - :SECOND-CHROMA-QP-OFFSET
+ - :DEBLOCKING-FILTER-DISABLED
+ - :DEBLOCKING-FILTER-ENABLED
+ - :DEBLOCKING-FILTER-PARTIAL
+ - :MULTIPLE-SLICE-PER-FRAME
+ - :EVENLY-DISTRIBUTED-SLICE-SIZE"
   '(member nil 
-    :y-cabac
-    :y-cavlc
-    :y-weighted-bi-pred-implicit
-    :y-transform-8x8
-    :y-chroma-qp-offset
-    :y-second-chroma-qp-offset
-    :y-deblocking-filter-disabled
-    :y-deblocking-filter-enabled
-    :y-deblocking-filter-partial
-    :y-multiple-slice-per-frame
-    :y-evenly-distributed-slice-size))
+    :cabac
+    :cavlc
+    :weighted-bi-pred-implicit
+    :transform-8x8
+    :chroma-qp-offset
+    :second-chroma-qp-offset
+    :deblocking-filter-disabled
+    :deblocking-filter-enabled
+    :deblocking-filter-partial
+    :multiple-slice-per-frame
+    :evenly-distributed-slice-size))
 
 (deftype video-encode-h264-input-mode-flag-bits-ext ()
   "Represents the enum [VkVideoEncodeH264InputModeFlagBitsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoEncodeH264InputModeFlagBitsEXT.html).
@@ -5735,6 +5763,7 @@ See GET-DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS
 See GET-DEVICE-PROC-ADDR
 See GET-DEVICE-QUEUE
 See GET-DEVICE-QUEUE-2
+See GET-DEVICE-SUBPASS-SHADING-MAX-WORKGROUP-SIZE-HUAWEI
 See GET-EVENT-STATUS
 See GET-FENCE-FD-KHR
 See GET-FENCE-STATUS
@@ -5752,6 +5781,7 @@ See GET-MEMORY-ANDROID-HARDWARE-BUFFER-ANDROID
 See GET-MEMORY-FD-KHR
 See GET-MEMORY-FD-PROPERTIES-KHR
 See GET-MEMORY-HOST-POINTER-PROPERTIES-EXT
+See GET-MEMORY-REMOTE-ADDRESS-NV
 See GET-MEMORY-WIN32-HANDLE-KHR
 See GET-MEMORY-WIN32-HANDLE-NV
 See GET-MEMORY-WIN32-HANDLE-PROPERTIES-KHR
@@ -5814,6 +5844,7 @@ See UPDATE-DESCRIPTOR-SET-WITH-TEMPLATE
 See UPDATE-DESCRIPTOR-SETS
 See UPDATE-VIDEO-SESSION-PARAMETERS-KHR
 See WAIT-FOR-FENCES
+See WAIT-FOR-PRESENT-KHR
 See WAIT-SEMAPHORES
 See WRITE-ACCELERATION-STRUCTURES-PROPERTIES-KHR"
   'cffi:foreign-pointer)
@@ -5859,6 +5890,7 @@ See CMD-BEGIN-TRANSFORM-FEEDBACK-EXT
 See CMD-BEGIN-VIDEO-CODING-KHR
 See CMD-BIND-DESCRIPTOR-SETS
 See CMD-BIND-INDEX-BUFFER
+See CMD-BIND-INVOCATION-MASK-HUAWEI
 See CMD-BIND-PIPELINE
 See CMD-BIND-PIPELINE-SHADER-GROUP-NV
 See CMD-BIND-SHADING-RATE-IMAGE-NV
@@ -6105,6 +6137,7 @@ Parents:
 See DEVICE
 
 Related functions:
+See CMD-BIND-INVOCATION-MASK-HUAWEI
 See CMD-BIND-SHADING-RATE-IMAGE-NV
 See CREATE-IMAGE-VIEW
 See DESTROY-IMAGE-VIEW
@@ -6303,8 +6336,8 @@ Related functions:
 See CREATE-RENDER-PASS
 See CREATE-RENDER-PASS-2
 See DESTROY-RENDER-PASS
-See GET-RENDER-AREA-GRANULARITY
-See GET-SUBPASS-SHADING-MAX-WORKGROUP-SIZE-HUAWEI"
+See GET-DEVICE-SUBPASS-SHADING-MAX-WORKGROUP-SIZE-HUAWEI
+See GET-RENDER-AREA-GRANULARITY"
   'cffi:foreign-pointer)
 
 (deftype pipeline-cache ()
@@ -6550,7 +6583,8 @@ See GET-SWAPCHAIN-IMAGES-KHR
 See GET-SWAPCHAIN-STATUS-KHR
 See RELEASE-FULL-SCREEN-EXCLUSIVE-MODE-EXT
 See SET-HDR-METADATA-EXT
-See SET-LOCAL-DIMMING-AMD"
+See SET-LOCAL-DIMMING-AMD
+See WAIT-FOR-PRESENT-KHR"
   'cffi:foreign-pointer)
 
 (deftype debug-report-callback-ext ()
@@ -6696,8 +6730,8 @@ Slots:
 
 Instances of this class are used as parameters of the following functions:
 See CMD-SET-FRAGMENT-SHADING-RATE-KHR
+See GET-DEVICE-SUBPASS-SHADING-MAX-WORKGROUP-SIZE-HUAWEI
 See GET-RENDER-AREA-GRANULARITY
-See GET-SUBPASS-SHADING-MAX-WORKGROUP-SIZE-HUAWEI
 "))
 
 (defclass extent-3d ()
@@ -7209,6 +7243,7 @@ See PHYSICAL-DEVICE-YCBCR-2-PLANE-4-4-4-FORMATS-FEATURES-EXT
 See PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
 See PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
 See PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
+See PHYSICAL-DEVICE-EXTERNAL-MEMORY-R-D-M-A-FEATURES-NV
 See PHYSICAL-DEVICE-VERTEX-INPUT-DYNAMIC-STATE-FEATURES-EXT
 See PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
@@ -7262,6 +7297,7 @@ See PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR
 See PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-FEATURES-KHR
 See PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-FEATURES-KHR
 See PHYSICAL-DEVICE-MESH-SHADER-FEATURES-NV
+See PHYSICAL-DEVICE-INVOCATION-MASK-FEATURES-HUAWEI
 See PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV
 See PHYSICAL-DEVICE-DEDICATED-ALLOCATION-IMAGE-ALIASING-FEATURES-NV
 See PHYSICAL-DEVICE-SHADER-IMAGE-FOOTPRINT-FEATURES-NV
@@ -7273,6 +7309,7 @@ See PHYSICAL-DEVICE-REPRESENTATIVE-FRAGMENT-TEST-FEATURES-NV
 See PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT
 See PHYSICAL-DEVICE-ASTC-DECODE-FEATURES-EXT
 See PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-FEATURES-EXT
+See PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-2-FEATURES-EXT
 See PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-FEATURES-EXT
 See PHYSICAL-DEVICE-SHADER-ATOMIC-INT-64-FEATURES
 See PHYSICAL-DEVICE-VULKAN-MEMORY-MODEL-FEATURES
@@ -7282,6 +7319,7 @@ See PHYSICAL-DEVICE-TIMELINE-SEMAPHORE-FEATURES
 See PHYSICAL-DEVICE-DESCRIPTOR-INDEXING-FEATURES
 See DEVICE-DEVICE-MEMORY-REPORT-CREATE-INFO-EXT
 See PHYSICAL-DEVICE-DEVICE-MEMORY-REPORT-FEATURES-EXT
+See PHYSICAL-DEVICE-GLOBAL-PRIORITY-QUERY-FEATURES-EXT
 See PHYSICAL-DEVICE-HOST-QUERY-RESET-FEATURES
 See PHYSICAL-DEVICE-SHADER-FLOAT-16-INT-8-FEATURES
 See PHYSICAL-DEVICE-SHADER-DRAW-PARAMETERS-FEATURES
@@ -7292,6 +7330,8 @@ See PHYSICAL-DEVICE-PROTECTED-MEMORY-FEATURES
 See PHYSICAL-DEVICE-SAMPLER-YCBCR-CONVERSION-FEATURES
 See PHYSICAL-DEVICE-SHADER-SUBGROUP-EXTENDED-TYPES-FEATURES
 See PHYSICAL-DEVICE-16-BIT-STORAGE-FEATURES
+See PHYSICAL-DEVICE-PRESENT-WAIT-FEATURES-KHR
+See PHYSICAL-DEVICE-PRESENT-ID-FEATURES-KHR
 See DEVICE-GROUP-DEVICE-CREATE-INFO
 See PHYSICAL-DEVICE-MULTIVIEW-FEATURES
 See PHYSICAL-DEVICE-VARIABLE-POINTERS-FEATURES
@@ -9789,6 +9829,40 @@ See PIPELINE-CACHE-CREATE-FLAGS
 
 Instances of this class are used as parameters of the following functions:
 See CREATE-PIPELINE-CACHE
+"))
+
+(defclass pipeline-cache-header-version-one ()
+  ((header-size
+     :initarg :header-size
+     :initform 0
+     :accessor header-size)
+   (header-version
+     :initarg :header-version
+     :initform nil
+     :accessor header-version)
+   (vendor-id
+     :initarg :vendor-id
+     :initform 0
+     :accessor vendor-id)
+   (device-id
+     :initarg :device-id
+     :initform 0
+     :accessor device-id)
+   (pipeline-cache-uuid
+     :initarg :pipeline-cache-uuid
+     :initform 0
+     :accessor pipeline-cache-uuid))
+  (:documentation "Represents the struct [VkPipelineCacheHeaderVersionOne](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPipelineCacheHeaderVersionOne.html).
+
+Slots:
+ - HEADER-SIZE: a positive (32-bit) integer.
+ - HEADER-VERSION: an enum value of PIPELINE-CACHE-HEADER-VERSION.
+ - VENDOR-ID: a positive (32-bit) integer.
+ - DEVICE-ID: a positive (32-bit) integer.
+ - PIPELINE-CACHE-UUID: a positive (8-bit) integer.
+
+Slot types:
+See PIPELINE-CACHE-HEADER-VERSION
 "))
 
 (defclass push-constant-range ()
@@ -12488,6 +12562,7 @@ See RESULT
 Instances of this class can be extended by the following classes (using the NEXT slot):
 See PRESENT-FRAME-TOKEN-GGP
 See PRESENT-TIMES-INFO-GOOGLE
+See PRESENT-ID-KHR
 See DEVICE-GROUP-PRESENT-INFO-KHR
 See PRESENT-REGIONS-KHR
 See DISPLAY-PRESENT-INFO-KHR
@@ -13513,11 +13588,13 @@ Slot types:
 See PHYSICAL-DEVICE-FEATURES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
+See PHYSICAL-DEVICE-RAY-TRACING-MOTION-BLUR-FEATURES-NV
 See PHYSICAL-DEVICE-PROVOKING-VERTEX-FEATURES-EXT
 See PHYSICAL-DEVICE-YCBCR-2-PLANE-4-4-4-FORMATS-FEATURES-EXT
 See PHYSICAL-DEVICE-INHERITED-VIEWPORT-SCISSOR-FEATURES-NV
 See PHYSICAL-DEVICE-SYNCHRONIZATION-2-FEATURES-KHR
 See PHYSICAL-DEVICE-COLOR-WRITE-ENABLE-FEATURES-EXT
+See PHYSICAL-DEVICE-EXTERNAL-MEMORY-R-D-M-A-FEATURES-NV
 See PHYSICAL-DEVICE-VERTEX-INPUT-DYNAMIC-STATE-FEATURES-EXT
 See PHYSICAL-DEVICE-MUTABLE-DESCRIPTOR-TYPE-FEATURES-VALVE
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-FEATURES-NV
@@ -13569,6 +13646,7 @@ See PHYSICAL-DEVICE-RAY-QUERY-FEATURES-KHR
 See PHYSICAL-DEVICE-RAY-TRACING-PIPELINE-FEATURES-KHR
 See PHYSICAL-DEVICE-ACCELERATION-STRUCTURE-FEATURES-KHR
 See PHYSICAL-DEVICE-MESH-SHADER-FEATURES-NV
+See PHYSICAL-DEVICE-INVOCATION-MASK-FEATURES-HUAWEI
 See PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV
 See PHYSICAL-DEVICE-DEDICATED-ALLOCATION-IMAGE-ALIASING-FEATURES-NV
 See PHYSICAL-DEVICE-SHADER-IMAGE-FOOTPRINT-FEATURES-NV
@@ -13580,6 +13658,7 @@ See PHYSICAL-DEVICE-REPRESENTATIVE-FRAGMENT-TEST-FEATURES-NV
 See PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT
 See PHYSICAL-DEVICE-ASTC-DECODE-FEATURES-EXT
 See PHYSICAL-DEVICE-VERTEX-ATTRIBUTE-DIVISOR-FEATURES-EXT
+See PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-2-FEATURES-EXT
 See PHYSICAL-DEVICE-SHADER-ATOMIC-FLOAT-FEATURES-EXT
 See PHYSICAL-DEVICE-SHADER-ATOMIC-INT-64-FEATURES
 See PHYSICAL-DEVICE-VULKAN-MEMORY-MODEL-FEATURES
@@ -13599,6 +13678,8 @@ See PHYSICAL-DEVICE-PROTECTED-MEMORY-FEATURES
 See PHYSICAL-DEVICE-SAMPLER-YCBCR-CONVERSION-FEATURES
 See PHYSICAL-DEVICE-SHADER-SUBGROUP-EXTENDED-TYPES-FEATURES
 See PHYSICAL-DEVICE-16-BIT-STORAGE-FEATURES
+See PHYSICAL-DEVICE-PRESENT-WAIT-FEATURES-KHR
+See PHYSICAL-DEVICE-PRESENT-ID-FEATURES-KHR
 See PHYSICAL-DEVICE-MULTIVIEW-FEATURES
 See PHYSICAL-DEVICE-VARIABLE-POINTERS-FEATURES
 See PHYSICAL-DEVICE-PRIVATE-DATA-FEATURES-EXT
@@ -13630,7 +13711,6 @@ Slot types:
 See PHYSICAL-DEVICE-PROPERTIES
 
 Instances of this class can be extended by the following classes (using the NEXT slot):
-See PHYSICAL-DEVICE-RAY-TRACING-MOTION-BLUR-FEATURES-NV
 See PHYSICAL-DEVICE-DRM-PROPERTIES-EXT
 See PHYSICAL-DEVICE-PROVOKING-VERTEX-PROPERTIES-EXT
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-ENUMS-PROPERTIES-NV
@@ -16057,6 +16137,65 @@ Slots:
  - Y: a single-float.
 "))
 
+(defclass physical-device-present-id-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (present-id
+     :initarg :present-id
+     :initform nil
+     :accessor present-id))
+  (:documentation "Represents the struct [VkPhysicalDevicePresentIdFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePresentIdFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PRESENT-ID: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
+(defclass present-id-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (present-ids
+     :initarg :present-ids
+     :initform nil
+     :accessor present-ids))
+  (:documentation "Represents the struct [VkPresentIdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPresentIdKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PRESENT-IDS (optional): a list of positive (64-bit) integers.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PRESENT-INFO-KHR
+"))
+
+(defclass physical-device-present-wait-features-khr ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (present-wait
+     :initarg :present-wait
+     :initform nil
+     :accessor present-wait))
+  (:documentation "Represents the struct [VkPhysicalDevicePresentWaitFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDevicePresentWaitFeaturesKHR.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - PRESENT-WAIT: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
 (defclass hdr-metadata-ext ()
   ((next
      :initarg :next
@@ -18365,6 +18504,7 @@ Slots:
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
 "))
 
 (defclass queue-family-global-priority-properties-ext ()
@@ -20226,6 +20366,81 @@ See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
+(defclass physical-device-shader-atomic-float-2-features-ext ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (shader-buffer-float-16-atomics
+     :initarg :shader-buffer-float-16-atomics
+     :initform nil
+     :accessor shader-buffer-float-16-atomics)
+   (shader-buffer-float-16-atomic-add
+     :initarg :shader-buffer-float-16-atomic-add
+     :initform nil
+     :accessor shader-buffer-float-16-atomic-add)
+   (shader-buffer-float-16-atomic-min-max
+     :initarg :shader-buffer-float-16-atomic-min-max
+     :initform nil
+     :accessor shader-buffer-float-16-atomic-min-max)
+   (shader-buffer-float-32-atomic-min-max
+     :initarg :shader-buffer-float-32-atomic-min-max
+     :initform nil
+     :accessor shader-buffer-float-32-atomic-min-max)
+   (shader-buffer-float-64-atomic-min-max
+     :initarg :shader-buffer-float-64-atomic-min-max
+     :initform nil
+     :accessor shader-buffer-float-64-atomic-min-max)
+   (shader-shared-float-16-atomics
+     :initarg :shader-shared-float-16-atomics
+     :initform nil
+     :accessor shader-shared-float-16-atomics)
+   (shader-shared-float-16-atomic-add
+     :initarg :shader-shared-float-16-atomic-add
+     :initform nil
+     :accessor shader-shared-float-16-atomic-add)
+   (shader-shared-float-16-atomic-min-max
+     :initarg :shader-shared-float-16-atomic-min-max
+     :initform nil
+     :accessor shader-shared-float-16-atomic-min-max)
+   (shader-shared-float-32-atomic-min-max
+     :initarg :shader-shared-float-32-atomic-min-max
+     :initform nil
+     :accessor shader-shared-float-32-atomic-min-max)
+   (shader-shared-float-64-atomic-min-max
+     :initarg :shader-shared-float-64-atomic-min-max
+     :initform nil
+     :accessor shader-shared-float-64-atomic-min-max)
+   (shader-image-float-32-atomic-min-max
+     :initarg :shader-image-float-32-atomic-min-max
+     :initform nil
+     :accessor shader-image-float-32-atomic-min-max)
+   (sparse-image-float-32-atomic-min-max
+     :initarg :sparse-image-float-32-atomic-min-max
+     :initform nil
+     :accessor sparse-image-float-32-atomic-min-max))
+  (:documentation "Represents the struct [VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - SHADER-BUFFER-FLOAT-16-ATOMICS: a boolean.
+ - SHADER-BUFFER-FLOAT-16-ATOMIC-ADD: a boolean.
+ - SHADER-BUFFER-FLOAT-16-ATOMIC-MIN-MAX: a boolean.
+ - SHADER-BUFFER-FLOAT-32-ATOMIC-MIN-MAX: a boolean.
+ - SHADER-BUFFER-FLOAT-64-ATOMIC-MIN-MAX: a boolean.
+ - SHADER-SHARED-FLOAT-16-ATOMICS: a boolean.
+ - SHADER-SHARED-FLOAT-16-ATOMIC-ADD: a boolean.
+ - SHADER-SHARED-FLOAT-16-ATOMIC-MIN-MAX: a boolean.
+ - SHADER-SHARED-FLOAT-32-ATOMIC-MIN-MAX: a boolean.
+ - SHADER-SHARED-FLOAT-64-ATOMIC-MIN-MAX: a boolean.
+ - SHADER-IMAGE-FLOAT-32-ATOMIC-MIN-MAX: a boolean.
+ - SPARSE-IMAGE-FLOAT-32-ATOMIC-MIN-MAX: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
 (defclass physical-device-vertex-attribute-divisor-features-ext ()
   ((next
      :initarg :next
@@ -20816,6 +21031,26 @@ See EXTENT-2D
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See PHYSICAL-DEVICE-PROPERTIES-2
+"))
+
+(defclass physical-device-invocation-mask-features-huawei ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (invocation-mask
+     :initarg :invocation-mask
+     :initform nil
+     :accessor invocation-mask))
+  (:documentation "Represents the struct [VkPhysicalDeviceInvocationMaskFeaturesHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - INVOCATION-MASK: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
 "))
 
 (defclass coarse-sample-location-nv ()
@@ -27148,6 +27383,26 @@ See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
+(defclass physical-device-external-memory-r-d-m-a-features-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (external-memory-r-d-m-a
+     :initarg :external-memory-r-d-m-a
+     :initform nil
+     :accessor external-memory-r-d-m-a))
+  (:documentation "Represents the struct [VkPhysicalDeviceExternalMemoryRDMAFeaturesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - EXTERNAL-MEMORY-R-D-M-A: a boolean.
+
+Instances of this class can be used to extend the following classes (using their NEXT slot):
+See PHYSICAL-DEVICE-FEATURES-2
+See DEVICE-CREATE-INFO
+"))
+
 (defclass vertex-input-binding-description-2-ext ()
   ((next
      :initarg :next
@@ -27840,7 +28095,7 @@ See GET-PHYSICAL-DEVICE-VIDEO-CAPABILITIES-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
- - CAPABILITY-FLAGS: a list containing a valid combination of VIDEO-CAPABILITIES-FLAGS-KHR.
+ - CAPABILITY-FLAGS: a list containing a valid combination of VIDEO-CAPABILITY-FLAGS-KHR.
  - MIN-BITSTREAM-BUFFER-OFFSET-ALIGNMENT: a DEVICE-SIZE.
  - MIN-BITSTREAM-BUFFER-SIZE-ALIGNMENT: a DEVICE-SIZE.
  - VIDEO-PICTURE-EXTENT-GRANULARITY: an EXTENT-2D.
@@ -27850,7 +28105,7 @@ Slots:
  - MAX-REFERENCE-PICTURES-ACTIVE-COUNT: a positive (32-bit) integer.
 
 Slot types:
-See VIDEO-CAPABILITIES-FLAGS-KHR
+See VIDEO-CAPABILITY-FLAGS-KHR
 See DEVICE-SIZE
 See EXTENT-2D
 
@@ -28073,20 +28328,20 @@ See CMD-DECODE-VIDEO-KHR
      :initarg :std-profile-idc
      :initform nil
      :accessor std-profile-idc)
-   (field-layout
-     :initarg :field-layout
+   (picture-layout
+     :initarg :picture-layout
      :initform nil
-     :accessor field-layout))
+     :accessor picture-layout))
   (:documentation "Represents the struct [VkVideoDecodeH264ProfileEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkVideoDecodeH264ProfileEXT.html).
 
 Slots:
  - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
  - STD-PROFILE-IDC: a STD-VIDEO-H264-PROFILE-IDC.
- - FIELD-LAYOUT: a list containing a valid combination of VIDEO-DECODE-H264-FIELD-LAYOUT-FLAGS-EXT.
+ - PICTURE-LAYOUT: a list containing a valid combination of VIDEO-DECODE-H264-PICTURE-LAYOUT-FLAGS-EXT.
 
 Slot types:
 See STD-VIDEO-H264-PROFILE-IDC
-See VIDEO-DECODE-H264-FIELD-LAYOUT-FLAGS-EXT
+See VIDEO-DECODE-H264-PICTURE-LAYOUT-FLAGS-EXT
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
 See VIDEO-PROFILE-KHR
@@ -28865,7 +29120,7 @@ See VIDEO-CODING-CONTROL-INFO-KHR
 
 Slots:
  - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
- - FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-CAPABILITIES-FLAGS-EXT.
+ - FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-CAPABILITY-FLAGS-EXT.
  - INPUT-MODE-FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-INPUT-MODE-FLAGS-EXT.
  - OUTPUT-MODE-FLAGS: a list containing a valid combination of VIDEO-ENCODE-H264-OUTPUT-MODE-FLAGS-EXT.
  - MIN-PICTURE-SIZE-IN-MBS: an EXTENT-2D.
@@ -28878,7 +29133,7 @@ Slots:
  - STD-EXTENSION-VERSION: an EXTENSION-PROPERTIES.
 
 Slot types:
-See VIDEO-ENCODE-H264-CAPABILITIES-FLAGS-EXT
+See VIDEO-ENCODE-H264-CAPABILITY-FLAGS-EXT
 See VIDEO-ENCODE-H264-INPUT-MODE-FLAGS-EXT
 See VIDEO-ENCODE-H264-OUTPUT-MODE-FLAGS-EXT
 See EXTENT-2D
@@ -29405,9 +29660,9 @@ Slots:
  - BLOCK-DIM-Z: a positive (32-bit) integer.
  - SHARED-MEM-BYTES: a positive (32-bit) integer.
  - PARAM-COUNT: a positive integer.
- - PARAMS: a foreign pointer.
+ - PARAMS: a foreign pointer to a buffer of size PARAM-COUNT.
  - EXTRA-COUNT: a positive integer.
- - EXTRAS: a foreign pointer.
+ - EXTRAS: a foreign pointer to a buffer of size EXTRA-COUNT.
 
 Slot types:
 See CU-FUNCTION-NVX
@@ -29481,7 +29736,7 @@ Slots:
  - RAY-TRACING-MOTION-BLUR-PIPELINE-TRACE-RAYS-INDIRECT: a boolean.
 
 Instances of this class can be used to extend the following classes (using their NEXT slot):
-See PHYSICAL-DEVICE-PROPERTIES-2
+See PHYSICAL-DEVICE-FEATURES-2
 See DEVICE-CREATE-INFO
 "))
 
@@ -29757,4 +30012,32 @@ Slot types:
 See ACCELERATION-STRUCTURE-MOTION-INSTANCE-TYPE-NV
 See ACCELERATION-STRUCTURE-MOTION-INSTANCE-FLAGS-NV
 See ACCELERATION-STRUCTURE-MOTION-INSTANCE-DATA-NV
+"))
+
+(defclass memory-get-remote-address-info-nv ()
+  ((next
+     :initarg :next
+     :initform nil
+     :accessor next)
+   (memory
+     :initarg :memory
+     :initform nil
+     :accessor memory)
+   (handle-type
+     :initarg :handle-type
+     :initform nil
+     :accessor handle-type))
+  (:documentation "Represents the struct [VkMemoryGetRemoteAddressInfoNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VkMemoryGetRemoteAddressInfoNV.html).
+
+Slots:
+ - NEXT (optional): an instance of a class extending this class (valid classes are listed below).
+ - MEMORY: a DEVICE-MEMORY.
+ - HANDLE-TYPE: an enum value of EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS.
+
+Slot types:
+See DEVICE-MEMORY
+See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
+
+Instances of this class are used as parameters of the following functions:
+See GET-MEMORY-REMOTE-ADDRESS-NV
 "))

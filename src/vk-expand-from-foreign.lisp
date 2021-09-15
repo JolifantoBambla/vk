@@ -1313,6 +1313,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :initial-data-size %vk:initial-data-size
                    :initial-data %vk:p-initial-data)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-pipeline-cache-header-version-one))
+  `(cffi:with-foreign-slots
+      ((%vk:header-size
+        %vk:header-version
+        %vk:vendor-id
+        %vk:device-id
+        %vk:pipeline-cache-uuid)
+       ,ptr
+       (:struct %vk:pipeline-cache-header-version-one))
+    (make-instance 'vk:pipeline-cache-header-version-one
+                   :header-size %vk:header-size
+                   :header-version %vk:header-version
+                   :vendor-id %vk:vendor-id
+                   :device-id %vk:device-id
+                   :pipeline-cache-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:pipeline-cache-uuid :uint8 i)))))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-push-constant-range))
   `(cffi:with-foreign-slots
       ((%vk:stage-flags
@@ -4082,6 +4098,40 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :x %vk:x
                    :y %vk:y)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-present-id-features-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:present-id)
+       ,ptr
+       (:struct %vk:physical-device-present-id-features-khr))
+    (make-instance 'vk:physical-device-present-id-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :present-id %vk:present-id)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-present-id-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:swapchain-count
+        %vk:p-present-ids)
+       ,ptr
+       (:struct %vk:present-id-khr))
+    (make-instance 'vk:present-id-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :present-ids (loop for i from 0 below %vk:swapchain-count collect (cffi:mem-aref %vk:p-present-ids :uint64 i)))))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-present-wait-features-khr))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:present-wait)
+       ,ptr
+       (:struct %vk:physical-device-present-wait-features-khr))
+    (make-instance 'vk:physical-device-present-wait-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :present-wait %vk:present-wait)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-hdr-metadata-ext))
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -6096,6 +6146,39 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :sparse-image-float-32-atomics %vk:sparse-image-float-32-atomics
                    :sparse-image-float-32-atomic-add %vk:sparse-image-float-32-atomic-add)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-shader-atomic-float-2-features-ext))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-buffer-float-16-atomics
+        %vk:shader-buffer-float-16-atomic-add
+        %vk:shader-buffer-float-16-atomic-min-max
+        %vk:shader-buffer-float-32-atomic-min-max
+        %vk:shader-buffer-float-64-atomic-min-max
+        %vk:shader-shared-float-16-atomics
+        %vk:shader-shared-float-16-atomic-add
+        %vk:shader-shared-float-16-atomic-min-max
+        %vk:shader-shared-float-32-atomic-min-max
+        %vk:shader-shared-float-64-atomic-min-max
+        %vk:shader-image-float-32-atomic-min-max
+        %vk:sparse-image-float-32-atomic-min-max)
+       ,ptr
+       (:struct %vk:physical-device-shader-atomic-float-2-features-ext))
+    (make-instance 'vk:physical-device-shader-atomic-float-2-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :shader-buffer-float-16-atomics %vk:shader-buffer-float-16-atomics
+                   :shader-buffer-float-16-atomic-add %vk:shader-buffer-float-16-atomic-add
+                   :shader-buffer-float-16-atomic-min-max %vk:shader-buffer-float-16-atomic-min-max
+                   :shader-buffer-float-32-atomic-min-max %vk:shader-buffer-float-32-atomic-min-max
+                   :shader-buffer-float-64-atomic-min-max %vk:shader-buffer-float-64-atomic-min-max
+                   :shader-shared-float-16-atomics %vk:shader-shared-float-16-atomics
+                   :shader-shared-float-16-atomic-add %vk:shader-shared-float-16-atomic-add
+                   :shader-shared-float-16-atomic-min-max %vk:shader-shared-float-16-atomic-min-max
+                   :shader-shared-float-32-atomic-min-max %vk:shader-shared-float-32-atomic-min-max
+                   :shader-shared-float-64-atomic-min-max %vk:shader-shared-float-64-atomic-min-max
+                   :shader-image-float-32-atomic-min-max %vk:shader-image-float-32-atomic-min-max
+                   :sparse-image-float-32-atomic-min-max %vk:sparse-image-float-32-atomic-min-max)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-vertex-attribute-divisor-features-ext))
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -6394,6 +6477,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :shading-rate-texel-size %vk:shading-rate-texel-size
                    :shading-rate-palette-size %vk:shading-rate-palette-size
                    :shading-rate-max-coarse-samples %vk:shading-rate-max-coarse-samples)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-invocation-mask-features-huawei))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:invocation-mask)
+       ,ptr
+       (:struct %vk:physical-device-invocation-mask-features-huawei))
+    (make-instance 'vk:physical-device-invocation-mask-features-huawei
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :invocation-mask %vk:invocation-mask)))
 
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-coarse-sample-location-nv))
   `(cffi:with-foreign-slots
@@ -9364,6 +9458,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :vertex-input-dynamic-state %vk:vertex-input-dynamic-state)))
 
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-physical-device-external-memory-r-d-m-a-features-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:external-memory-r-d-m-a)
+       ,ptr
+       (:struct %vk:physical-device-external-memory-r-d-m-a-features-nv))
+    (make-instance 'vk:physical-device-external-memory-r-d-m-a-features-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :external-memory-r-d-m-a %vk:external-memory-r-d-m-a)))
+
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-vertex-input-binding-description-2-ext))
   `(cffi:with-foreign-slots
       ((%vk:s-type
@@ -9782,13 +9887,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:std-profile-idc
-        %vk:field-layout)
+        %vk:picture-layout)
        ,ptr
        (:struct %vk:video-decode-h264-profile-ext))
     (make-instance 'vk:video-decode-h264-profile-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :std-profile-idc %vk:std-profile-idc
-                   :field-layout %vk:field-layout)))
+                   :picture-layout %vk:picture-layout)))
 
 (defmethod cffi:expand-from-foreign (ptr (type %vk:c-video-decode-h264-capabilities-ext))
   `(cffi:with-foreign-slots
@@ -10559,4 +10664,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :type %vk:type
                    :flags %vk:flags
                    :data nil)))
+
+(defmethod cffi:expand-from-foreign (ptr (type %vk:c-memory-get-remote-address-info-nv))
+  `(cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory
+        %vk:handle-type)
+       ,ptr
+       (:struct %vk:memory-get-remote-address-info-nv))
+    (make-instance 'vk:memory-get-remote-address-info-nv
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :memory %vk:memory
+                   :handle-type %vk:handle-type)))
 

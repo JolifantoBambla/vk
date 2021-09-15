@@ -387,7 +387,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-pipelines (:pointer pipeline)))
 
-(defvkextfun ("vkGetSubpassShadingMaxWorkgroupSizeHUAWEI" get-subpass-shading-max-workgroup-size-huawei) checked-result
+(defvkextfun ("vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI" get-device-subpass-shading-max-workgroup-size-huawei) checked-result
+  (device device)
   (renderpass render-pass)
   (p-max-workgroup-size (:pointer (:struct extent-2d))))
 
@@ -1260,6 +1261,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (zircon-handle zx_handle_t)
   (p-memory-zircon-handle-properties (:pointer (:struct memory-zircon-handle-properties-fuchsia))))
 
+(defvkextfun ("vkGetMemoryRemoteAddressNV" get-memory-remote-address-nv) checked-result
+  (device device)
+  (p-memory-get-remote-address-info (:pointer (:struct memory-get-remote-address-info-nv)))
+  (p-address (:pointer remote-address-nv)))
+
 (defvkfun ("vkGetPhysicalDeviceExternalSemaphoreProperties" get-physical-device-external-semaphore-properties) :void
   (physical-device physical-device)
   (p-external-semaphore-info (:pointer (:struct physical-device-external-semaphore-info)))
@@ -2018,6 +2024,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (p-allocator (:pointer (:struct allocation-callbacks)))
   (p-acceleration-structure (:pointer acceleration-structure-nv)))
 
+(defvkextfun ("vkCmdBindInvocationMaskHUAWEI" cmd-bind-invocation-mask-huawei) :void
+  (command-buffer command-buffer)
+  (image-view image-view)
+  (image-layout image-layout))
+
 (defvkfun ("vkDestroyAccelerationStructureKHR" destroy-acceleration-structure-khr) :void
   (device device)
   (acceleration-structure acceleration-structure-khr)
@@ -2730,4 +2741,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (drm-fd :int32)
   (connector-id :uint32)
   (display (:pointer display-khr)))
+
+(defvkfun ("vkWaitForPresentKHR" wait-for-present-khr) checked-result
+  (device device)
+  (swapchain swapchain-khr)
+  (present-id :uint64)
+  (timeout :uint64))
 

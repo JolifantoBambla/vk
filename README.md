@@ -55,7 +55,7 @@ CMUCL fails to find `libvulkan.so` in the test action.
 MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
 
 ### Supported Vulkan API versions
-**The current version of `vk` is based on version `v1.2.182`.**
+**The current version of `vk` is based on version `v1.2.189`.**
 
 `vk` targets Vulkan 1.2, so all versions support the core API of version 1.2.x.
 The main branch is always generated from the most recent version of the [Vulkan API XML registry](https://github.com/KhronosGroup/Vulkan-Docs)
@@ -157,10 +157,6 @@ All available wrappers are listed in the [API reference](https://jolifantobambla
 
 Aside from utilities for `vk`, this package also contains the function `memcpy`.
 
-*The following is not yet generated, but a roadmap:*
-
-* `vk-utils` will also provide `make`-style constructors for all classes defined in `vk`.
-
 ## Samples and Usage
 Check out the [API reference](https://jolifantobambla.github.io/vk).
 
@@ -174,16 +170,18 @@ This also goes for nested structs, so whenever a struct has a pointer to another
 E.g. the `pInputAssemblyState` member of a `VkGraphicsPipelineCreateInfo` could be set like this in `vk`:
 
 ```cl
-(make-instance 'vk:graphics-pipeline-create-info
-               ...
-               :input-assembly-state (make-instance 'vk:pipeline-input-assembly-state-create-info
-                                                    :topology :triangle-list
-                                                    :primitive-restart-enable nil)
-               ...
-               )
+(vk:make-graphics-pipeline-create-info
+ ...
+ :input-assembly-state (vk:make-pipeline-input-assembly-state-create-info
+                        :topology :triangle-list
+                        :primitive-restart-enable nil)
+ ...
+ )
 ```
 
 Note that whenever a class instance is used (as a slot value or a function argument), you can also use a `cffi:foreign-pointer` as well, which might save you computation time, if you store translated objects yourself somewhere.
+
+`vk` exposes each class directly as well as a `make`-style constructor for every class.
 
 In the C API structs and unions often contain members which specify the length of another member (e.g. of a `const char*`).
 Since those are redundant they are not included in the class wrappers and are set automatically during translation.
@@ -191,15 +189,21 @@ Since those are redundant they are not included in the class wrappers and are se
 E.g. during translation, the `queueCreateInfoCount` member of a `VkDeviceCreateInfo` is automatically set to the length of the `queue-create-info` slot of the corresponding `vk:device-create-info` instance:
 
 ```cl
-(make-instance 'vk:device-create-info
-               :queue-create-infos (list (make-instance 'vk:device-queue-create-info
-                                                        ...
-                                                        )))
+(vk:make-device-create-info
+ :queue-create-infos (list (vk:make-device-queue-create-info
+                            ...
+                            )))
 ```
 
 The exception to this are `void` pointers to arbitrary data, for which the size can not be determined without any knowledge about the type and number of elements in the array/buffer the pointer points to (e.g. the slot `initial-data` of the class `vk:pipeline-cache-create-info` which wraps `VkPipelineCacheCreateInfo`).
 
 Another exception are cases where a slot specifies the length of an optional array (which can be null) but is not optional itself (e.g. `descriptor-count` in `vk:descriptor-set-layout-binding` and `swapchain-count` in `vk:present-regions-khr` or `vk:present-times-info-google`).
+
+#### Unions
+A class representing a union in the C API has one slot for each possible member of the union.
+In order for translation to work properly only one slot should be bound for an instance of a class representing a union.
+If more than one slot is bound, the first one (w.r.t. the order in which slots were specified in the class definition) will be used during translation.
+`make`-style constructors for such classes allow only exactly one slot to be set.
 
 #### Extending Structs: pNext
 Many structs in the Vulkan API can be extended by one or more other structs using their `pNext` member (a `void` pointer).
@@ -209,13 +213,13 @@ Note however, that there is no validation for bound `next` slots on the `vk` sid
 E.g. to register a debug messenger to a `vk:instance` during creation, you can write:
 
 ```cl
-(make-instance 'vk:instance-create-info
-               :next (make-instance 'vk:debug-utils-messenger-create-info-ext
-                                    :message-type '(:validation)
-                                    :message-severity '(:info :warning :error)
-                                    :pfn-user-callback ... ;; some CFFI callback
-                                    :user-data ...) ;; whatever user data you want to pass
-               :application-info ...) ;; whatever you want to enable for your Vulkan instance
+(vk:make-instance-create-info
+ :next (vk:make-debug-utils-messenger-create-info-ext
+        :message-type '(:validation)
+        :message-severity '(:info :warning :error)
+        :pfn-user-callback ... ;; some CFFI callback
+        :user-data ...) ;; whatever user data you want to pass
+ :application-info ...) ;; whatever you want to enable for your Vulkan instance
 ```
 
 ### Handles
@@ -260,10 +264,10 @@ For this purpose `vk` provides the names of all extensions as constants with the
 E.g. the name of the `VK_EXT_debug_utils` extension is `vk:+ext-debug-utils-extension-name+`:
 
 ```cl
-(make-instance 'vk:instance-create-info
-               :application-info ...
-               ;; we need to enable the debug utils extension during instance creation
-               :enabled-extension-names (list vk:+ext-debug-utils-extension-name+))
+(vk:make-instance-create-info
+ :application-info ...
+ ;; we need to enable the debug utils extension during instance creation
+ :enabled-extension-names (list vk:+ext-debug-utils-extension-name+))
 ```
 
 Apart from being enabled, functions belonging to an extension also need to be loaded for the `vk:instance` or `vk:device` which used them.
@@ -274,9 +278,12 @@ In order for the an `extension-loader` to work, it needs to be supplied with a `
 E.g. via creation:
 
 ```cl
-(setf vk:*default-extension-loader* (vk:make-extension-loader :instance instance
-                                                              :device device))
+(setf vk:*default-extension-loader* (vk:make-extension-loader
+                                     :instance instance
+                                     :device device))
 ```
+
+Or by setting them using the readers `(extension-loader-instance vk:*default-extension-loader*)` and `(extension-loader-device vk:*default-extension-loader*)`.
 
 When calling an extension function the passed `extension-loader` is searched for the function pointer of the extension function.
 If it is the first call of the function using this `extension-loader` instance, the function pointer is fetched using `vk:get-instance-proc-addr` or `vk:get-device-proc-addr` and stored in an internal hash map of the `extension-loader` instance.

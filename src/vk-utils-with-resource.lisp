@@ -27,7 +27,7 @@ See VK:FREE-COMMAND-BUFFERS"
   `(let ((,resources (vk:allocate-command-buffers ,device ,allocate-info)))
      (unwind-protect
          (progn ,@body)
-       (vk:free-command-buffers ,device (command-pool ,allocate-info) ,resources))))
+       (vk:free-command-buffers ,device (vk:command-pool ,allocate-info) ,resources))))
 
 (defmacro with-memory ((resource device allocate-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:ALLOCATE-MEMORY call.
@@ -97,7 +97,7 @@ See VK:DESTROY-SHADER-MODULE"
 See VK:CREATE-RAY-TRACING-PIPELINES-KHR
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-ray-tracing-pipelines-khr ,device ,create-infos ,deferred-operation ,pipeline-cache (or ,allocator vk:*default-allocator*))))
+    `(let ((,resources (vk:create-ray-tracing-pipelines-khr ,device ,create-infos (or ,deferred-operation (cffi:null-pointer)) (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -108,7 +108,7 @@ See VK:DESTROY-PIPELINE"
 See VK:CREATE-RAY-TRACING-PIPELINES-NV
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-ray-tracing-pipelines-nv ,device ,create-infos ,pipeline-cache (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+    `(let ((,resources (vk:create-ray-tracing-pipelines-nv ,device ,create-infos (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -119,7 +119,7 @@ See VK:DESTROY-PIPELINE"
 See VK:CREATE-COMPUTE-PIPELINES
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-compute-pipelines ,device ,create-infos ,pipeline-cache (or ,allocator vk:*default-allocator*))))
+    `(let ((,resources (vk:create-compute-pipelines ,device ,create-infos (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -130,7 +130,7 @@ See VK:DESTROY-PIPELINE"
 See VK:CREATE-GRAPHICS-PIPELINES
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-graphics-pipelines ,device ,create-infos ,pipeline-cache (or ,allocator vk:*default-allocator*))))
+    `(let ((,resources (vk:create-graphics-pipelines ,device ,create-infos (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -161,7 +161,7 @@ See VK:FREE-DESCRIPTOR-SETS"
   `(let ((,resources (vk:allocate-descriptor-sets ,device ,allocate-info)))
      (unwind-protect
          (progn ,@body)
-       (vk:free-descriptor-sets ,device (descriptor-pool ,allocate-info) ,resources))))
+       (vk:free-descriptor-sets ,device (vk:descriptor-pool ,allocate-info) ,resources))))
 
 (defmacro with-descriptor-set-layout ((resource device create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-DESCRIPTOR-SET-LAYOUT call.

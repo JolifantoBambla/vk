@@ -38,7 +38,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((create-info (or vk:instance-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (create-info '(:struct %vk:instance-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -57,7 +57,7 @@ See INSTANCE
 See *DEFAULT-ALLOCATOR*
 "
                    ()
-                   (((instance (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((instance (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (instance '%vk:instance instance :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -317,7 +317,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((physical-device cffi:foreign-pointer) (create-info (or vk:device-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (create-info '(:struct %vk:device-create-info) create-info :in)
@@ -337,7 +337,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ()
-                   (((device (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((device (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
@@ -641,7 +641,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (allocate-info (or vk:memory-allocate-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (allocate-info '(:struct %vk:memory-allocate-info) allocate-info :in)
@@ -663,7 +663,7 @@ See DEVICE-MEMORY
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((memory (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((memory (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (memory '%vk:device-memory memory :in :handle :optional)
@@ -1053,7 +1053,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:fence-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:fence-create-info) create-info :in)
@@ -1075,7 +1075,7 @@ See FENCE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((fence (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (fence '%vk:fence fence :in :handle :optional)
@@ -1207,7 +1207,7 @@ See SEMAPHORE-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:semaphore-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:semaphore-create-info) create-info :in)
@@ -1229,7 +1229,7 @@ See SEMAPHORE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (semaphore '%vk:semaphore semaphore :in :handle :optional)
@@ -1264,7 +1264,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:event-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:event-create-info) create-info :in)
@@ -1286,7 +1286,7 @@ See EVENT
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((event (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((event (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (event '%vk:event event :in :handle :optional)
@@ -1409,7 +1409,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:query-pool-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:query-pool-create-info) create-info :in)
@@ -1431,7 +1431,7 @@ See QUERY-POOL
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((query-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((query-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (query-pool '%vk:query-pool query-pool :in :handle :optional)
@@ -1554,7 +1554,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:buffer-create-info) create-info :in)
@@ -1576,7 +1576,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((buffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((buffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (buffer '%vk:buffer buffer :in :handle :optional)
@@ -1611,7 +1611,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:buffer-view-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:buffer-view-create-info) create-info :in)
@@ -1633,7 +1633,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((buffer-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((buffer-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (buffer-view '%vk:buffer-view buffer-view :in :handle :optional)
@@ -1668,7 +1668,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:image-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:image-create-info) create-info :in)
@@ -1690,7 +1690,7 @@ See IMAGE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((image (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((image (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (image '%vk:image image :in :handle :optional)
@@ -1750,7 +1750,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:image-view-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:image-view-create-info) create-info :in)
@@ -1772,7 +1772,7 @@ See IMAGE-VIEW
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (image-view '%vk:image-view image-view :in :handle :optional)
@@ -1808,7 +1808,7 @@ See SHADER-MODULE-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:shader-module-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:shader-module-create-info) create-info :in)
@@ -1830,7 +1830,7 @@ See SHADER-MODULE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((shader-module (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((shader-module (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (shader-module '%vk:shader-module shader-module :in :handle :optional)
@@ -1865,7 +1865,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-cache-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:pipeline-cache-create-info) create-info :in)
@@ -1887,7 +1887,7 @@ See PIPELINE-CACHE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
@@ -1992,7 +1992,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                            ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
@@ -2034,7 +2034,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                            ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
@@ -2043,11 +2043,12 @@ See *DEFAULT-ALLOCATOR*
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (pipelines '%vk:pipeline pipelines :out :handle :list))
 
-(defvk-get-struct-fun (get-subpass-shading-max-workgroup-size-huawei
-                       %vk:get-subpass-shading-max-workgroup-size-huawei
-                       "Represents [vkGetSubpassShadingMaxWorkgroupSizeHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSubpassShadingMaxWorkgroupSizeHUAWEI.html).
+(defvk-get-struct-fun (get-device-subpass-shading-max-workgroup-size-huawei
+                       %vk:get-device-subpass-shading-max-workgroup-size-huawei
+                       "Represents [vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html).
 
 Args:
+ - DEVICE: a DEVICE
  - RENDERPASS: a RENDER-PASS
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
@@ -2065,15 +2066,17 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
  - ERROR-SURFACE-LOST-KHR
 
+See DEVICE
 See EXTENSION-LOADER
 See EXTENT-2D
 See RENDER-PASS
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((renderpass cffi:foreign-pointer))
+                       ((device cffi:foreign-pointer) (renderpass cffi:foreign-pointer))
                        ()
                        t)
+  (device '%vk:device device :in :handle)
   (renderpass '%vk:render-pass renderpass :in :handle)
   (max-workgroup-size '(:struct %vk:extent-2d) max-workgroup-size :out))
 
@@ -2092,7 +2095,7 @@ See PIPELINE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((pipeline (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((pipeline (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (pipeline '%vk:pipeline pipeline :in :handle :optional)
@@ -2127,7 +2130,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:pipeline-layout-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:pipeline-layout-create-info) create-info :in)
@@ -2149,7 +2152,7 @@ See PIPELINE-LAYOUT
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((pipeline-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((pipeline-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (pipeline-layout '%vk:pipeline-layout pipeline-layout :in :handle :optional)
@@ -2184,7 +2187,7 @@ See SAMPLER-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:sampler-create-info) create-info :in)
@@ -2206,7 +2209,7 @@ See SAMPLER
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((sampler (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((sampler (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (sampler '%vk:sampler sampler :in :handle :optional)
@@ -2241,7 +2244,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-set-layout-create-info) create-info :in)
@@ -2263,7 +2266,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((descriptor-set-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((descriptor-set-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (descriptor-set-layout '%vk:descriptor-set-layout descriptor-set-layout :in :handle :optional)
@@ -2299,7 +2302,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-pool-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-pool-create-info) create-info :in)
@@ -2321,7 +2324,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((descriptor-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((descriptor-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle :optional)
@@ -2469,7 +2472,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:framebuffer-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:framebuffer-create-info) create-info :in)
@@ -2491,7 +2494,7 @@ See FRAMEBUFFER
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((framebuffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((framebuffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (framebuffer '%vk:framebuffer framebuffer :in :handle :optional)
@@ -2526,7 +2529,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:render-pass-create-info) create-info :in)
@@ -2548,7 +2551,7 @@ See RENDER-PASS
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((render-pass (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((render-pass (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (render-pass '%vk:render-pass render-pass :in :handle :optional)
@@ -2605,7 +2608,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:command-pool-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:command-pool-create-info) create-info :in)
@@ -2627,7 +2630,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((command-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((command-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (command-pool '%vk:command-pool command-pool :in :handle :optional)
@@ -3567,18 +3570,18 @@ See IMAGE-RESOLVE
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - EVENT: a EVENT
- - STAGE-MASK: a PIPELINE-STAGE-FLAGS
+ - STAGE-MASK (optional): a PIPELINE-STAGE-FLAGS, defaults to: NIL
 
 See COMMAND-BUFFER
 See EVENT
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
-                   ()
+                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer))
+                   (((stage-mask nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event '%vk:event event :in :handle)
-  (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw))
+  (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw :optional))
 
 (defvk-simple-fun (cmd-reset-event
                    %vk:cmd-reset-event
@@ -3587,18 +3590,18 @@ See PIPELINE-STAGE-FLAGS
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - EVENT: a EVENT
- - STAGE-MASK: a PIPELINE-STAGE-FLAGS
+ - STAGE-MASK (optional): a PIPELINE-STAGE-FLAGS, defaults to: NIL
 
 See COMMAND-BUFFER
 See EVENT
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
-                   ()
+                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer))
+                   (((stage-mask nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
   (event '%vk:event event :in :handle)
-  (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw))
+  (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw :optional))
 
 (defvk-simple-fun (cmd-wait-events
                    %vk:cmd-wait-events
@@ -3641,11 +3644,11 @@ See PIPELINE-STAGE-FLAGS
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
- - SRC-STAGE-MASK: a PIPELINE-STAGE-FLAGS
- - DST-STAGE-MASK: a PIPELINE-STAGE-FLAGS
  - MEMORY-BARRIERS: a (OR LIST VECTOR) of (OR MEMORY-BARRIER CFFI:FOREIGN-POINTER) instances
  - BUFFER-MEMORY-BARRIERS: a (OR LIST VECTOR) of (OR BUFFER-MEMORY-BARRIER CFFI:FOREIGN-POINTER) instances
  - IMAGE-MEMORY-BARRIERS: a (OR LIST VECTOR) of (OR IMAGE-MEMORY-BARRIER CFFI:FOREIGN-POINTER) instances
+ - SRC-STAGE-MASK (optional): a PIPELINE-STAGE-FLAGS, defaults to: NIL
+ - DST-STAGE-MASK (optional): a PIPELINE-STAGE-FLAGS, defaults to: NIL
  - DEPENDENCY-FLAGS (optional): a DEPENDENCY-FLAGS, defaults to: NIL
 
 See BUFFER-MEMORY-BARRIER
@@ -3655,12 +3658,12 @@ See IMAGE-MEMORY-BARRIER
 See MEMORY-BARRIER
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (src-stage-mask (or unsigned-byte list)) (dst-stage-mask (or unsigned-byte list)) (memory-barriers (or list vector)) (buffer-memory-barriers (or list vector)) (image-memory-barriers (or list vector)))
-                   (((dependency-flags nil) (or unsigned-byte list)))
+                   ((command-buffer cffi:foreign-pointer) (memory-barriers (or list vector)) (buffer-memory-barriers (or list vector)) (image-memory-barriers (or list vector)))
+                   (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)) ((dependency-flags nil) (or unsigned-byte list)))
                   nil)
   (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw)
-  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw)
+  (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw :optional)
+  (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw :optional)
   (dependency-flags '%vk:dependency-flags dependency-flags :in :raw :optional)
   (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
   (memory-barriers '(:struct %vk:memory-barrier) memory-barriers :in :list)
@@ -3948,7 +3951,7 @@ See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:android-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:android-surface-create-info-khr) create-info :in)
@@ -4124,7 +4127,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (create-info (or vk:display-mode-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (physical-device '%vk:physical-device physical-device :in :handle)
   (display '%vk:display-khr display :in :handle)
@@ -4194,7 +4197,7 @@ See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:display-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:display-surface-create-info-khr) create-info :in)
@@ -4233,7 +4236,7 @@ See SWAPCHAIN-KHR
 See *DEFAULT-ALLOCATOR*
 "
                            ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (swapchain-count :uint32 (length create-infos) :in :raw)
@@ -4256,7 +4259,7 @@ See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
 "
                    ((instance cffi:foreign-pointer))
-                   (((surface (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((surface (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (instance '%vk:instance instance :in :handle)
   (surface '%vk:surface-khr surface :in :handle :optional)
@@ -4436,7 +4439,7 @@ See SWAPCHAIN-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:swapchain-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:swapchain-create-info-khr) create-info :in)
@@ -4458,7 +4461,7 @@ See SWAPCHAIN-KHR
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((swapchain (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((swapchain (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (swapchain '%vk:swapchain-khr swapchain :in :handle :optional)
@@ -4613,7 +4616,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -4650,7 +4653,7 @@ See WAYLAND-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:wayland-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:wayland-surface-create-info-khr) create-info :in)
@@ -4709,7 +4712,7 @@ See WIN32-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:win32-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:win32-surface-create-info-khr) create-info :in)
@@ -4765,7 +4768,7 @@ See XLIB-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:xlib-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:xlib-surface-create-info-khr) create-info :in)
@@ -4827,7 +4830,7 @@ See XCB-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:xcb-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (instance '%vk:instance instance :in :handle)
   (create-info '(:struct %vk:xcb-surface-create-info-khr) create-info :in)
@@ -4892,7 +4895,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -4959,7 +4962,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -5000,7 +5003,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -5040,7 +5043,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -5105,7 +5108,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -5131,7 +5134,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((instance cffi:foreign-pointer))
-                   (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (instance '%vk:instance instance :in :handle)
@@ -5516,7 +5519,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -5542,7 +5545,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
-                   (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (device '%vk:device device :in :handle)
@@ -6184,6 +6187,41 @@ See *DEFAULT-EXTENSION-LOADER*
   (zircon-handle '(:pointer :void) zircon-handle :in :handle)
   (memory-zircon-handle-properties '(:struct %vk:memory-zircon-handle-properties-fuchsia) memory-zircon-handle-properties :out))
 
+(defvk-create-handle-fun (get-memory-remote-address-nv
+                          %vk:get-memory-remote-address-nv
+                          "Represents [vkGetMemoryRemoteAddressNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryRemoteAddressNV.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - MEMORY-GET-REMOTE-ADDRESS-INFO: a (OR MEMORY-GET-REMOTE-ADDRESS-INFO-NV CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    REMOTE-ADDRESS-NV
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-INVALID-EXTERNAL-HANDLE
+
+See DEVICE
+See EXTENSION-LOADER
+See MEMORY-GET-REMOTE-ADDRESS-INFO-NV
+See REMOTE-ADDRESS-NV
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+                          ((device cffi:foreign-pointer) (memory-get-remote-address-info (or vk:memory-get-remote-address-info-nv cffi:foreign-pointer)))
+                          ()
+                          nil
+                          t)
+  (device '%vk:device device :in :handle)
+  (memory-get-remote-address-info '(:struct %vk:memory-get-remote-address-info-nv) memory-get-remote-address-info :in)
+  (address '%vk:remote-address-nv address :out))
+
 (defvk-get-struct-fun (get-physical-device-external-semaphore-properties
                        %vk:get-physical-device-external-semaphore-properties
                        "Represents [vkGetPhysicalDeviceExternalSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html).
@@ -6819,7 +6857,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -6860,7 +6898,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -7431,7 +7469,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-update-template-create-info) create-info :in)
@@ -7467,7 +7505,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:descriptor-update-template-create-info) create-info :in)
@@ -7489,7 +7527,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle :optional)
@@ -7510,7 +7548,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle :optional)
@@ -7754,7 +7792,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:i-os-surface-create-info-mvk cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -7795,7 +7833,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -7836,7 +7874,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -8312,7 +8350,7 @@ See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:sampler-ycbcr-conversion-create-info) create-info :in)
@@ -8348,7 +8386,7 @@ See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:sampler-ycbcr-conversion-create-info) create-info :in)
@@ -8370,7 +8408,7 @@ See SAMPLER-YCBCR-CONVERSION
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :handle :optional)
@@ -8391,7 +8429,7 @@ See SAMPLER-YCBCR-CONVERSION
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :handle :optional)
@@ -8451,7 +8489,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -8477,7 +8515,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
-                   (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (device '%vk:device device :in :handle)
@@ -8963,7 +9001,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -8989,7 +9027,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((instance cffi:foreign-pointer))
-                   (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (instance '%vk:instance instance :in :handle)
@@ -9118,7 +9156,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:render-pass-create-info-2) create-info :in)
@@ -9154,7 +9192,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:render-pass-create-info-2) create-info :in)
@@ -10162,13 +10200,37 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:acceleration-structure-create-info-nv) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
   (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :out :handle))
+
+(defvk-simple-fun (cmd-bind-invocation-mask-huawei
+                   %vk:cmd-bind-invocation-mask-huawei
+                   "Represents [vkCmdBindInvocationMaskHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - IMAGE-LAYOUT: a IMAGE-LAYOUT
+ - IMAGE-VIEW (optional): a IMAGE-VIEW, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See IMAGE-LAYOUT
+See IMAGE-VIEW
+See *DEFAULT-EXTENSION-LOADER*
+"
+                   ((command-buffer cffi:foreign-pointer) (image-layout keyword))
+                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer))
+                  nil
+                  t)
+  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (image-view '%vk:image-view image-view :in :handle :optional)
+  (image-layout '%vk:image-layout image-layout :in :raw))
 
 (defvk-simple-fun (destroy-acceleration-structure-khr
                    %vk:destroy-acceleration-structure-khr
@@ -10185,7 +10247,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle :optional)
@@ -10209,7 +10271,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
-                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (device '%vk:device device :in :handle)
@@ -10850,7 +10912,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                            ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos)
                            t)
   (device '%vk:device device :in :handle)
@@ -10897,7 +10959,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                            ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer) ((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                           (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer) ((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                            (length create-infos))
   (device '%vk:device device :in :handle)
   (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
@@ -11519,7 +11581,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((instance cffi:foreign-pointer) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (instance '%vk:instance instance :in :handle)
@@ -12088,7 +12150,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:acceleration-structure-create-info-khr) create-info :in)
@@ -12227,7 +12289,7 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
@@ -12248,7 +12310,7 @@ See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer))
-                   (((operation (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((operation (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (operation '%vk:deferred-operation-khr operation :in :handle :optional)
@@ -12741,7 +12803,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -12767,7 +12829,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer))
-                   (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (device '%vk:device device :in :handle)
@@ -13390,7 +13452,7 @@ See VIDEO-SESSION-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:video-session-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:video-session-create-info-khr) create-info :in)
@@ -13412,7 +13474,7 @@ See VIDEO-SESSION-KHR
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer))
-                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (video-session '%vk:video-session-khr video-session :in :handle)
@@ -13448,7 +13510,7 @@ See VIDEO-SESSION-PARAMETERS-KHR
 See *DEFAULT-ALLOCATOR*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:video-session-parameters-create-info-khr cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil)
   (device '%vk:device device :in :handle)
   (create-info '(:struct %vk:video-session-parameters-create-info-khr) create-info :in)
@@ -13502,7 +13564,7 @@ See VIDEO-SESSION-PARAMETERS-KHR
 See *DEFAULT-ALLOCATOR*
 "
                    ((device cffi:foreign-pointer) (video-session-parameters cffi:foreign-pointer))
-                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil)
   (device '%vk:device device :in :handle)
   (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :handle)
@@ -13694,7 +13756,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:cu-module-create-info-nvx cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -13734,7 +13796,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                           ((device cffi:foreign-pointer) (create-info (or vk:cu-function-create-info-nvx cffi:foreign-pointer)))
-                          (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                           nil
                           t)
   (device '%vk:device device :in :handle)
@@ -13760,7 +13822,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (module cffi:foreign-pointer))
-                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (device '%vk:device device :in :handle)
@@ -13785,7 +13847,7 @@ See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
                    ((device cffi:foreign-pointer) (function-handle cffi:foreign-pointer))
-                   (((allocator *default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
                   nil
                   t)
   (device '%vk:device device :in :handle)
@@ -13883,4 +13945,39 @@ See *DEFAULT-EXTENSION-LOADER*
   (drm-fd :int32 drm-fd :in :raw)
   (connector-id :uint32 connector-id :in :raw)
   (display '%vk:display-khr display :out :handle))
+
+(defvk-simple-fun (wait-for-present-khr
+                   %vk:wait-for-present-khr
+                   "Represents [vkWaitForPresentKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitForPresentKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - SWAPCHAIN: a SWAPCHAIN-KHR
+ - PRESENT-ID: a UNSIGNED-BYTE
+ - TIMEOUT: a UNSIGNED-BYTE
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+ - TIMEOUT
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+ - ERROR-DEVICE-LOST
+
+See DEVICE
+See RESULT
+See SWAPCHAIN-KHR
+"
+                   ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (present-id unsigned-byte) (timeout unsigned-byte))
+                   ()
+                  nil)
+  (device '%vk:device device :in :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (present-id :uint64 present-id :in :raw)
+  (timeout :uint64 timeout :in :raw))
 
