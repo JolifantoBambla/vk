@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Structure types now have pretty printers.
+- Errors and conditions are exposed by the `vk-errors` package, which doesn't shadow any symbols in `CL-USER`.
+- All version constants and functions packing or unpacking version numbers in the C API are now represented in `vulkan` and `vk`.
+
+### Changed
+- Functions in `vk` which return structure types with a `pNext` member that can be used to query extension-specific information now take an instance of such a structure as optional input argument.
+- Handle types are now wrapped in `vk`. This affects all function taking handles as arguments or returning handles.
+- `vk:make-api-version` takes an additional argument `variant`.
+- All types and keywords with an `-i-os` suffix now have an `-ios` suffix instead.
+- All wrapper functions in `vk` now use a local hash map to store intermediate pointers during translation instead of the global one provided by `vk-alloc`.
+
+### Fixed
+- Functions in `vk` now accept arrays as arguments (they are `coerce`d to lists, though).
+- Returned-only structure type slots in `vk` are not filled by default by `make`-style constructors, and not translated if they are `nil`.
+- `KHR` extension functions that are not part of the WSI extensions are now treated as extension functions.
+- `uint` struct members that are split up into multiple smaller members (e.g. the `uint32_t` composed of `uint32_t instanceCustomIndex:24` and `uint32_t mask:8` in `VkAccelerationStructureInstanceKHR`) are now correctly translated. 
+
 ## [2.2.0-v1.2.189] - 2021-09-15 [vk](https://github.com/JolifantoBambla/vk/releases/tag/2.2.0-v1.2.189)
 
 ### Added

@@ -4,7 +4,7 @@
 
 ## Motivation
 The goal of this project is to make Vulkan feel lispy without bringing in too much abstraction.
-This is achieved by adding a thin layer of CLOS wrappers and functions atop CFFI-bindings to the Vulkan shared library that gets rid
+It provides a layer of CLOS wrappers and functions atop CFFI-bindings to the Vulkan shared library that gets rid
 of redundant struct members and output parameters of functions as much as possible.
 
 E.g. where you would have to write the following in C++ (without VulkanHpp) to get all GPUs on a computer:
@@ -28,6 +28,7 @@ You can just write the following with `vk`:
   ;; do something with your devices
   )
 ```
+
 
 ## Requirements
 
@@ -55,7 +56,7 @@ CMUCL fails to find `libvulkan.so` in the test action.
 MacOS might also work if [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is set up correctly.
 
 ### Supported Vulkan API versions
-**The current version of `vk` is based on version `v1.2.189`.**
+**The current version of `vk` is based on version `v1.2.198`.**
 
 `vk` targets Vulkan 1.2, so all versions support the core API of version 1.2.x.
 The main branch is always generated from the most recent version of the [Vulkan API XML registry](https://github.com/KhronosGroup/Vulkan-Docs)
@@ -71,6 +72,13 @@ receive bug fixes right away.
 If you absolutely have to work with a specific version and it seems like a bug fix just won't come for that version, feel free to
 open an issue in the GitHub repository.
 
+
+#### Migrating from 2.x.x-<1.2.x> to 3.x.x-<x.x.x>
+Handle types are wrapped in version 3.0.0-1.2.198 and above.
+Should you have used raw handles returned by `vk` functions with functions from other packages (e.g. for window surface creation), you have to unwrap them by calling `vk:raw-handle`.
+
+Functions that query a device and return a struct (class) instance that has a `pNext` member (`next` slot) have an additional optional argument of that struct (class) type to allow querying extension-specific information via this `pNext` member.
+In some cases these new optional arguments might not have been added to the end of a function's lambda list from previous versions.
 
 ### CL dependencies
 * `alexandria`
@@ -93,6 +101,7 @@ Just make sure to have Vulkan installed (see [Vulkan SDK](https://vulkan.lunarg.
 ```cl
 (ql:quickload :vk)
 ```
+
 
 ## Packages
 
@@ -133,12 +142,19 @@ Slots and their `:initarg`s still have the same name, but the accessors use the 
 
 The naming conventions are the same as in `vk` except for struct/union member names and command arguments.
 
+### vk-error
+`VkResult` values are automatically translated in both `vk` and `vulkan`.
+Each negative result value is represented as an error type.
+All error types are exposed via `vk-error` (as well as `vk` and `vulkan`).
+
 ### vk-alloc
 Contains utilities for allocating resources and translating classes/structs to/from foreign memory.
 
 #### Multithreading
 When translating class instances the pointers to all translated struct members which are non-primitive types (e.g of `vk:instance-create-info` if it is bound to an instance of `vk:debug-utils-messenger-create-info-ext`) are stored in the hash table `vk-alloc:*allocated-foreign-objects*` and are freed before the pointer to the translated class instance is freed.
 Since hash tables are not thread-safe and there should be no case where type translation needs to span multiple threads, each thread can and should have its own `vk-alloc:*allocated-foreign-objects*` that is independent of those of other threads.
+
+Note that the wrapper functions in `vk` overwrite `vk-alloc:*allocated-foreign-objects*` in their own scope, so if a thread doesn't explicitly translate class instances, you should be fine.
 
 ### vk-utils
 Contains utils for `vk`.
@@ -156,6 +172,7 @@ Contains utils for `vk`.
 All available wrappers are listed in the [API reference](https://jolifantobambla.github.io/vk).
 
 Aside from utilities for `vk`, this package also contains the function `memcpy`.
+
 
 ## Samples and Usage
 Check out the [API reference](https://jolifantobambla.github.io/vk).
@@ -179,7 +196,7 @@ E.g. the `pInputAssemblyState` member of a `VkGraphicsPipelineCreateInfo` could 
  )
 ```
 
-Note that whenever a class instance is used (as a slot value or a function argument), you can also use a `cffi:foreign-pointer` as well, which might save you computation time, if you store translated objects yourself somewhere.
+Note that in some places where a class instance is used (as a slot value or a function argument), you can also use a `cffi:foreign-pointer` as well, which might save you computation time, if you store translated objects yourself somewhere (e.g. `vk:allocation-callbacks`).
 
 `vk` exposes each class directly as well as a `make`-style constructor for every class.
 
@@ -223,8 +240,11 @@ E.g. to register a debug messenger to a `vk:instance` during creation, you can w
 ```
 
 ### Handles
-Handles are either `cffi:foreign-pointer`s or integers (a `VK_NON_DISPATCHABLE_HANDLE` might be an integer, depending on the system).
-They are created and destroyed by the respective wrappers of those functions which inilialize or destroy/free them in the C API.
+Like structs, handle types are wrapped in `vk` with in order to allow type checks when calling `vk` functions.
+The rationale here is that not having to restart an interactive programming session because a segmentation fault that could have been prevented by a simple type check crashed the Lisp image is more important than the cost of wrapping and unwrapping handles.
+Handle wrappers are structs with a single member `handle` and have the lispified name of their C counterparts (e.g. `instance` instead of `VkInstance`).
+To access the raw foreign pointer within a handle wrapper, call `vk:raw-handle`.
+To make a handle wrapper from a raw foreign pointer call `vk:make-<handle-name>-wrapper`.
 
 ### Enums & Bitmasks
 Enums and bitmasks are represented by keywords, just as with all other `cffi` bindings.
@@ -252,7 +272,7 @@ The exception to this are again `void` pointers (e.g. the parameter `data` in `v
 If a function returns a negative `VkResult` `vk` signals a `vk-error` with the error code as a keyword.
 
 #### VkAllocationCallbacks
-All functions which allocate resources and initialize handles take an intance of `vk:allocation-callbacks` (i.e. `VkAllocationCallbacks`) as an optional argument.
+All functions that allocate resources and initialize handles take an intance of `vk:allocation-callbacks` (i.e. `VkAllocationCallbacks`) as an optional argument.
 Since most of the time, this will be the same instance, `vk` provides the parameter `vk:*default-allocator*` which is used as the default value wherever an instance of `vk:allocation-callbacks` is used.
 It defaults to a `cffi:null-pointer`.
 
@@ -289,6 +309,8 @@ When calling an extension function the passed `extension-loader` is searched for
 If it is the first call of the function using this `extension-loader` instance, the function pointer is fetched using `vk:get-instance-proc-addr` or `vk:get-device-proc-addr` and stored in an internal hash map of the `extension-loader` instance.
 Then and in every subsequent call of the extension function this function pointer is used to call the function.
 
+Note that setting the `device` or `instance` of an `extension-loader` via the exposed accessors in `vk` require the given handles to be wrapped, whereas the `vulkan` counterparts require raw foreign pointers.
+
 So after having initialized the `vk:*default-extension-loader*` you can call extension functions like every other function in `vk`:
 
 ```cl
@@ -299,6 +321,7 @@ So after having initialized the `vk:*default-extension-loader*` you can call ext
 Note that function pointers fetched for a `vk:device` are favored over `vk:instance` function pointers, so if an `extension-loader` has a `vk:device` and a `vk:instance` and has already loaded the function pointer on a `vk:instance` level, it will fetch and use the `vk:device` level function pointers instead.
 The reason for this is that `vk:device` level function pointers avoid the overhead of possible dispatch mechanisms in the driver because the exact `vk:device` is already known.
 (This is also true for all other functions in the Vulkan API, so if you really care for performance then you might want to fetch function pointers for all functions via `vk:get-device-proc-addr` and use only those.)
+
 
 ## Caveats
 ### Validation Errors & Slime
@@ -320,8 +343,15 @@ For this to work properly, the `code` slot of a `vk:shader-module` also needs to
 
 Another option is to use the package [shaderc](https://github.com/JolifantoBambla/shadercl) to compile shaders into a vector of 32-bit integers directly from your REPL.
 
-### No specializing on handles
-Since handles are represented either by CFFI pointers or by integers, it's not possible to specialize methods on handle types.
+### Lambda list order
+Many `vk` wrapper functions make use of optional arguments if their C counterparts don't require an argument to be set.
+In some cases, the order of the wrapper function's lambda list therefore differs from the order of the corresponding C function's argument list.
+E.g. `vk:cmd-pipeline-barrier`, where `src-stage-mask` and `dst-stage-mask` are the last two arguments instead of the second and third one.
+
+### Default values of slots
+Some slots of `vk`'s wrapper classes have default values (mostly number - `0.0` or `0` - and string slots - `""`).
+The choice for these default values are determined automatically by the generator from the member's type in the C API.
+In some cases, these defaults don't make much sense (e.g. `vk:viewport`'s `max-depth` slot is `0.0` by default).
 
 
 ## Contributing
