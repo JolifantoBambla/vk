@@ -91,7 +91,7 @@ jobs:
           # the download URL for the latest SDK version changes sometimes (every four months or so?)...
           curl -LS -o vulkan-sdk.exe https://sdk.lunarg.com/sdk/download/latest/windows/vulkan-sdk.exe
           
-          vulkan-sdk.exe --accept-licenses --default-answer --confirm-command install
+          .\vulkan-sdk.exe --accept-licenses --default-answer --confirm-command install
 
       - name: Install Roswell
         env:
