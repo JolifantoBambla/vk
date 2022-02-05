@@ -27,7 +27,6 @@
 
 (in-package #:vulkan)
 
-;;; used for positive non-zero returns
 (defun %print-vk-cond (condition stream type)
   (format stream "vulkan ~a: ~a~%  (~s = ~s)"
           type
@@ -37,6 +36,7 @@
 (defun print-vk-condition (c s) (%print-vk-cond c s "warning"))
 (defun print-vk-error (c s) (%print-vk-cond c s "error"))
 
+;;; used for positive non-zero returns
 (define-condition vk-condition (condition)
   ((enum :reader enum :initarg :enum)
    (value :reader raw-value :initarg :value)

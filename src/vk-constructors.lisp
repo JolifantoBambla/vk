@@ -80,7 +80,8 @@ See VIEWPORT"
                  :min-depth min-depth
                  :max-depth max-depth))
 
-(defun make-rect-2d (&key (offset nil) (extent nil))
+(defun make-rect-2d (&key (offset (vk:make-offset-2d))
+                     (extent (vk:make-extent-2d)))
 "Creates an instance of RECT-2D.
 The arguments of this function correspond to the slots of RECT-2D.
 
@@ -90,7 +91,8 @@ See RECT-2D"
                  :offset offset
                  :extent extent))
 
-(defun make-clear-rect (&key (rect nil) (base-array-layer 0) (layer-count 0))
+(defun make-clear-rect (&key (rect (vk:make-rect-2d)) (base-array-layer 0)
+                        (layer-count 0))
 "Creates an instance of CLEAR-RECT.
 The arguments of this function correspond to the slots of CLEAR-RECT.
 
@@ -240,7 +242,7 @@ See INSTANCE-CREATE-INFO"
 
 (defun make-queue-family-properties (&key (queue-flags nil) (queue-count 0)
                                      (timestamp-valid-bits 0)
-                                     (min-image-transfer-granularity nil))
+                                     (min-image-transfer-granularity (vk:make-extent-3d)))
 "Creates an instance of QUEUE-FAMILY-PROPERTIES.
 The arguments of this function correspond to the slots of QUEUE-FAMILY-PROPERTIES.
 
@@ -267,7 +269,7 @@ See PHYSICAL-DEVICE-MEMORY-PROPERTIES"
                  :memory-heap-count memory-heap-count
                  :memory-heaps memory-heaps))
 
-(defun make-memory-allocate-info (&key (next nil) (allocation-size nil)
+(defun make-memory-allocate-info (&key (next nil) (allocation-size 0)
                                   (memory-type-index 0))
 "Creates an instance of MEMORY-ALLOCATE-INFO.
 The arguments of this function correspond to the slots of MEMORY-ALLOCATE-INFO.
@@ -279,7 +281,7 @@ See MEMORY-ALLOCATE-INFO"
                  :allocation-size allocation-size
                  :memory-type-index memory-type-index))
 
-(defun make-memory-requirements (&key (size nil) (alignment nil)
+(defun make-memory-requirements (&key (size 0) (alignment 0)
                                  (memory-type-bits 0))
 "Creates an instance of MEMORY-REQUIREMENTS.
 The arguments of this function correspond to the slots of MEMORY-REQUIREMENTS.
@@ -292,7 +294,8 @@ See MEMORY-REQUIREMENTS"
                  :memory-type-bits memory-type-bits))
 
 (defun make-sparse-image-format-properties (&key (aspect-mask nil)
-                                            (image-granularity nil) (flags nil))
+                                            (image-granularity (vk:make-extent-3d))
+                                            (flags nil))
 "Creates an instance of SPARSE-IMAGE-FORMAT-PROPERTIES.
 The arguments of this function correspond to the slots of SPARSE-IMAGE-FORMAT-PROPERTIES.
 
@@ -305,9 +308,9 @@ See SPARSE-IMAGE-FORMAT-PROPERTIES"
 
 (defun make-sparse-image-memory-requirements (&key (format-properties nil)
                                               (image-mip-tail-first-lod 0)
-                                              (image-mip-tail-size nil)
-                                              (image-mip-tail-offset nil)
-                                              (image-mip-tail-stride nil))
+                                              (image-mip-tail-size 0)
+                                              (image-mip-tail-offset 0)
+                                              (image-mip-tail-stride 0))
 "Creates an instance of SPARSE-IMAGE-MEMORY-REQUIREMENTS.
 The arguments of this function correspond to the slots of SPARSE-IMAGE-MEMORY-REQUIREMENTS.
 
@@ -330,7 +333,7 @@ See MEMORY-TYPE"
                  :property-flags property-flags
                  :heap-index heap-index))
 
-(defun make-memory-heap (&key (size nil) (flags nil))
+(defun make-memory-heap (&key (size 0) (flags nil))
 "Creates an instance of MEMORY-HEAP.
 The arguments of this function correspond to the slots of MEMORY-HEAP.
 
@@ -340,8 +343,8 @@ See MEMORY-HEAP"
                  :size size
                  :flags flags))
 
-(defun make-mapped-memory-range (&key (next nil) (memory nil) (offset nil)
-                                 (size nil))
+(defun make-mapped-memory-range (&key (next nil) (memory nil) (offset 0)
+                                 (size 0))
 "Creates an instance of MAPPED-MEMORY-RANGE.
 The arguments of this function correspond to the slots of MAPPED-MEMORY-RANGE.
 
@@ -366,9 +369,9 @@ See FORMAT-PROPERTIES"
                  :optimal-tiling-features optimal-tiling-features
                  :buffer-features buffer-features))
 
-(defun make-image-format-properties (&key (max-extent nil) (max-mip-levels 0)
-                                     (max-array-layers 0) (sample-counts nil)
-                                     (max-resource-size nil))
+(defun make-image-format-properties (&key (max-extent (vk:make-extent-3d))
+                                     (max-mip-levels 0) (max-array-layers 0)
+                                     (sample-counts nil) (max-resource-size 0))
 "Creates an instance of IMAGE-FORMAT-PROPERTIES.
 The arguments of this function correspond to the slots of IMAGE-FORMAT-PROPERTIES.
 
@@ -381,7 +384,7 @@ See IMAGE-FORMAT-PROPERTIES"
                  :sample-counts sample-counts
                  :max-resource-size max-resource-size))
 
-(defun make-descriptor-buffer-info (&key (buffer nil) (offset nil) (range nil))
+(defun make-descriptor-buffer-info (&key (buffer nil) (offset 0) (range 0))
 "Creates an instance of DESCRIPTOR-BUFFER-INFO.
 The arguments of this function correspond to the slots of DESCRIPTOR-BUFFER-INFO.
 
@@ -442,7 +445,7 @@ See COPY-DESCRIPTOR-SET"
                  :dst-array-element dst-array-element
                  :descriptor-count descriptor-count))
 
-(defun make-buffer-create-info (&key (next nil) (flags nil) (size nil)
+(defun make-buffer-create-info (&key (next nil) (flags nil) (size 0)
                                 (usage nil) (sharing-mode nil)
                                 (queue-family-indices nil))
 "Creates an instance of BUFFER-CREATE-INFO.
@@ -459,7 +462,7 @@ See BUFFER-CREATE-INFO"
                  :queue-family-indices queue-family-indices))
 
 (defun make-buffer-view-create-info (&key (next nil) (flags nil) (buffer nil)
-                                     (format nil) (offset nil) (range nil))
+                                     (format nil) (offset 0) (range 0))
 "Creates an instance of BUFFER-VIEW-CREATE-INFO.
 The arguments of this function correspond to the slots of BUFFER-VIEW-CREATE-INFO.
 
@@ -529,7 +532,7 @@ See MEMORY-BARRIER"
                                    (dst-access-mask nil)
                                    (src-queue-family-index 0)
                                    (dst-queue-family-index 0) (buffer nil)
-                                   (offset nil) (size nil))
+                                   (offset 0) (size 0))
 "Creates an instance of BUFFER-MEMORY-BARRIER.
 The arguments of this function correspond to the slots of BUFFER-MEMORY-BARRIER.
 
@@ -549,7 +552,7 @@ See BUFFER-MEMORY-BARRIER"
                                   (dst-access-mask nil) (old-layout nil)
                                   (new-layout nil) (src-queue-family-index 0)
                                   (dst-queue-family-index 0) (image nil)
-                                  (subresource-range nil))
+                                  (subresource-range (vk:make-image-subresource-range)))
 "Creates an instance of IMAGE-MEMORY-BARRIER.
 The arguments of this function correspond to the slots of IMAGE-MEMORY-BARRIER.
 
@@ -567,9 +570,9 @@ See IMAGE-MEMORY-BARRIER"
                  :subresource-range subresource-range))
 
 (defun make-image-create-info (&key (next nil) (flags nil) (image-type nil)
-                               (format nil) (extent nil) (mip-levels 0)
-                               (array-layers 0) (samples nil) (tiling nil)
-                               (usage nil) (sharing-mode nil)
+                               (format nil) (extent (vk:make-extent-3d))
+                               (mip-levels 0) (array-layers 0) (samples nil)
+                               (tiling nil) (usage nil) (sharing-mode nil)
                                (queue-family-indices nil) (initial-layout nil))
 "Creates an instance of IMAGE-CREATE-INFO.
 The arguments of this function correspond to the slots of IMAGE-CREATE-INFO.
@@ -591,8 +594,8 @@ See IMAGE-CREATE-INFO"
                  :queue-family-indices queue-family-indices
                  :initial-layout initial-layout))
 
-(defun make-subresource-layout (&key (offset nil) (size nil) (row-pitch nil)
-                                (array-pitch nil) (depth-pitch nil))
+(defun make-subresource-layout (&key (offset 0) (size 0) (row-pitch 0)
+                                (array-pitch 0) (depth-pitch 0))
 "Creates an instance of SUBRESOURCE-LAYOUT.
 The arguments of this function correspond to the slots of SUBRESOURCE-LAYOUT.
 
@@ -607,7 +610,8 @@ See SUBRESOURCE-LAYOUT"
 
 (defun make-image-view-create-info (&key (next nil) (flags nil) (image nil)
                                     (view-type nil) (format nil)
-                                    (components nil) (subresource-range nil))
+                                    (components (vk:make-component-mapping))
+                                    (subresource-range (vk:make-image-subresource-range)))
 "Creates an instance of IMAGE-VIEW-CREATE-INFO.
 The arguments of this function correspond to the slots of IMAGE-VIEW-CREATE-INFO.
 
@@ -622,7 +626,7 @@ See IMAGE-VIEW-CREATE-INFO"
                  :components components
                  :subresource-range subresource-range))
 
-(defun make-buffer-copy (&key (src-offset nil) (dst-offset nil) (size nil))
+(defun make-buffer-copy (&key (src-offset 0) (dst-offset 0) (size 0))
 "Creates an instance of BUFFER-COPY.
 The arguments of this function correspond to the slots of BUFFER-COPY.
 
@@ -633,8 +637,8 @@ See BUFFER-COPY"
                  :dst-offset dst-offset
                  :size size))
 
-(defun make-sparse-memory-bind (&key (resource-offset nil) (size nil)
-                                (memory nil) (memory-offset nil) (flags nil))
+(defun make-sparse-memory-bind (&key (resource-offset 0) (size 0) (memory nil)
+                                (memory-offset 0) (flags nil))
 "Creates an instance of SPARSE-MEMORY-BIND.
 The arguments of this function correspond to the slots of SPARSE-MEMORY-BIND.
 
@@ -647,9 +651,11 @@ See SPARSE-MEMORY-BIND"
                  :memory-offset memory-offset
                  :flags flags))
 
-(defun make-sparse-image-memory-bind (&key (subresource nil) (offset nil)
-                                      (extent nil) (memory nil)
-                                      (memory-offset nil) (flags nil))
+(defun make-sparse-image-memory-bind (&key
+                                      (subresource (vk:make-image-subresource))
+                                      (offset (vk:make-offset-3d))
+                                      (extent (vk:make-extent-3d)) (memory nil)
+                                      (memory-offset 0) (flags nil))
 "Creates an instance of SPARSE-IMAGE-MEMORY-BIND.
 The arguments of this function correspond to the slots of SPARSE-IMAGE-MEMORY-BIND.
 
@@ -709,8 +715,12 @@ See BIND-SPARSE-INFO"
                  :image-binds image-binds
                  :signal-semaphores signal-semaphores))
 
-(defun make-image-copy (&key (src-subresource nil) (src-offset nil)
-                        (dst-subresource nil) (dst-offset nil) (extent nil))
+(defun make-image-copy (&key
+                        (src-subresource (vk:make-image-subresource-layers))
+                        (src-offset (vk:make-offset-3d))
+                        (dst-subresource (vk:make-image-subresource-layers))
+                        (dst-offset (vk:make-offset-3d))
+                        (extent (vk:make-extent-3d)))
 "Creates an instance of IMAGE-COPY.
 The arguments of this function correspond to the slots of IMAGE-COPY.
 
@@ -723,8 +733,11 @@ See IMAGE-COPY"
                  :dst-offset dst-offset
                  :extent extent))
 
-(defun make-image-blit (&key (src-subresource nil) (src-offsets nil)
-                        (dst-subresource nil) (dst-offsets nil))
+(defun make-image-blit (&key
+                        (src-subresource (vk:make-image-subresource-layers))
+                        (src-offsets (vk:make-offset-3d))
+                        (dst-subresource (vk:make-image-subresource-layers))
+                        (dst-offsets (vk:make-offset-3d)))
 "Creates an instance of IMAGE-BLIT.
 The arguments of this function correspond to the slots of IMAGE-BLIT.
 
@@ -736,9 +749,11 @@ See IMAGE-BLIT"
                  :dst-subresource dst-subresource
                  :dst-offsets dst-offsets))
 
-(defun make-buffer-image-copy (&key (buffer-offset nil) (buffer-row-length 0)
-                               (buffer-image-height 0) (image-subresource nil)
-                               (image-offset nil) (image-extent nil))
+(defun make-buffer-image-copy (&key (buffer-offset 0) (buffer-row-length 0)
+                               (buffer-image-height 0)
+                               (image-subresource (vk:make-image-subresource-layers))
+                               (image-offset (vk:make-offset-3d))
+                               (image-extent (vk:make-extent-3d)))
 "Creates an instance of BUFFER-IMAGE-COPY.
 The arguments of this function correspond to the slots of BUFFER-IMAGE-COPY.
 
@@ -752,8 +767,12 @@ See BUFFER-IMAGE-COPY"
                  :image-offset image-offset
                  :image-extent image-extent))
 
-(defun make-image-resolve (&key (src-subresource nil) (src-offset nil)
-                           (dst-subresource nil) (dst-offset nil) (extent nil))
+(defun make-image-resolve (&key
+                           (src-subresource (vk:make-image-subresource-layers))
+                           (src-offset (vk:make-offset-3d))
+                           (dst-subresource (vk:make-image-subresource-layers))
+                           (dst-offset (vk:make-offset-3d))
+                           (extent (vk:make-extent-3d)))
 "Creates an instance of IMAGE-RESOLVE.
 The arguments of this function correspond to the slots of IMAGE-RESOLVE.
 
@@ -882,7 +901,8 @@ See PIPELINE-SHADER-STAGE-CREATE-INFO"
                  :specialization-info specialization-info))
 
 (defun make-compute-pipeline-create-info (&key (next nil) (flags nil)
-                                          (stage nil) (layout nil)
+                                          (stage (vk:make-pipeline-shader-stage-create-info))
+                                          (layout nil)
                                           (base-pipeline-handle nil)
                                           (base-pipeline-index 0))
 "Creates an instance of COMPUTE-PIPELINE-CREATE-INFO.
@@ -1109,7 +1129,8 @@ See STENCIL-OP-STATE"
                                                       (depth-compare-op nil)
                                                       (depth-bounds-test-enable nil)
                                                       (stencil-test-enable nil)
-                                                      (front nil) (back nil)
+                                                      (front (vk:make-stencil-op-state))
+                                                      (back (vk:make-stencil-op-state))
                                                       (min-depth-bounds 0.0)
                                                       (max-depth-bounds 0.0))
 "Creates an instance of PIPELINE-DEPTH-STENCIL-STATE-CREATE-INFO.
@@ -1312,7 +1333,8 @@ See COMMAND-BUFFER-BEGIN-INFO"
                  :inheritance-info inheritance-info))
 
 (defun make-render-pass-begin-info (&key (next nil) (render-pass nil)
-                                    (framebuffer nil) (render-area nil)
+                                    (framebuffer nil)
+                                    (render-area (vk:make-rect-2d))
                                     (clear-values nil))
 "Creates an instance of RENDER-PASS-BEGIN-INFO.
 The arguments of this function correspond to the slots of RENDER-PASS-BEGIN-INFO.
@@ -1627,8 +1649,8 @@ See PHYSICAL-DEVICE-SPARSE-PROPERTIES"
                                     (max-push-constants-size 0)
                                     (max-memory-allocation-count 0)
                                     (max-sampler-allocation-count 0)
-                                    (buffer-image-granularity nil)
-                                    (sparse-address-space-size nil)
+                                    (buffer-image-granularity 0)
+                                    (sparse-address-space-size 0)
                                     (max-bound-descriptor-sets 0)
                                     (max-per-stage-descriptor-samplers 0)
                                     (max-per-stage-descriptor-uniform-buffers 0)
@@ -1683,9 +1705,9 @@ See PHYSICAL-DEVICE-SPARSE-PROPERTIES"
                                     (viewport-bounds-range 0.0)
                                     (viewport-sub-pixel-bits 0)
                                     (min-memory-map-alignment 0)
-                                    (min-texel-buffer-offset-alignment nil)
-                                    (min-uniform-buffer-offset-alignment nil)
-                                    (min-storage-buffer-offset-alignment nil)
+                                    (min-texel-buffer-offset-alignment 0)
+                                    (min-uniform-buffer-offset-alignment 0)
+                                    (min-storage-buffer-offset-alignment 0)
                                     (min-texel-offset 0) (max-texel-offset 0)
                                     (min-texel-gather-offset 0)
                                     (max-texel-gather-offset 0)
@@ -1718,9 +1740,9 @@ See PHYSICAL-DEVICE-SPARSE-PROPERTIES"
                                     (line-width-granularity 0.0)
                                     (strict-lines nil)
                                     (standard-sample-locations nil)
-                                    (optimal-buffer-copy-offset-alignment nil)
-                                    (optimal-buffer-copy-row-pitch-alignment nil)
-                                    (non-coherent-atom-size nil))
+                                    (optimal-buffer-copy-offset-alignment 0)
+                                    (optimal-buffer-copy-row-pitch-alignment 0)
+                                    (non-coherent-atom-size 0))
 "Creates an instance of PHYSICAL-DEVICE-LIMITS.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-LIMITS.
 
@@ -1953,8 +1975,8 @@ See SUBMIT-INFO"
                  :signal-semaphores signal-semaphores))
 
 (defun make-display-properties-khr (&key (display nil) (display-name "")
-                                    (physical-dimensions nil)
-                                    (physical-resolution nil)
+                                    (physical-dimensions (vk:make-extent-2d))
+                                    (physical-resolution (vk:make-extent-2d))
                                     (supported-transforms nil)
                                     (plane-reorder-possible nil)
                                     (persistent-content nil))
@@ -1983,7 +2005,8 @@ See DISPLAY-PLANE-PROPERTIES-KHR"
                  :current-display current-display
                  :current-stack-index current-stack-index))
 
-(defun make-display-mode-parameters-khr (&key (visible-region nil)
+(defun make-display-mode-parameters-khr (&key
+                                         (visible-region (vk:make-extent-2d))
                                          (refresh-rate 0))
 "Creates an instance of DISPLAY-MODE-PARAMETERS-KHR.
 The arguments of this function correspond to the slots of DISPLAY-MODE-PARAMETERS-KHR.
@@ -1995,7 +2018,7 @@ See DISPLAY-MODE-PARAMETERS-KHR"
                  :refresh-rate refresh-rate))
 
 (defun make-display-mode-properties-khr (&key (display-mode nil)
-                                         (parameters nil))
+                                         (parameters (vk:make-display-mode-parameters-khr)))
 "Creates an instance of DISPLAY-MODE-PROPERTIES-KHR.
 The arguments of this function correspond to the slots of DISPLAY-MODE-PROPERTIES-KHR.
 
@@ -2006,7 +2029,7 @@ See DISPLAY-MODE-PROPERTIES-KHR"
                  :parameters parameters))
 
 (defun make-display-mode-create-info-khr (&key (next nil) (flags nil)
-                                          (parameters nil))
+                                          (parameters (vk:make-display-mode-parameters-khr)))
 "Creates an instance of DISPLAY-MODE-CREATE-INFO-KHR.
 The arguments of this function correspond to the slots of DISPLAY-MODE-CREATE-INFO-KHR.
 
@@ -2018,14 +2041,14 @@ See DISPLAY-MODE-CREATE-INFO-KHR"
                  :parameters parameters))
 
 (defun make-display-plane-capabilities-khr (&key (supported-alpha nil)
-                                            (min-src-position nil)
-                                            (max-src-position nil)
-                                            (min-src-extent nil)
-                                            (max-src-extent nil)
-                                            (min-dst-position nil)
-                                            (max-dst-position nil)
-                                            (min-dst-extent nil)
-                                            (max-dst-extent nil))
+                                            (min-src-position (vk:make-offset-2d))
+                                            (max-src-position (vk:make-offset-2d))
+                                            (min-src-extent (vk:make-extent-2d))
+                                            (max-src-extent (vk:make-extent-2d))
+                                            (min-dst-position (vk:make-offset-2d))
+                                            (max-dst-position (vk:make-offset-2d))
+                                            (min-dst-extent (vk:make-extent-2d))
+                                            (max-dst-extent (vk:make-extent-2d)))
 "Creates an instance of DISPLAY-PLANE-CAPABILITIES-KHR.
 The arguments of this function correspond to the slots of DISPLAY-PLANE-CAPABILITIES-KHR.
 
@@ -2047,7 +2070,7 @@ See DISPLAY-PLANE-CAPABILITIES-KHR"
                                              (plane-stack-index 0)
                                              (transform nil) (global-alpha 0.0)
                                              (alpha-mode nil)
-                                             (image-extent nil))
+                                             (image-extent (vk:make-extent-2d)))
 "Creates an instance of DISPLAY-SURFACE-CREATE-INFO-KHR.
 The arguments of this function correspond to the slots of DISPLAY-SURFACE-CREATE-INFO-KHR.
 
@@ -2064,8 +2087,10 @@ See DISPLAY-SURFACE-CREATE-INFO-KHR"
                  :alpha-mode alpha-mode
                  :image-extent image-extent))
 
-(defun make-display-present-info-khr (&key (next nil) (src-rect nil)
-                                      (dst-rect nil) (persistent nil))
+(defun make-display-present-info-khr (&key (next nil)
+                                      (src-rect (vk:make-rect-2d))
+                                      (dst-rect (vk:make-rect-2d))
+                                      (persistent nil))
 "Creates an instance of DISPLAY-PRESENT-INFO-KHR.
 The arguments of this function correspond to the slots of DISPLAY-PRESENT-INFO-KHR.
 
@@ -2078,9 +2103,10 @@ See DISPLAY-PRESENT-INFO-KHR"
                  :persistent persistent))
 
 (defun make-surface-capabilities-khr (&key (min-image-count 0)
-                                      (max-image-count 0) (current-extent nil)
-                                      (min-image-extent nil)
-                                      (max-image-extent nil)
+                                      (max-image-count 0)
+                                      (current-extent (vk:make-extent-2d))
+                                      (min-image-extent (vk:make-extent-2d))
+                                      (max-image-extent (vk:make-extent-2d))
                                       (max-image-array-layers 0)
                                       (supported-transforms nil)
                                       (current-transform nil)
@@ -2243,7 +2269,7 @@ See SURFACE-FORMAT-KHR"
                                        (surface nil) (min-image-count 0)
                                        (image-format nil)
                                        (image-color-space nil)
-                                       (image-extent nil)
+                                       (image-extent (vk:make-extent-2d))
                                        (image-array-layers 0) (image-usage nil)
                                        (image-sharing-mode nil)
                                        (queue-family-indices nil)
@@ -2615,7 +2641,7 @@ See BIND-SHADER-GROUP-INDIRECT-COMMAND-NV"
   (make-instance 'vk:bind-shader-group-indirect-command-nv 
                  :group-index group-index))
 
-(defun make-bind-index-buffer-indirect-command-nv (&key (buffer-address nil)
+(defun make-bind-index-buffer-indirect-command-nv (&key (buffer-address 0)
                                                    (size 0) (index-type nil))
 "Creates an instance of BIND-INDEX-BUFFER-INDIRECT-COMMAND-NV.
 The arguments of this function correspond to the slots of BIND-INDEX-BUFFER-INDIRECT-COMMAND-NV.
@@ -2627,7 +2653,7 @@ See BIND-INDEX-BUFFER-INDIRECT-COMMAND-NV"
                  :size size
                  :index-type index-type))
 
-(defun make-bind-vertex-buffer-indirect-command-nv (&key (buffer-address nil)
+(defun make-bind-vertex-buffer-indirect-command-nv (&key (buffer-address 0)
                                                     (size 0) (stride 0))
 "Creates an instance of BIND-VERTEX-BUFFER-INDIRECT-COMMAND-NV.
 The arguments of this function correspond to the slots of BIND-VERTEX-BUFFER-INDIRECT-COMMAND-NV.
@@ -2648,7 +2674,7 @@ See SET-STATE-FLAGS-INDIRECT-COMMAND-NV"
   (make-instance 'vk:set-state-flags-indirect-command-nv 
                  :data data))
 
-(defun make-indirect-commands-stream-nv (&key (buffer nil) (offset nil))
+(defun make-indirect-commands-stream-nv (&key (buffer nil) (offset 0))
 "Creates an instance of INDIRECT-COMMANDS-STREAM-NV.
 The arguments of this function correspond to the slots of INDIRECT-COMMANDS-STREAM-NV.
 
@@ -2712,12 +2738,12 @@ See INDIRECT-COMMANDS-LAYOUT-CREATE-INFO-NV"
                                         (indirect-commands-layout nil)
                                         (streams nil) (sequences-count 0)
                                         (preprocess-buffer nil)
-                                        (preprocess-offset nil)
-                                        (preprocess-size nil)
+                                        (preprocess-offset 0)
+                                        (preprocess-size 0)
                                         (sequences-count-buffer nil)
-                                        (sequences-count-offset nil)
+                                        (sequences-count-offset 0)
                                         (sequences-index-buffer nil)
-                                        (sequences-index-offset nil))
+                                        (sequences-index-offset 0))
 "Creates an instance of GENERATED-COMMANDS-INFO-NV.
 The arguments of this function correspond to the slots of GENERATED-COMMANDS-INFO-NV.
 
@@ -2755,7 +2781,8 @@ See GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV"
                  :indirect-commands-layout indirect-commands-layout
                  :max-sequences-count max-sequences-count))
 
-(defun make-physical-device-features-2 (&key (next nil) (features nil))
+(defun make-physical-device-features-2 (&key (next nil)
+                                        (features (vk:make-physical-device-features)))
 "Creates an instance of PHYSICAL-DEVICE-FEATURES-2.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-FEATURES-2.
 
@@ -2889,7 +2916,7 @@ See CONFORMANCE-VERSION"
 (defun make-physical-device-driver-properties (&key (next nil) (driver-id nil)
                                                (driver-name "")
                                                (driver-info "")
-                                               (conformance-version nil))
+                                               (conformance-version (vk:make-conformance-version)))
 "Creates an instance of PHYSICAL-DEVICE-DRIVER-PROPERTIES.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-DRIVER-PROPERTIES.
 
@@ -2923,7 +2950,8 @@ See PRESENT-REGION-KHR"
   (make-instance 'vk:present-region-khr 
                  :rectangles rectangles))
 
-(defun make-rect-layer-khr (&key (offset nil) (extent nil) (layer 0))
+(defun make-rect-layer-khr (&key (offset (vk:make-offset-2d))
+                            (extent (vk:make-extent-2d)) (layer 0))
 "Creates an instance of RECT-LAYER-KHR.
 The arguments of this function correspond to the slots of RECT-LAYER-KHR.
 
@@ -3490,9 +3518,9 @@ See RENDER-PASS-MULTIVIEW-CREATE-INFO"
 
 (defun make-surface-capabilities-2-ext (&key (next nil) (min-image-count 0)
                                         (max-image-count 0)
-                                        (current-extent nil)
-                                        (min-image-extent nil)
-                                        (max-image-extent nil)
+                                        (current-extent (vk:make-extent-2d))
+                                        (min-image-extent (vk:make-extent-2d))
+                                        (max-image-extent (vk:make-extent-2d))
                                         (max-image-array-layers 0)
                                         (supported-transforms nil)
                                         (current-transform nil)
@@ -3587,7 +3615,7 @@ See MEMORY-ALLOCATE-FLAGS-INFO"
                  :device-mask device-mask))
 
 (defun make-bind-buffer-memory-info (&key (next nil) (buffer nil) (memory nil)
-                                     (memory-offset nil))
+                                     (memory-offset 0))
 "Creates an instance of BIND-BUFFER-MEMORY-INFO.
 The arguments of this function correspond to the slots of BIND-BUFFER-MEMORY-INFO.
 
@@ -3611,7 +3639,7 @@ See BIND-BUFFER-MEMORY-DEVICE-GROUP-INFO"
                  :device-indices device-indices))
 
 (defun make-bind-image-memory-info (&key (next nil) (image nil) (memory nil)
-                                    (memory-offset nil))
+                                    (memory-offset 0))
 "Creates an instance of BIND-IMAGE-MEMORY-INFO.
 The arguments of this function correspond to the slots of BIND-IMAGE-MEMORY-INFO.
 
@@ -3854,9 +3882,11 @@ See PHYSICAL-DEVICE-PRESENT-WAIT-FEATURES-KHR"
                  :next next
                  :present-wait present-wait))
 
-(defun make-hdr-metadata-ext (&key (next nil) (display-primary-red nil)
-                              (display-primary-green nil)
-                              (display-primary-blue nil) (white-point nil)
+(defun make-hdr-metadata-ext (&key (next nil)
+                              (display-primary-red (vk:make-x-y-color-ext))
+                              (display-primary-green (vk:make-x-y-color-ext))
+                              (display-primary-blue (vk:make-x-y-color-ext))
+                              (white-point (vk:make-x-y-color-ext))
                               (max-luminance 0.0) (min-luminance 0.0)
                               (max-content-light-level 0.0)
                               (max-frame-average-light-level 0.0))
@@ -3946,14 +3976,13 @@ See PRESENT-TIME-GOOGLE"
                  :present-id present-id
                  :desired-present-time desired-present-time))
 
-(defun make-i-os-surface-create-info-mvk (&key (next nil) (flags nil)
-                                          (view nil))
-"Creates an instance of I-OS-SURFACE-CREATE-INFO-MVK.
-The arguments of this function correspond to the slots of I-OS-SURFACE-CREATE-INFO-MVK.
+(defun make-ios-surface-create-info-mvk (&key (next nil) (flags nil) (view nil))
+"Creates an instance of IOS-SURFACE-CREATE-INFO-MVK.
+The arguments of this function correspond to the slots of IOS-SURFACE-CREATE-INFO-MVK.
 
 
-See I-OS-SURFACE-CREATE-INFO-MVK"
-  (make-instance 'vk:i-os-surface-create-info-mvk 
+See IOS-SURFACE-CREATE-INFO-MVK"
+  (make-instance 'vk:ios-surface-create-info-mvk 
                  :next next
                  :flags flags
                  :view view))
@@ -4245,6 +4274,17 @@ See BUFFER-MEMORY-REQUIREMENTS-INFO-2"
                  :next next
                  :buffer buffer))
 
+(defun make-device-buffer-memory-requirements-khr (&key (next nil)
+                                                   (create-info nil))
+"Creates an instance of DEVICE-BUFFER-MEMORY-REQUIREMENTS-KHR.
+The arguments of this function correspond to the slots of DEVICE-BUFFER-MEMORY-REQUIREMENTS-KHR.
+
+
+See DEVICE-BUFFER-MEMORY-REQUIREMENTS-KHR"
+  (make-instance 'vk:device-buffer-memory-requirements-khr 
+                 :next next
+                 :create-info create-info))
+
 (defun make-image-memory-requirements-info-2 (&key (next nil) (image nil))
 "Creates an instance of IMAGE-MEMORY-REQUIREMENTS-INFO-2.
 The arguments of this function correspond to the slots of IMAGE-MEMORY-REQUIREMENTS-INFO-2.
@@ -4265,6 +4305,19 @@ See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2"
   (make-instance 'vk:image-sparse-memory-requirements-info-2 
                  :next next
                  :image image))
+
+(defun make-device-image-memory-requirements-khr (&key (next nil)
+                                                  (create-info nil)
+                                                  (plane-aspect nil))
+"Creates an instance of DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR.
+The arguments of this function correspond to the slots of DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR.
+
+
+See DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR"
+  (make-instance 'vk:device-image-memory-requirements-khr 
+                 :next next
+                 :create-info create-info
+                 :plane-aspect plane-aspect))
 
 (defun make-memory-requirements-2 (&key (next nil) (memory-requirements nil))
 "Creates an instance of MEMORY-REQUIREMENTS-2.
@@ -4358,7 +4411,7 @@ See SAMPLER-YCBCR-CONVERSION-INFO"
 (defun make-sampler-ycbcr-conversion-create-info (&key (next nil) (format nil)
                                                   (ycbcr-model nil)
                                                   (ycbcr-range nil)
-                                                  (components nil)
+                                                  (components (vk:make-component-mapping))
                                                   (x-chroma-offset nil)
                                                   (y-chroma-offset nil)
                                                   (chroma-filter nil)
@@ -4434,7 +4487,7 @@ See TEXTURE-L-O-D-GATHER-FORMAT-PROPERTIES-AMD"
                  :supports-texture-gather-l-o-d-bias-amd supports-texture-gather-l-o-d-bias-amd))
 
 (defun make-conditional-rendering-begin-info-ext (&key (next nil) (buffer nil)
-                                                  (offset nil) (flags nil))
+                                                  (offset 0) (flags nil))
 "Creates an instance of CONDITIONAL-RENDERING-BEGIN-INFO-EXT.
 The arguments of this function correspond to the slots of CONDITIONAL-RENDERING-BEGIN-INFO-EXT.
 
@@ -4531,7 +4584,7 @@ See SAMPLE-LOCATION-EXT"
 
 (defun make-sample-locations-info-ext (&key (next nil)
                                        (sample-locations-per-pixel nil)
-                                       (sample-location-grid-size nil)
+                                       (sample-location-grid-size (vk:make-extent-2d))
                                        (sample-locations nil))
 "Creates an instance of SAMPLE-LOCATIONS-INFO-EXT.
 The arguments of this function correspond to the slots of SAMPLE-LOCATIONS-INFO-EXT.
@@ -4545,7 +4598,7 @@ See SAMPLE-LOCATIONS-INFO-EXT"
                  :sample-locations sample-locations))
 
 (defun make-attachment-sample-locations-ext (&key (attachment-index 0)
-                                             (sample-locations-info nil))
+                                             (sample-locations-info (vk:make-sample-locations-info-ext)))
 "Creates an instance of ATTACHMENT-SAMPLE-LOCATIONS-EXT.
 The arguments of this function correspond to the slots of ATTACHMENT-SAMPLE-LOCATIONS-EXT.
 
@@ -4556,7 +4609,7 @@ See ATTACHMENT-SAMPLE-LOCATIONS-EXT"
                  :sample-locations-info sample-locations-info))
 
 (defun make-subpass-sample-locations-ext (&key (subpass-index 0)
-                                          (sample-locations-info nil))
+                                          (sample-locations-info (vk:make-sample-locations-info-ext)))
 "Creates an instance of SUBPASS-SAMPLE-LOCATIONS-EXT.
 The arguments of this function correspond to the slots of SUBPASS-SAMPLE-LOCATIONS-EXT.
 
@@ -4581,7 +4634,7 @@ See RENDER-PASS-SAMPLE-LOCATIONS-BEGIN-INFO-EXT"
 
 (defun make-pipeline-sample-locations-state-create-info-ext (&key (next nil)
                                                              (sample-locations-enable nil)
-                                                             (sample-locations-info nil))
+                                                             (sample-locations-info (vk:make-sample-locations-info-ext)))
 "Creates an instance of PIPELINE-SAMPLE-LOCATIONS-STATE-CREATE-INFO-EXT.
 The arguments of this function correspond to the slots of PIPELINE-SAMPLE-LOCATIONS-STATE-CREATE-INFO-EXT.
 
@@ -4594,7 +4647,7 @@ See PIPELINE-SAMPLE-LOCATIONS-STATE-CREATE-INFO-EXT"
 
 (defun make-physical-device-sample-locations-properties-ext (&key (next nil)
                                                              (sample-location-sample-counts nil)
-                                                             (max-sample-location-grid-size nil)
+                                                             (max-sample-location-grid-size (vk:make-extent-2d))
                                                              (sample-location-coordinate-range 0.0)
                                                              (sample-location-sub-pixel-bits 0)
                                                              (variable-sample-locations nil))
@@ -4612,7 +4665,7 @@ See PHYSICAL-DEVICE-SAMPLE-LOCATIONS-PROPERTIES-EXT"
                  :variable-sample-locations variable-sample-locations))
 
 (defun make-multisample-properties-ext (&key (next nil)
-                                        (max-sample-location-grid-size nil))
+                                        (max-sample-location-grid-size (vk:make-extent-2d)))
 "Creates an instance of MULTISAMPLE-PROPERTIES-EXT.
 The arguments of this function correspond to the slots of MULTISAMPLE-PROPERTIES-EXT.
 
@@ -4806,7 +4859,7 @@ See SHADER-MODULE-VALIDATION-CACHE-CREATE-INFO-EXT"
 
 (defun make-physical-device-maintenance-3-properties (&key (next nil)
                                                       (max-per-set-descriptors 0)
-                                                      (max-memory-allocation-size nil))
+                                                      (max-memory-allocation-size 0))
 "Creates an instance of PHYSICAL-DEVICE-MAINTENANCE-3-PROPERTIES.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-MAINTENANCE-3-PROPERTIES.
 
@@ -4816,6 +4869,28 @@ See PHYSICAL-DEVICE-MAINTENANCE-3-PROPERTIES"
                  :next next
                  :max-per-set-descriptors max-per-set-descriptors
                  :max-memory-allocation-size max-memory-allocation-size))
+
+(defun make-physical-device-maintenance-4-features-khr (&key (next nil)
+                                                        (maintenance-4 nil))
+"Creates an instance of PHYSICAL-DEVICE-MAINTENANCE-4-FEATURES-KHR.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-MAINTENANCE-4-FEATURES-KHR.
+
+
+See PHYSICAL-DEVICE-MAINTENANCE-4-FEATURES-KHR"
+  (make-instance 'vk:physical-device-maintenance-4-features-khr 
+                 :next next
+                 :maintenance-4 maintenance-4))
+
+(defun make-physical-device-maintenance-4-properties-khr (&key (next nil)
+                                                          (max-buffer-size 0))
+"Creates an instance of PHYSICAL-DEVICE-MAINTENANCE-4-PROPERTIES-KHR.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-MAINTENANCE-4-PROPERTIES-KHR.
+
+
+See PHYSICAL-DEVICE-MAINTENANCE-4-PROPERTIES-KHR"
+  (make-instance 'vk:physical-device-maintenance-4-properties-khr 
+                 :next next
+                 :max-buffer-size max-buffer-size))
 
 (defun make-descriptor-set-layout-support (&key (next nil) (supported nil))
 "Creates an instance of DESCRIPTOR-SET-LAYOUT-SUPPORT.
@@ -5089,8 +5164,7 @@ See DEVICE-DEVICE-MEMORY-REPORT-CREATE-INFO-EXT"
 (defun make-device-memory-report-callback-data-ext (&key (next nil) (flags nil)
                                                     (type nil)
                                                     (memory-object-id 0)
-                                                    (size nil)
-                                                    (object-type nil)
+                                                    (size 0) (object-type nil)
                                                     (object-handle 0)
                                                     (heap-index 0))
 "Creates an instance of DEVICE-MEMORY-REPORT-CALLBACK-DATA-EXT.
@@ -5134,7 +5208,7 @@ See MEMORY-HOST-POINTER-PROPERTIES-EXT"
 
 (defun make-physical-device-external-memory-host-properties-ext (&key
                                                                  (next nil)
-                                                                 (min-imported-host-pointer-alignment nil))
+                                                                 (min-imported-host-pointer-alignment 0))
 "Creates an instance of PHYSICAL-DEVICE-EXTERNAL-MEMORY-HOST-PROPERTIES-EXT.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-EXTERNAL-MEMORY-HOST-PROPERTIES-EXT.
 
@@ -5648,7 +5722,7 @@ See ANDROID-HARDWARE-BUFFER-USAGE-ANDROID"
                  :android-hardware-buffer-usage android-hardware-buffer-usage))
 
 (defun make-android-hardware-buffer-properties-android (&key (next nil)
-                                                        (allocation-size nil)
+                                                        (allocation-size 0)
                                                         (memory-type-bits 0))
 "Creates an instance of ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID.
 The arguments of this function correspond to the slots of ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID.
@@ -5675,7 +5749,7 @@ See MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID"
                                                                (format nil)
                                                                (external-format 0)
                                                                (format-features nil)
-                                                               (sampler-ycbcr-conversion-components nil)
+                                                               (sampler-ycbcr-conversion-components (vk:make-component-mapping))
                                                                (suggested-ycbcr-model nil)
                                                                (suggested-ycbcr-range nil)
                                                                (suggested-x-chroma-offset nil)
@@ -5946,7 +6020,7 @@ See PHYSICAL-DEVICE-TRANSFORM-FEEDBACK-FEATURES-EXT"
 (defun make-physical-device-transform-feedback-properties-ext (&key (next nil)
                                                                (max-transform-feedback-streams 0)
                                                                (max-transform-feedback-buffers 0)
-                                                               (max-transform-feedback-buffer-size nil)
+                                                               (max-transform-feedback-buffer-size 0)
                                                                (max-transform-feedback-stream-data-size 0)
                                                                (max-transform-feedback-buffer-data-size 0)
                                                                (max-transform-feedback-buffer-data-stride 0)
@@ -6130,7 +6204,7 @@ See PHYSICAL-DEVICE-SHADING-RATE-IMAGE-FEATURES-NV"
                  :shading-rate-coarse-sample-order shading-rate-coarse-sample-order))
 
 (defun make-physical-device-shading-rate-image-properties-nv (&key (next nil)
-                                                              (shading-rate-texel-size nil)
+                                                              (shading-rate-texel-size (vk:make-extent-2d))
                                                               (shading-rate-palette-size 0)
                                                               (shading-rate-max-coarse-samples 0))
 "Creates an instance of PHYSICAL-DEVICE-SHADING-RATE-IMAGE-PROPERTIES-NV.
@@ -6340,11 +6414,11 @@ See RAY-TRACING-PIPELINE-CREATE-INFO-KHR"
                  :base-pipeline-index base-pipeline-index))
 
 (defun make-geometry-triangles-nv (&key (next nil) (vertex-data nil)
-                                   (vertex-offset nil) (vertex-count 0)
-                                   (vertex-stride nil) (vertex-format nil)
-                                   (index-data nil) (index-offset nil)
+                                   (vertex-offset 0) (vertex-count 0)
+                                   (vertex-stride 0) (vertex-format nil)
+                                   (index-data nil) (index-offset 0)
                                    (index-count 0) (index-type nil)
-                                   (transform-data nil) (transform-offset nil))
+                                   (transform-data nil) (transform-offset 0))
 "Creates an instance of GEOMETRY-TRIANGLES-NV.
 The arguments of this function correspond to the slots of GEOMETRY-TRIANGLES-NV.
 
@@ -6365,7 +6439,7 @@ See GEOMETRY-TRIANGLES-NV"
                  :transform-offset transform-offset))
 
 (defun make-geometry-aabb-nv (&key (next nil) (aabb-data nil) (num-aabbs 0)
-                              (stride 0) (offset nil))
+                              (stride 0) (offset 0))
 "Creates an instance of GEOMETRY-AABB-NV.
 The arguments of this function correspond to the slots of GEOMETRY-AABB-NV.
 
@@ -6378,7 +6452,8 @@ See GEOMETRY-AABB-NV"
                  :stride stride
                  :offset offset))
 
-(defun make-geometry-data-nv (&key (triangles nil) (aabbs nil))
+(defun make-geometry-data-nv (&key (triangles (vk:make-geometry-triangles-nv))
+                              (aabbs (vk:make-geometry-aabb-nv)))
 "Creates an instance of GEOMETRY-DATA-NV.
 The arguments of this function correspond to the slots of GEOMETRY-DATA-NV.
 
@@ -6388,8 +6463,8 @@ See GEOMETRY-DATA-NV"
                  :triangles triangles
                  :aabbs aabbs))
 
-(defun make-geometry-nv (&key (next nil) (geometry-type nil) (geometry nil)
-                         (flags nil))
+(defun make-geometry-nv (&key (next nil) (geometry-type nil)
+                         (geometry (vk:make-geometry-data-nv)) (flags nil))
 "Creates an instance of GEOMETRY-NV.
 The arguments of this function correspond to the slots of GEOMETRY-NV.
 
@@ -6417,8 +6492,8 @@ See ACCELERATION-STRUCTURE-INFO-NV"
                  :geometries geometries))
 
 (defun make-acceleration-structure-create-info-nv (&key (next nil)
-                                                   (compacted-size nil)
-                                                   (info nil))
+                                                   (compacted-size 0)
+                                                   (info (vk:make-acceleration-structure-info-nv)))
 "Creates an instance of ACCELERATION-STRUCTURE-CREATE-INFO-NV.
 The arguments of this function correspond to the slots of ACCELERATION-STRUCTURE-CREATE-INFO-NV.
 
@@ -6432,7 +6507,7 @@ See ACCELERATION-STRUCTURE-CREATE-INFO-NV"
 (defun make-bind-acceleration-structure-memory-info-nv (&key (next nil)
                                                         (acceleration-structure nil)
                                                         (memory nil)
-                                                        (memory-offset nil)
+                                                        (memory-offset 0)
                                                         (device-indices nil))
 "Creates an instance of BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV.
 The arguments of this function correspond to the slots of BIND-ACCELERATION-STRUCTURE-MEMORY-INFO-NV.
@@ -6608,8 +6683,8 @@ See PHYSICAL-DEVICE-RAY-TRACING-PROPERTIES-NV"
                  :max-triangle-count max-triangle-count
                  :max-descriptor-set-acceleration-structures max-descriptor-set-acceleration-structures))
 
-(defun make-strided-device-address-region-khr (&key (device-address nil)
-                                               (stride nil) (size nil))
+(defun make-strided-device-address-region-khr (&key (device-address 0)
+                                               (stride 0) (size 0))
 "Creates an instance of STRIDED-DEVICE-ADDRESS-REGION-KHR.
 The arguments of this function correspond to the slots of STRIDED-DEVICE-ADDRESS-REGION-KHR.
 
@@ -6757,8 +6832,8 @@ See PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-FEATURES-EXT"
 
 (defun make-physical-device-fragment-density-map-properties-ext (&key
                                                                  (next nil)
-                                                                 (min-fragment-density-texel-size nil)
-                                                                 (max-fragment-density-texel-size nil)
+                                                                 (min-fragment-density-texel-size (vk:make-extent-2d))
+                                                                 (max-fragment-density-texel-size (vk:make-extent-2d))
                                                                  (fragment-density-invocations nil))
 "Creates an instance of PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-PROPERTIES-EXT.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-PROPERTIES-EXT.
@@ -6790,7 +6865,7 @@ See PHYSICAL-DEVICE-FRAGMENT-DENSITY-MAP-2-PROPERTIES-EXT"
                  :max-descriptor-set-subsampled-samplers max-descriptor-set-subsampled-samplers))
 
 (defun make-render-pass-fragment-density-map-create-info-ext (&key (next nil)
-                                                              (fragment-density-map-attachment nil))
+                                                              (fragment-density-map-attachment (vk:make-attachment-reference)))
 "Creates an instance of RENDER-PASS-FRAGMENT-DENSITY-MAP-CREATE-INFO-EXT.
 The arguments of this function correspond to the slots of RENDER-PASS-FRAGMENT-DENSITY-MAP-CREATE-INFO-EXT.
 
@@ -6860,8 +6935,8 @@ See PIPELINE-RASTERIZATION-DEPTH-CLIP-STATE-CREATE-INFO-EXT"
                  :depth-clip-enable depth-clip-enable))
 
 (defun make-physical-device-memory-budget-properties-ext (&key (next nil)
-                                                          (heap-budget nil)
-                                                          (heap-usage nil))
+                                                          (heap-budget 0)
+                                                          (heap-usage 0))
 "Creates an instance of PHYSICAL-DEVICE-MEMORY-BUDGET-PROPERTIES-EXT.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-MEMORY-BUDGET-PROPERTIES-EXT.
 
@@ -6892,6 +6967,18 @@ See MEMORY-PRIORITY-ALLOCATE-INFO-EXT"
   (make-instance 'vk:memory-priority-allocate-info-ext 
                  :next next
                  :priority priority))
+
+(defun make-physical-device-pageable-device-local-memory-features-ext (&key
+                                                                       (next nil)
+                                                                       (pageable-device-local-memory nil))
+"Creates an instance of PHYSICAL-DEVICE-PAGEABLE-DEVICE-LOCAL-MEMORY-FEATURES-EXT.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-PAGEABLE-DEVICE-LOCAL-MEMORY-FEATURES-EXT.
+
+
+See PHYSICAL-DEVICE-PAGEABLE-DEVICE-LOCAL-MEMORY-FEATURES-EXT"
+  (make-instance 'vk:physical-device-pageable-device-local-memory-features-ext 
+                 :next next
+                 :pageable-device-local-memory pageable-device-local-memory))
 
 (defun make-physical-device-buffer-device-address-features (&key (next nil)
                                                             (buffer-device-address nil)
@@ -6945,7 +7032,7 @@ See BUFFER-OPAQUE-CAPTURE-ADDRESS-CREATE-INFO"
                  :opaque-capture-address opaque-capture-address))
 
 (defun make-buffer-device-address-create-info-ext (&key (next nil)
-                                                   (device-address nil))
+                                                   (device-address 0))
 "Creates an instance of BUFFER-DEVICE-ADDRESS-CREATE-INFO-EXT.
 The arguments of this function correspond to the slots of BUFFER-DEVICE-ADDRESS-CREATE-INFO-EXT.
 
@@ -7113,7 +7200,7 @@ See IMAGE-VIEW-HANDLE-INFO-NVX"
                  :sampler sampler))
 
 (defun make-image-view-address-properties-nvx (&key (next nil)
-                                               (device-address nil) (size nil))
+                                               (device-address 0) (size 0))
 "Creates an instance of IMAGE-VIEW-ADDRESS-PROPERTIES-NVX.
 The arguments of this function correspond to the slots of IMAGE-VIEW-ADDRESS-PROPERTIES-NVX.
 
@@ -7556,6 +7643,20 @@ See ATTACHMENT-REFERENCE-STENCIL-LAYOUT"
                  :next next
                  :stencil-layout stencil-layout))
 
+(defun make-physical-device-primitive-topology-list-restart-features-ext (&key
+                                                                          (next nil)
+                                                                          (primitive-topology-list-restart nil)
+                                                                          (primitive-topology-patch-list-restart nil))
+"Creates an instance of PHYSICAL-DEVICE-PRIMITIVE-TOPOLOGY-LIST-RESTART-FEATURES-EXT.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-PRIMITIVE-TOPOLOGY-LIST-RESTART-FEATURES-EXT.
+
+
+See PHYSICAL-DEVICE-PRIMITIVE-TOPOLOGY-LIST-RESTART-FEATURES-EXT"
+  (make-instance 'vk:physical-device-primitive-topology-list-restart-features-ext 
+                 :next next
+                 :primitive-topology-list-restart primitive-topology-list-restart
+                 :primitive-topology-patch-list-restart primitive-topology-patch-list-restart))
+
 (defun make-attachment-description-stencil-layout (&key (next nil)
                                                    (stencil-initial-layout nil)
                                                    (stencil-final-layout nil))
@@ -7699,9 +7800,9 @@ See PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-FEATURES-EXT"
 
 (defun make-physical-device-texel-buffer-alignment-properties-ext (&key
                                                                    (next nil)
-                                                                   (storage-texel-buffer-offset-alignment-bytes nil)
+                                                                   (storage-texel-buffer-offset-alignment-bytes 0)
                                                                    (storage-texel-buffer-offset-single-texel-alignment nil)
-                                                                   (uniform-texel-buffer-offset-alignment-bytes nil)
+                                                                   (uniform-texel-buffer-offset-alignment-bytes 0)
                                                                    (uniform-texel-buffer-offset-single-texel-alignment nil))
 "Creates an instance of PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-PROPERTIES-EXT.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-TEXEL-BUFFER-ALIGNMENT-PROPERTIES-EXT.
@@ -7913,7 +8014,7 @@ See PHYSICAL-DEVICE-VULKAN-1-1-FEATURES"
                                                    (max-multiview-instance-index 0)
                                                    (protected-no-fault nil)
                                                    (max-per-set-descriptors 0)
-                                                   (max-memory-allocation-size nil))
+                                                   (max-memory-allocation-size 0))
 "Creates an instance of PHYSICAL-DEVICE-VULKAN-1-1-PROPERTIES.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-VULKAN-1-1-PROPERTIES.
 
@@ -8044,7 +8145,7 @@ See PHYSICAL-DEVICE-VULKAN-1-2-FEATURES"
                                                    (driver-id nil)
                                                    (driver-name "")
                                                    (driver-info "")
-                                                   (conformance-version nil)
+                                                   (conformance-version (vk:make-conformance-version))
                                                    (denorm-behavior-independence nil)
                                                    (rounding-mode-independence nil)
                                                    (shader-signed-zero-inf-nan-preserve-float-16 nil)
@@ -8228,6 +8329,33 @@ See PHYSICAL-DEVICE-CUSTOM-BORDER-COLOR-FEATURES-EXT"
                  :custom-border-colors custom-border-colors
                  :custom-border-color-without-format custom-border-color-without-format))
 
+(defun make-sampler-border-color-component-mapping-create-info-ext (&key
+                                                                    (next nil)
+                                                                    (components (vk:make-component-mapping))
+                                                                    (srgb nil))
+"Creates an instance of SAMPLER-BORDER-COLOR-COMPONENT-MAPPING-CREATE-INFO-EXT.
+The arguments of this function correspond to the slots of SAMPLER-BORDER-COLOR-COMPONENT-MAPPING-CREATE-INFO-EXT.
+
+
+See SAMPLER-BORDER-COLOR-COMPONENT-MAPPING-CREATE-INFO-EXT"
+  (make-instance 'vk:sampler-border-color-component-mapping-create-info-ext 
+                 :next next
+                 :components components
+                 :srgb srgb))
+
+(defun make-physical-device-border-color-swizzle-features-ext (&key (next nil)
+                                                               (border-color-swizzle nil)
+                                                               (border-color-swizzle-from-image nil))
+"Creates an instance of PHYSICAL-DEVICE-BORDER-COLOR-SWIZZLE-FEATURES-EXT.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-BORDER-COLOR-SWIZZLE-FEATURES-EXT.
+
+
+See PHYSICAL-DEVICE-BORDER-COLOR-SWIZZLE-FEATURES-EXT"
+  (make-instance 'vk:physical-device-border-color-swizzle-features-ext 
+                 :next next
+                 :border-color-swizzle border-color-swizzle
+                 :border-color-swizzle-from-image border-color-swizzle-from-image))
+
 (defun make-device-or-host-address-khr (&key (device-address nil)
                                         (host-address nil))
 "Creates an instance of DEVICE-OR-HOST-ADDRESS-KHR.
@@ -8265,7 +8393,7 @@ See DEVICE-OR-HOST-ADDRESS-CONST-KHR"
 (defun make-acceleration-structure-geometry-triangles-data-khr (&key (next nil)
                                                                 (vertex-format nil)
                                                                 (vertex-data nil)
-                                                                (vertex-stride nil)
+                                                                (vertex-stride 0)
                                                                 (max-vertex 0)
                                                                 (index-type nil)
                                                                 (index-data nil)
@@ -8287,7 +8415,7 @@ See ACCELERATION-STRUCTURE-GEOMETRY-TRIANGLES-DATA-KHR"
 
 (defun make-acceleration-structure-geometry-aabbs-data-khr (&key (next nil)
                                                             (data nil)
-                                                            (stride nil))
+                                                            (stride 0))
 "Creates an instance of ACCELERATION-STRUCTURE-GEOMETRY-AABBS-DATA-KHR.
 The arguments of this function correspond to the slots of ACCELERATION-STRUCTURE-GEOMETRY-AABBS-DATA-KHR.
 
@@ -8388,9 +8516,9 @@ See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR"
 
 (defun make-acceleration-structure-create-info-khr (&key (next nil)
                                                     (create-flags nil)
-                                                    (buffer nil) (offset nil)
-                                                    (size nil) (type nil)
-                                                    (device-address nil))
+                                                    (buffer nil) (offset 0)
+                                                    (size 0) (type nil)
+                                                    (device-address 0))
 "Creates an instance of ACCELERATION-STRUCTURE-CREATE-INFO-KHR.
 The arguments of this function correspond to the slots of ACCELERATION-STRUCTURE-CREATE-INFO-KHR.
 
@@ -8429,7 +8557,8 @@ See TRANSFORM-MATRIX-KHR"
   (make-instance 'vk:transform-matrix-khr 
                  :matrix matrix))
 
-(defun make-acceleration-structure-instance-khr (&key (transform nil)
+(defun make-acceleration-structure-instance-khr (&key
+                                                 (transform (vk:make-transform-matrix-khr))
                                                  (instance-custom-index 0)
                                                  (mask 0)
                                                  (instance-shader-binding-table-record-offset 0)
@@ -8586,7 +8715,7 @@ See COPY-COMMAND-TRANSFORM-INFO-QCOM"
 (defun make-command-buffer-inheritance-render-pass-transform-info-qcom (&key
                                                                         (next nil)
                                                                         (transform nil)
-                                                                        (render-area nil))
+                                                                        (render-area (vk:make-rect-2d)))
 "Creates an instance of COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM.
 The arguments of this function correspond to the slots of COMMAND-BUFFER-INHERITANCE-RENDER-PASS-TRANSFORM-INFO-QCOM.
 
@@ -8659,8 +8788,8 @@ See PHYSICAL-DEVICE-ROBUSTNESS-2-FEATURES-EXT"
                  :null-descriptor null-descriptor))
 
 (defun make-physical-device-robustness-2-properties-ext (&key (next nil)
-                                                         (robust-storage-buffer-access-size-alignment nil)
-                                                         (robust-uniform-buffer-access-size-alignment nil))
+                                                         (robust-storage-buffer-access-size-alignment 0)
+                                                         (robust-uniform-buffer-access-size-alignment 0))
 "Creates an instance of PHYSICAL-DEVICE-ROBUSTNESS-2-PROPERTIES-EXT.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-ROBUSTNESS-2-PROPERTIES-EXT.
 
@@ -8774,8 +8903,8 @@ See PHYSICAL-DEVICE-SUBPASS-SHADING-FEATURES-HUAWEI"
                  :next next
                  :subpass-shading subpass-shading))
 
-(defun make-buffer-copy-2-khr (&key (next nil) (src-offset nil)
-                               (dst-offset nil) (size nil))
+(defun make-buffer-copy-2-khr (&key (next nil) (src-offset 0) (dst-offset 0)
+                               (size 0))
 "Creates an instance of BUFFER-COPY-2-KHR.
 The arguments of this function correspond to the slots of BUFFER-COPY-2-KHR.
 
@@ -8787,9 +8916,12 @@ See BUFFER-COPY-2-KHR"
                  :dst-offset dst-offset
                  :size size))
 
-(defun make-image-copy-2-khr (&key (next nil) (src-subresource nil)
-                              (src-offset nil) (dst-subresource nil)
-                              (dst-offset nil) (extent nil))
+(defun make-image-copy-2-khr (&key (next nil)
+                              (src-subresource (vk:make-image-subresource-layers))
+                              (src-offset (vk:make-offset-3d))
+                              (dst-subresource (vk:make-image-subresource-layers))
+                              (dst-offset (vk:make-offset-3d))
+                              (extent (vk:make-extent-3d)))
 "Creates an instance of IMAGE-COPY-2-KHR.
 The arguments of this function correspond to the slots of IMAGE-COPY-2-KHR.
 
@@ -8803,9 +8935,11 @@ See IMAGE-COPY-2-KHR"
                  :dst-offset dst-offset
                  :extent extent))
 
-(defun make-image-blit-2-khr (&key (next nil) (src-subresource nil)
-                              (src-offsets nil) (dst-subresource nil)
-                              (dst-offsets nil))
+(defun make-image-blit-2-khr (&key (next nil)
+                              (src-subresource (vk:make-image-subresource-layers))
+                              (src-offsets (vk:make-offset-3d))
+                              (dst-subresource (vk:make-image-subresource-layers))
+                              (dst-offsets (vk:make-offset-3d)))
 "Creates an instance of IMAGE-BLIT-2-KHR.
 The arguments of this function correspond to the slots of IMAGE-BLIT-2-KHR.
 
@@ -8818,11 +8952,12 @@ See IMAGE-BLIT-2-KHR"
                  :dst-subresource dst-subresource
                  :dst-offsets dst-offsets))
 
-(defun make-buffer-image-copy-2-khr (&key (next nil) (buffer-offset nil)
+(defun make-buffer-image-copy-2-khr (&key (next nil) (buffer-offset 0)
                                      (buffer-row-length 0)
                                      (buffer-image-height 0)
-                                     (image-subresource nil) (image-offset nil)
-                                     (image-extent nil))
+                                     (image-subresource (vk:make-image-subresource-layers))
+                                     (image-offset (vk:make-offset-3d))
+                                     (image-extent (vk:make-extent-3d)))
 "Creates an instance of BUFFER-IMAGE-COPY-2-KHR.
 The arguments of this function correspond to the slots of BUFFER-IMAGE-COPY-2-KHR.
 
@@ -8837,9 +8972,12 @@ See BUFFER-IMAGE-COPY-2-KHR"
                  :image-offset image-offset
                  :image-extent image-extent))
 
-(defun make-image-resolve-2-khr (&key (next nil) (src-subresource nil)
-                                 (src-offset nil) (dst-subresource nil)
-                                 (dst-offset nil) (extent nil))
+(defun make-image-resolve-2-khr (&key (next nil)
+                                 (src-subresource (vk:make-image-subresource-layers))
+                                 (src-offset (vk:make-offset-3d))
+                                 (dst-subresource (vk:make-image-subresource-layers))
+                                 (dst-offset (vk:make-offset-3d))
+                                 (extent (vk:make-extent-3d)))
 "Creates an instance of IMAGE-RESOLVE-2-KHR.
 The arguments of this function correspond to the slots of IMAGE-RESOLVE-2-KHR.
 
@@ -8963,7 +9101,7 @@ See PHYSICAL-DEVICE-SHADER-IMAGE-ATOMIC-INT-64-FEATURES-EXT"
 
 (defun make-fragment-shading-rate-attachment-info-khr (&key (next nil)
                                                        (fragment-shading-rate-attachment nil)
-                                                       (shading-rate-attachment-texel-size nil))
+                                                       (shading-rate-attachment-texel-size (vk:make-extent-2d)))
 "Creates an instance of FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR.
 The arguments of this function correspond to the slots of FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR.
 
@@ -8976,7 +9114,7 @@ See FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR"
 
 (defun make-pipeline-fragment-shading-rate-state-create-info-khr (&key
                                                                   (next nil)
-                                                                  (fragment-size nil)
+                                                                  (fragment-size (vk:make-extent-2d))
                                                                   (combiner-ops nil))
 "Creates an instance of PIPELINE-FRAGMENT-SHADING-RATE-STATE-CREATE-INFO-KHR.
 The arguments of this function correspond to the slots of PIPELINE-FRAGMENT-SHADING-RATE-STATE-CREATE-INFO-KHR.
@@ -9005,13 +9143,13 @@ See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-FEATURES-KHR"
 
 (defun make-physical-device-fragment-shading-rate-properties-khr (&key
                                                                   (next nil)
-                                                                  (min-fragment-shading-rate-attachment-texel-size nil)
-                                                                  (max-fragment-shading-rate-attachment-texel-size nil)
+                                                                  (min-fragment-shading-rate-attachment-texel-size (vk:make-extent-2d))
+                                                                  (max-fragment-shading-rate-attachment-texel-size (vk:make-extent-2d))
                                                                   (max-fragment-shading-rate-attachment-texel-size-aspect-ratio 0)
                                                                   (primitive-fragment-shading-rate-with-multiple-viewports nil)
                                                                   (layered-shading-rate-attachments nil)
                                                                   (fragment-shading-rate-non-trivial-combiner-ops nil)
-                                                                  (max-fragment-size nil)
+                                                                  (max-fragment-size (vk:make-extent-2d))
                                                                   (max-fragment-size-aspect-ratio 0)
                                                                   (max-fragment-shading-rate-coverage-samples 0)
                                                                   (max-fragment-shading-rate-rasterization-samples nil)
@@ -9049,7 +9187,7 @@ See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-PROPERTIES-KHR"
 
 (defun make-physical-device-fragment-shading-rate-khr (&key (next nil)
                                                        (sample-counts nil)
-                                                       (fragment-size nil))
+                                                       (fragment-size (vk:make-extent-2d)))
 "Creates an instance of PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR.
 The arguments of this function correspond to the slots of PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR.
 
@@ -9117,9 +9255,9 @@ See PIPELINE-FRAGMENT-SHADING-RATE-ENUM-STATE-CREATE-INFO-NV"
                  :combiner-ops combiner-ops))
 
 (defun make-acceleration-structure-build-sizes-info-khr (&key (next nil)
-                                                         (acceleration-structure-size nil)
-                                                         (update-scratch-size nil)
-                                                         (build-scratch-size nil))
+                                                         (acceleration-structure-size 0)
+                                                         (update-scratch-size 0)
+                                                         (build-scratch-size 0))
 "Creates an instance of ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR.
 The arguments of this function correspond to the slots of ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR.
 
@@ -9261,7 +9399,7 @@ See MEMORY-BARRIER-2-KHR"
                                         (new-layout nil)
                                         (src-queue-family-index 0)
                                         (dst-queue-family-index 0) (image nil)
-                                        (subresource-range nil))
+                                        (subresource-range (vk:make-image-subresource-range)))
 "Creates an instance of IMAGE-MEMORY-BARRIER-2-KHR.
 The arguments of this function correspond to the slots of IMAGE-MEMORY-BARRIER-2-KHR.
 
@@ -9286,7 +9424,7 @@ See IMAGE-MEMORY-BARRIER-2-KHR"
                                          (dst-access-mask nil)
                                          (src-queue-family-index 0)
                                          (dst-queue-family-index 0)
-                                         (buffer nil) (offset nil) (size nil))
+                                         (buffer nil) (offset 0) (size 0))
 "Creates an instance of BUFFER-MEMORY-BARRIER-2-KHR.
 The arguments of this function correspond to the slots of BUFFER-MEMORY-BARRIER-2-KHR.
 
@@ -9460,10 +9598,11 @@ See VIDEO-PROFILE-KHR"
                  :chroma-bit-depth chroma-bit-depth))
 
 (defun make-video-capabilities-khr (&key (next nil) (capability-flags nil)
-                                    (min-bitstream-buffer-offset-alignment nil)
-                                    (min-bitstream-buffer-size-alignment nil)
-                                    (video-picture-extent-granularity nil)
-                                    (min-extent nil) (max-extent nil)
+                                    (min-bitstream-buffer-offset-alignment 0)
+                                    (min-bitstream-buffer-size-alignment 0)
+                                    (video-picture-extent-granularity (vk:make-extent-2d))
+                                    (min-extent (vk:make-extent-2d))
+                                    (max-extent (vk:make-extent-2d))
                                     (max-reference-pictures-slots-count 0)
                                     (max-reference-pictures-active-count 0))
 "Creates an instance of VIDEO-CAPABILITIES-KHR.
@@ -9496,8 +9635,8 @@ See VIDEO-GET-MEMORY-PROPERTIES-KHR"
                  :memory-requirements memory-requirements))
 
 (defun make-video-bind-memory-khr (&key (next nil) (memory-bind-index 0)
-                                   (memory nil) (memory-offset nil)
-                                   (memory-size nil))
+                                   (memory nil) (memory-offset 0)
+                                   (memory-size 0))
 "Creates an instance of VIDEO-BIND-MEMORY-KHR.
 The arguments of this function correspond to the slots of VIDEO-BIND-MEMORY-KHR.
 
@@ -9510,8 +9649,10 @@ See VIDEO-BIND-MEMORY-KHR"
                  :memory-offset memory-offset
                  :memory-size memory-size))
 
-(defun make-video-picture-resource-khr (&key (next nil) (coded-offset nil)
-                                        (coded-extent nil) (base-array-layer 0)
+(defun make-video-picture-resource-khr (&key (next nil)
+                                        (coded-offset (vk:make-offset-2d))
+                                        (coded-extent (vk:make-extent-2d))
+                                        (base-array-layer 0)
                                         (image-view-binding nil))
 "Creates an instance of VIDEO-PICTURE-RESOURCE-KHR.
 The arguments of this function correspond to the slots of VIDEO-PICTURE-RESOURCE-KHR.
@@ -9538,10 +9679,11 @@ See VIDEO-REFERENCE-SLOT-KHR"
                  :picture-resource picture-resource))
 
 (defun make-video-decode-info-khr (&key (next nil) (flags nil)
-                                   (coded-offset nil) (coded-extent nil)
-                                   (src-buffer nil) (src-buffer-offset nil)
-                                   (src-buffer-range nil)
-                                   (dst-picture-resource nil)
+                                   (coded-offset (vk:make-offset-2d))
+                                   (coded-extent (vk:make-extent-2d))
+                                   (src-buffer nil) (src-buffer-offset 0)
+                                   (src-buffer-range 0)
+                                   (dst-picture-resource (vk:make-video-picture-resource-khr))
                                    (setup-reference-slot nil)
                                    (reference-slots nil))
 "Creates an instance of VIDEO-DECODE-INFO-KHR.
@@ -9575,7 +9717,7 @@ See VIDEO-DECODE-H264-PROFILE-EXT"
                  :picture-layout picture-layout))
 
 (defun make-video-decode-h264-capabilities-ext (&key (next nil) (max-level 0)
-                                                (field-offset-granularity nil)
+                                                (field-offset-granularity (vk:make-offset-2d))
                                                 (std-extension-version nil))
 "Creates an instance of VIDEO-DECODE-H264-CAPABILITIES-EXT.
 The arguments of this function correspond to the slots of VIDEO-DECODE-H264-CAPABILITIES-EXT.
@@ -9757,7 +9899,7 @@ See VIDEO-DECODE-H265-DPB-SLOT-INFO-EXT"
                                            (queue-family-index 0) (flags nil)
                                            (video-profile nil)
                                            (picture-format nil)
-                                           (max-coded-extent nil)
+                                           (max-coded-extent (vk:make-extent-2d))
                                            (reference-pictures-format nil)
                                            (max-reference-pictures-slots-count 0)
                                            (max-reference-pictures-active-count 0))
@@ -9840,11 +9982,12 @@ See VIDEO-CODING-CONTROL-INFO-KHR"
                  :flags flags))
 
 (defun make-video-encode-info-khr (&key (next nil) (flags nil)
-                                   (quality-level 0) (coded-extent nil)
+                                   (quality-level 0)
+                                   (coded-extent (vk:make-extent-2d))
                                    (dst-bitstream-buffer nil)
-                                   (dst-bitstream-buffer-offset nil)
-                                   (dst-bitstream-buffer-max-range nil)
-                                   (src-picture-resource nil)
+                                   (dst-bitstream-buffer-offset 0)
+                                   (dst-bitstream-buffer-max-range 0)
+                                   (src-picture-resource (vk:make-video-picture-resource-khr))
                                    (setup-reference-slot nil)
                                    (reference-slots nil))
 "Creates an instance of VIDEO-ENCODE-INFO-KHR.
@@ -9889,9 +10032,9 @@ See VIDEO-ENCODE-RATE-CONTROL-INFO-KHR"
 (defun make-video-encode-h264-capabilities-ext (&key (next nil) (flags nil)
                                                 (input-mode-flags nil)
                                                 (output-mode-flags nil)
-                                                (min-picture-size-in-mbs nil)
-                                                (max-picture-size-in-mbs nil)
-                                                (input-image-data-alignment nil)
+                                                (min-picture-size-in-mbs (vk:make-extent-2d))
+                                                (max-picture-size-in-mbs (vk:make-extent-2d))
+                                                (input-image-data-alignment (vk:make-extent-2d))
                                                 (max-num-l-0-reference-for-p 0)
                                                 (max-num-l-0-reference-for-b 0)
                                                 (max-num-l-1-reference 0)
@@ -9918,7 +10061,7 @@ See VIDEO-ENCODE-H264-CAPABILITIES-EXT"
 
 (defun make-video-encode-h264-session-create-info-ext (&key (next nil)
                                                        (flags nil)
-                                                       (max-picture-size-in-mbs nil)
+                                                       (max-picture-size-in-mbs (vk:make-extent-2d))
                                                        (std-extension-version nil))
 "Creates an instance of VIDEO-ENCODE-H264-SESSION-CREATE-INFO-EXT.
 The arguments of this function correspond to the slots of VIDEO-ENCODE-H264-SESSION-CREATE-INFO-EXT.
@@ -10036,6 +10179,168 @@ See VIDEO-ENCODE-H264-NALU-SLICE-EXT"
                  :preceding-nalu-bytes preceding-nalu-bytes
                  :min-qp min-qp
                  :max-qp max-qp))
+
+(defun make-video-encode-h265-capabilities-ext (&key (next nil) (flags nil)
+                                                (input-mode-flags nil)
+                                                (output-mode-flags nil)
+                                                (ctb-sizes nil)
+                                                (input-image-data-alignment (vk:make-extent-2d))
+                                                (max-num-l-0-reference-for-p 0)
+                                                (max-num-l-0-reference-for-b 0)
+                                                (max-num-l-1-reference 0)
+                                                (max-num-sub-layers 0)
+                                                (quality-level-count 0)
+                                                (std-extension-version nil))
+"Creates an instance of VIDEO-ENCODE-H265-CAPABILITIES-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-CAPABILITIES-EXT.
+
+
+See VIDEO-ENCODE-H265-CAPABILITIES-EXT"
+  (make-instance 'vk:video-encode-h265-capabilities-ext 
+                 :next next
+                 :flags flags
+                 :input-mode-flags input-mode-flags
+                 :output-mode-flags output-mode-flags
+                 :ctb-sizes ctb-sizes
+                 :input-image-data-alignment input-image-data-alignment
+                 :max-num-l-0-reference-for-p max-num-l-0-reference-for-p
+                 :max-num-l-0-reference-for-b max-num-l-0-reference-for-b
+                 :max-num-l-1-reference max-num-l-1-reference
+                 :max-num-sub-layers max-num-sub-layers
+                 :quality-level-count quality-level-count
+                 :std-extension-version std-extension-version))
+
+(defun make-video-encode-h265-session-create-info-ext (&key (next nil)
+                                                       (flags nil)
+                                                       (std-extension-version nil))
+"Creates an instance of VIDEO-ENCODE-H265-SESSION-CREATE-INFO-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-SESSION-CREATE-INFO-EXT.
+
+
+See VIDEO-ENCODE-H265-SESSION-CREATE-INFO-EXT"
+  (make-instance 'vk:video-encode-h265-session-create-info-ext 
+                 :next next
+                 :flags flags
+                 :std-extension-version std-extension-version))
+
+(defun make-video-encode-h265-session-parameters-add-info-ext (&key (next nil)
+                                                               (vps-std nil)
+                                                               (sps-std nil)
+                                                               (pps-std nil))
+"Creates an instance of VIDEO-ENCODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT.
+
+
+See VIDEO-ENCODE-H265-SESSION-PARAMETERS-ADD-INFO-EXT"
+  (make-instance 'vk:video-encode-h265-session-parameters-add-info-ext 
+                 :next next
+                 :vps-std vps-std
+                 :sps-std sps-std
+                 :pps-std pps-std))
+
+(defun make-video-encode-h265-session-parameters-create-info-ext (&key
+                                                                  (next nil)
+                                                                  (max-vps-std-count 0)
+                                                                  (max-sps-std-count 0)
+                                                                  (max-pps-std-count 0)
+                                                                  (parameters-add-info nil))
+"Creates an instance of VIDEO-ENCODE-H265-SESSION-PARAMETERS-CREATE-INFO-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-SESSION-PARAMETERS-CREATE-INFO-EXT.
+
+
+See VIDEO-ENCODE-H265-SESSION-PARAMETERS-CREATE-INFO-EXT"
+  (make-instance 'vk:video-encode-h265-session-parameters-create-info-ext 
+                 :next next
+                 :max-vps-std-count max-vps-std-count
+                 :max-sps-std-count max-sps-std-count
+                 :max-pps-std-count max-pps-std-count
+                 :parameters-add-info parameters-add-info))
+
+(defun make-video-encode-h265-vcl-frame-info-ext (&key (next nil)
+                                                  (reference-final-lists nil)
+                                                  (nalu-slice-entries nil)
+                                                  (current-picture-info nil))
+"Creates an instance of VIDEO-ENCODE-H265-VCL-FRAME-INFO-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-VCL-FRAME-INFO-EXT.
+
+
+See VIDEO-ENCODE-H265-VCL-FRAME-INFO-EXT"
+  (make-instance 'vk:video-encode-h265-vcl-frame-info-ext 
+                 :next next
+                 :reference-final-lists reference-final-lists
+                 :nalu-slice-entries nalu-slice-entries
+                 :current-picture-info current-picture-info))
+
+(defun make-video-encode-h265-emit-picture-parameters-ext (&key (next nil)
+                                                           (vps-id 0)
+                                                           (sps-id 0)
+                                                           (emit-vps-enable nil)
+                                                           (emit-sps-enable nil)
+                                                           (pps-id-entries nil))
+"Creates an instance of VIDEO-ENCODE-H265-EMIT-PICTURE-PARAMETERS-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-EMIT-PICTURE-PARAMETERS-EXT.
+
+
+See VIDEO-ENCODE-H265-EMIT-PICTURE-PARAMETERS-EXT"
+  (make-instance 'vk:video-encode-h265-emit-picture-parameters-ext 
+                 :next next
+                 :vps-id vps-id
+                 :sps-id sps-id
+                 :emit-vps-enable emit-vps-enable
+                 :emit-sps-enable emit-sps-enable
+                 :pps-id-entries pps-id-entries))
+
+(defun make-video-encode-h265-nalu-slice-ext (&key (next nil) (ctb-count 0)
+                                              (reference-final-lists nil)
+                                              (slice-header-std nil))
+"Creates an instance of VIDEO-ENCODE-H265-NALU-SLICE-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-NALU-SLICE-EXT.
+
+
+See VIDEO-ENCODE-H265-NALU-SLICE-EXT"
+  (make-instance 'vk:video-encode-h265-nalu-slice-ext 
+                 :next next
+                 :ctb-count ctb-count
+                 :reference-final-lists reference-final-lists
+                 :slice-header-std slice-header-std))
+
+(defun make-video-encode-h265-profile-ext (&key (next nil)
+                                           (std-profile-idc nil))
+"Creates an instance of VIDEO-ENCODE-H265-PROFILE-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-PROFILE-EXT.
+
+
+See VIDEO-ENCODE-H265-PROFILE-EXT"
+  (make-instance 'vk:video-encode-h265-profile-ext 
+                 :next next
+                 :std-profile-idc std-profile-idc))
+
+(defun make-video-encode-h265-dpb-slot-info-ext (&key (next nil) (slot-index 0)
+                                                 (std-reference-info nil))
+"Creates an instance of VIDEO-ENCODE-H265-DPB-SLOT-INFO-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-DPB-SLOT-INFO-EXT.
+
+
+See VIDEO-ENCODE-H265-DPB-SLOT-INFO-EXT"
+  (make-instance 'vk:video-encode-h265-dpb-slot-info-ext 
+                 :next next
+                 :slot-index slot-index
+                 :std-reference-info std-reference-info))
+
+(defun make-video-encode-h265-reference-lists-ext (&key (next nil)
+                                                   (reference-list-0-entries nil)
+                                                   (reference-list-1-entries nil)
+                                                   (reference-modifications nil))
+"Creates an instance of VIDEO-ENCODE-H265-REFERENCE-LISTS-EXT.
+The arguments of this function correspond to the slots of VIDEO-ENCODE-H265-REFERENCE-LISTS-EXT.
+
+
+See VIDEO-ENCODE-H265-REFERENCE-LISTS-EXT"
+  (make-instance 'vk:video-encode-h265-reference-lists-ext 
+                 :next next
+                 :reference-list-0-entries reference-list-0-entries
+                 :reference-list-1-entries reference-list-1-entries
+                 :reference-modifications reference-modifications))
 
 (defun make-physical-device-inherited-viewport-scissor-features-nv (&key
                                                                     (next nil)
@@ -10162,6 +10467,88 @@ See CU-LAUNCH-INFO-NVX"
                  :extra-count extra-count
                  :extras extras))
 
+(defun make-physical-device-shader-integer-dot-product-features-khr (&key
+                                                                     (next nil)
+                                                                     (shader-integer-dot-product nil))
+"Creates an instance of PHYSICAL-DEVICE-SHADER-INTEGER-DOT-PRODUCT-FEATURES-KHR.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-SHADER-INTEGER-DOT-PRODUCT-FEATURES-KHR.
+
+
+See PHYSICAL-DEVICE-SHADER-INTEGER-DOT-PRODUCT-FEATURES-KHR"
+  (make-instance 'vk:physical-device-shader-integer-dot-product-features-khr 
+                 :next next
+                 :shader-integer-dot-product shader-integer-dot-product))
+
+(defun make-physical-device-shader-integer-dot-product-properties-khr (&key
+                                                                       (next nil)
+                                                                       (integer-dot-product-8-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-8-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-8-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-4x-8-bit-packed-unsigned-accelerated nil)
+                                                                       (integer-dot-product-4x-8-bit-packed-signed-accelerated nil)
+                                                                       (integer-dot-product-4x-8-bit-packed-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-16-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-16-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-16-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-32-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-32-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-32-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-64-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-64-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-64-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-8-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-8-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-8-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-4x-8-bit-packed-unsigned-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-4x-8-bit-packed-signed-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-4x-8-bit-packed-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-16-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-16-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-16-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-32-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-32-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-32-bit-mixed-signedness-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-64-bit-unsigned-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-64-bit-signed-accelerated nil)
+                                                                       (integer-dot-product-accumulating-saturating-64-bit-mixed-signedness-accelerated nil))
+"Creates an instance of PHYSICAL-DEVICE-SHADER-INTEGER-DOT-PRODUCT-PROPERTIES-KHR.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-SHADER-INTEGER-DOT-PRODUCT-PROPERTIES-KHR.
+
+
+See PHYSICAL-DEVICE-SHADER-INTEGER-DOT-PRODUCT-PROPERTIES-KHR"
+  (make-instance 'vk:physical-device-shader-integer-dot-product-properties-khr 
+                 :next next
+                 :integer-dot-product-8-bit-unsigned-accelerated integer-dot-product-8-bit-unsigned-accelerated
+                 :integer-dot-product-8-bit-signed-accelerated integer-dot-product-8-bit-signed-accelerated
+                 :integer-dot-product-8-bit-mixed-signedness-accelerated integer-dot-product-8-bit-mixed-signedness-accelerated
+                 :integer-dot-product-4x-8-bit-packed-unsigned-accelerated integer-dot-product-4x-8-bit-packed-unsigned-accelerated
+                 :integer-dot-product-4x-8-bit-packed-signed-accelerated integer-dot-product-4x-8-bit-packed-signed-accelerated
+                 :integer-dot-product-4x-8-bit-packed-mixed-signedness-accelerated integer-dot-product-4x-8-bit-packed-mixed-signedness-accelerated
+                 :integer-dot-product-16-bit-unsigned-accelerated integer-dot-product-16-bit-unsigned-accelerated
+                 :integer-dot-product-16-bit-signed-accelerated integer-dot-product-16-bit-signed-accelerated
+                 :integer-dot-product-16-bit-mixed-signedness-accelerated integer-dot-product-16-bit-mixed-signedness-accelerated
+                 :integer-dot-product-32-bit-unsigned-accelerated integer-dot-product-32-bit-unsigned-accelerated
+                 :integer-dot-product-32-bit-signed-accelerated integer-dot-product-32-bit-signed-accelerated
+                 :integer-dot-product-32-bit-mixed-signedness-accelerated integer-dot-product-32-bit-mixed-signedness-accelerated
+                 :integer-dot-product-64-bit-unsigned-accelerated integer-dot-product-64-bit-unsigned-accelerated
+                 :integer-dot-product-64-bit-signed-accelerated integer-dot-product-64-bit-signed-accelerated
+                 :integer-dot-product-64-bit-mixed-signedness-accelerated integer-dot-product-64-bit-mixed-signedness-accelerated
+                 :integer-dot-product-accumulating-saturating-8-bit-unsigned-accelerated integer-dot-product-accumulating-saturating-8-bit-unsigned-accelerated
+                 :integer-dot-product-accumulating-saturating-8-bit-signed-accelerated integer-dot-product-accumulating-saturating-8-bit-signed-accelerated
+                 :integer-dot-product-accumulating-saturating-8-bit-mixed-signedness-accelerated integer-dot-product-accumulating-saturating-8-bit-mixed-signedness-accelerated
+                 :integer-dot-product-accumulating-saturating-4x-8-bit-packed-unsigned-accelerated integer-dot-product-accumulating-saturating-4x-8-bit-packed-unsigned-accelerated
+                 :integer-dot-product-accumulating-saturating-4x-8-bit-packed-signed-accelerated integer-dot-product-accumulating-saturating-4x-8-bit-packed-signed-accelerated
+                 :integer-dot-product-accumulating-saturating-4x-8-bit-packed-mixed-signedness-accelerated integer-dot-product-accumulating-saturating-4x-8-bit-packed-mixed-signedness-accelerated
+                 :integer-dot-product-accumulating-saturating-16-bit-unsigned-accelerated integer-dot-product-accumulating-saturating-16-bit-unsigned-accelerated
+                 :integer-dot-product-accumulating-saturating-16-bit-signed-accelerated integer-dot-product-accumulating-saturating-16-bit-signed-accelerated
+                 :integer-dot-product-accumulating-saturating-16-bit-mixed-signedness-accelerated integer-dot-product-accumulating-saturating-16-bit-mixed-signedness-accelerated
+                 :integer-dot-product-accumulating-saturating-32-bit-unsigned-accelerated integer-dot-product-accumulating-saturating-32-bit-unsigned-accelerated
+                 :integer-dot-product-accumulating-saturating-32-bit-signed-accelerated integer-dot-product-accumulating-saturating-32-bit-signed-accelerated
+                 :integer-dot-product-accumulating-saturating-32-bit-mixed-signedness-accelerated integer-dot-product-accumulating-saturating-32-bit-mixed-signedness-accelerated
+                 :integer-dot-product-accumulating-saturating-64-bit-unsigned-accelerated integer-dot-product-accumulating-saturating-64-bit-unsigned-accelerated
+                 :integer-dot-product-accumulating-saturating-64-bit-signed-accelerated integer-dot-product-accumulating-saturating-64-bit-signed-accelerated
+                 :integer-dot-product-accumulating-saturating-64-bit-mixed-signedness-accelerated integer-dot-product-accumulating-saturating-64-bit-mixed-signedness-accelerated))
+
 (defun make-physical-device-drm-properties-ext (&key (next nil)
                                                 (has-primary nil)
                                                 (has-render nil)
@@ -10222,16 +10609,15 @@ See ACCELERATION-STRUCTURE-MOTION-INFO-NV"
                  :max-instances max-instances
                  :flags flags))
 
-(defun make-s-r-t-data-nv (&key (sx 0.0) (a 0.0) (b 0.0) (pvx 0.0) (sy 0.0)
-                           (c 0.0) (pvy 0.0) (sz 0.0) (pvz 0.0) (qx 0.0)
-                           (qy 0.0) (qz 0.0) (qw 0.0) (tx 0.0) (ty 0.0)
-                           (tz 0.0))
-"Creates an instance of S-R-T-DATA-NV.
-The arguments of this function correspond to the slots of S-R-T-DATA-NV.
+(defun make-srt-data-nv (&key (sx 0.0) (a 0.0) (b 0.0) (pvx 0.0) (sy 0.0)
+                         (c 0.0) (pvy 0.0) (sz 0.0) (pvz 0.0) (qx 0.0) (qy 0.0)
+                         (qz 0.0) (qw 0.0) (tx 0.0) (ty 0.0) (tz 0.0))
+"Creates an instance of SRT-DATA-NV.
+The arguments of this function correspond to the slots of SRT-DATA-NV.
 
 
-See S-R-T-DATA-NV"
-  (make-instance 'vk:s-r-t-data-nv 
+See SRT-DATA-NV"
+  (make-instance 'vk:srt-data-nv 
                  :sx sx
                  :a a
                  :b b
@@ -10249,20 +10635,20 @@ See S-R-T-DATA-NV"
                  :ty ty
                  :tz tz))
 
-(defun make-acceleration-structure-s-r-t-motion-instance-nv (&key
-                                                             (transform-t-0 nil)
-                                                             (transform-t-1 nil)
-                                                             (instance-custom-index 0)
-                                                             (mask 0)
-                                                             (instance-shader-binding-table-record-offset 0)
-                                                             (flags nil)
-                                                             (acceleration-structure-reference 0))
-"Creates an instance of ACCELERATION-STRUCTURE-S-R-T-MOTION-INSTANCE-NV.
-The arguments of this function correspond to the slots of ACCELERATION-STRUCTURE-S-R-T-MOTION-INSTANCE-NV.
+(defun make-acceleration-structure-srt-motion-instance-nv (&key
+                                                           (transform-t-0 (vk:make-srt-data-nv))
+                                                           (transform-t-1 (vk:make-srt-data-nv))
+                                                           (instance-custom-index 0)
+                                                           (mask 0)
+                                                           (instance-shader-binding-table-record-offset 0)
+                                                           (flags nil)
+                                                           (acceleration-structure-reference 0))
+"Creates an instance of ACCELERATION-STRUCTURE-SRT-MOTION-INSTANCE-NV.
+The arguments of this function correspond to the slots of ACCELERATION-STRUCTURE-SRT-MOTION-INSTANCE-NV.
 
 
-See ACCELERATION-STRUCTURE-S-R-T-MOTION-INSTANCE-NV"
-  (make-instance 'vk:acceleration-structure-s-r-t-motion-instance-nv 
+See ACCELERATION-STRUCTURE-SRT-MOTION-INSTANCE-NV"
+  (make-instance 'vk:acceleration-structure-srt-motion-instance-nv 
                  :transform-t-0 transform-t-0
                  :transform-t-1 transform-t-1
                  :instance-custom-index instance-custom-index
@@ -10272,8 +10658,8 @@ See ACCELERATION-STRUCTURE-S-R-T-MOTION-INSTANCE-NV"
                  :acceleration-structure-reference acceleration-structure-reference))
 
 (defun make-acceleration-structure-matrix-motion-instance-nv (&key
-                                                              (transform-t-0 nil)
-                                                              (transform-t-1 nil)
+                                                              (transform-t-0 (vk:make-transform-matrix-khr))
+                                                              (transform-t-1 (vk:make-transform-matrix-khr))
                                                               (instance-custom-index 0)
                                                               (mask 0)
                                                               (instance-shader-binding-table-record-offset 0)
@@ -10337,3 +10723,385 @@ See MEMORY-GET-REMOTE-ADDRESS-INFO-NV"
                  :next next
                  :memory memory
                  :handle-type handle-type))
+
+(defun make-import-memory-buffer-collection-fuchsia (&key (next nil)
+                                                     (collection nil) (index 0))
+"Creates an instance of IMPORT-MEMORY-BUFFER-COLLECTION-FUCHSIA.
+The arguments of this function correspond to the slots of IMPORT-MEMORY-BUFFER-COLLECTION-FUCHSIA.
+
+
+See IMPORT-MEMORY-BUFFER-COLLECTION-FUCHSIA"
+  (make-instance 'vk:import-memory-buffer-collection-fuchsia 
+                 :next next
+                 :collection collection
+                 :index index))
+
+(defun make-buffer-collection-image-create-info-fuchsia (&key (next nil)
+                                                         (collection nil)
+                                                         (index 0))
+"Creates an instance of BUFFER-COLLECTION-IMAGE-CREATE-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of BUFFER-COLLECTION-IMAGE-CREATE-INFO-FUCHSIA.
+
+
+See BUFFER-COLLECTION-IMAGE-CREATE-INFO-FUCHSIA"
+  (make-instance 'vk:buffer-collection-image-create-info-fuchsia 
+                 :next next
+                 :collection collection
+                 :index index))
+
+(defun make-buffer-collection-buffer-create-info-fuchsia (&key (next nil)
+                                                          (collection nil)
+                                                          (index 0))
+"Creates an instance of BUFFER-COLLECTION-BUFFER-CREATE-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of BUFFER-COLLECTION-BUFFER-CREATE-INFO-FUCHSIA.
+
+
+See BUFFER-COLLECTION-BUFFER-CREATE-INFO-FUCHSIA"
+  (make-instance 'vk:buffer-collection-buffer-create-info-fuchsia 
+                 :next next
+                 :collection collection
+                 :index index))
+
+(defun make-buffer-collection-create-info-fuchsia (&key (next nil)
+                                                   (collection-token nil))
+"Creates an instance of BUFFER-COLLECTION-CREATE-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of BUFFER-COLLECTION-CREATE-INFO-FUCHSIA.
+
+
+See BUFFER-COLLECTION-CREATE-INFO-FUCHSIA"
+  (make-instance 'vk:buffer-collection-create-info-fuchsia 
+                 :next next
+                 :collection-token collection-token))
+
+(defun make-buffer-collection-properties-fuchsia (&key (next nil)
+                                                  (memory-type-bits 0)
+                                                  (buffer-count 0)
+                                                  (create-info-index 0)
+                                                  (sysmem-pixel-format 0)
+                                                  (format-features nil)
+                                                  (sysmem-color-space-index (vk:make-sysmem-color-space-fuchsia))
+                                                  (sampler-ycbcr-conversion-components (vk:make-component-mapping))
+                                                  (suggested-ycbcr-model nil)
+                                                  (suggested-ycbcr-range nil)
+                                                  (suggested-x-chroma-offset nil)
+                                                  (suggested-y-chroma-offset nil))
+"Creates an instance of BUFFER-COLLECTION-PROPERTIES-FUCHSIA.
+The arguments of this function correspond to the slots of BUFFER-COLLECTION-PROPERTIES-FUCHSIA.
+
+
+See BUFFER-COLLECTION-PROPERTIES-FUCHSIA"
+  (make-instance 'vk:buffer-collection-properties-fuchsia 
+                 :next next
+                 :memory-type-bits memory-type-bits
+                 :buffer-count buffer-count
+                 :create-info-index create-info-index
+                 :sysmem-pixel-format sysmem-pixel-format
+                 :format-features format-features
+                 :sysmem-color-space-index sysmem-color-space-index
+                 :sampler-ycbcr-conversion-components sampler-ycbcr-conversion-components
+                 :suggested-ycbcr-model suggested-ycbcr-model
+                 :suggested-ycbcr-range suggested-ycbcr-range
+                 :suggested-x-chroma-offset suggested-x-chroma-offset
+                 :suggested-y-chroma-offset suggested-y-chroma-offset))
+
+(defun make-buffer-constraints-info-fuchsia (&key (next nil)
+                                             (create-info (vk:make-buffer-create-info))
+                                             (required-format-features nil)
+                                             (buffer-collection-constraints (vk:make-buffer-collection-constraints-info-fuchsia)))
+"Creates an instance of BUFFER-CONSTRAINTS-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of BUFFER-CONSTRAINTS-INFO-FUCHSIA.
+
+
+See BUFFER-CONSTRAINTS-INFO-FUCHSIA"
+  (make-instance 'vk:buffer-constraints-info-fuchsia 
+                 :next next
+                 :create-info create-info
+                 :required-format-features required-format-features
+                 :buffer-collection-constraints buffer-collection-constraints))
+
+(defun make-sysmem-color-space-fuchsia (&key (next nil) (color-space 0))
+"Creates an instance of SYSMEM-COLOR-SPACE-FUCHSIA.
+The arguments of this function correspond to the slots of SYSMEM-COLOR-SPACE-FUCHSIA.
+
+
+See SYSMEM-COLOR-SPACE-FUCHSIA"
+  (make-instance 'vk:sysmem-color-space-fuchsia 
+                 :next next
+                 :color-space color-space))
+
+(defun make-image-format-constraints-info-fuchsia (&key (next nil)
+                                                   (image-create-info (vk:make-image-create-info))
+                                                   (required-format-features nil)
+                                                   (flags nil)
+                                                   (sysmem-pixel-format 0)
+                                                   (color-space-count 0)
+                                                   (color-spaces nil))
+"Creates an instance of IMAGE-FORMAT-CONSTRAINTS-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of IMAGE-FORMAT-CONSTRAINTS-INFO-FUCHSIA.
+
+
+See IMAGE-FORMAT-CONSTRAINTS-INFO-FUCHSIA"
+  (make-instance 'vk:image-format-constraints-info-fuchsia 
+                 :next next
+                 :image-create-info image-create-info
+                 :required-format-features required-format-features
+                 :flags flags
+                 :sysmem-pixel-format sysmem-pixel-format
+                 :color-space-count color-space-count
+                 :color-spaces color-spaces))
+
+(defun make-image-constraints-info-fuchsia (&key (next nil)
+                                            (format-constraints nil)
+                                            (buffer-collection-constraints (vk:make-buffer-collection-constraints-info-fuchsia))
+                                            (flags nil))
+"Creates an instance of IMAGE-CONSTRAINTS-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of IMAGE-CONSTRAINTS-INFO-FUCHSIA.
+
+
+See IMAGE-CONSTRAINTS-INFO-FUCHSIA"
+  (make-instance 'vk:image-constraints-info-fuchsia 
+                 :next next
+                 :format-constraints format-constraints
+                 :buffer-collection-constraints buffer-collection-constraints
+                 :flags flags))
+
+(defun make-buffer-collection-constraints-info-fuchsia (&key (next nil)
+                                                        (min-buffer-count 0)
+                                                        (max-buffer-count 0)
+                                                        (min-buffer-count-for-camping 0)
+                                                        (min-buffer-count-for-dedicated-slack 0)
+                                                        (min-buffer-count-for-shared-slack 0))
+"Creates an instance of BUFFER-COLLECTION-CONSTRAINTS-INFO-FUCHSIA.
+The arguments of this function correspond to the slots of BUFFER-COLLECTION-CONSTRAINTS-INFO-FUCHSIA.
+
+
+See BUFFER-COLLECTION-CONSTRAINTS-INFO-FUCHSIA"
+  (make-instance 'vk:buffer-collection-constraints-info-fuchsia 
+                 :next next
+                 :min-buffer-count min-buffer-count
+                 :max-buffer-count max-buffer-count
+                 :min-buffer-count-for-camping min-buffer-count-for-camping
+                 :min-buffer-count-for-dedicated-slack min-buffer-count-for-dedicated-slack
+                 :min-buffer-count-for-shared-slack min-buffer-count-for-shared-slack))
+
+(defun make-physical-device-r-g-b-a-1-0-x-6-formats-features-ext (&key
+                                                                  (next nil)
+                                                                  (format-rgba-1-0x-6-without-y-cb-cr-sampler nil))
+"Creates an instance of PHYSICAL-DEVICE-R-G-B-A-1-0-X-6-FORMATS-FEATURES-EXT.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-R-G-B-A-1-0-X-6-FORMATS-FEATURES-EXT.
+
+
+See PHYSICAL-DEVICE-R-G-B-A-1-0-X-6-FORMATS-FEATURES-EXT"
+  (make-instance 'vk:physical-device-r-g-b-a-1-0-x-6-formats-features-ext 
+                 :next next
+                 :format-rgba-1-0x-6-without-y-cb-cr-sampler format-rgba-1-0x-6-without-y-cb-cr-sampler))
+
+(defun make-format-properties-3-khr (&key (next nil)
+                                     (linear-tiling-features nil)
+                                     (optimal-tiling-features nil)
+                                     (buffer-features nil))
+"Creates an instance of FORMAT-PROPERTIES-3-KHR.
+The arguments of this function correspond to the slots of FORMAT-PROPERTIES-3-KHR.
+
+
+See FORMAT-PROPERTIES-3-KHR"
+  (make-instance 'vk:format-properties-3-khr 
+                 :next next
+                 :linear-tiling-features linear-tiling-features
+                 :optimal-tiling-features optimal-tiling-features
+                 :buffer-features buffer-features))
+
+(defun make-drm-format-modifier-properties-list-2-ext (&key (next nil)
+                                                       (drm-format-modifier-properties nil))
+"Creates an instance of DRM-FORMAT-MODIFIER-PROPERTIES-LIST-2-EXT.
+The arguments of this function correspond to the slots of DRM-FORMAT-MODIFIER-PROPERTIES-LIST-2-EXT.
+
+
+See DRM-FORMAT-MODIFIER-PROPERTIES-LIST-2-EXT"
+  (make-instance 'vk:drm-format-modifier-properties-list-2-ext 
+                 :next next
+                 :drm-format-modifier-properties drm-format-modifier-properties))
+
+(defun make-drm-format-modifier-properties-2-ext (&key (drm-format-modifier 0)
+                                                  (drm-format-modifier-plane-count 0)
+                                                  (drm-format-modifier-tiling-features nil))
+"Creates an instance of DRM-FORMAT-MODIFIER-PROPERTIES-2-EXT.
+The arguments of this function correspond to the slots of DRM-FORMAT-MODIFIER-PROPERTIES-2-EXT.
+
+
+See DRM-FORMAT-MODIFIER-PROPERTIES-2-EXT"
+  (make-instance 'vk:drm-format-modifier-properties-2-ext 
+                 :drm-format-modifier drm-format-modifier
+                 :drm-format-modifier-plane-count drm-format-modifier-plane-count
+                 :drm-format-modifier-tiling-features drm-format-modifier-tiling-features))
+
+(defun make-android-hardware-buffer-format-properties-2-android (&key
+                                                                 (next nil)
+                                                                 (format nil)
+                                                                 (external-format 0)
+                                                                 (format-features nil)
+                                                                 (sampler-ycbcr-conversion-components (vk:make-component-mapping))
+                                                                 (suggested-ycbcr-model nil)
+                                                                 (suggested-ycbcr-range nil)
+                                                                 (suggested-x-chroma-offset nil)
+                                                                 (suggested-y-chroma-offset nil))
+"Creates an instance of ANDROID-HARDWARE-BUFFER-FORMAT-PROPERTIES-2-ANDROID.
+The arguments of this function correspond to the slots of ANDROID-HARDWARE-BUFFER-FORMAT-PROPERTIES-2-ANDROID.
+
+
+See ANDROID-HARDWARE-BUFFER-FORMAT-PROPERTIES-2-ANDROID"
+  (make-instance 'vk:android-hardware-buffer-format-properties-2-android 
+                 :next next
+                 :format format
+                 :external-format external-format
+                 :format-features format-features
+                 :sampler-ycbcr-conversion-components sampler-ycbcr-conversion-components
+                 :suggested-ycbcr-model suggested-ycbcr-model
+                 :suggested-ycbcr-range suggested-ycbcr-range
+                 :suggested-x-chroma-offset suggested-x-chroma-offset
+                 :suggested-y-chroma-offset suggested-y-chroma-offset))
+
+(defun make-pipeline-rendering-create-info-khr (&key (next nil) (view-mask 0)
+                                                (color-attachment-formats nil)
+                                                (depth-attachment-format nil)
+                                                (stencil-attachment-format nil))
+"Creates an instance of PIPELINE-RENDERING-CREATE-INFO-KHR.
+The arguments of this function correspond to the slots of PIPELINE-RENDERING-CREATE-INFO-KHR.
+
+
+See PIPELINE-RENDERING-CREATE-INFO-KHR"
+  (make-instance 'vk:pipeline-rendering-create-info-khr 
+                 :next next
+                 :view-mask view-mask
+                 :color-attachment-formats color-attachment-formats
+                 :depth-attachment-format depth-attachment-format
+                 :stencil-attachment-format stencil-attachment-format))
+
+(defun make-rendering-info-khr (&key (next nil) (flags nil)
+                                (render-area (vk:make-rect-2d)) (layer-count 0)
+                                (view-mask 0) (color-attachments nil)
+                                (depth-attachment nil) (stencil-attachment nil))
+"Creates an instance of RENDERING-INFO-KHR.
+The arguments of this function correspond to the slots of RENDERING-INFO-KHR.
+
+
+See RENDERING-INFO-KHR"
+  (make-instance 'vk:rendering-info-khr 
+                 :next next
+                 :flags flags
+                 :render-area render-area
+                 :layer-count layer-count
+                 :view-mask view-mask
+                 :color-attachments color-attachments
+                 :depth-attachment depth-attachment
+                 :stencil-attachment stencil-attachment))
+
+(defun make-rendering-attachment-info-khr (&key (next nil) (image-view nil)
+                                           (image-layout nil)
+                                           (resolve-mode nil)
+                                           (resolve-image-view nil)
+                                           (resolve-image-layout nil)
+                                           (load-op nil) (store-op nil)
+                                           (clear-value nil))
+"Creates an instance of RENDERING-ATTACHMENT-INFO-KHR.
+The arguments of this function correspond to the slots of RENDERING-ATTACHMENT-INFO-KHR.
+
+
+See RENDERING-ATTACHMENT-INFO-KHR"
+  (make-instance 'vk:rendering-attachment-info-khr 
+                 :next next
+                 :image-view image-view
+                 :image-layout image-layout
+                 :resolve-mode resolve-mode
+                 :resolve-image-view resolve-image-view
+                 :resolve-image-layout resolve-image-layout
+                 :load-op load-op
+                 :store-op store-op
+                 :clear-value clear-value))
+
+(defun make-rendering-fragment-shading-rate-attachment-info-khr (&key
+                                                                 (next nil)
+                                                                 (image-view nil)
+                                                                 (image-layout nil)
+                                                                 (shading-rate-attachment-texel-size (vk:make-extent-2d)))
+"Creates an instance of RENDERING-FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR.
+The arguments of this function correspond to the slots of RENDERING-FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR.
+
+
+See RENDERING-FRAGMENT-SHADING-RATE-ATTACHMENT-INFO-KHR"
+  (make-instance 'vk:rendering-fragment-shading-rate-attachment-info-khr 
+                 :next next
+                 :image-view image-view
+                 :image-layout image-layout
+                 :shading-rate-attachment-texel-size shading-rate-attachment-texel-size))
+
+(defun make-rendering-fragment-density-map-attachment-info-ext (&key (next nil)
+                                                                (image-view nil)
+                                                                (image-layout nil))
+"Creates an instance of RENDERING-FRAGMENT-DENSITY-MAP-ATTACHMENT-INFO-EXT.
+The arguments of this function correspond to the slots of RENDERING-FRAGMENT-DENSITY-MAP-ATTACHMENT-INFO-EXT.
+
+
+See RENDERING-FRAGMENT-DENSITY-MAP-ATTACHMENT-INFO-EXT"
+  (make-instance 'vk:rendering-fragment-density-map-attachment-info-ext 
+                 :next next
+                 :image-view image-view
+                 :image-layout image-layout))
+
+(defun make-physical-device-dynamic-rendering-features-khr (&key (next nil)
+                                                            (dynamic-rendering nil))
+"Creates an instance of PHYSICAL-DEVICE-DYNAMIC-RENDERING-FEATURES-KHR.
+The arguments of this function correspond to the slots of PHYSICAL-DEVICE-DYNAMIC-RENDERING-FEATURES-KHR.
+
+
+See PHYSICAL-DEVICE-DYNAMIC-RENDERING-FEATURES-KHR"
+  (make-instance 'vk:physical-device-dynamic-rendering-features-khr 
+                 :next next
+                 :dynamic-rendering dynamic-rendering))
+
+(defun make-command-buffer-inheritance-rendering-info-khr (&key (next nil)
+                                                           (flags nil)
+                                                           (view-mask 0)
+                                                           (color-attachment-formats nil)
+                                                           (depth-attachment-format nil)
+                                                           (stencil-attachment-format nil)
+                                                           (rasterization-samples nil))
+"Creates an instance of COMMAND-BUFFER-INHERITANCE-RENDERING-INFO-KHR.
+The arguments of this function correspond to the slots of COMMAND-BUFFER-INHERITANCE-RENDERING-INFO-KHR.
+
+
+See COMMAND-BUFFER-INHERITANCE-RENDERING-INFO-KHR"
+  (make-instance 'vk:command-buffer-inheritance-rendering-info-khr 
+                 :next next
+                 :flags flags
+                 :view-mask view-mask
+                 :color-attachment-formats color-attachment-formats
+                 :depth-attachment-format depth-attachment-format
+                 :stencil-attachment-format stencil-attachment-format
+                 :rasterization-samples rasterization-samples))
+
+(defun make-attachment-sample-count-info-amd (&key (next nil)
+                                              (color-attachment-samples nil)
+                                              (depth-stencil-attachment-samples nil))
+"Creates an instance of ATTACHMENT-SAMPLE-COUNT-INFO-AMD.
+The arguments of this function correspond to the slots of ATTACHMENT-SAMPLE-COUNT-INFO-AMD.
+
+
+See ATTACHMENT-SAMPLE-COUNT-INFO-AMD"
+  (make-instance 'vk:attachment-sample-count-info-amd 
+                 :next next
+                 :color-attachment-samples color-attachment-samples
+                 :depth-stencil-attachment-samples depth-stencil-attachment-samples))
+
+(defun make-multiview-per-view-attributes-info-nvx (&key (next nil)
+                                                    (per-view-attributes nil)
+                                                    (per-view-attributes-position-x-only nil))
+"Creates an instance of MULTIVIEW-PER-VIEW-ATTRIBUTES-INFO-NVX.
+The arguments of this function correspond to the slots of MULTIVIEW-PER-VIEW-ATTRIBUTES-INFO-NVX.
+
+
+See MULTIVIEW-PER-VIEW-ATTRIBUTES-INFO-NVX"
+  (make-instance 'vk:multiview-per-view-attributes-info-nvx 
+                 :next next
+                 :per-view-attributes per-view-attributes
+                 :per-view-attributes-position-x-only per-view-attributes-position-x-only))

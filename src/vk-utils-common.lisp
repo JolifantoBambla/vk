@@ -16,25 +16,22 @@ Args:
 Returns DEST (i.e. a CFFI:FOREIGN-POINTER)."
   (dest :pointer)
   (src :pointer)
-  (count %vk:size-t))
+  (count :size))
 
 (defun split-api-version (version)
   "Splits a packed version number as returned by VK:MAKE-API-VERSION into a list of integers in the form of (major minor patch).
 
 See VK:MAKE-API-VERSION"
-  (list (ldb (byte 12 22) version)
-        (ldb (byte 10 12) version)
-        (ldb (byte 12 0) version)))
+  (list (vk:api-version-variant version)
+        (vk:api-version-major version)
+        (vk:api-version-minor version)
+        (vk:api-version-patch version)))
 
 (defun format-api-version (version)
   "Formats a packed version number as returned by MAKE-API-VERSION into a human readable string.
 
 See MAKE-API-VERSION"
-  (let ((split-version (split-api-version version)))
-    (format nil "~a.~a.~a"         
-                 (first split-version)
-                 (second split-version)
-                 (third split-version))))
+  (cl:format nil "~{~a~^.~}" (split-api-version version)))
 
 (defun read-shader-source (shader-path)
   "Reads a compiled SPIR-V shader file located at SHADER-PATH into a vector of 32-bit integers.

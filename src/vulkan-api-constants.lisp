@@ -94,3 +94,26 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defconstant +max-global-priority-size-ext+ 16
   "Represents VK_MAX_GLOBAL_PRIORITY_SIZE_EXT.") 
 
+(defconstant +api-version+ 4194304
+  "Deprecated in the Vulkan API! Specific defines (e.g. +api-version-1-0) or MAKE-API-VERSION should be used instead.
+
+See +API-VERSION-1-0+
+See +API-VERSION-1-1+
+See +API-VERSION-1-2+
+See +HEADER-VERSION-COMPLETE+
+See MAKE-API-VERSION")
+
+(defconstant +api-version-1-0+ 4194304
+  "Vulkan 1.0 version number")
+
+(defconstant +api-version-1-1+ 4198400
+  "Vulkan 1.1 version number")
+
+(defconstant +api-version-1-2+ 4202496
+  "Vulkan 1.2 version number")
+
+(defconstant +header-version+ 198
+  "The header version of the Vulkan API registry file VK was generated from.")
+
+(defconstant +header-version-complete+ 4202694
+  "The complete version of the Vulkan API registry file VK was generated from.")

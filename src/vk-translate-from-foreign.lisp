@@ -145,7 +145,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :device-id %vk:device-id
                    :device-type %vk:device-type
                    :device-name (cffi:foreign-string-to-lisp %vk:device-name)
-                   :pipeline-cache-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:pipeline-cache-uuid :uint8 i))
+                   :pipeline-cache-uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:pipeline-cache-uuid :uint8 i)) 'vector)
                    :limits %vk:limits
                    :sparse-properties %vk:sparse-properties)))
 
@@ -379,7 +379,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:mapped-memory-range))
     (make-instance 'vk:mapped-memory-range
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :offset %vk:offset
                    :size %vk:size)))
 
@@ -419,7 +419,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:descriptor-buffer-info))
     (make-instance 'vk:descriptor-buffer-info
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :offset %vk:offset
                    :range %vk:range)))
 
@@ -431,8 +431,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:descriptor-image-info))
     (make-instance 'vk:descriptor-image-info
-                   :sampler %vk:sampler
-                   :image-view %vk:image-view
+                   :sampler (vk:make-sampler-wrapper %vk:sampler)
+                   :image-view (vk:make-image-view-wrapper %vk:image-view)
                    :image-layout %vk:image-layout)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-write-descriptor-set))
@@ -451,13 +451,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:write-descriptor-set))
     (make-instance 'vk:write-descriptor-set
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :dst-set %vk:dst-set
+                   :dst-set (vk:make-descriptor-set-wrapper %vk:dst-set)
                    :dst-binding %vk:dst-binding
                    :dst-array-element %vk:dst-array-element
                    :descriptor-type %vk:descriptor-type
                    :image-info (loop for i from 0 below %vk:descriptor-count collect (cffi:mem-aref %vk:p-image-info '(:struct %vk:descriptor-image-info) i))
                    :buffer-info (loop for i from 0 below %vk:descriptor-count collect (cffi:mem-aref %vk:p-buffer-info '(:struct %vk:descriptor-buffer-info) i))
-                   :texel-buffer-view (loop for i from 0 below %vk:descriptor-count collect (cffi:mem-aref %vk:p-texel-buffer-view '%vk:buffer-view i)))))
+                   :texel-buffer-view (loop for i from 0 below %vk:descriptor-count collect (vk:make-buffer-view-wrapper (cffi:mem-aref %vk:p-texel-buffer-view '%vk:buffer-view i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-descriptor-set))
   (cffi:with-foreign-slots
@@ -474,10 +474,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-descriptor-set))
     (make-instance 'vk:copy-descriptor-set
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-set %vk:src-set
+                   :src-set (vk:make-descriptor-set-wrapper %vk:src-set)
                    :src-binding %vk:src-binding
                    :src-array-element %vk:src-array-element
-                   :dst-set %vk:dst-set
+                   :dst-set (vk:make-descriptor-set-wrapper %vk:dst-set)
                    :dst-binding %vk:dst-binding
                    :dst-array-element %vk:dst-array-element
                    :descriptor-count %vk:descriptor-count)))
@@ -516,7 +516,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:buffer-view-create-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :format %vk:format
                    :offset %vk:offset
                    :range %vk:range)))
@@ -595,7 +595,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :dst-access-mask %vk:dst-access-mask
                    :src-queue-family-index %vk:src-queue-family-index
                    :dst-queue-family-index %vk:dst-queue-family-index
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :offset %vk:offset
                    :size %vk:size)))
 
@@ -621,7 +621,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :new-layout %vk:new-layout
                    :src-queue-family-index %vk:src-queue-family-index
                    :dst-queue-family-index %vk:dst-queue-family-index
-                   :image %vk:image
+                   :image (vk:make-image-wrapper %vk:image)
                    :subresource-range %vk:subresource-range)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-create-info))
@@ -689,7 +689,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:image-view-create-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :image %vk:image
+                   :image (vk:make-image-wrapper %vk:image)
                    :view-type %vk:view-type
                    :format %vk:format
                    :components %vk:components
@@ -719,7 +719,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:sparse-memory-bind
                    :resource-offset %vk:resource-offset
                    :size %vk:size
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :memory-offset %vk:memory-offset
                    :flags %vk:flags)))
 
@@ -737,7 +737,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :subresource %vk:subresource
                    :offset %vk:offset
                    :extent %vk:extent
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :memory-offset %vk:memory-offset
                    :flags %vk:flags)))
 
@@ -749,7 +749,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:sparse-buffer-memory-bind-info))
     (make-instance 'vk:sparse-buffer-memory-bind-info
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :binds (loop for i from 0 below %vk:bind-count collect (cffi:mem-aref %vk:p-binds '(:struct %vk:sparse-memory-bind) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-sparse-image-opaque-memory-bind-info))
@@ -760,7 +760,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:sparse-image-opaque-memory-bind-info))
     (make-instance 'vk:sparse-image-opaque-memory-bind-info
-                   :image %vk:image
+                   :image (vk:make-image-wrapper %vk:image)
                    :binds (loop for i from 0 below %vk:bind-count collect (cffi:mem-aref %vk:p-binds '(:struct %vk:sparse-memory-bind) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-sparse-image-memory-bind-info))
@@ -771,7 +771,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:sparse-image-memory-bind-info))
     (make-instance 'vk:sparse-image-memory-bind-info
-                   :image %vk:image
+                   :image (vk:make-image-wrapper %vk:image)
                    :binds (loop for i from 0 below %vk:bind-count collect (cffi:mem-aref %vk:p-binds '(:struct %vk:sparse-image-memory-bind) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-bind-sparse-info))
@@ -792,11 +792,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-sparse-info))
     (make-instance 'vk:bind-sparse-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :wait-semaphores (loop for i from 0 below %vk:wait-semaphore-count collect (cffi:mem-aref %vk:p-wait-semaphores '%vk:semaphore i))
+                   :wait-semaphores (loop for i from 0 below %vk:wait-semaphore-count collect (vk:make-semaphore-wrapper (cffi:mem-aref %vk:p-wait-semaphores '%vk:semaphore i)))
                    :buffer-binds (loop for i from 0 below %vk:buffer-bind-count collect (cffi:mem-aref %vk:p-buffer-binds '(:struct %vk:sparse-buffer-memory-bind-info) i))
                    :image-opaque-binds (loop for i from 0 below %vk:image-opaque-bind-count collect (cffi:mem-aref %vk:p-image-opaque-binds '(:struct %vk:sparse-image-opaque-memory-bind-info) i))
                    :image-binds (loop for i from 0 below %vk:image-bind-count collect (cffi:mem-aref %vk:p-image-binds '(:struct %vk:sparse-image-memory-bind-info) i))
-                   :signal-semaphores (loop for i from 0 below %vk:signal-semaphore-count collect (cffi:mem-aref %vk:p-signal-semaphores '%vk:semaphore i)))))
+                   :signal-semaphores (loop for i from 0 below %vk:signal-semaphore-count collect (vk:make-semaphore-wrapper (cffi:mem-aref %vk:p-signal-semaphores '%vk:semaphore i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-copy))
   (cffi:with-foreign-slots
@@ -890,7 +890,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :descriptor-type %vk:descriptor-type
                    :descriptor-count %vk:descriptor-count
                    :stage-flags %vk:stage-flags
-                   :immutable-samplers %vk:p-immutable-samplers)))
+                   :immutable-samplers (vk:make-sampler-wrapper %vk:p-immutable-samplers))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-descriptor-set-layout-create-info))
   (cffi:with-foreign-slots
@@ -943,8 +943,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:descriptor-set-allocate-info))
     (make-instance 'vk:descriptor-set-allocate-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :descriptor-pool %vk:descriptor-pool
-                   :set-layouts (loop for i from 0 below %vk:descriptor-set-count collect (cffi:mem-aref %vk:p-set-layouts '%vk:descriptor-set-layout i)))))
+                   :descriptor-pool (vk:make-descriptor-pool-wrapper %vk:descriptor-pool)
+                   :set-layouts (loop for i from 0 below %vk:descriptor-set-count collect (vk:make-descriptor-set-layout-wrapper (cffi:mem-aref %vk:p-set-layouts '%vk:descriptor-set-layout i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-specialization-map-entry))
   (cffi:with-foreign-slots
@@ -986,7 +986,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
                    :stage %vk:stage
-                   :module %vk:module
+                   :module (vk:make-shader-module-wrapper %vk:module)
                    :name %vk:p-name
                    :specialization-info %vk:p-specialization-info)))
 
@@ -1005,8 +1005,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
                    :stage %vk:stage
-                   :layout %vk:layout
-                   :base-pipeline-handle %vk:base-pipeline-handle
+                   :layout (vk:make-pipeline-layout-wrapper %vk:layout)
+                   :base-pipeline-handle (vk:make-pipeline-wrapper %vk:base-pipeline-handle)
                    :base-pipeline-index %vk:base-pipeline-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-vertex-input-binding-description))
@@ -1191,7 +1191,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :logic-op-enable %vk:logic-op-enable
                    :logic-op %vk:logic-op
                    :attachments (loop for i from 0 below %vk:attachment-count collect (cffi:mem-aref %vk:p-attachments '(:struct %vk:pipeline-color-blend-attachment-state) i))
-                   :blend-constants (loop for i from 0 below 4 collect (cffi:mem-aref %vk:blend-constants :float i)))))
+                   :blend-constants (cl:coerce (loop for i from 0 below 4 collect (cffi:mem-aref %vk:blend-constants :float i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-dynamic-state-create-info))
   (cffi:with-foreign-slots
@@ -1292,10 +1292,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :depth-stencil-state %vk:p-depth-stencil-state
                    :color-blend-state %vk:p-color-blend-state
                    :dynamic-state %vk:p-dynamic-state
-                   :layout %vk:layout
-                   :render-pass %vk:render-pass
+                   :layout (vk:make-pipeline-layout-wrapper %vk:layout)
+                   :render-pass (vk:make-render-pass-wrapper %vk:render-pass)
                    :subpass %vk:subpass
-                   :base-pipeline-handle %vk:base-pipeline-handle
+                   :base-pipeline-handle (vk:make-pipeline-wrapper %vk:base-pipeline-handle)
                    :base-pipeline-index %vk:base-pipeline-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-cache-create-info))
@@ -1327,7 +1327,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :header-version %vk:header-version
                    :vendor-id %vk:vendor-id
                    :device-id %vk:device-id
-                   :pipeline-cache-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:pipeline-cache-uuid :uint8 i)))))
+                   :pipeline-cache-uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:pipeline-cache-uuid :uint8 i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-push-constant-range))
   (cffi:with-foreign-slots
@@ -1355,7 +1355,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:pipeline-layout-create-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :set-layouts (loop for i from 0 below %vk:set-layout-count collect (cffi:mem-aref %vk:p-set-layouts '%vk:descriptor-set-layout i))
+                   :set-layouts (loop for i from 0 below %vk:set-layout-count collect (vk:make-descriptor-set-layout-wrapper (cffi:mem-aref %vk:p-set-layouts '%vk:descriptor-set-layout i)))
                    :push-constant-ranges (loop for i from 0 below %vk:push-constant-range-count collect (cffi:mem-aref %vk:p-push-constant-ranges '(:struct %vk:push-constant-range) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-sampler-create-info))
@@ -1423,7 +1423,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:command-buffer-allocate-info))
     (make-instance 'vk:command-buffer-allocate-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :command-pool %vk:command-pool
+                   :command-pool (vk:make-command-pool-wrapper %vk:command-pool)
                    :level %vk:level
                    :command-buffer-count %vk:command-buffer-count)))
 
@@ -1441,9 +1441,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:command-buffer-inheritance-info))
     (make-instance 'vk:command-buffer-inheritance-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :render-pass %vk:render-pass
+                   :render-pass (vk:make-render-pass-wrapper %vk:render-pass)
                    :subpass %vk:subpass
-                   :framebuffer %vk:framebuffer
+                   :framebuffer (vk:make-framebuffer-wrapper %vk:framebuffer)
                    :occlusion-query-enable %vk:occlusion-query-enable
                    :query-flags %vk:query-flags
                    :pipeline-statistics %vk:pipeline-statistics)))
@@ -1474,8 +1474,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:render-pass-begin-info))
     (make-instance 'vk:render-pass-begin-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :render-pass %vk:render-pass
-                   :framebuffer %vk:framebuffer
+                   :render-pass (vk:make-render-pass-wrapper %vk:render-pass)
+                   :framebuffer (vk:make-framebuffer-wrapper %vk:framebuffer)
                    :render-area %vk:render-area
                    :clear-values nil)))
 
@@ -1915,9 +1915,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-fragment-dual-src-attachments %vk:max-fragment-dual-src-attachments
                    :max-fragment-combined-output-resources %vk:max-fragment-combined-output-resources
                    :max-compute-shared-memory-size %vk:max-compute-shared-memory-size
-                   :max-compute-work-group-count (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-compute-work-group-count :uint32 i))
+                   :max-compute-work-group-count (cl:coerce (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-compute-work-group-count :uint32 i)) 'vector)
                    :max-compute-work-group-invocations %vk:max-compute-work-group-invocations
-                   :max-compute-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-compute-work-group-size :uint32 i))
+                   :max-compute-work-group-size (cl:coerce (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-compute-work-group-size :uint32 i)) 'vector)
                    :sub-pixel-precision-bits %vk:sub-pixel-precision-bits
                    :sub-texel-precision-bits %vk:sub-texel-precision-bits
                    :mipmap-precision-bits %vk:mipmap-precision-bits
@@ -1926,8 +1926,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-sampler-lod-bias %vk:max-sampler-lod-bias
                    :max-sampler-anisotropy %vk:max-sampler-anisotropy
                    :max-viewports %vk:max-viewports
-                   :max-viewport-dimensions (loop for i from 0 below 2 collect (cffi:mem-aref %vk:max-viewport-dimensions :uint32 i))
-                   :viewport-bounds-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:viewport-bounds-range :float i))
+                   :max-viewport-dimensions (cl:coerce (loop for i from 0 below 2 collect (cffi:mem-aref %vk:max-viewport-dimensions :uint32 i)) 'vector)
+                   :viewport-bounds-range (cl:coerce (loop for i from 0 below 2 collect (cffi:mem-aref %vk:viewport-bounds-range :float i)) 'vector)
                    :viewport-sub-pixel-bits %vk:viewport-sub-pixel-bits
                    :min-memory-map-alignment %vk:min-memory-map-alignment
                    :min-texel-buffer-offset-alignment %vk:min-texel-buffer-offset-alignment
@@ -1960,8 +1960,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-cull-distances %vk:max-cull-distances
                    :max-combined-clip-and-cull-distances %vk:max-combined-clip-and-cull-distances
                    :discrete-queue-priorities %vk:discrete-queue-priorities
-                   :point-size-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:point-size-range :float i))
-                   :line-width-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:line-width-range :float i))
+                   :point-size-range (cl:coerce (loop for i from 0 below 2 collect (cffi:mem-aref %vk:point-size-range :float i)) 'vector)
+                   :line-width-range (cl:coerce (loop for i from 0 below 2 collect (cffi:mem-aref %vk:line-width-range :float i)) 'vector)
                    :point-size-granularity %vk:point-size-granularity
                    :line-width-granularity %vk:line-width-granularity
                    :strict-lines %vk:strict-lines
@@ -2014,8 +2014,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:framebuffer-create-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :render-pass %vk:render-pass
-                   :attachments (loop for i from 0 below %vk:attachment-count collect (cffi:mem-aref %vk:p-attachments '%vk:image-view i))
+                   :render-pass (vk:make-render-pass-wrapper %vk:render-pass)
+                   :attachments (loop for i from 0 below %vk:attachment-count collect (vk:make-image-view-wrapper (cffi:mem-aref %vk:p-attachments '%vk:image-view i)))
                    :width %vk:width
                    :height %vk:height
                    :layers %vk:layers)))
@@ -2099,10 +2099,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:submit-info))
     (make-instance 'vk:submit-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :wait-semaphores (loop for i from 0 below %vk:wait-semaphore-count collect (cffi:mem-aref %vk:p-wait-semaphores '%vk:semaphore i))
+                   :wait-semaphores (loop for i from 0 below %vk:wait-semaphore-count collect (vk:make-semaphore-wrapper (cffi:mem-aref %vk:p-wait-semaphores '%vk:semaphore i)))
                    :wait-dst-stage-mask (loop for i from 0 below %vk:wait-semaphore-count collect (cffi:mem-aref %vk:p-wait-dst-stage-mask '%vk:pipeline-stage-flags i))
-                   :command-buffers (loop for i from 0 below %vk:command-buffer-count collect (cffi:mem-aref %vk:p-command-buffers '%vk:command-buffer i))
-                   :signal-semaphores (loop for i from 0 below %vk:signal-semaphore-count collect (cffi:mem-aref %vk:p-signal-semaphores '%vk:semaphore i)))))
+                   :command-buffers (loop for i from 0 below %vk:command-buffer-count collect (vk:make-command-buffer-wrapper (cffi:mem-aref %vk:p-command-buffers '%vk:command-buffer i)))
+                   :signal-semaphores (loop for i from 0 below %vk:signal-semaphore-count collect (vk:make-semaphore-wrapper (cffi:mem-aref %vk:p-signal-semaphores '%vk:semaphore i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-display-properties-khr))
   (cffi:with-foreign-slots
@@ -2116,7 +2116,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:display-properties-khr))
     (make-instance 'vk:display-properties-khr
-                   :display %vk:display
+                   :display (vk:make-display-khr-wrapper %vk:display)
                    :display-name %vk:display-name
                    :physical-dimensions %vk:physical-dimensions
                    :physical-resolution %vk:physical-resolution
@@ -2131,7 +2131,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:display-plane-properties-khr))
     (make-instance 'vk:display-plane-properties-khr
-                   :current-display %vk:current-display
+                   :current-display (vk:make-display-khr-wrapper %vk:current-display)
                    :current-stack-index %vk:current-stack-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-display-mode-parameters-khr))
@@ -2151,7 +2151,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:display-mode-properties-khr))
     (make-instance 'vk:display-mode-properties-khr
-                   :display-mode %vk:display-mode
+                   :display-mode (vk:make-display-mode-khr-wrapper %vk:display-mode)
                    :parameters %vk:parameters)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-display-mode-create-info-khr))
@@ -2208,7 +2208,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:display-surface-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :display-mode %vk:display-mode
+                   :display-mode (vk:make-display-mode-khr-wrapper %vk:display-mode)
                    :plane-index %vk:plane-index
                    :plane-stack-index %vk:plane-stack-index
                    :transform %vk:transform
@@ -2434,7 +2434,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:swapchain-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :surface %vk:surface
+                   :surface (vk:make-surface-khr-wrapper %vk:surface)
                    :min-image-count %vk:min-image-count
                    :image-format %vk:image-format
                    :image-color-space %vk:image-color-space
@@ -2447,7 +2447,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :composite-alpha %vk:composite-alpha
                    :present-mode %vk:present-mode
                    :clipped %vk:clipped
-                   :old-swapchain %vk:old-swapchain)))
+                   :old-swapchain (vk:make-swapchain-khr-wrapper %vk:old-swapchain))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-present-info-khr))
   (cffi:with-foreign-slots
@@ -2463,8 +2463,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:present-info-khr))
     (make-instance 'vk:present-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :wait-semaphores (loop for i from 0 below %vk:wait-semaphore-count collect (cffi:mem-aref %vk:p-wait-semaphores '%vk:semaphore i))
-                   :swapchains (loop for i from 0 below %vk:swapchain-count collect (cffi:mem-aref %vk:p-swapchains '%vk:swapchain-khr i))
+                   :wait-semaphores (loop for i from 0 below %vk:wait-semaphore-count collect (vk:make-semaphore-wrapper (cffi:mem-aref %vk:p-wait-semaphores '%vk:semaphore i)))
+                   :swapchains (loop for i from 0 below %vk:swapchain-count collect (vk:make-swapchain-khr-wrapper (cffi:mem-aref %vk:p-swapchains '%vk:swapchain-khr i)))
                    :image-indices (loop for i from 0 below %vk:swapchain-count collect (cffi:mem-aref %vk:p-image-indices :uint32 i))
                    :results (loop for i from 0 below %vk:swapchain-count collect (cffi:mem-aref %vk:p-results '%vk:result i)))))
 
@@ -2566,7 +2566,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:debug-marker-marker-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :marker-name %vk:p-marker-name
-                   :color (loop for i from 0 below 4 collect (cffi:mem-aref %vk:color :float i)))))
+                   :color (cl:coerce (loop for i from 0 below 4 collect (cffi:mem-aref %vk:color :float i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-dedicated-allocation-image-create-info-nv))
   (cffi:with-foreign-slots
@@ -2600,8 +2600,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:dedicated-allocation-memory-allocate-info-nv))
     (make-instance 'vk:dedicated-allocation-memory-allocate-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :image %vk:image
-                   :buffer %vk:buffer)))
+                   :image (vk:make-image-wrapper %vk:image)
+                   :buffer (vk:make-buffer-wrapper %vk:buffer))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-external-image-format-properties-nv))
   (cffi:with-foreign-slots
@@ -2680,10 +2680,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:win32-keyed-mutex-acquire-release-info-nv))
     (make-instance 'vk:win32-keyed-mutex-acquire-release-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :acquire-syncs (loop for i from 0 below %vk:acquire-count collect (cffi:mem-aref %vk:p-acquire-syncs '%vk:device-memory i))
+                   :acquire-syncs (loop for i from 0 below %vk:acquire-count collect (vk:make-device-memory-wrapper (cffi:mem-aref %vk:p-acquire-syncs '%vk:device-memory i)))
                    :acquire-keys (loop for i from 0 below %vk:acquire-count collect (cffi:mem-aref %vk:p-acquire-keys :uint64 i))
                    :acquire-timeout-milliseconds (loop for i from 0 below %vk:acquire-count collect (cffi:mem-aref %vk:p-acquire-timeout-milliseconds :uint32 i))
-                   :release-syncs (loop for i from 0 below %vk:release-count collect (cffi:mem-aref %vk:p-release-syncs '%vk:device-memory i))
+                   :release-syncs (loop for i from 0 below %vk:release-count collect (vk:make-device-memory-wrapper (cffi:mem-aref %vk:p-release-syncs '%vk:device-memory i)))
                    :release-keys (loop for i from 0 below %vk:release-count collect (cffi:mem-aref %vk:p-release-keys :uint64 i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-device-generated-commands-features-nv))
@@ -2797,7 +2797,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:graphics-pipeline-shader-groups-create-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :groups (loop for i from 0 below %vk:group-count collect (cffi:mem-aref %vk:p-groups '(:struct %vk:graphics-shader-group-create-info-nv) i))
-                   :pipelines (loop for i from 0 below %vk:pipeline-count collect (cffi:mem-aref %vk:p-pipelines '%vk:pipeline i)))))
+                   :pipelines (loop for i from 0 below %vk:pipeline-count collect (vk:make-pipeline-wrapper (cffi:mem-aref %vk:p-pipelines '%vk:pipeline i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-bind-shader-group-indirect-command-nv))
   (cffi:with-foreign-slots
@@ -2846,7 +2846,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:indirect-commands-stream-nv))
     (make-instance 'vk:indirect-commands-stream-nv
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :offset %vk:offset)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-indirect-commands-layout-token-nv))
@@ -2875,7 +2875,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :offset %vk:offset
                    :vertex-binding-unit %vk:vertex-binding-unit
                    :vertex-dynamic-stride %vk:vertex-dynamic-stride
-                   :pushconstant-pipeline-layout %vk:pushconstant-pipeline-layout
+                   :pushconstant-pipeline-layout (vk:make-pipeline-layout-wrapper %vk:pushconstant-pipeline-layout)
                    :pushconstant-shader-stage-flags %vk:pushconstant-shader-stage-flags
                    :pushconstant-offset %vk:pushconstant-offset
                    :pushconstant-size %vk:pushconstant-size
@@ -2924,16 +2924,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:generated-commands-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :pipeline-bind-point %vk:pipeline-bind-point
-                   :pipeline %vk:pipeline
-                   :indirect-commands-layout %vk:indirect-commands-layout
+                   :pipeline (vk:make-pipeline-wrapper %vk:pipeline)
+                   :indirect-commands-layout (vk:make-indirect-commands-layout-nv-wrapper %vk:indirect-commands-layout)
                    :streams (loop for i from 0 below %vk:stream-count collect (cffi:mem-aref %vk:p-streams '(:struct %vk:indirect-commands-stream-nv) i))
                    :sequences-count %vk:sequences-count
-                   :preprocess-buffer %vk:preprocess-buffer
+                   :preprocess-buffer (vk:make-buffer-wrapper %vk:preprocess-buffer)
                    :preprocess-offset %vk:preprocess-offset
                    :preprocess-size %vk:preprocess-size
-                   :sequences-count-buffer %vk:sequences-count-buffer
+                   :sequences-count-buffer (vk:make-buffer-wrapper %vk:sequences-count-buffer)
                    :sequences-count-offset %vk:sequences-count-offset
-                   :sequences-index-buffer %vk:sequences-index-buffer
+                   :sequences-index-buffer (vk:make-buffer-wrapper %vk:sequences-index-buffer)
                    :sequences-index-offset %vk:sequences-index-offset)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-generated-commands-memory-requirements-info-nv))
@@ -2949,8 +2949,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:generated-commands-memory-requirements-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :pipeline-bind-point %vk:pipeline-bind-point
-                   :pipeline %vk:pipeline
-                   :indirect-commands-layout %vk:indirect-commands-layout
+                   :pipeline (vk:make-pipeline-wrapper %vk:pipeline)
+                   :indirect-commands-layout (vk:make-indirect-commands-layout-nv-wrapper %vk:indirect-commands-layout)
                    :max-sequences-count %vk:max-sequences-count)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-features-2))
@@ -3230,9 +3230,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-id-properties))
     (make-instance 'vk:physical-device-id-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :device-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:device-uuid :uint8 i))
-                   :driver-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:driver-uuid :uint8 i))
-                   :device-luid (loop for i from 0 below 8 collect (cffi:mem-aref %vk:device-luid :uint8 i))
+                   :device-uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:device-uuid :uint8 i)) 'vector)
+                   :driver-uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:driver-uuid :uint8 i)) 'vector)
+                   :device-luid (cl:coerce (loop for i from 0 below 8 collect (cffi:mem-aref %vk:device-luid :uint8 i)) 'vector)
                    :device-node-mask %vk:device-node-mask
                    :device-luid-valid %vk:device-luid-valid)))
 
@@ -3333,7 +3333,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-zircon-handle-info-fuchsia))
     (make-instance 'vk:memory-get-zircon-handle-info-fuchsia
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-win32-handle-properties-khr))
@@ -3357,7 +3357,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-win32-handle-info-khr))
     (make-instance 'vk:memory-get-win32-handle-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-import-memory-fd-info-khr))
@@ -3394,7 +3394,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-fd-info-khr))
     (make-instance 'vk:memory-get-fd-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-win32-keyed-mutex-acquire-release-info-khr))
@@ -3412,10 +3412,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:win32-keyed-mutex-acquire-release-info-khr))
     (make-instance 'vk:win32-keyed-mutex-acquire-release-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :acquire-syncs (loop for i from 0 below %vk:acquire-count collect (cffi:mem-aref %vk:p-acquire-syncs '%vk:device-memory i))
+                   :acquire-syncs (loop for i from 0 below %vk:acquire-count collect (vk:make-device-memory-wrapper (cffi:mem-aref %vk:p-acquire-syncs '%vk:device-memory i)))
                    :acquire-keys (loop for i from 0 below %vk:acquire-count collect (cffi:mem-aref %vk:p-acquire-keys :uint64 i))
                    :acquire-timeouts (loop for i from 0 below %vk:acquire-count collect (cffi:mem-aref %vk:p-acquire-timeouts :uint32 i))
-                   :release-syncs (loop for i from 0 below %vk:release-count collect (cffi:mem-aref %vk:p-release-syncs '%vk:device-memory i))
+                   :release-syncs (loop for i from 0 below %vk:release-count collect (vk:make-device-memory-wrapper (cffi:mem-aref %vk:p-release-syncs '%vk:device-memory i)))
                    :release-keys (loop for i from 0 below %vk:release-count collect (cffi:mem-aref %vk:p-release-keys :uint64 i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-external-semaphore-info))
@@ -3468,7 +3468,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-semaphore-win32-handle-info-khr))
     (make-instance 'vk:import-semaphore-win32-handle-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :flags %vk:flags
                    :handle-type %vk:handle-type
                    :handle %vk:handle
@@ -3514,7 +3514,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-get-win32-handle-info-khr))
     (make-instance 'vk:semaphore-get-win32-handle-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-import-semaphore-fd-info-khr))
@@ -3529,7 +3529,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-semaphore-fd-info-khr))
     (make-instance 'vk:import-semaphore-fd-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :flags %vk:flags
                    :handle-type %vk:handle-type
                    :fd %vk:fd)))
@@ -3544,7 +3544,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-get-fd-info-khr))
     (make-instance 'vk:semaphore-get-fd-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-import-semaphore-zircon-handle-info-fuchsia))
@@ -3559,7 +3559,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-semaphore-zircon-handle-info-fuchsia))
     (make-instance 'vk:import-semaphore-zircon-handle-info-fuchsia
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :flags %vk:flags
                    :handle-type %vk:handle-type
                    :zircon-handle %vk:zircon-handle)))
@@ -3574,7 +3574,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-get-zircon-handle-info-fuchsia))
     (make-instance 'vk:semaphore-get-zircon-handle-info-fuchsia
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-external-fence-info))
@@ -3627,7 +3627,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-fence-win32-handle-info-khr))
     (make-instance 'vk:import-fence-win32-handle-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :fence %vk:fence
+                   :fence (vk:make-fence-wrapper %vk:fence)
                    :flags %vk:flags
                    :handle-type %vk:handle-type
                    :handle %vk:handle
@@ -3658,7 +3658,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:fence-get-win32-handle-info-khr))
     (make-instance 'vk:fence-get-win32-handle-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :fence %vk:fence
+                   :fence (vk:make-fence-wrapper %vk:fence)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-import-fence-fd-info-khr))
@@ -3673,7 +3673,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:import-fence-fd-info-khr))
     (make-instance 'vk:import-fence-fd-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :fence %vk:fence
+                   :fence (vk:make-fence-wrapper %vk:fence)
                    :flags %vk:flags
                    :handle-type %vk:handle-type
                    :fd %vk:fd)))
@@ -3688,7 +3688,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:fence-get-fd-info-khr))
     (make-instance 'vk:fence-get-fd-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :fence %vk:fence
+                   :fence (vk:make-fence-wrapper %vk:fence)
                    :handle-type %vk:handle-type)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-multiview-features))
@@ -3824,7 +3824,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:physical-device-group-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :physical-device-count %vk:physical-device-count
-                   :physical-devices (loop for i from 0 below 32 collect (cffi:mem-aref %vk:physical-devices '%vk:physical-device i))
+                   :physical-devices (vk:make-physical-device-wrapper %vk:physical-devices)
                    :subset-allocation %vk:subset-allocation)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-allocate-flags-info))
@@ -3851,8 +3851,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-buffer-memory-info))
     (make-instance 'vk:bind-buffer-memory-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :buffer %vk:buffer
-                   :memory %vk:memory
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :memory-offset %vk:memory-offset)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-bind-buffer-memory-device-group-info))
@@ -3878,8 +3878,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-image-memory-info))
     (make-instance 'vk:bind-image-memory-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :image %vk:image
-                   :memory %vk:memory
+                   :image (vk:make-image-wrapper %vk:image)
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :memory-offset %vk:memory-offset)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-bind-image-memory-device-group-info))
@@ -3963,7 +3963,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:device-group-present-capabilities-khr))
     (make-instance 'vk:device-group-present-capabilities-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :present-mask (loop for i from 0 below 32 collect (cffi:mem-aref %vk:present-mask :uint32 i))
+                   :present-mask (cl:coerce (loop for i from 0 below 32 collect (cffi:mem-aref %vk:present-mask :uint32 i)) 'vector)
                    :modes %vk:modes)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-swapchain-create-info-khr))
@@ -3975,7 +3975,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-swapchain-create-info-khr))
     (make-instance 'vk:image-swapchain-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :swapchain %vk:swapchain)))
+                   :swapchain (vk:make-swapchain-khr-wrapper %vk:swapchain))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-bind-image-memory-swapchain-info-khr))
   (cffi:with-foreign-slots
@@ -3987,7 +3987,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-image-memory-swapchain-info-khr))
     (make-instance 'vk:bind-image-memory-swapchain-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :swapchain %vk:swapchain
+                   :swapchain (vk:make-swapchain-khr-wrapper %vk:swapchain)
                    :image-index %vk:image-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acquire-next-image-info-khr))
@@ -4003,10 +4003,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:acquire-next-image-info-khr))
     (make-instance 'vk:acquire-next-image-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :swapchain %vk:swapchain
+                   :swapchain (vk:make-swapchain-khr-wrapper %vk:swapchain)
                    :timeout %vk:timeout
-                   :semaphore %vk:semaphore
-                   :fence %vk:fence
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
+                   :fence (vk:make-fence-wrapper %vk:fence)
                    :device-mask %vk:device-mask)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-device-group-present-info-khr))
@@ -4033,7 +4033,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:device-group-device-create-info))
     (make-instance 'vk:device-group-device-create-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :physical-devices (loop for i from 0 below %vk:physical-device-count collect (cffi:mem-aref %vk:p-physical-devices '%vk:physical-device i)))))
+                   :physical-devices (loop for i from 0 below %vk:physical-device-count collect (vk:make-physical-device-wrapper (cffi:mem-aref %vk:p-physical-devices '%vk:physical-device i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-device-group-swapchain-create-info-khr))
   (cffi:with-foreign-slots
@@ -4083,9 +4083,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :flags %vk:flags
                    :descriptor-update-entries (loop for i from 0 below %vk:descriptor-update-entry-count collect (cffi:mem-aref %vk:p-descriptor-update-entries '(:struct %vk:descriptor-update-template-entry) i))
                    :template-type %vk:template-type
-                   :descriptor-set-layout %vk:descriptor-set-layout
+                   :descriptor-set-layout (vk:make-descriptor-set-layout-wrapper %vk:descriptor-set-layout)
                    :pipeline-bind-point %vk:pipeline-bind-point
-                   :pipeline-layout %vk:pipeline-layout
+                   :pipeline-layout (vk:make-pipeline-layout-wrapper %vk:pipeline-layout)
                    :set %vk:set)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-x-y-color-ext))
@@ -4226,15 +4226,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :present-id %vk:present-id
                    :desired-present-time %vk:desired-present-time)))
 
-(defmethod cffi:translate-from-foreign (ptr (type %vk:c-i-os-surface-create-info-mvk))
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-ios-surface-create-info-mvk))
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
         %vk:flags
         %vk:p-view)
        ptr
-       (:struct %vk:i-os-surface-create-info-mvk))
-    (make-instance 'vk:i-os-surface-create-info-mvk
+       (:struct %vk:ios-surface-create-info-mvk))
+    (make-instance 'vk:ios-surface-create-info-mvk
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
                    :view %vk:p-view)))
@@ -4388,7 +4388,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-surface-info-2-khr))
     (make-instance 'vk:physical-device-surface-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :surface %vk:surface)))
+                   :surface (vk:make-surface-khr-wrapper %vk:surface))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-surface-capabilities-2-khr))
   (cffi:with-foreign-slots
@@ -4455,7 +4455,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:display-plane-info-2-khr))
     (make-instance 'vk:display-plane-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :mode %vk:mode
+                   :mode (vk:make-display-mode-khr-wrapper %vk:mode)
                    :plane-index %vk:plane-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-display-plane-capabilities-2-khr))
@@ -4534,7 +4534,18 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:buffer-memory-requirements-info-2))
     (make-instance 'vk:buffer-memory-requirements-info-2
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :buffer %vk:buffer)))
+                   :buffer (vk:make-buffer-wrapper %vk:buffer))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-device-buffer-memory-requirements-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-create-info)
+       ptr
+       (:struct %vk:device-buffer-memory-requirements-khr))
+    (make-instance 'vk:device-buffer-memory-requirements-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :create-info %vk:p-create-info)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-memory-requirements-info-2))
   (cffi:with-foreign-slots
@@ -4545,7 +4556,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-memory-requirements-info-2))
     (make-instance 'vk:image-memory-requirements-info-2
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :image %vk:image)))
+                   :image (vk:make-image-wrapper %vk:image))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-sparse-memory-requirements-info-2))
   (cffi:with-foreign-slots
@@ -4556,7 +4567,20 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-sparse-memory-requirements-info-2))
     (make-instance 'vk:image-sparse-memory-requirements-info-2
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :image %vk:image)))
+                   :image (vk:make-image-wrapper %vk:image))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-device-image-memory-requirements-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-create-info
+        %vk:plane-aspect)
+       ptr
+       (:struct %vk:device-image-memory-requirements-khr))
+    (make-instance 'vk:device-image-memory-requirements-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :create-info %vk:p-create-info
+                   :plane-aspect %vk:plane-aspect)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-memory-requirements-2))
   (cffi:with-foreign-slots
@@ -4614,8 +4638,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-dedicated-allocate-info))
     (make-instance 'vk:memory-dedicated-allocate-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :image %vk:image
-                   :buffer %vk:buffer)))
+                   :image (vk:make-image-wrapper %vk:image)
+                   :buffer (vk:make-buffer-wrapper %vk:buffer))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-view-usage-create-info))
   (cffi:with-foreign-slots
@@ -4648,7 +4672,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:sampler-ycbcr-conversion-info))
     (make-instance 'vk:sampler-ycbcr-conversion-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :conversion %vk:conversion)))
+                   :conversion (vk:make-sampler-ycbcr-conversion-wrapper %vk:conversion))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-sampler-ycbcr-conversion-create-info))
   (cffi:with-foreign-slots
@@ -4741,7 +4765,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:conditional-rendering-begin-info-ext))
     (make-instance 'vk:conditional-rendering-begin-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :offset %vk:offset
                    :flags %vk:flags)))
 
@@ -4910,7 +4934,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :sample-location-sample-counts %vk:sample-location-sample-counts
                    :max-sample-location-grid-size %vk:max-sample-location-grid-size
-                   :sample-location-coordinate-range (loop for i from 0 below 2 collect (cffi:mem-aref %vk:sample-location-coordinate-range :float i))
+                   :sample-location-coordinate-range (cl:coerce (loop for i from 0 below 2 collect (cffi:mem-aref %vk:sample-location-coordinate-range :float i)) 'vector)
                    :sample-location-sub-pixel-bits %vk:sample-location-sub-pixel-bits
                    :variable-sample-locations %vk:variable-sample-locations)))
 
@@ -5104,7 +5128,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:shader-module-validation-cache-create-info-ext))
     (make-instance 'vk:shader-module-validation-cache-create-info-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :validation-cache %vk:validation-cache)))
+                   :validation-cache (vk:make-validation-cache-ext-wrapper %vk:validation-cache))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-maintenance-3-properties))
   (cffi:with-foreign-slots
@@ -5118,6 +5142,28 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :max-per-set-descriptors %vk:max-per-set-descriptors
                    :max-memory-allocation-size %vk:max-memory-allocation-size)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-maintenance-4-features-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:maintenance-4)
+       ptr
+       (:struct %vk:physical-device-maintenance-4-features-khr))
+    (make-instance 'vk:physical-device-maintenance-4-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :maintenance-4 %vk:maintenance-4)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-maintenance-4-properties-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-buffer-size)
+       ptr
+       (:struct %vk:physical-device-maintenance-4-properties-khr))
+    (make-instance 'vk:physical-device-maintenance-4-properties-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-buffer-size %vk:max-buffer-size)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-descriptor-set-layout-support))
   (cffi:with-foreign-slots
@@ -5242,7 +5288,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :num-physical-sgprs %vk:num-physical-sgprs
                    :num-available-vgprs %vk:num-available-vgprs
                    :num-available-sgprs %vk:num-available-sgprs
-                   :compute-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:compute-work-group-size :uint32 i)))))
+                   :compute-work-group-size (cl:coerce (loop for i from 0 below 3 collect (cffi:mem-aref %vk:compute-work-group-size :uint32 i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-device-queue-global-priority-create-info-ext))
   (cffi:with-foreign-slots
@@ -5324,7 +5370,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:debug-utils-label-ext
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :label-name %vk:p-label-name
-                   :color (loop for i from 0 below 4 collect (cffi:mem-aref %vk:color :float i)))))
+                   :color (cl:coerce (loop for i from 0 below 4 collect (cffi:mem-aref %vk:color :float i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-debug-utils-messenger-create-info-ext))
   (cffi:with-foreign-slots
@@ -5898,7 +5944,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:semaphore-wait-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
-                   :semaphores (loop for i from 0 below %vk:semaphore-count collect (cffi:mem-aref %vk:p-semaphores '%vk:semaphore i))
+                   :semaphores (loop for i from 0 below %vk:semaphore-count collect (vk:make-semaphore-wrapper (cffi:mem-aref %vk:p-semaphores '%vk:semaphore i)))
                    :values (loop for i from 0 below %vk:semaphore-count collect (cffi:mem-aref %vk:p-values :uint64 i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-semaphore-signal-info))
@@ -5911,7 +5957,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-signal-info))
     (make-instance 'vk:semaphore-signal-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :value %vk:value)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-vertex-input-binding-divisor-description-ext))
@@ -6008,7 +6054,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-android-hardware-buffer-info-android))
     (make-instance 'vk:memory-get-android-hardware-buffer-info-android
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory)))
+                   :memory (vk:make-device-memory-wrapper %vk:memory))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-android-hardware-buffer-format-properties-android))
   (cffi:with-foreign-slots
@@ -6564,11 +6610,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :max-draw-mesh-tasks-count %vk:max-draw-mesh-tasks-count
                    :max-task-work-group-invocations %vk:max-task-work-group-invocations
-                   :max-task-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-task-work-group-size :uint32 i))
+                   :max-task-work-group-size (cl:coerce (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-task-work-group-size :uint32 i)) 'vector)
                    :max-task-total-memory-size %vk:max-task-total-memory-size
                    :max-task-output-count %vk:max-task-output-count
                    :max-mesh-work-group-invocations %vk:max-mesh-work-group-invocations
-                   :max-mesh-work-group-size (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-mesh-work-group-size :uint32 i))
+                   :max-mesh-work-group-size (cl:coerce (loop for i from 0 below 3 collect (cffi:mem-aref %vk:max-mesh-work-group-size :uint32 i)) 'vector)
                    :max-mesh-total-memory-size %vk:max-mesh-total-memory-size
                    :max-mesh-output-vertices %vk:max-mesh-output-vertices
                    :max-mesh-output-primitives %vk:max-mesh-output-primitives
@@ -6647,8 +6693,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :stages (loop for i from 0 below %vk:stage-count collect (cffi:mem-aref %vk:p-stages '(:struct %vk:pipeline-shader-stage-create-info) i))
                    :groups (loop for i from 0 below %vk:group-count collect (cffi:mem-aref %vk:p-groups '(:struct %vk:ray-tracing-shader-group-create-info-nv) i))
                    :max-recursion-depth %vk:max-recursion-depth
-                   :layout %vk:layout
-                   :base-pipeline-handle %vk:base-pipeline-handle
+                   :layout (vk:make-pipeline-layout-wrapper %vk:layout)
+                   :base-pipeline-handle (vk:make-pipeline-wrapper %vk:base-pipeline-handle)
                    :base-pipeline-index %vk:base-pipeline-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-ray-tracing-pipeline-create-info-khr))
@@ -6678,8 +6724,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :library-info %vk:p-library-info
                    :library-interface %vk:p-library-interface
                    :dynamic-state %vk:p-dynamic-state
-                   :layout %vk:layout
-                   :base-pipeline-handle %vk:base-pipeline-handle
+                   :layout (vk:make-pipeline-layout-wrapper %vk:layout)
+                   :base-pipeline-handle (vk:make-pipeline-wrapper %vk:base-pipeline-handle)
                    :base-pipeline-index %vk:base-pipeline-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-geometry-triangles-nv))
@@ -6701,16 +6747,16 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:geometry-triangles-nv))
     (make-instance 'vk:geometry-triangles-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :vertex-data %vk:vertex-data
+                   :vertex-data (vk:make-buffer-wrapper %vk:vertex-data)
                    :vertex-offset %vk:vertex-offset
                    :vertex-count %vk:vertex-count
                    :vertex-stride %vk:vertex-stride
                    :vertex-format %vk:vertex-format
-                   :index-data %vk:index-data
+                   :index-data (vk:make-buffer-wrapper %vk:index-data)
                    :index-offset %vk:index-offset
                    :index-count %vk:index-count
                    :index-type %vk:index-type
-                   :transform-data %vk:transform-data
+                   :transform-data (vk:make-buffer-wrapper %vk:transform-data)
                    :transform-offset %vk:transform-offset)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-geometry-aabb-nv))
@@ -6725,7 +6771,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:geometry-aabb-nv))
     (make-instance 'vk:geometry-aabb-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :aabb-data %vk:aabb-data
+                   :aabb-data (vk:make-buffer-wrapper %vk:aabb-data)
                    :num-aabbs %vk:num-aabbs
                    :stride %vk:stride
                    :offset %vk:offset)))
@@ -6799,8 +6845,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:bind-acceleration-structure-memory-info-nv))
     (make-instance 'vk:bind-acceleration-structure-memory-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :acceleration-structure %vk:acceleration-structure
-                   :memory %vk:memory
+                   :acceleration-structure (vk:make-acceleration-structure-nv-wrapper %vk:acceleration-structure)
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :memory-offset %vk:memory-offset
                    :device-indices (loop for i from 0 below %vk:device-index-count collect (cffi:mem-aref %vk:p-device-indices :uint32 i)))))
 
@@ -6814,7 +6860,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:write-descriptor-set-acceleration-structure-khr))
     (make-instance 'vk:write-descriptor-set-acceleration-structure-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :acceleration-structures (loop for i from 0 below %vk:acceleration-structure-count collect (cffi:mem-aref %vk:p-acceleration-structures '%vk:acceleration-structure-khr i)))))
+                   :acceleration-structures (loop for i from 0 below %vk:acceleration-structure-count collect (vk:make-acceleration-structure-khr-wrapper (cffi:mem-aref %vk:p-acceleration-structures '%vk:acceleration-structure-khr i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-write-descriptor-set-acceleration-structure-nv))
   (cffi:with-foreign-slots
@@ -6826,7 +6872,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:write-descriptor-set-acceleration-structure-nv))
     (make-instance 'vk:write-descriptor-set-acceleration-structure-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :acceleration-structures (loop for i from 0 below %vk:acceleration-structure-count collect (cffi:mem-aref %vk:p-acceleration-structures '%vk:acceleration-structure-nv i)))))
+                   :acceleration-structures (loop for i from 0 below %vk:acceleration-structure-count collect (vk:make-acceleration-structure-nv-wrapper (cffi:mem-aref %vk:p-acceleration-structures '%vk:acceleration-structure-nv i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-memory-requirements-info-nv))
   (cffi:with-foreign-slots
@@ -6839,7 +6885,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:acceleration-structure-memory-requirements-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :type %vk:type
-                   :acceleration-structure %vk:acceleration-structure)))
+                   :acceleration-structure (vk:make-acceleration-structure-nv-wrapper %vk:acceleration-structure))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-acceleration-structure-features-khr))
   (cffi:with-foreign-slots
@@ -7249,6 +7295,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :priority %vk:priority)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-pageable-device-local-memory-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:pageable-device-local-memory)
+       ptr
+       (:struct %vk:physical-device-pageable-device-local-memory-features-ext))
+    (make-instance 'vk:physical-device-pageable-device-local-memory-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :pageable-device-local-memory %vk:pageable-device-local-memory)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-buffer-device-address-features))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -7288,7 +7345,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:buffer-device-address-info))
     (make-instance 'vk:buffer-device-address-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :buffer %vk:buffer)))
+                   :buffer (vk:make-buffer-wrapper %vk:buffer))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-opaque-capture-address-create-info))
   (cffi:with-foreign-slots
@@ -7391,7 +7448,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:render-pass-attachment-begin-info))
     (make-instance 'vk:render-pass-attachment-begin-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :attachments (loop for i from 0 below %vk:attachment-count collect (cffi:mem-aref %vk:p-attachments '%vk:image-view i)))))
+                   :attachments (loop for i from 0 below %vk:attachment-count collect (vk:make-image-view-wrapper (cffi:mem-aref %vk:p-attachments '%vk:image-view i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-texture-compression-astc-h-d-r-features-ext))
   (cffi:with-foreign-slots
@@ -7475,9 +7532,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:image-view-handle-info-nvx))
     (make-instance 'vk:image-view-handle-info-nvx
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :image-view %vk:image-view
+                   :image-view (vk:make-image-view-wrapper %vk:image-view)
                    :descriptor-type %vk:descriptor-type
-                   :sampler %vk:sampler)))
+                   :sampler (vk:make-sampler-wrapper %vk:sampler))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-view-address-properties-nvx))
   (cffi:with-foreign-slots
@@ -7599,7 +7656,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :unit %vk:unit
                    :scope %vk:scope
                    :storage %vk:storage
-                   :uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:uuid :uint8 i)))))
+                   :uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:uuid :uint8 i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-performance-counter-description-khr))
   (cffi:with-foreign-slots
@@ -7884,6 +7941,19 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :stencil-layout %vk:stencil-layout)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-primitive-topology-list-restart-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:primitive-topology-list-restart
+        %vk:primitive-topology-patch-list-restart)
+       ptr
+       (:struct %vk:physical-device-primitive-topology-list-restart-features-ext))
+    (make-instance 'vk:physical-device-primitive-topology-list-restart-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :primitive-topology-list-restart %vk:primitive-topology-list-restart
+                   :primitive-topology-patch-list-restart %vk:primitive-topology-patch-list-restart)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-attachment-description-stencil-layout))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -7917,7 +7987,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:pipeline-info-khr))
     (make-instance 'vk:pipeline-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :pipeline %vk:pipeline)))
+                   :pipeline (vk:make-pipeline-wrapper %vk:pipeline))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-executable-properties-khr))
   (cffi:with-foreign-slots
@@ -7946,7 +8016,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:pipeline-executable-info-khr))
     (make-instance 'vk:pipeline-executable-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :pipeline %vk:pipeline
+                   :pipeline (vk:make-pipeline-wrapper %vk:pipeline)
                    :executable-index %vk:executable-index)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-executable-statistic-khr))
@@ -8075,7 +8145,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:subpass-shading-pipeline-create-info-huawei))
     (make-instance 'vk:subpass-shading-pipeline-create-info-huawei
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :render-pass %vk:render-pass
+                   :render-pass (vk:make-render-pass-wrapper %vk:render-pass)
                    :subpass %vk:subpass)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-subpass-shading-properties-huawei))
@@ -8109,7 +8179,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:device-memory-opaque-capture-address-info))
     (make-instance 'vk:device-memory-opaque-capture-address-info
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory)))
+                   :memory (vk:make-device-memory-wrapper %vk:memory))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-line-rasterization-features-ext))
   (cffi:with-foreign-slots
@@ -8227,9 +8297,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:physical-device-vulkan-1-1-properties))
     (make-instance 'vk:physical-device-vulkan-1-1-properties
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :device-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:device-uuid :uint8 i))
-                   :driver-uuid (loop for i from 0 below 16 collect (cffi:mem-aref %vk:driver-uuid :uint8 i))
-                   :device-luid (loop for i from 0 below 8 collect (cffi:mem-aref %vk:device-luid :uint8 i))
+                   :device-uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:device-uuid :uint8 i)) 'vector)
+                   :driver-uuid (cl:coerce (loop for i from 0 below 16 collect (cffi:mem-aref %vk:driver-uuid :uint8 i)) 'vector)
+                   :device-luid (cl:coerce (loop for i from 0 below 8 collect (cffi:mem-aref %vk:device-luid :uint8 i)) 'vector)
                    :device-node-mask %vk:device-node-mask
                    :device-luid-valid %vk:device-luid-valid
                    :subgroup-size %vk:subgroup-size
@@ -8537,6 +8607,32 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :custom-border-colors %vk:custom-border-colors
                    :custom-border-color-without-format %vk:custom-border-color-without-format)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-sampler-border-color-component-mapping-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:components
+        %vk:srgb)
+       ptr
+       (:struct %vk:sampler-border-color-component-mapping-create-info-ext))
+    (make-instance 'vk:sampler-border-color-component-mapping-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :components %vk:components
+                   :srgb %vk:srgb)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-border-color-swizzle-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:border-color-swizzle
+        %vk:border-color-swizzle-from-image)
+       ptr
+       (:struct %vk:physical-device-border-color-swizzle-features-ext))
+    (make-instance 'vk:physical-device-border-color-swizzle-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :border-color-swizzle %vk:border-color-swizzle
+                   :border-color-swizzle-from-image %vk:border-color-swizzle-from-image)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-geometry-triangles-data-khr))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -8621,8 +8717,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :type %vk:type
                    :flags %vk:flags
                    :mode %vk:mode
-                   :src-acceleration-structure %vk:src-acceleration-structure
-                   :dst-acceleration-structure %vk:dst-acceleration-structure
+                   :src-acceleration-structure (vk:make-acceleration-structure-khr-wrapper %vk:src-acceleration-structure)
+                   :dst-acceleration-structure (vk:make-acceleration-structure-khr-wrapper %vk:dst-acceleration-structure)
                    :geometries (loop for i from 0 below %vk:geometry-count collect (cffi:mem-aref %vk:p-geometries '(:struct %vk:acceleration-structure-geometry-khr) i))
                    :p-geometries (loop for i from 0 below %vk:geometry-count collect (cffi:mem-aref %vk:pp-geometries '(:struct %vk:acceleration-structure-geometry-khr) i))
                    :scratch-data nil)))
@@ -8656,7 +8752,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:acceleration-structure-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :create-flags %vk:create-flags
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :offset %vk:offset
                    :size %vk:size
                    :type %vk:type
@@ -8686,24 +8782,22 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        ptr
        (:struct %vk:transform-matrix-khr))
     (make-instance 'vk:transform-matrix-khr
-                   :matrix (loop for i from 0 below 12 collect (cffi:mem-aref %vk:matrix :float i)))))
+                   :matrix (cl:coerce (loop for i from 0 below 12 collect (cffi:mem-aref %vk:matrix :float i)) 'vector))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-instance-khr))
   (cffi:with-foreign-slots
       ((%vk:transform
-        %vk:instance-custom-index
-        %vk:mask
-        %vk:instance-shader-binding-table-record-offset
-        %vk:flags
+        %vk:instance-custom-index-and-mask
+        %vk:instance-shader-binding-table-record-offset-and-flags
         %vk:acceleration-structure-reference)
        ptr
        (:struct %vk:acceleration-structure-instance-khr))
     (make-instance 'vk:acceleration-structure-instance-khr
                    :transform %vk:transform
-                   :instance-custom-index %vk:instance-custom-index
-                   :mask %vk:mask
-                   :instance-shader-binding-table-record-offset %vk:instance-shader-binding-table-record-offset
-                   :flags %vk:flags
+                   :instance-custom-index (ldb (byte 24 0) %vk:instance-custom-index-and-mask)
+                   :mask (ldb (byte 8 24) %vk:instance-custom-index-and-mask)
+                   :instance-shader-binding-table-record-offset (ldb (byte 24 0) %vk:instance-shader-binding-table-record-offset-and-flags)
+                   :flags (cffi:foreign-bitfield-symbols '%vk:geometry-instance-flags-khr (ldb (byte 8 24) %vk:instance-shader-binding-table-record-offset-and-flags))
                    :acceleration-structure-reference %vk:acceleration-structure-reference)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-device-address-info-khr))
@@ -8715,7 +8809,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:acceleration-structure-device-address-info-khr))
     (make-instance 'vk:acceleration-structure-device-address-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :acceleration-structure %vk:acceleration-structure)))
+                   :acceleration-structure (vk:make-acceleration-structure-khr-wrapper %vk:acceleration-structure))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-version-info-khr))
   (cffi:with-foreign-slots
@@ -8739,8 +8833,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-acceleration-structure-info-khr))
     (make-instance 'vk:copy-acceleration-structure-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src %vk:src
-                   :dst %vk:dst
+                   :src (vk:make-acceleration-structure-khr-wrapper %vk:src)
+                   :dst (vk:make-acceleration-structure-khr-wrapper %vk:dst)
                    :mode %vk:mode)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-acceleration-structure-to-memory-info-khr))
@@ -8754,7 +8848,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-acceleration-structure-to-memory-info-khr))
     (make-instance 'vk:copy-acceleration-structure-to-memory-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src %vk:src
+                   :src (vk:make-acceleration-structure-khr-wrapper %vk:src)
                    :dst nil
                    :mode %vk:mode)))
 
@@ -8770,7 +8864,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:copy-memory-to-acceleration-structure-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :src nil
-                   :dst %vk:dst
+                   :dst (vk:make-acceleration-structure-khr-wrapper %vk:dst)
                    :mode %vk:mode)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-ray-tracing-pipeline-interface-create-info-khr))
@@ -8796,7 +8890,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:pipeline-library-create-info-khr))
     (make-instance 'vk:pipeline-library-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :libraries (loop for i from 0 below %vk:library-count collect (cffi:mem-aref %vk:p-libraries '%vk:pipeline i)))))
+                   :libraries (loop for i from 0 below %vk:library-count collect (vk:make-pipeline-wrapper (cffi:mem-aref %vk:p-libraries '%vk:pipeline i))))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-extended-dynamic-state-features-ext))
   (cffi:with-foreign-slots
@@ -9136,8 +9230,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-buffer-info-2-khr))
     (make-instance 'vk:copy-buffer-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-buffer %vk:src-buffer
-                   :dst-buffer %vk:dst-buffer
+                   :src-buffer (vk:make-buffer-wrapper %vk:src-buffer)
+                   :dst-buffer (vk:make-buffer-wrapper %vk:dst-buffer)
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:buffer-copy-2-khr) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-copy-image-info-2-khr))
@@ -9154,9 +9248,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-image-info-2-khr))
     (make-instance 'vk:copy-image-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-image %vk:src-image
+                   :src-image (vk:make-image-wrapper %vk:src-image)
                    :src-image-layout %vk:src-image-layout
-                   :dst-image %vk:dst-image
+                   :dst-image (vk:make-image-wrapper %vk:dst-image)
                    :dst-image-layout %vk:dst-image-layout
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-copy-2-khr) i)))))
 
@@ -9175,9 +9269,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:blit-image-info-2-khr))
     (make-instance 'vk:blit-image-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-image %vk:src-image
+                   :src-image (vk:make-image-wrapper %vk:src-image)
                    :src-image-layout %vk:src-image-layout
-                   :dst-image %vk:dst-image
+                   :dst-image (vk:make-image-wrapper %vk:dst-image)
                    :dst-image-layout %vk:dst-image-layout
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-blit-2-khr) i))
                    :filter %vk:filter)))
@@ -9195,8 +9289,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-buffer-to-image-info-2-khr))
     (make-instance 'vk:copy-buffer-to-image-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-buffer %vk:src-buffer
-                   :dst-image %vk:dst-image
+                   :src-buffer (vk:make-buffer-wrapper %vk:src-buffer)
+                   :dst-image (vk:make-image-wrapper %vk:dst-image)
                    :dst-image-layout %vk:dst-image-layout
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:buffer-image-copy-2-khr) i)))))
 
@@ -9213,9 +9307,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:copy-image-to-buffer-info-2-khr))
     (make-instance 'vk:copy-image-to-buffer-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-image %vk:src-image
+                   :src-image (vk:make-image-wrapper %vk:src-image)
                    :src-image-layout %vk:src-image-layout
-                   :dst-buffer %vk:dst-buffer
+                   :dst-buffer (vk:make-buffer-wrapper %vk:dst-buffer)
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:buffer-image-copy-2-khr) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-resolve-image-info-2-khr))
@@ -9232,9 +9326,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:resolve-image-info-2-khr))
     (make-instance 'vk:resolve-image-info-2-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :src-image %vk:src-image
+                   :src-image (vk:make-image-wrapper %vk:src-image)
                    :src-image-layout %vk:src-image-layout
-                   :dst-image %vk:dst-image
+                   :dst-image (vk:make-image-wrapper %vk:dst-image)
                    :dst-image-layout %vk:dst-image-layout
                    :regions (loop for i from 0 below %vk:region-count collect (cffi:mem-aref %vk:p-regions '(:struct %vk:image-resolve-2-khr) i)))))
 
@@ -9569,7 +9663,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :new-layout %vk:new-layout
                    :src-queue-family-index %vk:src-queue-family-index
                    :dst-queue-family-index %vk:dst-queue-family-index
-                   :image %vk:image
+                   :image (vk:make-image-wrapper %vk:image)
                    :subresource-range %vk:subresource-range)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-memory-barrier-2-khr))
@@ -9595,7 +9689,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :dst-access-mask %vk:dst-access-mask
                    :src-queue-family-index %vk:src-queue-family-index
                    :dst-queue-family-index %vk:dst-queue-family-index
-                   :buffer %vk:buffer
+                   :buffer (vk:make-buffer-wrapper %vk:buffer)
                    :offset %vk:offset
                    :size %vk:size)))
 
@@ -9631,7 +9725,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:semaphore-submit-info-khr))
     (make-instance 'vk:semaphore-submit-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :semaphore %vk:semaphore
+                   :semaphore (vk:make-semaphore-wrapper %vk:semaphore)
                    :value %vk:value
                    :stage-mask %vk:stage-mask
                    :device-index %vk:device-index)))
@@ -9646,7 +9740,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:command-buffer-submit-info-khr))
     (make-instance 'vk:command-buffer-submit-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :command-buffer %vk:command-buffer
+                   :command-buffer (vk:make-command-buffer-wrapper %vk:command-buffer)
                    :device-mask %vk:device-mask)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-submit-info-2-khr))
@@ -9820,7 +9914,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (make-instance 'vk:video-bind-memory-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :memory-bind-index %vk:memory-bind-index
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :memory-offset %vk:memory-offset
                    :memory-size %vk:memory-size)))
 
@@ -9839,7 +9933,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :coded-offset %vk:coded-offset
                    :coded-extent %vk:coded-extent
                    :base-array-layer %vk:base-array-layer
-                   :image-view-binding %vk:image-view-binding)))
+                   :image-view-binding (vk:make-image-view-wrapper %vk:image-view-binding))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-reference-slot-khr))
   (cffi:with-foreign-slots
@@ -9875,7 +9969,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :flags %vk:flags
                    :coded-offset %vk:coded-offset
                    :coded-extent %vk:coded-extent
-                   :src-buffer %vk:src-buffer
+                   :src-buffer (vk:make-buffer-wrapper %vk:src-buffer)
                    :src-buffer-offset %vk:src-buffer-offset
                    :src-buffer-range %vk:src-buffer-range
                    :dst-picture-resource %vk:dst-picture-resource
@@ -10116,8 +10210,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:video-session-parameters-create-info-khr))
     (make-instance 'vk:video-session-parameters-create-info-khr
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :video-session-parameters-template %vk:video-session-parameters-template
-                   :video-session %vk:video-session)))
+                   :video-session-parameters-template (vk:make-video-session-parameters-khr-wrapper %vk:video-session-parameters-template)
+                   :video-session (vk:make-video-session-khr-wrapper %vk:video-session))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-session-parameters-update-info-khr))
   (cffi:with-foreign-slots
@@ -10146,8 +10240,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
                    :flags %vk:flags
                    :codec-quality-preset %vk:codec-quality-preset
-                   :video-session %vk:video-session
-                   :video-session-parameters %vk:video-session-parameters
+                   :video-session (vk:make-video-session-khr-wrapper %vk:video-session)
+                   :video-session-parameters (vk:make-video-session-parameters-khr-wrapper %vk:video-session-parameters)
                    :reference-slots (loop for i from 0 below %vk:reference-slot-count collect (cffi:mem-aref %vk:p-reference-slots '(:struct %vk:video-reference-slot-khr) i)))))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-end-coding-info-khr))
@@ -10193,7 +10287,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :flags %vk:flags
                    :quality-level %vk:quality-level
                    :coded-extent %vk:coded-extent
-                   :dst-bitstream-buffer %vk:dst-bitstream-buffer
+                   :dst-bitstream-buffer (vk:make-buffer-wrapper %vk:dst-bitstream-buffer)
                    :dst-bitstream-buffer-offset %vk:dst-bitstream-buffer-offset
                    :dst-bitstream-buffer-max-range %vk:dst-bitstream-buffer-max-range
                    :src-picture-resource %vk:src-picture-resource
@@ -10384,6 +10478,177 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :min-qp %vk:min-qp
                    :max-qp %vk:max-qp)))
 
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-capabilities-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:input-mode-flags
+        %vk:output-mode-flags
+        %vk:ctb-sizes
+        %vk:input-image-data-alignment
+        %vk:max-num-l-0-reference-for-p
+        %vk:max-num-l-0-reference-for-b
+        %vk:max-num-l-1-reference
+        %vk:max-num-sub-layers
+        %vk:quality-level-count
+        %vk:std-extension-version)
+       ptr
+       (:struct %vk:video-encode-h265-capabilities-ext))
+    (make-instance 'vk:video-encode-h265-capabilities-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :input-mode-flags %vk:input-mode-flags
+                   :output-mode-flags %vk:output-mode-flags
+                   :ctb-sizes %vk:ctb-sizes
+                   :input-image-data-alignment %vk:input-image-data-alignment
+                   :max-num-l-0-reference-for-p %vk:max-num-l-0-reference-for-p
+                   :max-num-l-0-reference-for-b %vk:max-num-l-0-reference-for-b
+                   :max-num-l-1-reference %vk:max-num-l-1-reference
+                   :max-num-sub-layers %vk:max-num-sub-layers
+                   :quality-level-count %vk:quality-level-count
+                   :std-extension-version %vk:std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-session-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:p-std-extension-version)
+       ptr
+       (:struct %vk:video-encode-h265-session-create-info-ext))
+    (make-instance 'vk:video-encode-h265-session-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :std-extension-version %vk:p-std-extension-version)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-session-parameters-add-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:vps-std-count
+        %vk:p-vps-std
+        %vk:sps-std-count
+        %vk:p-sps-std
+        %vk:pps-std-count
+        %vk:p-pps-std)
+       ptr
+       (:struct %vk:video-encode-h265-session-parameters-add-info-ext))
+    (make-instance 'vk:video-encode-h265-session-parameters-add-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :vps-std (loop for i from 0 below %vk:vps-std-count collect (cffi:mem-aref %vk:p-vps-std '(:struct %vk:std-video-h265-video-parameter-set) i))
+                   :sps-std (loop for i from 0 below %vk:sps-std-count collect (cffi:mem-aref %vk:p-sps-std '(:struct %vk:std-video-h265-sequence-parameter-set) i))
+                   :pps-std (loop for i from 0 below %vk:pps-std-count collect (cffi:mem-aref %vk:p-pps-std '(:struct %vk:std-video-h265-picture-parameter-set) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-session-parameters-create-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:max-vps-std-count
+        %vk:max-sps-std-count
+        %vk:max-pps-std-count
+        %vk:p-parameters-add-info)
+       ptr
+       (:struct %vk:video-encode-h265-session-parameters-create-info-ext))
+    (make-instance 'vk:video-encode-h265-session-parameters-create-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :max-vps-std-count %vk:max-vps-std-count
+                   :max-sps-std-count %vk:max-sps-std-count
+                   :max-pps-std-count %vk:max-pps-std-count
+                   :parameters-add-info %vk:p-parameters-add-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-vcl-frame-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:p-reference-final-lists
+        %vk:nalu-slice-entry-count
+        %vk:p-nalu-slice-entries
+        %vk:p-current-picture-info)
+       ptr
+       (:struct %vk:video-encode-h265-vcl-frame-info-ext))
+    (make-instance 'vk:video-encode-h265-vcl-frame-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :reference-final-lists %vk:p-reference-final-lists
+                   :nalu-slice-entries (loop for i from 0 below %vk:nalu-slice-entry-count collect (cffi:mem-aref %vk:p-nalu-slice-entries '(:struct %vk:video-encode-h265-nalu-slice-ext) i))
+                   :current-picture-info %vk:p-current-picture-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-emit-picture-parameters-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:vps-id
+        %vk:sps-id
+        %vk:emit-vps-enable
+        %vk:emit-sps-enable
+        %vk:pps-id-entry-count
+        %vk:pps-id-entries)
+       ptr
+       (:struct %vk:video-encode-h265-emit-picture-parameters-ext))
+    (make-instance 'vk:video-encode-h265-emit-picture-parameters-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :vps-id %vk:vps-id
+                   :sps-id %vk:sps-id
+                   :emit-vps-enable %vk:emit-vps-enable
+                   :emit-sps-enable %vk:emit-sps-enable
+                   :pps-id-entries (loop for i from 0 below %vk:pps-id-entry-count collect (cffi:mem-aref %vk:pps-id-entries :uint8 i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-nalu-slice-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:ctb-count
+        %vk:p-reference-final-lists
+        %vk:p-slice-header-std)
+       ptr
+       (:struct %vk:video-encode-h265-nalu-slice-ext))
+    (make-instance 'vk:video-encode-h265-nalu-slice-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :ctb-count %vk:ctb-count
+                   :reference-final-lists %vk:p-reference-final-lists
+                   :slice-header-std %vk:p-slice-header-std)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-profile-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:std-profile-idc)
+       ptr
+       (:struct %vk:video-encode-h265-profile-ext))
+    (make-instance 'vk:video-encode-h265-profile-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :std-profile-idc %vk:std-profile-idc)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-dpb-slot-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:slot-index
+        %vk:p-std-reference-info)
+       ptr
+       (:struct %vk:video-encode-h265-dpb-slot-info-ext))
+    (make-instance 'vk:video-encode-h265-dpb-slot-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :slot-index %vk:slot-index
+                   :std-reference-info %vk:p-std-reference-info)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-video-encode-h265-reference-lists-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:reference-list-0-entry-count
+        %vk:p-reference-list-0-entries
+        %vk:reference-list-1-entry-count
+        %vk:p-reference-list-1-entries
+        %vk:p-reference-modifications)
+       ptr
+       (:struct %vk:video-encode-h265-reference-lists-ext))
+    (make-instance 'vk:video-encode-h265-reference-lists-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :reference-list-0-entries (loop for i from 0 below %vk:reference-list-0-entry-count collect (cffi:mem-aref %vk:p-reference-list-0-entries '(:struct %vk:video-encode-h265-dpb-slot-info-ext) i))
+                   :reference-list-1-entries (loop for i from 0 below %vk:reference-list-1-entry-count collect (cffi:mem-aref %vk:p-reference-list-1-entries '(:struct %vk:video-encode-h265-dpb-slot-info-ext) i))
+                   :reference-modifications %vk:p-reference-modifications)))
+
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-inherited-viewport-scissor-features-nv))
   (cffi:with-foreign-slots
       ((%vk:s-type
@@ -10481,7 +10746,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:cu-function-create-info-nvx))
     (make-instance 'vk:cu-function-create-info-nvx
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :module %vk:module
+                   :module (vk:make-cu-module-nvx-wrapper %vk:module)
                    :name %vk:p-name)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-cu-launch-info-nvx))
@@ -10504,7 +10769,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:cu-launch-info-nvx))
     (make-instance 'vk:cu-launch-info-nvx
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :function-handle %vk:function-handle
+                   :function-handle (vk:make-cu-function-nvx-wrapper %vk:function-handle)
                    :grid-dim-x %vk:grid-dim-x
                    :grid-dim-y %vk:grid-dim-y
                    :grid-dim-z %vk:grid-dim-z
@@ -10516,6 +10781,86 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :params %vk:p-params
                    :extra-count %vk:extra-count
                    :extras %vk:p-extras)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-shader-integer-dot-product-features-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:shader-integer-dot-product)
+       ptr
+       (:struct %vk:physical-device-shader-integer-dot-product-features-khr))
+    (make-instance 'vk:physical-device-shader-integer-dot-product-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :shader-integer-dot-product %vk:shader-integer-dot-product)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-shader-integer-dot-product-properties-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:integer-dot-product-8-bit-unsigned-accelerated
+        %vk:integer-dot-product-8-bit-signed-accelerated
+        %vk:integer-dot-product-8-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-4x-8-bit-packed-unsigned-accelerated
+        %vk:integer-dot-product-4x-8-bit-packed-signed-accelerated
+        %vk:integer-dot-product-4x-8-bit-packed-mixed-signedness-accelerated
+        %vk:integer-dot-product-16-bit-unsigned-accelerated
+        %vk:integer-dot-product-16-bit-signed-accelerated
+        %vk:integer-dot-product-16-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-32-bit-unsigned-accelerated
+        %vk:integer-dot-product-32-bit-signed-accelerated
+        %vk:integer-dot-product-32-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-64-bit-unsigned-accelerated
+        %vk:integer-dot-product-64-bit-signed-accelerated
+        %vk:integer-dot-product-64-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-accumulating-saturating-8-bit-unsigned-accelerated
+        %vk:integer-dot-product-accumulating-saturating-8-bit-signed-accelerated
+        %vk:integer-dot-product-accumulating-saturating-8-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-accumulating-saturating-4x-8-bit-packed-unsigned-accelerated
+        %vk:integer-dot-product-accumulating-saturating-4x-8-bit-packed-signed-accelerated
+        %vk:integer-dot-product-accumulating-saturating-4x-8-bit-packed-mixed-signedness-accelerated
+        %vk:integer-dot-product-accumulating-saturating-16-bit-unsigned-accelerated
+        %vk:integer-dot-product-accumulating-saturating-16-bit-signed-accelerated
+        %vk:integer-dot-product-accumulating-saturating-16-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-accumulating-saturating-32-bit-unsigned-accelerated
+        %vk:integer-dot-product-accumulating-saturating-32-bit-signed-accelerated
+        %vk:integer-dot-product-accumulating-saturating-32-bit-mixed-signedness-accelerated
+        %vk:integer-dot-product-accumulating-saturating-64-bit-unsigned-accelerated
+        %vk:integer-dot-product-accumulating-saturating-64-bit-signed-accelerated
+        %vk:integer-dot-product-accumulating-saturating-64-bit-mixed-signedness-accelerated)
+       ptr
+       (:struct %vk:physical-device-shader-integer-dot-product-properties-khr))
+    (make-instance 'vk:physical-device-shader-integer-dot-product-properties-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :integer-dot-product-8-bit-unsigned-accelerated %vk:integer-dot-product-8-bit-unsigned-accelerated
+                   :integer-dot-product-8-bit-signed-accelerated %vk:integer-dot-product-8-bit-signed-accelerated
+                   :integer-dot-product-8-bit-mixed-signedness-accelerated %vk:integer-dot-product-8-bit-mixed-signedness-accelerated
+                   :integer-dot-product-4x-8-bit-packed-unsigned-accelerated %vk:integer-dot-product-4x-8-bit-packed-unsigned-accelerated
+                   :integer-dot-product-4x-8-bit-packed-signed-accelerated %vk:integer-dot-product-4x-8-bit-packed-signed-accelerated
+                   :integer-dot-product-4x-8-bit-packed-mixed-signedness-accelerated %vk:integer-dot-product-4x-8-bit-packed-mixed-signedness-accelerated
+                   :integer-dot-product-16-bit-unsigned-accelerated %vk:integer-dot-product-16-bit-unsigned-accelerated
+                   :integer-dot-product-16-bit-signed-accelerated %vk:integer-dot-product-16-bit-signed-accelerated
+                   :integer-dot-product-16-bit-mixed-signedness-accelerated %vk:integer-dot-product-16-bit-mixed-signedness-accelerated
+                   :integer-dot-product-32-bit-unsigned-accelerated %vk:integer-dot-product-32-bit-unsigned-accelerated
+                   :integer-dot-product-32-bit-signed-accelerated %vk:integer-dot-product-32-bit-signed-accelerated
+                   :integer-dot-product-32-bit-mixed-signedness-accelerated %vk:integer-dot-product-32-bit-mixed-signedness-accelerated
+                   :integer-dot-product-64-bit-unsigned-accelerated %vk:integer-dot-product-64-bit-unsigned-accelerated
+                   :integer-dot-product-64-bit-signed-accelerated %vk:integer-dot-product-64-bit-signed-accelerated
+                   :integer-dot-product-64-bit-mixed-signedness-accelerated %vk:integer-dot-product-64-bit-mixed-signedness-accelerated
+                   :integer-dot-product-accumulating-saturating-8-bit-unsigned-accelerated %vk:integer-dot-product-accumulating-saturating-8-bit-unsigned-accelerated
+                   :integer-dot-product-accumulating-saturating-8-bit-signed-accelerated %vk:integer-dot-product-accumulating-saturating-8-bit-signed-accelerated
+                   :integer-dot-product-accumulating-saturating-8-bit-mixed-signedness-accelerated %vk:integer-dot-product-accumulating-saturating-8-bit-mixed-signedness-accelerated
+                   :integer-dot-product-accumulating-saturating-4x-8-bit-packed-unsigned-accelerated %vk:integer-dot-product-accumulating-saturating-4x-8-bit-packed-unsigned-accelerated
+                   :integer-dot-product-accumulating-saturating-4x-8-bit-packed-signed-accelerated %vk:integer-dot-product-accumulating-saturating-4x-8-bit-packed-signed-accelerated
+                   :integer-dot-product-accumulating-saturating-4x-8-bit-packed-mixed-signedness-accelerated %vk:integer-dot-product-accumulating-saturating-4x-8-bit-packed-mixed-signedness-accelerated
+                   :integer-dot-product-accumulating-saturating-16-bit-unsigned-accelerated %vk:integer-dot-product-accumulating-saturating-16-bit-unsigned-accelerated
+                   :integer-dot-product-accumulating-saturating-16-bit-signed-accelerated %vk:integer-dot-product-accumulating-saturating-16-bit-signed-accelerated
+                   :integer-dot-product-accumulating-saturating-16-bit-mixed-signedness-accelerated %vk:integer-dot-product-accumulating-saturating-16-bit-mixed-signedness-accelerated
+                   :integer-dot-product-accumulating-saturating-32-bit-unsigned-accelerated %vk:integer-dot-product-accumulating-saturating-32-bit-unsigned-accelerated
+                   :integer-dot-product-accumulating-saturating-32-bit-signed-accelerated %vk:integer-dot-product-accumulating-saturating-32-bit-signed-accelerated
+                   :integer-dot-product-accumulating-saturating-32-bit-mixed-signedness-accelerated %vk:integer-dot-product-accumulating-saturating-32-bit-mixed-signedness-accelerated
+                   :integer-dot-product-accumulating-saturating-64-bit-unsigned-accelerated %vk:integer-dot-product-accumulating-saturating-64-bit-unsigned-accelerated
+                   :integer-dot-product-accumulating-saturating-64-bit-signed-accelerated %vk:integer-dot-product-accumulating-saturating-64-bit-signed-accelerated
+                   :integer-dot-product-accumulating-saturating-64-bit-mixed-signedness-accelerated %vk:integer-dot-product-accumulating-saturating-64-bit-mixed-signedness-accelerated)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-drm-properties-ext))
   (cffi:with-foreign-slots
@@ -10575,7 +10920,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :max-instances %vk:max-instances
                    :flags %vk:flags)))
 
-(defmethod cffi:translate-from-foreign (ptr (type %vk:c-s-r-t-data-nv))
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-srt-data-nv))
   (cffi:with-foreign-slots
       ((%vk:sx
         %vk:a
@@ -10594,8 +10939,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:ty
         %vk:tz)
        ptr
-       (:struct %vk:s-r-t-data-nv))
-    (make-instance 'vk:s-r-t-data-nv
+       (:struct %vk:srt-data-nv))
+    (make-instance 'vk:srt-data-nv
                    :sx %vk:sx
                    :a %vk:a
                    :b %vk:b
@@ -10613,44 +10958,40 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
                    :ty %vk:ty
                    :tz %vk:tz)))
 
-(defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-s-r-t-motion-instance-nv))
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-srt-motion-instance-nv))
   (cffi:with-foreign-slots
       ((%vk:transform-t-0
         %vk:transform-t-1
-        %vk:instance-custom-index
-        %vk:mask
-        %vk:instance-shader-binding-table-record-offset
-        %vk:flags
+        %vk:instance-custom-index-and-mask
+        %vk:instance-shader-binding-table-record-offset-and-flags
         %vk:acceleration-structure-reference)
        ptr
-       (:struct %vk:acceleration-structure-s-r-t-motion-instance-nv))
-    (make-instance 'vk:acceleration-structure-s-r-t-motion-instance-nv
+       (:struct %vk:acceleration-structure-srt-motion-instance-nv))
+    (make-instance 'vk:acceleration-structure-srt-motion-instance-nv
                    :transform-t-0 %vk:transform-t-0
                    :transform-t-1 %vk:transform-t-1
-                   :instance-custom-index %vk:instance-custom-index
-                   :mask %vk:mask
-                   :instance-shader-binding-table-record-offset %vk:instance-shader-binding-table-record-offset
-                   :flags %vk:flags
+                   :instance-custom-index (ldb (byte 24 0) %vk:instance-custom-index-and-mask)
+                   :mask (ldb (byte 8 24) %vk:instance-custom-index-and-mask)
+                   :instance-shader-binding-table-record-offset (ldb (byte 24 0) %vk:instance-shader-binding-table-record-offset-and-flags)
+                   :flags (cffi:foreign-bitfield-symbols '%vk:geometry-instance-flags-khr (ldb (byte 8 24) %vk:instance-shader-binding-table-record-offset-and-flags))
                    :acceleration-structure-reference %vk:acceleration-structure-reference)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-matrix-motion-instance-nv))
   (cffi:with-foreign-slots
       ((%vk:transform-t-0
         %vk:transform-t-1
-        %vk:instance-custom-index
-        %vk:mask
-        %vk:instance-shader-binding-table-record-offset
-        %vk:flags
+        %vk:instance-custom-index-and-mask
+        %vk:instance-shader-binding-table-record-offset-and-flags
         %vk:acceleration-structure-reference)
        ptr
        (:struct %vk:acceleration-structure-matrix-motion-instance-nv))
     (make-instance 'vk:acceleration-structure-matrix-motion-instance-nv
                    :transform-t-0 %vk:transform-t-0
                    :transform-t-1 %vk:transform-t-1
-                   :instance-custom-index %vk:instance-custom-index
-                   :mask %vk:mask
-                   :instance-shader-binding-table-record-offset %vk:instance-shader-binding-table-record-offset
-                   :flags %vk:flags
+                   :instance-custom-index (ldb (byte 24 0) %vk:instance-custom-index-and-mask)
+                   :mask (ldb (byte 8 24) %vk:instance-custom-index-and-mask)
+                   :instance-shader-binding-table-record-offset (ldb (byte 24 0) %vk:instance-shader-binding-table-record-offset-and-flags)
+                   :flags (cffi:foreign-bitfield-symbols '%vk:geometry-instance-flags-khr (ldb (byte 8 24) %vk:instance-shader-binding-table-record-offset-and-flags))
                    :acceleration-structure-reference %vk:acceleration-structure-reference)))
 
 (defmethod cffi:translate-from-foreign (ptr (type %vk:c-acceleration-structure-motion-instance-nv))
@@ -10675,6 +11016,399 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
        (:struct %vk:memory-get-remote-address-info-nv))
     (make-instance 'vk:memory-get-remote-address-info-nv
                    :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
-                   :memory %vk:memory
+                   :memory (vk:make-device-memory-wrapper %vk:memory)
                    :handle-type %vk:handle-type)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-import-memory-buffer-collection-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:collection
+        %vk:index)
+       ptr
+       (:struct %vk:import-memory-buffer-collection-fuchsia))
+    (make-instance 'vk:import-memory-buffer-collection-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :collection (vk:make-buffer-collection-fuchsia-wrapper %vk:collection)
+                   :index %vk:index)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-collection-image-create-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:collection
+        %vk:index)
+       ptr
+       (:struct %vk:buffer-collection-image-create-info-fuchsia))
+    (make-instance 'vk:buffer-collection-image-create-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :collection (vk:make-buffer-collection-fuchsia-wrapper %vk:collection)
+                   :index %vk:index)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-collection-buffer-create-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:collection
+        %vk:index)
+       ptr
+       (:struct %vk:buffer-collection-buffer-create-info-fuchsia))
+    (make-instance 'vk:buffer-collection-buffer-create-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :collection (vk:make-buffer-collection-fuchsia-wrapper %vk:collection)
+                   :index %vk:index)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-collection-create-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:collection-token)
+       ptr
+       (:struct %vk:buffer-collection-create-info-fuchsia))
+    (make-instance 'vk:buffer-collection-create-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :collection-token %vk:collection-token)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-collection-properties-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:memory-type-bits
+        %vk:buffer-count
+        %vk:create-info-index
+        %vk:sysmem-pixel-format
+        %vk:format-features
+        %vk:sysmem-color-space-index
+        %vk:sampler-ycbcr-conversion-components
+        %vk:suggested-ycbcr-model
+        %vk:suggested-ycbcr-range
+        %vk:suggested-x-chroma-offset
+        %vk:suggested-y-chroma-offset)
+       ptr
+       (:struct %vk:buffer-collection-properties-fuchsia))
+    (make-instance 'vk:buffer-collection-properties-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :memory-type-bits %vk:memory-type-bits
+                   :buffer-count %vk:buffer-count
+                   :create-info-index %vk:create-info-index
+                   :sysmem-pixel-format %vk:sysmem-pixel-format
+                   :format-features %vk:format-features
+                   :sysmem-color-space-index %vk:sysmem-color-space-index
+                   :sampler-ycbcr-conversion-components %vk:sampler-ycbcr-conversion-components
+                   :suggested-ycbcr-model %vk:suggested-ycbcr-model
+                   :suggested-ycbcr-range %vk:suggested-ycbcr-range
+                   :suggested-x-chroma-offset %vk:suggested-x-chroma-offset
+                   :suggested-y-chroma-offset %vk:suggested-y-chroma-offset)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-constraints-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:create-info
+        %vk:required-format-features
+        %vk:buffer-collection-constraints)
+       ptr
+       (:struct %vk:buffer-constraints-info-fuchsia))
+    (make-instance 'vk:buffer-constraints-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :create-info %vk:create-info
+                   :required-format-features %vk:required-format-features
+                   :buffer-collection-constraints %vk:buffer-collection-constraints)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-sysmem-color-space-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:color-space)
+       ptr
+       (:struct %vk:sysmem-color-space-fuchsia))
+    (make-instance 'vk:sysmem-color-space-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :color-space %vk:color-space)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-format-constraints-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:image-create-info
+        %vk:required-format-features
+        %vk:flags
+        %vk:sysmem-pixel-format
+        %vk:color-space-count
+        %vk:p-color-spaces)
+       ptr
+       (:struct %vk:image-format-constraints-info-fuchsia))
+    (make-instance 'vk:image-format-constraints-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :image-create-info %vk:image-create-info
+                   :required-format-features %vk:required-format-features
+                   :flags %vk:flags
+                   :sysmem-pixel-format %vk:sysmem-pixel-format
+                   :color-space-count %vk:color-space-count
+                   :color-spaces %vk:p-color-spaces)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-image-constraints-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:format-constraints-count
+        %vk:p-format-constraints
+        %vk:buffer-collection-constraints
+        %vk:flags)
+       ptr
+       (:struct %vk:image-constraints-info-fuchsia))
+    (make-instance 'vk:image-constraints-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :format-constraints (loop for i from 0 below %vk:format-constraints-count collect (cffi:mem-aref %vk:p-format-constraints '(:struct %vk:image-format-constraints-info-fuchsia) i))
+                   :buffer-collection-constraints %vk:buffer-collection-constraints
+                   :flags %vk:flags)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-buffer-collection-constraints-info-fuchsia))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:min-buffer-count
+        %vk:max-buffer-count
+        %vk:min-buffer-count-for-camping
+        %vk:min-buffer-count-for-dedicated-slack
+        %vk:min-buffer-count-for-shared-slack)
+       ptr
+       (:struct %vk:buffer-collection-constraints-info-fuchsia))
+    (make-instance 'vk:buffer-collection-constraints-info-fuchsia
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :min-buffer-count %vk:min-buffer-count
+                   :max-buffer-count %vk:max-buffer-count
+                   :min-buffer-count-for-camping %vk:min-buffer-count-for-camping
+                   :min-buffer-count-for-dedicated-slack %vk:min-buffer-count-for-dedicated-slack
+                   :min-buffer-count-for-shared-slack %vk:min-buffer-count-for-shared-slack)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-r-g-b-a-1-0-x-6-formats-features-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:format-rgba-1-0x-6-without-y-cb-cr-sampler)
+       ptr
+       (:struct %vk:physical-device-r-g-b-a-1-0-x-6-formats-features-ext))
+    (make-instance 'vk:physical-device-r-g-b-a-1-0-x-6-formats-features-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :format-rgba-1-0x-6-without-y-cb-cr-sampler %vk:format-rgba-1-0x-6-without-y-cb-cr-sampler)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-format-properties-3-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:linear-tiling-features
+        %vk:optimal-tiling-features
+        %vk:buffer-features)
+       ptr
+       (:struct %vk:format-properties-3-khr))
+    (make-instance 'vk:format-properties-3-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :linear-tiling-features %vk:linear-tiling-features
+                   :optimal-tiling-features %vk:optimal-tiling-features
+                   :buffer-features %vk:buffer-features)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-drm-format-modifier-properties-list-2-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:drm-format-modifier-count
+        %vk:p-drm-format-modifier-properties)
+       ptr
+       (:struct %vk:drm-format-modifier-properties-list-2-ext))
+    (make-instance 'vk:drm-format-modifier-properties-list-2-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :drm-format-modifier-properties (loop for i from 0 below %vk:drm-format-modifier-count collect (cffi:mem-aref %vk:p-drm-format-modifier-properties '(:struct %vk:drm-format-modifier-properties-2-ext) i)))))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-drm-format-modifier-properties-2-ext))
+  (cffi:with-foreign-slots
+      ((%vk:drm-format-modifier
+        %vk:drm-format-modifier-plane-count
+        %vk:drm-format-modifier-tiling-features)
+       ptr
+       (:struct %vk:drm-format-modifier-properties-2-ext))
+    (make-instance 'vk:drm-format-modifier-properties-2-ext
+                   :drm-format-modifier %vk:drm-format-modifier
+                   :drm-format-modifier-plane-count %vk:drm-format-modifier-plane-count
+                   :drm-format-modifier-tiling-features %vk:drm-format-modifier-tiling-features)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-android-hardware-buffer-format-properties-2-android))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:format
+        %vk:external-format
+        %vk:format-features
+        %vk:sampler-ycbcr-conversion-components
+        %vk:suggested-ycbcr-model
+        %vk:suggested-ycbcr-range
+        %vk:suggested-x-chroma-offset
+        %vk:suggested-y-chroma-offset)
+       ptr
+       (:struct %vk:android-hardware-buffer-format-properties-2-android))
+    (make-instance 'vk:android-hardware-buffer-format-properties-2-android
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :format %vk:format
+                   :external-format %vk:external-format
+                   :format-features %vk:format-features
+                   :sampler-ycbcr-conversion-components %vk:sampler-ycbcr-conversion-components
+                   :suggested-ycbcr-model %vk:suggested-ycbcr-model
+                   :suggested-ycbcr-range %vk:suggested-ycbcr-range
+                   :suggested-x-chroma-offset %vk:suggested-x-chroma-offset
+                   :suggested-y-chroma-offset %vk:suggested-y-chroma-offset)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-pipeline-rendering-create-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:view-mask
+        %vk:color-attachment-count
+        %vk:p-color-attachment-formats
+        %vk:depth-attachment-format
+        %vk:stencil-attachment-format)
+       ptr
+       (:struct %vk:pipeline-rendering-create-info-khr))
+    (make-instance 'vk:pipeline-rendering-create-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :view-mask %vk:view-mask
+                   :color-attachment-formats (loop for i from 0 below %vk:color-attachment-count collect (cffi:mem-aref %vk:p-color-attachment-formats '%vk:format i))
+                   :depth-attachment-format %vk:depth-attachment-format
+                   :stencil-attachment-format %vk:stencil-attachment-format)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-rendering-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:render-area
+        %vk:layer-count
+        %vk:view-mask
+        %vk:color-attachment-count
+        %vk:p-color-attachments
+        %vk:p-depth-attachment
+        %vk:p-stencil-attachment)
+       ptr
+       (:struct %vk:rendering-info-khr))
+    (make-instance 'vk:rendering-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :render-area %vk:render-area
+                   :layer-count %vk:layer-count
+                   :view-mask %vk:view-mask
+                   :color-attachments (loop for i from 0 below %vk:color-attachment-count collect (cffi:mem-aref %vk:p-color-attachments '(:struct %vk:rendering-attachment-info-khr) i))
+                   :depth-attachment %vk:p-depth-attachment
+                   :stencil-attachment %vk:p-stencil-attachment)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-rendering-attachment-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:image-view
+        %vk:image-layout
+        %vk:resolve-mode
+        %vk:resolve-image-view
+        %vk:resolve-image-layout
+        %vk:load-op
+        %vk:store-op
+        %vk:clear-value)
+       ptr
+       (:struct %vk:rendering-attachment-info-khr))
+    (make-instance 'vk:rendering-attachment-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :image-view (vk:make-image-view-wrapper %vk:image-view)
+                   :image-layout %vk:image-layout
+                   :resolve-mode %vk:resolve-mode
+                   :resolve-image-view (vk:make-image-view-wrapper %vk:resolve-image-view)
+                   :resolve-image-layout %vk:resolve-image-layout
+                   :load-op %vk:load-op
+                   :store-op %vk:store-op
+                   :clear-value nil)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-rendering-fragment-shading-rate-attachment-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:image-view
+        %vk:image-layout
+        %vk:shading-rate-attachment-texel-size)
+       ptr
+       (:struct %vk:rendering-fragment-shading-rate-attachment-info-khr))
+    (make-instance 'vk:rendering-fragment-shading-rate-attachment-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :image-view (vk:make-image-view-wrapper %vk:image-view)
+                   :image-layout %vk:image-layout
+                   :shading-rate-attachment-texel-size %vk:shading-rate-attachment-texel-size)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-rendering-fragment-density-map-attachment-info-ext))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:image-view
+        %vk:image-layout)
+       ptr
+       (:struct %vk:rendering-fragment-density-map-attachment-info-ext))
+    (make-instance 'vk:rendering-fragment-density-map-attachment-info-ext
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :image-view (vk:make-image-view-wrapper %vk:image-view)
+                   :image-layout %vk:image-layout)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-physical-device-dynamic-rendering-features-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:dynamic-rendering)
+       ptr
+       (:struct %vk:physical-device-dynamic-rendering-features-khr))
+    (make-instance 'vk:physical-device-dynamic-rendering-features-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :dynamic-rendering %vk:dynamic-rendering)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-command-buffer-inheritance-rendering-info-khr))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:flags
+        %vk:view-mask
+        %vk:color-attachment-count
+        %vk:p-color-attachment-formats
+        %vk:depth-attachment-format
+        %vk:stencil-attachment-format
+        %vk:rasterization-samples)
+       ptr
+       (:struct %vk:command-buffer-inheritance-rendering-info-khr))
+    (make-instance 'vk:command-buffer-inheritance-rendering-info-khr
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :flags %vk:flags
+                   :view-mask %vk:view-mask
+                   :color-attachment-formats (loop for i from 0 below %vk:color-attachment-count collect (cffi:mem-aref %vk:p-color-attachment-formats '%vk:format i))
+                   :depth-attachment-format %vk:depth-attachment-format
+                   :stencil-attachment-format %vk:stencil-attachment-format
+                   :rasterization-samples %vk:rasterization-samples)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-attachment-sample-count-info-amd))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:color-attachment-count
+        %vk:p-color-attachment-samples
+        %vk:depth-stencil-attachment-samples)
+       ptr
+       (:struct %vk:attachment-sample-count-info-amd))
+    (make-instance 'vk:attachment-sample-count-info-amd
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :color-attachment-samples (loop for i from 0 below %vk:color-attachment-count collect (cffi:mem-aref %vk:p-color-attachment-samples '%vk:sample-count-flag-bits i))
+                   :depth-stencil-attachment-samples %vk:depth-stencil-attachment-samples)))
+
+(defmethod cffi:translate-from-foreign (ptr (type %vk:c-multiview-per-view-attributes-info-nvx))
+  (cffi:with-foreign-slots
+      ((%vk:s-type
+        %vk:p-next
+        %vk:per-view-attributes
+        %vk:per-view-attributes-position-x-only)
+       ptr
+       (:struct %vk:multiview-per-view-attributes-info-nvx))
+    (make-instance 'vk:multiview-per-view-attributes-info-nvx
+                   :next (when (not (cffi:null-pointer-p %vk:p-next)) (let ((base-out (cffi:mem-aref %vk:p-next '(:struct %vk:base-out-structure)))) (cffi:mem-aref %vk:p-next (list :struct (find-symbol (string (vk:s-type base-out)) :%vk)))))
+                   :per-view-attributes %vk:per-view-attributes
+                   :per-view-attributes-position-x-only %vk:per-view-attributes-position-x-only)))
 

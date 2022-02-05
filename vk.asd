@@ -1,5 +1,5 @@
 (defsystem vk
-  :version "2.2.0"
+  :version "3.0.0"
   :license "MIT"
   :description "Common Lisp bindings for the Vulkan API."
   :author "Lukas Herzberger <herzberger.lukas at gmail.com>"
@@ -16,6 +16,7 @@
                  (:file "vulkan-bindings")
                  (:file "vulkan-api-constants")
                  (:file "vulkan-types")
+                 (:file "vk-handle")
                  (:file "vk-types")
                  (:file "vk-constructors")
                  (:file "vulkan-define-conditions")
@@ -29,6 +30,7 @@
                  (:file "vk-base")
                  (:file "vk-bindings")
                  (:file "vk-commands")
+                 (:file "vk-pretty-printers")
                  (:file "vk-utils-common")
                  (:file "vk-utils-with-resource"))))
   :in-order-to ((test-op (test-op vk/tests))))

@@ -92,23 +92,23 @@ See VK:DESTROY-SHADER-MODULE"
          (progn ,@body)
        (vk:destroy-shader-module ,device ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-ray-tracing-pipelines-khr ((resources device create-infos &key deferred-operation pipeline-cache allocator) &body body)
+(defmacro with-ray-tracing-pipelines-khr ((resources device create-infos &key deferred-operation pipeline-cache allocator extension-loader) &body body)
   "Binds RESOURCES to the result of a VK:CREATE-RAY-TRACING-PIPELINES-KHR call.
 See VK:CREATE-RAY-TRACING-PIPELINES-KHR
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-ray-tracing-pipelines-khr ,device ,create-infos (or ,deferred-operation (cffi:null-pointer)) (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*))))
+    `(let ((,resources (vk:create-ray-tracing-pipelines-khr ,device ,create-infos (or ,deferred-operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) (or ,pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
-               (vk:destroy-pipeline ,device ,resource (or ,allocator vk:*default-allocator*)))))))
+               (vk:destroy-pipeline ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))))
 
 (defmacro with-ray-tracing-pipelines-nv ((resources device create-infos &key pipeline-cache allocator extension-loader) &body body)
   "Binds RESOURCES to the result of a VK:CREATE-RAY-TRACING-PIPELINES-NV call.
 See VK:CREATE-RAY-TRACING-PIPELINES-NV
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-ray-tracing-pipelines-nv ,device ,create-infos (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+    `(let ((,resources (vk:create-ray-tracing-pipelines-nv ,device ,create-infos (or ,pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -119,7 +119,7 @@ See VK:DESTROY-PIPELINE"
 See VK:CREATE-COMPUTE-PIPELINES
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-compute-pipelines ,device ,create-infos (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*))))
+    `(let ((,resources (vk:create-compute-pipelines ,device ,create-infos (or ,pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) (or ,allocator vk:*default-allocator*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -130,7 +130,7 @@ See VK:DESTROY-PIPELINE"
 See VK:CREATE-GRAPHICS-PIPELINES
 See VK:DESTROY-PIPELINE"
   (let ((resource (gensym "RESOURCE")))
-    `(let ((,resources (vk:create-graphics-pipelines ,device ,create-infos (or ,pipeline-cache (cffi:null-pointer)) (or ,allocator vk:*default-allocator*))))
+    `(let ((,resources (vk:create-graphics-pipelines ,device ,create-infos (or ,pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) (or ,allocator vk:*default-allocator*))))
        (unwind-protect
            (progn ,@body)
          (loop for ,resource in ,resources do
@@ -289,14 +289,14 @@ See VK:DESTROY-VALIDATION-CACHE-EXT"
          (progn ,@body)
        (vk:destroy-validation-cache-ext ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
-(defmacro with-acceleration-structure-khr ((resource device create-info &key allocator) &body body)
+(defmacro with-acceleration-structure-khr ((resource device create-info &key allocator extension-loader) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-ACCELERATION-STRUCTURE-KHR call.
 See VK:CREATE-ACCELERATION-STRUCTURE-KHR
 See VK:DESTROY-ACCELERATION-STRUCTURE-KHR"
-  `(let ((,resource (vk:create-acceleration-structure-khr ,device ,create-info (or ,allocator vk:*default-allocator*))))
+  `(let ((,resource (vk:create-acceleration-structure-khr ,device ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-acceleration-structure-khr ,device ,resource (or ,allocator vk:*default-allocator*)))))
+       (vk:destroy-acceleration-structure-khr ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
 (defmacro with-acceleration-structure-nv ((resource device create-info &key allocator extension-loader) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-ACCELERATION-STRUCTURE-NV call.
@@ -307,14 +307,23 @@ See VK:DESTROY-ACCELERATION-STRUCTURE-NV"
          (progn ,@body)
        (vk:destroy-acceleration-structure-nv ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
-(defmacro with-deferred-operation-khr ((resource device &key allocator) &body body)
+(defmacro with-buffer-collection-fuchsia ((resource device create-info &key allocator extension-loader) &body body)
+  "Binds RESOURCE to the result of a VK:CREATE-BUFFER-COLLECTION-FUCHSIA call.
+See VK:CREATE-BUFFER-COLLECTION-FUCHSIA
+See VK:DESTROY-BUFFER-COLLECTION-FUCHSIA"
+  `(let ((,resource (vk:create-buffer-collection-fuchsia ,device ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+     (unwind-protect
+         (progn ,@body)
+       (vk:destroy-buffer-collection-fuchsia ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+
+(defmacro with-deferred-operation-khr ((resource device &key allocator extension-loader) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-DEFERRED-OPERATION-KHR call.
 See VK:CREATE-DEFERRED-OPERATION-KHR
 See VK:DESTROY-DEFERRED-OPERATION-KHR"
-  `(let ((,resource (vk:create-deferred-operation-khr ,device (or ,allocator vk:*default-allocator*))))
+  `(let ((,resource (vk:create-deferred-operation-khr ,device (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-deferred-operation-khr ,device ,resource (or ,allocator vk:*default-allocator*)))))
+       (vk:destroy-deferred-operation-khr ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
 (defmacro with-private-data-slot-ext ((resource device create-info &key allocator extension-loader) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-PRIVATE-DATA-SLOT-EXT call.
@@ -343,77 +352,77 @@ See VK:DESTROY-CU-FUNCTION-NVX"
          (progn ,@body)
        (vk:destroy-cu-function-nvx ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
-(defmacro with-headless-surface-ext ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-headless-surface-ext ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-HEADLESS-SURFACE-EXT call.
 See VK:CREATE-HEADLESS-SURFACE-EXT
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-headless-surface-ext ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-headless-surface-ext ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-metal-surface-ext ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-metal-surface-ext ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-METAL-SURFACE-EXT call.
 See VK:CREATE-METAL-SURFACE-EXT
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-metal-surface-ext ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-metal-surface-ext ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-mac-os-surface-mvk ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-mac-os-surface-mvk ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-MAC-OS-SURFACE-MVK call.
 See VK:CREATE-MAC-OS-SURFACE-MVK
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-mac-os-surface-mvk ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-mac-os-surface-mvk ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-i-os-surface-mvk ((resource instance create-info &key allocator extension-loader) &body body)
-  "Binds RESOURCE to the result of a VK:CREATE-I-OS-SURFACE-MVK call.
-See VK:CREATE-I-OS-SURFACE-MVK
+(defmacro with-ios-surface-mvk ((resource instance create-info &key allocator) &body body)
+  "Binds RESOURCE to the result of a VK:CREATE-IOS-SURFACE-MVK call.
+See VK:CREATE-IOS-SURFACE-MVK
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-i-os-surface-mvk ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-ios-surface-mvk ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-screen-surface-qnx ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-screen-surface-qnx ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-SCREEN-SURFACE-QNX call.
 See VK:CREATE-SCREEN-SURFACE-QNX
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-screen-surface-qnx ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-screen-surface-qnx ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-stream-descriptor-surface-ggp ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-stream-descriptor-surface-ggp ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-STREAM-DESCRIPTOR-SURFACE-GGP call.
 See VK:CREATE-STREAM-DESCRIPTOR-SURFACE-GGP
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-stream-descriptor-surface-ggp ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-stream-descriptor-surface-ggp ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-image-pipe-surface-fuchsia ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-image-pipe-surface-fuchsia ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-IMAGE-PIPE-SURFACE-FUCHSIA call.
 See VK:CREATE-IMAGE-PIPE-SURFACE-FUCHSIA
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-image-pipe-surface-fuchsia ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-image-pipe-surface-fuchsia ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
-(defmacro with-direct-fb-surface-ext ((resource instance create-info &key allocator extension-loader) &body body)
+(defmacro with-direct-fb-surface-ext ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-DIRECT-FB-SURFACE-EXT call.
 See VK:CREATE-DIRECT-FB-SURFACE-EXT
 See VK:DESTROY-SURFACE-KHR"
-  `(let ((,resource (vk:create-direct-fb-surface-ext ,instance ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
+  `(let ((,resource (vk:create-direct-fb-surface-ext ,instance ,create-info (or ,allocator vk:*default-allocator*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
+       (vk:destroy-surface-khr ,instance ,resource (or ,allocator vk:*default-allocator*)))))
 
 (defmacro with-xcb-surface-khr ((resource instance create-info &key allocator) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-XCB-SURFACE-KHR call.
@@ -516,21 +525,21 @@ See VK:DESTROY-DEBUG-UTILS-MESSENGER-EXT"
          (progn ,@body)
        (vk:destroy-debug-utils-messenger-ext ,instance ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
-(defmacro with-video-session-khr ((resource device create-info &key allocator) &body body)
+(defmacro with-video-session-khr ((resource device create-info &key allocator extension-loader) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-VIDEO-SESSION-KHR call.
 See VK:CREATE-VIDEO-SESSION-KHR
 See VK:DESTROY-VIDEO-SESSION-KHR"
-  `(let ((,resource (vk:create-video-session-khr ,device ,create-info (or ,allocator vk:*default-allocator*))))
+  `(let ((,resource (vk:create-video-session-khr ,device ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-video-session-khr ,device ,resource (or ,allocator vk:*default-allocator*)))))
+       (vk:destroy-video-session-khr ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 
-(defmacro with-video-session-parameters-khr ((resource device create-info &key allocator) &body body)
+(defmacro with-video-session-parameters-khr ((resource device create-info &key allocator extension-loader) &body body)
   "Binds RESOURCE to the result of a VK:CREATE-VIDEO-SESSION-PARAMETERS-KHR call.
 See VK:CREATE-VIDEO-SESSION-PARAMETERS-KHR
 See VK:DESTROY-VIDEO-SESSION-PARAMETERS-KHR"
-  `(let ((,resource (vk:create-video-session-parameters-khr ,device ,create-info (or ,allocator vk:*default-allocator*))))
+  `(let ((,resource (vk:create-video-session-parameters-khr ,device ,create-info (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*))))
      (unwind-protect
          (progn ,@body)
-       (vk:destroy-video-session-parameters-khr ,device ,resource (or ,allocator vk:*default-allocator*)))))
+       (vk:destroy-video-session-parameters-khr ,device ,resource (or ,allocator vk:*default-allocator*) (or ,extension-loader vk:*default-extension-loader*)))))
 

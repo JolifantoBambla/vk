@@ -7,9 +7,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (in-package :vk)
 
-(defvk-create-handle-fun (create-instance
-                          %vk:create-instance
-                          "Represents [vkCreateInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateInstance.html).
+
+(defvkfun (create-instance
+           %vk:create-instance
+           ((create-info (or vk:instance-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-instance-wrapper)
+  "Represents [vkCreateInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateInstance.html).
 
 Args:
  - CREATE-INFO: a (OR INSTANCE-CREATE-INFO CFFI:FOREIGN-POINTER)
@@ -37,16 +41,16 @@ See INSTANCE-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((create-info (or vk:instance-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
   (create-info '(:struct %vk:instance-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (instance '%vk:instance instance :out :handle))
+  (instance '%vk:instance instance :out :dispatchable :handle))
 
-(defvk-simple-fun (destroy-instance
-                   %vk:destroy-instance
-                   "Represents [vkDestroyInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyInstance.html).
+(defvkfun (destroy-instance
+           %vk:destroy-instance
+           ()
+           (((instance (vk:make-instance-wrapper (cffi:null-pointer))) instance) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyInstance](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyInstance.html).
 
 Args:
  - INSTANCE (optional): a INSTANCE, defaults to: NIL
@@ -56,22 +60,24 @@ See ALLOCATION-CALLBACKS
 See INSTANCE
 See *DEFAULT-ALLOCATOR*
 "
-                   ()
-                   (((instance (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (instance '%vk:instance instance :in :handle :optional)
+  (instance '%vk:instance instance :in :dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-enumerate-fun (enumerate-physical-devices
-                      %vk:enumerate-physical-devices
-                      "Represents [vkEnumeratePhysicalDevices](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDevices.html).
+(defvkfun (enumerate-physical-devices
+           %vk:enumerate-physical-devices
+           ((instance instance))
+           ()
+           :handle-constructor make-physical-device-wrapper
+           :count-arg-name physical-device-count
+           :first-array-arg-name physical-devices
+           :enumerate-p t)
+  "Represents [vkEnumeratePhysicalDevices](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDevices.html).
 
 Args:
  - INSTANCE: a INSTANCE
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PHYSICAL-DEVICEs
     RESULT)
 
@@ -88,17 +94,16 @@ See INSTANCE
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((instance cffi:foreign-pointer))
-                      ()
-                      physical-device-count
-                      physical-devices)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (physical-device-count :uint32 physical-device-count :out)
-  (physical-devices '%vk:physical-device physical-devices :out :handle :list))
+  (physical-devices '%vk:physical-device physical-devices :out :dispatchable :handle :list))
 
-(defvk-simple-fun (get-device-proc-addr
-                   %vk:get-device-proc-addr
-                   "Represents [vkGetDeviceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceProcAddr.html).
+(defvkfun (get-device-proc-addr
+           %vk:get-device-proc-addr
+           ((device device) (name string))
+           ()
+           :trivial-return-type '%vk:pfn-void-function)
+  "Represents [vkGetDeviceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceProcAddr.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -110,15 +115,15 @@ Returns:
 
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (name string))
-                   ()
-                  '%vk:pfn-void-function)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (name :string name :in :raw))
 
-(defvk-simple-fun (get-instance-proc-addr
-                   %vk:get-instance-proc-addr
-                   "Represents [vkGetInstanceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetInstanceProcAddr.html).
+(defvkfun (get-instance-proc-addr
+           %vk:get-instance-proc-addr
+           ((name string))
+           (((instance (vk:make-instance-wrapper (cffi:null-pointer))) instance))
+           :trivial-return-type '%vk:pfn-void-function)
+  "Represents [vkGetInstanceProcAddr](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetInstanceProcAddr.html).
 
 Args:
  - NAME: a STRING
@@ -130,15 +135,15 @@ Returns:
 
 See INSTANCE
 "
-                   ((name string))
-                   (((instance (cffi:null-pointer)) cffi:foreign-pointer))
-                  '%vk:pfn-void-function)
-  (instance '%vk:instance instance :in :handle :optional)
+  (instance '%vk:instance instance :in :dispatchable :handle :optional)
   (name :string name :in :raw))
 
-(defvk-get-struct-fun (get-physical-device-properties
-                       %vk:get-physical-device-properties
-                       "Represents [vkGetPhysicalDeviceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties.html).
+(defvkfun (get-physical-device-properties
+           %vk:get-physical-device-properties
+           ((physical-device physical-device))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -150,38 +155,38 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-PROPERTIES
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (properties '(:struct %vk:physical-device-properties) properties :out))
 
-(defvk-get-structs-fun (get-physical-device-queue-family-properties
-                        %vk:get-physical-device-queue-family-properties
-                        "Represents [vkGetPhysicalDeviceQueueFamilyProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html).
+(defvkfun (get-physical-device-queue-family-properties
+           %vk:get-physical-device-queue-family-properties
+           ((physical-device physical-device))
+           ()
+           :count-arg-name queue-family-property-count
+           :first-array-arg-name queue-family-properties
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceQueueFamilyProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     QUEUE-FAMILY-PROPERTIESs)
 
 See PHYSICAL-DEVICE
 See QUEUE-FAMILY-PROPERTIES
 "
-                        ((physical-device cffi:foreign-pointer))
-                        ()
-                        queue-family-property-count
-                        queue-family-properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
   (queue-family-properties '(:struct %vk:queue-family-properties) queue-family-properties :out :list))
 
-(defvk-get-struct-fun (get-physical-device-memory-properties
-                       %vk:get-physical-device-memory-properties
-                       "Represents [vkGetPhysicalDeviceMemoryProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html).
+(defvkfun (get-physical-device-memory-properties
+           %vk:get-physical-device-memory-properties
+           ((physical-device physical-device))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceMemoryProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -193,14 +198,15 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-MEMORY-PROPERTIES
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (memory-properties '(:struct %vk:physical-device-memory-properties) memory-properties :out))
 
-(defvk-get-struct-fun (get-physical-device-features
-                       %vk:get-physical-device-features
-                       "Represents [vkGetPhysicalDeviceFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures.html).
+(defvkfun (get-physical-device-features
+           %vk:get-physical-device-features
+           ((physical-device physical-device))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -212,14 +218,15 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-FEATURES
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (features '(:struct %vk:physical-device-features) features :out))
 
-(defvk-get-struct-fun (get-physical-device-format-properties
-                       %vk:get-physical-device-format-properties
-                       "Represents [vkGetPhysicalDeviceFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html).
+(defvkfun (get-physical-device-format-properties
+           %vk:get-physical-device-format-properties
+           ((physical-device physical-device) (format keyword))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -233,15 +240,16 @@ See FORMAT
 See FORMAT-PROPERTIES
 See PHYSICAL-DEVICE
 "
-                       ((physical-device cffi:foreign-pointer) (format keyword))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format '%vk:format format :in :raw)
   (format-properties '(:struct %vk:format-properties) format-properties :out))
 
-(defvk-get-struct-fun (get-physical-device-image-format-properties
-                       %vk:get-physical-device-image-format-properties
-                       "Represents [vkGetPhysicalDeviceImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html).
+(defvkfun (get-physical-device-image-format-properties
+           %vk:get-physical-device-image-format-properties
+           ((physical-device physical-device) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
+           (((flags nil) (or unsigned-byte list)))
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -273,9 +281,7 @@ See IMAGE-USAGE-FLAGS
 See PHYSICAL-DEVICE
 See RESULT
 "
-                       ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
-                       (((flags nil) (or unsigned-byte list))))
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format '%vk:format format :in :raw)
   (type '%vk:image-type type :in :raw)
   (tiling '%vk:image-tiling tiling :in :raw)
@@ -283,9 +289,12 @@ See RESULT
   (flags '%vk:image-create-flags flags :in :raw :optional)
   (image-format-properties '(:struct %vk:image-format-properties) image-format-properties :out))
 
-(defvk-create-handle-fun (create-device
-                          %vk:create-device
-                          "Represents [vkCreateDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDevice.html).
+(defvkfun (create-device
+           %vk:create-device
+           ((physical-device physical-device) (create-info (or vk:device-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-device-wrapper)
+  "Represents [vkCreateDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDevice.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -316,17 +325,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((physical-device cffi:foreign-pointer) (create-info (or vk:device-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (create-info '(:struct %vk:device-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (device '%vk:device device :out :handle))
+  (device '%vk:device device :out :dispatchable :handle))
 
-(defvk-simple-fun (destroy-device
-                   %vk:destroy-device
-                   "Represents [vkDestroyDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDevice.html).
+(defvkfun (destroy-device
+           %vk:destroy-device
+           ()
+           (((device (vk:make-device-wrapper (cffi:null-pointer))) device) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyDevice](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDevice.html).
 
 Args:
  - DEVICE (optional): a DEVICE, defaults to: NIL
@@ -336,15 +345,14 @@ See ALLOCATION-CALLBACKS
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ()
-                   (((device (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (enumerate-instance-version
-                          %vk:enumerate-instance-version
-                          "Represents [vkEnumerateInstanceVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceVersion.html).
+(defvkfun (enumerate-instance-version
+           %vk:enumerate-instance-version
+           ()
+           ())
+  "Represents [vkEnumerateInstanceVersion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceVersion.html).
 
 Args:
 
@@ -361,20 +369,21 @@ Errors signalled on codes:
 
 See RESULT
 "
-                          ()
-                          ()
-                          nil)
   (api-version :uint32 api-version :out))
 
-(defvk-enumerate-fun (enumerate-instance-layer-properties
-                      %vk:enumerate-instance-layer-properties
-                      "Represents [vkEnumerateInstanceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceLayerProperties.html).
+(defvkfun (enumerate-instance-layer-properties
+           %vk:enumerate-instance-layer-properties
+           ()
+           ()
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkEnumerateInstanceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceLayerProperties.html).
 
 Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     LAYER-PROPERTIESs
     RESULT)
 
@@ -389,23 +398,23 @@ Errors signalled on codes:
 See LAYER-PROPERTIES
 See RESULT
 "
-                      ()
-                      ()
-                      property-count
-                      properties)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:layer-properties) properties :out :list))
 
-(defvk-enumerate-fun (enumerate-instance-extension-properties
-                      %vk:enumerate-instance-extension-properties
-                      "Represents [vkEnumerateInstanceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceExtensionProperties.html).
+(defvkfun (enumerate-instance-extension-properties
+           %vk:enumerate-instance-extension-properties
+           ()
+           (((layer-name "") string))
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkEnumerateInstanceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateInstanceExtensionProperties.html).
 
 Args:
  - LAYER-NAME (optional): a STRING, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     EXTENSION-PROPERTIESs
     RESULT)
 
@@ -421,24 +430,24 @@ Errors signalled on codes:
 See EXTENSION-PROPERTIES
 See RESULT
 "
-                      ()
-                      (((layer-name "") string))
-                      property-count
-                      properties)
   (layer-name :string layer-name :in :raw :optional)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:extension-properties) properties :out :list))
 
-(defvk-enumerate-fun (enumerate-device-layer-properties
-                      %vk:enumerate-device-layer-properties
-                      "Represents [vkEnumerateDeviceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateDeviceLayerProperties.html).
+(defvkfun (enumerate-device-layer-properties
+           %vk:enumerate-device-layer-properties
+           ((physical-device physical-device))
+           ()
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkEnumerateDeviceLayerProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateDeviceLayerProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     LAYER-PROPERTIESs
     RESULT)
 
@@ -454,17 +463,18 @@ See LAYER-PROPERTIES
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:layer-properties) properties :out :list))
 
-(defvk-enumerate-fun (enumerate-device-extension-properties
-                      %vk:enumerate-device-extension-properties
-                      "Represents [vkEnumerateDeviceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateDeviceExtensionProperties.html).
+(defvkfun (enumerate-device-extension-properties
+           %vk:enumerate-device-extension-properties
+           ((physical-device physical-device))
+           (((layer-name "") string))
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkEnumerateDeviceExtensionProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumerateDeviceExtensionProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -472,7 +482,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     EXTENSION-PROPERTIESs
     RESULT)
 
@@ -489,18 +498,18 @@ See EXTENSION-PROPERTIES
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer))
-                      (((layer-name "") string))
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (layer-name :string layer-name :in :raw :optional)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:extension-properties) properties :out :list))
 
-(defvk-create-handle-fun (get-device-queue
-                          %vk:get-device-queue
-                          "Represents [vkGetDeviceQueue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceQueue.html).
+(defvkfun (get-device-queue
+           %vk:get-device-queue
+           ((device device) (queue-family-index unsigned-byte) (queue-index unsigned-byte))
+           ()
+           :handle-constructor make-queue-wrapper
+           :no-vk-result-p t)
+  "Represents [vkGetDeviceQueue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceQueue.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -514,17 +523,17 @@ Returns:
 See DEVICE
 See QUEUE
 "
-                          ((device cffi:foreign-pointer) (queue-family-index unsigned-byte) (queue-index unsigned-byte))
-                          ()
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (queue-index :uint32 queue-index :in :raw)
-  (queue '%vk:queue queue :out :handle))
+  (queue '%vk:queue queue :out :dispatchable :handle))
 
-(defvk-simple-fun (queue-submit
-                   %vk:queue-submit
-                   "Represents [vkQueueSubmit](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSubmit.html).
+(defvkfun (queue-submit
+           %vk:queue-submit
+           ((queue queue) (submits (or list vector)))
+           (((fence (vk:make-fence-wrapper (cffi:null-pointer))) fence))
+           :trivial-return-type :trivial)
+  "Represents [vkQueueSubmit](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSubmit.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -548,17 +557,17 @@ See QUEUE
 See RESULT
 See SUBMIT-INFO
 "
-                   ((queue cffi:foreign-pointer) (submits (or list vector)))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (submit-count :uint32 (length submits) :in :raw)
   (submits '(:struct %vk:submit-info) submits :in :list)
-  (fence '%vk:fence fence :in :handle :optional))
+  (fence '%vk:fence fence :in :non-dispatchable :handle :optional))
 
-(defvk-simple-fun (queue-wait-idle
-                   %vk:queue-wait-idle
-                   "Represents [vkQueueWaitIdle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueWaitIdle.html).
+(defvkfun (queue-wait-idle
+           %vk:queue-wait-idle
+           ((queue queue))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkQueueWaitIdle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueWaitIdle.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -578,14 +587,14 @@ Errors signalled on codes:
 See QUEUE
 See RESULT
 "
-                   ((queue cffi:foreign-pointer))
-                   ()
-                  nil)
-  (queue '%vk:queue queue :in :handle))
+  (queue '%vk:queue queue :in :dispatchable :handle))
 
-(defvk-simple-fun (device-wait-idle
-                   %vk:device-wait-idle
-                   "Represents [vkDeviceWaitIdle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDeviceWaitIdle.html).
+(defvkfun (device-wait-idle
+           %vk:device-wait-idle
+           ((device device))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkDeviceWaitIdle](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDeviceWaitIdle.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -605,14 +614,14 @@ Errors signalled on codes:
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle))
+  (device '%vk:device device :in :dispatchable :handle))
 
-(defvk-create-handle-fun (allocate-memory
-                          %vk:allocate-memory
-                          "Represents [vkAllocateMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateMemory.html).
+(defvkfun (allocate-memory
+           %vk:allocate-memory
+           ((device device) (allocate-info (or vk:memory-allocate-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-device-memory-wrapper)
+  "Represents [vkAllocateMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateMemory.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -640,17 +649,17 @@ See MEMORY-ALLOCATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (allocate-info (or vk:memory-allocate-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (allocate-info '(:struct %vk:memory-allocate-info) allocate-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (memory '%vk:device-memory memory :out :handle))
+  (memory '%vk:device-memory memory :out :non-dispatchable :handle))
 
-(defvk-simple-fun (free-memory
-                   %vk:free-memory
-                   "Represents [vkFreeMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeMemory.html).
+(defvkfun (free-memory
+           %vk:free-memory
+           ((device device))
+           (((memory (vk:make-device-memory-wrapper (cffi:null-pointer))) device-memory) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkFreeMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeMemory.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -662,16 +671,16 @@ See DEVICE
 See DEVICE-MEMORY
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((memory (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (memory '%vk:device-memory memory :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (map-memory
-                   %vk:map-memory
-                   "Represents [vkMapMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMapMemory.html).
+(defvkfun (map-memory
+           %vk:map-memory
+           ((device device) (memory device-memory) (offset unsigned-byte) (size unsigned-byte) (p-data cffi:foreign-pointer))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkMapMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMapMemory.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -699,19 +708,19 @@ See DEVICE-SIZE
 See MEMORY-MAP-FLAGS
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (offset unsigned-byte) (size unsigned-byte) (p-data cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (memory '%vk:device-memory memory :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
   (size '%vk:device-size size :in :raw)
   (flags '%vk:memory-map-flags flags :in :raw :optional)
   (p-data '(:pointer :void) p-data :in :handle))
 
-(defvk-simple-fun (unmap-memory
-                   %vk:unmap-memory
-                   "Represents [vkUnmapMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUnmapMemory.html).
+(defvkfun (unmap-memory
+           %vk:unmap-memory
+           ((device device) (memory device-memory))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkUnmapMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUnmapMemory.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -720,45 +729,15 @@ Args:
 See DEVICE
 See DEVICE-MEMORY
 "
-                   ((device cffi:foreign-pointer) (memory cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (memory '%vk:device-memory memory :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle))
 
-(defvk-simple-fun (flush-mapped-memory-ranges
-                   %vk:flush-mapped-memory-ranges
-                   "Represents [vkFlushMappedMemoryRanges](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFlushMappedMemoryRanges.html).
-
-Args:
- - DEVICE: a DEVICE
- - MEMORY-RANGES: a (OR LIST VECTOR) of (OR MAPPED-MEMORY-RANGE CFFI:FOREIGN-POINTER) instances
-
-Returns:
-  (CL:VALUES
-    RESULT)
-
-Success codes:
- - SUCCESS
-
-Errors signalled on codes:
- - ERROR-OUT-OF-HOST-MEMORY
- - ERROR-OUT-OF-DEVICE-MEMORY
-
-See DEVICE
-See MAPPED-MEMORY-RANGE
-See RESULT
-"
-                   ((device cffi:foreign-pointer) (memory-ranges (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (memory-range-count :uint32 (length memory-ranges) :in :raw)
-  (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
-
-(defvk-simple-fun (invalidate-mapped-memory-ranges
-                   %vk:invalidate-mapped-memory-ranges
-                   "Represents [vkInvalidateMappedMemoryRanges](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkInvalidateMappedMemoryRanges.html).
+(defvkfun (flush-mapped-memory-ranges
+           %vk:flush-mapped-memory-ranges
+           ((device device) (memory-ranges (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkFlushMappedMemoryRanges](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFlushMappedMemoryRanges.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -779,16 +758,46 @@ See DEVICE
 See MAPPED-MEMORY-RANGE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (memory-ranges (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (memory-range-count :uint32 (length memory-ranges) :in :raw)
   (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
 
-(defvk-create-handle-fun (get-device-memory-commitment
-                          %vk:get-device-memory-commitment
-                          "Represents [vkGetDeviceMemoryCommitment](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryCommitment.html).
+(defvkfun (invalidate-mapped-memory-ranges
+           %vk:invalidate-mapped-memory-ranges
+           ((device device) (memory-ranges (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkInvalidateMappedMemoryRanges](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkInvalidateMappedMemoryRanges.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - MEMORY-RANGES: a (OR LIST VECTOR) of (OR MAPPED-MEMORY-RANGE CFFI:FOREIGN-POINTER) instances
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+
+See DEVICE
+See MAPPED-MEMORY-RANGE
+See RESULT
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory-range-count :uint32 (length memory-ranges) :in :raw)
+  (memory-ranges '(:struct %vk:mapped-memory-range) memory-ranges :in :list))
+
+(defvkfun (get-device-memory-commitment
+           %vk:get-device-memory-commitment
+           ((device device) (memory device-memory))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetDeviceMemoryCommitment](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryCommitment.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -802,16 +811,16 @@ See DEVICE
 See DEVICE-MEMORY
 See DEVICE-SIZE
 "
-                          ((device cffi:foreign-pointer) (memory cffi:foreign-pointer))
-                          ()
-                          t)
-  (device '%vk:device device :in :handle)
-  (memory '%vk:device-memory memory :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle)
   (committed-memory-in-bytes '%vk:device-size committed-memory-in-bytes :out))
 
-(defvk-get-struct-fun (get-buffer-memory-requirements
-                       %vk:get-buffer-memory-requirements
-                       "Represents [vkGetBufferMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements.html).
+(defvkfun (get-buffer-memory-requirements
+           %vk:get-buffer-memory-requirements
+           ((device device) (buffer buffer))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetBufferMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -825,15 +834,16 @@ See BUFFER
 See DEVICE
 See MEMORY-REQUIREMENTS
 "
-                       ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
-                       ())
-  (device '%vk:device device :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (memory-requirements '(:struct %vk:memory-requirements) memory-requirements :out))
 
-(defvk-simple-fun (bind-buffer-memory
-                   %vk:bind-buffer-memory
-                   "Represents [vkBindBufferMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory.html).
+(defvkfun (bind-buffer-memory
+           %vk:bind-buffer-memory
+           ((device device) (buffer buffer) (memory device-memory) (memory-offset unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBindBufferMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -859,17 +869,17 @@ See DEVICE-MEMORY
 See DEVICE-SIZE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
-  (memory '%vk:device-memory memory :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle)
   (memory-offset '%vk:device-size memory-offset :in :raw))
 
-(defvk-get-struct-fun (get-image-memory-requirements
-                       %vk:get-image-memory-requirements
-                       "Represents [vkGetImageMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements.html).
+(defvkfun (get-image-memory-requirements
+           %vk:get-image-memory-requirements
+           ((device device) (image image))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetImageMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -883,15 +893,16 @@ See DEVICE
 See IMAGE
 See MEMORY-REQUIREMENTS
 "
-                       ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
-                       ())
-  (device '%vk:device device :in :handle)
-  (image '%vk:image image :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
   (memory-requirements '(:struct %vk:memory-requirements) memory-requirements :out))
 
-(defvk-simple-fun (bind-image-memory
-                   %vk:bind-image-memory
-                   "Represents [vkBindImageMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory.html).
+(defvkfun (bind-image-memory
+           %vk:bind-image-memory
+           ((device device) (image image) (memory device-memory) (memory-offset unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBindImageMemory](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -916,17 +927,19 @@ See DEVICE-SIZE
 See IMAGE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (memory cffi:foreign-pointer) (memory-offset unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (image '%vk:image image :in :handle)
-  (memory '%vk:device-memory memory :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle)
   (memory-offset '%vk:device-size memory-offset :in :raw))
 
-(defvk-get-structs-fun (get-image-sparse-memory-requirements
-                        %vk:get-image-sparse-memory-requirements
-                        "Represents [vkGetImageSparseMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements.html).
+(defvkfun (get-image-sparse-memory-requirements
+           %vk:get-image-sparse-memory-requirements
+           ((device device) (image image))
+           ()
+           :count-arg-name sparse-memory-requirement-count
+           :first-array-arg-name sparse-memory-requirements
+           :no-vk-result-p t)
+  "Represents [vkGetImageSparseMemoryRequirements](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -934,26 +947,25 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SPARSE-IMAGE-MEMORY-REQUIREMENTSs)
 
 See DEVICE
 See IMAGE
 See SPARSE-IMAGE-MEMORY-REQUIREMENTS
 "
-                        ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
-                        ()
-                        sparse-memory-requirement-count
-                        sparse-memory-requirements
-                      t)
-  (device '%vk:device device :in :handle)
-  (image '%vk:image image :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
   (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements) sparse-memory-requirements :out :list))
 
-(defvk-get-structs-fun (get-physical-device-sparse-image-format-properties
-                        %vk:get-physical-device-sparse-image-format-properties
-                        "Represents [vkGetPhysicalDeviceSparseImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html).
+(defvkfun (get-physical-device-sparse-image-format-properties
+           %vk:get-physical-device-sparse-image-format-properties
+           ((physical-device physical-device) (format keyword) (type keyword) (samples keyword) (usage (or unsigned-byte list)) (tiling keyword))
+           ()
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceSparseImageFormatProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -965,7 +977,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SPARSE-IMAGE-FORMAT-PROPERTIESs)
 
 See FORMAT
@@ -976,12 +987,7 @@ See PHYSICAL-DEVICE
 See SAMPLE-COUNT-FLAG-BITS
 See SPARSE-IMAGE-FORMAT-PROPERTIES
 "
-                        ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (samples keyword) (usage (or unsigned-byte list)) (tiling keyword))
-                        ()
-                        property-count
-                        properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format '%vk:format format :in :raw)
   (type '%vk:image-type type :in :raw)
   (samples '%vk:sample-count-flag-bits samples :in :raw)
@@ -990,9 +996,12 @@ See SPARSE-IMAGE-FORMAT-PROPERTIES
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:sparse-image-format-properties) properties :out :list))
 
-(defvk-simple-fun (queue-bind-sparse
-                   %vk:queue-bind-sparse
-                   "Represents [vkQueueBindSparse](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueBindSparse.html).
+(defvkfun (queue-bind-sparse
+           %vk:queue-bind-sparse
+           ((queue queue) (bind-info (or list vector)))
+           (((fence (vk:make-fence-wrapper (cffi:null-pointer))) fence))
+           :trivial-return-type :trivial)
+  "Represents [vkQueueBindSparse](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueBindSparse.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -1016,17 +1025,17 @@ See FENCE
 See QUEUE
 See RESULT
 "
-                   ((queue cffi:foreign-pointer) (bind-info (or list vector)))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (bind-info-count :uint32 (length bind-info) :in :raw)
   (bind-info '(:struct %vk:bind-sparse-info) bind-info :in :list)
-  (fence '%vk:fence fence :in :handle :optional))
+  (fence '%vk:fence fence :in :non-dispatchable :handle :optional))
 
-(defvk-create-handle-fun (create-fence
-                          %vk:create-fence
-                          "Represents [vkCreateFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateFence.html).
+(defvkfun (create-fence
+           %vk:create-fence
+           ((device device) (create-info (or vk:fence-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-fence-wrapper)
+  "Represents [vkCreateFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateFence.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1052,17 +1061,17 @@ See FENCE-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:fence-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:fence-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (fence '%vk:fence fence :out :handle))
+  (fence '%vk:fence fence :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-fence
-                   %vk:destroy-fence
-                   "Represents [vkDestroyFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyFence.html).
+(defvkfun (destroy-fence
+           %vk:destroy-fence
+           ((device device))
+           (((fence (vk:make-fence-wrapper (cffi:null-pointer))) fence) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyFence](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyFence.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1074,16 +1083,16 @@ See DEVICE
 See FENCE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (fence '%vk:fence fence :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (fence '%vk:fence fence :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (reset-fences
-                   %vk:reset-fences
-                   "Represents [vkResetFences](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetFences.html).
+(defvkfun (reset-fences
+           %vk:reset-fences
+           ((device device) (fences (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkResetFences](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetFences.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1103,16 +1112,16 @@ See DEVICE
 See FENCE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (fences (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (fence-count :uint32 (length fences) :in :raw)
-  (fences '%vk:fence fences :in :handle :list))
+  (fences '%vk:fence fences :in :non-dispatchable :handle :list))
 
-(defvk-simple-fun (get-fence-status
-                   %vk:get-fence-status
-                   "Represents [vkGetFenceStatus](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceStatus.html).
+(defvkfun (get-fence-status
+           %vk:get-fence-status
+           ((device device) (fence fence))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetFenceStatus](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceStatus.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1135,15 +1144,15 @@ See DEVICE
 See FENCE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (fence cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (fence '%vk:fence fence :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (fence '%vk:fence fence :in :non-dispatchable :handle))
 
-(defvk-simple-fun (wait-for-fences
-                   %vk:wait-for-fences
-                   "Represents [vkWaitForFences](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitForFences.html).
+(defvkfun (wait-for-fences
+           %vk:wait-for-fences
+           ((device device) (fences (or list vector)) (wait-all boolean) (timeout unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkWaitForFences](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitForFences.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1169,18 +1178,18 @@ See DEVICE
 See FENCE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (fences (or list vector)) (wait-all boolean) (timeout unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (fence-count :uint32 (length fences) :in :raw)
-  (fences '%vk:fence fences :in :handle :list)
+  (fences '%vk:fence fences :in :non-dispatchable :handle :list)
   (wait-all '%vk:bool32 wait-all :in :raw)
   (timeout :uint64 timeout :in :raw))
 
-(defvk-create-handle-fun (create-semaphore
-                          %vk:create-semaphore
-                          "Represents [vkCreateSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSemaphore.html).
+(defvkfun (create-semaphore
+           %vk:create-semaphore
+           ((device device) (create-info (or vk:semaphore-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-semaphore-wrapper)
+  "Represents [vkCreateSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSemaphore.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1206,17 +1215,17 @@ See SEMAPHORE
 See SEMAPHORE-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:semaphore-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:semaphore-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (semaphore '%vk:semaphore semaphore :out :handle))
+  (semaphore '%vk:semaphore semaphore :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-semaphore
-                   %vk:destroy-semaphore
-                   "Represents [vkDestroySemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySemaphore.html).
+(defvkfun (destroy-semaphore
+           %vk:destroy-semaphore
+           ((device device))
+           (((semaphore (vk:make-semaphore-wrapper (cffi:null-pointer))) semaphore) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroySemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySemaphore.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1228,16 +1237,16 @@ See DEVICE
 See SEMAPHORE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (semaphore '%vk:semaphore semaphore :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (semaphore '%vk:semaphore semaphore :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-event
-                          %vk:create-event
-                          "Represents [vkCreateEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateEvent.html).
+(defvkfun (create-event
+           %vk:create-event
+           ((device device) (create-info (or vk:event-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-event-wrapper)
+  "Represents [vkCreateEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateEvent.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1263,17 +1272,17 @@ See EVENT-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:event-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:event-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (event '%vk:event event :out :handle))
+  (event '%vk:event event :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-event
-                   %vk:destroy-event
-                   "Represents [vkDestroyEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyEvent.html).
+(defvkfun (destroy-event
+           %vk:destroy-event
+           ((device device))
+           (((event (vk:make-event-wrapper (cffi:null-pointer))) event) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyEvent.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1285,16 +1294,16 @@ See DEVICE
 See EVENT
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((event (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (event '%vk:event event :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (get-event-status
-                   %vk:get-event-status
-                   "Represents [vkGetEventStatus](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetEventStatus.html).
+(defvkfun (get-event-status
+           %vk:get-event-status
+           ((device device) (event event))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetEventStatus](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetEventStatus.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1317,15 +1326,15 @@ See DEVICE
 See EVENT
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (event '%vk:event event :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle))
 
-(defvk-simple-fun (set-event
-                   %vk:set-event
-                   "Represents [vkSetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetEvent.html).
+(defvkfun (set-event
+           %vk:set-event
+           ((device device) (event event))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkSetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetEvent.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1346,15 +1355,15 @@ See DEVICE
 See EVENT
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (event '%vk:event event :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle))
 
-(defvk-simple-fun (reset-event
-                   %vk:reset-event
-                   "Represents [vkResetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetEvent.html).
+(defvkfun (reset-event
+           %vk:reset-event
+           ((device device) (event event))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkResetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetEvent.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1374,15 +1383,15 @@ See DEVICE
 See EVENT
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (event '%vk:event event :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-query-pool
-                          %vk:create-query-pool
-                          "Represents [vkCreateQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateQueryPool.html).
+(defvkfun (create-query-pool
+           %vk:create-query-pool
+           ((device device) (create-info (or vk:query-pool-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-query-pool-wrapper)
+  "Represents [vkCreateQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateQueryPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1408,17 +1417,17 @@ See QUERY-POOL-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:query-pool-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:query-pool-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (query-pool '%vk:query-pool query-pool :out :handle))
+  (query-pool '%vk:query-pool query-pool :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-query-pool
-                   %vk:destroy-query-pool
-                   "Represents [vkDestroyQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyQueryPool.html).
+(defvkfun (destroy-query-pool
+           %vk:destroy-query-pool
+           ((device device))
+           (((query-pool (vk:make-query-pool-wrapper (cffi:null-pointer))) query-pool) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyQueryPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1430,16 +1439,16 @@ See DEVICE
 See QUERY-POOL
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((query-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (get-query-pool-results
-                   %vk:get-query-pool-results
-                   "Represents [vkGetQueryPoolResults](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueryPoolResults.html).
+(defvkfun (get-query-pool-results
+           %vk:get-query-pool-results
+           ((device device) (query-pool query-pool) (first-query unsigned-byte) (query-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkGetQueryPoolResults](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueryPoolResults.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1470,21 +1479,21 @@ See QUERY-POOL
 See QUERY-RESULT-FLAGS
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw)
   (query-count :uint32 query-count :in :raw)
-  (data-size '%vk:size-t data-size :in :raw)
+  (data-size :size data-size :in :raw)
   (data '(:pointer :void) data :in :handle)
   (stride '%vk:device-size stride :in :raw)
   (flags '%vk:query-result-flags flags :in :raw :optional))
 
-(defvk-simple-fun (reset-query-pool
-                   %vk:reset-query-pool
-                   "Represents [vkResetQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetQueryPool.html).
+(defvkfun (reset-query-pool
+           %vk:reset-query-pool
+           ((device device) (query-pool query-pool) (first-query unsigned-byte) (query-count unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkResetQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetQueryPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1495,17 +1504,17 @@ Args:
 See DEVICE
 See QUERY-POOL
 "
-                   ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw)
   (query-count :uint32 query-count :in :raw))
 
-(defvk-simple-fun (reset-query-pool-ext
-                   %vk:reset-query-pool-ext
-                   "Represents [vkResetQueryPoolEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetQueryPoolEXT.html).
+(defvkfun (reset-query-pool-ext
+           %vk:reset-query-pool-ext
+           ((device device) (query-pool query-pool) (first-query unsigned-byte) (query-count unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkResetQueryPoolEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetQueryPoolEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1516,17 +1525,17 @@ Args:
 See DEVICE
 See QUERY-POOL
 "
-                   ((device cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw)
   (query-count :uint32 query-count :in :raw))
 
-(defvk-create-handle-fun (create-buffer
-                          %vk:create-buffer
-                          "Represents [vkCreateBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBuffer.html).
+(defvkfun (create-buffer
+           %vk:create-buffer
+           ((device device) (create-info (or vk:buffer-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-buffer-wrapper)
+  "Represents [vkCreateBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBuffer.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1553,17 +1562,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:buffer-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:buffer-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (buffer '%vk:buffer buffer :out :handle))
+  (buffer '%vk:buffer buffer :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-buffer
-                   %vk:destroy-buffer
-                   "Represents [vkDestroyBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBuffer.html).
+(defvkfun (destroy-buffer
+           %vk:destroy-buffer
+           ((device device))
+           (((buffer (vk:make-buffer-wrapper (cffi:null-pointer))) buffer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBuffer.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1575,16 +1584,16 @@ See BUFFER
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((buffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (buffer '%vk:buffer buffer :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-buffer-view
-                          %vk:create-buffer-view
-                          "Represents [vkCreateBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBufferView.html).
+(defvkfun (create-buffer-view
+           %vk:create-buffer-view
+           ((device device) (create-info (or vk:buffer-view-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-buffer-view-wrapper)
+  "Represents [vkCreateBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBufferView.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1610,17 +1619,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:buffer-view-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:buffer-view-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (view '%vk:buffer-view view :out :handle))
+  (view '%vk:buffer-view view :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-buffer-view
-                   %vk:destroy-buffer-view
-                   "Represents [vkDestroyBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBufferView.html).
+(defvkfun (destroy-buffer-view
+           %vk:destroy-buffer-view
+           ((device device))
+           (((buffer-view (vk:make-buffer-view-wrapper (cffi:null-pointer))) buffer-view) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyBufferView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBufferView.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1632,16 +1641,16 @@ See BUFFER-VIEW
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((buffer-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (buffer-view '%vk:buffer-view buffer-view :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (buffer-view '%vk:buffer-view buffer-view :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-image
-                          %vk:create-image
-                          "Represents [vkCreateImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImage.html).
+(defvkfun (create-image
+           %vk:create-image
+           ((device device) (create-info (or vk:image-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-image-wrapper)
+  "Represents [vkCreateImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImage.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1667,17 +1676,17 @@ See IMAGE-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:image-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:image-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (image '%vk:image image :out :handle))
+  (image '%vk:image image :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-image
-                   %vk:destroy-image
-                   "Represents [vkDestroyImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyImage.html).
+(defvkfun (destroy-image
+           %vk:destroy-image
+           ((device device))
+           (((image (vk:make-image-wrapper (cffi:null-pointer))) image) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyImage.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1689,16 +1698,16 @@ See DEVICE
 See IMAGE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((image (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (image '%vk:image image :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-get-struct-fun (get-image-subresource-layout
-                       %vk:get-image-subresource-layout
-                       "Represents [vkGetImageSubresourceLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSubresourceLayout.html).
+(defvkfun (get-image-subresource-layout
+           %vk:get-image-subresource-layout
+           ((device device) (image image) (subresource (or vk:image-subresource cffi:foreign-pointer)))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetImageSubresourceLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSubresourceLayout.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1714,16 +1723,17 @@ See IMAGE
 See IMAGE-SUBRESOURCE
 See SUBRESOURCE-LAYOUT
 "
-                       ((device cffi:foreign-pointer) (image cffi:foreign-pointer) (subresource (or vk:image-subresource cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
-  (image '%vk:image image :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
   (subresource '(:struct %vk:image-subresource) subresource :in)
   (layout '(:struct %vk:subresource-layout) layout :out))
 
-(defvk-create-handle-fun (create-image-view
-                          %vk:create-image-view
-                          "Represents [vkCreateImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImageView.html).
+(defvkfun (create-image-view
+           %vk:create-image-view
+           ((device device) (create-info (or vk:image-view-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-image-view-wrapper)
+  "Represents [vkCreateImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImageView.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1749,17 +1759,17 @@ See IMAGE-VIEW-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:image-view-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:image-view-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (view '%vk:image-view view :out :handle))
+  (view '%vk:image-view view :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-image-view
-                   %vk:destroy-image-view
-                   "Represents [vkDestroyImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyImageView.html).
+(defvkfun (destroy-image-view
+           %vk:destroy-image-view
+           ((device device))
+           (((image-view (vk:make-image-view-wrapper (cffi:null-pointer))) image-view) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyImageView](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyImageView.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1771,16 +1781,16 @@ See DEVICE
 See IMAGE-VIEW
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (image-view '%vk:image-view image-view :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (image-view '%vk:image-view image-view :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-shader-module
-                          %vk:create-shader-module
-                          "Represents [vkCreateShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateShaderModule.html).
+(defvkfun (create-shader-module
+           %vk:create-shader-module
+           ((device device) (create-info (or vk:shader-module-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-shader-module-wrapper)
+  "Represents [vkCreateShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateShaderModule.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1807,17 +1817,17 @@ See SHADER-MODULE
 See SHADER-MODULE-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:shader-module-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:shader-module-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (shader-module '%vk:shader-module shader-module :out :handle))
+  (shader-module '%vk:shader-module shader-module :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-shader-module
-                   %vk:destroy-shader-module
-                   "Represents [vkDestroyShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyShaderModule.html).
+(defvkfun (destroy-shader-module
+           %vk:destroy-shader-module
+           ((device device))
+           (((shader-module (vk:make-shader-module-wrapper (cffi:null-pointer))) shader-module) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyShaderModule](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyShaderModule.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1829,16 +1839,16 @@ See DEVICE
 See SHADER-MODULE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((shader-module (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (shader-module '%vk:shader-module shader-module :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (shader-module '%vk:shader-module shader-module :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-pipeline-cache
-                          %vk:create-pipeline-cache
-                          "Represents [vkCreatePipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePipelineCache.html).
+(defvkfun (create-pipeline-cache
+           %vk:create-pipeline-cache
+           ((device device) (create-info (or vk:pipeline-cache-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-pipeline-cache-wrapper)
+  "Represents [vkCreatePipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePipelineCache.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1864,17 +1874,17 @@ See PIPELINE-CACHE-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:pipeline-cache-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:pipeline-cache-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :out :handle))
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-pipeline-cache
-                   %vk:destroy-pipeline-cache
-                   "Represents [vkDestroyPipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipelineCache.html).
+(defvkfun (destroy-pipeline-cache
+           %vk:destroy-pipeline-cache
+           ((device device))
+           (((pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) pipeline-cache) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyPipelineCache](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipelineCache.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1886,25 +1896,25 @@ See DEVICE
 See PIPELINE-CACHE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (get-pipeline-cache-data
-                          %vk:get-pipeline-cache-data
-                          "Represents [vkGetPipelineCacheData](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineCacheData.html).
+(defvkfun (get-pipeline-cache-data
+           %vk:get-pipeline-cache-data
+           ((device device) (pipeline-cache pipeline-cache) (data-size unsigned-byte))
+           (((data nil) cffi:foreign-pointer))
+           :trivial-return-type :trivial)
+  "Represents [vkGetPipelineCacheData](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineCacheData.html).
 
 Args:
  - DEVICE: a DEVICE
  - PIPELINE-CACHE: a PIPELINE-CACHE
+ - DATA-SIZE: a UNSIGNED-BYTE
  - DATA (optional): a CFFI:FOREIGN-POINTER, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     RESULT)
 
 Success codes:
@@ -1919,17 +1929,17 @@ See DEVICE
 See PIPELINE-CACHE
 See RESULT
 "
-                          ((device cffi:foreign-pointer) (pipeline-cache cffi:foreign-pointer))
-                          (((data nil) cffi:foreign-pointer))
-                          nil)
-  (device '%vk:device device :in :handle)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle)
-  (data-size '%vk:size-t data-size :out)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :non-dispatchable :handle)
+  (data-size :size data-size :in)
   (data '(:pointer :void) data :in :handle :optional))
 
-(defvk-simple-fun (merge-pipeline-caches
-                   %vk:merge-pipeline-caches
-                   "Represents [vkMergePipelineCaches](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMergePipelineCaches.html).
+(defvkfun (merge-pipeline-caches
+           %vk:merge-pipeline-caches
+           ((device device) (dst-cache pipeline-cache) (src-caches (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkMergePipelineCaches](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMergePipelineCaches.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1951,17 +1961,18 @@ See DEVICE
 See PIPELINE-CACHE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (dst-cache '%vk:pipeline-cache dst-cache :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (dst-cache '%vk:pipeline-cache dst-cache :in :non-dispatchable :handle)
   (src-cache-count :uint32 (length src-caches) :in :raw)
-  (src-caches '%vk:pipeline-cache src-caches :in :handle :list))
+  (src-caches '%vk:pipeline-cache src-caches :in :non-dispatchable :handle :list))
 
-(defvk-create-handles-fun (create-graphics-pipelines
-                           %vk:create-graphics-pipelines
-                           "Represents [vkCreateGraphicsPipelines](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateGraphicsPipelines.html).
+(defvkfun (create-graphics-pipelines
+           %vk:create-graphics-pipelines
+           ((device device) (create-infos (or list vector)))
+           (((pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) pipeline-cache) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-pipeline-wrapper
+           :len-provider (length create-infos))
+  "Represents [vkCreateGraphicsPipelines](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateGraphicsPipelines.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -1991,19 +2002,20 @@ See PIPELINE-CACHE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                           ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                           (length create-infos))
-  (device '%vk:device device :in :handle)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :non-dispatchable :handle :optional)
   (create-info-count :uint32 (length create-infos) :in :raw)
   (create-infos '(:struct %vk:graphics-pipeline-create-info) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle :list))
+  (pipelines '%vk:pipeline pipelines :out :non-dispatchable :handle :list))
 
-(defvk-create-handles-fun (create-compute-pipelines
-                           %vk:create-compute-pipelines
-                           "Represents [vkCreateComputePipelines](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateComputePipelines.html).
+(defvkfun (create-compute-pipelines
+           %vk:create-compute-pipelines
+           ((device device) (create-infos (or list vector)))
+           (((pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) pipeline-cache) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-pipeline-wrapper
+           :len-provider (length create-infos))
+  "Represents [vkCreateComputePipelines](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateComputePipelines.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2033,19 +2045,20 @@ See PIPELINE-CACHE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                           ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                           (length create-infos))
-  (device '%vk:device device :in :handle)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :non-dispatchable :handle :optional)
   (create-info-count :uint32 (length create-infos) :in :raw)
   (create-infos '(:struct %vk:compute-pipeline-create-info) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle :list))
+  (pipelines '%vk:pipeline pipelines :out :non-dispatchable :handle :list))
 
-(defvk-get-struct-fun (get-device-subpass-shading-max-workgroup-size-huawei
-                       %vk:get-device-subpass-shading-max-workgroup-size-huawei
-                       "Represents [vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html).
+(defvkfun (get-device-subpass-shading-max-workgroup-size-huawei
+           %vk:get-device-subpass-shading-max-workgroup-size-huawei
+           ((device device) (renderpass render-pass))
+           ()
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2073,16 +2086,16 @@ See RENDER-PASS
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (renderpass cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
-  (renderpass '%vk:render-pass renderpass :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (renderpass '%vk:render-pass renderpass :in :non-dispatchable :handle)
   (max-workgroup-size '(:struct %vk:extent-2d) max-workgroup-size :out))
 
-(defvk-simple-fun (destroy-pipeline
-                   %vk:destroy-pipeline
-                   "Represents [vkDestroyPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipeline.html).
+(defvkfun (destroy-pipeline
+           %vk:destroy-pipeline
+           ((device device))
+           (((pipeline (vk:make-pipeline-wrapper (cffi:null-pointer))) pipeline) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipeline.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2094,16 +2107,16 @@ See DEVICE
 See PIPELINE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((pipeline (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-pipeline-layout
-                          %vk:create-pipeline-layout
-                          "Represents [vkCreatePipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePipelineLayout.html).
+(defvkfun (create-pipeline-layout
+           %vk:create-pipeline-layout
+           ((device device) (create-info (or vk:pipeline-layout-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-pipeline-layout-wrapper)
+  "Represents [vkCreatePipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePipelineLayout.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2129,17 +2142,17 @@ See PIPELINE-LAYOUT-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:pipeline-layout-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:pipeline-layout-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipeline-layout '%vk:pipeline-layout pipeline-layout :out :handle))
+  (pipeline-layout '%vk:pipeline-layout pipeline-layout :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-pipeline-layout
-                   %vk:destroy-pipeline-layout
-                   "Represents [vkDestroyPipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipelineLayout.html).
+(defvkfun (destroy-pipeline-layout
+           %vk:destroy-pipeline-layout
+           ((device device))
+           (((pipeline-layout (vk:make-pipeline-layout-wrapper (cffi:null-pointer))) pipeline-layout) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyPipelineLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPipelineLayout.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2151,16 +2164,16 @@ See DEVICE
 See PIPELINE-LAYOUT
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((pipeline-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (pipeline-layout '%vk:pipeline-layout pipeline-layout :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline-layout '%vk:pipeline-layout pipeline-layout :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-sampler
-                          %vk:create-sampler
-                          "Represents [vkCreateSampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSampler.html).
+(defvkfun (create-sampler
+           %vk:create-sampler
+           ((device device) (create-info (or vk:sampler-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-sampler-wrapper)
+  "Represents [vkCreateSampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSampler.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2186,17 +2199,17 @@ See SAMPLER
 See SAMPLER-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:sampler-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:sampler-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (sampler '%vk:sampler sampler :out :handle))
+  (sampler '%vk:sampler sampler :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-sampler
-                   %vk:destroy-sampler
-                   "Represents [vkDestroySampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySampler.html).
+(defvkfun (destroy-sampler
+           %vk:destroy-sampler
+           ((device device))
+           (((sampler (vk:make-sampler-wrapper (cffi:null-pointer))) sampler) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroySampler](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySampler.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2208,16 +2221,16 @@ See DEVICE
 See SAMPLER
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((sampler (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (sampler '%vk:sampler sampler :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (sampler '%vk:sampler sampler :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-descriptor-set-layout
-                          %vk:create-descriptor-set-layout
-                          "Represents [vkCreateDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorSetLayout.html).
+(defvkfun (create-descriptor-set-layout
+           %vk:create-descriptor-set-layout
+           ((device device) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-descriptor-set-layout-wrapper)
+  "Represents [vkCreateDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorSetLayout.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2243,17 +2256,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:descriptor-set-layout-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (set-layout '%vk:descriptor-set-layout set-layout :out :handle))
+  (set-layout '%vk:descriptor-set-layout set-layout :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-descriptor-set-layout
-                   %vk:destroy-descriptor-set-layout
-                   "Represents [vkDestroyDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorSetLayout.html).
+(defvkfun (destroy-descriptor-set-layout
+           %vk:destroy-descriptor-set-layout
+           ((device device))
+           (((descriptor-set-layout (vk:make-descriptor-set-layout-wrapper (cffi:null-pointer))) descriptor-set-layout) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyDescriptorSetLayout](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorSetLayout.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2265,16 +2278,16 @@ See DESCRIPTOR-SET-LAYOUT
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((descriptor-set-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-set-layout '%vk:descriptor-set-layout descriptor-set-layout :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-set-layout '%vk:descriptor-set-layout descriptor-set-layout :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-descriptor-pool
-                          %vk:create-descriptor-pool
-                          "Represents [vkCreateDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorPool.html).
+(defvkfun (create-descriptor-pool
+           %vk:create-descriptor-pool
+           ((device device) (create-info (or vk:descriptor-pool-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-descriptor-pool-wrapper)
+  "Represents [vkCreateDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2301,17 +2314,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:descriptor-pool-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:descriptor-pool-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (descriptor-pool '%vk:descriptor-pool descriptor-pool :out :handle))
+  (descriptor-pool '%vk:descriptor-pool descriptor-pool :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-descriptor-pool
-                   %vk:destroy-descriptor-pool
-                   "Represents [vkDestroyDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorPool.html).
+(defvkfun (destroy-descriptor-pool
+           %vk:destroy-descriptor-pool
+           ((device device))
+           (((descriptor-pool (vk:make-descriptor-pool-wrapper (cffi:null-pointer))) descriptor-pool) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2323,16 +2336,16 @@ See DESCRIPTOR-POOL
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((descriptor-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (reset-descriptor-pool
-                   %vk:reset-descriptor-pool
-                   "Represents [vkResetDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetDescriptorPool.html).
+(defvkfun (reset-descriptor-pool
+           %vk:reset-descriptor-pool
+           ((device device) (descriptor-pool descriptor-pool))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkResetDescriptorPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetDescriptorPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2351,16 +2364,17 @@ See DESCRIPTOR-POOL-RESET-FLAGS
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :non-dispatchable :handle)
   (flags '%vk:descriptor-pool-reset-flags flags :in :raw :optional))
 
-(defvk-create-handles-fun (allocate-descriptor-sets
-                           %vk:allocate-descriptor-sets
-                           "Represents [vkAllocateDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateDescriptorSets.html).
+(defvkfun (allocate-descriptor-sets
+           %vk:allocate-descriptor-sets
+           ((device device) (allocate-info (or vk:descriptor-set-allocate-info cffi:foreign-pointer)))
+           ()
+           :handle-constructor make-descriptor-set-wrapper
+           :len-provider (length (vk:set-layouts allocate-info)))
+  "Represents [vkAllocateDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateDescriptorSets.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2385,16 +2399,16 @@ See DESCRIPTOR-SET-ALLOCATE-INFO
 See DEVICE
 See RESULT
 "
-                           ((device cffi:foreign-pointer) (allocate-info (or vk:descriptor-set-allocate-info cffi:foreign-pointer)))
-                           ()
-                           (length (vk:set-layouts allocate-info)))
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (allocate-info '(:struct %vk:descriptor-set-allocate-info) allocate-info :in)
-  (descriptor-sets '%vk:descriptor-set descriptor-sets :out :handle :list))
+  (descriptor-sets '%vk:descriptor-set descriptor-sets :out :non-dispatchable :handle :list))
 
-(defvk-simple-fun (free-descriptor-sets
-                   %vk:free-descriptor-sets
-                   "Represents [vkFreeDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeDescriptorSets.html).
+(defvkfun (free-descriptor-sets
+           %vk:free-descriptor-sets
+           ((device device) (descriptor-pool descriptor-pool) (descriptor-sets (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkFreeDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeDescriptorSets.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2413,17 +2427,17 @@ See DESCRIPTOR-SET
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (descriptor-pool cffi:foreign-pointer) (descriptor-sets (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-pool '%vk:descriptor-pool descriptor-pool :in :non-dispatchable :handle)
   (descriptor-set-count :uint32 (length descriptor-sets) :in :raw)
-  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :handle :list))
+  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :non-dispatchable :handle :list))
 
-(defvk-simple-fun (update-descriptor-sets
-                   %vk:update-descriptor-sets
-                   "Represents [vkUpdateDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSets.html).
+(defvkfun (update-descriptor-sets
+           %vk:update-descriptor-sets
+           ((device device) (descriptor-writes (or list vector)) (descriptor-copies (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkUpdateDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSets.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2434,18 +2448,18 @@ See COPY-DESCRIPTOR-SET
 See DEVICE
 See WRITE-DESCRIPTOR-SET
 "
-                   ((device cffi:foreign-pointer) (descriptor-writes (or list vector)) (descriptor-copies (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (descriptor-write-count :uint32 (length descriptor-writes) :in :raw)
   (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in :list)
   (descriptor-copy-count :uint32 (length descriptor-copies) :in :raw)
   (descriptor-copies '(:struct %vk:copy-descriptor-set) descriptor-copies :in :list))
 
-(defvk-create-handle-fun (create-framebuffer
-                          %vk:create-framebuffer
-                          "Represents [vkCreateFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateFramebuffer.html).
+(defvkfun (create-framebuffer
+           %vk:create-framebuffer
+           ((device device) (create-info (or vk:framebuffer-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-framebuffer-wrapper)
+  "Represents [vkCreateFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateFramebuffer.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2471,17 +2485,17 @@ See FRAMEBUFFER-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:framebuffer-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:framebuffer-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (framebuffer '%vk:framebuffer framebuffer :out :handle))
+  (framebuffer '%vk:framebuffer framebuffer :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-framebuffer
-                   %vk:destroy-framebuffer
-                   "Represents [vkDestroyFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyFramebuffer.html).
+(defvkfun (destroy-framebuffer
+           %vk:destroy-framebuffer
+           ((device device))
+           (((framebuffer (vk:make-framebuffer-wrapper (cffi:null-pointer))) framebuffer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyFramebuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyFramebuffer.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2493,16 +2507,16 @@ See DEVICE
 See FRAMEBUFFER
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((framebuffer (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (framebuffer '%vk:framebuffer framebuffer :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (framebuffer '%vk:framebuffer framebuffer :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-render-pass
-                          %vk:create-render-pass
-                          "Represents [vkCreateRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass.html).
+(defvkfun (create-render-pass
+           %vk:create-render-pass
+           ((device device) (create-info (or vk:render-pass-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-render-pass-wrapper)
+  "Represents [vkCreateRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2528,17 +2542,17 @@ See RENDER-PASS-CREATE-INFO
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:render-pass-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (render-pass '%vk:render-pass render-pass :out :handle))
+  (render-pass '%vk:render-pass render-pass :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-render-pass
-                   %vk:destroy-render-pass
-                   "Represents [vkDestroyRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyRenderPass.html).
+(defvkfun (destroy-render-pass
+           %vk:destroy-render-pass
+           ((device device))
+           (((render-pass (vk:make-render-pass-wrapper (cffi:null-pointer))) render-pass) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyRenderPass.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2550,16 +2564,16 @@ See DEVICE
 See RENDER-PASS
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((render-pass (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (render-pass '%vk:render-pass render-pass :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (render-pass '%vk:render-pass render-pass :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-get-struct-fun (get-render-area-granularity
-                       %vk:get-render-area-granularity
-                       "Represents [vkGetRenderAreaGranularity](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRenderAreaGranularity.html).
+(defvkfun (get-render-area-granularity
+           %vk:get-render-area-granularity
+           ((device device) (render-pass render-pass))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetRenderAreaGranularity](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRenderAreaGranularity.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2573,15 +2587,16 @@ See DEVICE
 See EXTENT-2D
 See RENDER-PASS
 "
-                       ((device cffi:foreign-pointer) (render-pass cffi:foreign-pointer))
-                       ())
-  (device '%vk:device device :in :handle)
-  (render-pass '%vk:render-pass render-pass :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (render-pass '%vk:render-pass render-pass :in :non-dispatchable :handle)
   (granularity '(:struct %vk:extent-2d) granularity :out))
 
-(defvk-create-handle-fun (create-command-pool
-                          %vk:create-command-pool
-                          "Represents [vkCreateCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCommandPool.html).
+(defvkfun (create-command-pool
+           %vk:create-command-pool
+           ((device device) (create-info (or vk:command-pool-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-command-pool-wrapper)
+  "Represents [vkCreateCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCommandPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2607,17 +2622,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:command-pool-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:command-pool-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (command-pool '%vk:command-pool command-pool :out :handle))
+  (command-pool '%vk:command-pool command-pool :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-command-pool
-                   %vk:destroy-command-pool
-                   "Represents [vkDestroyCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCommandPool.html).
+(defvkfun (destroy-command-pool
+           %vk:destroy-command-pool
+           ((device device))
+           (((command-pool (vk:make-command-pool-wrapper (cffi:null-pointer))) command-pool) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCommandPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2629,16 +2644,16 @@ See COMMAND-POOL
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((command-pool (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (command-pool '%vk:command-pool command-pool :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (command-pool '%vk:command-pool command-pool :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (reset-command-pool
-                   %vk:reset-command-pool
-                   "Represents [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetCommandPool.html).
+(defvkfun (reset-command-pool
+           %vk:reset-command-pool
+           ((device device) (command-pool command-pool))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkResetCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetCommandPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2660,16 +2675,17 @@ See COMMAND-POOL-RESET-FLAGS
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (command-pool '%vk:command-pool command-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (command-pool '%vk:command-pool command-pool :in :non-dispatchable :handle)
   (flags '%vk:command-pool-reset-flags flags :in :raw :optional))
 
-(defvk-create-handles-fun (allocate-command-buffers
-                           %vk:allocate-command-buffers
-                           "Represents [vkAllocateCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateCommandBuffers.html).
+(defvkfun (allocate-command-buffers
+           %vk:allocate-command-buffers
+           ((device device) (allocate-info (or vk:command-buffer-allocate-info cffi:foreign-pointer)))
+           ()
+           :handle-constructor make-command-buffer-wrapper
+           :len-provider (vk:command-buffer-count allocate-info))
+  "Represents [vkAllocateCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAllocateCommandBuffers.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2692,16 +2708,16 @@ See COMMAND-BUFFER-ALLOCATE-INFO
 See DEVICE
 See RESULT
 "
-                           ((device cffi:foreign-pointer) (allocate-info (or vk:command-buffer-allocate-info cffi:foreign-pointer)))
-                           ()
-                           (vk:command-buffer-count allocate-info))
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (allocate-info '(:struct %vk:command-buffer-allocate-info) allocate-info :in)
-  (command-buffers '%vk:command-buffer command-buffers :out :handle :list))
+  (command-buffers '%vk:command-buffer command-buffers :out :dispatchable :handle :list))
 
-(defvk-simple-fun (free-command-buffers
-                   %vk:free-command-buffers
-                   "Represents [vkFreeCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeCommandBuffers.html).
+(defvkfun (free-command-buffers
+           %vk:free-command-buffers
+           ((device device) (command-pool command-pool) (command-buffers (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkFreeCommandBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkFreeCommandBuffers.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -2712,17 +2728,17 @@ See COMMAND-BUFFER
 See COMMAND-POOL
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer) (command-buffers (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (command-pool '%vk:command-pool command-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (command-pool '%vk:command-pool command-pool :in :non-dispatchable :handle)
   (command-buffer-count :uint32 (length command-buffers) :in :raw)
-  (command-buffers '%vk:command-buffer command-buffers :in :handle :list))
+  (command-buffers '%vk:command-buffer command-buffers :in :dispatchable :handle :list))
 
-(defvk-simple-fun (begin-command-buffer
-                   %vk:begin-command-buffer
-                   "Represents [vkBeginCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBeginCommandBuffer.html).
+(defvkfun (begin-command-buffer
+           %vk:begin-command-buffer
+           ((command-buffer command-buffer) (begin-info (or vk:command-buffer-begin-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBeginCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBeginCommandBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2743,15 +2759,15 @@ See COMMAND-BUFFER
 See COMMAND-BUFFER-BEGIN-INFO
 See RESULT
 "
-                   ((command-buffer cffi:foreign-pointer) (begin-info (or vk:command-buffer-begin-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (begin-info '(:struct %vk:command-buffer-begin-info) begin-info :in))
 
-(defvk-simple-fun (end-command-buffer
-                   %vk:end-command-buffer
-                   "Represents [vkEndCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEndCommandBuffer.html).
+(defvkfun (end-command-buffer
+           %vk:end-command-buffer
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkEndCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEndCommandBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2770,14 +2786,14 @@ Errors signalled on codes:
 See COMMAND-BUFFER
 See RESULT
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle))
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
 
-(defvk-simple-fun (reset-command-buffer
-                   %vk:reset-command-buffer
-                   "Represents [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetCommandBuffer.html).
+(defvkfun (reset-command-buffer
+           %vk:reset-command-buffer
+           ((command-buffer command-buffer))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkResetCommandBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkResetCommandBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2797,15 +2813,15 @@ See COMMAND-BUFFER
 See COMMAND-BUFFER-RESET-FLAGS
 See RESULT
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (flags '%vk:command-buffer-reset-flags flags :in :raw :optional))
 
-(defvk-simple-fun (cmd-bind-pipeline
-                   %vk:cmd-bind-pipeline
-                   "Represents [vkCmdBindPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindPipeline.html).
+(defvkfun (cmd-bind-pipeline
+           %vk:cmd-bind-pipeline
+           ((command-buffer command-buffer) (pipeline-bind-point keyword) (pipeline pipeline))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBindPipeline](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindPipeline.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2816,16 +2832,16 @@ See COMMAND-BUFFER
 See PIPELINE
 See PIPELINE-BIND-POINT
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
-  (pipeline '%vk:pipeline pipeline :in :handle))
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle))
 
-(defvk-simple-fun (cmd-set-viewport
-                   %vk:cmd-set-viewport
-                   "Represents [vkCmdSetViewport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewport.html).
+(defvkfun (cmd-set-viewport
+           %vk:cmd-set-viewport
+           ((command-buffer command-buffer) (first-viewport unsigned-byte) (viewports (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetViewport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewport.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2835,17 +2851,17 @@ Args:
 See COMMAND-BUFFER
 See VIEWPORT
 "
-                   ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (viewports (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-viewport :uint32 first-viewport :in :raw)
   (viewport-count :uint32 (length viewports) :in :raw)
   (viewports '(:struct %vk:viewport) viewports :in :list))
 
-(defvk-simple-fun (cmd-set-scissor
-                   %vk:cmd-set-scissor
-                   "Represents [vkCmdSetScissor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetScissor.html).
+(defvkfun (cmd-set-scissor
+           %vk:cmd-set-scissor
+           ((command-buffer command-buffer) (first-scissor unsigned-byte) (scissors (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetScissor](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetScissor.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2855,17 +2871,17 @@ Args:
 See COMMAND-BUFFER
 See RECT-2D
 "
-                   ((command-buffer cffi:foreign-pointer) (first-scissor unsigned-byte) (scissors (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-scissor :uint32 first-scissor :in :raw)
   (scissor-count :uint32 (length scissors) :in :raw)
   (scissors '(:struct %vk:rect-2d) scissors :in :list))
 
-(defvk-simple-fun (cmd-set-line-width
-                   %vk:cmd-set-line-width
-                   "Represents [vkCmdSetLineWidth](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLineWidth.html).
+(defvkfun (cmd-set-line-width
+           %vk:cmd-set-line-width
+           ((command-buffer command-buffer) (line-width real))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetLineWidth](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLineWidth.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2873,15 +2889,15 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (line-width real))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (line-width :float line-width :in :raw))
 
-(defvk-simple-fun (cmd-set-depth-bias
-                   %vk:cmd-set-depth-bias
-                   "Represents [vkCmdSetDepthBias](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBias.html).
+(defvkfun (cmd-set-depth-bias
+           %vk:cmd-set-depth-bias
+           ((command-buffer command-buffer) (depth-bias-constant-factor real) (depth-bias-clamp real) (depth-bias-slope-factor real))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetDepthBias](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBias.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2891,17 +2907,17 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (depth-bias-constant-factor real) (depth-bias-clamp real) (depth-bias-slope-factor real))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (depth-bias-constant-factor :float depth-bias-constant-factor :in :raw)
   (depth-bias-clamp :float depth-bias-clamp :in :raw)
   (depth-bias-slope-factor :float depth-bias-slope-factor :in :raw))
 
-(defvk-simple-fun (cmd-set-blend-constants
-                   %vk:cmd-set-blend-constants
-                   "Represents [vkCmdSetBlendConstants](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetBlendConstants.html).
+(defvkfun (cmd-set-blend-constants
+           %vk:cmd-set-blend-constants
+           ((command-buffer command-buffer) (blend-constants real))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetBlendConstants](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetBlendConstants.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2909,15 +2925,15 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (blend-constants real))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (blend-constants :float blend-constants :in :raw))
 
-(defvk-simple-fun (cmd-set-depth-bounds
-                   %vk:cmd-set-depth-bounds
-                   "Represents [vkCmdSetDepthBounds](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBounds.html).
+(defvkfun (cmd-set-depth-bounds
+           %vk:cmd-set-depth-bounds
+           ((command-buffer command-buffer) (min-depth-bounds real) (max-depth-bounds real))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetDepthBounds](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBounds.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2926,16 +2942,16 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (min-depth-bounds real) (max-depth-bounds real))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (min-depth-bounds :float min-depth-bounds :in :raw)
   (max-depth-bounds :float max-depth-bounds :in :raw))
 
-(defvk-simple-fun (cmd-set-stencil-compare-mask
-                   %vk:cmd-set-stencil-compare-mask
-                   "Represents [vkCmdSetStencilCompareMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilCompareMask.html).
+(defvkfun (cmd-set-stencil-compare-mask
+           %vk:cmd-set-stencil-compare-mask
+           ((command-buffer command-buffer) (face-mask (or unsigned-byte list)) (compare-mask unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetStencilCompareMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilCompareMask.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2945,16 +2961,16 @@ Args:
 See COMMAND-BUFFER
 See STENCIL-FACE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (compare-mask unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (compare-mask :uint32 compare-mask :in :raw))
 
-(defvk-simple-fun (cmd-set-stencil-write-mask
-                   %vk:cmd-set-stencil-write-mask
-                   "Represents [vkCmdSetStencilWriteMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilWriteMask.html).
+(defvkfun (cmd-set-stencil-write-mask
+           %vk:cmd-set-stencil-write-mask
+           ((command-buffer command-buffer) (face-mask (or unsigned-byte list)) (write-mask unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetStencilWriteMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilWriteMask.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2964,16 +2980,16 @@ Args:
 See COMMAND-BUFFER
 See STENCIL-FACE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (write-mask unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (write-mask :uint32 write-mask :in :raw))
 
-(defvk-simple-fun (cmd-set-stencil-reference
-                   %vk:cmd-set-stencil-reference
-                   "Represents [vkCmdSetStencilReference](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilReference.html).
+(defvkfun (cmd-set-stencil-reference
+           %vk:cmd-set-stencil-reference
+           ((command-buffer command-buffer) (face-mask (or unsigned-byte list)) (reference unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetStencilReference](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilReference.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -2983,16 +2999,16 @@ Args:
 See COMMAND-BUFFER
 See STENCIL-FACE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (reference unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (reference :uint32 reference :in :raw))
 
-(defvk-simple-fun (cmd-bind-descriptor-sets
-                   %vk:cmd-bind-descriptor-sets
-                   "Represents [vkCmdBindDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindDescriptorSets.html).
+(defvkfun (cmd-bind-descriptor-sets
+           %vk:cmd-bind-descriptor-sets
+           ((command-buffer command-buffer) (pipeline-bind-point keyword) (layout pipeline-layout) (first-set unsigned-byte) (descriptor-sets (or list vector)) (dynamic-offsets (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBindDescriptorSets](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindDescriptorSets.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3007,21 +3023,21 @@ See DESCRIPTOR-SET
 See PIPELINE-BIND-POINT
 See PIPELINE-LAYOUT
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (layout cffi:foreign-pointer) (first-set unsigned-byte) (descriptor-sets (or list vector)) (dynamic-offsets (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
-  (layout '%vk:pipeline-layout layout :in :handle)
+  (layout '%vk:pipeline-layout layout :in :non-dispatchable :handle)
   (first-set :uint32 first-set :in :raw)
   (descriptor-set-count :uint32 (length descriptor-sets) :in :raw)
-  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :handle :list)
+  (descriptor-sets '%vk:descriptor-set descriptor-sets :in :non-dispatchable :handle :list)
   (dynamic-offset-count :uint32 (length dynamic-offsets) :in :raw)
   (dynamic-offsets :uint32 dynamic-offsets :in :list))
 
-(defvk-simple-fun (cmd-bind-index-buffer
-                   %vk:cmd-bind-index-buffer
-                   "Represents [vkCmdBindIndexBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindIndexBuffer.html).
+(defvkfun (cmd-bind-index-buffer
+           %vk:cmd-bind-index-buffer
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (index-type keyword))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBindIndexBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindIndexBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3034,17 +3050,17 @@ See COMMAND-BUFFER
 See DEVICE-SIZE
 See INDEX-TYPE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (index-type keyword))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
   (index-type '%vk:index-type index-type :in :raw))
 
-(defvk-simple-fun (cmd-bind-vertex-buffers
-                   %vk:cmd-bind-vertex-buffers
-                   "Represents [vkCmdBindVertexBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindVertexBuffers.html).
+(defvkfun (cmd-bind-vertex-buffers
+           %vk:cmd-bind-vertex-buffers
+           ((command-buffer command-buffer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBindVertexBuffers](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindVertexBuffers.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3056,18 +3072,18 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-binding :uint32 first-binding :in :raw)
   (binding-count :uint32 (length offsets) :in :raw)
-  (buffers '%vk:buffer buffers :in :handle :list)
+  (buffers '%vk:buffer buffers :in :non-dispatchable :handle :list)
   (offsets '%vk:device-size offsets :in :list))
 
-(defvk-simple-fun (cmd-draw
-                   %vk:cmd-draw
-                   "Represents [vkCmdDraw](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDraw.html).
+(defvkfun (cmd-draw
+           %vk:cmd-draw
+           ((command-buffer command-buffer) (vertex-count unsigned-byte) (instance-count unsigned-byte) (first-vertex unsigned-byte) (first-instance unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDraw](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDraw.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3078,18 +3094,18 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (vertex-count unsigned-byte) (instance-count unsigned-byte) (first-vertex unsigned-byte) (first-instance unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (vertex-count :uint32 vertex-count :in :raw)
   (instance-count :uint32 instance-count :in :raw)
   (first-vertex :uint32 first-vertex :in :raw)
   (first-instance :uint32 first-instance :in :raw))
 
-(defvk-simple-fun (cmd-draw-indexed
-                   %vk:cmd-draw-indexed
-                   "Represents [vkCmdDrawIndexed](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexed.html).
+(defvkfun (cmd-draw-indexed
+           %vk:cmd-draw-indexed
+           ((command-buffer command-buffer) (index-count unsigned-byte) (instance-count unsigned-byte) (first-index unsigned-byte) (vertex-offset integer) (first-instance unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndexed](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexed.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3101,19 +3117,20 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (index-count unsigned-byte) (instance-count unsigned-byte) (first-index unsigned-byte) (vertex-offset integer) (first-instance unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (index-count :uint32 index-count :in :raw)
   (instance-count :uint32 instance-count :in :raw)
   (first-index :uint32 first-index :in :raw)
   (vertex-offset :int32 vertex-offset :in :raw)
   (first-instance :uint32 first-instance :in :raw))
 
-(defvk-simple-fun (cmd-draw-multi-ext
-                   %vk:cmd-draw-multi-ext
-                   "Represents [vkCmdDrawMultiEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMultiEXT.html).
+(defvkfun (cmd-draw-multi-ext
+           %vk:cmd-draw-multi-ext
+           ((command-buffer command-buffer) (vertex-info (or list vector)) (instance-count unsigned-byte) (first-instance unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDrawMultiEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMultiEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3128,20 +3145,20 @@ See EXTENSION-LOADER
 See MULTI-DRAW-INFO-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (vertex-info (or list vector)) (instance-count unsigned-byte) (first-instance unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (draw-count :uint32 (length vertex-info) :in :raw)
   (vertex-info '(:struct %vk:multi-draw-info-ext) vertex-info :in :list)
   (instance-count :uint32 instance-count :in :raw)
   (first-instance :uint32 first-instance :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-multi-indexed-ext
-                   %vk:cmd-draw-multi-indexed-ext
-                   "Represents [vkCmdDrawMultiIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMultiIndexedEXT.html).
+(defvkfun (cmd-draw-multi-indexed-ext
+           %vk:cmd-draw-multi-indexed-ext
+           ((command-buffer command-buffer) (index-info (or list vector)) (instance-count unsigned-byte) (first-instance unsigned-byte) (stride unsigned-byte))
+           (((vertex-offset nil) integer))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDrawMultiIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMultiIndexedEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3157,11 +3174,7 @@ See EXTENSION-LOADER
 See MULTI-DRAW-INDEXED-INFO-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (index-info (or list vector)) (instance-count unsigned-byte) (first-instance unsigned-byte) (stride unsigned-byte))
-                   (((vertex-offset nil) integer))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (draw-count :uint32 (length index-info) :in :raw)
   (index-info '(:struct %vk:multi-draw-indexed-info-ext) index-info :in :list)
   (instance-count :uint32 instance-count :in :raw)
@@ -3169,9 +3182,12 @@ See *DEFAULT-EXTENSION-LOADER*
   (stride :uint32 stride :in :raw)
   (vertex-offset :int32 vertex-offset :in :optional))
 
-(defvk-simple-fun (cmd-draw-indirect
-                   %vk:cmd-draw-indirect
-                   "Represents [vkCmdDrawIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirect.html).
+(defvkfun (cmd-draw-indirect
+           %vk:cmd-draw-indirect
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirect.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3184,18 +3200,18 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
   (draw-count :uint32 draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-indexed-indirect
-                   %vk:cmd-draw-indexed-indirect
-                   "Represents [vkCmdDrawIndexedIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirect.html).
+(defvkfun (cmd-draw-indexed-indirect
+           %vk:cmd-draw-indexed-indirect
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndexedIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirect.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3208,18 +3224,18 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
   (draw-count :uint32 draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-dispatch
-                   %vk:cmd-dispatch
-                   "Represents [vkCmdDispatch](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatch.html).
+(defvkfun (cmd-dispatch
+           %vk:cmd-dispatch
+           ((command-buffer command-buffer) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDispatch](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatch.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3229,17 +3245,17 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (group-count-x :uint32 group-count-x :in :raw)
   (group-count-y :uint32 group-count-y :in :raw)
   (group-count-z :uint32 group-count-z :in :raw))
 
-(defvk-simple-fun (cmd-dispatch-indirect
-                   %vk:cmd-dispatch-indirect
-                   "Represents [vkCmdDispatchIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchIndirect.html).
+(defvkfun (cmd-dispatch-indirect
+           %vk:cmd-dispatch-indirect
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDispatchIndirect](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchIndirect.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3250,16 +3266,17 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw))
 
-(defvk-simple-fun (cmd-subpass-shading-huawei
-                   %vk:cmd-subpass-shading-huawei
-                   "Represents [vkCmdSubpassShadingHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSubpassShadingHUAWEI.html).
+(defvkfun (cmd-subpass-shading-huawei
+           %vk:cmd-subpass-shading-huawei
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSubpassShadingHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSubpassShadingHUAWEI.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3269,15 +3286,14 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle))
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
 
-(defvk-simple-fun (cmd-copy-buffer
-                   %vk:cmd-copy-buffer
-                   "Represents [vkCmdCopyBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBuffer.html).
+(defvkfun (cmd-copy-buffer
+           %vk:cmd-copy-buffer
+           ((command-buffer command-buffer) (src-buffer buffer) (dst-buffer buffer) (regions (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdCopyBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3289,18 +3305,18 @@ See BUFFER
 See BUFFER-COPY
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (src-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (regions (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-buffer '%vk:buffer src-buffer :in :handle)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (src-buffer '%vk:buffer src-buffer :in :non-dispatchable :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:buffer-copy) regions :in :list))
 
-(defvk-simple-fun (cmd-copy-image
-                   %vk:cmd-copy-image
-                   "Represents [vkCmdCopyImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImage.html).
+(defvkfun (cmd-copy-image
+           %vk:cmd-copy-image
+           ((command-buffer command-buffer) (src-image image) (src-image-layout keyword) (dst-image image) (dst-image-layout keyword) (regions (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdCopyImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImage.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3315,20 +3331,20 @@ See IMAGE
 See IMAGE-COPY
 See IMAGE-LAYOUT
 "
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-image '%vk:image src-image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (src-image '%vk:image src-image :in :non-dispatchable :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in :raw)
-  (dst-image '%vk:image dst-image :in :handle)
+  (dst-image '%vk:image dst-image :in :non-dispatchable :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:image-copy) regions :in :list))
 
-(defvk-simple-fun (cmd-blit-image
-                   %vk:cmd-blit-image
-                   "Represents [vkCmdBlitImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBlitImage.html).
+(defvkfun (cmd-blit-image
+           %vk:cmd-blit-image
+           ((command-buffer command-buffer) (src-image image) (src-image-layout keyword) (dst-image image) (dst-image-layout keyword) (regions (or list vector)) (filter keyword))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBlitImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBlitImage.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3345,21 +3361,21 @@ See IMAGE
 See IMAGE-BLIT
 See IMAGE-LAYOUT
 "
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions (or list vector)) (filter keyword))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-image '%vk:image src-image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (src-image '%vk:image src-image :in :non-dispatchable :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in :raw)
-  (dst-image '%vk:image dst-image :in :handle)
+  (dst-image '%vk:image dst-image :in :non-dispatchable :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:image-blit) regions :in :list)
   (filter '%vk:filter filter :in :raw))
 
-(defvk-simple-fun (cmd-copy-buffer-to-image
-                   %vk:cmd-copy-buffer-to-image
-                   "Represents [vkCmdCopyBufferToImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBufferToImage.html).
+(defvkfun (cmd-copy-buffer-to-image
+           %vk:cmd-copy-buffer-to-image
+           ((command-buffer command-buffer) (src-buffer buffer) (dst-image image) (dst-image-layout keyword) (regions (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdCopyBufferToImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBufferToImage.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3374,19 +3390,19 @@ See COMMAND-BUFFER
 See IMAGE
 See IMAGE-LAYOUT
 "
-                   ((command-buffer cffi:foreign-pointer) (src-buffer cffi:foreign-pointer) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-buffer '%vk:buffer src-buffer :in :handle)
-  (dst-image '%vk:image dst-image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (src-buffer '%vk:buffer src-buffer :in :non-dispatchable :handle)
+  (dst-image '%vk:image dst-image :in :non-dispatchable :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:buffer-image-copy) regions :in :list))
 
-(defvk-simple-fun (cmd-copy-image-to-buffer
-                   %vk:cmd-copy-image-to-buffer
-                   "Represents [vkCmdCopyImageToBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImageToBuffer.html).
+(defvkfun (cmd-copy-image-to-buffer
+           %vk:cmd-copy-image-to-buffer
+           ((command-buffer command-buffer) (src-image image) (src-image-layout keyword) (dst-buffer buffer) (regions (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdCopyImageToBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImageToBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3401,19 +3417,19 @@ See COMMAND-BUFFER
 See IMAGE
 See IMAGE-LAYOUT
 "
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-buffer cffi:foreign-pointer) (regions (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-image '%vk:image src-image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (src-image '%vk:image src-image :in :non-dispatchable :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in :raw)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:buffer-image-copy) regions :in :list))
 
-(defvk-simple-fun (cmd-update-buffer
-                   %vk:cmd-update-buffer
-                   "Represents [vkCmdUpdateBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdUpdateBuffer.html).
+(defvkfun (cmd-update-buffer
+           %vk:cmd-update-buffer
+           ((command-buffer command-buffer) (dst-buffer buffer) (dst-offset unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdUpdateBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdUpdateBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3426,18 +3442,18 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (dst-offset '%vk:device-size dst-offset :in :raw)
   (data-size '%vk:device-size data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-simple-fun (cmd-fill-buffer
-                   %vk:cmd-fill-buffer
-                   "Represents [vkCmdFillBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdFillBuffer.html).
+(defvkfun (cmd-fill-buffer
+           %vk:cmd-fill-buffer
+           ((command-buffer command-buffer) (dst-buffer buffer) (dst-offset unsigned-byte) (size unsigned-byte) (data unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdFillBuffer](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdFillBuffer.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3450,18 +3466,18 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (size unsigned-byte) (data unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (dst-offset '%vk:device-size dst-offset :in :raw)
   (size '%vk:device-size size :in :raw)
   (data :uint32 data :in :raw))
 
-(defvk-simple-fun (cmd-clear-color-image
-                   %vk:cmd-clear-color-image
-                   "Represents [vkCmdClearColorImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearColorImage.html).
+(defvkfun (cmd-clear-color-image
+           %vk:cmd-clear-color-image
+           ((command-buffer command-buffer) (image image) (image-layout keyword) (color (or vk:clear-color-value cffi:foreign-pointer)) (ranges (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdClearColorImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearColorImage.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3476,19 +3492,19 @@ See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-SUBRESOURCE-RANGE
 "
-                   ((command-buffer cffi:foreign-pointer) (image cffi:foreign-pointer) (image-layout keyword) (color (or vk:clear-color-value cffi:foreign-pointer)) (ranges (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (image '%vk:image image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
   (image-layout '%vk:image-layout image-layout :in :raw)
   (color '(:union %vk:clear-color-value) color :in)
   (range-count :uint32 (length ranges) :in :raw)
   (ranges '(:struct %vk:image-subresource-range) ranges :in :list))
 
-(defvk-simple-fun (cmd-clear-depth-stencil-image
-                   %vk:cmd-clear-depth-stencil-image
-                   "Represents [vkCmdClearDepthStencilImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearDepthStencilImage.html).
+(defvkfun (cmd-clear-depth-stencil-image
+           %vk:cmd-clear-depth-stencil-image
+           ((command-buffer command-buffer) (image image) (image-layout keyword) (depth-stencil (or vk:clear-depth-stencil-value cffi:foreign-pointer)) (ranges (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdClearDepthStencilImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearDepthStencilImage.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3503,19 +3519,19 @@ See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-SUBRESOURCE-RANGE
 "
-                   ((command-buffer cffi:foreign-pointer) (image cffi:foreign-pointer) (image-layout keyword) (depth-stencil (or vk:clear-depth-stencil-value cffi:foreign-pointer)) (ranges (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (image '%vk:image image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
   (image-layout '%vk:image-layout image-layout :in :raw)
   (depth-stencil '(:struct %vk:clear-depth-stencil-value) depth-stencil :in)
   (range-count :uint32 (length ranges) :in :raw)
   (ranges '(:struct %vk:image-subresource-range) ranges :in :list))
 
-(defvk-simple-fun (cmd-clear-attachments
-                   %vk:cmd-clear-attachments
-                   "Represents [vkCmdClearAttachments](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearAttachments.html).
+(defvkfun (cmd-clear-attachments
+           %vk:cmd-clear-attachments
+           ((command-buffer command-buffer) (attachments (or list vector)) (rects (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdClearAttachments](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdClearAttachments.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3526,18 +3542,18 @@ See CLEAR-ATTACHMENT
 See CLEAR-RECT
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (attachments (or list vector)) (rects (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (attachment-count :uint32 (length attachments) :in :raw)
   (attachments '(:struct %vk:clear-attachment) attachments :in :list)
   (rect-count :uint32 (length rects) :in :raw)
   (rects '(:struct %vk:clear-rect) rects :in :list))
 
-(defvk-simple-fun (cmd-resolve-image
-                   %vk:cmd-resolve-image
-                   "Represents [vkCmdResolveImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResolveImage.html).
+(defvkfun (cmd-resolve-image
+           %vk:cmd-resolve-image
+           ((command-buffer command-buffer) (src-image image) (src-image-layout keyword) (dst-image image) (dst-image-layout keyword) (regions (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdResolveImage](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResolveImage.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3552,20 +3568,20 @@ See IMAGE
 See IMAGE-LAYOUT
 See IMAGE-RESOLVE
 "
-                   ((command-buffer cffi:foreign-pointer) (src-image cffi:foreign-pointer) (src-image-layout keyword) (dst-image cffi:foreign-pointer) (dst-image-layout keyword) (regions (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (src-image '%vk:image src-image :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (src-image '%vk:image src-image :in :non-dispatchable :handle)
   (src-image-layout '%vk:image-layout src-image-layout :in :raw)
-  (dst-image '%vk:image dst-image :in :handle)
+  (dst-image '%vk:image dst-image :in :non-dispatchable :handle)
   (dst-image-layout '%vk:image-layout dst-image-layout :in :raw)
   (region-count :uint32 (length regions) :in :raw)
   (regions '(:struct %vk:image-resolve) regions :in :list))
 
-(defvk-simple-fun (cmd-set-event
-                   %vk:cmd-set-event
-                   "Represents [vkCmdSetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent.html).
+(defvkfun (cmd-set-event
+           %vk:cmd-set-event
+           ((command-buffer command-buffer) (event event))
+           (((stage-mask nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3576,16 +3592,16 @@ See COMMAND-BUFFER
 See EVENT
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   (((stage-mask nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (event '%vk:event event :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle)
   (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw :optional))
 
-(defvk-simple-fun (cmd-reset-event
-                   %vk:cmd-reset-event
-                   "Represents [vkCmdResetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetEvent.html).
+(defvkfun (cmd-reset-event
+           %vk:cmd-reset-event
+           ((command-buffer command-buffer) (event event))
+           (((stage-mask nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkCmdResetEvent](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetEvent.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3596,16 +3612,16 @@ See COMMAND-BUFFER
 See EVENT
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer))
-                   (((stage-mask nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (event '%vk:event event :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle)
   (stage-mask '%vk:pipeline-stage-flags stage-mask :in :raw :optional))
 
-(defvk-simple-fun (cmd-wait-events
-                   %vk:cmd-wait-events
-                   "Represents [vkCmdWaitEvents](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWaitEvents.html).
+(defvkfun (cmd-wait-events
+           %vk:cmd-wait-events
+           ((command-buffer command-buffer) (events (or list vector)) (memory-barriers (or list vector)) (buffer-memory-barriers (or list vector)) (image-memory-barriers (or list vector)))
+           (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkCmdWaitEvents](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWaitEvents.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3623,12 +3639,9 @@ See IMAGE-MEMORY-BARRIER
 See MEMORY-BARRIER
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (events (or list vector)) (memory-barriers (or list vector)) (buffer-memory-barriers (or list vector)) (image-memory-barriers (or list vector)))
-                   (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (event-count :uint32 (length events) :in :raw)
-  (events '%vk:event events :in :handle :list)
+  (events '%vk:event events :in :non-dispatchable :handle :list)
   (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw :optional)
   (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw :optional)
   (memory-barrier-count :uint32 (length memory-barriers) :in :raw)
@@ -3638,9 +3651,12 @@ See PIPELINE-STAGE-FLAGS
   (image-memory-barrier-count :uint32 (length image-memory-barriers) :in :raw)
   (image-memory-barriers '(:struct %vk:image-memory-barrier) image-memory-barriers :in :list))
 
-(defvk-simple-fun (cmd-pipeline-barrier
-                   %vk:cmd-pipeline-barrier
-                   "Represents [vkCmdPipelineBarrier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPipelineBarrier.html).
+(defvkfun (cmd-pipeline-barrier
+           %vk:cmd-pipeline-barrier
+           ((command-buffer command-buffer) (memory-barriers (or list vector)) (buffer-memory-barriers (or list vector)) (image-memory-barriers (or list vector)))
+           (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)) ((dependency-flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkCmdPipelineBarrier](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPipelineBarrier.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3658,10 +3674,7 @@ See IMAGE-MEMORY-BARRIER
 See MEMORY-BARRIER
 See PIPELINE-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (memory-barriers (or list vector)) (buffer-memory-barriers (or list vector)) (image-memory-barriers (or list vector)))
-                   (((src-stage-mask nil) (or unsigned-byte list)) ((dst-stage-mask nil) (or unsigned-byte list)) ((dependency-flags nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (src-stage-mask '%vk:pipeline-stage-flags src-stage-mask :in :raw :optional)
   (dst-stage-mask '%vk:pipeline-stage-flags dst-stage-mask :in :raw :optional)
   (dependency-flags '%vk:dependency-flags dependency-flags :in :raw :optional)
@@ -3672,9 +3685,12 @@ See PIPELINE-STAGE-FLAGS
   (image-memory-barrier-count :uint32 (length image-memory-barriers) :in :raw)
   (image-memory-barriers '(:struct %vk:image-memory-barrier) image-memory-barriers :in :list))
 
-(defvk-simple-fun (cmd-begin-query
-                   %vk:cmd-begin-query
-                   "Represents [vkCmdBeginQuery](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginQuery.html).
+(defvkfun (cmd-begin-query
+           %vk:cmd-begin-query
+           ((command-buffer command-buffer) (query-pool query-pool) (query unsigned-byte))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBeginQuery](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginQuery.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3686,17 +3702,17 @@ See COMMAND-BUFFER
 See QUERY-CONTROL-FLAGS
 See QUERY-POOL
 "
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (query :uint32 query :in :raw)
   (flags '%vk:query-control-flags flags :in :raw :optional))
 
-(defvk-simple-fun (cmd-end-query
-                   %vk:cmd-end-query
-                   "Represents [vkCmdEndQuery](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndQuery.html).
+(defvkfun (cmd-end-query
+           %vk:cmd-end-query
+           ((command-buffer command-buffer) (query-pool query-pool) (query unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdEndQuery](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndQuery.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3706,16 +3722,17 @@ Args:
 See COMMAND-BUFFER
 See QUERY-POOL
 "
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (query :uint32 query :in :raw))
 
-(defvk-simple-fun (cmd-begin-conditional-rendering-ext
-                   %vk:cmd-begin-conditional-rendering-ext
-                   "Represents [vkCmdBeginConditionalRenderingEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html).
+(defvkfun (cmd-begin-conditional-rendering-ext
+           %vk:cmd-begin-conditional-rendering-ext
+           ((command-buffer command-buffer) (conditional-rendering-begin (or vk:conditional-rendering-begin-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBeginConditionalRenderingEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3727,16 +3744,16 @@ See CONDITIONAL-RENDERING-BEGIN-INFO-EXT
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (conditional-rendering-begin (or vk:conditional-rendering-begin-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (conditional-rendering-begin '(:struct %vk:conditional-rendering-begin-info-ext) conditional-rendering-begin :in))
 
-(defvk-simple-fun (cmd-end-conditional-rendering-ext
-                   %vk:cmd-end-conditional-rendering-ext
-                   "Represents [vkCmdEndConditionalRenderingEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndConditionalRenderingEXT.html).
+(defvkfun (cmd-end-conditional-rendering-ext
+           %vk:cmd-end-conditional-rendering-ext
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEndConditionalRenderingEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndConditionalRenderingEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3746,15 +3763,14 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle))
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
 
-(defvk-simple-fun (cmd-reset-query-pool
-                   %vk:cmd-reset-query-pool
-                   "Represents [vkCmdResetQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetQueryPool.html).
+(defvkfun (cmd-reset-query-pool
+           %vk:cmd-reset-query-pool
+           ((command-buffer command-buffer) (query-pool query-pool) (first-query unsigned-byte) (query-count unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdResetQueryPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetQueryPool.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3765,17 +3781,17 @@ Args:
 See COMMAND-BUFFER
 See QUERY-POOL
 "
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw)
   (query-count :uint32 query-count :in :raw))
 
-(defvk-simple-fun (cmd-write-timestamp
-                   %vk:cmd-write-timestamp
-                   "Represents [vkCmdWriteTimestamp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp.html).
+(defvkfun (cmd-write-timestamp
+           %vk:cmd-write-timestamp
+           ((command-buffer command-buffer) (pipeline-stage keyword) (query-pool query-pool) (query unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdWriteTimestamp](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3787,17 +3803,17 @@ See COMMAND-BUFFER
 See PIPELINE-STAGE-FLAG-BITS
 See QUERY-POOL
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (query-pool cffi:foreign-pointer) (query unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in :raw)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (query :uint32 query :in :raw))
 
-(defvk-simple-fun (cmd-copy-query-pool-results
-                   %vk:cmd-copy-query-pool-results
-                   "Represents [vkCmdCopyQueryPoolResults](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyQueryPoolResults.html).
+(defvkfun (cmd-copy-query-pool-results
+           %vk:cmd-copy-query-pool-results
+           ((command-buffer command-buffer) (query-pool query-pool) (first-query unsigned-byte) (query-count unsigned-byte) (dst-buffer buffer) (dst-offset unsigned-byte) (stride unsigned-byte))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkCmdCopyQueryPoolResults](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyQueryPoolResults.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3815,21 +3831,21 @@ See DEVICE-SIZE
 See QUERY-POOL
 See QUERY-RESULT-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (first-query unsigned-byte) (query-count unsigned-byte) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (stride unsigned-byte))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw)
   (query-count :uint32 query-count :in :raw)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (dst-offset '%vk:device-size dst-offset :in :raw)
   (stride '%vk:device-size stride :in :raw)
   (flags '%vk:query-result-flags flags :in :raw :optional))
 
-(defvk-simple-fun (cmd-push-constants
-                   %vk:cmd-push-constants
-                   "Represents [vkCmdPushConstants](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushConstants.html).
+(defvkfun (cmd-push-constants
+           %vk:cmd-push-constants
+           ((command-buffer command-buffer) (layout pipeline-layout) (stage-flags (or unsigned-byte list)) (offset unsigned-byte) (size unsigned-byte) (values cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdPushConstants](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushConstants.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3843,19 +3859,19 @@ See COMMAND-BUFFER
 See PIPELINE-LAYOUT
 See SHADER-STAGE-FLAGS
 "
-                   ((command-buffer cffi:foreign-pointer) (layout cffi:foreign-pointer) (stage-flags (or unsigned-byte list)) (offset unsigned-byte) (size unsigned-byte) (values cffi:foreign-pointer))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (layout '%vk:pipeline-layout layout :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (layout '%vk:pipeline-layout layout :in :non-dispatchable :handle)
   (stage-flags '%vk:shader-stage-flags stage-flags :in :raw)
   (offset :uint32 offset :in :raw)
   (size :uint32 size :in :raw)
   (values '(:pointer :void) values :in :handle))
 
-(defvk-simple-fun (cmd-begin-render-pass
-                   %vk:cmd-begin-render-pass
-                   "Represents [vkCmdBeginRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass.html).
+(defvkfun (cmd-begin-render-pass
+           %vk:cmd-begin-render-pass
+           ((command-buffer command-buffer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (contents keyword))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBeginRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3866,16 +3882,16 @@ See COMMAND-BUFFER
 See RENDER-PASS-BEGIN-INFO
 See SUBPASS-CONTENTS
 "
-                   ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (contents keyword))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
   (contents '%vk:subpass-contents contents :in :raw))
 
-(defvk-simple-fun (cmd-next-subpass
-                   %vk:cmd-next-subpass
-                   "Represents [vkCmdNextSubpass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass.html).
+(defvkfun (cmd-next-subpass
+           %vk:cmd-next-subpass
+           ((command-buffer command-buffer) (contents keyword))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdNextSubpass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3884,29 +3900,29 @@ Args:
 See COMMAND-BUFFER
 See SUBPASS-CONTENTS
 "
-                   ((command-buffer cffi:foreign-pointer) (contents keyword))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (contents '%vk:subpass-contents contents :in :raw))
 
-(defvk-simple-fun (cmd-end-render-pass
-                   %vk:cmd-end-render-pass
-                   "Represents [vkCmdEndRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass.html).
+(defvkfun (cmd-end-render-pass
+           %vk:cmd-end-render-pass
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdEndRenderPass](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle))
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
 
-(defvk-simple-fun (cmd-execute-commands
-                   %vk:cmd-execute-commands
-                   "Represents [vkCmdExecuteCommands](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdExecuteCommands.html).
+(defvkfun (cmd-execute-commands
+           %vk:cmd-execute-commands
+           ((command-buffer command-buffer) (command-buffers (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdExecuteCommands](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdExecuteCommands.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -3914,16 +3930,16 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (command-buffers (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (command-buffer-count :uint32 (length command-buffers) :in :raw)
-  (command-buffers '%vk:command-buffer command-buffers :in :handle :list))
+  (command-buffers '%vk:command-buffer command-buffers :in :dispatchable :handle :list))
 
-(defvk-create-handle-fun (create-android-surface-khr
-                          %vk:create-android-surface-khr
-                          "Represents [vkCreateAndroidSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAndroidSurfaceKHR.html).
+(defvkfun (create-android-surface-khr
+           %vk:create-android-surface-khr
+           ((instance instance) (create-info (or vk:android-surface-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateAndroidSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAndroidSurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -3950,24 +3966,25 @@ See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:android-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:android-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-enumerate-fun (get-physical-device-display-properties-khr
-                      %vk:get-physical-device-display-properties-khr
-                      "Represents [vkGetPhysicalDeviceDisplayPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html).
+(defvkfun (get-physical-device-display-properties-khr
+           %vk:get-physical-device-display-properties-khr
+           ((physical-device physical-device))
+           ()
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkGetPhysicalDeviceDisplayPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-PROPERTIES-KHRs
     RESULT)
 
@@ -3983,24 +4000,24 @@ See DISPLAY-PROPERTIES-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-properties-khr) properties :out :list))
 
-(defvk-enumerate-fun (get-physical-device-display-plane-properties-khr
-                      %vk:get-physical-device-display-plane-properties-khr
-                      "Represents [vkGetPhysicalDeviceDisplayPlanePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html).
+(defvkfun (get-physical-device-display-plane-properties-khr
+           %vk:get-physical-device-display-plane-properties-khr
+           ((physical-device physical-device))
+           ()
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkGetPhysicalDeviceDisplayPlanePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-PLANE-PROPERTIES-KHRs
     RESULT)
 
@@ -4016,17 +4033,19 @@ See DISPLAY-PLANE-PROPERTIES-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-plane-properties-khr) properties :out :list))
 
-(defvk-enumerate-fun (get-display-plane-supported-displays-khr
-                      %vk:get-display-plane-supported-displays-khr
-                      "Represents [vkGetDisplayPlaneSupportedDisplaysKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html).
+(defvkfun (get-display-plane-supported-displays-khr
+           %vk:get-display-plane-supported-displays-khr
+           ((physical-device physical-device) (plane-index unsigned-byte))
+           ()
+           :handle-constructor make-display-khr-wrapper
+           :count-arg-name display-count
+           :first-array-arg-name displays
+           :enumerate-p t)
+  "Represents [vkGetDisplayPlaneSupportedDisplaysKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4034,7 +4053,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-KHRs
     RESULT)
 
@@ -4050,18 +4068,19 @@ See DISPLAY-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer) (plane-index unsigned-byte))
-                      ()
-                      display-count
-                      displays)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (plane-index :uint32 plane-index :in :raw)
   (display-count :uint32 display-count :out)
-  (displays '%vk:display-khr displays :out :handle :list))
+  (displays '%vk:display-khr displays :out :non-dispatchable :handle :list))
 
-(defvk-enumerate-fun (get-display-mode-properties-khr
-                      %vk:get-display-mode-properties-khr
-                      "Represents [vkGetDisplayModePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayModePropertiesKHR.html).
+(defvkfun (get-display-mode-properties-khr
+           %vk:get-display-mode-properties-khr
+           ((physical-device physical-device) (display display-khr))
+           ()
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t)
+  "Represents [vkGetDisplayModePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayModePropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4069,7 +4088,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-MODE-PROPERTIES-KHRs
     RESULT)
 
@@ -4086,18 +4104,17 @@ See DISPLAY-MODE-PROPERTIES-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (display '%vk:display-khr display :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle)
   (property-count :uint32 property-count :out)
   (properties '(:struct %vk:display-mode-properties-khr) properties :out :list))
 
-(defvk-create-handle-fun (create-display-mode-khr
-                          %vk:create-display-mode-khr
-                          "Represents [vkCreateDisplayModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDisplayModeKHR.html).
+(defvkfun (create-display-mode-khr
+           %vk:create-display-mode-khr
+           ((physical-device physical-device) (display display-khr) (create-info (or vk:display-mode-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-display-mode-khr-wrapper)
+  "Represents [vkCreateDisplayModeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDisplayModeKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4126,18 +4143,18 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer) (create-info (or vk:display-mode-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (display '%vk:display-khr display :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle)
   (create-info '(:struct %vk:display-mode-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (mode '%vk:display-mode-khr mode :out :handle))
+  (mode '%vk:display-mode-khr mode :out :non-dispatchable :handle))
 
-(defvk-get-struct-fun (get-display-plane-capabilities-khr
-                       %vk:get-display-plane-capabilities-khr
-                       "Represents [vkGetDisplayPlaneCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html).
+(defvkfun (get-display-plane-capabilities-khr
+           %vk:get-display-plane-capabilities-khr
+           ((physical-device physical-device) (mode display-mode-khr) (plane-index unsigned-byte))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetDisplayPlaneCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4161,16 +4178,17 @@ See DISPLAY-PLANE-CAPABILITIES-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                       ((physical-device cffi:foreign-pointer) (mode cffi:foreign-pointer) (plane-index unsigned-byte))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (mode '%vk:display-mode-khr mode :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (mode '%vk:display-mode-khr mode :in :non-dispatchable :handle)
   (plane-index :uint32 plane-index :in :raw)
   (capabilities '(:struct %vk:display-plane-capabilities-khr) capabilities :out))
 
-(defvk-create-handle-fun (create-display-plane-surface-khr
-                          %vk:create-display-plane-surface-khr
-                          "Represents [vkCreateDisplayPlaneSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html).
+(defvkfun (create-display-plane-surface-khr
+           %vk:create-display-plane-surface-khr
+           ((instance instance) (create-info (or vk:display-surface-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateDisplayPlaneSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4196,17 +4214,18 @@ See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:display-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:display-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-create-handles-fun (create-shared-swapchains-khr
-                           %vk:create-shared-swapchains-khr
-                           "Represents [vkCreateSharedSwapchainsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSharedSwapchainsKHR.html).
+(defvkfun (create-shared-swapchains-khr
+           %vk:create-shared-swapchains-khr
+           ((device device) (create-infos (or list vector)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-swapchain-khr-wrapper
+           :len-provider (length create-infos))
+  "Represents [vkCreateSharedSwapchainsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSharedSwapchainsKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -4235,18 +4254,18 @@ See SWAPCHAIN-CREATE-INFO-KHR
 See SWAPCHAIN-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                           ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                           (length create-infos))
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (swapchain-count :uint32 (length create-infos) :in :raw)
   (create-infos '(:struct %vk:swapchain-create-info-khr) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (swapchains '%vk:swapchain-khr swapchains :out :handle :list))
+  (swapchains '%vk:swapchain-khr swapchains :out :non-dispatchable :handle :list))
 
-(defvk-simple-fun (destroy-surface-khr
-                   %vk:destroy-surface-khr
-                   "Represents [vkDestroySurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySurfaceKHR.html).
+(defvkfun (destroy-surface-khr
+           %vk:destroy-surface-khr
+           ((instance instance))
+           (((surface (vk:make-surface-khr-wrapper (cffi:null-pointer))) surface-khr) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroySurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4258,16 +4277,15 @@ See INSTANCE
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                   ((instance cffi:foreign-pointer))
-                   (((surface (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (instance '%vk:instance instance :in :handle)
-  (surface '%vk:surface-khr surface :in :handle :optional)
+  (instance '%vk:instance instance :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (get-physical-device-surface-support-khr
-                          %vk:get-physical-device-surface-support-khr
-                          "Represents [vkGetPhysicalDeviceSurfaceSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html).
+(defvkfun (get-physical-device-surface-support-khr
+           %vk:get-physical-device-surface-support-khr
+           ((physical-device physical-device) (queue-family-index unsigned-byte) (surface surface-khr))
+           ())
+  "Represents [vkGetPhysicalDeviceSurfaceSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4292,17 +4310,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See SURFACE-KHR
 "
-                          ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (surface cffi:foreign-pointer))
-                          ()
-                          nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
-  (surface '%vk:surface-khr surface :in :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
   (supported '%vk:bool32 supported :out))
 
-(defvk-get-struct-fun (get-physical-device-surface-capabilities-khr
-                       %vk:get-physical-device-surface-capabilities-khr
-                       "Represents [vkGetPhysicalDeviceSurfaceCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html).
+(defvkfun (get-physical-device-surface-capabilities-khr
+           %vk:get-physical-device-surface-capabilities-khr
+           ((physical-device physical-device) (surface surface-khr))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceSurfaceCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4326,15 +4344,18 @@ See RESULT
 See SURFACE-CAPABILITIES-KHR
 See SURFACE-KHR
 "
-                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (surface '%vk:surface-khr surface :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
   (surface-capabilities '(:struct %vk:surface-capabilities-khr) surface-capabilities :out))
 
-(defvk-enumerate-fun (get-physical-device-surface-formats-khr
-                      %vk:get-physical-device-surface-formats-khr
-                      "Represents [vkGetPhysicalDeviceSurfaceFormatsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html).
+(defvkfun (get-physical-device-surface-formats-khr
+           %vk:get-physical-device-surface-formats-khr
+           ((physical-device physical-device) (surface surface-khr))
+           ()
+           :count-arg-name surface-format-count
+           :first-array-arg-name surface-formats
+           :enumerate-p t)
+  "Represents [vkGetPhysicalDeviceSurfaceFormatsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4342,7 +4363,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SURFACE-FORMAT-KHRs
     RESULT)
 
@@ -4360,18 +4380,19 @@ See RESULT
 See SURFACE-FORMAT-KHR
 See SURFACE-KHR
 "
-                      ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
-                      ()
-                      surface-format-count
-                      surface-formats)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (surface '%vk:surface-khr surface :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
   (surface-format-count :uint32 surface-format-count :out)
   (surface-formats '(:struct %vk:surface-format-khr) surface-formats :out :list))
 
-(defvk-enumerate-fun (get-physical-device-surface-present-modes-khr
-                      %vk:get-physical-device-surface-present-modes-khr
-                      "Represents [vkGetPhysicalDeviceSurfacePresentModesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html).
+(defvkfun (get-physical-device-surface-present-modes-khr
+           %vk:get-physical-device-surface-present-modes-khr
+           ((physical-device physical-device) (surface surface-khr))
+           ()
+           :count-arg-name present-mode-count
+           :first-array-arg-name present-modes
+           :enumerate-p t)
+  "Represents [vkGetPhysicalDeviceSurfacePresentModesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4379,7 +4400,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PRESENT-MODE-KHRs
     RESULT)
 
@@ -4397,18 +4417,17 @@ See PRESENT-MODE-KHR
 See RESULT
 See SURFACE-KHR
 "
-                      ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
-                      ()
-                      present-mode-count
-                      present-modes)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (surface '%vk:surface-khr surface :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
   (present-mode-count :uint32 present-mode-count :out)
   (present-modes '%vk:present-mode-khr present-modes :out :raw :list))
 
-(defvk-create-handle-fun (create-swapchain-khr
-                          %vk:create-swapchain-khr
-                          "Represents [vkCreateSwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSwapchainKHR.html).
+(defvkfun (create-swapchain-khr
+           %vk:create-swapchain-khr
+           ((device device) (create-info (or vk:swapchain-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-swapchain-khr-wrapper)
+  "Represents [vkCreateSwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSwapchainKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -4438,17 +4457,17 @@ See SWAPCHAIN-CREATE-INFO-KHR
 See SWAPCHAIN-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:swapchain-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:swapchain-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (swapchain '%vk:swapchain-khr swapchain :out :handle))
+  (swapchain '%vk:swapchain-khr swapchain :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-swapchain-khr
-                   %vk:destroy-swapchain-khr
-                   "Represents [vkDestroySwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySwapchainKHR.html).
+(defvkfun (destroy-swapchain-khr
+           %vk:destroy-swapchain-khr
+           ((device device))
+           (((swapchain (vk:make-swapchain-khr-wrapper (cffi:null-pointer))) swapchain-khr) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroySwapchainKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySwapchainKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -4460,16 +4479,19 @@ See DEVICE
 See SWAPCHAIN-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((swapchain (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-enumerate-fun (get-swapchain-images-khr
-                      %vk:get-swapchain-images-khr
-                      "Represents [vkGetSwapchainImagesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainImagesKHR.html).
+(defvkfun (get-swapchain-images-khr
+           %vk:get-swapchain-images-khr
+           ((device device) (swapchain swapchain-khr))
+           ()
+           :handle-constructor make-image-wrapper
+           :count-arg-name swapchain-image-count
+           :first-array-arg-name swapchain-images
+           :enumerate-p t)
+  "Represents [vkGetSwapchainImagesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainImagesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -4477,7 +4499,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     IMAGEs
     RESULT)
 
@@ -4494,18 +4515,16 @@ See IMAGE
 See RESULT
 See SWAPCHAIN-KHR
 "
-                      ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                      ()
-                      swapchain-image-count
-                      swapchain-images)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle)
   (swapchain-image-count :uint32 swapchain-image-count :out)
-  (swapchain-images '%vk:image swapchain-images :out :handle :list))
+  (swapchain-images '%vk:image swapchain-images :out :non-dispatchable :handle :list))
 
-(defvk-create-handle-fun (acquire-next-image-khr
-                          %vk:acquire-next-image-khr
-                          "Represents [vkAcquireNextImageKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireNextImageKHR.html).
+(defvkfun (acquire-next-image-khr
+           %vk:acquire-next-image-khr
+           ((device device) (swapchain swapchain-khr) (timeout unsigned-byte))
+           (((semaphore (vk:make-semaphore-wrapper (cffi:null-pointer))) semaphore) ((fence (vk:make-fence-wrapper (cffi:null-pointer))) fence)))
+  "Represents [vkAcquireNextImageKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireNextImageKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -4539,19 +4558,19 @@ See RESULT
 See SEMAPHORE
 See SWAPCHAIN-KHR
 "
-                          ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (timeout unsigned-byte))
-                          (((semaphore (cffi:null-pointer)) cffi:foreign-pointer) ((fence (cffi:null-pointer)) cffi:foreign-pointer))
-                          nil)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle)
   (timeout :uint64 timeout :in :raw)
-  (semaphore '%vk:semaphore semaphore :in :handle :optional)
-  (fence '%vk:fence fence :in :handle :optional)
+  (semaphore '%vk:semaphore semaphore :in :non-dispatchable :handle :optional)
+  (fence '%vk:fence fence :in :non-dispatchable :handle :optional)
   (image-index :uint32 image-index :out))
 
-(defvk-simple-fun (queue-present-khr
-                   %vk:queue-present-khr
-                   "Represents [vkQueuePresentKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueuePresentKHR.html).
+(defvkfun (queue-present-khr
+           %vk:queue-present-khr
+           ((queue queue) (present-info (or vk:present-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkQueuePresentKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueuePresentKHR.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -4577,15 +4596,16 @@ See PRESENT-INFO-KHR
 See QUEUE
 See RESULT
 "
-                   ((queue cffi:foreign-pointer) (present-info (or vk:present-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (present-info '(:struct %vk:present-info-khr) present-info :in))
 
-(defvk-create-handle-fun (create-vi-surface-nn
-                          %vk:create-vi-surface-nn
-                          "Represents [vkCreateViSurfaceNN](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateViSurfaceNN.html).
+(defvkfun (create-vi-surface-nn
+           %vk:create-vi-surface-nn
+           ((instance instance) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper
+           :extension-p t)
+  "Represents [vkCreateViSurfaceNN](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateViSurfaceNN.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4615,18 +4635,17 @@ See VI-SURFACE-CREATE-INFO-NN
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:vi-surface-create-info-nn cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:vi-surface-create-info-nn) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-wayland-surface-khr
-                          %vk:create-wayland-surface-khr
-                          "Represents [vkCreateWaylandSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateWaylandSurfaceKHR.html).
+(defvkfun (create-wayland-surface-khr
+           %vk:create-wayland-surface-khr
+           ((instance instance) (create-info (or vk:wayland-surface-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateWaylandSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateWaylandSurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4652,17 +4671,17 @@ See SURFACE-KHR
 See WAYLAND-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:wayland-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:wayland-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-simple-fun (get-physical-device-wayland-presentation-support-khr
-                   %vk:get-physical-device-wayland-presentation-support-khr
-                   "Represents [vkGetPhysicalDeviceWaylandPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html).
+(defvkfun (get-physical-device-wayland-presentation-support-khr
+           %vk:get-physical-device-wayland-presentation-support-khr
+           ((physical-device physical-device) (queue-family-index unsigned-byte) (display cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetPhysicalDeviceWaylandPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4676,16 +4695,16 @@ Returns:
 See PHYSICAL-DEVICE
 See WL_DISPLAY
 "
-                   ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (display cffi:foreign-pointer))
-                   ()
-                  nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (display '(:struct %vk:wl_display) display :in :handle))
 
-(defvk-create-handle-fun (create-win32-surface-khr
-                          %vk:create-win32-surface-khr
-                          "Represents [vkCreateWin32SurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateWin32SurfaceKHR.html).
+(defvkfun (create-win32-surface-khr
+           %vk:create-win32-surface-khr
+           ((instance instance) (create-info (or vk:win32-surface-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateWin32SurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateWin32SurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4711,17 +4730,17 @@ See SURFACE-KHR
 See WIN32-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:win32-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:win32-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-simple-fun (get-physical-device-win32-presentation-support-khr
-                   %vk:get-physical-device-win32-presentation-support-khr
-                   "Represents [vkGetPhysicalDeviceWin32PresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html).
+(defvkfun (get-physical-device-win32-presentation-support-khr
+           %vk:get-physical-device-win32-presentation-support-khr
+           ((physical-device physical-device) (queue-family-index unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetPhysicalDeviceWin32PresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4733,15 +4752,15 @@ Returns:
 
 See PHYSICAL-DEVICE
 "
-                   ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
-                   ()
-                  nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw))
 
-(defvk-create-handle-fun (create-xlib-surface-khr
-                          %vk:create-xlib-surface-khr
-                          "Represents [vkCreateXlibSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateXlibSurfaceKHR.html).
+(defvkfun (create-xlib-surface-khr
+           %vk:create-xlib-surface-khr
+           ((instance instance) (create-info (or vk:xlib-surface-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateXlibSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateXlibSurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4767,17 +4786,17 @@ See SURFACE-KHR
 See XLIB-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:xlib-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:xlib-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-simple-fun (get-physical-device-xlib-presentation-support-khr
-                   %vk:get-physical-device-xlib-presentation-support-khr
-                   "Represents [vkGetPhysicalDeviceXlibPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html).
+(defvkfun (get-physical-device-xlib-presentation-support-khr
+           %vk:get-physical-device-xlib-presentation-support-khr
+           ((physical-device physical-device) (queue-family-index unsigned-byte) (dpy cffi:foreign-pointer) (visual-id unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetPhysicalDeviceXlibPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4793,17 +4812,17 @@ See DISPLAY
 See PHYSICAL-DEVICE
 See VISUAL-ID
 "
-                   ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (dpy cffi:foreign-pointer) (visual-id cffi:foreign-pointer))
-                   ()
-                  nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (dpy '(:pointer :void) dpy :in :handle)
-  (visual-id '(:pointer :void) visual-id :in :handle))
+  (visual-id :ulong visual-id :in :handle))
 
-(defvk-create-handle-fun (create-xcb-surface-khr
-                          %vk:create-xcb-surface-khr
-                          "Represents [vkCreateXcbSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateXcbSurfaceKHR.html).
+(defvkfun (create-xcb-surface-khr
+           %vk:create-xcb-surface-khr
+           ((instance instance) (create-info (or vk:xcb-surface-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateXcbSurfaceKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateXcbSurfaceKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -4829,17 +4848,17 @@ See SURFACE-KHR
 See XCB-SURFACE-CREATE-INFO-KHR
 See *DEFAULT-ALLOCATOR*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:xcb-surface-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:xcb-surface-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-simple-fun (get-physical-device-xcb-presentation-support-khr
-                   %vk:get-physical-device-xcb-presentation-support-khr
-                   "Represents [vkGetPhysicalDeviceXcbPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html).
+(defvkfun (get-physical-device-xcb-presentation-support-khr
+           %vk:get-physical-device-xcb-presentation-support-khr
+           ((physical-device physical-device) (queue-family-index unsigned-byte) (connection cffi:foreign-pointer) (visual_id unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetPhysicalDeviceXcbPresentationSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -4855,23 +4874,22 @@ See PHYSICAL-DEVICE
 See XCB_CONNECTION_T
 See XCB_VISUALID_T
 "
-                   ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (connection cffi:foreign-pointer) (visual_id cffi:foreign-pointer))
-                   ()
-                  nil)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (connection '(:pointer :void) connection :in :handle)
-  (visual_id '(:pointer :void) visual_id :in :handle))
+  (visual_id :uint32 visual_id :in :handle))
 
-(defvk-create-handle-fun (create-direct-fb-surface-ext
-                          %vk:create-direct-fb-surface-ext
-                          "Represents [vkCreateDirectFBSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDirectFBSurfaceEXT.html).
+(defvkfun (create-direct-fb-surface-ext
+           %vk:create-direct-fb-surface-ext
+           ((instance instance) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateDirectFBSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDirectFBSurfaceEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR DIRECT-FB-SURFACE-CREATE-INFO-EXT CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -4887,58 +4905,50 @@ Errors signalled on codes:
 
 See ALLOCATION-CALLBACKS
 See DIRECT-FB-SURFACE-CREATE-INFO-EXT
-See EXTENSION-LOADER
 See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:direct-fb-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:direct-fb-surface-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-simple-fun (get-physical-device-direct-fb-presentation-support-ext
-                   %vk:get-physical-device-direct-fb-presentation-support-ext
-                   "Represents [vkGetPhysicalDeviceDirectFBPresentationSupportEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html).
+(defvkfun (get-physical-device-direct-fb-presentation-support-ext
+           %vk:get-physical-device-direct-fb-presentation-support-ext
+           ((physical-device physical-device) (queue-family-index unsigned-byte) (dfb cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetPhysicalDeviceDirectFBPresentationSupportEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - QUEUE-FAMILY-INDEX: a UNSIGNED-BYTE
  - DFB: a I-DIRECT-FB
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
     BOOLEAN)
 
-See EXTENSION-LOADER
 See I-DIRECT-FB
 See PHYSICAL-DEVICE
-See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte) (dfb cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (dfb '(:pointer :void) dfb :in :handle))
 
-(defvk-create-handle-fun (create-image-pipe-surface-fuchsia
-                          %vk:create-image-pipe-surface-fuchsia
-                          "Represents [vkCreateImagePipeSurfaceFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html).
+(defvkfun (create-image-pipe-surface-fuchsia
+           %vk:create-image-pipe-surface-fuchsia
+           ((instance instance) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateImagePipeSurfaceFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR IMAGE-PIPE-SURFACE-CREATE-INFO-FUCHSIA CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -4953,32 +4963,28 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
 See IMAGE-PIPE-SURFACE-CREATE-INFO-FUCHSIA
 See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:image-pipe-surface-create-info-fuchsia cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:image-pipe-surface-create-info-fuchsia) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-stream-descriptor-surface-ggp
-                          %vk:create-stream-descriptor-surface-ggp
-                          "Represents [vkCreateStreamDescriptorSurfaceGGP](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateStreamDescriptorSurfaceGGP.html).
+(defvkfun (create-stream-descriptor-surface-ggp
+           %vk:create-stream-descriptor-surface-ggp
+           ((instance instance) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateStreamDescriptorSurfaceGGP](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateStreamDescriptorSurfaceGGP.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -4994,32 +5000,28 @@ Errors signalled on codes:
  - ERROR-NATIVE-WINDOW-IN-USE-KHR
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
 See INSTANCE
 See RESULT
 See STREAM-DESCRIPTOR-SURFACE-CREATE-INFO-GGP
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:stream-descriptor-surface-create-info-ggp cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:stream-descriptor-surface-create-info-ggp) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-screen-surface-qnx
-                          %vk:create-screen-surface-qnx
-                          "Represents [vkCreateScreenSurfaceQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateScreenSurfaceQNX.html).
+(defvkfun (create-screen-surface-qnx
+           %vk:create-screen-surface-qnx
+           ((instance instance) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateScreenSurfaceQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateScreenSurfaceQNX.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR SCREEN-SURFACE-CREATE-INFO-QNX CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -5034,52 +5036,47 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
 See INSTANCE
 See RESULT
 See SCREEN-SURFACE-CREATE-INFO-QNX
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:screen-surface-create-info-qnx cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:screen-surface-create-info-qnx) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-get-struct-fun (get-physical-device-screen-presentation-support-qnx
-                       %vk:get-physical-device-screen-presentation-support-qnx
-                       "Represents [vkGetPhysicalDeviceScreenPresentationSupportQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html).
+(defvkfun (get-physical-device-screen-presentation-support-qnx
+           %vk:get-physical-device-screen-presentation-support-qnx
+           ((physical-device physical-device) (queue-family-index unsigned-byte) (window cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetPhysicalDeviceScreenPresentationSupportQNX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - QUEUE-FAMILY-INDEX: a UNSIGNED-BYTE
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+ - WINDOW: a _SCREEN_WINDOW
 
 Returns:
   (CL:VALUES
-    _SCREEN_WINDOW
     BOOLEAN)
 
-See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See _SCREEN_WINDOW
-See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
-                       ()
-                       t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
-  (window '(:struct %vk:_screen_window) window :out :handle))
+  (window '(:struct %vk:_screen_window) window :in :handle))
 
-(defvk-create-handle-fun (create-debug-report-callback-ext
-                          %vk:create-debug-report-callback-ext
-                          "Represents [vkCreateDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDebugReportCallbackEXT.html).
+(defvkfun (create-debug-report-callback-ext
+           %vk:create-debug-report-callback-ext
+           ((instance instance) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-debug-report-callback-ext-wrapper
+           :extension-p t)
+  "Represents [vkCreateDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDebugReportCallbackEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -5107,18 +5104,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:debug-report-callback-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:debug-report-callback-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (callback '%vk:debug-report-callback-ext callback :out :handle))
+  (callback '%vk:debug-report-callback-ext callback :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-debug-report-callback-ext
-                   %vk:destroy-debug-report-callback-ext
-                   "Represents [vkDestroyDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDebugReportCallbackEXT.html).
+(defvkfun (destroy-debug-report-callback-ext
+           %vk:destroy-debug-report-callback-ext
+           ((instance instance))
+           (((callback (vk:make-debug-report-callback-ext-wrapper (cffi:null-pointer))) debug-report-callback-ext) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyDebugReportCallbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDebugReportCallbackEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -5133,17 +5130,17 @@ See INSTANCE
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((instance cffi:foreign-pointer))
-                   (((callback (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (instance '%vk:instance instance :in :handle)
-  (callback '%vk:debug-report-callback-ext callback :in :handle :optional)
+  (instance '%vk:instance instance :in :dispatchable :handle)
+  (callback '%vk:debug-report-callback-ext callback :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (debug-report-message-ext
-                   %vk:debug-report-message-ext
-                   "Represents [vkDebugReportMessageEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugReportMessageEXT.html).
+(defvkfun (debug-report-message-ext
+           %vk:debug-report-message-ext
+           ((instance instance) (flags (or unsigned-byte list)) (object-type keyword) (object unsigned-byte) (location unsigned-byte) (message-code integer) (layer-prefix string) (message string))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDebugReportMessageEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugReportMessageEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -5162,22 +5159,22 @@ See EXTENSION-LOADER
 See INSTANCE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((instance cffi:foreign-pointer) (flags (or unsigned-byte list)) (object-type keyword) (object unsigned-byte) (location unsigned-byte) (message-code integer) (layer-prefix string) (message string))
-                   ()
-                  nil
-                  t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (flags '%vk:debug-report-flags-ext flags :in :raw)
   (object-type '%vk:debug-report-object-type-ext object-type :in :raw)
   (object :uint64 object :in :raw)
-  (location '%vk:size-t location :in :raw)
+  (location :size location :in :raw)
   (message-code :int32 message-code :in :raw)
   (layer-prefix :string layer-prefix :in :raw)
   (message :string message :in :raw))
 
-(defvk-simple-fun (debug-marker-set-object-name-ext
-                   %vk:debug-marker-set-object-name-ext
-                   "Represents [vkDebugMarkerSetObjectNameEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html).
+(defvkfun (debug-marker-set-object-name-ext
+           %vk:debug-marker-set-object-name-ext
+           ((device device) (name-info (or vk:debug-marker-object-name-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDebugMarkerSetObjectNameEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5201,16 +5198,16 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (name-info (or vk:debug-marker-object-name-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (name-info '(:struct %vk:debug-marker-object-name-info-ext) name-info :in))
 
-(defvk-simple-fun (debug-marker-set-object-tag-ext
-                   %vk:debug-marker-set-object-tag-ext
-                   "Represents [vkDebugMarkerSetObjectTagEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html).
+(defvkfun (debug-marker-set-object-tag-ext
+           %vk:debug-marker-set-object-tag-ext
+           ((device device) (tag-info (or vk:debug-marker-object-tag-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDebugMarkerSetObjectTagEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5234,16 +5231,16 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (tag-info (or vk:debug-marker-object-tag-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (tag-info '(:struct %vk:debug-marker-object-tag-info-ext) tag-info :in))
 
-(defvk-simple-fun (cmd-debug-marker-begin-ext
-                   %vk:cmd-debug-marker-begin-ext
-                   "Represents [vkCmdDebugMarkerBeginEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerBeginEXT.html).
+(defvkfun (cmd-debug-marker-begin-ext
+           %vk:cmd-debug-marker-begin-ext
+           ((command-buffer command-buffer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDebugMarkerBeginEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerBeginEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5255,16 +5252,16 @@ See DEBUG-MARKER-MARKER-INFO-EXT
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (marker-info '(:struct %vk:debug-marker-marker-info-ext) marker-info :in))
 
-(defvk-simple-fun (cmd-debug-marker-end-ext
-                   %vk:cmd-debug-marker-end-ext
-                   "Represents [vkCmdDebugMarkerEndEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerEndEXT.html).
+(defvkfun (cmd-debug-marker-end-ext
+           %vk:cmd-debug-marker-end-ext
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDebugMarkerEndEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerEndEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5274,15 +5271,15 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle))
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
 
-(defvk-simple-fun (cmd-debug-marker-insert-ext
-                   %vk:cmd-debug-marker-insert-ext
-                   "Represents [vkCmdDebugMarkerInsertEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerInsertEXT.html).
+(defvkfun (cmd-debug-marker-insert-ext
+           %vk:cmd-debug-marker-insert-ext
+           ((command-buffer command-buffer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDebugMarkerInsertEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDebugMarkerInsertEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5294,16 +5291,16 @@ See DEBUG-MARKER-MARKER-INFO-EXT
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (marker-info (or vk:debug-marker-marker-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (marker-info '(:struct %vk:debug-marker-marker-info-ext) marker-info :in))
 
-(defvk-get-struct-fun (get-physical-device-external-image-format-properties-nv
-                       %vk:get-physical-device-external-image-format-properties-nv
-                       "Represents [vkGetPhysicalDeviceExternalImageFormatPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html).
+(defvkfun (get-physical-device-external-image-format-properties-nv
+           %vk:get-physical-device-external-image-format-properties-nv
+           ((physical-device physical-device) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
+           (((flags nil) (or unsigned-byte list)) ((external-handle-type nil) (or unsigned-byte list)))
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceExternalImageFormatPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -5340,10 +5337,7 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((physical-device cffi:foreign-pointer) (format keyword) (type keyword) (tiling keyword) (usage (or unsigned-byte list)))
-                       (((flags nil) (or unsigned-byte list)) ((external-handle-type nil) (or unsigned-byte list)))
-                       t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format '%vk:format format :in :raw)
   (type '%vk:image-type type :in :raw)
   (tiling '%vk:image-tiling tiling :in :raw)
@@ -5352,9 +5346,12 @@ See *DEFAULT-EXTENSION-LOADER*
   (external-handle-type '%vk:external-memory-handle-type-flags-nv external-handle-type :in :raw :optional)
   (external-image-format-properties '(:struct %vk:external-image-format-properties-nv) external-image-format-properties :out))
 
-(defvk-get-struct-fun (get-memory-win32-handle-nv
-                       %vk:get-memory-win32-handle-nv
-                       "Represents [vkGetMemoryWin32HandleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandleNV.html).
+(defvkfun (get-memory-win32-handle-nv
+           %vk:get-memory-win32-handle-nv
+           ((device device) (memory device-memory) (handle-type (or unsigned-byte list)))
+           ()
+           :extension-p t)
+  "Represents [vkGetMemoryWin32HandleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandleNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5382,17 +5379,18 @@ See HANDLE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (memory cffi:foreign-pointer) (handle-type (or unsigned-byte list)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
-  (memory '%vk:device-memory memory :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle)
   (handle-type '%vk:external-memory-handle-type-flags-nv handle-type :in :raw)
   (handle '(:pointer :void) handle :out :handle))
 
-(defvk-simple-fun (cmd-execute-generated-commands-nv
-                   %vk:cmd-execute-generated-commands-nv
-                   "Represents [vkCmdExecuteGeneratedCommandsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html).
+(defvkfun (cmd-execute-generated-commands-nv
+           %vk:cmd-execute-generated-commands-nv
+           ((command-buffer command-buffer) (is-preprocessed boolean) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdExecuteGeneratedCommandsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5406,17 +5404,17 @@ See EXTENSION-LOADER
 See GENERATED-COMMANDS-INFO-NV
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (is-preprocessed boolean) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (is-preprocessed '%vk:bool32 is-preprocessed :in :raw)
   (generated-commands-info '(:struct %vk:generated-commands-info-nv) generated-commands-info :in))
 
-(defvk-simple-fun (cmd-preprocess-generated-commands-nv
-                   %vk:cmd-preprocess-generated-commands-nv
-                   "Represents [vkCmdPreprocessGeneratedCommandsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html).
+(defvkfun (cmd-preprocess-generated-commands-nv
+           %vk:cmd-preprocess-generated-commands-nv
+           ((command-buffer command-buffer) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdPreprocessGeneratedCommandsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5428,16 +5426,16 @@ See EXTENSION-LOADER
 See GENERATED-COMMANDS-INFO-NV
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (generated-commands-info (or vk:generated-commands-info-nv cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (generated-commands-info '(:struct %vk:generated-commands-info-nv) generated-commands-info :in))
 
-(defvk-simple-fun (cmd-bind-pipeline-shader-group-nv
-                   %vk:cmd-bind-pipeline-shader-group-nv
-                   "Represents [vkCmdBindPipelineShaderGroupNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html).
+(defvkfun (cmd-bind-pipeline-shader-group-nv
+           %vk:cmd-bind-pipeline-shader-group-nv
+           ((command-buffer command-buffer) (pipeline-bind-point keyword) (pipeline pipeline) (group-index unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBindPipelineShaderGroupNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5452,22 +5450,24 @@ See PIPELINE
 See PIPELINE-BIND-POINT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (pipeline cffi:foreign-pointer) (group-index unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
-  (pipeline '%vk:pipeline pipeline :in :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
   (group-index :uint32 group-index :in :raw))
 
-(defvk-get-struct-fun (get-generated-commands-memory-requirements-nv
-                       %vk:get-generated-commands-memory-requirements-nv
-                       "Represents [vkGetGeneratedCommandsMemoryRequirementsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html).
+(defvkfun (get-generated-commands-memory-requirements-nv
+           %vk:get-generated-commands-memory-requirements-nv
+           ((device device) (info (or vk:generated-commands-memory-requirements-info-nv cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetGeneratedCommandsMemoryRequirementsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -5480,16 +5480,17 @@ See GENERATED-COMMANDS-MEMORY-REQUIREMENTS-INFO-NV
 See MEMORY-REQUIREMENTS-2
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (info (or vk:generated-commands-memory-requirements-info-nv cffi:foreign-pointer)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:generated-commands-memory-requirements-info-nv) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2) memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
 
-(defvk-create-handle-fun (create-indirect-commands-layout-nv
-                          %vk:create-indirect-commands-layout-nv
-                          "Represents [vkCreateIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html).
+(defvkfun (create-indirect-commands-layout-nv
+           %vk:create-indirect-commands-layout-nv
+           ((device device) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-indirect-commands-layout-nv-wrapper
+           :extension-p t)
+  "Represents [vkCreateIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5518,18 +5519,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:indirect-commands-layout-create-info-nv cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:indirect-commands-layout-create-info-nv) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (indirect-commands-layout '%vk:indirect-commands-layout-nv indirect-commands-layout :out :handle))
+  (indirect-commands-layout '%vk:indirect-commands-layout-nv indirect-commands-layout :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-indirect-commands-layout-nv
-                   %vk:destroy-indirect-commands-layout-nv
-                   "Represents [vkDestroyIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html).
+(defvkfun (destroy-indirect-commands-layout-nv
+           %vk:destroy-indirect-commands-layout-nv
+           ((device device))
+           (((indirect-commands-layout (vk:make-indirect-commands-layout-nv-wrapper (cffi:null-pointer))) indirect-commands-layout-nv) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyIndirectCommandsLayoutNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5544,20 +5545,21 @@ See INDIRECT-COMMANDS-LAYOUT-NV
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((indirect-commands-layout (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (indirect-commands-layout '%vk:indirect-commands-layout-nv indirect-commands-layout :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (indirect-commands-layout '%vk:indirect-commands-layout-nv indirect-commands-layout :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-get-struct-fun (get-physical-device-features-2
-                       %vk:get-physical-device-features-2
-                       "Represents [vkGetPhysicalDeviceFeatures2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures2.html).
+(defvkfun (get-physical-device-features-2
+           %vk:get-physical-device-features-2
+           ((physical-device physical-device))
+           (((features nil) (or vk:physical-device-features-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceFeatures2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - FEATURES (optional): a (OR PHYSICAL-DEVICE-FEATURES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5566,17 +5568,20 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-FEATURES-2
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (features '(:struct %vk:physical-device-features-2) features :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (features '(:struct %vk:physical-device-features-2) (or features (vk:make-physical-device-features-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-features-2-khr
-                       %vk:get-physical-device-features-2-khr
-                       "Represents [vkGetPhysicalDeviceFeatures2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures2KHR.html).
+(defvkfun (get-physical-device-features-2-khr
+           %vk:get-physical-device-features-2-khr
+           ((physical-device physical-device))
+           (((features nil) (or vk:physical-device-features-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceFeatures2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFeatures2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - FEATURES (optional): a (OR PHYSICAL-DEVICE-FEATURES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5585,17 +5590,20 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-FEATURES-2
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (features '(:struct %vk:physical-device-features-2) features :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (features '(:struct %vk:physical-device-features-2) (or features (vk:make-physical-device-features-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-properties-2
-                       %vk:get-physical-device-properties-2
-                       "Represents [vkGetPhysicalDeviceProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties2.html).
+(defvkfun (get-physical-device-properties-2
+           %vk:get-physical-device-properties-2
+           ((physical-device physical-device))
+           (((properties nil) (or vk:physical-device-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - PROPERTIES (optional): a (OR PHYSICAL-DEVICE-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5604,17 +5612,20 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-PROPERTIES-2
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (properties '(:struct %vk:physical-device-properties-2) properties :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (properties '(:struct %vk:physical-device-properties-2) (or properties (vk:make-physical-device-properties-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-properties-2-khr
-                       %vk:get-physical-device-properties-2-khr
-                       "Represents [vkGetPhysicalDeviceProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties2KHR.html).
+(defvkfun (get-physical-device-properties-2-khr
+           %vk:get-physical-device-properties-2-khr
+           ((physical-device physical-device))
+           (((properties nil) (or vk:physical-device-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - PROPERTIES (optional): a (OR PHYSICAL-DEVICE-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5623,18 +5634,21 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-PROPERTIES-2
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (properties '(:struct %vk:physical-device-properties-2) properties :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (properties '(:struct %vk:physical-device-properties-2) (or properties (vk:make-physical-device-properties-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-format-properties-2
-                       %vk:get-physical-device-format-properties-2
-                       "Represents [vkGetPhysicalDeviceFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html).
+(defvkfun (get-physical-device-format-properties-2
+           %vk:get-physical-device-format-properties-2
+           ((physical-device physical-device) (format keyword))
+           (((format-properties nil) (or vk:format-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - FORMAT: a FORMAT
+ - FORMAT-PROPERTIES (optional): a (OR FORMAT-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5644,19 +5658,22 @@ See FORMAT
 See FORMAT-PROPERTIES-2
 See PHYSICAL-DEVICE
 "
-                       ((physical-device cffi:foreign-pointer) (format keyword))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format '%vk:format format :in :raw)
-  (format-properties '(:struct %vk:format-properties-2) format-properties :out))
+  (format-properties '(:struct %vk:format-properties-2) (or format-properties (vk:make-format-properties-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-format-properties-2-khr
-                       %vk:get-physical-device-format-properties-2-khr
-                       "Represents [vkGetPhysicalDeviceFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html).
+(defvkfun (get-physical-device-format-properties-2-khr
+           %vk:get-physical-device-format-properties-2-khr
+           ((physical-device physical-device) (format keyword))
+           (((format-properties nil) (or vk:format-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - FORMAT: a FORMAT
+ - FORMAT-PROPERTIES (optional): a (OR FORMAT-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5666,19 +5683,22 @@ See FORMAT
 See FORMAT-PROPERTIES-2
 See PHYSICAL-DEVICE
 "
-                       ((physical-device cffi:foreign-pointer) (format keyword))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format '%vk:format format :in :raw)
-  (format-properties '(:struct %vk:format-properties-2) format-properties :out))
+  (format-properties '(:struct %vk:format-properties-2) (or format-properties (vk:make-format-properties-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-image-format-properties-2
-                       %vk:get-physical-device-image-format-properties-2
-                       "Represents [vkGetPhysicalDeviceImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html).
+(defvkfun (get-physical-device-image-format-properties-2
+           %vk:get-physical-device-image-format-properties-2
+           ((physical-device physical-device) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
+           (((image-format-properties nil) (or vk:image-format-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - IMAGE-FORMAT-INFO: a (OR PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2 CFFI:FOREIGN-POINTER)
+ - IMAGE-FORMAT-PROPERTIES (optional): a (OR IMAGE-FORMAT-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5698,19 +5718,22 @@ See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
 See RESULT
 "
-                       ((physical-device cffi:foreign-pointer) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (image-format-info '(:struct %vk:physical-device-image-format-info-2) image-format-info :in)
-  (image-format-properties '(:struct %vk:image-format-properties-2) image-format-properties :out))
+  (image-format-properties '(:struct %vk:image-format-properties-2) (or image-format-properties (vk:make-image-format-properties-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-image-format-properties-2-khr
-                       %vk:get-physical-device-image-format-properties-2-khr
-                       "Represents [vkGetPhysicalDeviceImageFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html).
+(defvkfun (get-physical-device-image-format-properties-2-khr
+           %vk:get-physical-device-image-format-properties-2-khr
+           ((physical-device physical-device) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
+           (((image-format-properties nil) (or vk:image-format-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceImageFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - IMAGE-FORMAT-INFO: a (OR PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2 CFFI:FOREIGN-POINTER)
+ - IMAGE-FORMAT-PROPERTIES (optional): a (OR IMAGE-FORMAT-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5730,66 +5753,73 @@ See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-IMAGE-FORMAT-INFO-2
 See RESULT
 "
-                       ((physical-device cffi:foreign-pointer) (image-format-info (or vk:physical-device-image-format-info-2 cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (image-format-info '(:struct %vk:physical-device-image-format-info-2) image-format-info :in)
-  (image-format-properties '(:struct %vk:image-format-properties-2) image-format-properties :out))
+  (image-format-properties '(:struct %vk:image-format-properties-2) (or image-format-properties (vk:make-image-format-properties-2)) :in :out :optional))
 
-(defvk-get-structs-fun (get-physical-device-queue-family-properties-2
-                        %vk:get-physical-device-queue-family-properties-2
-                        "Represents [vkGetPhysicalDeviceQueueFamilyProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html).
+(defvkfun (get-physical-device-queue-family-properties-2
+           %vk:get-physical-device-queue-family-properties-2
+           ((physical-device physical-device))
+           (((queue-family-properties nil) (or list vector)))
+           :vk-constructor vk:make-queue-family-properties-2
+           :count-arg-name queue-family-property-count
+           :first-array-arg-name queue-family-properties
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceQueueFamilyProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - QUEUE-FAMILY-PROPERTIES (optional): a (OR LIST VECTOR) of (OR QUEUE-FAMILY-PROPERTIES-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     QUEUE-FAMILY-PROPERTIES-2s)
 
 See PHYSICAL-DEVICE
 See QUEUE-FAMILY-PROPERTIES-2
 "
-                        ((physical-device cffi:foreign-pointer))
-                        ()
-                        queue-family-property-count
-                        queue-family-properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
-  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out :list))
+  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :in :out :list :optional))
 
-(defvk-get-structs-fun (get-physical-device-queue-family-properties-2-khr
-                        %vk:get-physical-device-queue-family-properties-2-khr
-                        "Represents [vkGetPhysicalDeviceQueueFamilyProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html).
+(defvkfun (get-physical-device-queue-family-properties-2-khr
+           %vk:get-physical-device-queue-family-properties-2-khr
+           ((physical-device physical-device))
+           (((queue-family-properties nil) (or list vector)))
+           :vk-constructor vk:make-queue-family-properties-2
+           :count-arg-name queue-family-property-count
+           :first-array-arg-name queue-family-properties
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceQueueFamilyProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - QUEUE-FAMILY-PROPERTIES (optional): a (OR LIST VECTOR) of (OR QUEUE-FAMILY-PROPERTIES-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     QUEUE-FAMILY-PROPERTIES-2s)
 
 See PHYSICAL-DEVICE
 See QUEUE-FAMILY-PROPERTIES-2
 "
-                        ((physical-device cffi:foreign-pointer))
-                        ()
-                        queue-family-property-count
-                        queue-family-properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-property-count :uint32 queue-family-property-count :out)
-  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :out :list))
+  (queue-family-properties '(:struct %vk:queue-family-properties-2) queue-family-properties :in :out :list :optional))
 
-(defvk-get-struct-fun (get-physical-device-memory-properties-2
-                       %vk:get-physical-device-memory-properties-2
-                       "Represents [vkGetPhysicalDeviceMemoryProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html).
+(defvkfun (get-physical-device-memory-properties-2
+           %vk:get-physical-device-memory-properties-2
+           ((physical-device physical-device))
+           (((memory-properties nil) (or vk:physical-device-memory-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceMemoryProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - MEMORY-PROPERTIES (optional): a (OR PHYSICAL-DEVICE-MEMORY-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5798,17 +5828,20 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (memory-properties '(:struct %vk:physical-device-memory-properties-2) memory-properties :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (memory-properties '(:struct %vk:physical-device-memory-properties-2) (or memory-properties (vk:make-physical-device-memory-properties-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-memory-properties-2-khr
-                       %vk:get-physical-device-memory-properties-2-khr
-                       "Represents [vkGetPhysicalDeviceMemoryProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html).
+(defvkfun (get-physical-device-memory-properties-2-khr
+           %vk:get-physical-device-memory-properties-2-khr
+           ((physical-device physical-device))
+           (((memory-properties nil) (or vk:physical-device-memory-properties-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceMemoryProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - MEMORY-PROPERTIES (optional): a (OR PHYSICAL-DEVICE-MEMORY-PROPERTIES-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5817,68 +5850,74 @@ Returns:
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-MEMORY-PROPERTIES-2
 "
-                       ((physical-device cffi:foreign-pointer))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (memory-properties '(:struct %vk:physical-device-memory-properties-2) memory-properties :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (memory-properties '(:struct %vk:physical-device-memory-properties-2) (or memory-properties (vk:make-physical-device-memory-properties-2)) :in :out :optional))
 
-(defvk-get-structs-fun (get-physical-device-sparse-image-format-properties-2
-                        %vk:get-physical-device-sparse-image-format-properties-2
-                        "Represents [vkGetPhysicalDeviceSparseImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html).
+(defvkfun (get-physical-device-sparse-image-format-properties-2
+           %vk:get-physical-device-sparse-image-format-properties-2
+           ((physical-device physical-device) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
+           (((properties nil) (or list vector)))
+           :vk-constructor vk:make-sparse-image-format-properties-2
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceSparseImageFormatProperties2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - FORMAT-INFO: a (OR PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2 CFFI:FOREIGN-POINTER)
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR SPARSE-IMAGE-FORMAT-PROPERTIES-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SPARSE-IMAGE-FORMAT-PROPERTIES-2s)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
 See SPARSE-IMAGE-FORMAT-PROPERTIES-2
 "
-                        ((physical-device cffi:foreign-pointer) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
-                        ()
-                        property-count
-                        properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format-info '(:struct %vk:physical-device-sparse-image-format-info-2) format-info :in)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:sparse-image-format-properties-2) properties :out :list))
+  (properties '(:struct %vk:sparse-image-format-properties-2) properties :in :out :list :optional))
 
-(defvk-get-structs-fun (get-physical-device-sparse-image-format-properties-2-khr
-                        %vk:get-physical-device-sparse-image-format-properties-2-khr
-                        "Represents [vkGetPhysicalDeviceSparseImageFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html).
+(defvkfun (get-physical-device-sparse-image-format-properties-2-khr
+           %vk:get-physical-device-sparse-image-format-properties-2-khr
+           ((physical-device physical-device) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
+           (((properties nil) (or list vector)))
+           :vk-constructor vk:make-sparse-image-format-properties-2
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceSparseImageFormatProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - FORMAT-INFO: a (OR PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2 CFFI:FOREIGN-POINTER)
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR SPARSE-IMAGE-FORMAT-PROPERTIES-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SPARSE-IMAGE-FORMAT-PROPERTIES-2s)
 
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-SPARSE-IMAGE-FORMAT-INFO-2
 See SPARSE-IMAGE-FORMAT-PROPERTIES-2
 "
-                        ((physical-device cffi:foreign-pointer) (format-info (or vk:physical-device-sparse-image-format-info-2 cffi:foreign-pointer)))
-                        ()
-                        property-count
-                        properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (format-info '(:struct %vk:physical-device-sparse-image-format-info-2) format-info :in)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:sparse-image-format-properties-2) properties :out :list))
+  (properties '(:struct %vk:sparse-image-format-properties-2) properties :in :out :list :optional))
 
-(defvk-simple-fun (cmd-push-descriptor-set-khr
-                   %vk:cmd-push-descriptor-set-khr
-                   "Represents [vkCmdPushDescriptorSetKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushDescriptorSetKHR.html).
+(defvkfun (cmd-push-descriptor-set-khr
+           %vk:cmd-push-descriptor-set-khr
+           ((command-buffer command-buffer) (pipeline-bind-point keyword) (layout pipeline-layout) (set unsigned-byte) (descriptor-writes (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdPushDescriptorSetKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushDescriptorSetKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -5886,25 +5925,28 @@ Args:
  - LAYOUT: a PIPELINE-LAYOUT
  - SET: a UNSIGNED-BYTE
  - DESCRIPTOR-WRITES: a (OR LIST VECTOR) of (OR WRITE-DESCRIPTOR-SET CFFI:FOREIGN-POINTER) instances
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See PIPELINE-BIND-POINT
 See PIPELINE-LAYOUT
 See WRITE-DESCRIPTOR-SET
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-bind-point keyword) (layout cffi:foreign-pointer) (set unsigned-byte) (descriptor-writes (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-bind-point '%vk:pipeline-bind-point pipeline-bind-point :in :raw)
-  (layout '%vk:pipeline-layout layout :in :handle)
+  (layout '%vk:pipeline-layout layout :in :non-dispatchable :handle)
   (set :uint32 set :in :raw)
   (descriptor-write-count :uint32 (length descriptor-writes) :in :raw)
   (descriptor-writes '(:struct %vk:write-descriptor-set) descriptor-writes :in :list))
 
-(defvk-simple-fun (trim-command-pool
-                   %vk:trim-command-pool
-                   "Represents [vkTrimCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkTrimCommandPool.html).
+(defvkfun (trim-command-pool
+           %vk:trim-command-pool
+           ((device device) (command-pool command-pool))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkTrimCommandPool](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkTrimCommandPool.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5915,16 +5957,16 @@ See COMMAND-POOL
 See COMMAND-POOL-TRIM-FLAGS
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (command-pool '%vk:command-pool command-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (command-pool '%vk:command-pool command-pool :in :non-dispatchable :handle)
   (flags '%vk:command-pool-trim-flags flags :in :raw :optional))
 
-(defvk-simple-fun (trim-command-pool-khr
-                   %vk:trim-command-pool-khr
-                   "Represents [vkTrimCommandPoolKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkTrimCommandPoolKHR.html).
+(defvkfun (trim-command-pool-khr
+           %vk:trim-command-pool-khr
+           ((device device) (command-pool command-pool))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial)
+  "Represents [vkTrimCommandPoolKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkTrimCommandPoolKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -5935,20 +5977,22 @@ See COMMAND-POOL
 See COMMAND-POOL-TRIM-FLAGS
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (command-pool cffi:foreign-pointer))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (command-pool '%vk:command-pool command-pool :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (command-pool '%vk:command-pool command-pool :in :non-dispatchable :handle)
   (flags '%vk:command-pool-trim-flags flags :in :raw :optional))
 
-(defvk-get-struct-fun (get-physical-device-external-buffer-properties
-                       %vk:get-physical-device-external-buffer-properties
-                       "Represents [vkGetPhysicalDeviceExternalBufferProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html).
+(defvkfun (get-physical-device-external-buffer-properties
+           %vk:get-physical-device-external-buffer-properties
+           ((physical-device physical-device) (external-buffer-info (or vk:physical-device-external-buffer-info cffi:foreign-pointer)))
+           (((external-buffer-properties nil) (or vk:external-buffer-properties cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceExternalBufferProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - EXTERNAL-BUFFER-INFO: a (OR PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO CFFI:FOREIGN-POINTER)
+ - EXTERNAL-BUFFER-PROPERTIES (optional): a (OR EXTERNAL-BUFFER-PROPERTIES CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5958,19 +6002,22 @@ See EXTERNAL-BUFFER-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
 "
-                       ((physical-device cffi:foreign-pointer) (external-buffer-info (or vk:physical-device-external-buffer-info cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (external-buffer-info '(:struct %vk:physical-device-external-buffer-info) external-buffer-info :in)
-  (external-buffer-properties '(:struct %vk:external-buffer-properties) external-buffer-properties :out))
+  (external-buffer-properties '(:struct %vk:external-buffer-properties) (or external-buffer-properties (vk:make-external-buffer-properties)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-external-buffer-properties-khr
-                       %vk:get-physical-device-external-buffer-properties-khr
-                       "Represents [vkGetPhysicalDeviceExternalBufferPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html).
+(defvkfun (get-physical-device-external-buffer-properties-khr
+           %vk:get-physical-device-external-buffer-properties-khr
+           ((physical-device physical-device) (external-buffer-info (or vk:physical-device-external-buffer-info cffi:foreign-pointer)))
+           (((external-buffer-properties nil) (or vk:external-buffer-properties cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceExternalBufferPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - EXTERNAL-BUFFER-INFO: a (OR PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO CFFI:FOREIGN-POINTER)
+ - EXTERNAL-BUFFER-PROPERTIES (optional): a (OR EXTERNAL-BUFFER-PROPERTIES CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -5980,19 +6027,21 @@ See EXTERNAL-BUFFER-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-BUFFER-INFO
 "
-                       ((physical-device cffi:foreign-pointer) (external-buffer-info (or vk:physical-device-external-buffer-info cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (external-buffer-info '(:struct %vk:physical-device-external-buffer-info) external-buffer-info :in)
-  (external-buffer-properties '(:struct %vk:external-buffer-properties) external-buffer-properties :out))
+  (external-buffer-properties '(:struct %vk:external-buffer-properties) (or external-buffer-properties (vk:make-external-buffer-properties)) :in :out :optional))
 
-(defvk-get-struct-fun (get-memory-win32-handle-khr
-                       %vk:get-memory-win32-handle-khr
-                       "Represents [vkGetMemoryWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandleKHR.html).
+(defvkfun (get-memory-win32-handle-khr
+           %vk:get-memory-win32-handle-khr
+           ((device device) (get-win32-handle-info (or vk:memory-get-win32-handle-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetMemoryWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandleKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - GET-WIN32-HANDLE-INFO: a (OR MEMORY-GET-WIN32-HANDLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6007,24 +6056,31 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See HANDLE
 See MEMORY-GET-WIN32-HANDLE-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:memory-get-win32-handle-info-khr cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-win32-handle-info '(:struct %vk:memory-get-win32-handle-info-khr) get-win32-handle-info :in)
   (handle '(:pointer :void) handle :out :handle))
 
-(defvk-get-struct-fun (get-memory-win32-handle-properties-khr
-                       %vk:get-memory-win32-handle-properties-khr
-                       "Represents [vkGetMemoryWin32HandlePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html).
+(defvkfun (get-memory-win32-handle-properties-khr
+           %vk:get-memory-win32-handle-properties-khr
+           ((device device) (handle-type keyword) (handle cffi:foreign-pointer))
+           (((memory-win32-handle-properties nil) (or vk:memory-win32-handle-properties-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetMemoryWin32HandlePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - HANDLE-TYPE: a EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
  - HANDLE: a HANDLE
+ - MEMORY-WIN32-HANDLE-PROPERTIES (optional): a (OR MEMORY-WIN32-HANDLE-PROPERTIES-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6039,25 +6095,29 @@ Errors signalled on codes:
  - ERROR-INVALID-EXTERNAL-HANDLE
 
 See DEVICE
+See EXTENSION-LOADER
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See HANDLE
 See MEMORY-WIN32-HANDLE-PROPERTIES-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (handle-type keyword) (handle cffi:foreign-pointer))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (handle '(:pointer :void) handle :in :handle)
-  (memory-win32-handle-properties '(:struct %vk:memory-win32-handle-properties-khr) memory-win32-handle-properties :out))
+  (memory-win32-handle-properties '(:struct %vk:memory-win32-handle-properties-khr) (or memory-win32-handle-properties (vk:make-memory-win32-handle-properties-khr)) :in :out :optional))
 
-(defvk-create-handle-fun (get-memory-fd-khr
-                          %vk:get-memory-fd-khr
-                          "Represents [vkGetMemoryFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryFdKHR.html).
+(defvkfun (get-memory-fd-khr
+           %vk:get-memory-fd-khr
+           ((device device) (get-fd-info (or vk:memory-get-fd-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetMemoryFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryFdKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - GET-FD-INFO: a (OR MEMORY-GET-FD-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6072,24 +6132,30 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See MEMORY-GET-FD-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (get-fd-info (or vk:memory-get-fd-info-khr cffi:foreign-pointer)))
-                          ()
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-fd-info '(:struct %vk:memory-get-fd-info-khr) get-fd-info :in)
   (fd :int fd :out))
 
-(defvk-get-struct-fun (get-memory-fd-properties-khr
-                       %vk:get-memory-fd-properties-khr
-                       "Represents [vkGetMemoryFdPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryFdPropertiesKHR.html).
+(defvkfun (get-memory-fd-properties-khr
+           %vk:get-memory-fd-properties-khr
+           ((device device) (handle-type keyword) (fd integer))
+           (((memory-fd-properties nil) (or vk:memory-fd-properties-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetMemoryFdPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryFdPropertiesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - HANDLE-TYPE: a EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
  - FD: a INTEGER
+ - MEMORY-FD-PROPERTIES (optional): a (OR MEMORY-FD-PROPERTIES-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6104,20 +6170,23 @@ Errors signalled on codes:
  - ERROR-INVALID-EXTERNAL-HANDLE
 
 See DEVICE
+See EXTENSION-LOADER
 See EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
 See MEMORY-FD-PROPERTIES-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (handle-type keyword) (fd integer))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (fd :int fd :in :raw)
-  (memory-fd-properties '(:struct %vk:memory-fd-properties-khr) memory-fd-properties :out))
+  (memory-fd-properties '(:struct %vk:memory-fd-properties-khr) (or memory-fd-properties (vk:make-memory-fd-properties-khr)) :in :out :optional))
 
-(defvk-get-struct-fun (get-memory-zircon-handle-fuchsia
-                       %vk:get-memory-zircon-handle-fuchsia
-                       "Represents [vkGetMemoryZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html).
+(defvkfun (get-memory-zircon-handle-fuchsia
+           %vk:get-memory-zircon-handle-fuchsia
+           ((device device) (get-zircon-handle-info (or vk:memory-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetMemoryZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6143,21 +6212,24 @@ See RESULT
 See ZX_HANDLE_T
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:memory-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-zircon-handle-info '(:struct %vk:memory-get-zircon-handle-info-fuchsia) get-zircon-handle-info :in)
   (zircon-handle '(:pointer :void) zircon-handle :out :handle))
 
-(defvk-get-struct-fun (get-memory-zircon-handle-properties-fuchsia
-                       %vk:get-memory-zircon-handle-properties-fuchsia
-                       "Represents [vkGetMemoryZirconHandlePropertiesFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html).
+(defvkfun (get-memory-zircon-handle-properties-fuchsia
+           %vk:get-memory-zircon-handle-properties-fuchsia
+           ((device device) (handle-type keyword) (zircon-handle cffi:foreign-pointer))
+           (((memory-zircon-handle-properties nil) (or vk:memory-zircon-handle-properties-fuchsia cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetMemoryZirconHandlePropertiesFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html).
 
 Args:
  - DEVICE: a DEVICE
  - HANDLE-TYPE: a EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
  - ZIRCON-HANDLE: a ZX_HANDLE_T
+ - MEMORY-ZIRCON-HANDLE-PROPERTIES (optional): a (OR MEMORY-ZIRCON-HANDLE-PROPERTIES-FUCHSIA CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -6179,17 +6251,17 @@ See RESULT
 See ZX_HANDLE_T
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (handle-type keyword) (zircon-handle cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (zircon-handle '(:pointer :void) zircon-handle :in :handle)
-  (memory-zircon-handle-properties '(:struct %vk:memory-zircon-handle-properties-fuchsia) memory-zircon-handle-properties :out))
+  (memory-zircon-handle-properties '(:struct %vk:memory-zircon-handle-properties-fuchsia) (or memory-zircon-handle-properties (vk:make-memory-zircon-handle-properties-fuchsia)) :in :out :optional))
 
-(defvk-create-handle-fun (get-memory-remote-address-nv
-                          %vk:get-memory-remote-address-nv
-                          "Represents [vkGetMemoryRemoteAddressNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryRemoteAddressNV.html).
+(defvkfun (get-memory-remote-address-nv
+           %vk:get-memory-remote-address-nv
+           ((device device) (memory-get-remote-address-info (or vk:memory-get-remote-address-info-nv cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetMemoryRemoteAddressNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryRemoteAddressNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6214,21 +6286,22 @@ See REMOTE-ADDRESS-NV
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (memory-get-remote-address-info (or vk:memory-get-remote-address-info-nv cffi:foreign-pointer)))
-                          ()
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (memory-get-remote-address-info '(:struct %vk:memory-get-remote-address-info-nv) memory-get-remote-address-info :in)
   (address '%vk:remote-address-nv address :out))
 
-(defvk-get-struct-fun (get-physical-device-external-semaphore-properties
-                       %vk:get-physical-device-external-semaphore-properties
-                       "Represents [vkGetPhysicalDeviceExternalSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html).
+(defvkfun (get-physical-device-external-semaphore-properties
+           %vk:get-physical-device-external-semaphore-properties
+           ((physical-device physical-device) (external-semaphore-info (or vk:physical-device-external-semaphore-info cffi:foreign-pointer)))
+           (((external-semaphore-properties nil) (or vk:external-semaphore-properties cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceExternalSemaphoreProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - EXTERNAL-SEMAPHORE-INFO: a (OR PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO CFFI:FOREIGN-POINTER)
+ - EXTERNAL-SEMAPHORE-PROPERTIES (optional): a (OR EXTERNAL-SEMAPHORE-PROPERTIES CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -6238,19 +6311,22 @@ See EXTERNAL-SEMAPHORE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
 "
-                       ((physical-device cffi:foreign-pointer) (external-semaphore-info (or vk:physical-device-external-semaphore-info cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (external-semaphore-info '(:struct %vk:physical-device-external-semaphore-info) external-semaphore-info :in)
-  (external-semaphore-properties '(:struct %vk:external-semaphore-properties) external-semaphore-properties :out))
+  (external-semaphore-properties '(:struct %vk:external-semaphore-properties) (or external-semaphore-properties (vk:make-external-semaphore-properties)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-external-semaphore-properties-khr
-                       %vk:get-physical-device-external-semaphore-properties-khr
-                       "Represents [vkGetPhysicalDeviceExternalSemaphorePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html).
+(defvkfun (get-physical-device-external-semaphore-properties-khr
+           %vk:get-physical-device-external-semaphore-properties-khr
+           ((physical-device physical-device) (external-semaphore-info (or vk:physical-device-external-semaphore-info cffi:foreign-pointer)))
+           (((external-semaphore-properties nil) (or vk:external-semaphore-properties cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceExternalSemaphorePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - EXTERNAL-SEMAPHORE-INFO: a (OR PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO CFFI:FOREIGN-POINTER)
+ - EXTERNAL-SEMAPHORE-PROPERTIES (optional): a (OR EXTERNAL-SEMAPHORE-PROPERTIES CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -6260,19 +6336,21 @@ See EXTERNAL-SEMAPHORE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-SEMAPHORE-INFO
 "
-                       ((physical-device cffi:foreign-pointer) (external-semaphore-info (or vk:physical-device-external-semaphore-info cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (external-semaphore-info '(:struct %vk:physical-device-external-semaphore-info) external-semaphore-info :in)
-  (external-semaphore-properties '(:struct %vk:external-semaphore-properties) external-semaphore-properties :out))
+  (external-semaphore-properties '(:struct %vk:external-semaphore-properties) (or external-semaphore-properties (vk:make-external-semaphore-properties)) :in :out :optional))
 
-(defvk-get-struct-fun (get-semaphore-win32-handle-khr
-                       %vk:get-semaphore-win32-handle-khr
-                       "Represents [vkGetSemaphoreWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html).
+(defvkfun (get-semaphore-win32-handle-khr
+           %vk:get-semaphore-win32-handle-khr
+           ((device device) (get-win32-handle-info (or vk:semaphore-get-win32-handle-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetSemaphoreWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - GET-WIN32-HANDLE-INFO: a (OR SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6287,23 +6365,28 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See HANDLE
 See RESULT
 See SEMAPHORE-GET-WIN32-HANDLE-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:semaphore-get-win32-handle-info-khr cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-win32-handle-info '(:struct %vk:semaphore-get-win32-handle-info-khr) get-win32-handle-info :in)
   (handle '(:pointer :void) handle :out :handle))
 
-(defvk-simple-fun (import-semaphore-win32-handle-khr
-                   %vk:import-semaphore-win32-handle-khr
-                   "Represents [vkImportSemaphoreWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html).
+(defvkfun (import-semaphore-win32-handle-khr
+           %vk:import-semaphore-win32-handle-khr
+           ((device device) (import-semaphore-win32-handle-info (or vk:import-semaphore-win32-handle-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkImportSemaphoreWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - IMPORT-SEMAPHORE-WIN32-HANDLE-INFO: a (OR IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6317,22 +6400,25 @@ Errors signalled on codes:
  - ERROR-INVALID-EXTERNAL-HANDLE
 
 See DEVICE
+See EXTENSION-LOADER
 See IMPORT-SEMAPHORE-WIN32-HANDLE-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (import-semaphore-win32-handle-info (or vk:import-semaphore-win32-handle-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (import-semaphore-win32-handle-info '(:struct %vk:import-semaphore-win32-handle-info-khr) import-semaphore-win32-handle-info :in))
 
-(defvk-create-handle-fun (get-semaphore-fd-khr
-                          %vk:get-semaphore-fd-khr
-                          "Represents [vkGetSemaphoreFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreFdKHR.html).
+(defvkfun (get-semaphore-fd-khr
+           %vk:get-semaphore-fd-khr
+           ((device device) (get-fd-info (or vk:semaphore-get-fd-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetSemaphoreFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreFdKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - GET-FD-INFO: a (OR SEMAPHORE-GET-FD-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6347,23 +6433,27 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See SEMAPHORE-GET-FD-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (get-fd-info (or vk:semaphore-get-fd-info-khr cffi:foreign-pointer)))
-                          ()
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-fd-info '(:struct %vk:semaphore-get-fd-info-khr) get-fd-info :in)
   (fd :int fd :out))
 
-(defvk-simple-fun (import-semaphore-fd-khr
-                   %vk:import-semaphore-fd-khr
-                   "Represents [vkImportSemaphoreFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreFdKHR.html).
+(defvkfun (import-semaphore-fd-khr
+           %vk:import-semaphore-fd-khr
+           ((device device) (import-semaphore-fd-info (or vk:import-semaphore-fd-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkImportSemaphoreFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreFdKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - IMPORT-SEMAPHORE-FD-INFO: a (OR IMPORT-SEMAPHORE-FD-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6377,18 +6467,20 @@ Errors signalled on codes:
  - ERROR-INVALID-EXTERNAL-HANDLE
 
 See DEVICE
+See EXTENSION-LOADER
 See IMPORT-SEMAPHORE-FD-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (import-semaphore-fd-info (or vk:import-semaphore-fd-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (import-semaphore-fd-info '(:struct %vk:import-semaphore-fd-info-khr) import-semaphore-fd-info :in))
 
-(defvk-get-struct-fun (get-semaphore-zircon-handle-fuchsia
-                       %vk:get-semaphore-zircon-handle-fuchsia
-                       "Represents [vkGetSemaphoreZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html).
+(defvkfun (get-semaphore-zircon-handle-fuchsia
+           %vk:get-semaphore-zircon-handle-fuchsia
+           ((device device) (get-zircon-handle-info (or vk:semaphore-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetSemaphoreZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6414,16 +6506,17 @@ See SEMAPHORE-GET-ZIRCON-HANDLE-INFO-FUCHSIA
 See ZX_HANDLE_T
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (get-zircon-handle-info (or vk:semaphore-get-zircon-handle-info-fuchsia cffi:foreign-pointer)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-zircon-handle-info '(:struct %vk:semaphore-get-zircon-handle-info-fuchsia) get-zircon-handle-info :in)
   (zircon-handle '(:pointer :void) zircon-handle :out :handle))
 
-(defvk-simple-fun (import-semaphore-zircon-handle-fuchsia
-                   %vk:import-semaphore-zircon-handle-fuchsia
-                   "Represents [vkImportSemaphoreZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html).
+(defvkfun (import-semaphore-zircon-handle-fuchsia
+           %vk:import-semaphore-zircon-handle-fuchsia
+           ((device device) (import-semaphore-zircon-handle-info (or vk:import-semaphore-zircon-handle-info-fuchsia cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkImportSemaphoreZirconHandleFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6447,20 +6540,21 @@ See IMPORT-SEMAPHORE-ZIRCON-HANDLE-INFO-FUCHSIA
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (import-semaphore-zircon-handle-info (or vk:import-semaphore-zircon-handle-info-fuchsia cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (import-semaphore-zircon-handle-info '(:struct %vk:import-semaphore-zircon-handle-info-fuchsia) import-semaphore-zircon-handle-info :in))
 
-(defvk-get-struct-fun (get-physical-device-external-fence-properties
-                       %vk:get-physical-device-external-fence-properties
-                       "Represents [vkGetPhysicalDeviceExternalFenceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html).
+(defvkfun (get-physical-device-external-fence-properties
+           %vk:get-physical-device-external-fence-properties
+           ((physical-device physical-device) (external-fence-info (or vk:physical-device-external-fence-info cffi:foreign-pointer)))
+           (((external-fence-properties nil) (or vk:external-fence-properties cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceExternalFenceProperties](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - EXTERNAL-FENCE-INFO: a (OR PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO CFFI:FOREIGN-POINTER)
+ - EXTERNAL-FENCE-PROPERTIES (optional): a (OR EXTERNAL-FENCE-PROPERTIES CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -6470,19 +6564,22 @@ See EXTERNAL-FENCE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
 "
-                       ((physical-device cffi:foreign-pointer) (external-fence-info (or vk:physical-device-external-fence-info cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (external-fence-info '(:struct %vk:physical-device-external-fence-info) external-fence-info :in)
-  (external-fence-properties '(:struct %vk:external-fence-properties) external-fence-properties :out))
+  (external-fence-properties '(:struct %vk:external-fence-properties) (or external-fence-properties (vk:make-external-fence-properties)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-external-fence-properties-khr
-                       %vk:get-physical-device-external-fence-properties-khr
-                       "Represents [vkGetPhysicalDeviceExternalFencePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html).
+(defvkfun (get-physical-device-external-fence-properties-khr
+           %vk:get-physical-device-external-fence-properties-khr
+           ((physical-device physical-device) (external-fence-info (or vk:physical-device-external-fence-info cffi:foreign-pointer)))
+           (((external-fence-properties nil) (or vk:external-fence-properties cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceExternalFencePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - EXTERNAL-FENCE-INFO: a (OR PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO CFFI:FOREIGN-POINTER)
+ - EXTERNAL-FENCE-PROPERTIES (optional): a (OR EXTERNAL-FENCE-PROPERTIES CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -6492,19 +6589,21 @@ See EXTERNAL-FENCE-PROPERTIES
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-EXTERNAL-FENCE-INFO
 "
-                       ((physical-device cffi:foreign-pointer) (external-fence-info (or vk:physical-device-external-fence-info cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (external-fence-info '(:struct %vk:physical-device-external-fence-info) external-fence-info :in)
-  (external-fence-properties '(:struct %vk:external-fence-properties) external-fence-properties :out))
+  (external-fence-properties '(:struct %vk:external-fence-properties) (or external-fence-properties (vk:make-external-fence-properties)) :in :out :optional))
 
-(defvk-get-struct-fun (get-fence-win32-handle-khr
-                       %vk:get-fence-win32-handle-khr
-                       "Represents [vkGetFenceWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceWin32HandleKHR.html).
+(defvkfun (get-fence-win32-handle-khr
+           %vk:get-fence-win32-handle-khr
+           ((device device) (get-win32-handle-info (or vk:fence-get-win32-handle-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetFenceWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceWin32HandleKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - GET-WIN32-HANDLE-INFO: a (OR FENCE-GET-WIN32-HANDLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6519,23 +6618,28 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See FENCE-GET-WIN32-HANDLE-INFO-KHR
 See HANDLE
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (get-win32-handle-info (or vk:fence-get-win32-handle-info-khr cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-win32-handle-info '(:struct %vk:fence-get-win32-handle-info-khr) get-win32-handle-info :in)
   (handle '(:pointer :void) handle :out :handle))
 
-(defvk-simple-fun (import-fence-win32-handle-khr
-                   %vk:import-fence-win32-handle-khr
-                   "Represents [vkImportFenceWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportFenceWin32HandleKHR.html).
+(defvkfun (import-fence-win32-handle-khr
+           %vk:import-fence-win32-handle-khr
+           ((device device) (import-fence-win32-handle-info (or vk:import-fence-win32-handle-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkImportFenceWin32HandleKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportFenceWin32HandleKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - IMPORT-FENCE-WIN32-HANDLE-INFO: a (OR IMPORT-FENCE-WIN32-HANDLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6549,22 +6653,25 @@ Errors signalled on codes:
  - ERROR-INVALID-EXTERNAL-HANDLE
 
 See DEVICE
+See EXTENSION-LOADER
 See IMPORT-FENCE-WIN32-HANDLE-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (import-fence-win32-handle-info (or vk:import-fence-win32-handle-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (import-fence-win32-handle-info '(:struct %vk:import-fence-win32-handle-info-khr) import-fence-win32-handle-info :in))
 
-(defvk-create-handle-fun (get-fence-fd-khr
-                          %vk:get-fence-fd-khr
-                          "Represents [vkGetFenceFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceFdKHR.html).
+(defvkfun (get-fence-fd-khr
+           %vk:get-fence-fd-khr
+           ((device device) (get-fd-info (or vk:fence-get-fd-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetFenceFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetFenceFdKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - GET-FD-INFO: a (OR FENCE-GET-FD-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6579,23 +6686,27 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See FENCE-GET-FD-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (get-fd-info (or vk:fence-get-fd-info-khr cffi:foreign-pointer)))
-                          ()
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (get-fd-info '(:struct %vk:fence-get-fd-info-khr) get-fd-info :in)
   (fd :int fd :out))
 
-(defvk-simple-fun (import-fence-fd-khr
-                   %vk:import-fence-fd-khr
-                   "Represents [vkImportFenceFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportFenceFdKHR.html).
+(defvkfun (import-fence-fd-khr
+           %vk:import-fence-fd-khr
+           ((device device) (import-fence-fd-info (or vk:import-fence-fd-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkImportFenceFdKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkImportFenceFdKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - IMPORT-FENCE-FD-INFO: a (OR IMPORT-FENCE-FD-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -6609,18 +6720,21 @@ Errors signalled on codes:
  - ERROR-INVALID-EXTERNAL-HANDLE
 
 See DEVICE
+See EXTENSION-LOADER
 See IMPORT-FENCE-FD-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (import-fence-fd-info (or vk:import-fence-fd-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (import-fence-fd-info '(:struct %vk:import-fence-fd-info-khr) import-fence-fd-info :in))
 
-(defvk-simple-fun (release-display-ext
-                   %vk:release-display-ext
-                   "Represents [vkReleaseDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseDisplayEXT.html).
+(defvkfun (release-display-ext
+           %vk:release-display-ext
+           ((physical-device physical-device) (display display-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkReleaseDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseDisplayEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -6640,16 +6754,16 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (display '%vk:display-khr display :in :handle))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle))
 
-(defvk-simple-fun (acquire-xlib-display-ext
-                   %vk:acquire-xlib-display-ext
-                   "Represents [vkAcquireXlibDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireXlibDisplayEXT.html).
+(defvkfun (acquire-xlib-display-ext
+           %vk:acquire-xlib-display-ext
+           ((physical-device physical-device) (dpy cffi:foreign-pointer) (display display-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkAcquireXlibDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireXlibDisplayEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -6675,17 +6789,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (display cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (dpy '(:pointer :void) dpy :in :handle)
-  (display '%vk:display-khr display :in :handle))
+  (display '%vk:display-khr display :in :non-dispatchable :handle))
 
-(defvk-create-handle-fun (get-rand-r-output-display-ext
-                          %vk:get-rand-r-output-display-ext
-                          "Represents [vkGetRandROutputDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRandROutputDisplayEXT.html).
+(defvkfun (get-rand-r-output-display-ext
+           %vk:get-rand-r-output-display-ext
+           ((physical-device physical-device) (dpy cffi:foreign-pointer) (rr-output unsigned-byte))
+           ()
+           :handle-constructor make-display-khr-wrapper
+           :extension-p t)
+  "Represents [vkGetRandROutputDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRandROutputDisplayEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -6712,18 +6826,18 @@ See RESULT
 See RR-OUTPUT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((physical-device cffi:foreign-pointer) (dpy cffi:foreign-pointer) (rr-output cffi:foreign-pointer))
-                          ()
-                          nil
-                          t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (dpy '(:pointer :void) dpy :in :handle)
-  (rr-output '(:pointer :void) rr-output :in :handle)
-  (display '%vk:display-khr display :out :handle))
+  (rr-output :ulong rr-output :in :handle)
+  (display '%vk:display-khr display :out :non-dispatchable :handle))
 
-(defvk-simple-fun (acquire-winrt-display-nv
-                   %vk:acquire-winrt-display-nv
-                   "Represents [vkAcquireWinrtDisplayNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireWinrtDisplayNV.html).
+(defvkfun (acquire-winrt-display-nv
+           %vk:acquire-winrt-display-nv
+           ((physical-device physical-device) (display display-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkAcquireWinrtDisplayNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireWinrtDisplayNV.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -6748,16 +6862,16 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (display '%vk:display-khr display :in :handle))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle))
 
-(defvk-create-handle-fun (get-winrt-display-nv
-                          %vk:get-winrt-display-nv
-                          "Represents [vkGetWinrtDisplayNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetWinrtDisplayNV.html).
+(defvkfun (get-winrt-display-nv
+           %vk:get-winrt-display-nv
+           ((physical-device physical-device) (device-relative-id unsigned-byte))
+           ()
+           :handle-constructor make-display-khr-wrapper
+           :extension-p t)
+  "Represents [vkGetWinrtDisplayNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetWinrtDisplayNV.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -6783,17 +6897,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((physical-device cffi:foreign-pointer) (device-relative-id unsigned-byte))
-                          ()
-                          nil
-                          t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (device-relative-id :uint32 device-relative-id :in :raw)
-  (display '%vk:display-khr display :out :handle))
+  (display '%vk:display-khr display :out :non-dispatchable :handle))
 
-(defvk-simple-fun (display-power-control-ext
-                   %vk:display-power-control-ext
-                   "Represents [vkDisplayPowerControlEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDisplayPowerControlEXT.html).
+(defvkfun (display-power-control-ext
+           %vk:display-power-control-ext
+           ((device device) (display display-khr) (display-power-info (or vk:display-power-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDisplayPowerControlEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDisplayPowerControlEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6818,17 +6932,17 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-power-info (or vk:display-power-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (display '%vk:display-khr display :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle)
   (display-power-info '(:struct %vk:display-power-info-ext) display-power-info :in))
 
-(defvk-create-handle-fun (register-device-event-ext
-                          %vk:register-device-event-ext
-                          "Represents [vkRegisterDeviceEventEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkRegisterDeviceEventEXT.html).
+(defvkfun (register-device-event-ext
+           %vk:register-device-event-ext
+           ((device device) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-fence-wrapper
+           :extension-p t)
+  "Represents [vkRegisterDeviceEventEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkRegisterDeviceEventEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6856,18 +6970,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (device-event-info (or vk:device-event-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (device-event-info '(:struct %vk:device-event-info-ext) device-event-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (fence '%vk:fence fence :out :handle))
+  (fence '%vk:fence fence :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (register-display-event-ext
-                          %vk:register-display-event-ext
-                          "Represents [vkRegisterDisplayEventEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkRegisterDisplayEventEXT.html).
+(defvkfun (register-display-event-ext
+           %vk:register-display-event-ext
+           ((device device) (display display-khr) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-fence-wrapper
+           :extension-p t)
+  "Represents [vkRegisterDisplayEventEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkRegisterDisplayEventEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6897,19 +7011,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (display cffi:foreign-pointer) (display-event-info (or vk:display-event-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
-  (display '%vk:display-khr display :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle)
   (display-event-info '(:struct %vk:display-event-info-ext) display-event-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (fence '%vk:fence fence :out :handle))
+  (fence '%vk:fence fence :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (get-swapchain-counter-ext
-                          %vk:get-swapchain-counter-ext
-                          "Represents [vkGetSwapchainCounterEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainCounterEXT.html).
+(defvkfun (get-swapchain-counter-ext
+           %vk:get-swapchain-counter-ext
+           ((device device) (swapchain swapchain-khr) (counter keyword))
+           ()
+           :extension-p t)
+  "Represents [vkGetSwapchainCounterEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainCounterEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -6937,22 +7050,24 @@ See SURFACE-COUNTER-FLAG-BITS-EXT
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (counter keyword))
-                          ()
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle)
   (counter '%vk:surface-counter-flag-bits-ext counter :in :raw)
   (counter-value :uint64 counter-value :out))
 
-(defvk-get-struct-fun (get-physical-device-surface-capabilities-2-ext
-                       %vk:get-physical-device-surface-capabilities-2-ext
-                       "Represents [vkGetPhysicalDeviceSurfaceCapabilities2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html).
+(defvkfun (get-physical-device-surface-capabilities-2-ext
+           %vk:get-physical-device-surface-capabilities-2-ext
+           ((physical-device physical-device) (surface surface-khr))
+           (((surface-capabilities nil) (or vk:surface-capabilities-2-ext cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceSurfaceCapabilities2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - SURFACE: a SURFACE-KHR
+ - SURFACE-CAPABILITIES (optional): a (OR SURFACE-CAPABILITIES-2-EXT CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -6975,23 +7090,26 @@ See SURFACE-CAPABILITIES-2-EXT
 See SURFACE-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
-                       ()
-                       t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (surface '%vk:surface-khr surface :in :handle)
-  (surface-capabilities '(:struct %vk:surface-capabilities-2-ext) surface-capabilities :out))
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
+  (surface-capabilities '(:struct %vk:surface-capabilities-2-ext) (or surface-capabilities (vk:make-surface-capabilities-2-ext)) :in :out :optional))
 
-(defvk-enumerate-fun (enumerate-physical-device-groups
-                      %vk:enumerate-physical-device-groups
-                      "Represents [vkEnumeratePhysicalDeviceGroups](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html).
+(defvkfun (enumerate-physical-device-groups
+           %vk:enumerate-physical-device-groups
+           ((instance instance))
+           (((physical-device-group-properties nil) (or list vector)))
+           :count-arg-name physical-device-group-count
+           :first-array-arg-name physical-device-group-properties
+           :enumerate-p t
+           :returns-struct-chain-p t)
+  "Represents [vkEnumeratePhysicalDeviceGroups](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html).
 
 Args:
  - INSTANCE: a INSTANCE
+ - PHYSICAL-DEVICE-GROUP-PROPERTIES (optional): a (OR LIST VECTOR) of (OR PHYSICAL-DEVICE-GROUP-PROPERTIES CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PHYSICAL-DEVICE-GROUP-PROPERTIESs
     RESULT)
 
@@ -7008,24 +7126,26 @@ See INSTANCE
 See PHYSICAL-DEVICE-GROUP-PROPERTIES
 See RESULT
 "
-                      ((instance cffi:foreign-pointer))
-                      ()
-                      physical-device-group-count
-                      physical-device-group-properties)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
-  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
+  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :in :out :list :optional))
 
-(defvk-enumerate-fun (enumerate-physical-device-groups-khr
-                      %vk:enumerate-physical-device-groups-khr
-                      "Represents [vkEnumeratePhysicalDeviceGroupsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceGroupsKHR.html).
+(defvkfun (enumerate-physical-device-groups-khr
+           %vk:enumerate-physical-device-groups-khr
+           ((instance instance))
+           (((physical-device-group-properties nil) (or list vector)))
+           :count-arg-name physical-device-group-count
+           :first-array-arg-name physical-device-group-properties
+           :enumerate-p t
+           :returns-struct-chain-p t)
+  "Represents [vkEnumeratePhysicalDeviceGroupsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceGroupsKHR.html).
 
 Args:
  - INSTANCE: a INSTANCE
+ - PHYSICAL-DEVICE-GROUP-PROPERTIES (optional): a (OR LIST VECTOR) of (OR PHYSICAL-DEVICE-GROUP-PROPERTIES CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PHYSICAL-DEVICE-GROUP-PROPERTIESs
     RESULT)
 
@@ -7042,42 +7162,16 @@ See INSTANCE
 See PHYSICAL-DEVICE-GROUP-PROPERTIES
 See RESULT
 "
-                      ((instance cffi:foreign-pointer))
-                      ()
-                      physical-device-group-count
-                      physical-device-group-properties)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (physical-device-group-count :uint32 physical-device-group-count :out)
-  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :out :list))
+  (physical-device-group-properties '(:struct %vk:physical-device-group-properties) physical-device-group-properties :in :out :list :optional))
 
-(defvk-get-struct-fun (get-device-group-peer-memory-features
-                       %vk:get-device-group-peer-memory-features
-                       "Represents [vkGetDeviceGroupPeerMemoryFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html).
-
-Args:
- - DEVICE: a DEVICE
- - HEAP-INDEX: a UNSIGNED-BYTE
- - LOCAL-DEVICE-INDEX: a UNSIGNED-BYTE
- - REMOTE-DEVICE-INDEX: a UNSIGNED-BYTE
-
-Returns:
-  (CL:VALUES
-    PEER-MEMORY-FEATURE-FLAGS)
-
-See DEVICE
-See PEER-MEMORY-FEATURE-FLAGS
-"
-                       ((device cffi:foreign-pointer) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
-                       ())
-  (device '%vk:device device :in :handle)
-  (heap-index :uint32 heap-index :in :raw)
-  (local-device-index :uint32 local-device-index :in :raw)
-  (remote-device-index :uint32 remote-device-index :in :raw)
-  (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out :raw))
-
-(defvk-get-struct-fun (get-device-group-peer-memory-features-khr
-                       %vk:get-device-group-peer-memory-features-khr
-                       "Represents [vkGetDeviceGroupPeerMemoryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html).
+(defvkfun (get-device-group-peer-memory-features
+           %vk:get-device-group-peer-memory-features
+           ((device device) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetDeviceGroupPeerMemoryFeatures](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7092,17 +7186,44 @@ Returns:
 See DEVICE
 See PEER-MEMORY-FEATURE-FLAGS
 "
-                       ((device cffi:foreign-pointer) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (heap-index :uint32 heap-index :in :raw)
   (local-device-index :uint32 local-device-index :in :raw)
   (remote-device-index :uint32 remote-device-index :in :raw)
   (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out :raw))
 
-(defvk-simple-fun (bind-buffer-memory-2
-                   %vk:bind-buffer-memory-2
-                   "Represents [vkBindBufferMemory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory2.html).
+(defvkfun (get-device-group-peer-memory-features-khr
+           %vk:get-device-group-peer-memory-features-khr
+           ((device device) (heap-index unsigned-byte) (local-device-index unsigned-byte) (remote-device-index unsigned-byte))
+           ()
+           :no-vk-result-p t)
+  "Represents [vkGetDeviceGroupPeerMemoryFeaturesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - HEAP-INDEX: a UNSIGNED-BYTE
+ - LOCAL-DEVICE-INDEX: a UNSIGNED-BYTE
+ - REMOTE-DEVICE-INDEX: a UNSIGNED-BYTE
+
+Returns:
+  (CL:VALUES
+    PEER-MEMORY-FEATURE-FLAGS)
+
+See DEVICE
+See PEER-MEMORY-FEATURE-FLAGS
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (heap-index :uint32 heap-index :in :raw)
+  (local-device-index :uint32 local-device-index :in :raw)
+  (remote-device-index :uint32 remote-device-index :in :raw)
+  (peer-memory-features '%vk:peer-memory-feature-flags peer-memory-features :out :raw))
+
+(defvkfun (bind-buffer-memory-2
+           %vk:bind-buffer-memory-2
+           ((device device) (bind-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBindBufferMemory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory2.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7124,16 +7245,16 @@ See BIND-BUFFER-MEMORY-INFO
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (bind-infos (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in :list))
 
-(defvk-simple-fun (bind-buffer-memory-2-khr
-                   %vk:bind-buffer-memory-2-khr
-                   "Represents [vkBindBufferMemory2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory2KHR.html).
+(defvkfun (bind-buffer-memory-2-khr
+           %vk:bind-buffer-memory-2-khr
+           ((device device) (bind-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBindBufferMemory2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindBufferMemory2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7155,16 +7276,16 @@ See BIND-BUFFER-MEMORY-INFO
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (bind-infos (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-buffer-memory-info) bind-infos :in :list))
 
-(defvk-simple-fun (bind-image-memory-2
-                   %vk:bind-image-memory-2
-                   "Represents [vkBindImageMemory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory2.html).
+(defvkfun (bind-image-memory-2
+           %vk:bind-image-memory-2
+           ((device device) (bind-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBindImageMemory2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory2.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7185,16 +7306,16 @@ See BIND-IMAGE-MEMORY-INFO
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (bind-infos (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in :list))
 
-(defvk-simple-fun (bind-image-memory-2-khr
-                   %vk:bind-image-memory-2-khr
-                   "Represents [vkBindImageMemory2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory2KHR.html).
+(defvkfun (bind-image-memory-2-khr
+           %vk:bind-image-memory-2-khr
+           ((device device) (bind-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkBindImageMemory2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindImageMemory2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7215,16 +7336,16 @@ See BIND-IMAGE-MEMORY-INFO
 See DEVICE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (bind-infos (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-image-memory-info) bind-infos :in :list))
 
-(defvk-simple-fun (cmd-set-device-mask
-                   %vk:cmd-set-device-mask
-                   "Represents [vkCmdSetDeviceMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDeviceMask.html).
+(defvkfun (cmd-set-device-mask
+           %vk:cmd-set-device-mask
+           ((command-buffer command-buffer) (device-mask unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetDeviceMask](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDeviceMask.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7232,15 +7353,15 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (device-mask unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (device-mask :uint32 device-mask :in :raw))
 
-(defvk-simple-fun (cmd-set-device-mask-khr
-                   %vk:cmd-set-device-mask-khr
-                   "Represents [vkCmdSetDeviceMaskKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDeviceMaskKHR.html).
+(defvkfun (cmd-set-device-mask-khr
+           %vk:cmd-set-device-mask-khr
+           ((command-buffer command-buffer) (device-mask unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdSetDeviceMaskKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDeviceMaskKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7248,18 +7369,22 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (device-mask unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (device-mask :uint32 device-mask :in :raw))
 
-(defvk-get-struct-fun (get-device-group-present-capabilities-khr
-                       %vk:get-device-group-present-capabilities-khr
-                       "Represents [vkGetDeviceGroupPresentCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html).
+(defvkfun (get-device-group-present-capabilities-khr
+           %vk:get-device-group-present-capabilities-khr
+           ((device device))
+           (((device-group-present-capabilities nil) (or vk:device-group-present-capabilities-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetDeviceGroupPresentCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
+ - DEVICE-GROUP-PRESENT-CAPABILITIES (optional): a (OR DEVICE-GROUP-PRESENT-CAPABILITIES-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7275,20 +7400,24 @@ Errors signalled on codes:
 
 See DEVICE
 See DEVICE-GROUP-PRESENT-CAPABILITIES-KHR
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer))
-                       ())
-  (device '%vk:device device :in :handle)
-  (device-group-present-capabilities '(:struct %vk:device-group-present-capabilities-khr) device-group-present-capabilities :out))
+  (device '%vk:device device :in :dispatchable :handle)
+  (device-group-present-capabilities '(:struct %vk:device-group-present-capabilities-khr) (or device-group-present-capabilities (vk:make-device-group-present-capabilities-khr)) :in :out :optional))
 
-(defvk-get-struct-fun (get-device-group-surface-present-modes-khr
-                       %vk:get-device-group-surface-present-modes-khr
-                       "Represents [vkGetDeviceGroupSurfacePresentModesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html).
+(defvkfun (get-device-group-surface-present-modes-khr
+           %vk:get-device-group-surface-present-modes-khr
+           ((device device) (surface surface-khr))
+           ()
+           :extension-p t)
+  "Represents [vkGetDeviceGroupSurfacePresentModesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - SURFACE: a SURFACE-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7305,22 +7434,26 @@ Errors signalled on codes:
 
 See DEVICE
 See DEVICE-GROUP-PRESENT-MODE-FLAGS-KHR
+See EXTENSION-LOADER
 See RESULT
 See SURFACE-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (surface cffi:foreign-pointer))
-                       ())
-  (device '%vk:device device :in :handle)
-  (surface '%vk:surface-khr surface :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
   (modes '%vk:device-group-present-mode-flags-khr modes :out :raw))
 
-(defvk-create-handle-fun (acquire-next-image-2-khr
-                          %vk:acquire-next-image-2-khr
-                          "Represents [vkAcquireNextImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireNextImage2KHR.html).
+(defvkfun (acquire-next-image-2-khr
+           %vk:acquire-next-image-2-khr
+           ((device device) (acquire-info (or vk:acquire-next-image-info-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkAcquireNextImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireNextImage2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - ACQUIRE-INFO: a (OR ACQUIRE-NEXT-IMAGE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7343,18 +7476,20 @@ Errors signalled on codes:
 
 See ACQUIRE-NEXT-IMAGE-INFO-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (acquire-info (or vk:acquire-next-image-info-khr cffi:foreign-pointer)))
-                          ()
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (acquire-info '(:struct %vk:acquire-next-image-info-khr) acquire-info :in)
   (image-index :uint32 image-index :out))
 
-(defvk-simple-fun (cmd-dispatch-base
-                   %vk:cmd-dispatch-base
-                   "Represents [vkCmdDispatchBase](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchBase.html).
+(defvkfun (cmd-dispatch-base
+           %vk:cmd-dispatch-base
+           ((command-buffer command-buffer) (base-group-x unsigned-byte) (base-group-y unsigned-byte) (base-group-z unsigned-byte) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDispatchBase](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchBase.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7367,10 +7502,7 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (base-group-x unsigned-byte) (base-group-y unsigned-byte) (base-group-z unsigned-byte) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (base-group-x :uint32 base-group-x :in :raw)
   (base-group-y :uint32 base-group-y :in :raw)
   (base-group-z :uint32 base-group-z :in :raw)
@@ -7378,9 +7510,12 @@ See COMMAND-BUFFER
   (group-count-y :uint32 group-count-y :in :raw)
   (group-count-z :uint32 group-count-z :in :raw))
 
-(defvk-simple-fun (cmd-dispatch-base-khr
-                   %vk:cmd-dispatch-base-khr
-                   "Represents [vkCmdDispatchBaseKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchBaseKHR.html).
+(defvkfun (cmd-dispatch-base-khr
+           %vk:cmd-dispatch-base-khr
+           ((command-buffer command-buffer) (base-group-x unsigned-byte) (base-group-y unsigned-byte) (base-group-z unsigned-byte) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDispatchBaseKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDispatchBaseKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7393,10 +7528,7 @@ Args:
 
 See COMMAND-BUFFER
 "
-                   ((command-buffer cffi:foreign-pointer) (base-group-x unsigned-byte) (base-group-y unsigned-byte) (base-group-z unsigned-byte) (group-count-x unsigned-byte) (group-count-y unsigned-byte) (group-count-z unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (base-group-x :uint32 base-group-x :in :raw)
   (base-group-y :uint32 base-group-y :in :raw)
   (base-group-z :uint32 base-group-z :in :raw)
@@ -7404,17 +7536,23 @@ See COMMAND-BUFFER
   (group-count-y :uint32 group-count-y :in :raw)
   (group-count-z :uint32 group-count-z :in :raw))
 
-(defvk-enumerate-fun (get-physical-device-present-rectangles-khr
-                      %vk:get-physical-device-present-rectangles-khr
-                      "Represents [vkGetPhysicalDevicePresentRectanglesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html).
+(defvkfun (get-physical-device-present-rectangles-khr
+           %vk:get-physical-device-present-rectangles-khr
+           ((physical-device physical-device) (surface surface-khr))
+           ()
+           :count-arg-name rect-count
+           :first-array-arg-name rects
+           :enumerate-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDevicePresentRectanglesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - SURFACE: a SURFACE-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     RECT-2Ds
     RESULT)
 
@@ -7426,23 +7564,24 @@ Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
  - ERROR-OUT-OF-DEVICE-MEMORY
 
+See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RECT-2D
 See RESULT
 See SURFACE-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer) (surface cffi:foreign-pointer))
-                      ()
-                      rect-count
-                      rects)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (surface '%vk:surface-khr surface :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (surface '%vk:surface-khr surface :in :non-dispatchable :handle)
   (rect-count :uint32 rect-count :out)
   (rects '(:struct %vk:rect-2d) rects :out :list))
 
-(defvk-create-handle-fun (create-descriptor-update-template
-                          %vk:create-descriptor-update-template
-                          "Represents [vkCreateDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorUpdateTemplate.html).
+(defvkfun (create-descriptor-update-template
+           %vk:create-descriptor-update-template
+           ((device device) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-descriptor-update-template-wrapper)
+  "Represents [vkCreateDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorUpdateTemplate.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7468,17 +7607,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:descriptor-update-template-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :out :handle))
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-descriptor-update-template-khr
-                          %vk:create-descriptor-update-template-khr
-                          "Represents [vkCreateDescriptorUpdateTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorUpdateTemplateKHR.html).
+(defvkfun (create-descriptor-update-template-khr
+           %vk:create-descriptor-update-template-khr
+           ((device device) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-descriptor-update-template-wrapper)
+  "Represents [vkCreateDescriptorUpdateTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDescriptorUpdateTemplateKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7504,38 +7643,17 @@ See DEVICE
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:descriptor-update-template-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:descriptor-update-template-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :out :handle))
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-descriptor-update-template
-                   %vk:destroy-descriptor-update-template
-                   "Represents [vkDestroyDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html).
-
-Args:
- - DEVICE: a DEVICE
- - DESCRIPTOR-UPDATE-TEMPLATE (optional): a DESCRIPTOR-UPDATE-TEMPLATE, defaults to: NIL
- - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
-
-See ALLOCATION-CALLBACKS
-See DESCRIPTOR-UPDATE-TEMPLATE
-See DEVICE
-See *DEFAULT-ALLOCATOR*
-"
-                   ((device cffi:foreign-pointer))
-                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle :optional)
-  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
-
-(defvk-simple-fun (destroy-descriptor-update-template-khr
-                   %vk:destroy-descriptor-update-template-khr
-                   "Represents [vkDestroyDescriptorUpdateTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorUpdateTemplateKHR.html).
+(defvkfun (destroy-descriptor-update-template
+           %vk:destroy-descriptor-update-template
+           ((device device))
+           (((descriptor-update-template (vk:make-descriptor-update-template-wrapper (cffi:null-pointer))) descriptor-update-template) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyDescriptorUpdateTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7547,16 +7665,37 @@ See DESCRIPTOR-UPDATE-TEMPLATE
 See DEVICE
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((descriptor-update-template (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (update-descriptor-set-with-template
-                   %vk:update-descriptor-set-with-template
-                   "Represents [vkUpdateDescriptorSetWithTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html).
+(defvkfun (destroy-descriptor-update-template-khr
+           %vk:destroy-descriptor-update-template-khr
+           ((device device))
+           (((descriptor-update-template (vk:make-descriptor-update-template-wrapper (cffi:null-pointer))) descriptor-update-template) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroyDescriptorUpdateTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDescriptorUpdateTemplateKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - DESCRIPTOR-UPDATE-TEMPLATE (optional): a DESCRIPTOR-UPDATE-TEMPLATE, defaults to: NIL
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+
+See ALLOCATION-CALLBACKS
+See DESCRIPTOR-UPDATE-TEMPLATE
+See DEVICE
+See *DEFAULT-ALLOCATOR*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :non-dispatchable :handle :optional)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvkfun (update-descriptor-set-with-template
+           %vk:update-descriptor-set-with-template
+           ((device device) (descriptor-set descriptor-set) (descriptor-update-template descriptor-update-template) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkUpdateDescriptorSetWithTemplate](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7568,17 +7707,17 @@ See DESCRIPTOR-SET
 See DESCRIPTOR-UPDATE-TEMPLATE
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (descriptor-set cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-set '%vk:descriptor-set descriptor-set :in :handle)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-set '%vk:descriptor-set descriptor-set :in :non-dispatchable :handle)
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :non-dispatchable :handle)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-simple-fun (update-descriptor-set-with-template-khr
-                   %vk:update-descriptor-set-with-template-khr
-                   "Represents [vkUpdateDescriptorSetWithTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSetWithTemplateKHR.html).
+(defvkfun (update-descriptor-set-with-template-khr
+           %vk:update-descriptor-set-with-template-khr
+           ((device device) (descriptor-set descriptor-set) (descriptor-update-template descriptor-update-template) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkUpdateDescriptorSetWithTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateDescriptorSetWithTemplateKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7590,17 +7729,18 @@ See DESCRIPTOR-SET
 See DESCRIPTOR-UPDATE-TEMPLATE
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (descriptor-set cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (descriptor-set '%vk:descriptor-set descriptor-set :in :handle)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (descriptor-set '%vk:descriptor-set descriptor-set :in :non-dispatchable :handle)
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :non-dispatchable :handle)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-simple-fun (cmd-push-descriptor-set-with-template-khr
-                   %vk:cmd-push-descriptor-set-with-template-khr
-                   "Represents [vkCmdPushDescriptorSetWithTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html).
+(defvkfun (cmd-push-descriptor-set-with-template-khr
+           %vk:cmd-push-descriptor-set-with-template-khr
+           ((command-buffer command-buffer) (descriptor-update-template descriptor-update-template) (layout pipeline-layout) (set unsigned-byte) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdPushDescriptorSetWithTemplateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7608,23 +7748,27 @@ Args:
  - LAYOUT: a PIPELINE-LAYOUT
  - SET: a UNSIGNED-BYTE
  - DATA: a CFFI:FOREIGN-POINTER
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See DESCRIPTOR-UPDATE-TEMPLATE
+See EXTENSION-LOADER
 See PIPELINE-LAYOUT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (descriptor-update-template cffi:foreign-pointer) (layout cffi:foreign-pointer) (set unsigned-byte) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :handle)
-  (layout '%vk:pipeline-layout layout :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (descriptor-update-template '%vk:descriptor-update-template descriptor-update-template :in :non-dispatchable :handle)
+  (layout '%vk:pipeline-layout layout :in :non-dispatchable :handle)
   (set :uint32 set :in :raw)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-simple-fun (set-hdr-metadata-ext
-                   %vk:set-hdr-metadata-ext
-                   "Represents [vkSetHdrMetadataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetHdrMetadataEXT.html).
+(defvkfun (set-hdr-metadata-ext
+           %vk:set-hdr-metadata-ext
+           ((device device) (swapchains (or list vector)) (metadata (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetHdrMetadataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetHdrMetadataEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7638,22 +7782,23 @@ See HDR-METADATA-EXT
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (swapchains (or list vector)) (metadata (or list vector)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (swapchain-count :uint32 (length metadata) :in :raw)
-  (swapchains '%vk:swapchain-khr swapchains :in :handle :list)
+  (swapchains '%vk:swapchain-khr swapchains :in :non-dispatchable :handle :list)
   (metadata '(:struct %vk:hdr-metadata-ext) metadata :in :list))
 
-(defvk-simple-fun (get-swapchain-status-khr
-                   %vk:get-swapchain-status-khr
-                   "Represents [vkGetSwapchainStatusKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainStatusKHR.html).
+(defvkfun (get-swapchain-status-khr
+           %vk:get-swapchain-status-khr
+           ((device device) (swapchain swapchain-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetSwapchainStatusKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSwapchainStatusKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - SWAPCHAIN: a SWAPCHAIN-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7672,18 +7817,21 @@ Errors signalled on codes:
  - ERROR-FULL-SCREEN-EXCLUSIVE-MODE-LOST-EXT
 
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See SWAPCHAIN-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle))
 
-(defvk-get-struct-fun (get-refresh-cycle-duration-google
-                       %vk:get-refresh-cycle-duration-google
-                       "Represents [vkGetRefreshCycleDurationGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html).
+(defvkfun (get-refresh-cycle-duration-google
+           %vk:get-refresh-cycle-duration-google
+           ((device device) (swapchain swapchain-khr))
+           ()
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetRefreshCycleDurationGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7710,16 +7858,19 @@ See RESULT
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle)
   (display-timing-properties '(:struct %vk:refresh-cycle-duration-google) display-timing-properties :out))
 
-(defvk-enumerate-fun (get-past-presentation-timing-google
-                      %vk:get-past-presentation-timing-google
-                      "Represents [vkGetPastPresentationTimingGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html).
+(defvkfun (get-past-presentation-timing-google
+           %vk:get-past-presentation-timing-google
+           ((device device) (swapchain swapchain-khr))
+           ()
+           :count-arg-name presentation-timing-count
+           :first-array-arg-name presentation-timings
+           :enumerate-p t
+           :extension-p t)
+  "Represents [vkGetPastPresentationTimingGOOGLE](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -7728,7 +7879,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PAST-PRESENTATION-TIMING-GOOGLEs
     RESULT)
 
@@ -7749,25 +7899,22 @@ See RESULT
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                      ()
-                      presentation-timing-count
-                      presentation-timings
-                      t)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle)
   (presentation-timing-count :uint32 presentation-timing-count :out)
   (presentation-timings '(:struct %vk:past-presentation-timing-google) presentation-timings :out :list))
 
-(defvk-create-handle-fun (create-i-os-surface-mvk
-                          %vk:create-i-os-surface-mvk
-                          "Represents [vkCreateIOSSurfaceMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateIOSSurfaceMVK.html).
+(defvkfun (create-ios-surface-mvk
+           %vk:create-ios-surface-mvk
+           ((instance instance) (create-info (or vk:ios-surface-create-info-mvk cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateIOSSurfaceMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateIOSSurfaceMVK.html).
 
 Args:
  - INSTANCE: a INSTANCE
- - CREATE-INFO: a (OR I-OS-SURFACE-CREATE-INFO-MVK CFFI:FOREIGN-POINTER)
+ - CREATE-INFO: a (OR IOS-SURFACE-CREATE-INFO-MVK CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7783,32 +7930,28 @@ Errors signalled on codes:
  - ERROR-NATIVE-WINDOW-IN-USE-KHR
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
-See I-OS-SURFACE-CREATE-INFO-MVK
 See INSTANCE
+See IOS-SURFACE-CREATE-INFO-MVK
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:i-os-surface-create-info-mvk cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
-  (create-info '(:struct %vk:i-os-surface-create-info-mvk) create-info :in)
+  (instance '%vk:instance instance :in :dispatchable :handle)
+  (create-info '(:struct %vk:ios-surface-create-info-mvk) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-mac-os-surface-mvk
-                          %vk:create-mac-os-surface-mvk
-                          "Represents [vkCreateMacOSSurfaceMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateMacOSSurfaceMVK.html).
+(defvkfun (create-mac-os-surface-mvk
+           %vk:create-mac-os-surface-mvk
+           ((instance instance) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateMacOSSurfaceMVK](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateMacOSSurfaceMVK.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR MAC-OS-SURFACE-CREATE-INFO-MVK CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7824,32 +7967,28 @@ Errors signalled on codes:
  - ERROR-NATIVE-WINDOW-IN-USE-KHR
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
 See INSTANCE
 See MAC-OS-SURFACE-CREATE-INFO-MVK
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:mac-os-surface-create-info-mvk cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:mac-os-surface-create-info-mvk) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-metal-surface-ext
-                          %vk:create-metal-surface-ext
-                          "Represents [vkCreateMetalSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateMetalSurfaceEXT.html).
+(defvkfun (create-metal-surface-ext
+           %vk:create-metal-surface-ext
+           ((instance instance) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateMetalSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateMetalSurfaceEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR METAL-SURFACE-CREATE-INFO-EXT CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -7865,26 +8004,24 @@ Errors signalled on codes:
  - ERROR-NATIVE-WINDOW-IN-USE-KHR
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
 See INSTANCE
 See METAL-SURFACE-CREATE-INFO-EXT
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:metal-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:metal-surface-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-simple-fun (cmd-set-viewport-w-scaling-nv
-                   %vk:cmd-set-viewport-w-scaling-nv
-                   "Represents [vkCmdSetViewportWScalingNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportWScalingNV.html).
+(defvkfun (cmd-set-viewport-w-scaling-nv
+           %vk:cmd-set-viewport-w-scaling-nv
+           ((command-buffer command-buffer) (first-viewport unsigned-byte) (viewport-w-scalings (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetViewportWScalingNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportWScalingNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7897,18 +8034,18 @@ See EXTENSION-LOADER
 See VIEWPORT-W-SCALING-NV
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (viewport-w-scalings (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-viewport :uint32 first-viewport :in :raw)
   (viewport-count :uint32 (length viewport-w-scalings) :in :raw)
   (viewport-w-scalings '(:struct %vk:viewport-w-scaling-nv) viewport-w-scalings :in :list))
 
-(defvk-simple-fun (cmd-set-discard-rectangle-ext
-                   %vk:cmd-set-discard-rectangle-ext
-                   "Represents [vkCmdSetDiscardRectangleEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDiscardRectangleEXT.html).
+(defvkfun (cmd-set-discard-rectangle-ext
+           %vk:cmd-set-discard-rectangle-ext
+           ((command-buffer command-buffer) (first-discard-rectangle unsigned-byte) (discard-rectangles (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetDiscardRectangleEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDiscardRectangleEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7921,18 +8058,18 @@ See EXTENSION-LOADER
 See RECT-2D
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-discard-rectangle unsigned-byte) (discard-rectangles (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-discard-rectangle :uint32 first-discard-rectangle :in :raw)
   (discard-rectangle-count :uint32 (length discard-rectangles) :in :raw)
   (discard-rectangles '(:struct %vk:rect-2d) discard-rectangles :in :list))
 
-(defvk-simple-fun (cmd-set-sample-locations-ext
-                   %vk:cmd-set-sample-locations-ext
-                   "Represents [vkCmdSetSampleLocationsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetSampleLocationsEXT.html).
+(defvkfun (cmd-set-sample-locations-ext
+           %vk:cmd-set-sample-locations-ext
+           ((command-buffer command-buffer) (sample-locations-info (or vk:sample-locations-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetSampleLocationsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetSampleLocationsEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -7944,20 +8081,22 @@ See EXTENSION-LOADER
 See SAMPLE-LOCATIONS-INFO-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (sample-locations-info (or vk:sample-locations-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (sample-locations-info '(:struct %vk:sample-locations-info-ext) sample-locations-info :in))
 
-(defvk-get-struct-fun (get-physical-device-multisample-properties-ext
-                       %vk:get-physical-device-multisample-properties-ext
-                       "Represents [vkGetPhysicalDeviceMultisamplePropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html).
+(defvkfun (get-physical-device-multisample-properties-ext
+           %vk:get-physical-device-multisample-properties-ext
+           ((physical-device physical-device) (samples keyword))
+           (((multisample-properties nil) (or vk:multisample-properties-ext cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceMultisamplePropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - SAMPLES: a SAMPLE-COUNT-FLAG-BITS
+ - MULTISAMPLE-PROPERTIES (optional): a (OR MULTISAMPLE-PROPERTIES-EXT CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -7970,20 +8109,22 @@ See PHYSICAL-DEVICE
 See SAMPLE-COUNT-FLAG-BITS
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((physical-device cffi:foreign-pointer) (samples keyword))
-                       ()
-                       t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (samples '%vk:sample-count-flag-bits samples :in :raw)
-  (multisample-properties '(:struct %vk:multisample-properties-ext) multisample-properties :out))
+  (multisample-properties '(:struct %vk:multisample-properties-ext) (or multisample-properties (vk:make-multisample-properties-ext)) :in :out :optional))
 
-(defvk-get-struct-fun (get-physical-device-surface-capabilities-2-khr
-                       %vk:get-physical-device-surface-capabilities-2-khr
-                       "Represents [vkGetPhysicalDeviceSurfaceCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html).
+(defvkfun (get-physical-device-surface-capabilities-2-khr
+           %vk:get-physical-device-surface-capabilities-2-khr
+           ((physical-device physical-device) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
+           (((surface-capabilities nil) (or vk:surface-capabilities-2-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetPhysicalDeviceSurfaceCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - SURFACE-INFO: a (OR PHYSICAL-DEVICE-SURFACE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - SURFACE-CAPABILITIES (optional): a (OR SURFACE-CAPABILITIES-2-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8003,23 +8144,27 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 See RESULT
 See SURFACE-CAPABILITIES-2-KHR
 "
-                       ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
-  (surface-capabilities '(:struct %vk:surface-capabilities-2-khr) surface-capabilities :out))
+  (surface-capabilities '(:struct %vk:surface-capabilities-2-khr) (or surface-capabilities (vk:make-surface-capabilities-2-khr)) :in :out :optional))
 
-(defvk-enumerate-fun (get-physical-device-surface-formats-2-khr
-                      %vk:get-physical-device-surface-formats-2-khr
-                      "Represents [vkGetPhysicalDeviceSurfaceFormats2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html).
+(defvkfun (get-physical-device-surface-formats-2-khr
+           %vk:get-physical-device-surface-formats-2-khr
+           ((physical-device physical-device) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
+           (((surface-formats nil) (or list vector)))
+           :count-arg-name surface-format-count
+           :first-array-arg-name surface-formats
+           :enumerate-p t
+           :returns-struct-chain-p t)
+  "Represents [vkGetPhysicalDeviceSurfaceFormats2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - SURFACE-INFO: a (OR PHYSICAL-DEVICE-SURFACE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - SURFACE-FORMATS (optional): a (OR LIST VECTOR) of (OR SURFACE-FORMAT-2-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SURFACE-FORMAT-2-KHRs
     RESULT)
 
@@ -8037,25 +8182,27 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 See RESULT
 See SURFACE-FORMAT-2-KHR
 "
-                      ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
-                      ()
-                      surface-format-count
-                      surface-formats)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (surface-format-count :uint32 surface-format-count :out)
-  (surface-formats '(:struct %vk:surface-format-2-khr) surface-formats :out :list))
+  (surface-formats '(:struct %vk:surface-format-2-khr) surface-formats :in :out :list :optional))
 
-(defvk-enumerate-fun (get-physical-device-display-properties-2-khr
-                      %vk:get-physical-device-display-properties-2-khr
-                      "Represents [vkGetPhysicalDeviceDisplayProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html).
+(defvkfun (get-physical-device-display-properties-2-khr
+           %vk:get-physical-device-display-properties-2-khr
+           ((physical-device physical-device))
+           (((properties nil) (or list vector)))
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t
+           :returns-struct-chain-p t)
+  "Represents [vkGetPhysicalDeviceDisplayProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR DISPLAY-PROPERTIES-2-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-PROPERTIES-2-KHRs
     RESULT)
 
@@ -8071,24 +8218,26 @@ See DISPLAY-PROPERTIES-2-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-properties-2-khr) properties :out :list))
+  (properties '(:struct %vk:display-properties-2-khr) properties :in :out :list :optional))
 
-(defvk-enumerate-fun (get-physical-device-display-plane-properties-2-khr
-                      %vk:get-physical-device-display-plane-properties-2-khr
-                      "Represents [vkGetPhysicalDeviceDisplayPlaneProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html).
+(defvkfun (get-physical-device-display-plane-properties-2-khr
+           %vk:get-physical-device-display-plane-properties-2-khr
+           ((physical-device physical-device))
+           (((properties nil) (or list vector)))
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t
+           :returns-struct-chain-p t)
+  "Represents [vkGetPhysicalDeviceDisplayPlaneProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR DISPLAY-PLANE-PROPERTIES-2-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-PLANE-PROPERTIES-2-KHRs
     RESULT)
 
@@ -8104,25 +8253,27 @@ See DISPLAY-PLANE-PROPERTIES-2-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-plane-properties-2-khr) properties :out :list))
+  (properties '(:struct %vk:display-plane-properties-2-khr) properties :in :out :list :optional))
 
-(defvk-enumerate-fun (get-display-mode-properties-2-khr
-                      %vk:get-display-mode-properties-2-khr
-                      "Represents [vkGetDisplayModeProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayModeProperties2KHR.html).
+(defvkfun (get-display-mode-properties-2-khr
+           %vk:get-display-mode-properties-2-khr
+           ((physical-device physical-device) (display display-khr))
+           (((properties nil) (or list vector)))
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t
+           :returns-struct-chain-p t)
+  "Represents [vkGetDisplayModeProperties2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayModeProperties2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - DISPLAY: a DISPLAY-KHR
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR DISPLAY-MODE-PROPERTIES-2-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     DISPLAY-MODE-PROPERTIES-2-KHRs
     RESULT)
 
@@ -8139,22 +8290,23 @@ See DISPLAY-MODE-PROPERTIES-2-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                      ((physical-device cffi:foreign-pointer) (display cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
-  (display '%vk:display-khr display :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
+  (display '%vk:display-khr display :in :non-dispatchable :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:display-mode-properties-2-khr) properties :out :list))
+  (properties '(:struct %vk:display-mode-properties-2-khr) properties :in :out :list :optional))
 
-(defvk-get-struct-fun (get-display-plane-capabilities-2-khr
-                       %vk:get-display-plane-capabilities-2-khr
-                       "Represents [vkGetDisplayPlaneCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html).
+(defvkfun (get-display-plane-capabilities-2-khr
+           %vk:get-display-plane-capabilities-2-khr
+           ((physical-device physical-device) (display-plane-info (or vk:display-plane-info-2-khr cffi:foreign-pointer)))
+           (((capabilities nil) (or vk:display-plane-capabilities-2-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetDisplayPlaneCapabilities2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - DISPLAY-PLANE-INFO: a (OR DISPLAY-PLANE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - CAPABILITIES (optional): a (OR DISPLAY-PLANE-CAPABILITIES-2-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8173,19 +8325,22 @@ See DISPLAY-PLANE-INFO-2-KHR
 See PHYSICAL-DEVICE
 See RESULT
 "
-                       ((physical-device cffi:foreign-pointer) (display-plane-info (or vk:display-plane-info-2-khr cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (display-plane-info '(:struct %vk:display-plane-info-2-khr) display-plane-info :in)
-  (capabilities '(:struct %vk:display-plane-capabilities-2-khr) capabilities :out))
+  (capabilities '(:struct %vk:display-plane-capabilities-2-khr) (or capabilities (vk:make-display-plane-capabilities-2-khr)) :in :out :optional))
 
-(defvk-get-struct-fun (get-buffer-memory-requirements-2
-                       %vk:get-buffer-memory-requirements-2
-                       "Represents [vkGetBufferMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements2.html).
+(defvkfun (get-buffer-memory-requirements-2
+           %vk:get-buffer-memory-requirements-2
+           ((device device) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetBufferMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements2.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR BUFFER-MEMORY-REQUIREMENTS-INFO-2 CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8195,19 +8350,22 @@ See BUFFER-MEMORY-REQUIREMENTS-INFO-2
 See DEVICE
 See MEMORY-REQUIREMENTS-2
 "
-                       ((device cffi:foreign-pointer) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:buffer-memory-requirements-info-2) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2) memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-buffer-memory-requirements-2-khr
-                       %vk:get-buffer-memory-requirements-2-khr
-                       "Represents [vkGetBufferMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements2KHR.html).
+(defvkfun (get-buffer-memory-requirements-2-khr
+           %vk:get-buffer-memory-requirements-2-khr
+           ((device device) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetBufferMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferMemoryRequirements2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR BUFFER-MEMORY-REQUIREMENTS-INFO-2 CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8217,19 +8375,22 @@ See BUFFER-MEMORY-REQUIREMENTS-INFO-2
 See DEVICE
 See MEMORY-REQUIREMENTS-2
 "
-                       ((device cffi:foreign-pointer) (info (or vk:buffer-memory-requirements-info-2 cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:buffer-memory-requirements-info-2) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2) memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-image-memory-requirements-2
-                       %vk:get-image-memory-requirements-2
-                       "Represents [vkGetImageMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements2.html).
+(defvkfun (get-image-memory-requirements-2
+           %vk:get-image-memory-requirements-2
+           ((device device) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetImageMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements2.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR IMAGE-MEMORY-REQUIREMENTS-INFO-2 CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8239,19 +8400,22 @@ See DEVICE
 See IMAGE-MEMORY-REQUIREMENTS-INFO-2
 See MEMORY-REQUIREMENTS-2
 "
-                       ((device cffi:foreign-pointer) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:image-memory-requirements-info-2) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2) memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
 
-(defvk-get-struct-fun (get-image-memory-requirements-2-khr
-                       %vk:get-image-memory-requirements-2-khr
-                       "Represents [vkGetImageMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements2KHR.html).
+(defvkfun (get-image-memory-requirements-2-khr
+           %vk:get-image-memory-requirements-2-khr
+           ((device device) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetImageMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageMemoryRequirements2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR IMAGE-MEMORY-REQUIREMENTS-INFO-2 CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8261,69 +8425,165 @@ See DEVICE
 See IMAGE-MEMORY-REQUIREMENTS-INFO-2
 See MEMORY-REQUIREMENTS-2
 "
-                       ((device cffi:foreign-pointer) (info (or vk:image-memory-requirements-info-2 cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:image-memory-requirements-info-2) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2) memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
 
-(defvk-get-structs-fun (get-image-sparse-memory-requirements-2
-                        %vk:get-image-sparse-memory-requirements-2
-                        "Represents [vkGetImageSparseMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements2.html).
+(defvkfun (get-image-sparse-memory-requirements-2
+           %vk:get-image-sparse-memory-requirements-2
+           ((device device) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
+           (((sparse-memory-requirements nil) (or list vector)))
+           :vk-constructor vk:make-sparse-image-memory-requirements-2
+           :count-arg-name sparse-memory-requirement-count
+           :first-array-arg-name sparse-memory-requirements
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetImageSparseMemoryRequirements2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements2.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2 CFFI:FOREIGN-POINTER)
+ - SPARSE-MEMORY-REQUIREMENTS (optional): a (OR LIST VECTOR) of (OR SPARSE-IMAGE-MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SPARSE-IMAGE-MEMORY-REQUIREMENTS-2s)
 
 See DEVICE
 See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
 See SPARSE-IMAGE-MEMORY-REQUIREMENTS-2
 "
-                        ((device cffi:foreign-pointer) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
-                        ()
-                        sparse-memory-requirement-count
-                        sparse-memory-requirements
-                      t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:image-sparse-memory-requirements-info-2) info :in)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
-  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :out :list))
+  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :in :out :list :optional))
 
-(defvk-get-structs-fun (get-image-sparse-memory-requirements-2-khr
-                        %vk:get-image-sparse-memory-requirements-2-khr
-                        "Represents [vkGetImageSparseMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements2KHR.html).
+(defvkfun (get-image-sparse-memory-requirements-2-khr
+           %vk:get-image-sparse-memory-requirements-2-khr
+           ((device device) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
+           (((sparse-memory-requirements nil) (or list vector)))
+           :vk-constructor vk:make-sparse-image-memory-requirements-2
+           :count-arg-name sparse-memory-requirement-count
+           :first-array-arg-name sparse-memory-requirements
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetImageSparseMemoryRequirements2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageSparseMemoryRequirements2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2 CFFI:FOREIGN-POINTER)
+ - SPARSE-MEMORY-REQUIREMENTS (optional): a (OR LIST VECTOR) of (OR SPARSE-IMAGE-MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     SPARSE-IMAGE-MEMORY-REQUIREMENTS-2s)
 
 See DEVICE
 See IMAGE-SPARSE-MEMORY-REQUIREMENTS-INFO-2
 See SPARSE-IMAGE-MEMORY-REQUIREMENTS-2
 "
-                        ((device cffi:foreign-pointer) (info (or vk:image-sparse-memory-requirements-info-2 cffi:foreign-pointer)))
-                        ()
-                        sparse-memory-requirement-count
-                        sparse-memory-requirements
-                      t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:image-sparse-memory-requirements-info-2) info :in)
   (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
-  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :out :list))
+  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :in :out :list :optional))
 
-(defvk-create-handle-fun (create-sampler-ycbcr-conversion
-                          %vk:create-sampler-ycbcr-conversion
-                          "Represents [vkCreateSamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSamplerYcbcrConversion.html).
+(defvkfun (get-device-buffer-memory-requirements-khr
+           %vk:get-device-buffer-memory-requirements-khr
+           ((device device) (info (or vk:device-buffer-memory-requirements-khr cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetDeviceBufferMemoryRequirementsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceBufferMemoryRequirementsKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - INFO: a (OR DEVICE-BUFFER-MEMORY-REQUIREMENTS-KHR CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
+
+See DEVICE
+See DEVICE-BUFFER-MEMORY-REQUIREMENTS-KHR
+See EXTENSION-LOADER
+See MEMORY-REQUIREMENTS-2
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (info '(:struct %vk:device-buffer-memory-requirements-khr) info :in)
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
+
+(defvkfun (get-device-image-memory-requirements-khr
+           %vk:get-device-image-memory-requirements-khr
+           ((device device) (info (or vk:device-image-memory-requirements-khr cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetDeviceImageMemoryRequirementsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceImageMemoryRequirementsKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - INFO: a (OR DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a (OR MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    MEMORY-REQUIREMENTS-2)
+
+See DEVICE
+See DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR
+See EXTENSION-LOADER
+See MEMORY-REQUIREMENTS-2
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (info '(:struct %vk:device-image-memory-requirements-khr) info :in)
+  (memory-requirements '(:struct %vk:memory-requirements-2) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
+
+(defvkfun (get-device-image-sparse-memory-requirements-khr
+           %vk:get-device-image-sparse-memory-requirements-khr
+           ((device device) (info (or vk:device-image-memory-requirements-khr cffi:foreign-pointer)))
+           (((sparse-memory-requirements nil) (or list vector)))
+           :vk-constructor vk:make-sparse-image-memory-requirements-2
+           :count-arg-name sparse-memory-requirement-count
+           :first-array-arg-name sparse-memory-requirements
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetDeviceImageSparseMemoryRequirementsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceImageSparseMemoryRequirementsKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - INFO: a (OR DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR CFFI:FOREIGN-POINTER)
+ - SPARSE-MEMORY-REQUIREMENTS (optional): a (OR LIST VECTOR) of (OR SPARSE-IMAGE-MEMORY-REQUIREMENTS-2 CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    SPARSE-IMAGE-MEMORY-REQUIREMENTS-2s)
+
+See DEVICE
+See DEVICE-IMAGE-MEMORY-REQUIREMENTS-KHR
+See EXTENSION-LOADER
+See SPARSE-IMAGE-MEMORY-REQUIREMENTS-2
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (info '(:struct %vk:device-image-memory-requirements-khr) info :in)
+  (sparse-memory-requirement-count :uint32 sparse-memory-requirement-count :out)
+  (sparse-memory-requirements '(:struct %vk:sparse-image-memory-requirements-2) sparse-memory-requirements :in :out :list :optional))
+
+(defvkfun (create-sampler-ycbcr-conversion
+           %vk:create-sampler-ycbcr-conversion
+           ((device device) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-sampler-ycbcr-conversion-wrapper)
+  "Represents [vkCreateSamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSamplerYcbcrConversion.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8349,17 +8609,17 @@ See SAMPLER-YCBCR-CONVERSION
 See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:sampler-ycbcr-conversion-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :out :handle))
+  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-sampler-ycbcr-conversion-khr
-                          %vk:create-sampler-ycbcr-conversion-khr
-                          "Represents [vkCreateSamplerYcbcrConversionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSamplerYcbcrConversionKHR.html).
+(defvkfun (create-sampler-ycbcr-conversion-khr
+           %vk:create-sampler-ycbcr-conversion-khr
+           ((device device) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-sampler-ycbcr-conversion-wrapper)
+  "Represents [vkCreateSamplerYcbcrConversionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateSamplerYcbcrConversionKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8385,38 +8645,17 @@ See SAMPLER-YCBCR-CONVERSION
 See SAMPLER-YCBCR-CONVERSION-CREATE-INFO
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:sampler-ycbcr-conversion-create-info cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:sampler-ycbcr-conversion-create-info) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :out :handle))
+  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-sampler-ycbcr-conversion
-                   %vk:destroy-sampler-ycbcr-conversion
-                   "Represents [vkDestroySamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySamplerYcbcrConversion.html).
-
-Args:
- - DEVICE: a DEVICE
- - YCBCR-CONVERSION (optional): a SAMPLER-YCBCR-CONVERSION, defaults to: NIL
- - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
-
-See ALLOCATION-CALLBACKS
-See DEVICE
-See SAMPLER-YCBCR-CONVERSION
-See *DEFAULT-ALLOCATOR*
-"
-                   ((device cffi:foreign-pointer))
-                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :handle :optional)
-  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
-
-(defvk-simple-fun (destroy-sampler-ycbcr-conversion-khr
-                   %vk:destroy-sampler-ycbcr-conversion-khr
-                   "Represents [vkDestroySamplerYcbcrConversionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySamplerYcbcrConversionKHR.html).
+(defvkfun (destroy-sampler-ycbcr-conversion
+           %vk:destroy-sampler-ycbcr-conversion
+           ((device device))
+           (((ycbcr-conversion (vk:make-sampler-ycbcr-conversion-wrapper (cffi:null-pointer))) sampler-ycbcr-conversion) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroySamplerYcbcrConversion](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySamplerYcbcrConversion.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8428,16 +8667,38 @@ See DEVICE
 See SAMPLER-YCBCR-CONVERSION
 See *DEFAULT-ALLOCATOR*
 "
-                   ((device cffi:foreign-pointer))
-                   (((ycbcr-conversion (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (get-device-queue-2
-                          %vk:get-device-queue-2
-                          "Represents [vkGetDeviceQueue2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceQueue2.html).
+(defvkfun (destroy-sampler-ycbcr-conversion-khr
+           %vk:destroy-sampler-ycbcr-conversion-khr
+           ((device device))
+           (((ycbcr-conversion (vk:make-sampler-ycbcr-conversion-wrapper (cffi:null-pointer))) sampler-ycbcr-conversion) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial)
+  "Represents [vkDestroySamplerYcbcrConversionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroySamplerYcbcrConversionKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - YCBCR-CONVERSION (optional): a SAMPLER-YCBCR-CONVERSION, defaults to: NIL
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+
+See ALLOCATION-CALLBACKS
+See DEVICE
+See SAMPLER-YCBCR-CONVERSION
+See *DEFAULT-ALLOCATOR*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (ycbcr-conversion '%vk:sampler-ycbcr-conversion ycbcr-conversion :in :non-dispatchable :handle :optional)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvkfun (get-device-queue-2
+           %vk:get-device-queue-2
+           ((device device) (queue-info (or vk:device-queue-info-2 cffi:foreign-pointer)))
+           ()
+           :handle-constructor make-queue-wrapper
+           :no-vk-result-p t)
+  "Represents [vkGetDeviceQueue2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceQueue2.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8451,16 +8712,17 @@ See DEVICE
 See DEVICE-QUEUE-INFO-2
 See QUEUE
 "
-                          ((device cffi:foreign-pointer) (queue-info (or vk:device-queue-info-2 cffi:foreign-pointer)))
-                          ()
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (queue-info '(:struct %vk:device-queue-info-2) queue-info :in)
-  (queue '%vk:queue queue :out :handle))
+  (queue '%vk:queue queue :out :dispatchable :handle))
 
-(defvk-create-handle-fun (create-validation-cache-ext
-                          %vk:create-validation-cache-ext
-                          "Represents [vkCreateValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateValidationCacheEXT.html).
+(defvkfun (create-validation-cache-ext
+           %vk:create-validation-cache-ext
+           ((device device) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-validation-cache-ext-wrapper
+           :extension-p t)
+  "Represents [vkCreateValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateValidationCacheEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8488,18 +8750,18 @@ See VALIDATION-CACHE-EXT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:validation-cache-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:validation-cache-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (validation-cache '%vk:validation-cache-ext validation-cache :out :handle))
+  (validation-cache '%vk:validation-cache-ext validation-cache :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-validation-cache-ext
-                   %vk:destroy-validation-cache-ext
-                   "Represents [vkDestroyValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyValidationCacheEXT.html).
+(defvkfun (destroy-validation-cache-ext
+           %vk:destroy-validation-cache-ext
+           ((device device))
+           (((validation-cache (vk:make-validation-cache-ext-wrapper (cffi:null-pointer))) validation-cache-ext) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyValidationCacheEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyValidationCacheEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8514,27 +8776,27 @@ See VALIDATION-CACHE-EXT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((validation-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (validation-cache '%vk:validation-cache-ext validation-cache :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (validation-cache '%vk:validation-cache-ext validation-cache :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (get-validation-cache-data-ext
-                          %vk:get-validation-cache-data-ext
-                          "Represents [vkGetValidationCacheDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetValidationCacheDataEXT.html).
+(defvkfun (get-validation-cache-data-ext
+           %vk:get-validation-cache-data-ext
+           ((device device) (validation-cache validation-cache-ext) (data-size unsigned-byte))
+           (((data nil) cffi:foreign-pointer))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetValidationCacheDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetValidationCacheDataEXT.html).
 
 Args:
  - DEVICE: a DEVICE
  - VALIDATION-CACHE: a VALIDATION-CACHE-EXT
+ - DATA-SIZE: a UNSIGNED-BYTE
  - DATA (optional): a CFFI:FOREIGN-POINTER, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     RESULT)
 
 Success codes:
@@ -8551,18 +8813,18 @@ See RESULT
 See VALIDATION-CACHE-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (validation-cache cffi:foreign-pointer))
-                          (((data nil) cffi:foreign-pointer))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
-  (validation-cache '%vk:validation-cache-ext validation-cache :in :handle)
-  (data-size '%vk:size-t data-size :out)
+  (device '%vk:device device :in :dispatchable :handle)
+  (validation-cache '%vk:validation-cache-ext validation-cache :in :non-dispatchable :handle)
+  (data-size :size data-size :in)
   (data '(:pointer :void) data :in :handle :optional))
 
-(defvk-simple-fun (merge-validation-caches-ext
-                   %vk:merge-validation-caches-ext
-                   "Represents [vkMergeValidationCachesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMergeValidationCachesEXT.html).
+(defvkfun (merge-validation-caches-ext
+           %vk:merge-validation-caches-ext
+           ((device device) (dst-cache validation-cache-ext) (src-caches (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkMergeValidationCachesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkMergeValidationCachesEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8587,22 +8849,23 @@ See RESULT
 See VALIDATION-CACHE-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (dst-cache cffi:foreign-pointer) (src-caches (or list vector)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (dst-cache '%vk:validation-cache-ext dst-cache :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (dst-cache '%vk:validation-cache-ext dst-cache :in :non-dispatchable :handle)
   (src-cache-count :uint32 (length src-caches) :in :raw)
-  (src-caches '%vk:validation-cache-ext src-caches :in :handle :list))
+  (src-caches '%vk:validation-cache-ext src-caches :in :non-dispatchable :handle :list))
 
-(defvk-get-struct-fun (get-descriptor-set-layout-support
-                       %vk:get-descriptor-set-layout-support
-                       "Represents [vkGetDescriptorSetLayoutSupport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDescriptorSetLayoutSupport.html).
+(defvkfun (get-descriptor-set-layout-support
+           %vk:get-descriptor-set-layout-support
+           ((device device) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
+           (((support nil) (or vk:descriptor-set-layout-support cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetDescriptorSetLayoutSupport](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDescriptorSetLayoutSupport.html).
 
 Args:
  - DEVICE: a DEVICE
  - CREATE-INFO: a (OR DESCRIPTOR-SET-LAYOUT-CREATE-INFO CFFI:FOREIGN-POINTER)
+ - SUPPORT (optional): a (OR DESCRIPTOR-SET-LAYOUT-SUPPORT CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8612,19 +8875,22 @@ See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
 See DESCRIPTOR-SET-LAYOUT-SUPPORT
 See DEVICE
 "
-                       ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:descriptor-set-layout-create-info) create-info :in)
-  (support '(:struct %vk:descriptor-set-layout-support) support :out))
+  (support '(:struct %vk:descriptor-set-layout-support) (or support (vk:make-descriptor-set-layout-support)) :in :out :optional))
 
-(defvk-get-struct-fun (get-descriptor-set-layout-support-khr
-                       %vk:get-descriptor-set-layout-support-khr
-                       "Represents [vkGetDescriptorSetLayoutSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDescriptorSetLayoutSupportKHR.html).
+(defvkfun (get-descriptor-set-layout-support-khr
+           %vk:get-descriptor-set-layout-support-khr
+           ((device device) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
+           (((support nil) (or vk:descriptor-set-layout-support cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t)
+  "Represents [vkGetDescriptorSetLayoutSupportKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDescriptorSetLayoutSupportKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - CREATE-INFO: a (OR DESCRIPTOR-SET-LAYOUT-CREATE-INFO CFFI:FOREIGN-POINTER)
+ - SUPPORT (optional): a (OR DESCRIPTOR-SET-LAYOUT-SUPPORT CFFI:FOREIGN-POINTER), defaults to: NIL
 
 Returns:
   (CL:VALUES
@@ -8634,27 +8900,29 @@ See DESCRIPTOR-SET-LAYOUT-CREATE-INFO
 See DESCRIPTOR-SET-LAYOUT-SUPPORT
 See DEVICE
 "
-                       ((device cffi:foreign-pointer) (create-info (or vk:descriptor-set-layout-create-info cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:descriptor-set-layout-create-info) create-info :in)
-  (support '(:struct %vk:descriptor-set-layout-support) support :out))
+  (support '(:struct %vk:descriptor-set-layout-support) (or support (vk:make-descriptor-set-layout-support)) :in :out :optional))
 
-(defvk-create-handle-fun (get-shader-info-amd
-                          %vk:get-shader-info-amd
-                          "Represents [vkGetShaderInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetShaderInfoAMD.html).
+(defvkfun (get-shader-info-amd
+           %vk:get-shader-info-amd
+           ((device device) (pipeline pipeline) (shader-stage keyword) (info-type keyword) (info-size unsigned-byte))
+           (((info nil) cffi:foreign-pointer))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetShaderInfoAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetShaderInfoAMD.html).
 
 Args:
  - DEVICE: a DEVICE
  - PIPELINE: a PIPELINE
  - SHADER-STAGE: a SHADER-STAGE-FLAG-BITS
  - INFO-TYPE: a SHADER-INFO-TYPE-AMD
+ - INFO-SIZE: a UNSIGNED-BYTE
  - INFO (optional): a CFFI:FOREIGN-POINTER, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     RESULT)
 
 Success codes:
@@ -8673,20 +8941,20 @@ See SHADER-INFO-TYPE-AMD
 See SHADER-STAGE-FLAG-BITS
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader-stage keyword) (info-type keyword))
-                          (((info nil) cffi:foreign-pointer))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
   (shader-stage '%vk:shader-stage-flag-bits shader-stage :in :raw)
   (info-type '%vk:shader-info-type-amd info-type :in :raw)
-  (info-size '%vk:size-t info-size :out)
+  (info-size :size info-size :in)
   (info '(:pointer :void) info :in :handle :optional))
 
-(defvk-simple-fun (set-local-dimming-amd
-                   %vk:set-local-dimming-amd
-                   "Represents [vkSetLocalDimmingAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetLocalDimmingAMD.html).
+(defvkfun (set-local-dimming-amd
+           %vk:set-local-dimming-amd
+           ((device device) (swap-chain swapchain-khr) (local-dimming-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetLocalDimmingAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetLocalDimmingAMD.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8700,17 +8968,19 @@ See EXTENSION-LOADER
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (swap-chain cffi:foreign-pointer) (local-dimming-enable boolean))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (swap-chain '%vk:swapchain-khr swap-chain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swap-chain '%vk:swapchain-khr swap-chain :in :non-dispatchable :handle)
   (local-dimming-enable '%vk:bool32 local-dimming-enable :in :raw))
 
-(defvk-enumerate-fun (get-physical-device-calibrateable-time-domains-ext
-                      %vk:get-physical-device-calibrateable-time-domains-ext
-                      "Represents [vkGetPhysicalDeviceCalibrateableTimeDomainsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html).
+(defvkfun (get-physical-device-calibrateable-time-domains-ext
+           %vk:get-physical-device-calibrateable-time-domains-ext
+           ((physical-device physical-device))
+           ()
+           :count-arg-name time-domain-count
+           :first-array-arg-name time-domains
+           :enumerate-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceCalibrateableTimeDomainsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -8718,7 +8988,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     TIME-DOMAIN-EXTs
     RESULT)
 
@@ -8736,18 +9005,18 @@ See RESULT
 See TIME-DOMAIN-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      time-domain-count
-                      time-domains
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (time-domain-count :uint32 time-domain-count :out)
   (time-domains '%vk:time-domain-ext time-domains :out :raw :list))
 
-(defvk-get-array-and-singular-fun (get-calibrated-timestamps-ext
-                                   %vk:get-calibrated-timestamps-ext
-                                   "Represents [vkGetCalibratedTimestampsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetCalibratedTimestampsEXT.html).
+(defvkfun (get-calibrated-timestamps-ext
+           %vk:get-calibrated-timestamps-ext
+           ((device device) (timestamp-infos (or list vector)))
+           ()
+           :len-provider (length timestamp-infos)
+           :first-array-arg-name timestamps
+           :extension-p t)
+  "Represents [vkGetCalibratedTimestampsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetCalibratedTimestampsEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8773,20 +9042,19 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                                   ((device cffi:foreign-pointer) (timestamp-infos (or list vector)))
-                                   ()
-                                   (length timestamp-infos)
-                                   timestamps
-                                   t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (timestamp-count :uint32 (length timestamp-infos) :in :raw)
   (timestamp-infos '(:struct %vk:calibrated-timestamp-info-ext) timestamp-infos :in :list)
   (timestamps :uint64 timestamps :out :list)
   (max-deviation :uint64 max-deviation :out))
 
-(defvk-simple-fun (set-debug-utils-object-name-ext
-                   %vk:set-debug-utils-object-name-ext
-                   "Represents [vkSetDebugUtilsObjectNameEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html).
+(defvkfun (set-debug-utils-object-name-ext
+           %vk:set-debug-utils-object-name-ext
+           ((device device) (name-info (or vk:debug-utils-object-name-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetDebugUtilsObjectNameEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8810,16 +9078,16 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (name-info (or vk:debug-utils-object-name-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (name-info '(:struct %vk:debug-utils-object-name-info-ext) name-info :in))
 
-(defvk-simple-fun (set-debug-utils-object-tag-ext
-                   %vk:set-debug-utils-object-tag-ext
-                   "Represents [vkSetDebugUtilsObjectTagEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html).
+(defvkfun (set-debug-utils-object-tag-ext
+           %vk:set-debug-utils-object-tag-ext
+           ((device device) (tag-info (or vk:debug-utils-object-tag-info-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetDebugUtilsObjectTagEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -8843,16 +9111,16 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (tag-info (or vk:debug-utils-object-tag-info-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (tag-info '(:struct %vk:debug-utils-object-tag-info-ext) tag-info :in))
 
-(defvk-simple-fun (queue-begin-debug-utils-label-ext
-                   %vk:queue-begin-debug-utils-label-ext
-                   "Represents [vkQueueBeginDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html).
+(defvkfun (queue-begin-debug-utils-label-ext
+           %vk:queue-begin-debug-utils-label-ext
+           ((queue queue) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkQueueBeginDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -8864,16 +9132,16 @@ See EXTENSION-LOADER
 See QUEUE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
-(defvk-simple-fun (queue-end-debug-utils-label-ext
-                   %vk:queue-end-debug-utils-label-ext
-                   "Represents [vkQueueEndDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html).
+(defvkfun (queue-end-debug-utils-label-ext
+           %vk:queue-end-debug-utils-label-ext
+           ((queue queue))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkQueueEndDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -8883,15 +9151,15 @@ See EXTENSION-LOADER
 See QUEUE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((queue cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (queue '%vk:queue queue :in :handle))
+  (queue '%vk:queue queue :in :dispatchable :handle))
 
-(defvk-simple-fun (queue-insert-debug-utils-label-ext
-                   %vk:queue-insert-debug-utils-label-ext
-                   "Represents [vkQueueInsertDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html).
+(defvkfun (queue-insert-debug-utils-label-ext
+           %vk:queue-insert-debug-utils-label-ext
+           ((queue queue) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkQueueInsertDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -8903,16 +9171,16 @@ See EXTENSION-LOADER
 See QUEUE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((queue cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
-(defvk-simple-fun (cmd-begin-debug-utils-label-ext
-                   %vk:cmd-begin-debug-utils-label-ext
-                   "Represents [vkCmdBeginDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html).
+(defvkfun (cmd-begin-debug-utils-label-ext
+           %vk:cmd-begin-debug-utils-label-ext
+           ((command-buffer command-buffer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBeginDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -8924,16 +9192,16 @@ See DEBUG-UTILS-LABEL-EXT
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
-(defvk-simple-fun (cmd-end-debug-utils-label-ext
-                   %vk:cmd-end-debug-utils-label-ext
-                   "Represents [vkCmdEndDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html).
+(defvkfun (cmd-end-debug-utils-label-ext
+           %vk:cmd-end-debug-utils-label-ext
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEndDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -8943,15 +9211,15 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle))
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
 
-(defvk-simple-fun (cmd-insert-debug-utils-label-ext
-                   %vk:cmd-insert-debug-utils-label-ext
-                   "Represents [vkCmdInsertDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html).
+(defvkfun (cmd-insert-debug-utils-label-ext
+           %vk:cmd-insert-debug-utils-label-ext
+           ((command-buffer command-buffer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdInsertDebugUtilsLabelEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -8963,16 +9231,16 @@ See DEBUG-UTILS-LABEL-EXT
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (label-info (or vk:debug-utils-label-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (label-info '(:struct %vk:debug-utils-label-ext) label-info :in))
 
-(defvk-create-handle-fun (create-debug-utils-messenger-ext
-                          %vk:create-debug-utils-messenger-ext
-                          "Represents [vkCreateDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html).
+(defvkfun (create-debug-utils-messenger-ext
+           %vk:create-debug-utils-messenger-ext
+           ((instance instance) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-debug-utils-messenger-ext-wrapper
+           :extension-p t)
+  "Represents [vkCreateDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -9000,18 +9268,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:debug-utils-messenger-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:debug-utils-messenger-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (messenger '%vk:debug-utils-messenger-ext messenger :out :handle))
+  (messenger '%vk:debug-utils-messenger-ext messenger :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-debug-utils-messenger-ext
-                   %vk:destroy-debug-utils-messenger-ext
-                   "Represents [vkDestroyDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html).
+(defvkfun (destroy-debug-utils-messenger-ext
+           %vk:destroy-debug-utils-messenger-ext
+           ((instance instance))
+           (((messenger (vk:make-debug-utils-messenger-ext-wrapper (cffi:null-pointer))) debug-utils-messenger-ext) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyDebugUtilsMessengerEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -9026,17 +9294,17 @@ See INSTANCE
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((instance cffi:foreign-pointer))
-                   (((messenger (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (instance '%vk:instance instance :in :handle)
-  (messenger '%vk:debug-utils-messenger-ext messenger :in :handle :optional)
+  (instance '%vk:instance instance :in :dispatchable :handle)
+  (messenger '%vk:debug-utils-messenger-ext messenger :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (submit-debug-utils-message-ext
-                   %vk:submit-debug-utils-message-ext
-                   "Represents [vkSubmitDebugUtilsMessageEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html).
+(defvkfun (submit-debug-utils-message-ext
+           %vk:submit-debug-utils-message-ext
+           ((instance instance) (message-severity keyword) (message-types (or unsigned-byte list)) (callback-data (or vk:debug-utils-messenger-callback-data-ext cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSubmitDebugUtilsMessageEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
@@ -9052,23 +9320,25 @@ See EXTENSION-LOADER
 See INSTANCE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((instance cffi:foreign-pointer) (message-severity keyword) (message-types (or unsigned-byte list)) (callback-data (or vk:debug-utils-messenger-callback-data-ext cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (message-severity '%vk:debug-utils-message-severity-flag-bits-ext message-severity :in :raw)
   (message-types '%vk:debug-utils-message-type-flags-ext message-types :in :raw)
   (callback-data '(:struct %vk:debug-utils-messenger-callback-data-ext) callback-data :in))
 
-(defvk-get-struct-fun (get-memory-host-pointer-properties-ext
-                       %vk:get-memory-host-pointer-properties-ext
-                       "Represents [vkGetMemoryHostPointerPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html).
+(defvkfun (get-memory-host-pointer-properties-ext
+           %vk:get-memory-host-pointer-properties-ext
+           ((device device) (handle-type keyword) (host-pointer cffi:foreign-pointer))
+           (((memory-host-pointer-properties nil) (or vk:memory-host-pointer-properties-ext cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetMemoryHostPointerPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html).
 
 Args:
  - DEVICE: a DEVICE
  - HANDLE-TYPE: a EXTERNAL-MEMORY-HANDLE-TYPE-FLAG-BITS
  - HOST-POINTER: a CFFI:FOREIGN-POINTER
+ - MEMORY-HOST-POINTER-PROPERTIES (optional): a (OR MEMORY-HOST-POINTER-PROPERTIES-EXT CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -9090,17 +9360,18 @@ See MEMORY-HOST-POINTER-PROPERTIES-EXT
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (handle-type keyword) (host-pointer cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (handle-type '%vk:external-memory-handle-type-flag-bits handle-type :in :raw)
   (host-pointer '(:pointer :void) host-pointer :in :handle)
-  (memory-host-pointer-properties '(:struct %vk:memory-host-pointer-properties-ext) memory-host-pointer-properties :out))
+  (memory-host-pointer-properties '(:struct %vk:memory-host-pointer-properties-ext) (or memory-host-pointer-properties (vk:make-memory-host-pointer-properties-ext)) :in :out :optional))
 
-(defvk-simple-fun (cmd-write-buffer-marker-amd
-                   %vk:cmd-write-buffer-marker-amd
-                   "Represents [vkCmdWriteBufferMarkerAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteBufferMarkerAMD.html).
+(defvkfun (cmd-write-buffer-marker-amd
+           %vk:cmd-write-buffer-marker-amd
+           ((command-buffer command-buffer) (pipeline-stage keyword) (dst-buffer buffer) (dst-offset unsigned-byte) (marker unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdWriteBufferMarkerAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteBufferMarkerAMD.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9117,19 +9388,18 @@ See EXTENSION-LOADER
 See PIPELINE-STAGE-FLAG-BITS
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-stage keyword) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-stage '%vk:pipeline-stage-flag-bits pipeline-stage :in :raw)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (dst-offset '%vk:device-size dst-offset :in :raw)
   (marker :uint32 marker :in :raw))
 
-(defvk-create-handle-fun (create-render-pass-2
-                          %vk:create-render-pass-2
-                          "Represents [vkCreateRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass2.html).
+(defvkfun (create-render-pass-2
+           %vk:create-render-pass-2
+           ((device device) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-render-pass-wrapper)
+  "Represents [vkCreateRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass2.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9155,17 +9425,17 @@ See RENDER-PASS-CREATE-INFO-2
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:render-pass-create-info-2) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (render-pass '%vk:render-pass render-pass :out :handle))
+  (render-pass '%vk:render-pass render-pass :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-render-pass-2-khr
-                          %vk:create-render-pass-2-khr
-                          "Represents [vkCreateRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass2KHR.html).
+(defvkfun (create-render-pass-2-khr
+           %vk:create-render-pass-2-khr
+           ((device device) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-render-pass-wrapper)
+  "Represents [vkCreateRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRenderPass2KHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9191,37 +9461,17 @@ See RENDER-PASS-CREATE-INFO-2
 See RESULT
 See *DEFAULT-ALLOCATOR*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:render-pass-create-info-2 cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:render-pass-create-info-2) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (render-pass '%vk:render-pass render-pass :out :handle))
+  (render-pass '%vk:render-pass render-pass :out :non-dispatchable :handle))
 
-(defvk-simple-fun (cmd-begin-render-pass-2
-                   %vk:cmd-begin-render-pass-2
-                   "Represents [vkCmdBeginRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass2.html).
-
-Args:
- - COMMAND-BUFFER: a COMMAND-BUFFER
- - RENDER-PASS-BEGIN: a (OR RENDER-PASS-BEGIN-INFO CFFI:FOREIGN-POINTER)
- - SUBPASS-BEGIN-INFO: a (OR SUBPASS-BEGIN-INFO CFFI:FOREIGN-POINTER)
-
-See COMMAND-BUFFER
-See RENDER-PASS-BEGIN-INFO
-See SUBPASS-BEGIN-INFO
-"
-                   ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
-  (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in))
-
-(defvk-simple-fun (cmd-begin-render-pass-2-khr
-                   %vk:cmd-begin-render-pass-2-khr
-                   "Represents [vkCmdBeginRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass2KHR.html).
+(defvkfun (cmd-begin-render-pass-2
+           %vk:cmd-begin-render-pass-2
+           ((command-buffer command-buffer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBeginRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass2.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9232,16 +9482,36 @@ See COMMAND-BUFFER
 See RENDER-PASS-BEGIN-INFO
 See SUBPASS-BEGIN-INFO
 "
-                   ((command-buffer cffi:foreign-pointer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in))
 
-(defvk-simple-fun (cmd-next-subpass-2
-                   %vk:cmd-next-subpass-2
-                   "Represents [vkCmdNextSubpass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass2.html).
+(defvkfun (cmd-begin-render-pass-2-khr
+           %vk:cmd-begin-render-pass-2-khr
+           ((command-buffer command-buffer) (render-pass-begin (or vk:render-pass-begin-info cffi:foreign-pointer)) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdBeginRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderPass2KHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - RENDER-PASS-BEGIN: a (OR RENDER-PASS-BEGIN-INFO CFFI:FOREIGN-POINTER)
+ - SUBPASS-BEGIN-INFO: a (OR SUBPASS-BEGIN-INFO CFFI:FOREIGN-POINTER)
+
+See COMMAND-BUFFER
+See RENDER-PASS-BEGIN-INFO
+See SUBPASS-BEGIN-INFO
+"
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (render-pass-begin '(:struct %vk:render-pass-begin-info) render-pass-begin :in)
+  (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in))
+
+(defvkfun (cmd-next-subpass-2
+           %vk:cmd-next-subpass-2
+           ((command-buffer command-buffer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdNextSubpass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass2.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9252,16 +9522,16 @@ See COMMAND-BUFFER
 See SUBPASS-BEGIN-INFO
 See SUBPASS-END-INFO
 "
-                   ((command-buffer cffi:foreign-pointer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
 
-(defvk-simple-fun (cmd-next-subpass-2-khr
-                   %vk:cmd-next-subpass-2-khr
-                   "Represents [vkCmdNextSubpass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass2KHR.html).
+(defvkfun (cmd-next-subpass-2-khr
+           %vk:cmd-next-subpass-2-khr
+           ((command-buffer command-buffer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdNextSubpass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdNextSubpass2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9272,16 +9542,16 @@ See COMMAND-BUFFER
 See SUBPASS-BEGIN-INFO
 See SUBPASS-END-INFO
 "
-                   ((command-buffer cffi:foreign-pointer) (subpass-begin-info (or vk:subpass-begin-info cffi:foreign-pointer)) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (subpass-begin-info '(:struct %vk:subpass-begin-info) subpass-begin-info :in)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
 
-(defvk-simple-fun (cmd-end-render-pass-2
-                   %vk:cmd-end-render-pass-2
-                   "Represents [vkCmdEndRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass2.html).
+(defvkfun (cmd-end-render-pass-2
+           %vk:cmd-end-render-pass-2
+           ((command-buffer command-buffer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdEndRenderPass2](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass2.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9290,15 +9560,15 @@ Args:
 See COMMAND-BUFFER
 See SUBPASS-END-INFO
 "
-                   ((command-buffer cffi:foreign-pointer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
 
-(defvk-simple-fun (cmd-end-render-pass-2-khr
-                   %vk:cmd-end-render-pass-2-khr
-                   "Represents [vkCmdEndRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass2KHR.html).
+(defvkfun (cmd-end-render-pass-2-khr
+           %vk:cmd-end-render-pass-2-khr
+           ((command-buffer command-buffer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdEndRenderPass2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderPass2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9307,15 +9577,14 @@ Args:
 See COMMAND-BUFFER
 See SUBPASS-END-INFO
 "
-                   ((command-buffer cffi:foreign-pointer) (subpass-end-info (or vk:subpass-end-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (subpass-end-info '(:struct %vk:subpass-end-info) subpass-end-info :in))
 
-(defvk-create-handle-fun (get-semaphore-counter-value
-                          %vk:get-semaphore-counter-value
-                          "Represents [vkGetSemaphoreCounterValue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreCounterValue.html).
+(defvkfun (get-semaphore-counter-value
+           %vk:get-semaphore-counter-value
+           ((device device) (semaphore semaphore))
+           ())
+  "Represents [vkGetSemaphoreCounterValue](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreCounterValue.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9338,16 +9607,15 @@ See DEVICE
 See RESULT
 See SEMAPHORE
 "
-                          ((device cffi:foreign-pointer) (semaphore cffi:foreign-pointer))
-                          ()
-                          nil)
-  (device '%vk:device device :in :handle)
-  (semaphore '%vk:semaphore semaphore :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (semaphore '%vk:semaphore semaphore :in :non-dispatchable :handle)
   (value :uint64 value :out))
 
-(defvk-create-handle-fun (get-semaphore-counter-value-khr
-                          %vk:get-semaphore-counter-value-khr
-                          "Represents [vkGetSemaphoreCounterValueKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreCounterValueKHR.html).
+(defvkfun (get-semaphore-counter-value-khr
+           %vk:get-semaphore-counter-value-khr
+           ((device device) (semaphore semaphore))
+           ())
+  "Represents [vkGetSemaphoreCounterValueKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetSemaphoreCounterValueKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9370,16 +9638,16 @@ See DEVICE
 See RESULT
 See SEMAPHORE
 "
-                          ((device cffi:foreign-pointer) (semaphore cffi:foreign-pointer))
-                          ()
-                          nil)
-  (device '%vk:device device :in :handle)
-  (semaphore '%vk:semaphore semaphore :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (semaphore '%vk:semaphore semaphore :in :non-dispatchable :handle)
   (value :uint64 value :out))
 
-(defvk-simple-fun (wait-semaphores
-                   %vk:wait-semaphores
-                   "Represents [vkWaitSemaphores](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitSemaphores.html).
+(defvkfun (wait-semaphores
+           %vk:wait-semaphores
+           ((device device) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkWaitSemaphores](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitSemaphores.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9403,16 +9671,16 @@ See DEVICE
 See RESULT
 See SEMAPHORE-WAIT-INFO
 "
-                   ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (wait-info '(:struct %vk:semaphore-wait-info) wait-info :in)
   (timeout :uint64 timeout :in :raw))
 
-(defvk-simple-fun (wait-semaphores-khr
-                   %vk:wait-semaphores-khr
-                   "Represents [vkWaitSemaphoresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitSemaphoresKHR.html).
+(defvkfun (wait-semaphores-khr
+           %vk:wait-semaphores-khr
+           ((device device) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkWaitSemaphoresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitSemaphoresKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9436,16 +9704,16 @@ See DEVICE
 See RESULT
 See SEMAPHORE-WAIT-INFO
 "
-                   ((device cffi:foreign-pointer) (wait-info (or vk:semaphore-wait-info cffi:foreign-pointer)) (timeout unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (wait-info '(:struct %vk:semaphore-wait-info) wait-info :in)
   (timeout :uint64 timeout :in :raw))
 
-(defvk-simple-fun (signal-semaphore
-                   %vk:signal-semaphore
-                   "Represents [vkSignalSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSignalSemaphore.html).
+(defvkfun (signal-semaphore
+           %vk:signal-semaphore
+           ((device device) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkSignalSemaphore](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSignalSemaphore.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9466,15 +9734,15 @@ See DEVICE
 See RESULT
 See SEMAPHORE-SIGNAL-INFO
 "
-                   ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (signal-info '(:struct %vk:semaphore-signal-info) signal-info :in))
 
-(defvk-simple-fun (signal-semaphore-khr
-                   %vk:signal-semaphore-khr
-                   "Represents [vkSignalSemaphoreKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSignalSemaphoreKHR.html).
+(defvkfun (signal-semaphore-khr
+           %vk:signal-semaphore-khr
+           ((device device) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkSignalSemaphoreKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSignalSemaphoreKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9495,19 +9763,22 @@ See DEVICE
 See RESULT
 See SEMAPHORE-SIGNAL-INFO
 "
-                   ((device cffi:foreign-pointer) (signal-info (or vk:semaphore-signal-info cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (signal-info '(:struct %vk:semaphore-signal-info) signal-info :in))
 
-(defvk-get-struct-fun (get-android-hardware-buffer-properties-android
-                       %vk:get-android-hardware-buffer-properties-android
-                       "Represents [vkGetAndroidHardwareBufferPropertiesANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html).
+(defvkfun (get-android-hardware-buffer-properties-android
+           %vk:get-android-hardware-buffer-properties-android
+           ((device device) (buffer cffi:foreign-pointer))
+           (((properties nil) (or vk:android-hardware-buffer-properties-android cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetAndroidHardwareBufferPropertiesANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html).
 
 Args:
  - DEVICE: a DEVICE
  - BUFFER: a A-HARDWARE-BUFFER
+ - PROPERTIES (optional): a (OR ANDROID-HARDWARE-BUFFER-PROPERTIES-ANDROID CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -9529,16 +9800,16 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (buffer cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (buffer '(:pointer :void) buffer :in)
-  (properties '(:struct %vk:android-hardware-buffer-properties-android) properties :out))
+  (properties '(:struct %vk:android-hardware-buffer-properties-android) (or properties (vk:make-android-hardware-buffer-properties-android)) :in :out :optional))
 
-(defvk-get-struct-fun (get-memory-android-hardware-buffer-android
-                       %vk:get-memory-android-hardware-buffer-android
-                       "Represents [vkGetMemoryAndroidHardwareBufferANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html).
+(defvkfun (get-memory-android-hardware-buffer-android
+           %vk:get-memory-android-hardware-buffer-android
+           ((device device) (info (or vk:memory-get-android-hardware-buffer-info-android cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetMemoryAndroidHardwareBufferANDROID](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -9564,16 +9835,16 @@ See MEMORY-GET-ANDROID-HARDWARE-BUFFER-INFO-ANDROID
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (info (or vk:memory-get-android-hardware-buffer-info-android cffi:foreign-pointer)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:memory-get-android-hardware-buffer-info-android) info :in)
   (buffer '(:pointer :void) buffer :out))
 
-(defvk-simple-fun (cmd-draw-indirect-count
-                   %vk:cmd-draw-indirect-count
-                   "Represents [vkCmdDrawIndirectCount](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCount.html).
+(defvkfun (cmd-draw-indirect-count
+           %vk:cmd-draw-indirect-count
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndirectCount](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCount.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9588,20 +9859,20 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-indirect-count-amd
-                   %vk:cmd-draw-indirect-count-amd
-                   "Represents [vkCmdDrawIndirectCountAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCountAMD.html).
+(defvkfun (cmd-draw-indirect-count-amd
+           %vk:cmd-draw-indirect-count-amd
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndirectCountAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCountAMD.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9616,20 +9887,20 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-indirect-count-khr
-                   %vk:cmd-draw-indirect-count-khr
-                   "Represents [vkCmdDrawIndirectCountKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCountKHR.html).
+(defvkfun (cmd-draw-indirect-count-khr
+           %vk:cmd-draw-indirect-count-khr
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndirectCountKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectCountKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9644,20 +9915,20 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-indexed-indirect-count
-                   %vk:cmd-draw-indexed-indirect-count
-                   "Represents [vkCmdDrawIndexedIndirectCount](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCount.html).
+(defvkfun (cmd-draw-indexed-indirect-count
+           %vk:cmd-draw-indexed-indirect-count
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndexedIndirectCount](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCount.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9672,20 +9943,20 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-indexed-indirect-count-amd
-                   %vk:cmd-draw-indexed-indirect-count-amd
-                   "Represents [vkCmdDrawIndexedIndirectCountAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCountAMD.html).
+(defvkfun (cmd-draw-indexed-indirect-count-amd
+           %vk:cmd-draw-indexed-indirect-count-amd
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndexedIndirectCountAMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCountAMD.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9700,20 +9971,20 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-indexed-indirect-count-khr
-                   %vk:cmd-draw-indexed-indirect-count-khr
-                   "Represents [vkCmdDrawIndexedIndirectCountKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCountKHR.html).
+(defvkfun (cmd-draw-indexed-indirect-count-khr
+           %vk:cmd-draw-indexed-indirect-count-khr
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkCmdDrawIndexedIndirectCountKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndexedIndirectCountKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9728,20 +9999,21 @@ See BUFFER
 See COMMAND-BUFFER
 See DEVICE-SIZE
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-set-checkpoint-nv
-                   %vk:cmd-set-checkpoint-nv
-                   "Represents [vkCmdSetCheckpointNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCheckpointNV.html).
+(defvkfun (cmd-set-checkpoint-nv
+           %vk:cmd-set-checkpoint-nv
+           ((command-buffer command-buffer) (checkpoint-marker cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetCheckpointNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCheckpointNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9752,24 +10024,28 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (checkpoint-marker cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (checkpoint-marker '(:pointer :void) checkpoint-marker :in :handle))
 
-(defvk-get-structs-fun (get-queue-checkpoint-data-nv
-                        %vk:get-queue-checkpoint-data-nv
-                        "Represents [vkGetQueueCheckpointDataNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueueCheckpointDataNV.html).
+(defvkfun (get-queue-checkpoint-data-nv
+           %vk:get-queue-checkpoint-data-nv
+           ((queue queue))
+           (((checkpoint-data nil) (or list vector)))
+           :vk-constructor vk:make-checkpoint-data-nv
+           :count-arg-name checkpoint-data-count
+           :first-array-arg-name checkpoint-data
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetQueueCheckpointDataNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueueCheckpointDataNV.html).
 
 Args:
  - QUEUE: a QUEUE
+ - CHECKPOINT-DATA (optional): a (OR LIST VECTOR) of (OR CHECKPOINT-DATA-NV CFFI:FOREIGN-POINTER) instances, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     CHECKPOINT-DATA-NVs)
 
 See CHECKPOINT-DATA-NV
@@ -9777,19 +10053,17 @@ See EXTENSION-LOADER
 See QUEUE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                        ((queue cffi:foreign-pointer))
-                        ()
-                        checkpoint-data-count
-                        checkpoint-data
-                      t
-                        t)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (checkpoint-data-count :uint32 checkpoint-data-count :out)
-  (checkpoint-data '(:struct %vk:checkpoint-data-nv) checkpoint-data :out :list))
+  (checkpoint-data '(:struct %vk:checkpoint-data-nv) checkpoint-data :in :out :list :optional))
 
-(defvk-simple-fun (cmd-bind-transform-feedback-buffers-ext
-                   %vk:cmd-bind-transform-feedback-buffers-ext
-                   "Represents [vkCmdBindTransformFeedbackBuffersEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html).
+(defvkfun (cmd-bind-transform-feedback-buffers-ext
+           %vk:cmd-bind-transform-feedback-buffers-ext
+           ((command-buffer command-buffer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
+           (((sizes nil) (or list vector)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBindTransformFeedbackBuffersEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9805,20 +10079,20 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
-                   (((sizes nil) (or list vector)))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-binding :uint32 first-binding :in :raw)
   (binding-count :uint32 (length sizes) :in :raw)
-  (buffers '%vk:buffer buffers :in :handle :list)
+  (buffers '%vk:buffer buffers :in :non-dispatchable :handle :list)
   (offsets '%vk:device-size offsets :in :list)
   (sizes '%vk:device-size sizes :in :list :optional))
 
-(defvk-simple-fun (cmd-begin-transform-feedback-ext
-                   %vk:cmd-begin-transform-feedback-ext
-                   "Represents [vkCmdBeginTransformFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html).
+(defvkfun (cmd-begin-transform-feedback-ext
+           %vk:cmd-begin-transform-feedback-ext
+           ((command-buffer command-buffer) (first-counter-buffer unsigned-byte) (counter-buffers (or list vector)))
+           (((counter-buffer-offsets nil) (or list vector)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBeginTransformFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9833,19 +10107,19 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers (or list vector)))
-                   (((counter-buffer-offsets nil) (or list vector)))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-counter-buffer :uint32 first-counter-buffer :in :raw)
   (counter-buffer-count :uint32 (length counter-buffer-offsets) :in :raw)
-  (counter-buffers '%vk:buffer counter-buffers :in :handle :list)
+  (counter-buffers '%vk:buffer counter-buffers :in :non-dispatchable :handle :list)
   (counter-buffer-offsets '%vk:device-size counter-buffer-offsets :in :list :optional))
 
-(defvk-simple-fun (cmd-end-transform-feedback-ext
-                   %vk:cmd-end-transform-feedback-ext
-                   "Represents [vkCmdEndTransformFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndTransformFeedbackEXT.html).
+(defvkfun (cmd-end-transform-feedback-ext
+           %vk:cmd-end-transform-feedback-ext
+           ((command-buffer command-buffer) (first-counter-buffer unsigned-byte) (counter-buffers (or list vector)))
+           (((counter-buffer-offsets nil) (or list vector)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEndTransformFeedbackEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndTransformFeedbackEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9860,19 +10134,19 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-counter-buffer unsigned-byte) (counter-buffers (or list vector)))
-                   (((counter-buffer-offsets nil) (or list vector)))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-counter-buffer :uint32 first-counter-buffer :in :raw)
   (counter-buffer-count :uint32 (length counter-buffer-offsets) :in :raw)
-  (counter-buffers '%vk:buffer counter-buffers :in :handle :list)
+  (counter-buffers '%vk:buffer counter-buffers :in :non-dispatchable :handle :list)
   (counter-buffer-offsets '%vk:device-size counter-buffer-offsets :in :list :optional))
 
-(defvk-simple-fun (cmd-begin-query-indexed-ext
-                   %vk:cmd-begin-query-indexed-ext
-                   "Represents [vkCmdBeginQueryIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginQueryIndexedEXT.html).
+(defvkfun (cmd-begin-query-indexed-ext
+           %vk:cmd-begin-query-indexed-ext
+           ((command-buffer command-buffer) (query-pool query-pool) (query unsigned-byte) (index unsigned-byte))
+           (((flags nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBeginQueryIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginQueryIndexedEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9888,19 +10162,19 @@ See QUERY-CONTROL-FLAGS
 See QUERY-POOL
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte) (index unsigned-byte))
-                   (((flags nil) (or unsigned-byte list)))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (query :uint32 query :in :raw)
   (flags '%vk:query-control-flags flags :in :raw :optional)
   (index :uint32 index :in :raw))
 
-(defvk-simple-fun (cmd-end-query-indexed-ext
-                   %vk:cmd-end-query-indexed-ext
-                   "Represents [vkCmdEndQueryIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndQueryIndexedEXT.html).
+(defvkfun (cmd-end-query-indexed-ext
+           %vk:cmd-end-query-indexed-ext
+           ((command-buffer command-buffer) (query-pool query-pool) (query unsigned-byte) (index unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEndQueryIndexedEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndQueryIndexedEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9914,18 +10188,18 @@ See EXTENSION-LOADER
 See QUERY-POOL
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (query-pool cffi:foreign-pointer) (query unsigned-byte) (index unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (query :uint32 query :in :raw)
   (index :uint32 index :in :raw))
 
-(defvk-simple-fun (cmd-draw-indirect-byte-count-ext
-                   %vk:cmd-draw-indirect-byte-count-ext
-                   "Represents [vkCmdDrawIndirectByteCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html).
+(defvkfun (cmd-draw-indirect-byte-count-ext
+           %vk:cmd-draw-indirect-byte-count-ext
+           ((command-buffer command-buffer) (instance-count unsigned-byte) (first-instance unsigned-byte) (counter-buffer buffer) (counter-buffer-offset unsigned-byte) (counter-offset unsigned-byte) (vertex-stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDrawIndirectByteCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9943,21 +10217,21 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (instance-count unsigned-byte) (first-instance unsigned-byte) (counter-buffer cffi:foreign-pointer) (counter-buffer-offset unsigned-byte) (counter-offset unsigned-byte) (vertex-stride unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (instance-count :uint32 instance-count :in :raw)
   (first-instance :uint32 first-instance :in :raw)
-  (counter-buffer '%vk:buffer counter-buffer :in :handle)
+  (counter-buffer '%vk:buffer counter-buffer :in :non-dispatchable :handle)
   (counter-buffer-offset '%vk:device-size counter-buffer-offset :in :raw)
   (counter-offset :uint32 counter-offset :in :raw)
   (vertex-stride :uint32 vertex-stride :in :raw))
 
-(defvk-simple-fun (cmd-set-exclusive-scissor-nv
-                   %vk:cmd-set-exclusive-scissor-nv
-                   "Represents [vkCmdSetExclusiveScissorNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetExclusiveScissorNV.html).
+(defvkfun (cmd-set-exclusive-scissor-nv
+           %vk:cmd-set-exclusive-scissor-nv
+           ((command-buffer command-buffer) (first-exclusive-scissor unsigned-byte) (exclusive-scissors (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetExclusiveScissorNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetExclusiveScissorNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9970,18 +10244,18 @@ See EXTENSION-LOADER
 See RECT-2D
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-exclusive-scissor unsigned-byte) (exclusive-scissors (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-exclusive-scissor :uint32 first-exclusive-scissor :in :raw)
   (exclusive-scissor-count :uint32 (length exclusive-scissors) :in :raw)
   (exclusive-scissors '(:struct %vk:rect-2d) exclusive-scissors :in :list))
 
-(defvk-simple-fun (cmd-bind-shading-rate-image-nv
-                   %vk:cmd-bind-shading-rate-image-nv
-                   "Represents [vkCmdBindShadingRateImageNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindShadingRateImageNV.html).
+(defvkfun (cmd-bind-shading-rate-image-nv
+           %vk:cmd-bind-shading-rate-image-nv
+           ((command-buffer command-buffer) (image-layout keyword))
+           (((image-view (vk:make-image-view-wrapper (cffi:null-pointer))) image-view))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBindShadingRateImageNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindShadingRateImageNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -9995,17 +10269,17 @@ See IMAGE-LAYOUT
 See IMAGE-VIEW
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (image-layout keyword))
-                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (image-view '%vk:image-view image-view :in :handle :optional)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (image-view '%vk:image-view image-view :in :non-dispatchable :handle :optional)
   (image-layout '%vk:image-layout image-layout :in :raw))
 
-(defvk-simple-fun (cmd-set-viewport-shading-rate-palette-nv
-                   %vk:cmd-set-viewport-shading-rate-palette-nv
-                   "Represents [vkCmdSetViewportShadingRatePaletteNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html).
+(defvkfun (cmd-set-viewport-shading-rate-palette-nv
+           %vk:cmd-set-viewport-shading-rate-palette-nv
+           ((command-buffer command-buffer) (first-viewport unsigned-byte) (shading-rate-palettes (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetViewportShadingRatePaletteNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10018,18 +10292,18 @@ See EXTENSION-LOADER
 See SHADING-RATE-PALETTE-NV
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-viewport unsigned-byte) (shading-rate-palettes (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-viewport :uint32 first-viewport :in :raw)
   (viewport-count :uint32 (length shading-rate-palettes) :in :raw)
   (shading-rate-palettes '(:struct %vk:shading-rate-palette-nv) shading-rate-palettes :in :list))
 
-(defvk-simple-fun (cmd-set-coarse-sample-order-nv
-                   %vk:cmd-set-coarse-sample-order-nv
-                   "Represents [vkCmdSetCoarseSampleOrderNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html).
+(defvkfun (cmd-set-coarse-sample-order-nv
+           %vk:cmd-set-coarse-sample-order-nv
+           ((command-buffer command-buffer) (sample-order-type keyword) (custom-sample-orders (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetCoarseSampleOrderNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10043,18 +10317,18 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (sample-order-type keyword) (custom-sample-orders (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (sample-order-type '%vk:coarse-sample-order-type-nv sample-order-type :in :raw)
   (custom-sample-order-count :uint32 (length custom-sample-orders) :in :raw)
   (custom-sample-orders '(:struct %vk:coarse-sample-order-custom-nv) custom-sample-orders :in :list))
 
-(defvk-simple-fun (cmd-draw-mesh-tasks-nv
-                   %vk:cmd-draw-mesh-tasks-nv
-                   "Represents [vkCmdDrawMeshTasksNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksNV.html).
+(defvkfun (cmd-draw-mesh-tasks-nv
+           %vk:cmd-draw-mesh-tasks-nv
+           ((command-buffer command-buffer) (task-count unsigned-byte) (first-task unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDrawMeshTasksNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10066,17 +10340,17 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (task-count unsigned-byte) (first-task unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (task-count :uint32 task-count :in :raw)
   (first-task :uint32 first-task :in :raw))
 
-(defvk-simple-fun (cmd-draw-mesh-tasks-indirect-nv
-                   %vk:cmd-draw-mesh-tasks-indirect-nv
-                   "Represents [vkCmdDrawMeshTasksIndirectNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html).
+(defvkfun (cmd-draw-mesh-tasks-indirect-nv
+           %vk:cmd-draw-mesh-tasks-indirect-nv
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDrawMeshTasksIndirectNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10092,19 +10366,19 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
   (draw-count :uint32 draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (cmd-draw-mesh-tasks-indirect-count-nv
-                   %vk:cmd-draw-mesh-tasks-indirect-count-nv
-                   "Represents [vkCmdDrawMeshTasksIndirectCountNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html).
+(defvkfun (cmd-draw-mesh-tasks-indirect-count-nv
+           %vk:cmd-draw-mesh-tasks-indirect-count-nv
+           ((command-buffer command-buffer) (buffer buffer) (offset unsigned-byte) (count-buffer buffer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDrawMeshTasksIndirectCountNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10122,21 +10396,21 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (buffer cffi:foreign-pointer) (offset unsigned-byte) (count-buffer cffi:foreign-pointer) (count-buffer-offset unsigned-byte) (max-draw-count unsigned-byte) (stride unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (buffer '%vk:buffer buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (buffer '%vk:buffer buffer :in :non-dispatchable :handle)
   (offset '%vk:device-size offset :in :raw)
-  (count-buffer '%vk:buffer count-buffer :in :handle)
+  (count-buffer '%vk:buffer count-buffer :in :non-dispatchable :handle)
   (count-buffer-offset '%vk:device-size count-buffer-offset :in :raw)
   (max-draw-count :uint32 max-draw-count :in :raw)
   (stride :uint32 stride :in :raw))
 
-(defvk-simple-fun (compile-deferred-nv
-                   %vk:compile-deferred-nv
-                   "Represents [vkCompileDeferredNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCompileDeferredNV.html).
+(defvkfun (compile-deferred-nv
+           %vk:compile-deferred-nv
+           ((device device) (pipeline pipeline) (shader unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCompileDeferredNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCompileDeferredNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10161,17 +10435,17 @@ See PIPELINE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (shader unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
   (shader :uint32 shader :in :raw))
 
-(defvk-create-handle-fun (create-acceleration-structure-nv
-                          %vk:create-acceleration-structure-nv
-                          "Represents [vkCreateAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAccelerationStructureNV.html).
+(defvkfun (create-acceleration-structure-nv
+           %vk:create-acceleration-structure-nv
+           ((device device) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-acceleration-structure-nv-wrapper
+           :extension-p t)
+  "Represents [vkCreateAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAccelerationStructureNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10199,18 +10473,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-nv cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:acceleration-structure-create-info-nv) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :out :handle))
+  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :out :non-dispatchable :handle))
 
-(defvk-simple-fun (cmd-bind-invocation-mask-huawei
-                   %vk:cmd-bind-invocation-mask-huawei
-                   "Represents [vkCmdBindInvocationMaskHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html).
+(defvkfun (cmd-bind-invocation-mask-huawei
+           %vk:cmd-bind-invocation-mask-huawei
+           ((command-buffer command-buffer) (image-layout keyword))
+           (((image-view (vk:make-image-view-wrapper (cffi:null-pointer))) image-view))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBindInvocationMaskHUAWEI](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10224,38 +10498,42 @@ See IMAGE-LAYOUT
 See IMAGE-VIEW
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (image-layout keyword))
-                   (((image-view (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (image-view '%vk:image-view image-view :in :handle :optional)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (image-view '%vk:image-view image-view :in :non-dispatchable :handle :optional)
   (image-layout '%vk:image-layout image-layout :in :raw))
 
-(defvk-simple-fun (destroy-acceleration-structure-khr
-                   %vk:destroy-acceleration-structure-khr
-                   "Represents [vkDestroyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyAccelerationStructureKHR.html).
+(defvkfun (destroy-acceleration-structure-khr
+           %vk:destroy-acceleration-structure-khr
+           ((device device))
+           (((acceleration-structure (vk:make-acceleration-structure-khr-wrapper (cffi:null-pointer))) acceleration-structure-khr) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyAccelerationStructureKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - ACCELERATION-STRUCTURE (optional): a ACCELERATION-STRUCTURE-KHR, defaults to: NIL
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ACCELERATION-STRUCTURE-KHR
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (destroy-acceleration-structure-nv
-                   %vk:destroy-acceleration-structure-nv
-                   "Represents [vkDestroyAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyAccelerationStructureNV.html).
+(defvkfun (destroy-acceleration-structure-nv
+           %vk:destroy-acceleration-structure-nv
+           ((device device))
+           (((acceleration-structure (vk:make-acceleration-structure-nv-wrapper (cffi:null-pointer))) acceleration-structure-nv) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyAccelerationStructureNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10270,21 +10548,23 @@ See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((acceleration-structure (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-get-struct-fun (get-acceleration-structure-memory-requirements-nv
-                       %vk:get-acceleration-structure-memory-requirements-nv
-                       "Represents [vkGetAccelerationStructureMemoryRequirementsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html).
+(defvkfun (get-acceleration-structure-memory-requirements-nv
+           %vk:get-acceleration-structure-memory-requirements-nv
+           ((device device) (info (or vk:acceleration-structure-memory-requirements-info-nv cffi:foreign-pointer)))
+           (((memory-requirements nil) (or vk:memory-requirements-2 cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetAccelerationStructureMemoryRequirementsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR ACCELERATION-STRUCTURE-MEMORY-REQUIREMENTS-INFO-NV CFFI:FOREIGN-POINTER)
+ - MEMORY-REQUIREMENTS (optional): a MEMORY-REQUIREMENTS-2-KHR, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -10297,16 +10577,17 @@ See EXTENSION-LOADER
 See MEMORY-REQUIREMENTS-2-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-memory-requirements-info-nv cffi:foreign-pointer)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:acceleration-structure-memory-requirements-info-nv) info :in)
-  (memory-requirements '(:struct %vk:memory-requirements-2-khr) memory-requirements :out))
+  (memory-requirements '(:struct %vk:memory-requirements-2-khr) (or memory-requirements (vk:make-memory-requirements-2)) :in :out :optional))
 
-(defvk-simple-fun (bind-acceleration-structure-memory-nv
-                   %vk:bind-acceleration-structure-memory-nv
-                   "Represents [vkBindAccelerationStructureMemoryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindAccelerationStructureMemoryNV.html).
+(defvkfun (bind-acceleration-structure-memory-nv
+           %vk:bind-acceleration-structure-memory-nv
+           ((device device) (bind-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkBindAccelerationStructureMemoryNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindAccelerationStructureMemoryNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10330,17 +10611,17 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (bind-infos (or list vector)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (bind-info-count :uint32 (length bind-infos) :in :raw)
   (bind-infos '(:struct %vk:bind-acceleration-structure-memory-info-nv) bind-infos :in :list))
 
-(defvk-simple-fun (cmd-copy-acceleration-structure-nv
-                   %vk:cmd-copy-acceleration-structure-nv
-                   "Represents [vkCmdCopyAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureNV.html).
+(defvkfun (cmd-copy-acceleration-structure-nv
+           %vk:cmd-copy-acceleration-structure-nv
+           ((command-buffer command-buffer) (dst acceleration-structure-nv) (src acceleration-structure-nv) (mode keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10355,40 +10636,45 @@ See COPY-ACCELERATION-STRUCTURE-MODE-KHR
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (dst cffi:foreign-pointer) (src cffi:foreign-pointer) (mode keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (dst '%vk:acceleration-structure-nv dst :in :handle)
-  (src '%vk:acceleration-structure-nv src :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (dst '%vk:acceleration-structure-nv dst :in :non-dispatchable :handle)
+  (src '%vk:acceleration-structure-nv src :in :non-dispatchable :handle)
   (mode '%vk:copy-acceleration-structure-mode-khr mode :in :raw))
 
-(defvk-simple-fun (cmd-copy-acceleration-structure-khr
-                   %vk:cmd-copy-acceleration-structure-khr
-                   "Represents [vkCmdCopyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html).
+(defvkfun (cmd-copy-acceleration-structure-khr
+           %vk:cmd-copy-acceleration-structure-khr
+           ((command-buffer command-buffer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - INFO: a (OR COPY-ACCELERATION-STRUCTURE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-ACCELERATION-STRUCTURE-INFO-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (info '(:struct %vk:copy-acceleration-structure-info-khr) info :in))
 
-(defvk-simple-fun (copy-acceleration-structure-khr
-                   %vk:copy-acceleration-structure-khr
-                   "Represents [vkCopyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyAccelerationStructureKHR.html).
+(defvkfun (copy-acceleration-structure-khr
+           %vk:copy-acceleration-structure-khr
+           ((device device) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
+           (((deferred-operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) deferred-operation-khr))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCopyAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyAccelerationStructureKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR COPY-ACCELERATION-STRUCTURE-INFO-KHR CFFI:FOREIGN-POINTER)
  - DEFERRED-OPERATION (optional): a DEFERRED-OPERATION-KHR, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10406,40 +10692,48 @@ Errors signalled on codes:
 See COPY-ACCELERATION-STRUCTURE-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :non-dispatchable :handle :optional)
   (info '(:struct %vk:copy-acceleration-structure-info-khr) info :in))
 
-(defvk-simple-fun (cmd-copy-acceleration-structure-to-memory-khr
-                   %vk:cmd-copy-acceleration-structure-to-memory-khr
-                   "Represents [vkCmdCopyAccelerationStructureToMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html).
+(defvkfun (cmd-copy-acceleration-structure-to-memory-khr
+           %vk:cmd-copy-acceleration-structure-to-memory-khr
+           ((command-buffer command-buffer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyAccelerationStructureToMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - INFO: a (OR COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (info '(:struct %vk:copy-acceleration-structure-to-memory-info-khr) info :in))
 
-(defvk-simple-fun (copy-acceleration-structure-to-memory-khr
-                   %vk:copy-acceleration-structure-to-memory-khr
-                   "Represents [vkCopyAccelerationStructureToMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyAccelerationStructureToMemoryKHR.html).
+(defvkfun (copy-acceleration-structure-to-memory-khr
+           %vk:copy-acceleration-structure-to-memory-khr
+           ((device device) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
+           (((deferred-operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) deferred-operation-khr))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCopyAccelerationStructureToMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyAccelerationStructureToMemoryKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR CFFI:FOREIGN-POINTER)
  - DEFERRED-OPERATION (optional): a DEFERRED-OPERATION-KHR, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10457,40 +10751,48 @@ Errors signalled on codes:
 See COPY-ACCELERATION-STRUCTURE-TO-MEMORY-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:copy-acceleration-structure-to-memory-info-khr cffi:foreign-pointer)))
-                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :non-dispatchable :handle :optional)
   (info '(:struct %vk:copy-acceleration-structure-to-memory-info-khr) info :in))
 
-(defvk-simple-fun (cmd-copy-memory-to-acceleration-structure-khr
-                   %vk:cmd-copy-memory-to-acceleration-structure-khr
-                   "Represents [vkCmdCopyMemoryToAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html).
+(defvkfun (cmd-copy-memory-to-acceleration-structure-khr
+           %vk:cmd-copy-memory-to-acceleration-structure-khr
+           ((command-buffer command-buffer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyMemoryToAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - INFO: a (OR COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (info '(:struct %vk:copy-memory-to-acceleration-structure-info-khr) info :in))
 
-(defvk-simple-fun (copy-memory-to-acceleration-structure-khr
-                   %vk:copy-memory-to-acceleration-structure-khr
-                   "Represents [vkCopyMemoryToAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyMemoryToAccelerationStructureKHR.html).
+(defvkfun (copy-memory-to-acceleration-structure-khr
+           %vk:copy-memory-to-acceleration-structure-khr
+           ((device device) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
+           (((deferred-operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) deferred-operation-khr))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCopyMemoryToAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCopyMemoryToAccelerationStructureKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR CFFI:FOREIGN-POINTER)
  - DEFERRED-OPERATION (optional): a DEFERRED-OPERATION-KHR, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10508,18 +10810,21 @@ Errors signalled on codes:
 See COPY-MEMORY-TO-ACCELERATION-STRUCTURE-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:copy-memory-to-acceleration-structure-info-khr cffi:foreign-pointer)))
-                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :non-dispatchable :handle :optional)
   (info '(:struct %vk:copy-memory-to-acceleration-structure-info-khr) info :in))
 
-(defvk-simple-fun (cmd-write-acceleration-structures-properties-khr
-                   %vk:cmd-write-acceleration-structures-properties-khr
-                   "Represents [vkCmdWriteAccelerationStructuresPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html).
+(defvkfun (cmd-write-acceleration-structures-properties-khr
+           %vk:cmd-write-acceleration-structures-properties-khr
+           ((command-buffer command-buffer) (acceleration-structures (or list vector)) (query-type keyword) (query-pool query-pool) (first-query unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdWriteAccelerationStructuresPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10527,25 +10832,29 @@ Args:
  - QUERY-TYPE: a QUERY-TYPE
  - QUERY-POOL: a QUERY-POOL
  - FIRST-QUERY: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ACCELERATION-STRUCTURE-KHR
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See QUERY-POOL
 See QUERY-TYPE
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (acceleration-structures (or list vector)) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
-  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
+  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :non-dispatchable :handle :list)
   (query-type '%vk:query-type query-type :in :raw)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw))
 
-(defvk-simple-fun (cmd-write-acceleration-structures-properties-nv
-                   %vk:cmd-write-acceleration-structures-properties-nv
-                   "Represents [vkCmdWriteAccelerationStructuresPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html).
+(defvkfun (cmd-write-acceleration-structures-properties-nv
+           %vk:cmd-write-acceleration-structures-properties-nv
+           ((command-buffer command-buffer) (acceleration-structures (or list vector)) (query-type keyword) (query-pool query-pool) (first-query unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdWriteAccelerationStructuresPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10562,20 +10871,20 @@ See QUERY-POOL
 See QUERY-TYPE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (acceleration-structures (or list vector)) (query-type keyword) (query-pool cffi:foreign-pointer) (first-query unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
-  (acceleration-structures '%vk:acceleration-structure-nv acceleration-structures :in :handle :list)
+  (acceleration-structures '%vk:acceleration-structure-nv acceleration-structures :in :non-dispatchable :handle :list)
   (query-type '%vk:query-type query-type :in :raw)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (first-query :uint32 first-query :in :raw))
 
-(defvk-simple-fun (cmd-build-acceleration-structure-nv
-                   %vk:cmd-build-acceleration-structure-nv
-                   "Represents [vkCmdBuildAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructureNV.html).
+(defvkfun (cmd-build-acceleration-structure-nv
+           %vk:cmd-build-acceleration-structure-nv
+           ((command-buffer command-buffer) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)) (instance-offset unsigned-byte) (update boolean) (dst acceleration-structure-nv) (scratch buffer) (scratch-offset unsigned-byte))
+           (((instance-data (vk:make-buffer-wrapper (cffi:null-pointer))) buffer) ((src (vk:make-acceleration-structure-nv-wrapper (cffi:null-pointer))) acceleration-structure-nv))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBuildAccelerationStructureNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructureNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10598,23 +10907,23 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (info (or vk:acceleration-structure-info-nv cffi:foreign-pointer)) (instance-offset unsigned-byte) (update boolean) (dst cffi:foreign-pointer) (scratch cffi:foreign-pointer) (scratch-offset unsigned-byte))
-                   (((instance-data (cffi:null-pointer)) cffi:foreign-pointer) ((src (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (info '(:struct %vk:acceleration-structure-info-nv) info :in)
-  (instance-data '%vk:buffer instance-data :in :handle :optional)
+  (instance-data '%vk:buffer instance-data :in :non-dispatchable :handle :optional)
   (instance-offset '%vk:device-size instance-offset :in :raw)
   (update '%vk:bool32 update :in :raw)
-  (dst '%vk:acceleration-structure-nv dst :in :handle)
-  (src '%vk:acceleration-structure-nv src :in :handle :optional)
-  (scratch '%vk:buffer scratch :in :handle)
+  (dst '%vk:acceleration-structure-nv dst :in :non-dispatchable :handle)
+  (src '%vk:acceleration-structure-nv src :in :non-dispatchable :handle :optional)
+  (scratch '%vk:buffer scratch :in :non-dispatchable :handle)
   (scratch-offset '%vk:device-size scratch-offset :in :raw))
 
-(defvk-simple-fun (write-acceleration-structures-properties-khr
-                   %vk:write-acceleration-structures-properties-khr
-                   "Represents [vkWriteAccelerationStructuresPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html).
+(defvkfun (write-acceleration-structures-properties-khr
+           %vk:write-acceleration-structures-properties-khr
+           ((device device) (acceleration-structures (or list vector)) (query-type keyword) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkWriteAccelerationStructuresPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10623,6 +10932,7 @@ Args:
  - DATA-SIZE: a UNSIGNED-BYTE
  - DATA: a CFFI:FOREIGN-POINTER
  - STRIDE: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10637,23 +10947,26 @@ Errors signalled on codes:
 
 See ACCELERATION-STRUCTURE-KHR
 See DEVICE
+See EXTENSION-LOADER
 See QUERY-TYPE
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (acceleration-structures (or list vector)) (query-type keyword) (data-size unsigned-byte) (data cffi:foreign-pointer) (stride unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (acceleration-structure-count :uint32 (length acceleration-structures) :in :raw)
-  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :handle :list)
+  (acceleration-structures '%vk:acceleration-structure-khr acceleration-structures :in :non-dispatchable :handle :list)
   (query-type '%vk:query-type query-type :in :raw)
-  (data-size '%vk:size-t data-size :in :raw)
+  (data-size :size data-size :in :raw)
   (data '(:pointer :void) data :in :handle)
-  (stride '%vk:size-t stride :in :raw))
+  (stride :size stride :in :raw))
 
-(defvk-simple-fun (cmd-trace-rays-khr
-                   %vk:cmd-trace-rays-khr
-                   "Represents [vkCmdTraceRaysKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysKHR.html).
+(defvkfun (cmd-trace-rays-khr
+           %vk:cmd-trace-rays-khr
+           ((command-buffer command-buffer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdTraceRaysKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10664,14 +10977,14 @@ Args:
  - WIDTH: a UNSIGNED-BYTE
  - HEIGHT: a UNSIGNED-BYTE
  - DEPTH: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See STRIDED-DEVICE-ADDRESS-REGION-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (raygen-shader-binding-table '(:struct %vk:strided-device-address-region-khr) raygen-shader-binding-table :in)
   (miss-shader-binding-table '(:struct %vk:strided-device-address-region-khr) miss-shader-binding-table :in)
   (hit-shader-binding-table '(:struct %vk:strided-device-address-region-khr) hit-shader-binding-table :in)
@@ -10680,9 +10993,13 @@ See STRIDED-DEVICE-ADDRESS-REGION-KHR
   (height :uint32 height :in :raw)
   (depth :uint32 depth :in :raw))
 
-(defvk-simple-fun (cmd-trace-rays-nv
-                   %vk:cmd-trace-rays-nv
-                   "Represents [vkCmdTraceRaysNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysNV.html).
+(defvkfun (cmd-trace-rays-nv
+           %vk:cmd-trace-rays-nv
+           ((command-buffer command-buffer) (raygen-shader-binding-table-buffer buffer) (raygen-shader-binding-offset unsigned-byte) (miss-shader-binding-offset unsigned-byte) (miss-shader-binding-stride unsigned-byte) (hit-shader-binding-offset unsigned-byte) (hit-shader-binding-stride unsigned-byte) (callable-shader-binding-offset unsigned-byte) (callable-shader-binding-stride unsigned-byte) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
+           (((miss-shader-binding-table-buffer (vk:make-buffer-wrapper (cffi:null-pointer))) buffer) ((hit-shader-binding-table-buffer (vk:make-buffer-wrapper (cffi:null-pointer))) buffer) ((callable-shader-binding-table-buffer (vk:make-buffer-wrapper (cffi:null-pointer))) buffer))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdTraceRaysNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -10708,29 +11025,69 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table-buffer cffi:foreign-pointer) (raygen-shader-binding-offset unsigned-byte) (miss-shader-binding-offset unsigned-byte) (miss-shader-binding-stride unsigned-byte) (hit-shader-binding-offset unsigned-byte) (hit-shader-binding-stride unsigned-byte) (callable-shader-binding-offset unsigned-byte) (callable-shader-binding-stride unsigned-byte) (width unsigned-byte) (height unsigned-byte) (depth unsigned-byte))
-                   (((miss-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((hit-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer) ((callable-shader-binding-table-buffer (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (raygen-shader-binding-table-buffer '%vk:buffer raygen-shader-binding-table-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (raygen-shader-binding-table-buffer '%vk:buffer raygen-shader-binding-table-buffer :in :non-dispatchable :handle)
   (raygen-shader-binding-offset '%vk:device-size raygen-shader-binding-offset :in :raw)
-  (miss-shader-binding-table-buffer '%vk:buffer miss-shader-binding-table-buffer :in :handle :optional)
+  (miss-shader-binding-table-buffer '%vk:buffer miss-shader-binding-table-buffer :in :non-dispatchable :handle :optional)
   (miss-shader-binding-offset '%vk:device-size miss-shader-binding-offset :in :raw)
   (miss-shader-binding-stride '%vk:device-size miss-shader-binding-stride :in :raw)
-  (hit-shader-binding-table-buffer '%vk:buffer hit-shader-binding-table-buffer :in :handle :optional)
+  (hit-shader-binding-table-buffer '%vk:buffer hit-shader-binding-table-buffer :in :non-dispatchable :handle :optional)
   (hit-shader-binding-offset '%vk:device-size hit-shader-binding-offset :in :raw)
   (hit-shader-binding-stride '%vk:device-size hit-shader-binding-stride :in :raw)
-  (callable-shader-binding-table-buffer '%vk:buffer callable-shader-binding-table-buffer :in :handle :optional)
+  (callable-shader-binding-table-buffer '%vk:buffer callable-shader-binding-table-buffer :in :non-dispatchable :handle :optional)
   (callable-shader-binding-offset '%vk:device-size callable-shader-binding-offset :in :raw)
   (callable-shader-binding-stride '%vk:device-size callable-shader-binding-stride :in :raw)
   (width :uint32 width :in :raw)
   (height :uint32 height :in :raw)
   (depth :uint32 depth :in :raw))
 
-(defvk-simple-fun (get-ray-tracing-shader-group-handles-khr
-                   %vk:get-ray-tracing-shader-group-handles-khr
-                   "Represents [vkGetRayTracingShaderGroupHandlesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html).
+(defvkfun (get-ray-tracing-shader-group-handles-khr
+           %vk:get-ray-tracing-shader-group-handles-khr
+           ((device device) (pipeline pipeline) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetRayTracingShaderGroupHandlesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - PIPELINE: a PIPELINE
+ - FIRST-GROUP: a UNSIGNED-BYTE
+ - GROUP-COUNT: a UNSIGNED-BYTE
+ - DATA-SIZE: a UNSIGNED-BYTE
+ - DATA: a CFFI:FOREIGN-POINTER
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-OUT-OF-DEVICE-MEMORY
+
+See DEVICE
+See EXTENSION-LOADER
+See PIPELINE
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
+  (first-group :uint32 first-group :in :raw)
+  (group-count :uint32 group-count :in :raw)
+  (data-size :size data-size :in :raw)
+  (data '(:pointer :void) data :in :handle))
+
+(defvkfun (get-ray-tracing-shader-group-handles-nv
+           %vk:get-ray-tracing-shader-group-handles-nv
+           ((device device) (pipeline pipeline) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetRayTracingShaderGroupHandlesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupHandlesNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10755,19 +11112,20 @@ See DEVICE
 See PIPELINE
 See RESULT
 "
-                   ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
   (first-group :uint32 first-group :in :raw)
   (group-count :uint32 group-count :in :raw)
-  (data-size '%vk:size-t data-size :in :raw)
+  (data-size :size data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-simple-fun (get-ray-tracing-shader-group-handles-nv
-                   %vk:get-ray-tracing-shader-group-handles-nv
-                   "Represents [vkGetRayTracingShaderGroupHandlesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupHandlesNV.html).
+(defvkfun (get-ray-tracing-capture-replay-shader-group-handles-khr
+           %vk:get-ray-tracing-capture-replay-shader-group-handles-khr
+           ((device device) (pipeline pipeline) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetRayTracingCaptureReplayShaderGroupHandlesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10776,6 +11134,7 @@ Args:
  - GROUP-COUNT: a UNSIGNED-BYTE
  - DATA-SIZE: a UNSIGNED-BYTE
  - DATA: a CFFI:FOREIGN-POINTER
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10789,59 +11148,25 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See PIPELINE
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
   (first-group :uint32 first-group :in :raw)
   (group-count :uint32 group-count :in :raw)
-  (data-size '%vk:size-t data-size :in :raw)
+  (data-size :size data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-simple-fun (get-ray-tracing-capture-replay-shader-group-handles-khr
-                   %vk:get-ray-tracing-capture-replay-shader-group-handles-khr
-                   "Represents [vkGetRayTracingCaptureReplayShaderGroupHandlesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html).
-
-Args:
- - DEVICE: a DEVICE
- - PIPELINE: a PIPELINE
- - FIRST-GROUP: a UNSIGNED-BYTE
- - GROUP-COUNT: a UNSIGNED-BYTE
- - DATA-SIZE: a UNSIGNED-BYTE
- - DATA: a CFFI:FOREIGN-POINTER
-
-Returns:
-  (CL:VALUES
-    RESULT)
-
-Success codes:
- - SUCCESS
-
-Errors signalled on codes:
- - ERROR-OUT-OF-HOST-MEMORY
- - ERROR-OUT-OF-DEVICE-MEMORY
-
-See DEVICE
-See PIPELINE
-See RESULT
-"
-                   ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (first-group unsigned-byte) (group-count unsigned-byte) (data-size unsigned-byte) (data cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle)
-  (first-group :uint32 first-group :in :raw)
-  (group-count :uint32 group-count :in :raw)
-  (data-size '%vk:size-t data-size :in :raw)
-  (data '(:pointer :void) data :in :handle))
-
-(defvk-simple-fun (get-acceleration-structure-handle-nv
-                   %vk:get-acceleration-structure-handle-nv
-                   "Represents [vkGetAccelerationStructureHandleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureHandleNV.html).
+(defvkfun (get-acceleration-structure-handle-nv
+           %vk:get-acceleration-structure-handle-nv
+           ((device device) (acceleration-structure acceleration-structure-nv) (data-size unsigned-byte) (data cffi:foreign-pointer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetAccelerationStructureHandleNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureHandleNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10867,18 +11192,19 @@ See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (acceleration-structure cffi:foreign-pointer) (data-size unsigned-byte) (data cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :in :handle)
-  (data-size '%vk:size-t data-size :in :raw)
+  (device '%vk:device device :in :dispatchable :handle)
+  (acceleration-structure '%vk:acceleration-structure-nv acceleration-structure :in :non-dispatchable :handle)
+  (data-size :size data-size :in :raw)
   (data '(:pointer :void) data :in :handle))
 
-(defvk-create-handles-fun (create-ray-tracing-pipelines-nv
-                           %vk:create-ray-tracing-pipelines-nv
-                           "Represents [vkCreateRayTracingPipelinesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRayTracingPipelinesNV.html).
+(defvkfun (create-ray-tracing-pipelines-nv
+           %vk:create-ray-tracing-pipelines-nv
+           ((device device) (create-infos (or list vector)))
+           (((pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) pipeline-cache) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-pipeline-wrapper
+           :len-provider (length create-infos)
+           :extension-p t)
+  "Represents [vkCreateRayTracingPipelinesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRayTracingPipelinesNV.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10911,20 +11237,21 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                           ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                           (length create-infos)
-                           t)
-  (device '%vk:device device :in :handle)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :non-dispatchable :handle :optional)
   (create-info-count :uint32 (length create-infos) :in :raw)
   (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-nv) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle :list))
+  (pipelines '%vk:pipeline pipelines :out :non-dispatchable :handle :list))
 
-(defvk-create-handles-fun (create-ray-tracing-pipelines-khr
-                           %vk:create-ray-tracing-pipelines-khr
-                           "Represents [vkCreateRayTracingPipelinesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRayTracingPipelinesKHR.html).
+(defvkfun (create-ray-tracing-pipelines-khr
+           %vk:create-ray-tracing-pipelines-khr
+           ((device device) (create-infos (or list vector)))
+           (((deferred-operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) deferred-operation-khr) ((pipeline-cache (vk:make-pipeline-cache-wrapper (cffi:null-pointer))) pipeline-cache) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-pipeline-wrapper
+           :len-provider (length create-infos)
+           :extension-p t)
+  "Represents [vkCreateRayTracingPipelinesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateRayTracingPipelinesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -10932,6 +11259,7 @@ Args:
  - DEFERRED-OPERATION (optional): a DEFERRED-OPERATION-KHR, defaults to: NIL
  - PIPELINE-CACHE (optional): a PIPELINE-CACHE, defaults to: NIL
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -10952,34 +11280,40 @@ Errors signalled on codes:
 See ALLOCATION-CALLBACKS
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See PIPELINE
 See PIPELINE-CACHE
 See RAY-TRACING-PIPELINE-CREATE-INFO-KHR
 See RESULT
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                           ((device cffi:foreign-pointer) (create-infos (or list vector)))
-                           (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer) ((pipeline-cache (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                           (length create-infos))
-  (device '%vk:device device :in :handle)
-  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
-  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :non-dispatchable :handle :optional)
+  (pipeline-cache '%vk:pipeline-cache pipeline-cache :in :non-dispatchable :handle :optional)
   (create-info-count :uint32 (length create-infos) :in :raw)
   (create-infos '(:struct %vk:ray-tracing-pipeline-create-info-khr) create-infos :in :list)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (pipelines '%vk:pipeline pipelines :out :handle :list))
+  (pipelines '%vk:pipeline pipelines :out :non-dispatchable :handle :list))
 
-(defvk-enumerate-fun (get-physical-device-cooperative-matrix-properties-nv
-                      %vk:get-physical-device-cooperative-matrix-properties-nv
-                      "Represents [vkGetPhysicalDeviceCooperativeMatrixPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html).
+(defvkfun (get-physical-device-cooperative-matrix-properties-nv
+           %vk:get-physical-device-cooperative-matrix-properties-nv
+           ((physical-device physical-device))
+           (((properties nil) (or list vector)))
+           :count-arg-name property-count
+           :first-array-arg-name properties
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceCooperativeMatrixPropertiesNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR COOPERATIVE-MATRIX-PROPERTIES-NV CFFI:FOREIGN-POINTER) instances, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     COOPERATIVE-MATRIX-PROPERTIES-NVs
     RESULT)
 
@@ -10997,18 +11331,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      property-count
-                      properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (property-count :uint32 property-count :out)
-  (properties '(:struct %vk:cooperative-matrix-properties-nv) properties :out :list))
+  (properties '(:struct %vk:cooperative-matrix-properties-nv) properties :in :out :list :optional))
 
-(defvk-simple-fun (cmd-trace-rays-indirect-khr
-                   %vk:cmd-trace-rays-indirect-khr
-                   "Represents [vkCmdTraceRaysIndirectKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysIndirectKHR.html).
+(defvkfun (cmd-trace-rays-indirect-khr
+           %vk:cmd-trace-rays-indirect-khr
+           ((command-buffer command-buffer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (indirect-device-address unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdTraceRaysIndirectKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdTraceRaysIndirectKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -11017,28 +11350,33 @@ Args:
  - HIT-SHADER-BINDING-TABLE: a (OR STRIDED-DEVICE-ADDRESS-REGION-KHR CFFI:FOREIGN-POINTER)
  - CALLABLE-SHADER-BINDING-TABLE: a (OR STRIDED-DEVICE-ADDRESS-REGION-KHR CFFI:FOREIGN-POINTER)
  - INDIRECT-DEVICE-ADDRESS: a DEVICE-ADDRESS
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See DEVICE-ADDRESS
+See EXTENSION-LOADER
 See STRIDED-DEVICE-ADDRESS-REGION-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (raygen-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (miss-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (hit-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (callable-shader-binding-table (or vk:strided-device-address-region-khr cffi:foreign-pointer)) (indirect-device-address unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (raygen-shader-binding-table '(:struct %vk:strided-device-address-region-khr) raygen-shader-binding-table :in)
   (miss-shader-binding-table '(:struct %vk:strided-device-address-region-khr) miss-shader-binding-table :in)
   (hit-shader-binding-table '(:struct %vk:strided-device-address-region-khr) hit-shader-binding-table :in)
   (callable-shader-binding-table '(:struct %vk:strided-device-address-region-khr) callable-shader-binding-table :in)
   (indirect-device-address '%vk:device-address indirect-device-address :in :raw))
 
-(defvk-get-struct-fun (get-device-acceleration-structure-compatibility-khr
-                       %vk:get-device-acceleration-structure-compatibility-khr
-                       "Represents [vkGetDeviceAccelerationStructureCompatibilityKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html).
+(defvkfun (get-device-acceleration-structure-compatibility-khr
+           %vk:get-device-acceleration-structure-compatibility-khr
+           ((device device) (version-info (or vk:acceleration-structure-version-info-khr cffi:foreign-pointer)))
+           ()
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetDeviceAccelerationStructureCompatibilityKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - VERSION-INFO: a (OR ACCELERATION-STRUCTURE-VERSION-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -11047,22 +11385,27 @@ Returns:
 See ACCELERATION-STRUCTURE-COMPATIBILITY-KHR
 See ACCELERATION-STRUCTURE-VERSION-INFO-KHR
 See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (version-info (or vk:acceleration-structure-version-info-khr cffi:foreign-pointer)))
-                       ())
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (version-info '(:struct %vk:acceleration-structure-version-info-khr) version-info :in)
   (compatibility '%vk:acceleration-structure-compatibility-khr compatibility :out :raw))
 
-(defvk-simple-fun (get-ray-tracing-shader-group-stack-size-khr
-                   %vk:get-ray-tracing-shader-group-stack-size-khr
-                   "Represents [vkGetRayTracingShaderGroupStackSizeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html).
+(defvkfun (get-ray-tracing-shader-group-stack-size-khr
+           %vk:get-ray-tracing-shader-group-stack-size-khr
+           ((device device) (pipeline pipeline) (group unsigned-byte) (group-shader keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetRayTracingShaderGroupStackSizeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - PIPELINE: a PIPELINE
  - GROUP: a UNSIGNED-BYTE
  - GROUP-SHADER: a SHADER-GROUP-SHADER-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -11070,36 +11413,43 @@ Returns:
 
 See DEVICE
 See DEVICE-SIZE
+See EXTENSION-LOADER
 See PIPELINE
 See SHADER-GROUP-SHADER-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (pipeline cffi:foreign-pointer) (group unsigned-byte) (group-shader keyword))
-                   ()
-                  '%vk:device-size)
-  (device '%vk:device device :in :handle)
-  (pipeline '%vk:pipeline pipeline :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (pipeline '%vk:pipeline pipeline :in :non-dispatchable :handle)
   (group :uint32 group :in :raw)
   (group-shader '%vk:shader-group-shader-khr group-shader :in :raw))
 
-(defvk-simple-fun (cmd-set-ray-tracing-pipeline-stack-size-khr
-                   %vk:cmd-set-ray-tracing-pipeline-stack-size-khr
-                   "Represents [vkCmdSetRayTracingPipelineStackSizeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html).
+(defvkfun (cmd-set-ray-tracing-pipeline-stack-size-khr
+           %vk:cmd-set-ray-tracing-pipeline-stack-size-khr
+           ((command-buffer command-buffer) (pipeline-stack-size unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetRayTracingPipelineStackSizeKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - PIPELINE-STACK-SIZE: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (pipeline-stack-size unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (pipeline-stack-size :uint32 pipeline-stack-size :in :raw))
 
-(defvk-simple-fun (get-image-view-handle-nvx
-                   %vk:get-image-view-handle-nvx
-                   "Represents [vkGetImageViewHandleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewHandleNVX.html).
+(defvkfun (get-image-view-handle-nvx
+           %vk:get-image-view-handle-nvx
+           ((device device) (info (or vk:image-view-handle-info-nvx cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetImageViewHandleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewHandleNVX.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11115,20 +11465,22 @@ See EXTENSION-LOADER
 See IMAGE-VIEW-HANDLE-INFO-NVX
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:image-view-handle-info-nvx cffi:foreign-pointer)))
-                   ()
-                  :uint32
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:image-view-handle-info-nvx) info :in))
 
-(defvk-get-struct-fun (get-image-view-address-nvx
-                       %vk:get-image-view-address-nvx
-                       "Represents [vkGetImageViewAddressNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewAddressNVX.html).
+(defvkfun (get-image-view-address-nvx
+           %vk:get-image-view-address-nvx
+           ((device device) (image-view image-view))
+           (((properties nil) (or vk:image-view-address-properties-nvx cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetImageViewAddressNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageViewAddressNVX.html).
 
 Args:
  - DEVICE: a DEVICE
  - IMAGE-VIEW: a IMAGE-VIEW
+ - PROPERTIES (optional): a (OR IMAGE-VIEW-ADDRESS-PROPERTIES-NVX CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -11150,16 +11502,19 @@ See IMAGE-VIEW-ADDRESS-PROPERTIES-NVX
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (image-view cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
-  (image-view '%vk:image-view image-view :in :handle)
-  (properties '(:struct %vk:image-view-address-properties-nvx) properties :out))
+  (device '%vk:device device :in :dispatchable :handle)
+  (image-view '%vk:image-view image-view :in :non-dispatchable :handle)
+  (properties '(:struct %vk:image-view-address-properties-nvx) (or properties (vk:make-image-view-address-properties-nvx)) :in :out :optional))
 
-(defvk-enumerate-fun (get-physical-device-surface-present-modes-2-ext
-                      %vk:get-physical-device-surface-present-modes-2-ext
-                      "Represents [vkGetPhysicalDeviceSurfacePresentModes2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html).
+(defvkfun (get-physical-device-surface-present-modes-2-ext
+           %vk:get-physical-device-surface-present-modes-2-ext
+           ((physical-device physical-device) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
+           ()
+           :count-arg-name present-mode-count
+           :first-array-arg-name present-modes
+           :enumerate-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceSurfacePresentModes2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -11168,7 +11523,6 @@ Args:
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PRESENT-MODE-KHRs
     RESULT)
 
@@ -11188,19 +11542,17 @@ See PRESENT-MODE-KHR
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
-                      ()
-                      present-mode-count
-                      present-modes
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (present-mode-count :uint32 present-mode-count :out)
   (present-modes '%vk:present-mode-khr present-modes :out :raw :list))
 
-(defvk-get-struct-fun (get-device-group-surface-present-modes-2-ext
-                       %vk:get-device-group-surface-present-modes-2-ext
-                       "Represents [vkGetDeviceGroupSurfacePresentModes2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html).
+(defvkfun (get-device-group-surface-present-modes-2-ext
+           %vk:get-device-group-surface-present-modes-2-ext
+           ((device device) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
+           ()
+           :extension-p t)
+  "Represents [vkGetDeviceGroupSurfacePresentModes2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11227,16 +11579,17 @@ See PHYSICAL-DEVICE-SURFACE-INFO-2-KHR
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (surface-info (or vk:physical-device-surface-info-2-khr cffi:foreign-pointer)))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (surface-info '(:struct %vk:physical-device-surface-info-2-khr) surface-info :in)
   (modes '%vk:device-group-present-mode-flags-khr modes :out :raw))
 
-(defvk-simple-fun (acquire-full-screen-exclusive-mode-ext
-                   %vk:acquire-full-screen-exclusive-mode-ext
-                   "Represents [vkAcquireFullScreenExclusiveModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html).
+(defvkfun (acquire-full-screen-exclusive-mode-ext
+           %vk:acquire-full-screen-exclusive-mode-ext
+           ((device device) (swapchain swapchain-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkAcquireFullScreenExclusiveModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11262,16 +11615,16 @@ See RESULT
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle))
 
-(defvk-simple-fun (release-full-screen-exclusive-mode-ext
-                   %vk:release-full-screen-exclusive-mode-ext
-                   "Represents [vkReleaseFullScreenExclusiveModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html).
+(defvkfun (release-full-screen-exclusive-mode-ext
+           %vk:release-full-screen-exclusive-mode-ext
+           ((device device) (swapchain swapchain-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkReleaseFullScreenExclusiveModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11296,24 +11649,30 @@ See RESULT
 See SWAPCHAIN-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle))
 
-(defvk-enumerate-two-arrays-fun (enumerate-physical-device-queue-family-performance-query-counters-khr
-                                 %vk:enumerate-physical-device-queue-family-performance-query-counters-khr
-                                 "Represents [vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html).
+(defvkfun (enumerate-physical-device-queue-family-performance-query-counters-khr
+           %vk:enumerate-physical-device-queue-family-performance-query-counters-khr
+           ((physical-device physical-device) (queue-family-index unsigned-byte))
+           (((counters nil) (or list vector) t) ((counter-descriptions nil) (or list vector) t) )
+           :count-arg-name counter-count
+           :second-array-arg-name counter-descriptions
+           :first-array-arg-name counters
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - QUEUE-FAMILY-INDEX: a UNSIGNED-BYTE
+ - COUNTERS (optional): a (OR LIST VECTOR) of (OR PERFORMANCE-COUNTER-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - COUNTER-DESCRIPTIONS (optional): a (OR LIST VECTOR) of (OR PERFORMANCE-COUNTER-DESCRIPTION-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PERFORMANCE-COUNTER-KHRs
     PERFORMANCE-COUNTER-DESCRIPTION-KHRs
     RESULT)
@@ -11327,50 +11686,57 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
  - ERROR-INITIALIZATION-FAILED
 
+See EXTENSION-LOADER
 See PERFORMANCE-COUNTER-DESCRIPTION-KHR
 See PERFORMANCE-COUNTER-KHR
 See PHYSICAL-DEVICE
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                                 ((physical-device cffi:foreign-pointer) (queue-family-index unsigned-byte))
-                                 ()
-                                 counter-count
-                                 (counters counter-descriptions))
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
   (counter-count :uint32 counter-count :out)
-  (counters '(:struct %vk:performance-counter-khr) counters :out :list)
-  (counter-descriptions '(:struct %vk:performance-counter-description-khr) counter-descriptions :out :list))
+  (counters '(:struct %vk:performance-counter-khr) counters :ignore-in :in :out :list :optional)
+  (counter-descriptions '(:struct %vk:performance-counter-description-khr) counter-descriptions :ignore-in :in :out :list :optional))
 
-(defvk-create-handle-fun (get-physical-device-queue-family-performance-query-passes-khr
-                          %vk:get-physical-device-queue-family-performance-query-passes-khr
-                          "Represents [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html).
+(defvkfun (get-physical-device-queue-family-performance-query-passes-khr
+           %vk:get-physical-device-queue-family-performance-query-passes-khr
+           ((physical-device physical-device) (performance-query-create-info (or vk:query-pool-performance-create-info-khr cffi:foreign-pointer)))
+           ()
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - PERFORMANCE-QUERY-CREATE-INFO: a (OR QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
     UNSIGNED-BYTE)
 
+See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See QUERY-POOL-PERFORMANCE-CREATE-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((physical-device cffi:foreign-pointer) (performance-query-create-info (or vk:query-pool-performance-create-info-khr cffi:foreign-pointer)))
-                          ()
-                          t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (performance-query-create-info '(:struct %vk:query-pool-performance-create-info-khr) performance-query-create-info :in)
   (num-passes :uint32 num-passes :out))
 
-(defvk-simple-fun (acquire-profiling-lock-khr
-                   %vk:acquire-profiling-lock-khr
-                   "Represents [vkAcquireProfilingLockKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireProfilingLockKHR.html).
+(defvkfun (acquire-profiling-lock-khr
+           %vk:acquire-profiling-lock-khr
+           ((device device) (info (or vk:acquire-profiling-lock-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkAcquireProfilingLockKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireProfilingLockKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR ACQUIRE-PROFILING-LOCK-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -11385,35 +11751,44 @@ Errors signalled on codes:
 
 See ACQUIRE-PROFILING-LOCK-INFO-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:acquire-profiling-lock-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:acquire-profiling-lock-info-khr) info :in))
 
-(defvk-simple-fun (release-profiling-lock-khr
-                   %vk:release-profiling-lock-khr
-                   "Represents [vkReleaseProfilingLockKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseProfilingLockKHR.html).
+(defvkfun (release-profiling-lock-khr
+           %vk:release-profiling-lock-khr
+           ((device device))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkReleaseProfilingLockKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleaseProfilingLockKHR.html).
 
 Args:
  - DEVICE: a DEVICE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle))
+  (device '%vk:device device :in :dispatchable :handle))
 
-(defvk-get-struct-fun (get-image-drm-format-modifier-properties-ext
-                       %vk:get-image-drm-format-modifier-properties-ext
-                       "Represents [vkGetImageDrmFormatModifierPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html).
+(defvkfun (get-image-drm-format-modifier-properties-ext
+           %vk:get-image-drm-format-modifier-properties-ext
+           ((device device) (image image))
+           (((properties nil) (or vk:image-drm-format-modifier-properties-ext cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetImageDrmFormatModifierPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html).
 
 Args:
  - DEVICE: a DEVICE
  - IMAGE: a IMAGE
+ - PROPERTIES (optional): a (OR IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT CFFI:FOREIGN-POINTER), defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
@@ -11434,37 +11809,16 @@ See IMAGE-DRM-FORMAT-MODIFIER-PROPERTIES-EXT
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (image cffi:foreign-pointer))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
-  (image '%vk:image image :in :handle)
-  (properties '(:struct %vk:image-drm-format-modifier-properties-ext) properties :out))
+  (device '%vk:device device :in :dispatchable :handle)
+  (image '%vk:image image :in :non-dispatchable :handle)
+  (properties '(:struct %vk:image-drm-format-modifier-properties-ext) (or properties (vk:make-image-drm-format-modifier-properties-ext)) :in :out :optional))
 
-(defvk-simple-fun (get-buffer-opaque-capture-address
-                   %vk:get-buffer-opaque-capture-address
-                   "Represents [vkGetBufferOpaqueCaptureAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html).
-
-Args:
- - DEVICE: a DEVICE
- - INFO: a (OR BUFFER-DEVICE-ADDRESS-INFO CFFI:FOREIGN-POINTER)
-
-Returns:
-  (CL:VALUES
-    UNSIGNED-BYTE)
-
-See BUFFER-DEVICE-ADDRESS-INFO
-See DEVICE
-"
-                   ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
-                   ()
-                  :uint64)
-  (device '%vk:device device :in :handle)
-  (info '(:struct %vk:buffer-device-address-info) info :in))
-
-(defvk-simple-fun (get-buffer-opaque-capture-address-khr
-                   %vk:get-buffer-opaque-capture-address-khr
-                   "Represents [vkGetBufferOpaqueCaptureAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferOpaqueCaptureAddressKHR.html).
+(defvkfun (get-buffer-opaque-capture-address
+           %vk:get-buffer-opaque-capture-address
+           ((device device) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetBufferOpaqueCaptureAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11477,15 +11831,36 @@ Returns:
 See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
 "
-                   ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
-                   ()
-                  :uint64)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:buffer-device-address-info) info :in))
 
-(defvk-simple-fun (get-buffer-device-address
-                   %vk:get-buffer-device-address
-                   "Represents [vkGetBufferDeviceAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddress.html).
+(defvkfun (get-buffer-opaque-capture-address-khr
+           %vk:get-buffer-opaque-capture-address-khr
+           ((device device) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetBufferOpaqueCaptureAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferOpaqueCaptureAddressKHR.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - INFO: a (OR BUFFER-DEVICE-ADDRESS-INFO CFFI:FOREIGN-POINTER)
+
+Returns:
+  (CL:VALUES
+    UNSIGNED-BYTE)
+
+See BUFFER-DEVICE-ADDRESS-INFO
+See DEVICE
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (info '(:struct %vk:buffer-device-address-info) info :in))
+
+(defvkfun (get-buffer-device-address
+           %vk:get-buffer-device-address
+           ((device device) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetBufferDeviceAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddress.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11499,15 +11874,15 @@ See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
 See DEVICE-ADDRESS
 "
-                   ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
-                   ()
-                  '%vk:device-address)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:buffer-device-address-info) info :in))
 
-(defvk-simple-fun (get-buffer-device-address-ext
-                   %vk:get-buffer-device-address-ext
-                   "Represents [vkGetBufferDeviceAddressEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddressEXT.html).
+(defvkfun (get-buffer-device-address-ext
+           %vk:get-buffer-device-address-ext
+           ((device device) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetBufferDeviceAddressEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddressEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11521,15 +11896,15 @@ See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
 See DEVICE-ADDRESS
 "
-                   ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
-                   ()
-                  '%vk:device-address)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:buffer-device-address-info) info :in))
 
-(defvk-simple-fun (get-buffer-device-address-khr
-                   %vk:get-buffer-device-address-khr
-                   "Represents [vkGetBufferDeviceAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddressKHR.html).
+(defvkfun (get-buffer-device-address-khr
+           %vk:get-buffer-device-address-khr
+           ((device device) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetBufferDeviceAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferDeviceAddressKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11543,21 +11918,20 @@ See BUFFER-DEVICE-ADDRESS-INFO
 See DEVICE
 See DEVICE-ADDRESS
 "
-                   ((device cffi:foreign-pointer) (info (or vk:buffer-device-address-info cffi:foreign-pointer)))
-                   ()
-                  '%vk:device-address)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:buffer-device-address-info) info :in))
 
-(defvk-create-handle-fun (create-headless-surface-ext
-                          %vk:create-headless-surface-ext
-                          "Represents [vkCreateHeadlessSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateHeadlessSurfaceEXT.html).
+(defvkfun (create-headless-surface-ext
+           %vk:create-headless-surface-ext
+           ((instance instance) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-surface-khr-wrapper)
+  "Represents [vkCreateHeadlessSurfaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateHeadlessSurfaceEXT.html).
 
 Args:
  - INSTANCE: a INSTANCE
  - CREATE-INFO: a (OR HEADLESS-SURFACE-CREATE-INFO-EXT CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
- - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -11572,34 +11946,35 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See ALLOCATION-CALLBACKS
-See EXTENSION-LOADER
 See HEADLESS-SURFACE-CREATE-INFO-EXT
 See INSTANCE
 See RESULT
 See SURFACE-KHR
 See *DEFAULT-ALLOCATOR*
-See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((instance cffi:foreign-pointer) (create-info (or vk:headless-surface-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (instance '%vk:instance instance :in :handle)
+  (instance '%vk:instance instance :in :dispatchable :handle)
   (create-info '(:struct %vk:headless-surface-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (surface '%vk:surface-khr surface :out :handle))
+  (surface '%vk:surface-khr surface :out :non-dispatchable :handle))
 
-(defvk-enumerate-fun (get-physical-device-supported-framebuffer-mixed-samples-combinations-nv
-                      %vk:get-physical-device-supported-framebuffer-mixed-samples-combinations-nv
-                      "Represents [vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html).
+(defvkfun (get-physical-device-supported-framebuffer-mixed-samples-combinations-nv
+           %vk:get-physical-device-supported-framebuffer-mixed-samples-combinations-nv
+           ((physical-device physical-device))
+           (((combinations nil) (or list vector)))
+           :count-arg-name combination-count
+           :first-array-arg-name combinations
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - COMBINATIONS (optional): a (OR LIST VECTOR) of (OR FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NV CFFI:FOREIGN-POINTER) instances, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     FRAMEBUFFER-MIXED-SAMPLES-COMBINATION-NVs
     RESULT)
 
@@ -11617,18 +11992,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      combination-count
-                      combinations
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (combination-count :uint32 combination-count :out)
-  (combinations '(:struct %vk:framebuffer-mixed-samples-combination-nv) combinations :out :list))
+  (combinations '(:struct %vk:framebuffer-mixed-samples-combination-nv) combinations :in :out :list :optional))
 
-(defvk-simple-fun (initialize-performance-api-intel
-                   %vk:initialize-performance-api-intel
-                   "Represents [vkInitializePerformanceApiINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkInitializePerformanceApiINTEL.html).
+(defvkfun (initialize-performance-api-intel
+           %vk:initialize-performance-api-intel
+           ((device device) (initialize-info (or vk:initialize-performance-api-info-intel cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkInitializePerformanceApiINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkInitializePerformanceApiINTEL.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11652,16 +12026,16 @@ See INITIALIZE-PERFORMANCE-API-INFO-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (initialize-info (or vk:initialize-performance-api-info-intel cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (initialize-info '(:struct %vk:initialize-performance-api-info-intel) initialize-info :in))
 
-(defvk-simple-fun (uninitialize-performance-api-intel
-                   %vk:uninitialize-performance-api-intel
-                   "Represents [vkUninitializePerformanceApiINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUninitializePerformanceApiINTEL.html).
+(defvkfun (uninitialize-performance-api-intel
+           %vk:uninitialize-performance-api-intel
+           ((device device))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkUninitializePerformanceApiINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUninitializePerformanceApiINTEL.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11671,15 +12045,15 @@ See DEVICE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle))
+  (device '%vk:device device :in :dispatchable :handle))
 
-(defvk-simple-fun (cmd-set-performance-marker-intel
-                   %vk:cmd-set-performance-marker-intel
-                   "Represents [vkCmdSetPerformanceMarkerINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html).
+(defvkfun (cmd-set-performance-marker-intel
+           %vk:cmd-set-performance-marker-intel
+           ((command-buffer command-buffer) (marker-info (or vk:performance-marker-info-intel cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetPerformanceMarkerINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -11703,16 +12077,16 @@ See PERFORMANCE-MARKER-INFO-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-marker-info-intel cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (marker-info '(:struct %vk:performance-marker-info-intel) marker-info :in))
 
-(defvk-simple-fun (cmd-set-performance-stream-marker-intel
-                   %vk:cmd-set-performance-stream-marker-intel
-                   "Represents [vkCmdSetPerformanceStreamMarkerINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html).
+(defvkfun (cmd-set-performance-stream-marker-intel
+           %vk:cmd-set-performance-stream-marker-intel
+           ((command-buffer command-buffer) (marker-info (or vk:performance-stream-marker-info-intel cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetPerformanceStreamMarkerINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -11736,16 +12110,16 @@ See PERFORMANCE-STREAM-MARKER-INFO-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (marker-info (or vk:performance-stream-marker-info-intel cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (marker-info '(:struct %vk:performance-stream-marker-info-intel) marker-info :in))
 
-(defvk-simple-fun (cmd-set-performance-override-intel
-                   %vk:cmd-set-performance-override-intel
-                   "Represents [vkCmdSetPerformanceOverrideINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html).
+(defvkfun (cmd-set-performance-override-intel
+           %vk:cmd-set-performance-override-intel
+           ((command-buffer command-buffer) (override-info (or vk:performance-override-info-intel cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetPerformanceOverrideINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -11769,16 +12143,16 @@ See PERFORMANCE-OVERRIDE-INFO-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (override-info (or vk:performance-override-info-intel cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (override-info '(:struct %vk:performance-override-info-intel) override-info :in))
 
-(defvk-create-handle-fun (acquire-performance-configuration-intel
-                          %vk:acquire-performance-configuration-intel
-                          "Represents [vkAcquirePerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html).
+(defvkfun (acquire-performance-configuration-intel
+           %vk:acquire-performance-configuration-intel
+           ((device device) (acquire-info (or vk:performance-configuration-acquire-info-intel cffi:foreign-pointer)))
+           ()
+           :handle-constructor make-performance-configuration-intel-wrapper
+           :extension-p t)
+  "Represents [vkAcquirePerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11804,17 +12178,17 @@ See PERFORMANCE-CONFIGURATION-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (acquire-info (or vk:performance-configuration-acquire-info-intel cffi:foreign-pointer)))
-                          ()
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (acquire-info '(:struct %vk:performance-configuration-acquire-info-intel) acquire-info :in)
-  (configuration '%vk:performance-configuration-intel configuration :out :handle))
+  (configuration '%vk:performance-configuration-intel configuration :out :non-dispatchable :handle))
 
-(defvk-simple-fun (release-performance-configuration-intel
-                   %vk:release-performance-configuration-intel
-                   "Represents [vkReleasePerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html).
+(defvkfun (release-performance-configuration-intel
+           %vk:release-performance-configuration-intel
+           ((device device))
+           (((configuration (vk:make-performance-configuration-intel-wrapper (cffi:null-pointer))) performance-configuration-intel))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkReleasePerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11838,16 +12212,16 @@ See PERFORMANCE-CONFIGURATION-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((configuration (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (configuration '%vk:performance-configuration-intel configuration :in :handle :optional))
+  (device '%vk:device device :in :dispatchable :handle)
+  (configuration '%vk:performance-configuration-intel configuration :in :non-dispatchable :handle :optional))
 
-(defvk-simple-fun (queue-set-performance-configuration-intel
-                   %vk:queue-set-performance-configuration-intel
-                   "Represents [vkQueueSetPerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html).
+(defvkfun (queue-set-performance-configuration-intel
+           %vk:queue-set-performance-configuration-intel
+           ((queue queue) (configuration performance-configuration-intel))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkQueueSetPerformanceConfigurationINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html).
 
 Args:
  - QUEUE: a QUEUE
@@ -11871,16 +12245,16 @@ See QUEUE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((queue cffi:foreign-pointer) (configuration cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (queue '%vk:queue queue :in :handle)
-  (configuration '%vk:performance-configuration-intel configuration :in :handle))
+  (queue '%vk:queue queue :in :dispatchable :handle)
+  (configuration '%vk:performance-configuration-intel configuration :in :non-dispatchable :handle))
 
-(defvk-get-struct-fun (get-performance-parameter-intel
-                       %vk:get-performance-parameter-intel
-                       "Represents [vkGetPerformanceParameterINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPerformanceParameterINTEL.html).
+(defvkfun (get-performance-parameter-intel
+           %vk:get-performance-parameter-intel
+           ((device device) (parameter keyword))
+           ()
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPerformanceParameterINTEL](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPerformanceParameterINTEL.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11906,16 +12280,16 @@ See PERFORMANCE-VALUE-INTEL
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (parameter keyword))
-                       ()
-                       t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (parameter '%vk:performance-parameter-type-intel parameter :in :raw)
   (value '(:struct %vk:performance-value-intel) value :out))
 
-(defvk-simple-fun (get-device-memory-opaque-capture-address
-                   %vk:get-device-memory-opaque-capture-address
-                   "Represents [vkGetDeviceMemoryOpaqueCaptureAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html).
+(defvkfun (get-device-memory-opaque-capture-address
+           %vk:get-device-memory-opaque-capture-address
+           ((device device) (info (or vk:device-memory-opaque-capture-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetDeviceMemoryOpaqueCaptureAddress](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11928,15 +12302,15 @@ Returns:
 See DEVICE
 See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
 "
-                   ((device cffi:foreign-pointer) (info (or vk:device-memory-opaque-capture-address-info cffi:foreign-pointer)))
-                   ()
-                  :uint64)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:device-memory-opaque-capture-address-info) info :in))
 
-(defvk-simple-fun (get-device-memory-opaque-capture-address-khr
-                   %vk:get-device-memory-opaque-capture-address-khr
-                   "Represents [vkGetDeviceMemoryOpaqueCaptureAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html).
+(defvkfun (get-device-memory-opaque-capture-address-khr
+           %vk:get-device-memory-opaque-capture-address-khr
+           ((device device) (info (or vk:device-memory-opaque-capture-address-info cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial)
+  "Represents [vkGetDeviceMemoryOpaqueCaptureAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -11949,23 +12323,28 @@ Returns:
 See DEVICE
 See DEVICE-MEMORY-OPAQUE-CAPTURE-ADDRESS-INFO
 "
-                   ((device cffi:foreign-pointer) (info (or vk:device-memory-opaque-capture-address-info cffi:foreign-pointer)))
-                   ()
-                  :uint64)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:device-memory-opaque-capture-address-info) info :in))
 
-(defvk-enumerate-fun (get-pipeline-executable-properties-khr
-                      %vk:get-pipeline-executable-properties-khr
-                      "Represents [vkGetPipelineExecutablePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html).
+(defvkfun (get-pipeline-executable-properties-khr
+           %vk:get-pipeline-executable-properties-khr
+           ((device device) (pipeline-info (or vk:pipeline-info-khr cffi:foreign-pointer)))
+           (((properties nil) (or list vector)))
+           :count-arg-name executable-count
+           :first-array-arg-name properties
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPipelineExecutablePropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - PIPELINE-INFO: a (OR PIPELINE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - PROPERTIES (optional): a (OR LIST VECTOR) of (OR PIPELINE-EXECUTABLE-PROPERTIES-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PIPELINE-EXECUTABLE-PROPERTIES-KHRs
     RESULT)
 
@@ -11978,30 +12357,36 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See PIPELINE-EXECUTABLE-PROPERTIES-KHR
 See PIPELINE-INFO-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((device cffi:foreign-pointer) (pipeline-info (or vk:pipeline-info-khr cffi:foreign-pointer)))
-                      ()
-                      executable-count
-                      properties)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (pipeline-info '(:struct %vk:pipeline-info-khr) pipeline-info :in)
   (executable-count :uint32 executable-count :out)
-  (properties '(:struct %vk:pipeline-executable-properties-khr) properties :out :list))
+  (properties '(:struct %vk:pipeline-executable-properties-khr) properties :in :out :list :optional))
 
-(defvk-enumerate-fun (get-pipeline-executable-statistics-khr
-                      %vk:get-pipeline-executable-statistics-khr
-                      "Represents [vkGetPipelineExecutableStatisticsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutableStatisticsKHR.html).
+(defvkfun (get-pipeline-executable-statistics-khr
+           %vk:get-pipeline-executable-statistics-khr
+           ((device device) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
+           (((statistics nil) (or list vector)))
+           :count-arg-name statistic-count
+           :first-array-arg-name statistics
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPipelineExecutableStatisticsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutableStatisticsKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - EXECUTABLE-INFO: a (OR PIPELINE-EXECUTABLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - STATISTICS (optional): a (OR LIST VECTOR) of (OR PIPELINE-EXECUTABLE-STATISTIC-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PIPELINE-EXECUTABLE-STATISTIC-KHRs
     RESULT)
 
@@ -12014,30 +12399,36 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See PIPELINE-EXECUTABLE-INFO-KHR
 See PIPELINE-EXECUTABLE-STATISTIC-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
-                      ()
-                      statistic-count
-                      statistics)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (statistic-count :uint32 statistic-count :out)
-  (statistics '(:struct %vk:pipeline-executable-statistic-khr) statistics :out :list))
+  (statistics '(:struct %vk:pipeline-executable-statistic-khr) statistics :in :out :list :optional))
 
-(defvk-enumerate-fun (get-pipeline-executable-internal-representations-khr
-                      %vk:get-pipeline-executable-internal-representations-khr
-                      "Represents [vkGetPipelineExecutableInternalRepresentationsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html).
+(defvkfun (get-pipeline-executable-internal-representations-khr
+           %vk:get-pipeline-executable-internal-representations-khr
+           ((device device) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
+           (((internal-representations nil) (or list vector)))
+           :count-arg-name internal-representation-count
+           :first-array-arg-name internal-representations
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPipelineExecutableInternalRepresentationsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - EXECUTABLE-INFO: a (OR PIPELINE-EXECUTABLE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - INTERNAL-REPRESENTATIONS (optional): a (OR LIST VECTOR) of (OR PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHRs
     RESULT)
 
@@ -12050,22 +12441,24 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
 
 See DEVICE
+See EXTENSION-LOADER
 See PIPELINE-EXECUTABLE-INFO-KHR
 See PIPELINE-EXECUTABLE-INTERNAL-REPRESENTATION-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((device cffi:foreign-pointer) (executable-info (or vk:pipeline-executable-info-khr cffi:foreign-pointer)))
-                      ()
-                      internal-representation-count
-                      internal-representations)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (executable-info '(:struct %vk:pipeline-executable-info-khr) executable-info :in)
   (internal-representation-count :uint32 internal-representation-count :out)
-  (internal-representations '(:struct %vk:pipeline-executable-internal-representation-khr) internal-representations :out :list))
+  (internal-representations '(:struct %vk:pipeline-executable-internal-representation-khr) internal-representations :in :out :list :optional))
 
-(defvk-simple-fun (cmd-set-line-stipple-ext
-                   %vk:cmd-set-line-stipple-ext
-                   "Represents [vkCmdSetLineStippleEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLineStippleEXT.html).
+(defvkfun (cmd-set-line-stipple-ext
+           %vk:cmd-set-line-stipple-ext
+           ((command-buffer command-buffer) (line-stipple-factor unsigned-byte) (line-stipple-pattern unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetLineStippleEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLineStippleEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12077,25 +12470,28 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (line-stipple-factor unsigned-byte) (line-stipple-pattern unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (line-stipple-factor :uint32 line-stipple-factor :in :raw)
   (line-stipple-pattern :uint16 line-stipple-pattern :in :raw))
 
-(defvk-enumerate-fun (get-physical-device-tool-properties-ext
-                      %vk:get-physical-device-tool-properties-ext
-                      "Represents [vkGetPhysicalDeviceToolPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html).
+(defvkfun (get-physical-device-tool-properties-ext
+           %vk:get-physical-device-tool-properties-ext
+           ((physical-device physical-device))
+           (((tool-properties nil) (or list vector)))
+           :count-arg-name tool-count
+           :first-array-arg-name tool-properties
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceToolPropertiesEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - TOOL-PROPERTIES (optional): a (OR LIST VECTOR) of (OR PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT CFFI:FOREIGN-POINTER) instances, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PHYSICAL-DEVICE-TOOL-PROPERTIES-EXTs
     RESULT)
 
@@ -12112,23 +12508,23 @@ See PHYSICAL-DEVICE-TOOL-PROPERTIES-EXT
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      tool-count
-                      tool-properties
-                      t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (tool-count :uint32 tool-count :out)
-  (tool-properties '(:struct %vk:physical-device-tool-properties-ext) tool-properties :out :list))
+  (tool-properties '(:struct %vk:physical-device-tool-properties-ext) tool-properties :in :out :list :optional))
 
-(defvk-create-handle-fun (create-acceleration-structure-khr
-                          %vk:create-acceleration-structure-khr
-                          "Represents [vkCreateAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAccelerationStructureKHR.html).
+(defvkfun (create-acceleration-structure-khr
+           %vk:create-acceleration-structure-khr
+           ((device device) (create-info (or vk:acceleration-structure-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-acceleration-structure-khr-wrapper
+           :extension-p t)
+  "Represents [vkCreateAccelerationStructureKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateAccelerationStructureKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - CREATE-INFO: a (OR ACCELERATION-STRUCTURE-CREATE-INFO-KHR CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12146,41 +12542,48 @@ See ACCELERATION-STRUCTURE-CREATE-INFO-KHR
 See ACCELERATION-STRUCTURE-KHR
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:acceleration-structure-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:acceleration-structure-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :out :handle))
+  (acceleration-structure '%vk:acceleration-structure-khr acceleration-structure :out :non-dispatchable :handle))
 
-(defvk-simple-fun (cmd-build-acceleration-structures-khr
-                   %vk:cmd-build-acceleration-structures-khr
-                   "Represents [vkCmdBuildAccelerationStructuresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html).
+(defvkfun (cmd-build-acceleration-structures-khr
+           %vk:cmd-build-acceleration-structures-khr
+           ((command-buffer command-buffer) (infos (or list vector)) (p-build-range-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBuildAccelerationStructuresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - INFOS: a (OR LIST VECTOR) of (OR ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR CFFI:FOREIGN-POINTER) instances
  - P-BUILD-RANGE-INFOS: a (OR LIST VECTOR) of (OR ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR CFFI:FOREIGN-POINTER) instances
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR
 See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (infos (or list vector)) (p-build-range-infos (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (info-count :uint32 (length p-build-range-infos) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
-  (p-build-range-infos '(:struct %vk:acceleration-structure-build-range-info-khr) p-build-range-infos :in :list))
+  (p-build-range-infos '(:pointer (:pointer (:struct %vk:acceleration-structure-build-range-info-khr))) p-build-range-infos :in :list))
 
-(defvk-simple-fun (cmd-build-acceleration-structures-indirect-khr
-                   %vk:cmd-build-acceleration-structures-indirect-khr
-                   "Represents [vkCmdBuildAccelerationStructuresIndirectKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html).
+(defvkfun (cmd-build-acceleration-structures-indirect-khr
+           %vk:cmd-build-acceleration-structures-indirect-khr
+           ((command-buffer command-buffer) (infos (or list vector)) (indirect-device-addresses (or list vector)) (indirect-strides (or list vector)) (p-max-primitive-counts (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBuildAccelerationStructuresIndirectKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12188,30 +12591,35 @@ Args:
  - INDIRECT-DEVICE-ADDRESSES: a (OR LIST VECTOR) of DEVICE-ADDRESSs
  - INDIRECT-STRIDES: a (OR LIST VECTOR) of (OR LIST VECTOR)
  - P-MAX-PRIMITIVE-COUNTS: a (OR LIST VECTOR) of (OR LIST VECTOR)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See COMMAND-BUFFER
 See DEVICE-ADDRESS
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (infos (or list vector)) (indirect-device-addresses (or list vector)) (indirect-strides (or list vector)) (p-max-primitive-counts (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (info-count :uint32 (length p-max-primitive-counts) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
   (indirect-device-addresses '%vk:device-address indirect-device-addresses :in :list)
   (indirect-strides :uint32 indirect-strides :in :list)
-  (p-max-primitive-counts :uint32 p-max-primitive-counts :in :list))
+  (p-max-primitive-counts '(:pointer (:pointer :uint32)) p-max-primitive-counts :in :list))
 
-(defvk-simple-fun (build-acceleration-structures-khr
-                   %vk:build-acceleration-structures-khr
-                   "Represents [vkBuildAccelerationStructuresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBuildAccelerationStructuresKHR.html).
+(defvkfun (build-acceleration-structures-khr
+           %vk:build-acceleration-structures-khr
+           ((device device) (infos (or list vector)) (p-build-range-infos (or list vector)))
+           (((deferred-operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) deferred-operation-khr))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkBuildAccelerationStructuresKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBuildAccelerationStructuresKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFOS: a (OR LIST VECTOR) of (OR ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR CFFI:FOREIGN-POINTER) instances
  - P-BUILD-RANGE-INFOS: a (OR LIST VECTOR) of (OR ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR CFFI:FOREIGN-POINTER) instances
  - DEFERRED-OPERATION (optional): a DEFERRED-OPERATION-KHR, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12230,24 +12638,28 @@ See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-RANGE-INFO-KHR
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (infos (or list vector)) (p-build-range-infos (or list vector)))
-                   (((deferred-operation (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :in :non-dispatchable :handle :optional)
   (info-count :uint32 (length p-build-range-infos) :in :raw)
   (infos '(:struct %vk:acceleration-structure-build-geometry-info-khr) infos :in :list)
-  (p-build-range-infos '(:struct %vk:acceleration-structure-build-range-info-khr) p-build-range-infos :in :list))
+  (p-build-range-infos '(:pointer (:pointer (:struct %vk:acceleration-structure-build-range-info-khr))) p-build-range-infos :in :list))
 
-(defvk-simple-fun (get-acceleration-structure-device-address-khr
-                   %vk:get-acceleration-structure-device-address-khr
-                   "Represents [vkGetAccelerationStructureDeviceAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html).
+(defvkfun (get-acceleration-structure-device-address-khr
+           %vk:get-acceleration-structure-device-address-khr
+           ((device device) (info (or vk:acceleration-structure-device-address-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetAccelerationStructureDeviceAddressKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - INFO: a (OR ACCELERATION-STRUCTURE-DEVICE-ADDRESS-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12256,20 +12668,24 @@ Returns:
 See ACCELERATION-STRUCTURE-DEVICE-ADDRESS-INFO-KHR
 See DEVICE
 See DEVICE-ADDRESS
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (info (or vk:acceleration-structure-device-address-info-khr cffi:foreign-pointer)))
-                   ()
-                  '%vk:device-address)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (info '(:struct %vk:acceleration-structure-device-address-info-khr) info :in))
 
-(defvk-create-handle-fun (create-deferred-operation-khr
-                          %vk:create-deferred-operation-khr
-                          "Represents [vkCreateDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDeferredOperationKHR.html).
+(defvkfun (create-deferred-operation-khr
+           %vk:create-deferred-operation-khr
+           ((device device))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-deferred-operation-khr-wrapper
+           :extension-p t)
+  "Represents [vkCreateDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateDeferredOperationKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12285,44 +12701,52 @@ Errors signalled on codes:
 See ALLOCATION-CALLBACKS
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (deferred-operation '%vk:deferred-operation-khr deferred-operation :out :handle))
+  (deferred-operation '%vk:deferred-operation-khr deferred-operation :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-deferred-operation-khr
-                   %vk:destroy-deferred-operation-khr
-                   "Represents [vkDestroyDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDeferredOperationKHR.html).
+(defvkfun (destroy-deferred-operation-khr
+           %vk:destroy-deferred-operation-khr
+           ((device device))
+           (((operation (vk:make-deferred-operation-khr-wrapper (cffi:null-pointer))) deferred-operation-khr) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyDeferredOperationKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyDeferredOperationKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - OPERATION (optional): a DEFERRED-OPERATION-KHR, defaults to: NIL
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ALLOCATION-CALLBACKS
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((operation (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (operation '%vk:deferred-operation-khr operation :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (operation '%vk:deferred-operation-khr operation :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (get-deferred-operation-max-concurrency-khr
-                   %vk:get-deferred-operation-max-concurrency-khr
-                   "Represents [vkGetDeferredOperationMaxConcurrencyKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html).
+(defvkfun (get-deferred-operation-max-concurrency-khr
+           %vk:get-deferred-operation-max-concurrency-khr
+           ((device device) (operation deferred-operation-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetDeferredOperationMaxConcurrencyKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - OPERATION: a DEFERRED-OPERATION-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12330,20 +12754,24 @@ Returns:
 
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
-                   ()
-                  :uint32)
-  (device '%vk:device device :in :handle)
-  (operation '%vk:deferred-operation-khr operation :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (operation '%vk:deferred-operation-khr operation :in :non-dispatchable :handle))
 
-(defvk-simple-fun (get-deferred-operation-result-khr
-                   %vk:get-deferred-operation-result-khr
-                   "Represents [vkGetDeferredOperationResultKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeferredOperationResultKHR.html).
+(defvkfun (get-deferred-operation-result-khr
+           %vk:get-deferred-operation-result-khr
+           ((device device) (operation deferred-operation-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkGetDeferredOperationResultKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDeferredOperationResultKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - OPERATION: a DEFERRED-OPERATION-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12355,21 +12783,25 @@ Success codes:
 
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (operation '%vk:deferred-operation-khr operation :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (operation '%vk:deferred-operation-khr operation :in :non-dispatchable :handle))
 
-(defvk-simple-fun (deferred-operation-join-khr
-                   %vk:deferred-operation-join-khr
-                   "Represents [vkDeferredOperationJoinKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDeferredOperationJoinKHR.html).
+(defvkfun (deferred-operation-join-khr
+           %vk:deferred-operation-join-khr
+           ((device device) (operation deferred-operation-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDeferredOperationJoinKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDeferredOperationJoinKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - OPERATION: a DEFERRED-OPERATION-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -12386,17 +12818,20 @@ Errors signalled on codes:
 
 See DEFERRED-OPERATION-KHR
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (operation cffi:foreign-pointer))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (operation '%vk:deferred-operation-khr operation :in :handle))
+  (device '%vk:device device :in :dispatchable :handle)
+  (operation '%vk:deferred-operation-khr operation :in :non-dispatchable :handle))
 
-(defvk-simple-fun (cmd-set-cull-mode-ext
-                   %vk:cmd-set-cull-mode-ext
-                   "Represents [vkCmdSetCullModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCullModeEXT.html).
+(defvkfun (cmd-set-cull-mode-ext
+           %vk:cmd-set-cull-mode-ext
+           ((command-buffer command-buffer))
+           (((cull-mode nil) (or unsigned-byte list)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetCullModeEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetCullModeEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12408,16 +12843,16 @@ See CULL-MODE-FLAGS
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer))
-                   (((cull-mode nil) (or unsigned-byte list)))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (cull-mode '%vk:cull-mode-flags cull-mode :in :raw :optional))
 
-(defvk-simple-fun (cmd-set-front-face-ext
-                   %vk:cmd-set-front-face-ext
-                   "Represents [vkCmdSetFrontFaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFrontFaceEXT.html).
+(defvkfun (cmd-set-front-face-ext
+           %vk:cmd-set-front-face-ext
+           ((command-buffer command-buffer) (front-face keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetFrontFaceEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFrontFaceEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12429,16 +12864,16 @@ See EXTENSION-LOADER
 See FRONT-FACE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (front-face keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (front-face '%vk:front-face front-face :in :raw))
 
-(defvk-simple-fun (cmd-set-primitive-topology-ext
-                   %vk:cmd-set-primitive-topology-ext
-                   "Represents [vkCmdSetPrimitiveTopologyEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPrimitiveTopologyEXT.html).
+(defvkfun (cmd-set-primitive-topology-ext
+           %vk:cmd-set-primitive-topology-ext
+           ((command-buffer command-buffer) (primitive-topology keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetPrimitiveTopologyEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPrimitiveTopologyEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12450,16 +12885,16 @@ See EXTENSION-LOADER
 See PRIMITIVE-TOPOLOGY
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (primitive-topology keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (primitive-topology '%vk:primitive-topology primitive-topology :in :raw))
 
-(defvk-simple-fun (cmd-set-viewport-with-count-ext
-                   %vk:cmd-set-viewport-with-count-ext
-                   "Represents [vkCmdSetViewportWithCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportWithCountEXT.html).
+(defvkfun (cmd-set-viewport-with-count-ext
+           %vk:cmd-set-viewport-with-count-ext
+           ((command-buffer command-buffer) (viewports (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetViewportWithCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetViewportWithCountEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12471,17 +12906,17 @@ See EXTENSION-LOADER
 See VIEWPORT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (viewports (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (viewport-count :uint32 (length viewports) :in :raw)
   (viewports '(:struct %vk:viewport) viewports :in :list))
 
-(defvk-simple-fun (cmd-set-scissor-with-count-ext
-                   %vk:cmd-set-scissor-with-count-ext
-                   "Represents [vkCmdSetScissorWithCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetScissorWithCountEXT.html).
+(defvkfun (cmd-set-scissor-with-count-ext
+           %vk:cmd-set-scissor-with-count-ext
+           ((command-buffer command-buffer) (scissors (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetScissorWithCountEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetScissorWithCountEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12493,17 +12928,17 @@ See EXTENSION-LOADER
 See RECT-2D
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (scissors (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (scissor-count :uint32 (length scissors) :in :raw)
   (scissors '(:struct %vk:rect-2d) scissors :in :list))
 
-(defvk-simple-fun (cmd-bind-vertex-buffers-2-ext
-                   %vk:cmd-bind-vertex-buffers-2-ext
-                   "Represents [vkCmdBindVertexBuffers2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindVertexBuffers2EXT.html).
+(defvkfun (cmd-bind-vertex-buffers-2-ext
+           %vk:cmd-bind-vertex-buffers-2-ext
+           ((command-buffer command-buffer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
+           (((sizes nil) (or list vector)) ((strides nil) (or list vector)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBindVertexBuffers2EXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBindVertexBuffers2EXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12520,21 +12955,21 @@ See DEVICE-SIZE
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (first-binding unsigned-byte) (buffers (or list vector)) (offsets (or list vector)))
-                   (((sizes nil) (or list vector)) ((strides nil) (or list vector)))
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (first-binding :uint32 first-binding :in :raw)
   (binding-count :uint32 (length strides) :in :raw)
-  (buffers '%vk:buffer buffers :in :handle :list)
+  (buffers '%vk:buffer buffers :in :non-dispatchable :handle :list)
   (offsets '%vk:device-size offsets :in :list)
   (sizes '%vk:device-size sizes :in :list :optional)
   (strides '%vk:device-size strides :in :list :optional))
 
-(defvk-simple-fun (cmd-set-depth-test-enable-ext
-                   %vk:cmd-set-depth-test-enable-ext
-                   "Represents [vkCmdSetDepthTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthTestEnableEXT.html).
+(defvkfun (cmd-set-depth-test-enable-ext
+           %vk:cmd-set-depth-test-enable-ext
+           ((command-buffer command-buffer) (depth-test-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetDepthTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthTestEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12546,16 +12981,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (depth-test-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (depth-test-enable '%vk:bool32 depth-test-enable :in :raw))
 
-(defvk-simple-fun (cmd-set-depth-write-enable-ext
-                   %vk:cmd-set-depth-write-enable-ext
-                   "Represents [vkCmdSetDepthWriteEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthWriteEnableEXT.html).
+(defvkfun (cmd-set-depth-write-enable-ext
+           %vk:cmd-set-depth-write-enable-ext
+           ((command-buffer command-buffer) (depth-write-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetDepthWriteEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthWriteEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12567,16 +13002,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (depth-write-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (depth-write-enable '%vk:bool32 depth-write-enable :in :raw))
 
-(defvk-simple-fun (cmd-set-depth-compare-op-ext
-                   %vk:cmd-set-depth-compare-op-ext
-                   "Represents [vkCmdSetDepthCompareOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthCompareOpEXT.html).
+(defvkfun (cmd-set-depth-compare-op-ext
+           %vk:cmd-set-depth-compare-op-ext
+           ((command-buffer command-buffer) (depth-compare-op keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetDepthCompareOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthCompareOpEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12588,16 +13023,16 @@ See COMPARE-OP
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (depth-compare-op keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (depth-compare-op '%vk:compare-op depth-compare-op :in :raw))
 
-(defvk-simple-fun (cmd-set-depth-bounds-test-enable-ext
-                   %vk:cmd-set-depth-bounds-test-enable-ext
-                   "Represents [vkCmdSetDepthBoundsTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBoundsTestEnableEXT.html).
+(defvkfun (cmd-set-depth-bounds-test-enable-ext
+           %vk:cmd-set-depth-bounds-test-enable-ext
+           ((command-buffer command-buffer) (depth-bounds-test-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetDepthBoundsTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBoundsTestEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12609,16 +13044,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (depth-bounds-test-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (depth-bounds-test-enable '%vk:bool32 depth-bounds-test-enable :in :raw))
 
-(defvk-simple-fun (cmd-set-stencil-test-enable-ext
-                   %vk:cmd-set-stencil-test-enable-ext
-                   "Represents [vkCmdSetStencilTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilTestEnableEXT.html).
+(defvkfun (cmd-set-stencil-test-enable-ext
+           %vk:cmd-set-stencil-test-enable-ext
+           ((command-buffer command-buffer) (stencil-test-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetStencilTestEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilTestEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12630,16 +13065,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (stencil-test-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (stencil-test-enable '%vk:bool32 stencil-test-enable :in :raw))
 
-(defvk-simple-fun (cmd-set-stencil-op-ext
-                   %vk:cmd-set-stencil-op-ext
-                   "Represents [vkCmdSetStencilOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilOpEXT.html).
+(defvkfun (cmd-set-stencil-op-ext
+           %vk:cmd-set-stencil-op-ext
+           ((command-buffer command-buffer) (face-mask (or unsigned-byte list)) (fail-op keyword) (pass-op keyword) (depth-fail-op keyword) (compare-op keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetStencilOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetStencilOpEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12657,20 +13092,20 @@ See STENCIL-FACE-FLAGS
 See STENCIL-OP
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (face-mask (or unsigned-byte list)) (fail-op keyword) (pass-op keyword) (depth-fail-op keyword) (compare-op keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (face-mask '%vk:stencil-face-flags face-mask :in :raw)
   (fail-op '%vk:stencil-op fail-op :in :raw)
   (pass-op '%vk:stencil-op pass-op :in :raw)
   (depth-fail-op '%vk:stencil-op depth-fail-op :in :raw)
   (compare-op '%vk:compare-op compare-op :in :raw))
 
-(defvk-simple-fun (cmd-set-patch-control-points-ext
-                   %vk:cmd-set-patch-control-points-ext
-                   "Represents [vkCmdSetPatchControlPointsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPatchControlPointsEXT.html).
+(defvkfun (cmd-set-patch-control-points-ext
+           %vk:cmd-set-patch-control-points-ext
+           ((command-buffer command-buffer) (patch-control-points unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetPatchControlPointsEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPatchControlPointsEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12681,16 +13116,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (patch-control-points unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (patch-control-points :uint32 patch-control-points :in :raw))
 
-(defvk-simple-fun (cmd-set-rasterizer-discard-enable-ext
-                   %vk:cmd-set-rasterizer-discard-enable-ext
-                   "Represents [vkCmdSetRasterizerDiscardEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetRasterizerDiscardEnableEXT.html).
+(defvkfun (cmd-set-rasterizer-discard-enable-ext
+           %vk:cmd-set-rasterizer-discard-enable-ext
+           ((command-buffer command-buffer) (rasterizer-discard-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetRasterizerDiscardEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetRasterizerDiscardEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12702,16 +13137,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (rasterizer-discard-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (rasterizer-discard-enable '%vk:bool32 rasterizer-discard-enable :in :raw))
 
-(defvk-simple-fun (cmd-set-depth-bias-enable-ext
-                   %vk:cmd-set-depth-bias-enable-ext
-                   "Represents [vkCmdSetDepthBiasEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBiasEnableEXT.html).
+(defvkfun (cmd-set-depth-bias-enable-ext
+           %vk:cmd-set-depth-bias-enable-ext
+           ((command-buffer command-buffer) (depth-bias-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetDepthBiasEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetDepthBiasEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12723,16 +13158,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (depth-bias-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (depth-bias-enable '%vk:bool32 depth-bias-enable :in :raw))
 
-(defvk-simple-fun (cmd-set-logic-op-ext
-                   %vk:cmd-set-logic-op-ext
-                   "Represents [vkCmdSetLogicOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLogicOpEXT.html).
+(defvkfun (cmd-set-logic-op-ext
+           %vk:cmd-set-logic-op-ext
+           ((command-buffer command-buffer) (logic-op keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetLogicOpEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetLogicOpEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12744,16 +13179,16 @@ See EXTENSION-LOADER
 See LOGIC-OP
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (logic-op keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (logic-op '%vk:logic-op logic-op :in :raw))
 
-(defvk-simple-fun (cmd-set-primitive-restart-enable-ext
-                   %vk:cmd-set-primitive-restart-enable-ext
-                   "Represents [vkCmdSetPrimitiveRestartEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPrimitiveRestartEnableEXT.html).
+(defvkfun (cmd-set-primitive-restart-enable-ext
+           %vk:cmd-set-primitive-restart-enable-ext
+           ((command-buffer command-buffer) (primitive-restart-enable boolean))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetPrimitiveRestartEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetPrimitiveRestartEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -12765,16 +13200,16 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (primitive-restart-enable boolean))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (primitive-restart-enable '%vk:bool32 primitive-restart-enable :in :raw))
 
-(defvk-create-handle-fun (create-private-data-slot-ext
-                          %vk:create-private-data-slot-ext
-                          "Represents [vkCreatePrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePrivateDataSlotEXT.html).
+(defvkfun (create-private-data-slot-ext
+           %vk:create-private-data-slot-ext
+           ((device device) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-private-data-slot-ext-wrapper
+           :extension-p t)
+  "Represents [vkCreatePrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreatePrivateDataSlotEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -12802,18 +13237,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:private-data-slot-create-info-ext cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:private-data-slot-create-info-ext) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (private-data-slot '%vk:private-data-slot-ext private-data-slot :out :handle))
+  (private-data-slot '%vk:private-data-slot-ext private-data-slot :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-private-data-slot-ext
-                   %vk:destroy-private-data-slot-ext
-                   "Represents [vkDestroyPrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPrivateDataSlotEXT.html).
+(defvkfun (destroy-private-data-slot-ext
+           %vk:destroy-private-data-slot-ext
+           ((device device))
+           (((private-data-slot (vk:make-private-data-slot-ext-wrapper (cffi:null-pointer))) private-data-slot-ext) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyPrivateDataSlotEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyPrivateDataSlotEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -12828,17 +13263,17 @@ See PRIVATE-DATA-SLOT-EXT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer))
-                   (((private-data-slot (cffi:null-pointer)) cffi:foreign-pointer) ((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle :optional)
+  (device '%vk:device device :in :dispatchable :handle)
+  (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :non-dispatchable :handle :optional)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (set-private-data-ext
-                   %vk:set-private-data-ext
-                   "Represents [vkSetPrivateDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetPrivateDataEXT.html).
+(defvkfun (set-private-data-ext
+           %vk:set-private-data-ext
+           ((device device) (object-type keyword) (object-handle unsigned-byte) (private-data-slot private-data-slot-ext) (data unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetPrivateDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetPrivateDataEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -12865,19 +13300,19 @@ See PRIVATE-DATA-SLOT-EXT
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer) (data unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (object-type '%vk:object-type object-type :in :raw)
   (object-handle :uint64 object-handle :in :raw)
-  (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
+  (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :non-dispatchable :handle)
   (data :uint64 data :in :raw))
 
-(defvk-create-handle-fun (get-private-data-ext
-                          %vk:get-private-data-ext
-                          "Represents [vkGetPrivateDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPrivateDataEXT.html).
+(defvkfun (get-private-data-ext
+           %vk:get-private-data-ext
+           ((device device) (object-type keyword) (object-handle unsigned-byte) (private-data-slot private-data-slot-ext))
+           ()
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPrivateDataEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPrivateDataEXT.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -12896,148 +13331,180 @@ See OBJECT-TYPE
 See PRIVATE-DATA-SLOT-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (object-type keyword) (object-handle unsigned-byte) (private-data-slot cffi:foreign-pointer))
-                          ()
-                          t
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (object-type '%vk:object-type object-type :in :raw)
   (object-handle :uint64 object-handle :in :raw)
-  (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :handle)
+  (private-data-slot '%vk:private-data-slot-ext private-data-slot :in :non-dispatchable :handle)
   (data :uint64 data :out))
 
-(defvk-simple-fun (cmd-copy-buffer-2-khr
-                   %vk:cmd-copy-buffer-2-khr
-                   "Represents [vkCmdCopyBuffer2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBuffer2KHR.html).
+(defvkfun (cmd-copy-buffer-2-khr
+           %vk:cmd-copy-buffer-2-khr
+           ((command-buffer command-buffer) (copy-buffer-info (or vk:copy-buffer-info-2-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyBuffer2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBuffer2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - COPY-BUFFER-INFO: a (OR COPY-BUFFER-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-BUFFER-INFO-2-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (copy-buffer-info (or vk:copy-buffer-info-2-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (copy-buffer-info '(:struct %vk:copy-buffer-info-2-khr) copy-buffer-info :in))
 
-(defvk-simple-fun (cmd-copy-image-2-khr
-                   %vk:cmd-copy-image-2-khr
-                   "Represents [vkCmdCopyImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImage2KHR.html).
+(defvkfun (cmd-copy-image-2-khr
+           %vk:cmd-copy-image-2-khr
+           ((command-buffer command-buffer) (copy-image-info (or vk:copy-image-info-2-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImage2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - COPY-IMAGE-INFO: a (OR COPY-IMAGE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-IMAGE-INFO-2-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (copy-image-info (or vk:copy-image-info-2-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (copy-image-info '(:struct %vk:copy-image-info-2-khr) copy-image-info :in))
 
-(defvk-simple-fun (cmd-blit-image-2-khr
-                   %vk:cmd-blit-image-2-khr
-                   "Represents [vkCmdBlitImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBlitImage2KHR.html).
+(defvkfun (cmd-blit-image-2-khr
+           %vk:cmd-blit-image-2-khr
+           ((command-buffer command-buffer) (blit-image-info (or vk:blit-image-info-2-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBlitImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBlitImage2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - BLIT-IMAGE-INFO: a (OR BLIT-IMAGE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See BLIT-IMAGE-INFO-2-KHR
 See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (blit-image-info (or vk:blit-image-info-2-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (blit-image-info '(:struct %vk:blit-image-info-2-khr) blit-image-info :in))
 
-(defvk-simple-fun (cmd-copy-buffer-to-image-2-khr
-                   %vk:cmd-copy-buffer-to-image-2-khr
-                   "Represents [vkCmdCopyBufferToImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBufferToImage2KHR.html).
+(defvkfun (cmd-copy-buffer-to-image-2-khr
+           %vk:cmd-copy-buffer-to-image-2-khr
+           ((command-buffer command-buffer) (copy-buffer-to-image-info (or vk:copy-buffer-to-image-info-2-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyBufferToImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyBufferToImage2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - COPY-BUFFER-TO-IMAGE-INFO: a (OR COPY-BUFFER-TO-IMAGE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-BUFFER-TO-IMAGE-INFO-2-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (copy-buffer-to-image-info (or vk:copy-buffer-to-image-info-2-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (copy-buffer-to-image-info '(:struct %vk:copy-buffer-to-image-info-2-khr) copy-buffer-to-image-info :in))
 
-(defvk-simple-fun (cmd-copy-image-to-buffer-2-khr
-                   %vk:cmd-copy-image-to-buffer-2-khr
-                   "Represents [vkCmdCopyImageToBuffer2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImageToBuffer2KHR.html).
+(defvkfun (cmd-copy-image-to-buffer-2-khr
+           %vk:cmd-copy-image-to-buffer-2-khr
+           ((command-buffer command-buffer) (copy-image-to-buffer-info (or vk:copy-image-to-buffer-info-2-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCopyImageToBuffer2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCopyImageToBuffer2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - COPY-IMAGE-TO-BUFFER-INFO: a (OR COPY-IMAGE-TO-BUFFER-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See COPY-IMAGE-TO-BUFFER-INFO-2-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (copy-image-to-buffer-info (or vk:copy-image-to-buffer-info-2-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (copy-image-to-buffer-info '(:struct %vk:copy-image-to-buffer-info-2-khr) copy-image-to-buffer-info :in))
 
-(defvk-simple-fun (cmd-resolve-image-2-khr
-                   %vk:cmd-resolve-image-2-khr
-                   "Represents [vkCmdResolveImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResolveImage2KHR.html).
+(defvkfun (cmd-resolve-image-2-khr
+           %vk:cmd-resolve-image-2-khr
+           ((command-buffer command-buffer) (resolve-image-info (or vk:resolve-image-info-2-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdResolveImage2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResolveImage2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - RESOLVE-IMAGE-INFO: a (OR RESOLVE-IMAGE-INFO-2-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See RESOLVE-IMAGE-INFO-2-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (resolve-image-info (or vk:resolve-image-info-2-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (resolve-image-info '(:struct %vk:resolve-image-info-2-khr) resolve-image-info :in))
 
-(defvk-simple-fun (cmd-set-fragment-shading-rate-khr
-                   %vk:cmd-set-fragment-shading-rate-khr
-                   "Represents [vkCmdSetFragmentShadingRateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html).
+(defvkfun (cmd-set-fragment-shading-rate-khr
+           %vk:cmd-set-fragment-shading-rate-khr
+           ((command-buffer command-buffer) (fragment-size (or vk:extent-2d cffi:foreign-pointer)) (combiner-ops keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetFragmentShadingRateKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - FRAGMENT-SIZE: a (OR EXTENT-2D CFFI:FOREIGN-POINTER)
  - COMBINER-OPS: a FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See EXTENT-2D
 See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (fragment-size (or vk:extent-2d cffi:foreign-pointer)) (combiner-ops keyword))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (fragment-size '(:struct %vk:extent-2d) fragment-size :in)
   (combiner-ops '%vk:fragment-shading-rate-combiner-op-khr combiner-ops :in :raw))
 
-(defvk-enumerate-fun (get-physical-device-fragment-shading-rates-khr
-                      %vk:get-physical-device-fragment-shading-rates-khr
-                      "Represents [vkGetPhysicalDeviceFragmentShadingRatesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html).
+(defvkfun (get-physical-device-fragment-shading-rates-khr
+           %vk:get-physical-device-fragment-shading-rates-khr
+           ((physical-device physical-device))
+           (((fragment-shading-rates nil) (or list vector)))
+           :count-arg-name fragment-shading-rate-count
+           :first-array-arg-name fragment-shading-rates
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceFragmentShadingRatesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
+ - FRAGMENT-SHADING-RATES (optional): a (OR LIST VECTOR) of (OR PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHRs
     RESULT)
 
@@ -13048,21 +13515,23 @@ Success codes:
 Errors signalled on codes:
  - ERROR-OUT-OF-HOST-MEMORY
 
+See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-FRAGMENT-SHADING-RATE-KHR
 See RESULT
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer))
-                      ()
-                      fragment-shading-rate-count
-                      fragment-shading-rates)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (fragment-shading-rate-count :uint32 fragment-shading-rate-count :out)
-  (fragment-shading-rates '(:struct %vk:physical-device-fragment-shading-rate-khr) fragment-shading-rates :out :list))
+  (fragment-shading-rates '(:struct %vk:physical-device-fragment-shading-rate-khr) fragment-shading-rates :in :out :list :optional))
 
-(defvk-simple-fun (cmd-set-fragment-shading-rate-enum-nv
-                   %vk:cmd-set-fragment-shading-rate-enum-nv
-                   "Represents [vkCmdSetFragmentShadingRateEnumNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html).
+(defvkfun (cmd-set-fragment-shading-rate-enum-nv
+           %vk:cmd-set-fragment-shading-rate-enum-nv
+           ((command-buffer command-buffer) (shading-rate keyword) (combiner-ops keyword))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetFragmentShadingRateEnumNV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -13076,23 +13545,26 @@ See FRAGMENT-SHADING-RATE-COMBINER-OP-KHR
 See FRAGMENT-SHADING-RATE-NV
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (shading-rate keyword) (combiner-ops keyword))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (shading-rate '%vk:fragment-shading-rate-nv shading-rate :in :raw)
   (combiner-ops '%vk:fragment-shading-rate-combiner-op-khr combiner-ops :in :raw))
 
-(defvk-get-struct-fun (get-acceleration-structure-build-sizes-khr
-                       %vk:get-acceleration-structure-build-sizes-khr
-                       "Represents [vkGetAccelerationStructureBuildSizesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html).
+(defvkfun (get-acceleration-structure-build-sizes-khr
+           %vk:get-acceleration-structure-build-sizes-khr
+           ((device device) (build-type keyword) (build-info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)))
+           (((max-primitive-counts nil) (or list vector)) ((size-info nil) (or vk:acceleration-structure-build-sizes-info-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetAccelerationStructureBuildSizesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - BUILD-TYPE: a ACCELERATION-STRUCTURE-BUILD-TYPE-KHR
  - BUILD-INFO: a (OR ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR CFFI:FOREIGN-POINTER)
  - MAX-PRIMITIVE-COUNTS (optional): a (OR LIST VECTOR) of (OR LIST VECTOR), defaults to: NIL
+ - SIZE-INFO (optional): a (OR ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13102,18 +13574,22 @@ See ACCELERATION-STRUCTURE-BUILD-GEOMETRY-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-SIZES-INFO-KHR
 See ACCELERATION-STRUCTURE-BUILD-TYPE-KHR
 See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((device cffi:foreign-pointer) (build-type keyword) (build-info (or vk:acceleration-structure-build-geometry-info-khr cffi:foreign-pointer)))
-                       (((max-primitive-counts nil) (or list vector))))
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (build-type '%vk:acceleration-structure-build-type-khr build-type :in :raw)
   (build-info '(:struct %vk:acceleration-structure-build-geometry-info-khr) build-info :in)
   (max-primitive-counts :uint32 max-primitive-counts :in :list :optional)
-  (size-info '(:struct %vk:acceleration-structure-build-sizes-info-khr) size-info :out))
+  (size-info '(:struct %vk:acceleration-structure-build-sizes-info-khr) (or size-info (vk:make-acceleration-structure-build-sizes-info-khr)) :in :out :optional))
 
-(defvk-simple-fun (cmd-set-vertex-input-ext
-                   %vk:cmd-set-vertex-input-ext
-                   "Represents [vkCmdSetVertexInputEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetVertexInputEXT.html).
+(defvkfun (cmd-set-vertex-input-ext
+           %vk:cmd-set-vertex-input-ext
+           ((command-buffer command-buffer) (vertex-binding-descriptions (or list vector)) (vertex-attribute-descriptions (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetVertexInputEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetVertexInputEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -13127,19 +13603,19 @@ See VERTEX-INPUT-ATTRIBUTE-DESCRIPTION-2-EXT
 See VERTEX-INPUT-BINDING-DESCRIPTION-2-EXT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (vertex-binding-descriptions (or list vector)) (vertex-attribute-descriptions (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (vertex-binding-description-count :uint32 (length vertex-binding-descriptions) :in :raw)
   (vertex-binding-descriptions '(:struct %vk:vertex-input-binding-description-2-ext) vertex-binding-descriptions :in :list)
   (vertex-attribute-description-count :uint32 (length vertex-attribute-descriptions) :in :raw)
   (vertex-attribute-descriptions '(:struct %vk:vertex-input-attribute-description-2-ext) vertex-attribute-descriptions :in :list))
 
-(defvk-simple-fun (cmd-set-color-write-enable-ext
-                   %vk:cmd-set-color-write-enable-ext
-                   "Represents [vkCmdSetColorWriteEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetColorWriteEnableEXT.html).
+(defvkfun (cmd-set-color-write-enable-ext
+           %vk:cmd-set-color-write-enable-ext
+           ((command-buffer command-buffer) (color-write-enables (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetColorWriteEnableEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetColorWriteEnableEXT.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -13151,100 +13627,117 @@ See COMMAND-BUFFER
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (color-write-enables (or list vector)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (attachment-count :uint32 (length color-write-enables) :in :raw)
   (color-write-enables '%vk:bool32 color-write-enables :in :list))
 
-(defvk-simple-fun (cmd-set-event-2-khr
-                   %vk:cmd-set-event-2-khr
-                   "Represents [vkCmdSetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent2KHR.html).
+(defvkfun (cmd-set-event-2-khr
+           %vk:cmd-set-event-2-khr
+           ((command-buffer command-buffer) (event event) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdSetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdSetEvent2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - EVENT: a EVENT
  - DEPENDENCY-INFO: a (OR DEPENDENCY-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See DEPENDENCY-INFO-KHR
 See EVENT
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (event '%vk:event event :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle)
   (dependency-info '(:struct %vk:dependency-info-khr) dependency-info :in))
 
-(defvk-simple-fun (cmd-reset-event-2-khr
-                   %vk:cmd-reset-event-2-khr
-                   "Represents [vkCmdResetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetEvent2KHR.html).
+(defvkfun (cmd-reset-event-2-khr
+           %vk:cmd-reset-event-2-khr
+           ((command-buffer command-buffer) (event event) (stage-mask (or unsigned-byte list)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdResetEvent2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdResetEvent2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - EVENT: a EVENT
  - STAGE-MASK: a PIPELINE-STAGE-FLAGS-2-KHR
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See EVENT
+See EXTENSION-LOADER
 See PIPELINE-STAGE-FLAGS-2-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (event cffi:foreign-pointer) (stage-mask (or unsigned-byte list)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
-  (event '%vk:event event :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (event '%vk:event event :in :non-dispatchable :handle)
   (stage-mask '%vk:pipeline-stage-flags-2-khr stage-mask :in :raw))
 
-(defvk-simple-fun (cmd-wait-events-2-khr
-                   %vk:cmd-wait-events-2-khr
-                   "Represents [vkCmdWaitEvents2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWaitEvents2KHR.html).
+(defvkfun (cmd-wait-events-2-khr
+           %vk:cmd-wait-events-2-khr
+           ((command-buffer command-buffer) (events (or list vector)) (dependency-infos (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdWaitEvents2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWaitEvents2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - EVENTS: a (OR LIST VECTOR) of EVENT handles
  - DEPENDENCY-INFOS: a (OR LIST VECTOR) of (OR DEPENDENCY-INFO-KHR CFFI:FOREIGN-POINTER) instances
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See DEPENDENCY-INFO-KHR
 See EVENT
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (events (or list vector)) (dependency-infos (or list vector)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (event-count :uint32 (length dependency-infos) :in :raw)
-  (events '%vk:event events :in :handle :list)
+  (events '%vk:event events :in :non-dispatchable :handle :list)
   (dependency-infos '(:struct %vk:dependency-info-khr) dependency-infos :in :list))
 
-(defvk-simple-fun (cmd-pipeline-barrier-2-khr
-                   %vk:cmd-pipeline-barrier-2-khr
-                   "Represents [vkCmdPipelineBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPipelineBarrier2KHR.html).
+(defvkfun (cmd-pipeline-barrier-2-khr
+           %vk:cmd-pipeline-barrier-2-khr
+           ((command-buffer command-buffer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdPipelineBarrier2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdPipelineBarrier2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - DEPENDENCY-INFO: a (OR DEPENDENCY-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
 See DEPENDENCY-INFO-KHR
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (dependency-info (or vk:dependency-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (dependency-info '(:struct %vk:dependency-info-khr) dependency-info :in))
 
-(defvk-simple-fun (queue-submit-2-khr
-                   %vk:queue-submit-2-khr
-                   "Represents [vkQueueSubmit2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSubmit2KHR.html).
+(defvkfun (queue-submit-2-khr
+           %vk:queue-submit-2-khr
+           ((queue queue) (submits (or list vector)))
+           (((fence (vk:make-fence-wrapper (cffi:null-pointer))) fence))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkQueueSubmit2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkQueueSubmit2KHR.html).
 
 Args:
  - QUEUE: a QUEUE
  - SUBMITS: a (OR LIST VECTOR) of (OR SUBMIT-INFO-2-KHR CFFI:FOREIGN-POINTER) instances
  - FENCE (optional): a FENCE, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13258,44 +13751,51 @@ Errors signalled on codes:
  - ERROR-OUT-OF-DEVICE-MEMORY
  - ERROR-DEVICE-LOST
 
+See EXTENSION-LOADER
 See FENCE
 See QUEUE
 See RESULT
 See SUBMIT-INFO-2-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((queue cffi:foreign-pointer) (submits (or list vector)))
-                   (((fence (cffi:null-pointer)) cffi:foreign-pointer))
-                  nil)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (submit-count :uint32 (length submits) :in :raw)
   (submits '(:struct %vk:submit-info-2-khr) submits :in :list)
-  (fence '%vk:fence fence :in :handle :optional))
+  (fence '%vk:fence fence :in :non-dispatchable :handle :optional))
 
-(defvk-simple-fun (cmd-write-timestamp-2-khr
-                   %vk:cmd-write-timestamp-2-khr
-                   "Represents [vkCmdWriteTimestamp2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp2KHR.html).
+(defvkfun (cmd-write-timestamp-2-khr
+           %vk:cmd-write-timestamp-2-khr
+           ((command-buffer command-buffer) (stage (or unsigned-byte list)) (query-pool query-pool) (query unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdWriteTimestamp2KHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteTimestamp2KHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - STAGE: a PIPELINE-STAGE-FLAGS-2-KHR
  - QUERY-POOL: a QUERY-POOL
  - QUERY: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See PIPELINE-STAGE-FLAGS-2-KHR
 See QUERY-POOL
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (query-pool cffi:foreign-pointer) (query unsigned-byte))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (stage '%vk:pipeline-stage-flags-2-khr stage :in :raw)
-  (query-pool '%vk:query-pool query-pool :in :handle)
+  (query-pool '%vk:query-pool query-pool :in :non-dispatchable :handle)
   (query :uint32 query :in :raw))
 
-(defvk-simple-fun (cmd-write-buffer-marker-2-amd
-                   %vk:cmd-write-buffer-marker-2-amd
-                   "Represents [vkCmdWriteBufferMarker2AMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteBufferMarker2AMD.html).
+(defvkfun (cmd-write-buffer-marker-2-amd
+           %vk:cmd-write-buffer-marker-2-amd
+           ((command-buffer command-buffer) (stage (or unsigned-byte list)) (dst-buffer buffer) (dst-offset unsigned-byte) (marker unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdWriteBufferMarker2AMD](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdWriteBufferMarker2AMD.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -13312,27 +13812,31 @@ See EXTENSION-LOADER
 See PIPELINE-STAGE-FLAGS-2-KHR
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (stage (or unsigned-byte list)) (dst-buffer cffi:foreign-pointer) (dst-offset unsigned-byte) (marker unsigned-byte))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (stage '%vk:pipeline-stage-flags-2-khr stage :in :raw)
-  (dst-buffer '%vk:buffer dst-buffer :in :handle)
+  (dst-buffer '%vk:buffer dst-buffer :in :non-dispatchable :handle)
   (dst-offset '%vk:device-size dst-offset :in :raw)
   (marker :uint32 marker :in :raw))
 
-(defvk-get-structs-fun (get-queue-checkpoint-data-2-nv
-                        %vk:get-queue-checkpoint-data-2-nv
-                        "Represents [vkGetQueueCheckpointData2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueueCheckpointData2NV.html).
+(defvkfun (get-queue-checkpoint-data-2-nv
+           %vk:get-queue-checkpoint-data-2-nv
+           ((queue queue))
+           (((checkpoint-data nil) (or list vector)))
+           :vk-constructor vk:make-checkpoint-data-2-nv
+           :count-arg-name checkpoint-data-count
+           :first-array-arg-name checkpoint-data
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetQueueCheckpointData2NV](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetQueueCheckpointData2NV.html).
 
 Args:
  - QUEUE: a QUEUE
+ - CHECKPOINT-DATA (optional): a (OR LIST VECTOR) of (OR CHECKPOINT-DATA-2-NV CFFI:FOREIGN-POINTER) instances, defaults to: NIL
  - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     CHECKPOINT-DATA-2-NVs)
 
 See CHECKPOINT-DATA-2-NV
@@ -13340,23 +13844,24 @@ See EXTENSION-LOADER
 See QUEUE
 See *DEFAULT-EXTENSION-LOADER*
 "
-                        ((queue cffi:foreign-pointer))
-                        ()
-                        checkpoint-data-count
-                        checkpoint-data
-                      t
-                        t)
-  (queue '%vk:queue queue :in :handle)
+  (queue '%vk:queue queue :in :dispatchable :handle)
   (checkpoint-data-count :uint32 checkpoint-data-count :out)
-  (checkpoint-data '(:struct %vk:checkpoint-data-2-nv) checkpoint-data :out :list))
+  (checkpoint-data '(:struct %vk:checkpoint-data-2-nv) checkpoint-data :in :out :list :optional))
 
-(defvk-get-struct-fun (get-physical-device-video-capabilities-khr
-                       %vk:get-physical-device-video-capabilities-khr
-                       "Represents [vkGetPhysicalDeviceVideoCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html).
+(defvkfun (get-physical-device-video-capabilities-khr
+           %vk:get-physical-device-video-capabilities-khr
+           ((physical-device physical-device) (video-profile (or vk:video-profile-khr cffi:foreign-pointer)))
+           (((capabilities nil) (or vk:video-capabilities-khr cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceVideoCapabilitiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - VIDEO-PROFILE: a (OR VIDEO-PROFILE-KHR CFFI:FOREIGN-POINTER)
+ - CAPABILITIES (optional): a (OR VIDEO-CAPABILITIES-KHR CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13372,28 +13877,36 @@ Errors signalled on codes:
  - ERROR-FEATURE-NOT-PRESENT
  - ERROR-FORMAT-NOT-SUPPORTED
 
+See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See RESULT
 See VIDEO-CAPABILITIES-KHR
 See VIDEO-PROFILE-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                       ((physical-device cffi:foreign-pointer) (video-profile (or vk:video-profile-khr cffi:foreign-pointer)))
-                       ())
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (video-profile '(:struct %vk:video-profile-khr) video-profile :in)
-  (capabilities '(:struct %vk:video-capabilities-khr) capabilities :out))
+  (capabilities '(:struct %vk:video-capabilities-khr) (or capabilities (vk:make-video-capabilities-khr)) :in :out :optional))
 
-(defvk-enumerate-fun (get-physical-device-video-format-properties-khr
-                      %vk:get-physical-device-video-format-properties-khr
-                      "Represents [vkGetPhysicalDeviceVideoFormatPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html).
+(defvkfun (get-physical-device-video-format-properties-khr
+           %vk:get-physical-device-video-format-properties-khr
+           ((physical-device physical-device) (video-format-info (or vk:physical-device-video-format-info-khr cffi:foreign-pointer)))
+           (((video-format-properties nil) (or list vector)))
+           :count-arg-name video-format-property-count
+           :first-array-arg-name video-format-properties
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetPhysicalDeviceVideoFormatPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
  - VIDEO-FORMAT-INFO: a (OR PHYSICAL-DEVICE-VIDEO-FORMAT-INFO-KHR CFFI:FOREIGN-POINTER)
+ - VIDEO-FORMAT-PROPERTIES (optional): a (OR LIST VECTOR) of (OR VIDEO-FORMAT-PROPERTIES-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     VIDEO-FORMAT-PROPERTIES-KHRs
     RESULT)
 
@@ -13406,28 +13919,31 @@ Errors signalled on codes:
  - ERROR-INITIALIZATION-FAILED
  - ERROR-FORMAT-NOT-SUPPORTED
 
+See EXTENSION-LOADER
 See PHYSICAL-DEVICE
 See PHYSICAL-DEVICE-VIDEO-FORMAT-INFO-KHR
 See RESULT
 See VIDEO-FORMAT-PROPERTIES-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((physical-device cffi:foreign-pointer) (video-format-info (or vk:physical-device-video-format-info-khr cffi:foreign-pointer)))
-                      ()
-                      video-format-property-count
-                      video-format-properties)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (video-format-info '(:struct %vk:physical-device-video-format-info-khr) video-format-info :in)
   (video-format-property-count :uint32 video-format-property-count :out)
-  (video-format-properties '(:struct %vk:video-format-properties-khr) video-format-properties :out :list))
+  (video-format-properties '(:struct %vk:video-format-properties-khr) video-format-properties :in :out :list :optional))
 
-(defvk-create-handle-fun (create-video-session-khr
-                          %vk:create-video-session-khr
-                          "Represents [vkCreateVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateVideoSessionKHR.html).
+(defvkfun (create-video-session-khr
+           %vk:create-video-session-khr
+           ((device device) (create-info (or vk:video-session-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-video-session-khr-wrapper
+           :extension-p t)
+  "Represents [vkCreateVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateVideoSessionKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - CREATE-INFO: a (OR VIDEO-SESSION-CREATE-INFO-KHR CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13446,48 +13962,56 @@ Errors signalled on codes:
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See VIDEO-SESSION-CREATE-INFO-KHR
 See VIDEO-SESSION-KHR
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:video-session-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:video-session-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (video-session '%vk:video-session-khr video-session :out :handle))
+  (video-session '%vk:video-session-khr video-session :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-video-session-khr
-                   %vk:destroy-video-session-khr
-                   "Represents [vkDestroyVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyVideoSessionKHR.html).
+(defvkfun (destroy-video-session-khr
+           %vk:destroy-video-session-khr
+           ((device device) (video-session video-session-khr))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyVideoSessionKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyVideoSessionKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - VIDEO-SESSION: a VIDEO-SESSION-KHR
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EXTENSION-LOADER
 See VIDEO-SESSION-KHR
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer))
-                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (video-session '%vk:video-session-khr video-session :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (video-session '%vk:video-session-khr video-session :in :non-dispatchable :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-create-handle-fun (create-video-session-parameters-khr
-                          %vk:create-video-session-parameters-khr
-                          "Represents [vkCreateVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateVideoSessionParametersKHR.html).
+(defvkfun (create-video-session-parameters-khr
+           %vk:create-video-session-parameters-khr
+           ((device device) (create-info (or vk:video-session-parameters-create-info-khr cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-video-session-parameters-khr-wrapper
+           :extension-p t)
+  "Represents [vkCreateVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateVideoSessionParametersKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - CREATE-INFO: a (OR VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR CFFI:FOREIGN-POINTER)
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13498,33 +14022,38 @@ Success codes:
  - SUCCESS
 
 Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
  - ERROR-OUT-OF-HOST-MEMORY
  - ERROR-OUT-OF-DEVICE-MEMORY
  - ERROR-TOO-MANY-OBJECTS
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See VIDEO-SESSION-PARAMETERS-CREATE-INFO-KHR
 See VIDEO-SESSION-PARAMETERS-KHR
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:video-session-parameters-create-info-khr cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:video-session-parameters-create-info-khr) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :out :handle))
+  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :out :non-dispatchable :handle))
 
-(defvk-simple-fun (update-video-session-parameters-khr
-                   %vk:update-video-session-parameters-khr
-                   "Represents [vkUpdateVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateVideoSessionParametersKHR.html).
+(defvkfun (update-video-session-parameters-khr
+           %vk:update-video-session-parameters-khr
+           ((device device) (video-session-parameters video-session-parameters-khr) (update-info (or vk:video-session-parameters-update-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkUpdateVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkUpdateVideoSessionParametersKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - VIDEO-SESSION-PARAMETERS: a VIDEO-SESSION-PARAMETERS-KHR
  - UPDATE-INFO: a (OR VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13538,49 +14067,60 @@ Errors signalled on codes:
  - ERROR-TOO-MANY-OBJECTS
 
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See VIDEO-SESSION-PARAMETERS-KHR
 See VIDEO-SESSION-PARAMETERS-UPDATE-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (video-session-parameters cffi:foreign-pointer) (update-info (or vk:video-session-parameters-update-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :non-dispatchable :handle)
   (update-info '(:struct %vk:video-session-parameters-update-info-khr) update-info :in))
 
-(defvk-simple-fun (destroy-video-session-parameters-khr
-                   %vk:destroy-video-session-parameters-khr
-                   "Represents [vkDestroyVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyVideoSessionParametersKHR.html).
+(defvkfun (destroy-video-session-parameters-khr
+           %vk:destroy-video-session-parameters-khr
+           ((device device) (video-session-parameters video-session-parameters-khr))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyVideoSessionParametersKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyVideoSessionParametersKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - VIDEO-SESSION-PARAMETERS: a VIDEO-SESSION-PARAMETERS-KHR
  - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See ALLOCATION-CALLBACKS
 See DEVICE
+See EXTENSION-LOADER
 See VIDEO-SESSION-PARAMETERS-KHR
 See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (video-session-parameters cffi:foreign-pointer))
-                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil)
-  (device '%vk:device device :in :handle)
-  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (video-session-parameters '%vk:video-session-parameters-khr video-session-parameters :in :non-dispatchable :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-enumerate-fun (get-video-session-memory-requirements-khr
-                      %vk:get-video-session-memory-requirements-khr
-                      "Represents [vkGetVideoSessionMemoryRequirementsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html).
+(defvkfun (get-video-session-memory-requirements-khr
+           %vk:get-video-session-memory-requirements-khr
+           ((device device) (video-session video-session-khr))
+           (((video-session-memory-requirements nil) (or list vector)))
+           :count-arg-name video-session-memory-requirements-count
+           :first-array-arg-name video-session-memory-requirements
+           :enumerate-p t
+           :returns-struct-chain-p t
+           :extension-p t)
+  "Represents [vkGetVideoSessionMemoryRequirementsKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - VIDEO-SESSION: a VIDEO-SESSION-KHR
+ - VIDEO-SESSION-MEMORY-REQUIREMENTS (optional): a (OR LIST VECTOR) of (OR VIDEO-GET-MEMORY-PROPERTIES-KHR CFFI:FOREIGN-POINTER) instances, defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
-    UNSIGNED-BYTE
     VIDEO-GET-MEMORY-PROPERTIES-KHRs
     RESULT)
 
@@ -13592,27 +14132,30 @@ Errors signalled on codes:
  - ERROR-INITIALIZATION-FAILED
 
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See VIDEO-GET-MEMORY-PROPERTIES-KHR
 See VIDEO-SESSION-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                      ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer))
-                      ()
-                      video-session-memory-requirements-count
-                      video-session-memory-requirements)
-  (device '%vk:device device :in :handle)
-  (video-session '%vk:video-session-khr video-session :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (video-session '%vk:video-session-khr video-session :in :non-dispatchable :handle)
   (video-session-memory-requirements-count :uint32 video-session-memory-requirements-count :out)
-  (video-session-memory-requirements '(:struct %vk:video-get-memory-properties-khr) video-session-memory-requirements :out :list))
+  (video-session-memory-requirements '(:struct %vk:video-get-memory-properties-khr) video-session-memory-requirements :in :out :list :optional))
 
-(defvk-simple-fun (bind-video-session-memory-khr
-                   %vk:bind-video-session-memory-khr
-                   "Represents [vkBindVideoSessionMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindVideoSessionMemoryKHR.html).
+(defvkfun (bind-video-session-memory-khr
+           %vk:bind-video-session-memory-khr
+           ((device device) (video-session video-session-khr) (video-session-bind-memories (or list vector)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkBindVideoSessionMemoryKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkBindVideoSessionMemoryKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - VIDEO-SESSION: a VIDEO-SESSION-KHR
  - VIDEO-SESSION-BIND-MEMORIES: a (OR LIST VECTOR) of (OR VIDEO-BIND-MEMORY-KHR CFFI:FOREIGN-POINTER) instances
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13627,106 +14170,129 @@ Errors signalled on codes:
  - ERROR-INITIALIZATION-FAILED
 
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See VIDEO-BIND-MEMORY-KHR
 See VIDEO-SESSION-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (video-session cffi:foreign-pointer) (video-session-bind-memories (or list vector)))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (video-session '%vk:video-session-khr video-session :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (video-session '%vk:video-session-khr video-session :in :non-dispatchable :handle)
   (video-session-bind-memory-count :uint32 (length video-session-bind-memories) :in :raw)
   (video-session-bind-memories '(:struct %vk:video-bind-memory-khr) video-session-bind-memories :in :list))
 
-(defvk-simple-fun (cmd-decode-video-khr
-                   %vk:cmd-decode-video-khr
-                   "Represents [vkCmdDecodeVideoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDecodeVideoKHR.html).
+(defvkfun (cmd-decode-video-khr
+           %vk:cmd-decode-video-khr
+           ((command-buffer command-buffer) (frame-info (or vk:video-decode-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdDecodeVideoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdDecodeVideoKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - FRAME-INFO: a (OR VIDEO-DECODE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See VIDEO-DECODE-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (frame-info (or vk:video-decode-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (frame-info '(:struct %vk:video-decode-info-khr) frame-info :in))
 
-(defvk-simple-fun (cmd-begin-video-coding-khr
-                   %vk:cmd-begin-video-coding-khr
-                   "Represents [vkCmdBeginVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginVideoCodingKHR.html).
+(defvkfun (cmd-begin-video-coding-khr
+           %vk:cmd-begin-video-coding-khr
+           ((command-buffer command-buffer) (begin-info (or vk:video-begin-coding-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBeginVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginVideoCodingKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - BEGIN-INFO: a (OR VIDEO-BEGIN-CODING-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See VIDEO-BEGIN-CODING-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (begin-info (or vk:video-begin-coding-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (begin-info '(:struct %vk:video-begin-coding-info-khr) begin-info :in))
 
-(defvk-simple-fun (cmd-control-video-coding-khr
-                   %vk:cmd-control-video-coding-khr
-                   "Represents [vkCmdControlVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdControlVideoCodingKHR.html).
+(defvkfun (cmd-control-video-coding-khr
+           %vk:cmd-control-video-coding-khr
+           ((command-buffer command-buffer) (coding-control-info (or vk:video-coding-control-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdControlVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdControlVideoCodingKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - CODING-CONTROL-INFO: a (OR VIDEO-CODING-CONTROL-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See VIDEO-CODING-CONTROL-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (coding-control-info (or vk:video-coding-control-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (coding-control-info '(:struct %vk:video-coding-control-info-khr) coding-control-info :in))
 
-(defvk-simple-fun (cmd-end-video-coding-khr
-                   %vk:cmd-end-video-coding-khr
-                   "Represents [vkCmdEndVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndVideoCodingKHR.html).
+(defvkfun (cmd-end-video-coding-khr
+           %vk:cmd-end-video-coding-khr
+           ((command-buffer command-buffer) (end-coding-info (or vk:video-end-coding-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEndVideoCodingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndVideoCodingKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - END-CODING-INFO: a (OR VIDEO-END-CODING-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See VIDEO-END-CODING-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (end-coding-info (or vk:video-end-coding-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (end-coding-info '(:struct %vk:video-end-coding-info-khr) end-coding-info :in))
 
-(defvk-simple-fun (cmd-encode-video-khr
-                   %vk:cmd-encode-video-khr
-                   "Represents [vkCmdEncodeVideoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEncodeVideoKHR.html).
+(defvkfun (cmd-encode-video-khr
+           %vk:cmd-encode-video-khr
+           ((command-buffer command-buffer) (encode-info (or vk:video-encode-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEncodeVideoKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEncodeVideoKHR.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
  - ENCODE-INFO: a (OR VIDEO-ENCODE-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 See COMMAND-BUFFER
+See EXTENSION-LOADER
 See VIDEO-ENCODE-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (encode-info (or vk:video-encode-info-khr cffi:foreign-pointer)))
-                   ()
-                  nil)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (encode-info '(:struct %vk:video-encode-info-khr) encode-info :in))
 
-(defvk-create-handle-fun (create-cu-module-nvx
-                          %vk:create-cu-module-nvx
-                          "Represents [vkCreateCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCuModuleNVX.html).
+(defvkfun (create-cu-module-nvx
+           %vk:create-cu-module-nvx
+           ((device device) (create-info (or vk:cu-module-create-info-nvx cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-cu-module-nvx-wrapper
+           :extension-p t)
+  "Represents [vkCreateCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCuModuleNVX.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -13755,18 +14321,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:cu-module-create-info-nvx cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:cu-module-create-info-nvx) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (module '%vk:cu-module-nvx module :out :handle))
+  (module '%vk:cu-module-nvx module :out :non-dispatchable :handle))
 
-(defvk-create-handle-fun (create-cu-function-nvx
-                          %vk:create-cu-function-nvx
-                          "Represents [vkCreateCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCuFunctionNVX.html).
+(defvkfun (create-cu-function-nvx
+           %vk:create-cu-function-nvx
+           ((device device) (create-info (or vk:cu-function-create-info-nvx cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-cu-function-nvx-wrapper
+           :extension-p t)
+  "Represents [vkCreateCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateCuFunctionNVX.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -13795,18 +14361,18 @@ See RESULT
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((device cffi:foreign-pointer) (create-info (or vk:cu-function-create-info-nvx cffi:foreign-pointer)))
-                          (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                          nil
-                          t)
-  (device '%vk:device device :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
   (create-info '(:struct %vk:cu-function-create-info-nvx) create-info :in)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
-  (function-handle '%vk:cu-function-nvx function-handle :out :handle))
+  (function-handle '%vk:cu-function-nvx function-handle :out :non-dispatchable :handle))
 
-(defvk-simple-fun (destroy-cu-module-nvx
-                   %vk:destroy-cu-module-nvx
-                   "Represents [vkDestroyCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCuModuleNVX.html).
+(defvkfun (destroy-cu-module-nvx
+           %vk:destroy-cu-module-nvx
+           ((device device) (module cu-module-nvx))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyCuModuleNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCuModuleNVX.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -13821,17 +14387,17 @@ See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (module cffi:foreign-pointer))
-                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (module '%vk:cu-module-nvx module :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (module '%vk:cu-module-nvx module :in :non-dispatchable :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (destroy-cu-function-nvx
-                   %vk:destroy-cu-function-nvx
-                   "Represents [vkDestroyCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCuFunctionNVX.html).
+(defvkfun (destroy-cu-function-nvx
+           %vk:destroy-cu-function-nvx
+           ((device device) (function-handle cu-function-nvx))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyCuFunctionNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyCuFunctionNVX.html).
 
 Args:
  - DEVICE: a DEVICE
@@ -13846,17 +14412,17 @@ See EXTENSION-LOADER
 See *DEFAULT-ALLOCATOR*
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (function-handle cffi:foreign-pointer))
-                   (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
-                  nil
-                  t)
-  (device '%vk:device device :in :handle)
-  (function-handle '%vk:cu-function-nvx function-handle :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (function-handle '%vk:cu-function-nvx function-handle :in :non-dispatchable :handle)
   (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
 
-(defvk-simple-fun (cmd-cu-launch-kernel-nvx
-                   %vk:cmd-cu-launch-kernel-nvx
-                   "Represents [vkCmdCuLaunchKernelNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCuLaunchKernelNVX.html).
+(defvkfun (cmd-cu-launch-kernel-nvx
+           %vk:cmd-cu-launch-kernel-nvx
+           ((command-buffer command-buffer) (launch-info (or vk:cu-launch-info-nvx cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdCuLaunchKernelNVX](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdCuLaunchKernelNVX.html).
 
 Args:
  - COMMAND-BUFFER: a COMMAND-BUFFER
@@ -13868,16 +14434,39 @@ See CU-LAUNCH-INFO-NVX
 See EXTENSION-LOADER
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((command-buffer cffi:foreign-pointer) (launch-info (or vk:cu-launch-info-nvx cffi:foreign-pointer)))
-                   ()
-                  nil
-                  t)
-  (command-buffer '%vk:command-buffer command-buffer :in :handle)
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
   (launch-info '(:struct %vk:cu-launch-info-nvx) launch-info :in))
 
-(defvk-simple-fun (acquire-drm-display-ext
-                   %vk:acquire-drm-display-ext
-                   "Represents [vkAcquireDrmDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireDrmDisplayEXT.html).
+(defvkfun (set-device-memory-priority-ext
+           %vk:set-device-memory-priority-ext
+           ((device device) (memory device-memory) (priority real))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetDeviceMemoryPriorityEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetDeviceMemoryPriorityEXT.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - MEMORY: a DEVICE-MEMORY
+ - PRIORITY: a REAL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See DEVICE
+See DEVICE-MEMORY
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (memory '%vk:device-memory memory :in :non-dispatchable :handle)
+  (priority :float priority :in :raw))
+
+(defvkfun (acquire-drm-display-ext
+           %vk:acquire-drm-display-ext
+           ((physical-device physical-device) (drm-fd integer) (display display-khr))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkAcquireDrmDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkAcquireDrmDisplayEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -13901,17 +14490,17 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((physical-device cffi:foreign-pointer) (drm-fd integer) (display cffi:foreign-pointer))
-                   ()
-                  nil
-                  t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (drm-fd :int32 drm-fd :in :raw)
-  (display '%vk:display-khr display :in :handle))
+  (display '%vk:display-khr display :in :non-dispatchable :handle))
 
-(defvk-create-handle-fun (get-drm-display-ext
-                          %vk:get-drm-display-ext
-                          "Represents [vkGetDrmDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDrmDisplayEXT.html).
+(defvkfun (get-drm-display-ext
+           %vk:get-drm-display-ext
+           ((physical-device physical-device) (drm-fd integer) (connector-id unsigned-byte))
+           ()
+           :handle-constructor make-display-khr-wrapper
+           :extension-p t)
+  "Represents [vkGetDrmDisplayEXT](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetDrmDisplayEXT.html).
 
 Args:
  - PHYSICAL-DEVICE: a PHYSICAL-DEVICE
@@ -13937,24 +14526,25 @@ See PHYSICAL-DEVICE
 See RESULT
 See *DEFAULT-EXTENSION-LOADER*
 "
-                          ((physical-device cffi:foreign-pointer) (drm-fd integer) (connector-id unsigned-byte))
-                          ()
-                          nil
-                          t)
-  (physical-device '%vk:physical-device physical-device :in :handle)
+  (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (drm-fd :int32 drm-fd :in :raw)
   (connector-id :uint32 connector-id :in :raw)
-  (display '%vk:display-khr display :out :handle))
+  (display '%vk:display-khr display :out :non-dispatchable :handle))
 
-(defvk-simple-fun (wait-for-present-khr
-                   %vk:wait-for-present-khr
-                   "Represents [vkWaitForPresentKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitForPresentKHR.html).
+(defvkfun (wait-for-present-khr
+           %vk:wait-for-present-khr
+           ((device device) (swapchain swapchain-khr) (present-id unsigned-byte) (timeout unsigned-byte))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkWaitForPresentKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkWaitForPresentKHR.html).
 
 Args:
  - DEVICE: a DEVICE
  - SWAPCHAIN: a SWAPCHAIN-KHR
  - PRESENT-ID: a UNSIGNED-BYTE
  - TIMEOUT: a UNSIGNED-BYTE
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
 
 Returns:
   (CL:VALUES
@@ -13970,14 +14560,229 @@ Errors signalled on codes:
  - ERROR-DEVICE-LOST
 
 See DEVICE
+See EXTENSION-LOADER
 See RESULT
 See SWAPCHAIN-KHR
+See *DEFAULT-EXTENSION-LOADER*
 "
-                   ((device cffi:foreign-pointer) (swapchain cffi:foreign-pointer) (present-id unsigned-byte) (timeout unsigned-byte))
-                   ()
-                  nil)
-  (device '%vk:device device :in :handle)
-  (swapchain '%vk:swapchain-khr swapchain :in :handle)
+  (device '%vk:device device :in :dispatchable :handle)
+  (swapchain '%vk:swapchain-khr swapchain :in :non-dispatchable :handle)
   (present-id :uint64 present-id :in :raw)
   (timeout :uint64 timeout :in :raw))
 
+(defvkfun (create-buffer-collection-fuchsia
+           %vk:create-buffer-collection-fuchsia
+           ((device device) (create-info (or vk:buffer-collection-create-info-fuchsia cffi:foreign-pointer)))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :handle-constructor make-buffer-collection-fuchsia-wrapper
+           :extension-p t)
+  "Represents [vkCreateBufferCollectionFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCreateBufferCollectionFUCHSIA.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - CREATE-INFO: a (OR BUFFER-COLLECTION-CREATE-INFO-FUCHSIA CFFI:FOREIGN-POINTER)
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    BUFFER-COLLECTION-FUCHSIA
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-INVALID-EXTERNAL-HANDLE
+ - ERROR-INITIALIZATION-FAILED
+
+See ALLOCATION-CALLBACKS
+See BUFFER-COLLECTION-CREATE-INFO-FUCHSIA
+See BUFFER-COLLECTION-FUCHSIA
+See DEVICE
+See EXTENSION-LOADER
+See RESULT
+See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (create-info '(:struct %vk:buffer-collection-create-info-fuchsia) create-info :in)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional)
+  (collection '%vk:buffer-collection-fuchsia collection :out :non-dispatchable :handle))
+
+(defvkfun (set-buffer-collection-buffer-constraints-fuchsia
+           %vk:set-buffer-collection-buffer-constraints-fuchsia
+           ((device device) (collection buffer-collection-fuchsia) (buffer-constraints-info (or vk:buffer-constraints-info-fuchsia cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetBufferCollectionBufferConstraintsFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - COLLECTION: a BUFFER-COLLECTION-FUCHSIA
+ - BUFFER-CONSTRAINTS-INFO: a (OR BUFFER-CONSTRAINTS-INFO-FUCHSIA CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-FORMAT-NOT-SUPPORTED
+
+See BUFFER-COLLECTION-FUCHSIA
+See BUFFER-CONSTRAINTS-INFO-FUCHSIA
+See DEVICE
+See EXTENSION-LOADER
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (collection '%vk:buffer-collection-fuchsia collection :in :non-dispatchable :handle)
+  (buffer-constraints-info '(:struct %vk:buffer-constraints-info-fuchsia) buffer-constraints-info :in))
+
+(defvkfun (set-buffer-collection-image-constraints-fuchsia
+           %vk:set-buffer-collection-image-constraints-fuchsia
+           ((device device) (collection buffer-collection-fuchsia) (image-constraints-info (or vk:image-constraints-info-fuchsia cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkSetBufferCollectionImageConstraintsFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - COLLECTION: a BUFFER-COLLECTION-FUCHSIA
+ - IMAGE-CONSTRAINTS-INFO: a (OR IMAGE-CONSTRAINTS-INFO-FUCHSIA CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-INITIALIZATION-FAILED
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-FORMAT-NOT-SUPPORTED
+
+See BUFFER-COLLECTION-FUCHSIA
+See DEVICE
+See EXTENSION-LOADER
+See IMAGE-CONSTRAINTS-INFO-FUCHSIA
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (collection '%vk:buffer-collection-fuchsia collection :in :non-dispatchable :handle)
+  (image-constraints-info '(:struct %vk:image-constraints-info-fuchsia) image-constraints-info :in))
+
+(defvkfun (destroy-buffer-collection-fuchsia
+           %vk:destroy-buffer-collection-fuchsia
+           ((device device) (collection buffer-collection-fuchsia))
+           (((allocator vk:*default-allocator*) (or vk:allocation-callbacks cffi:foreign-pointer)))
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkDestroyBufferCollectionFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkDestroyBufferCollectionFUCHSIA.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - COLLECTION: a BUFFER-COLLECTION-FUCHSIA
+ - ALLOCATOR (optional): a (OR ALLOCATION-CALLBACKS CFFI:FOREIGN-POINTER), defaults to: *DEFAULT-ALLOCATOR*
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See ALLOCATION-CALLBACKS
+See BUFFER-COLLECTION-FUCHSIA
+See DEVICE
+See EXTENSION-LOADER
+See *DEFAULT-ALLOCATOR*
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (collection '%vk:buffer-collection-fuchsia collection :in :non-dispatchable :handle)
+  (allocator '(:struct %vk:allocation-callbacks) allocator :in :optional))
+
+(defvkfun (get-buffer-collection-properties-fuchsia
+           %vk:get-buffer-collection-properties-fuchsia
+           ((device device) (collection buffer-collection-fuchsia))
+           (((properties nil) (or vk:buffer-collection-properties-fuchsia cffi:foreign-pointer)))
+           :returns-struct-chain-p t
+           :no-vk-result-p t
+           :extension-p t)
+  "Represents [vkGetBufferCollectionPropertiesFUCHSIA](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html).
+
+Args:
+ - DEVICE: a DEVICE
+ - COLLECTION: a BUFFER-COLLECTION-FUCHSIA
+ - PROPERTIES (optional): a (OR BUFFER-COLLECTION-PROPERTIES-FUCHSIA CFFI:FOREIGN-POINTER), defaults to: NIL
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+Returns:
+  (CL:VALUES
+    BUFFER-COLLECTION-PROPERTIES-FUCHSIA
+    RESULT)
+
+Success codes:
+ - SUCCESS
+
+Errors signalled on codes:
+ - ERROR-OUT-OF-HOST-MEMORY
+ - ERROR-INITIALIZATION-FAILED
+
+See BUFFER-COLLECTION-FUCHSIA
+See BUFFER-COLLECTION-PROPERTIES-FUCHSIA
+See DEVICE
+See EXTENSION-LOADER
+See RESULT
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (device '%vk:device device :in :dispatchable :handle)
+  (collection '%vk:buffer-collection-fuchsia collection :in :non-dispatchable :handle)
+  (properties '(:struct %vk:buffer-collection-properties-fuchsia) (or properties (vk:make-buffer-collection-properties-fuchsia)) :in :out :optional))
+
+(defvkfun (cmd-begin-rendering-khr
+           %vk:cmd-begin-rendering-khr
+           ((command-buffer command-buffer) (rendering-info (or vk:rendering-info-khr cffi:foreign-pointer)))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdBeginRenderingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdBeginRenderingKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - RENDERING-INFO: a (OR RENDERING-INFO-KHR CFFI:FOREIGN-POINTER)
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See RENDERING-INFO-KHR
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle)
+  (rendering-info '(:struct %vk:rendering-info-khr) rendering-info :in))
+
+(defvkfun (cmd-end-rendering-khr
+           %vk:cmd-end-rendering-khr
+           ((command-buffer command-buffer))
+           ()
+           :trivial-return-type :trivial
+           :extension-p t)
+  "Represents [vkCmdEndRenderingKHR](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/vkCmdEndRenderingKHR.html).
+
+Args:
+ - COMMAND-BUFFER: a COMMAND-BUFFER
+ - EXTENSION-LOADER (optional): an EXTENSION-LOADER, defaults to: *DEFAULT-EXTENSION-LOADER*
+
+See COMMAND-BUFFER
+See EXTENSION-LOADER
+See *DEFAULT-EXTENSION-LOADER*
+"
+  (command-buffer '%vk:command-buffer command-buffer :in :dispatchable :handle))
