@@ -73,8 +73,8 @@ If you absolutely have to work with a specific version and it seems like a bug f
 open an issue in the GitHub repository.
 
 
-#### Migrating from 2.x.x-<1.2.x> to 3.x.x-<x.x.x>
-Handle types are wrapped in version 3.0.0-1.2.198 and above.
+#### Migrating from 2.x.x-v1.2.x to 3.x.x-vx.x.x
+Handle types are wrapped in version 3.0.0-v1.2.198 and above.
 Should you have used raw handles returned by `vk` functions with functions from other packages (e.g. for window surface creation), you have to unwrap them by calling `vk:raw-handle`.
 
 Functions that query a device and return a struct (class) instance that has a `pNext` member (`next` slot) have an additional optional argument of that struct (class) type to allow querying extension-specific information via this `pNext` member.
