@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-v1.2.198] - 2022-02-06 [vk](https://github.com/JolifantoBambla/vk/releases/tag/3.0.0-v1.2.198)
+
 ### Added
 - Structure types now have pretty printers.
 - Errors and conditions are exposed by the `vk-errors` package, which doesn't shadow any symbols in `CL-USER`.
