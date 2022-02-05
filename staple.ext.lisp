@@ -12,6 +12,11 @@
 
 (defmethod staple:subsystems ((system (eql (asdf:find-system :vk)))))
 
+;;; enabled definitions
+(defmethod staple:definition-wanted-p ((definition definitions:structure) page)
+  (multiple-value-bind (_ symbol-type) (find-symbol (symbol-name (definitions:designator definition)) :vk)
+    (eq :external symbol-type)))
+
 ;;; disabled definitions
 (defmethod staple:definition-wanted-p ((definition definitions:generic-function) page))
 (defmethod staple:definition-wanted-p ((definition definitions:transform) page))
