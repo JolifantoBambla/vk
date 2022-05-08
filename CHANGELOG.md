@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1-v1.2.198] - 2022-05-07 [vk](https://github.com/JolifantoBambla/vk/releases/tag/3.0.1-v1.2.198)
+
 ### Fixed
 - Translation of all members representing fixed sized arrays now uses `cffi:lisp-array-to-foreign` on the slot pointer directly.
 
