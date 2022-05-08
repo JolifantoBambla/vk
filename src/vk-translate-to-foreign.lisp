@@ -123,7 +123,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:device-id
         %vk:device-type
         %vk:device-name
-        %vk:pipeline-cache-uuid
+        (:pointer %vk:pipeline-cache-uuid)
         %vk:limits
         %vk:sparse-properties)
        ptr
@@ -275,15 +275,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-memory-properties) ptr)
   (cffi:with-foreign-slots
       ((%vk:memory-type-count
-        %vk:memory-types
+        (:pointer %vk:memory-types)
         %vk:memory-heap-count
-        %vk:memory-heaps)
+        (:pointer %vk:memory-heaps))
        ptr
        (:struct %vk:physical-device-memory-properties))
     (setf %vk:memory-type-count (vk:memory-type-count value))
-    (when (vk:memory-types value) (setf %vk:memory-types (vk-alloc:foreign-allocate-and-fill '(:struct %vk:memory-type) (vk:memory-types value) ptr)))
     (setf %vk:memory-heap-count (vk:memory-heap-count value))
-    (when (vk:memory-heaps value) (setf %vk:memory-heaps (vk-alloc:foreign-allocate-and-fill '(:struct %vk:memory-heap) (vk:memory-heaps value) ptr)))))
+    (cffi:lisp-array-to-foreign (coerce (vk:memory-types value) 'vector) %vk:memory-types '(:array (:struct %vk:memory-type) 32))
+    (cffi:lisp-array-to-foreign (coerce (vk:memory-heaps value) 'vector) %vk:memory-heaps '(:array (:struct %vk:memory-heap) 16))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-memory-allocate-info) ptr)
   (cffi:with-foreign-slots
@@ -805,15 +805,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-image-blit) ptr)
   (cffi:with-foreign-slots
       ((%vk:src-subresource
-        %vk:src-offsets
+        (:pointer %vk:src-offsets)
         %vk:dst-subresource
-        %vk:dst-offsets)
+        (:pointer %vk:dst-offsets))
        ptr
        (:struct %vk:image-blit))
     (setf %vk:src-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:src-subresource value) ptr))
-    (setf %vk:src-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:src-offsets value) ptr))
     (setf %vk:dst-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:dst-subresource value) ptr))
-    (setf %vk:dst-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:dst-offsets value) ptr))))
+    (cffi:lisp-array-to-foreign (coerce (vk:src-offsets value) 'vector) %vk:src-offsets '(:array (:struct %vk:offset-3d) 2))
+    (cffi:lisp-array-to-foreign (coerce (vk:dst-offsets value) 'vector) %vk:dst-offsets '(:array (:struct %vk:offset-3d) 2))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-buffer-image-copy) ptr)
   (cffi:with-foreign-slots
@@ -1169,7 +1169,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:logic-op
         %vk:attachment-count
         %vk:p-attachments
-        %vk:blend-constants)
+        (:pointer %vk:blend-constants))
        ptr
        (:struct %vk:pipeline-color-blend-state-create-info))
     (setf %vk:s-type :pipeline-color-blend-state-create-info)
@@ -1308,7 +1308,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:header-version
         %vk:vendor-id
         %vk:device-id
-        %vk:pipeline-cache-uuid)
+        (:pointer %vk:pipeline-cache-uuid))
        ptr
        (:struct %vk:pipeline-cache-header-version-one))
     (setf %vk:header-size (vk:header-size value))
@@ -1821,9 +1821,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:max-fragment-dual-src-attachments
         %vk:max-fragment-combined-output-resources
         %vk:max-compute-shared-memory-size
-        %vk:max-compute-work-group-count
+        (:pointer %vk:max-compute-work-group-count)
         %vk:max-compute-work-group-invocations
-        %vk:max-compute-work-group-size
+        (:pointer %vk:max-compute-work-group-size)
         %vk:sub-pixel-precision-bits
         %vk:sub-texel-precision-bits
         %vk:mipmap-precision-bits
@@ -1832,8 +1832,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:max-sampler-lod-bias
         %vk:max-sampler-anisotropy
         %vk:max-viewports
-        %vk:max-viewport-dimensions
-        %vk:viewport-bounds-range
+        (:pointer %vk:max-viewport-dimensions)
+        (:pointer %vk:viewport-bounds-range)
         %vk:viewport-sub-pixel-bits
         %vk:min-memory-map-alignment
         %vk:min-texel-buffer-offset-alignment
@@ -1866,8 +1866,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:max-cull-distances
         %vk:max-combined-clip-and-cull-distances
         %vk:discrete-queue-priorities
-        %vk:point-size-range
-        %vk:line-width-range
+        (:pointer %vk:point-size-range)
+        (:pointer %vk:line-width-range)
         %vk:point-size-granularity
         %vk:line-width-granularity
         %vk:strict-lines
@@ -2572,7 +2572,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:p-marker-name
-        %vk:color)
+        (:pointer %vk:color))
        ptr
        (:struct %vk:debug-marker-marker-info-ext))
     (setf %vk:s-type :debug-marker-marker-info-ext)
@@ -3233,9 +3233,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:device-uuid
-        %vk:driver-uuid
-        %vk:device-luid
+        (:pointer %vk:device-uuid)
+        (:pointer %vk:driver-uuid)
+        (:pointer %vk:device-luid)
         %vk:device-node-mask
         %vk:device-luid-valid)
        ptr
@@ -3836,15 +3836,15 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:physical-device-count
-        %vk:physical-devices
+        (:pointer %vk:physical-devices)
         %vk:subset-allocation)
        ptr
        (:struct %vk:physical-device-group-properties))
     (setf %vk:s-type :physical-device-group-properties)
     (setf %vk:p-next (cffi:null-pointer))
     (setf %vk:physical-device-count (vk:physical-device-count value))
-    (setf %vk:physical-devices (if (vk:physical-devices value) (%dispatchable-handle (vk:physical-devices value)) (cffi:null-pointer)))
-    (setf %vk:subset-allocation (vk:subset-allocation value))))
+    (setf %vk:subset-allocation (vk:subset-allocation value))
+    (cffi:lisp-array-to-foreign (map 'vector #'%dispatchable-handle (vk:physical-devices value)) %vk:physical-devices '(:array %vk:physical-device 32))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-memory-allocate-flags-info) ptr)
   (cffi:with-foreign-slots
@@ -3983,7 +3983,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:present-mask
+        (:pointer %vk:present-mask)
         %vk:modes)
        ptr
        (:struct %vk:device-group-present-capabilities-khr))
@@ -4951,7 +4951,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-next
         %vk:sample-location-sample-counts
         %vk:max-sample-location-grid-size
-        %vk:sample-location-coordinate-range
+        (:pointer %vk:sample-location-coordinate-range)
         %vk:sample-location-sub-pixel-bits
         %vk:variable-sample-locations)
        ptr
@@ -5305,7 +5305,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:num-physical-sgprs
         %vk:num-available-vgprs
         %vk:num-available-sgprs
-        %vk:compute-work-group-size)
+        (:pointer %vk:compute-work-group-size))
        ptr
        (:struct %vk:shader-statistics-info-amd))
     (setf %vk:shader-stage-mask (vk:shader-stage-mask value))
@@ -5343,13 +5343,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:priority-count
-        %vk:priorities)
+        (:pointer %vk:priorities))
        ptr
        (:struct %vk:queue-family-global-priority-properties-ext))
     (setf %vk:s-type :queue-family-global-priority-properties-ext)
     (setf %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer)))
     (setf %vk:priority-count (vk:priority-count value))
-    (setf %vk:priorities (vk:priorities value))))
+    (cffi:lisp-array-to-foreign (coerce (vk:priorities value) 'vector) %vk:priorities '(:array %vk:queue-global-priority-ext 16))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-debug-utils-object-name-info-ext) ptr)
   (cffi:with-foreign-slots
@@ -5390,7 +5390,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:p-label-name
-        %vk:color)
+        (:pointer %vk:color))
        ptr
        (:struct %vk:debug-utils-label-ext))
     (setf %vk:s-type :debug-utils-label-ext)
@@ -6636,11 +6636,11 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-next
         %vk:max-draw-mesh-tasks-count
         %vk:max-task-work-group-invocations
-        %vk:max-task-work-group-size
+        (:pointer %vk:max-task-work-group-size)
         %vk:max-task-total-memory-size
         %vk:max-task-output-count
         %vk:max-mesh-work-group-invocations
-        %vk:max-mesh-work-group-size
+        (:pointer %vk:max-mesh-work-group-size)
         %vk:max-mesh-total-memory-size
         %vk:max-mesh-output-vertices
         %vk:max-mesh-output-primitives
@@ -7314,14 +7314,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:heap-budget
-        %vk:heap-usage)
+        (:pointer %vk:heap-budget)
+        (:pointer %vk:heap-usage))
        ptr
        (:struct %vk:physical-device-memory-budget-properties-ext))
     (setf %vk:s-type :physical-device-memory-budget-properties-ext)
     (setf %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer)))
-    (setf %vk:heap-budget (vk:heap-budget value))
-    (setf %vk:heap-usage (vk:heap-usage value))))
+    (cffi:lisp-array-to-foreign (coerce (vk:heap-budget value) 'vector) %vk:heap-budget '(:array %vk:device-size 16))
+    (cffi:lisp-array-to-foreign (coerce (vk:heap-usage value) 'vector) %vk:heap-usage '(:array %vk:device-size 16))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-memory-priority-features-ext) ptr)
   (cffi:with-foreign-slots
@@ -7701,7 +7701,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:unit
         %vk:scope
         %vk:storage
-        %vk:uuid)
+        (:pointer %vk:uuid))
        ptr
        (:struct %vk:performance-counter-khr))
     (setf %vk:s-type :performance-counter-khr)
@@ -8409,9 +8409,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (cffi:with-foreign-slots
       ((%vk:s-type
         %vk:p-next
-        %vk:device-uuid
-        %vk:driver-uuid
-        %vk:device-luid
+        (:pointer %vk:device-uuid)
+        (:pointer %vk:driver-uuid)
+        (:pointer %vk:device-luid)
         %vk:device-node-mask
         %vk:device-luid-valid
         %vk:subgroup-size
@@ -8960,7 +8960,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-transform-matrix-khr) ptr)
   (cffi:with-foreign-slots
-      ((%vk:matrix)
+      (((:pointer %vk:matrix))
        ptr
        (:struct %vk:transform-matrix-khr))
     (cffi:lisp-array-to-foreign (vk:matrix value) %vk:matrix '(:array :float 12))))
@@ -9345,17 +9345,17 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:src-subresource
-        %vk:src-offsets
+        (:pointer %vk:src-offsets)
         %vk:dst-subresource
-        %vk:dst-offsets)
+        (:pointer %vk:dst-offsets))
        ptr
        (:struct %vk:image-blit-2-khr))
     (setf %vk:s-type :image-blit-2-khr)
     (setf %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer)))
     (setf %vk:src-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:src-subresource value) ptr))
-    (setf %vk:src-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:src-offsets value) ptr))
     (setf %vk:dst-subresource (vk-alloc:foreign-allocate-and-fill '(:struct %vk:image-subresource-layers) (vk:dst-subresource value) ptr))
-    (setf %vk:dst-offsets (vk-alloc:foreign-allocate-and-fill '(:struct %vk:offset-3d) (vk:dst-offsets value) ptr))))
+    (cffi:lisp-array-to-foreign (coerce (vk:src-offsets value) 'vector) %vk:src-offsets '(:array (:struct %vk:offset-3d) 2))
+    (cffi:lisp-array-to-foreign (coerce (vk:dst-offsets value) 'vector) %vk:dst-offsets '(:array (:struct %vk:offset-3d) 2))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-buffer-image-copy-2-khr) ptr)
   (cffi:with-foreign-slots
@@ -9548,13 +9548,13 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
       ((%vk:s-type
         %vk:p-next
         %vk:fragment-size
-        %vk:combiner-ops)
+        (:pointer %vk:combiner-ops))
        ptr
        (:struct %vk:pipeline-fragment-shading-rate-state-create-info-khr))
     (setf %vk:s-type :pipeline-fragment-shading-rate-state-create-info-khr)
     (setf %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer)))
     (setf %vk:fragment-size (vk-alloc:foreign-allocate-and-fill '(:struct %vk:extent-2d) (vk:fragment-size value) ptr))
-    (setf %vk:combiner-ops (vk:combiner-ops value))))
+    (cffi:lisp-array-to-foreign (coerce (vk:combiner-ops value) 'vector) %vk:combiner-ops '(:array %vk:fragment-shading-rate-combiner-op-khr 2))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-physical-device-fragment-shading-rate-features-khr) ptr)
   (cffi:with-foreign-slots
@@ -9670,14 +9670,14 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:p-next
         %vk:shading-rate-type
         %vk:shading-rate
-        %vk:combiner-ops)
+        (:pointer %vk:combiner-ops))
        ptr
        (:struct %vk:pipeline-fragment-shading-rate-enum-state-create-info-nv))
     (setf %vk:s-type :pipeline-fragment-shading-rate-enum-state-create-info-nv)
     (setf %vk:p-next (if (vk:next value) (vk-alloc:foreign-allocate-and-fill (list :struct (find-symbol (string (class-name (class-of (vk:next value)))) :%vk)) (vk:next value) ptr) (cffi:null-pointer)))
     (setf %vk:shading-rate-type (vk:shading-rate-type value))
     (setf %vk:shading-rate (vk:shading-rate value))
-    (setf %vk:combiner-ops (vk:combiner-ops value))))
+    (cffi:lisp-array-to-foreign (coerce (vk:combiner-ops value) 'vector) %vk:combiner-ops '(:array %vk:fragment-shading-rate-combiner-op-khr 2))))
 
 (defmethod cffi:translate-into-foreign-memory (value (type %vk:c-acceleration-structure-build-sizes-info-khr) ptr)
   (cffi:with-foreign-slots

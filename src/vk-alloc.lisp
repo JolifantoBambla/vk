@@ -53,7 +53,7 @@ See *ALLOCATE-FOREIGN-OBJECT-FUNC*"
       (let ((p-resource nil))
         (etypecase content
           (array
-           (let ((array-type (alexandria:flatten (list :array type (array-dimensions content)))))
+           (let ((array-type `(:array ,type ,@(alexandria:flatten (array-dimensions content)))))
              (setf p-resource (funcall *allocate-foreign-object-func* array-type :count (array-total-size content)))
              (cffi:lisp-array-to-foreign content p-resource array-type)))
           (list
