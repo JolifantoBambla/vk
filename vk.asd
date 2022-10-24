@@ -1,5 +1,5 @@
 (defsystem vk
-  :version "3.0.0"
+  :version "3.1.0"
   :license "MIT"
   :description "Common Lisp bindings for the Vulkan API."
   :author "Lukas Herzberger <herzberger.lukas at gmail.com>"
@@ -42,3 +42,4 @@
   :components ((:module "test"
                 :components ((:file "translators"))))
   :perform (test-op :after (op c) (uiop:symbol-call :rove :run c)))
+

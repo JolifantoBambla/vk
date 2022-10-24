@@ -5323,6 +5323,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     #:extension-loader-device
     #:*default-allocator*
     #:*default-extension-loader*
+    #:non-dispatchable-handle
     #:raw-handle
     #:make-version
     #:version-major

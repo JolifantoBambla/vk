@@ -5,6 +5,12 @@
 
 (in-package :vk)
 
+(deftype non-dispatchable-handle ()
+  "Represents the type [VK_DEFINE_NON_DISPATCHABLE_HANDLE](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_DEFINE_NON_DISPATCHABLE_HANDLE.html)."
+  (if (= 8 (cffi:foreign-type-size :pointer))
+      'cffi:foreign-pointer
+      '(unsigned-byte 64)))
+
 (defstruct (%dispatchable
             (:constructor %make-dispatchable (handle)))
   "Base type for dispatchable handles."

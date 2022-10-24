@@ -875,7 +875,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:descriptor-type (vk:descriptor-type ,value))
     (setf %vk:descriptor-count (vk:descriptor-count ,value))
     (setf %vk:stage-flags (vk:stage-flags ,value))
-    (setf %vk:p-immutable-samplers (if (vk:immutable-samplers ,value) (%non-dispatchable-handle (vk:immutable-samplers ,value)) (cffi:null-pointer)))))
+    (setf %vk:p-immutable-samplers (vk-alloc:foreign-allocate-and-fill '%vk:sampler (cl:map 'list #'%non-dispatchable-handle (vk:immutable-samplers ,value)) ,ptr))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-descriptor-set-layout-create-info) ptr)
   `(cffi:with-foreign-slots

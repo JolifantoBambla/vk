@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0-v1.2.198] - 2022-10-24 [vk](https://github.com/JolifantoBambla/vk/releases/tag/3.1.0-v1.2.198)
+
+### Added
+ - `vk` now exposes a platform dependent type `non-dispatchable-handle` (see #10).
+
+### Fixed
+ - Translation of `immutable-samplers` member of `descriptor-set-layout-binding` is now fixed (see #11).
+
 ## [3.0.1-v1.2.198] - 2022-05-07 [vk](https://github.com/JolifantoBambla/vk/releases/tag/3.0.1-v1.2.198)
 
 ### Fixed
