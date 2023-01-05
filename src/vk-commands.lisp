@@ -4697,7 +4697,7 @@ See WL_DISPLAY
 "
   (physical-device '%vk:physical-device physical-device :in :dispatchable :handle)
   (queue-family-index :uint32 queue-family-index :in :raw)
-  (display '(:struct %vk:wl_display) display :in :handle))
+  (display '%vk:wl_display display :in :handle))
 
 (defvkfun (create-win32-surface-khr
            %vk:create-win32-surface-khr
