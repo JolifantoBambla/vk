@@ -2302,8 +2302,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
     (setf %vk:s-type :wayland-surface-create-info-khr)
     (setf %vk:p-next (cffi:null-pointer))
     (setf %vk:flags (vk:flags ,value))
-    (setf %vk:display (vk-alloc:foreign-allocate-and-fill '(:struct %vk:wl_display) (vk:display ,value) ,ptr))
-    (setf %vk:surface (vk-alloc:foreign-allocate-and-fill '(:struct %vk:wl_surface) (vk:surface ,value) ,ptr))))
+    (setf %vk:display (vk:display ,value))
+    (setf %vk:surface (vk:surface ,value))))
 
 (defmethod cffi:expand-into-foreign-memory (value (type %vk:c-win32-surface-create-info-khr) ptr)
   `(cffi:with-foreign-slots

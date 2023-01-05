@@ -2245,7 +2245,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
         %vk:supported-usage-flags)
        ,ptr
        (:struct %vk:surface-capabilities-khr))
-    (make-instance 'vk:surface-capabilities-khr
+     (make-instance 'vk:surface-capabilities-khr
                    :min-image-count %vk:min-image-count
                    :max-image-count %vk:max-image-count
                    :current-extent %vk:current-extent

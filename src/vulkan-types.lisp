@@ -901,9 +901,9 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defctype std-video-h265-level :uint32)
 
-(defcstruct wl_display)
+(defctype wl_display :pointer)
 
-(defcstruct wl_surface)
+(defctype wl_surface :pointer)
 
 (defcstruct security_attributes)
 
@@ -6114,8 +6114,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags wayland-surface-create-flags-khr)
-  (display (:pointer (:struct wl_display)))
-  (surface (:pointer (:struct wl_surface))))
+  (display (:pointer wl_display))
+  (surface (:pointer wl_surface)))
 
 (defcstruct (win32-surface-create-info-khr :class c-win32-surface-create-info-khr)
   (s-type structure-type)
