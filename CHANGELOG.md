@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.1-v1.2.198] - 2022-10-24 [vk](https://github.com/JolifantoBambla/vk/releases/tag/3.1.1-v1.2.198)
+
+### Fixed
+ - Define `wl_display` and `wl_surface` as pointers.
+
+
 ## [3.1.0-v1.2.198] - 2022-10-24 [vk](https://github.com/JolifantoBambla/vk/releases/tag/3.1.0-v1.2.198)
 
 ### Added
