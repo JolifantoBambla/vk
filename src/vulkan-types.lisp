@@ -841,6 +841,10 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 
 (defctype display :pointer)
 
+(defctype wl_display :pointer)
+
+(defctype wl_surface :pointer)
+
 (defctype ggp-stream-descriptor (:pointer :void))
 
 (defctype ggp-frame-token (:pointer :void))
@@ -900,10 +904,6 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defctype std-video-h265-slice-type :uint32)
 
 (defctype std-video-h265-level :uint32)
-
-(defcstruct wl_display)
-
-(defcstruct wl_surface)
 
 (defcstruct security_attributes)
 
@@ -6114,8 +6114,8 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
   (s-type structure-type)
   (p-next (:pointer :void))
   (flags wayland-surface-create-flags-khr)
-  (display (:pointer (:struct wl_display)))
-  (surface (:pointer (:struct wl_surface))))
+  (display (:pointer wl_display))
+  (surface (:pointer wl_surface)))
 
 (defcstruct (win32-surface-create-info-khr :class c-win32-surface-create-info-khr)
   (s-type structure-type)

@@ -977,7 +977,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 (defvkfun ("vkGetPhysicalDeviceWaylandPresentationSupportKHR" get-physical-device-wayland-presentation-support-khr) bool32
   (physical-device physical-device)
   (queue-family-index :uint32)
-  (display (:pointer (:struct wl_display))))
+  (display (:pointer wl_display)))
 
 (defvkfun ("vkCreateWin32SurfaceKHR" create-win32-surface-khr) checked-result
   (instance instance)
